@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "prismjs/themes/prism-okaidia.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import 'prismjs/themes/prism-okaidia.css';
 
-import asyncComponent from "../AsyncComponent";
-import Headline from "../Article/Headline";
-import Bodytext from "../Article/Bodytext";
-import Meta from "./Meta";
-import Author from "./Author";
-import Comments from "./Comments";
-import NextPrev from "./NextPrev";
+import asyncComponent from '../AsyncComponent';
+import Headline from '../Article/Headline';
+import Bodytext from '../Article/Bodytext';
+import Meta from './Meta';
+import Author from './Author';
+import Comments from './Comments';
+import NextPrev from './NextPrev';
 
 const Share = asyncComponent(() =>
-  import("./Share")
+  import('./Share')
     .then(module => {
       return module.default;
     })
-    .catch(error => {})
+    .catch(() => {}),
 );
 
 const Post = props => {
@@ -24,13 +24,13 @@ const Post = props => {
     post: {
       html,
       fields: { prefix, slug },
-      frontmatter: { title, author, category }
+      frontmatter: { title, author, category },
     },
     authornote,
     facebook,
     next: nextPost,
     prev: prevPost,
-    theme
+    theme,
   } = props;
 
   return (
@@ -44,7 +44,7 @@ const Post = props => {
         <Share post={post} theme={theme} />
         <Author note={authornote} theme={theme} />
         <NextPrev next={nextPost} prev={prevPost} theme={theme} />
-        <Comments slug={slug} facebook={facebook} theme={theme} />
+        {facebook ? <Comments slug={slug} facebook={facebook} theme={theme} /> : null}
       </footer>
     </React.Fragment>
   );
@@ -53,10 +53,10 @@ const Post = props => {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   authornote: PropTypes.string.isRequired,
-  facebook: PropTypes.object.isRequired,
+  facebook: PropTypes.object,
   next: PropTypes.object,
   prev: PropTypes.object,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Post;

@@ -7,15 +7,7 @@ import Contact from '../components/Contact';
 import Headline from '../components/Article/Headline';
 import Seo from '../components/Seo';
 
-const ContactPage = props => {
-  const {
-    data: {
-      site: {
-        siteMetadata: { facebook },
-      },
-    },
-  } = props;
-
+const ContactPage = () => {
   return (
     <React.Fragment>
       <ThemeContext.Consumer>
@@ -29,13 +21,9 @@ const ContactPage = props => {
         )}
       </ThemeContext.Consumer>
 
-      <Seo facebook={facebook} />
+      <Seo />
     </React.Fragment>
   );
-};
-
-ContactPage.propTypes = {
-  data: PropTypes.object.isRequired,
 };
 
 export default ContactPage;

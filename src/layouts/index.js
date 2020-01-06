@@ -1,18 +1,18 @@
-import "typeface-open-sans";
-import FontFaceObserver from "fontfaceobserver";
-import PropTypes from "prop-types";
-import React from "react";
-import { graphql, StaticQuery } from "gatsby";
+import 'typeface-open-sans';
+import FontFaceObserver from 'fontfaceobserver';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { graphql, StaticQuery } from 'gatsby';
 
-import { getScreenWidth, timeoutThrottlerHandler } from "../utils/helpers";
-import Footer from "../components/Footer/";
-import Header from "../components/Header";
+import { getScreenWidth, timeoutThrottlerHandler } from '../utils/helpers';
+import Footer from '../components/Footer/';
+import Header from '../components/Header';
 
 export const ThemeContext = React.createContext(null);
 export const ScreenWidthContext = React.createContext(0);
 export const FontLoadedContext = React.createContext(false);
 
-import themeObjectFromYaml from "../theme/theme.yaml";
+import themeObjectFromYaml from '../theme/theme.yaml';
 
 class Layout extends React.Component {
   constructor() {
@@ -23,12 +23,12 @@ class Layout extends React.Component {
       font600loaded: false,
       screenWidth: 0,
       headerMinimized: false,
-      theme: themeObjectFromYaml
+      theme: themeObjectFromYaml,
     };
 
     if (typeof window !== `undefined`) {
-      this.loadFont("font400", "Open Sans", 400);
-      this.loadFont("font600", "Open Sans", 600);
+      this.loadFont('font400', 'Open Sans', 400);
+      this.loadFont('font600', 'Open Sans', 600);
     }
   }
 
@@ -36,15 +36,15 @@ class Layout extends React.Component {
 
   componentDidMount() {
     this.setState({
-      screenWidth: getScreenWidth()
+      screenWidth: getScreenWidth(),
     });
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", this.resizeThrottler, false);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.resizeThrottler, false);
     }
   }
 
   resizeThrottler = () => {
-    return timeoutThrottlerHandler(this.timeouts, "resize", 100, this.resizeHandler);
+    return timeoutThrottlerHandler(this.timeouts, 'resize', 100, this.resizeHandler);
   };
 
   resizeHandler = () => {
@@ -52,7 +52,7 @@ class Layout extends React.Component {
   };
 
   isHomePage = () => {
-    if (this.props.location.pathname === "/") {
+    if (this.props.location.pathname === '/') {
       return true;
     }
 
@@ -61,7 +61,7 @@ class Layout extends React.Component {
 
   loadFont = (name, family, weight) => {
     const font = new FontFaceObserver(family, {
-      weight: weight
+      weight: weight,
     });
 
     font.load(null, 10000).then(
@@ -71,7 +71,7 @@ class Layout extends React.Component {
       },
       () => {
         console.log(`${name} is not available`);
-      }
+      },
     );
   };
 
@@ -107,7 +107,7 @@ class Layout extends React.Component {
           const { children } = this.props;
           const {
             footnote: { html: footnoteHTML },
-            pages: { edges: pages }
+            pages: { edges: pages },
           } = data;
 
           return (
@@ -143,7 +143,7 @@ class Layout extends React.Component {
                       body {
                         font-family: ${this.state.font400loaded
                           ? "'Open Sans', sans-serif;"
-                          : "Arial, sans-serif;"};
+                          : 'Arial, sans-serif;'};
                       }
                       h1,
                       h2,
@@ -185,7 +185,7 @@ class Layout extends React.Component {
 Layout.propTypes = {
   children: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 };
 
 export default Layout;

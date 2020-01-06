@@ -4,7 +4,7 @@ module.exports = {
   siteDescription:
     'Jacky Efendi is a software engineer who works with JavaScript and all things web.',
   siteUrl: 'https://jackyef.io',
-  // pathPrefix: "",
+  pathPrefix: '',
   siteImage: 'preview.jpg',
   siteLanguage: 'en',
 
@@ -19,9 +19,9 @@ module.exports = {
   /* manifest.json */
   manifestName: 'Jacky Efendi | Software Engineer',
   manifestShortName: 'jackyef', // max 12 characters
-  manifestStartUrl: '/index.html',
+  manifestStartUrl: '/',
   manifestBackgroundColor: 'white',
-  manifestThemeColor: '#666',
+  manifestThemeColor: '#0f9cc9',
   manifestDisplay: 'standalone',
 
   // gravatar
