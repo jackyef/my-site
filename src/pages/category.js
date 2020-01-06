@@ -1,21 +1,21 @@
-import { FaTag } from "react-icons/fa/";
-import PropTypes from "prop-types";
-import React from "react";
-import { graphql } from "gatsby";
-import { ThemeContext } from "../layouts";
-import Article from "../components/Article/";
-import Headline from "../components/Article/Headline";
-import List from "../components/List";
-import Seo from "../components/Seo";
+import { FaTag } from 'react-icons/fa/';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { graphql } from 'gatsby';
+import { ThemeContext } from '../layouts';
+import Article from '../components/Article/';
+import Headline from '../components/Article/Headline';
+import List from '../components/List';
+import Seo from '../components/Seo';
 
 const CategoryPage = props => {
   const {
     data: {
       posts: { edges: posts },
       site: {
-        siteMetadata: { facebook }
-      }
-    }
+        siteMetadata: { facebook },
+      },
+    },
   } = props;
 
   // Create category list
@@ -23,8 +23,8 @@ const CategoryPage = props => {
   posts.forEach(edge => {
     const {
       node: {
-        frontmatter: { category }
-      }
+        frontmatter: { category },
+      },
     } = edge;
 
     if (category && category != null) {
@@ -77,7 +77,7 @@ const CategoryPage = props => {
 };
 
 CategoryPage.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
 export default CategoryPage;
@@ -110,13 +110,6 @@ export const query = graphql`
               }
             }
           }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
         }
       }
     }

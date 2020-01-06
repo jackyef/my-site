@@ -1,16 +1,16 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { graphql } from "gatsby";
-import { ThemeContext } from "../layouts";
-import Blog from "../components/Blog";
-import Hero from "../components/Hero";
-import Seo from "../components/Seo";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { graphql } from 'gatsby';
+import { ThemeContext } from '../layouts';
+import Blog from '../components/Blog';
+import Hero from '../components/Hero';
+import Seo from '../components/Seo';
 
 class IndexPage extends React.Component {
   separator = React.createRef();
 
-  scrollToContent = e => {
-    this.separator.current.scrollIntoView({ block: "start", behavior: "smooth" });
+  scrollToContent = () => {
+    this.separator.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
 
   render() {
@@ -18,24 +18,21 @@ class IndexPage extends React.Component {
       data: {
         posts: { edges: posts = [] },
         bgDesktop: {
-          resize: { src: desktop }
+          resize: { src: desktop },
         },
         bgTablet: {
-          resize: { src: tablet }
+          resize: { src: tablet },
         },
         bgMobile: {
-          resize: { src: mobile }
+          resize: { src: mobile },
         },
-        site: {
-          siteMetadata: { facebook }
-        }
-      }
+      },
     } = this.props;
 
     const backgrounds = {
       desktop,
       tablet,
-      mobile
+      mobile,
     };
 
     return (
@@ -52,7 +49,7 @@ class IndexPage extends React.Component {
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer>
 
-        <Seo facebook={facebook} />
+        <Seo />
 
         <style jsx>{`
           hr {
@@ -66,7 +63,7 @@ class IndexPage extends React.Component {
 }
 
 IndexPage.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
 export default IndexPage;
@@ -99,13 +96,6 @@ export const query = graphql`
               }
             }
           }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
         }
       }
     }

@@ -1,18 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { FaArrowDown } from "react-icons/fa/";
+import { FaArrowDown } from 'react-icons/fa/';
 
 const Hero = props => {
-  const { scrollToContent, backgrounds, theme } = props;
+  const { scrollToContent, backgrounds: _backgrounds, theme } = props;
 
   return (
     <React.Fragment>
       <section className="hero">
-        <h1>
-          This is a demo site of&nbsp;the <strong>heroBlog</strong> GatsbyJS starter
-        </h1>
-        <button onClick={scrollToContent} aria-label="scroll">
+        <h1>Hi, I am Jacky.</h1>
+        <button
+          onClick={scrollToContent}
+          aria-label="scroll"
+          style={{ background: 'rgba(255,255,255,0.3) ' }}
+        >
           <FaArrowDown />
         </button>
       </section>
@@ -22,7 +24,6 @@ const Hero = props => {
         .hero {
           align-items: center;
           background: ${theme.hero.background};
-          background-image: url(${backgrounds.mobile});
           background-size: cover;
           color: ${theme.text.color.primary.inverse};
           display: flex;
@@ -40,20 +41,20 @@ const Hero = props => {
           margin: ${theme.space.stack.l};
           color: ${theme.hero.h1.color};
           line-height: ${theme.hero.h1.lineHeight};
-          text-remove-gap: both 0 "Open Sans";
+          text-remove-gap: both 0 'Open Sans';
 
           :global(strong) {
             position: relative;
 
             &::after,
             &::before {
-              content: "›";
+              content: '›';
               color: ${theme.text.color.attention};
               margin: 0 ${theme.space.xs} 0 0;
               text-shadow: 0 0 ${theme.space.s} ${theme.color.neutral.gray.k};
             }
             &::after {
-              content: "‹";
+              content: '‹';
               margin: 0 0 0 ${theme.space.xs};
             }
           }
@@ -99,10 +100,6 @@ const Hero = props => {
         }
 
         @from-width tablet {
-          .hero {
-            background-image: url(${backgrounds.tablet});
-          }
-
           h1 {
             max-width: 90%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.3)`};
@@ -114,10 +111,6 @@ const Hero = props => {
         }
 
         @from-width desktop {
-          .hero {
-            background-image: url(${backgrounds.desktop});
-          }
-
           h1 {
             max-width: 80%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.5)`};
@@ -135,7 +128,7 @@ const Hero = props => {
 Hero.propTypes = {
   scrollToContent: PropTypes.func.isRequired,
   backgrounds: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Hero;

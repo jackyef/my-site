@@ -1,17 +1,17 @@
-import { Link } from "gatsby";
-import PropTypes from "prop-types";
-import React from "react";
-import VisibilitySensor from "react-visibility-sensor";
+import { Link } from 'gatsby';
+import PropTypes from 'prop-types';
+import React from 'react';
+import VisibilitySensor from 'react-visibility-sensor';
 
-import { ScreenWidthContext, FontLoadedContext } from "../../layouts";
-import config from "../../../content/meta/config";
-import Menu from "../Menu";
+import { ScreenWidthContext, FontLoadedContext } from '../../layouts';
+import config from '../../../content/meta/config';
+import Menu from '../Menu';
 
-import avatar from "../../images/jpg/avatar.jpg";
+import avatar from '../../images/jpg/avatar.jpg';
 
 class Header extends React.Component {
   state = {
-    fixed: false
+    fixed: false,
   };
 
   visibilitySensorChange = val => {
@@ -23,8 +23,8 @@ class Header extends React.Component {
   };
 
   getHeaderSize = () => {
-    const fixed = this.state.fixed ? "fixed" : "";
-    const homepage = this.props.path === "/" ? "homepage" : "";
+    const fixed = this.state.fixed ? 'fixed' : '';
+    const homepage = this.props.path === '/' ? 'homepage' : '';
 
     return `${fixed} ${homepage}`;
   };
@@ -38,7 +38,10 @@ class Header extends React.Component {
         <header className={`header ${this.getHeaderSize()}`}>
           <Link to="/" className="logoType">
             <div className="logo">
-              <img src={config.gravatarImgMd5=="" ? avatar : config.gravatarImgMd5 } alt={config.siteTitle} />
+              <img
+                src={config.gravatarImgMd5 == '' ? avatar : config.gravatarImgMd5}
+                alt={config.siteTitle}
+              />
             </div>
             <div className="type">
               <h1>{config.headerTitle}</h1>
@@ -82,7 +85,7 @@ class Header extends React.Component {
             :global(a.logoType) {
               align-items: center;
               display: flex;
-              flex-direction: "column";
+              flex-direction: 'column';
               color: ${theme.text.color.primary};
 
               .logo {
@@ -138,7 +141,7 @@ class Header extends React.Component {
             left: 0;
             right: 0;
             height: 1px;
-            top: ${path === "/" ? theme.header.height.homepage : theme.header.height.default};
+            top: ${path === '/' ? theme.header.height.homepage : theme.header.height.default};
           }
 
           @from-width tablet {
@@ -251,7 +254,7 @@ class Header extends React.Component {
 Header.propTypes = {
   pages: PropTypes.array.isRequired,
   path: PropTypes.string.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Header;

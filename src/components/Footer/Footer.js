@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Footer = props => {
   const { html, theme } = props;
@@ -29,12 +29,12 @@ const Footer = props => {
               display: inline-block;
 
               &::after {
-                content: "•";
+                content: '•';
                 position: absolute;
                 right: ${`calc(${theme.space.xs} * -1)`};
               }
               &:last-child::after {
-                content: "";
+                content: '';
               }
             }
           }
@@ -52,7 +52,7 @@ const Footer = props => {
 
 Footer.propTypes = {
   html: PropTypes.string,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Footer;

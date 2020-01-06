@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "gatsby";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 
 const List = props => {
   const { edges, theme } = props;
@@ -12,8 +12,8 @@ const List = props => {
           const {
             node: {
               frontmatter: { title },
-              fields: { slug }
-            }
+              fields: { slug },
+            },
           } = edge;
 
           return (
@@ -43,7 +43,7 @@ const List = props => {
 
 List.propTypes = {
   edges: PropTypes.array.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default List;

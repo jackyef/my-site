@@ -1,1 +1,1 @@
-export { default } from "./AsyncComponent";
+export { default } from './AsyncComponent';

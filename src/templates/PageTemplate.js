@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { graphql } from "gatsby";
-import Seo from "../components/Seo";
-import Article from "../components/Article";
-import Page from "../components/Page";
-import { ThemeContext } from "../layouts";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
+import Seo from '../components/Seo';
+import Article from '../components/Article';
+import Page from '../components/Page';
+import { ThemeContext } from '../layouts';
 
 const PageTemplate = props => {
   const {
     data: {
       page,
       site: {
-        siteMetadata: { facebook }
-      }
-    }
+        siteMetadata: { facebook },
+      },
+    },
   } = props;
 
   return (
@@ -32,7 +32,7 @@ const PageTemplate = props => {
 };
 
 PageTemplate.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
 export default PageTemplate;
@@ -45,13 +45,6 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-      }
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
-        }
       }
     }
   }

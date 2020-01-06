@@ -1,12 +1,12 @@
-import { FaTag } from "react-icons/fa/";
-import PropTypes from "prop-types";
-import React from "react";
-import { graphql } from "gatsby";
-import Seo from "../components/Seo";
-import { ThemeContext } from "../layouts";
-import Article from "../components/Article";
-import Headline from "../components/Article/Headline";
-import List from "../components/List";
+import { FaTag } from 'react-icons/fa/';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { graphql } from 'gatsby';
+import Seo from '../components/Seo';
+import { ThemeContext } from '../layouts';
+import Article from '../components/Article';
+import Headline from '../components/Article/Headline';
+import List from '../components/List';
 
 const CategoryTemplate = props => {
   const {
@@ -14,9 +14,9 @@ const CategoryTemplate = props => {
     data: {
       allMarkdownRemark: { totalCount, edges },
       site: {
-        siteMetadata: { facebook }
-      }
-    }
+        siteMetadata: { facebook },
+      },
+    },
   } = props;
 
   return (
@@ -30,10 +30,10 @@ const CategoryTemplate = props => {
                 {category}
               </Headline>
               <p className="meta">
-                There {totalCount > 1 ? "are" : "is"} <strong>{totalCount}</strong> post{totalCount >
+                There {totalCount > 1 ? 'are' : 'is'} <strong>{totalCount}</strong> post{totalCount >
                 1
-                  ? "s"
-                  : ""}{" "}
+                  ? 's'
+                  : ''}{' '}
                 in the category.
               </p>
               <List edges={edges} theme={theme} />
@@ -49,7 +49,7 @@ const CategoryTemplate = props => {
 
 CategoryTemplate.propTypes = {
   data: PropTypes.object.isRequired,
-  pageContext: PropTypes.object.isRequired
+  pageContext: PropTypes.object.isRequired,
 };
 
 export default CategoryTemplate;
@@ -74,13 +74,6 @@ export const categoryQuery = graphql`
             title
             category
           }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
         }
       }
     }
