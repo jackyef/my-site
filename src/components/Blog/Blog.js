@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import Item from "./Item";
+import Item from './Item';
 
 const Blog = props => {
   const { posts, theme } = props;
@@ -14,8 +14,8 @@ const Blog = props => {
             const {
               node,
               node: {
-                fields: { slug }
-              }
+                fields: { slug },
+              },
             } = post;
             return <Item key={slug} post={node} theme={theme} />;
           })}
@@ -54,7 +54,7 @@ const Blog = props => {
 
 Blog.propTypes = {
   posts: PropTypes.array.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Blog;

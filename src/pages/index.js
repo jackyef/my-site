@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { graphql } from 'gatsby';
 import { ThemeContext } from '../layouts';
-import Blog from '../components/Blog';
+// import Blog from '../components/Blog';
 import Hero from '../components/Hero';
 import Seo from '../components/Seo';
+import MainIntro from '../components/MainIntro/MainIntro';
 
 class IndexPage extends React.Component {
   separator = React.createRef();
@@ -16,7 +17,7 @@ class IndexPage extends React.Component {
   render() {
     const {
       data: {
-        posts: { edges: posts = [] },
+        // posts: { edges: posts = [] },
         bgDesktop: {
           resize: { src: desktop },
         },
@@ -45,9 +46,11 @@ class IndexPage extends React.Component {
 
         <hr ref={this.separator} />
 
-        <ThemeContext.Consumer>
+        {/* <ThemeContext.Consumer>
           {theme => <Blog posts={posts} theme={theme} />}
-        </ThemeContext.Consumer>
+        </ThemeContext.Consumer> */}
+
+        <ThemeContext.Consumer>{theme => <MainIntro theme={theme} />}</ThemeContext.Consumer>
 
         <Seo />
 
@@ -71,35 +74,35 @@ export default IndexPage;
 //eslint-disable-next-line no-undef
 export const query = graphql`
   query IndexQuery {
-    posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//posts/[0-9]+.*--/" } }
-      sort: { fields: [fields___prefix], order: DESC }
-      limit: 3
-    ) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-            prefix
-          }
-          frontmatter {
-            title
-            category
-            author
-            cover {
-              children {
-                ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    # posts: allMarkdownRemark(
+    #   filter: { fileAbsolutePath: { regex: "//posts/[0-9]+.*--/" } }
+    #   sort: { fields: [fields___prefix], order: DESC }
+    #   limit: 3
+    # ) {
+    #   edges {
+    #     node {
+    #       excerpt
+    #       fields {
+    #         slug
+    #         prefix
+    #       }
+    #       frontmatter {
+    #         title
+    #         category
+    #         author
+    #         cover {
+    #           children {
+    #             ... on ImageSharp {
+    #               fluid(maxWidth: 800, maxHeight: 360) {
+    #                 ...GatsbyImageSharpFluid_withWebp
+    #               }
+    #             }
+    #           }
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
     bgDesktop: imageSharp(fluid: { originalName: { regex: "/hero-background/" } }) {
       resize(width: 1200, quality: 90, cropFocus: CENTER) {
         src
@@ -117,5 +120,3 @@ export const query = graphql`
     }
   }
 `;
-
-//hero-background

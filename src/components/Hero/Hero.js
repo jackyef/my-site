@@ -9,12 +9,8 @@ const Hero = props => {
   return (
     <React.Fragment>
       <section className="hero">
-        <h1>Hi, I am Jacky.</h1>
-        <button
-          onClick={scrollToContent}
-          aria-label="scroll"
-          style={{ background: 'rgba(255,255,255,0.3) ' }}
-        >
+        <h1>Hi, I am Jacky 👋</h1>
+        <button onClick={scrollToContent} aria-label="scroll">
           <FaArrowDown />
         </button>
       </section>
@@ -61,7 +57,7 @@ const Hero = props => {
         }
 
         button {
-          background: ${theme.background.color.brand};
+          background: rgba(255, 255, 255, 0.3);
           border: 0;
           border-radius: 50%;
           font-size: ${theme.font.size.m};
