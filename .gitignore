@@ -68,3 +68,4 @@ yarn-error.log
 
 # other
 report/
+.temp

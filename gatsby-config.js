@@ -48,34 +48,6 @@ module.exports = {
     // },
   },
   plugins: [
-    {
-      resolve: 'gatsby-source-medium-feed',
-      options: {
-        userName: '@jackyef', // Medium user name
-        name: 'MediumFeed', // GraphQL query AllMediumFeed
-      },
-    },
-    // {
-    //   resolve: `gatsby-source-medium`,
-    //   options: {
-    //     username: `@jackyef`,
-    //   },
-    // },
-    {
-      resolve: `gatsby-source-rss-feed`,
-      options: {
-        url: `https://medium.com/feed/@jackyef`,
-        name: `Medium`,
-        // Optional
-        // Read parser document: https://github.com/bobby-brennan/rss-parser#readme
-        parserOption: {
-          customFields: {
-            imageUrl: ['image.url'],
-            content: ['item.content:encoded'],
-          },
-        },
-      },
-    },
     `gatsby-plugin-styled-jsx`, // the plugin's code is inserted directly to gatsby-node.js and gatsby-ssr.js files
     `gatsby-plugin-styled-jsx-postcss`, // as above
     {
