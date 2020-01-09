@@ -3,7 +3,7 @@ module.exports = {
   shortSiteTitle: 'Jacky Efendi | Software Engineer', // <title> ending for posts and pages
   siteDescription:
     'Jacky Efendi is a software engineer who works with JavaScript and all things web.',
-  siteUrl: 'https://jackyef.io',
+  siteUrl: 'https://jackyef.xyz',
   pathPrefix: '',
   siteImage: 'preview.jpg',
   siteLanguage: 'en',
