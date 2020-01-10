@@ -5,7 +5,7 @@ const MainIntro = ({ theme }) => {
     <React.Fragment>
       <main className="main">
         <h1>What I do</h1>
-        <h2>I work with web-related stuffs 🌐</h2>
+        <h2>I work with web stuffs 🌐</h2>
         <p>
           I mainly work with JavaScript and all things related to the web ecosystem. Currently, I am
           working at{' '}
@@ -38,7 +38,7 @@ const MainIntro = ({ theme }) => {
           source project on{' '}
           <a href="https://github.com/jackyef" target="_blank" rel="noopener noreferrer">
             GitHub
-          </a>.
+          </a>. I am also starting to try contributing to open source projects whenever I could.
         </p>
       </main>
 
@@ -47,6 +47,12 @@ const MainIntro = ({ theme }) => {
           .main {
             padding: 0 ${theme.space.inset.default};
             margin: ${theme.space.l} auto;
+          }
+
+          a {
+            font-weight: ${theme.font.weight.bold};
+            color: ${theme.color.brand.primary};
+            text-decoration: underline;
           }
 
           h1 {

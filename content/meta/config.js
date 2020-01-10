@@ -1,11 +1,10 @@
 module.exports = {
-  siteTitle: 'Jacky Efendi | Software Engineer', // <title>
-  shortSiteTitle: 'Jacky Efendi | Software Engineer', // <title> ending for posts and pages
-  siteDescription:
-    'Jacky Efendi is a software engineer who works with JavaScript and all things web.',
+  siteTitle: 'Jacky Efendi', // <title>
+  shortSiteTitle: 'Jacky Efendi', // <title> ending for posts and pages
+  siteDescription: 'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐',
   siteUrl: 'https://jackyef.netlify.com',
   pathPrefix: '',
-  siteImage: 'preview.jpg',
+  siteImage: '', // preview.jpg
   siteLanguage: 'en',
 
   /* author */
@@ -17,10 +16,10 @@ module.exports = {
   headerSubTitle: 'Software Engineer -- JavaScript and all things web',
 
   /* manifest.json */
-  manifestName: 'Jacky Efendi | Software Engineer',
+  manifestName: 'jackyef',
   manifestShortName: 'jackyef', // max 12 characters
   manifestStartUrl: '/',
-  manifestBackgroundColor: 'white',
+  manifestBackgroundColor: '#0f9cc9',
   manifestThemeColor: '#0f9cc9',
   manifestDisplay: 'standalone',
 
