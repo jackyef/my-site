@@ -34,7 +34,7 @@ module.exports = {
   authorSocialLinks: [
     { name: 'github', url: 'https://github.com/jackyef' },
     { name: 'twitter', url: 'https://twitter.com/jackyef__' },
-    { name: 'instagram', url: 'http://instagram.com/jackyef_' },
+    { name: 'instagram', url: 'https://instagram.com/jackyef_' },
     { name: 'linkedin', url: 'https://www.linkedin.com/in/jackyef/' },
   ],
 };

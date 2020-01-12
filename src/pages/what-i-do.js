@@ -22,8 +22,4 @@ const WhatIDoPage = () => {
   );
 };
 
-WhatIDoPage.propTypes = {
-  data: PropTypes.object.isRequired,
-};
-
 export default WhatIDoPage;

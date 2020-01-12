@@ -1,4 +1,5 @@
 import React from 'react';
+import MediumList from '../Medium/List';
 
 const WhatIDo = ({ theme }) => {
   return (
@@ -30,6 +31,8 @@ const WhatIDo = ({ theme }) => {
             Medium
           </a>!
         </p>
+
+        <MediumList />
 
         <hr />
 
