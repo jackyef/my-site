@@ -1,5 +1,6 @@
 import React from 'react';
 import MediumList from '../Medium/List';
+import GitHubList from '../GitHub/List';
 
 const WhatIDo = ({ theme }) => {
   return (
@@ -38,12 +39,15 @@ const WhatIDo = ({ theme }) => {
 
         <h2>I build stuffs 🛠</h2>
         <p>
-          I try to build things to help making my life easier. Some of them I published as an open
-          source project on{' '}
+          Sometimes I am motivated to build stuffs. Some are just for fun and learning, some are
+          actually kind of helpful. A lot are abandoned because I got sidetracked (don&rsquo;t we
+          all? 😅). I published them as open source projects on{' '}
           <a href="https://github.com/jackyef" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>. I also contribute to open source libraries when I could.
         </p>
+
+        <GitHubList />
       </main>
 
       <style jsx>

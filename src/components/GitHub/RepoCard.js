@@ -1,33 +1,19 @@
 import React from 'react';
 import { ThemeContext } from '../../layouts';
-import Image from '../Image';
-import MediumLogo from '!svg-react-loader!../../images/svg-icons/medium.svg?name=MediumLogo';
 
-const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
+const GitHubRepoCard = ({ title, description, starCount, url }) => {
   return (
     <ThemeContext.Consumer>
       {theme => (
         <React.Fragment>
           <div>
-            <Image
-              src={coverImage}
-              alt={title}
-              width="100%"
-              height="205px"
-              style={{
-                borderRadius: `${theme.size.radius.default} ${theme.size.radius.default} 0 0`,
-                objectFit: `cover`,
-              }}
-            />
             <h3>
               <a href={url} target="_blank" rel="noopener noreferrer">
                 {title}
               </a>{' '}
             </h3>
-            <span>
-              <MediumLogo width={theme.font.size.s} height={theme.font.size.s} />&nbsp;&middot;{' '}
-              {timeToRead}
-            </span>
+            <p>{description}</p>
+            {starCount > 0 ? <span>{starCount} stars</span> : null}
           </div>
 
           <style jsx>{`
@@ -49,6 +35,12 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
 
             h3 > a {
               color: ${theme.color.neutral.black};
+            }
+
+            p {
+              padding: 0 ${theme.space.inset.s} ${theme.space.inset.s};
+              font-size: ${theme.font.size.xxs};
+              color: ${theme.color.neutral.gray.h};
             }
 
             span {
@@ -85,4 +77,4 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
   );
 };
 
-export default MediumPostCard;
+export default GitHubRepoCard;

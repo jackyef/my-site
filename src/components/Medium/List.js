@@ -44,6 +44,7 @@ const MediumList = () => {
               padding: 0 ${theme.space.s};
               white-space: nowrap;
               overflow-x: scroll;
+              scroll-snap-type: x mandatory;
               vertical-align: top;
             }
           `}</style>
