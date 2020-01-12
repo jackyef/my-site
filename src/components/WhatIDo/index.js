@@ -25,14 +25,14 @@ const WhatIDo = ({ theme }) => {
           share them!{' '}
         </p>
 
+        <MediumList />
+
         <p>
           Consider checking me out on{' '}
           <a href="https://medium.com/@jackyef" target="_blank" rel="noopener noreferrer">
             Medium
           </a>!
         </p>
-
-        <MediumList />
 
         <hr />
 

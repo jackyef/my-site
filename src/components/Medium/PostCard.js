@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeContext } from '../../layouts';
 import Image from '../Image';
+import MediumLogo from '!svg-react-loader!../../images/svg-icons/medium.svg?name=MediumLogo';
 
 const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
   return (
@@ -23,16 +24,19 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
                 {title}
               </a>{' '}
             </h3>
-            <span>{timeToRead}</span>
+            <span>
+              <MediumLogo width={theme.font.size.s} height={theme.font.size.s} />&nbsp;&middot;{' '}
+              {timeToRead}
+            </span>
           </div>
 
           <style jsx>{`
             div {
               display: inline-block;
               border-radius: ${theme.size.radius.default};
-              margin: ${theme.space.s} 0;
-              box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-              width: 100%;
+              margin: ${theme.space.s} ${theme.space.default} ${theme.space.s} 0;
+              box-shadow: 0px 3px 9px -5px rgba(0, 0, 0, 0.3);
+              width: ${`calc(100% - ${theme.space.default} * 2)`};
               white-space: normal;
               vertical-align: top;
             }
@@ -47,7 +51,8 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
             }
 
             span {
-              display: block;
+              align-items: center;
+              display: flex;
               padding: 0 ${theme.space.inset.s} ${theme.space.inset.s};
               font-size: ${theme.font.size.xxs};
               color: ${theme.color.neutral.gray.g};
@@ -60,7 +65,6 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
                 align-self: flex-start;
                 justify-content: flex-start;
                 width: ${`calc(${theme.text.maxWidth.tablet} * 0.5 - ${theme.space.default} * 2)`};
-                margin-right: ${theme.space.default};
               }
 
               div:last-child {

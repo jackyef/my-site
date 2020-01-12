@@ -41,15 +41,10 @@ const MediumList = () => {
           <style jsx>{`
             section {
               display: block;
-              padding: 0 ${theme.space.default};
-            }
-
-            @above tablet {
-              section {
-                white-space: nowrap;
-                overflow-x: scroll;
-                vertical-align: top;
-              }
+              padding: 0 ${theme.space.s};
+              white-space: nowrap;
+              overflow-x: scroll;
+              vertical-align: top;
             }
           `}</style>
         </React.Fragment>
