@@ -15,33 +15,10 @@ class IndexPage extends React.Component {
   };
 
   render() {
-    const {
-      data: {
-        // posts: { edges: posts = [] },
-        bgDesktop: {
-          resize: { src: desktop },
-        },
-        bgTablet: {
-          resize: { src: tablet },
-        },
-        bgMobile: {
-          resize: { src: mobile },
-        },
-      },
-    } = this.props;
-
-    const backgrounds = {
-      desktop,
-      tablet,
-      mobile,
-    };
-
     return (
       <React.Fragment>
         <ThemeContext.Consumer>
-          {theme => (
-            <Hero scrollToContent={this.scrollToContent} backgrounds={backgrounds} theme={theme} />
-          )}
+          {theme => <Hero scrollToContent={this.scrollToContent} theme={theme} />}
         </ThemeContext.Consumer>
 
         <hr ref={this.separator} />
@@ -64,10 +41,6 @@ class IndexPage extends React.Component {
     );
   }
 }
-
-IndexPage.propTypes = {
-  data: PropTypes.object.isRequired,
-};
 
 export default IndexPage;
 
