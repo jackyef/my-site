@@ -19,8 +19,8 @@ module.exports = {
   manifestName: 'jackyef',
   manifestShortName: 'jackyef', // max 12 characters
   manifestStartUrl: '/',
-  manifestBackgroundColor: '#0f9cc9',
-  manifestThemeColor: '#0f9cc9',
+  manifestBackgroundColor: '#5690DF',
+  manifestThemeColor: '#5690DF',
   manifestDisplay: 'standalone',
 
   // gravatar
