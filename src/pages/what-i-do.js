@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ThemeContext } from '../layouts';
 
@@ -13,7 +12,13 @@ const WhatIDoPage = () => {
           <WhatIDo theme={theme} />
           <style jsx>{`
             .spacer {
-              margin-bottom: ${`calc(${theme.space.xl} * 1.5)`};
+              margin-bottom: 0;
+            }
+
+            @above tablet {
+              .spacer {
+                margin-bottom: ${`calc(${theme.space.xl} * 1.5)`};
+              }
             }
           `}</style>
         </React.Fragment>

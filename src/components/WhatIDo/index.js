@@ -50,7 +50,7 @@ const WhatIDo = ({ theme }) => {
         {`
           .main {
             padding: 0 ${theme.space.inset.default};
-            margin: ${theme.space.l} auto;
+            margin: ${theme.space.m} auto;
           }
 
           a {

@@ -20,7 +20,7 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
             div {
               display: inline-block;
               border-radius: ${theme.size.radius.default};
-              margin: ${theme.space.default} 0;
+              margin: ${theme.space.s} 0;
               box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
               width: 100%;
               white-space: normal;
@@ -31,7 +31,7 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
               width: 100%;
               border-radius: ${theme.size.radius.default} ${theme.size.radius.default} 0 0;
               height: 205px;
-              object-fit: contain;
+              object-fit: cover;
             }
 
             h3 {
@@ -44,6 +44,7 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
             }
 
             span {
+              display: block;
               padding: 0 ${theme.space.inset.s} ${theme.space.inset.s};
               font-size: ${theme.font.size.xxs};
               color: ${theme.color.neutral.gray.g};
