@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeContext } from '../../layouts';
+import Image from '../Image';
 
 const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
   return (
@@ -7,7 +8,16 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
       {theme => (
         <React.Fragment>
           <div>
-            <img src={coverImage} alt={title} />
+            <Image
+              src={coverImage}
+              alt={title}
+              width="100%"
+              height="205px"
+              style={{
+                borderRadius: `${theme.size.radius.default} ${theme.size.radius.default} 0 0`,
+                objectFit: `cover`,
+              }}
+            />
             <h3>
               <a href={url} target="_blank" rel="noopener noreferrer">
                 {title}
@@ -25,13 +35,6 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
               width: 100%;
               white-space: normal;
               vertical-align: top;
-            }
-
-            img {
-              width: 100%;
-              border-radius: ${theme.size.radius.default} ${theme.size.radius.default} 0 0;
-              height: 205px;
-              object-fit: cover;
             }
 
             h3 {
