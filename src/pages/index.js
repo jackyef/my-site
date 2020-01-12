@@ -5,7 +5,7 @@ import { ThemeContext } from '../layouts';
 // import Blog from '../components/Blog';
 import Hero from '../components/Hero';
 import Seo from '../components/Seo';
-import MainIntro from '../components/MainIntro/MainIntro';
+import WhatIDo from '../components/WhatIDo';
 
 class IndexPage extends React.Component {
   separator = React.createRef();
@@ -50,7 +50,7 @@ class IndexPage extends React.Component {
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer> */}
 
-        <ThemeContext.Consumer>{theme => <MainIntro theme={theme} />}</ThemeContext.Consumer>
+        <ThemeContext.Consumer>{theme => <WhatIDo theme={theme} />}</ThemeContext.Consumer>
 
         <Seo />
 

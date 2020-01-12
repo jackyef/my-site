@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MainIntro = ({ theme }) => {
+const WhatIDo = ({ theme }) => {
   return (
     <React.Fragment>
       <main className="main">
@@ -19,8 +19,9 @@ const MainIntro = ({ theme }) => {
 
         <h2>I write (kinda) 🗒</h2>
         <p>
-          I have always liked to learn things and understand how they work. Sometimes if I find the
-          discovery interesting, I try to write an article about them to share them!{' '}
+          I have always been a curious person. I liked to learn things and understand how they work.
+          Sometimes if I find the discovery interesting, I try to write an article about them to
+          share them!{' '}
         </p>
 
         <p>
@@ -38,7 +39,7 @@ const MainIntro = ({ theme }) => {
           source project on{' '}
           <a href="https://github.com/jackyef" target="_blank" rel="noopener noreferrer">
             GitHub
-          </a>. I am also starting to try contributing to open source projects whenever I could.
+          </a>. I also contribute to open source libraries when I could.
         </p>
       </main>
 
@@ -87,4 +88,4 @@ const MainIntro = ({ theme }) => {
   );
 };
 
-export default MainIntro;
+export default WhatIDo;
