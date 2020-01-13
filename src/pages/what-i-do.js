@@ -15,7 +15,7 @@ const WhatIDoPage = () => {
               margin-bottom: 0;
             }
 
-            @above tablet {
+            @above desktop {
               .spacer {
                 margin-bottom: ${`calc(${theme.space.xl} * 1.5)`};
               }

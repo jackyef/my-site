@@ -170,6 +170,10 @@ class Layout extends React.Component {
                         width: auto;
                         display: block;
                       }
+
+                      ::-webkit-scrollbar {
+                        display: none;
+                      }
                     `}</style>
                   </React.Fragment>
                 </ScreenWidthContext.Provider>
