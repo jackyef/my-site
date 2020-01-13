@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 
 const transparentImage = `data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==`;
+const loadedImageMap = {};
 
 class Image extends Component {
-  state = {
-    loading: true,
-    opacity: 1,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: !loadedImageMap[props.src],
+    };
+  }
 
   componentDidMount() {
-    this.dummy = new window.Image();
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.3,
-    };
+    const { loading } = this.state;
 
-    this.observer = new IntersectionObserver(this.handleImageLoad, options);
+    if (loading) {
+      this.dummy = new window.Image();
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3,
+      };
 
-    this.observer.observe(this.image);
+      this.observer = new IntersectionObserver(this.handleImageLoad, options);
+
+      this.observer.observe(this.image);
+    }
   }
 
   setImageRef = e => {
@@ -26,28 +34,33 @@ class Image extends Component {
   };
 
   handleImageLoad = entries => {
+    const { src } = this.props;
     const isIntersecting = entries && entries[0] && entries[0].isIntersecting;
 
     if (isIntersecting && this.state.loading) {
-      this.dummy.src = this.props.src;
+      this.dummy.src = src;
       this.dummy.onload = () => {
-        this.setState({ opacity: 0.1 });
+        this.image.style.opacity = 0.1;
+
+        loadedImageMap[src] = true;
+
         setTimeout(() => {
-          this.setState({ opacity: 1, loading: false });
+          this.setState({ loading: false }, () => {
+            this.image.style.opacity = 1;
+          });
         }, 200);
       };
     }
   };
 
   render() {
-    const { loading, opacity } = this.state;
+    const { loading } = this.state;
     const { alt, className, width, height, src, style, ...rest } = this.props;
     const finalStyle = {
       width: width || '100%',
       height: height || 'auto',
       transition: '.2s ease-in-out',
       background: 'linear-gradient(112deg, #dadada, #eaeaea)',
-      opacity,
       ...style,
     };
     const source = loading ? transparentImage : src;
