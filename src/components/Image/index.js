@@ -46,7 +46,7 @@ class Image extends Component {
       width: width || '100%',
       height: height || 'auto',
       transition: '.2s ease-in-out',
-      background: 'linear-gradient(112deg, #aaaaaa, #cacaca)',
+      background: 'linear-gradient(112deg, #dadada, #eaeaea)',
       opacity,
       ...style,
     };
