@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 
 /**
- * Very crude medium scrapper. Good enough for my usage.
+ * Very crude medium scraper. Good enough for my usage.
  *
  * Had to made one because medium's RSS and API are just not good enough.
  */
@@ -24,10 +24,14 @@ const spinnerNext = (spinner, message) => {
   }
 };
 
-console.info(chalk.blue('👋  Hi! I will start scrapping your latest medium stories!'));
+const isPrettifiedNumber = string => {
+  return /[kKmM]$/.test(string);
+};
+
+console.info(chalk.blue('👋  Hi! I will start scraping your latest medium stories!'));
 const start = process.hrtime();
 
-let spinner = ora('Scrapping in progress...').start();
+let spinner = ora('Scraping in progress...').start();
 
 (async () => {
   const json = await scrapeIt(mediumUrl, {
@@ -81,8 +85,8 @@ let spinner = ora('Scrapping in progress...').start();
   // maps title: <claps>
   const clapsMap = {};
   json.stories.forEach(s => {
-    if (Number(s.claps)) {
-      clapsMap[s.title] = Number(s.claps);
+    if (Number(s.claps) || isPrettifiedNumber(s.claps)) {
+      clapsMap[s.title] = s.claps;
     }
   });
 
@@ -112,9 +116,9 @@ let spinner = ora('Scrapping in progress...').start();
   const existingStories = require(mediumPath);
 
   existingStories.forEach(s => {
-    let freshlyScrappedStory = stories.find(e => e.title === s.title);
+    let freshlyScrapedStory = stories.find(e => e.title === s.title);
 
-    if (!freshlyScrappedStory) {
+    if (!freshlyScrapedStory) {
       // this new story does not exist in the existing json.
       // let's add our old story to the new json!
       stories.push(s);

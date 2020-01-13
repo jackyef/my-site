@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "dev": "node ./scripts/scrapMediumStories && gatsby develop",
+    "dev": "node ./scripts/scrapeMediumStories && gatsby develop",
     "devhost": "gatsby develop --host 192.168.0.112",
     "format": "prettier --write 'src/**/*.js'",
     "lint-errors": "eslint src/**/*.{js,jsx} --quiet",
