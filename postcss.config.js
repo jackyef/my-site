@@ -1,4 +1,4 @@
-module.exports = ctx => ({
+module.exports = _ctx => ({
   plugins: {
     'postcss-easy-media-query': {
       breakpoints: {
