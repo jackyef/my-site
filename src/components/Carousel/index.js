@@ -24,14 +24,18 @@ const Carousel = ({ children }) => {
 
       if (sl <= 10) {
         prevRef.current.style.transform = 'scale(0)';
+        prevRef.current.style.opacity = '0';
       } else {
         prevRef.current.style.transform = 'scale(1)';
+        prevRef.current.style.opacity = '';
       }
 
       if (sw <= sl + ow) {
         nextRef.current.style.transform = 'scale(0)';
+        nextRef.current.style.opacity = '0';
       } else {
         nextRef.current.style.transform = 'scale(1)';
+        nextRef.current.style.opacity = '';
       }
     });
   }, []);
@@ -40,10 +44,10 @@ const Carousel = ({ children }) => {
     <React.Fragment>
       <section>
         <button className="prev" ref={prevRef} onClick={handlePrev}>
-          <FaArrowLeft />
+          <FaArrowLeft size={16} />
         </button>
         <button className="next" ref={nextRef} onClick={handleNext}>
-          <FaArrowRight />
+          <FaArrowRight size={16} />
         </button>
         <div ref={carouselRef} onScroll={handleScroll}>
           {children}
@@ -79,24 +83,28 @@ const Carousel = ({ children }) => {
           border: none;
           box-shadow: 0px 3px 9px -5px rgba(0, 0, 0, 0.6);
           top: ${`calc(50% - ${theme.space.l} / 2)`};
-          transition: transform 0.1s ease-in;
+          transition: transform 0.1s ease-in, opacity 0.1s ease-in;
           z-index: 1;
           opacity: 0;
         }
 
+        button:hover {
+          opacity: 1;
+        }
+
         .prev {
-          left: -10px;
+          left: -20px;
           transform: scale(0);
         }
 
         .next {
-          right: -10px;
+          right: -20px;
           transform: scale(1);
         }
 
         @above desktop {
           button {
-            opacity: 1;
+            opacity: 0.8;
           }
         }
 
