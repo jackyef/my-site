@@ -31,6 +31,7 @@ const Seo = props => {
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:type" content="website" />
+      <meta name="google-site-verification" content="MXUQmmnRvuWRzx7IMgocc8oVLeoW1KAe_R6rvFmvIEc" />
       {facebook ? <meta property="fb:app_id" content={facebook.appId} /> : null}
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary" />
