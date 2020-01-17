@@ -13,11 +13,11 @@ class IndexPage extends React.Component {
   };
 
   render() {
+    const theme = this.context;
+
     return (
       <React.Fragment>
-        <ThemeContext.Consumer>
-          {theme => <Hero scrollToContent={this.scrollToContent} theme={theme} />}
-        </ThemeContext.Consumer>
+        <Hero scrollToContent={this.scrollToContent} theme={theme} />
 
         <hr ref={this.separator} />
 
@@ -25,7 +25,7 @@ class IndexPage extends React.Component {
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer> */}
 
-        <ThemeContext.Consumer>{theme => <WhatIDo theme={theme} />}</ThemeContext.Consumer>
+        <WhatIDo theme={theme} />
 
         <Seo />
 
@@ -34,11 +34,19 @@ class IndexPage extends React.Component {
             margin: 0;
             border: 0;
           }
+
+          @above desktop {
+            hr {
+              margin-bottom: ${`calc(${theme.space.xl})`};
+            }
+          }
         `}</style>
       </React.Fragment>
     );
   }
 }
+
+IndexPage.contextType = ThemeContext;
 
 export default IndexPage;
 

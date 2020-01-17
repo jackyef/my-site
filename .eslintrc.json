@@ -35,7 +35,7 @@
     "no-underscore-dangle": "warn",
     "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
     "no-nested-ternary": "off",
-    "no-unused-vars":  ["error", {"args": "after-used", "argsIgnorePattern": "^_" }],
+    "no-unused-vars":  ["error", { "args": "after-used", "argsIgnorePattern": "^_" }],
     "prefer-destructuring": "off",
     "prettier/prettier": ["error"],
     "react/jsx-uses-vars": "error",
