@@ -1,5 +1,5 @@
 //const webpack = require("webpack");
-const _ = require('lodash');
+// const _ = require('lodash');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 const Promise = require('bluebird');
@@ -39,16 +39,17 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve('./src/templates/PostTemplate.js');
+    // const postTemplate = path.resolve('./src/templates/PostTemplate.js');
     const pageTemplate = path.resolve('./src/templates/PageTemplate.js');
-    const categoryTemplate = path.resolve('./src/templates/CategoryTemplate.js');
+    // const categoryTemplate = path.resolve('./src/templates/CategoryTemplate.js');
 
-    // Do not create draft post files in production.
     let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || 'development';
+
     console.log(`Using environment config: '${activeEnv}'`);
-    let filters = `filter: { fields: { slug: { ne: null } } }`;
+    // Ignore all content prefixed with `.`
+    let filters = `filter: { fields: { slug: { ne: null } , prefix: { ne: "." } } }`;
     if (activeEnv == 'production')
-      filters = `filter: { fields: { slug: { ne: null } , prefix: { ne: null } } }`;
+      filters = `filter: { fields: { slug: { ne: null } , prefix: { ne: "." } } }`;
 
     resolve(
       graphql(
@@ -71,7 +72,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                   frontmatter {
                     title
-                    category
+                    # category
                   }
                 }
               }
@@ -87,50 +88,50 @@ exports.createPages = ({ graphql, actions }) => {
         const items = result.data.allMarkdownRemark.edges;
 
         // Create category list
-        const categorySet = new Set();
-        items.forEach(edge => {
-          const {
-            node: {
-              frontmatter: { category },
-            },
-          } = edge;
+        // const categorySet = new Set();
+        // items.forEach(edge => {
+        //   const {
+        //     node: {
+        //       frontmatter: { category },
+        //     },
+        //   } = edge;
 
-          if (category && category !== null) {
-            categorySet.add(category);
-          }
-        });
+        //   if (category && category !== null) {
+        //     categorySet.add(category);
+        //   }
+        // });
 
         // Create category pages
-        const categoryList = Array.from(categorySet);
-        categoryList.forEach(category => {
-          createPage({
-            path: `/category/${_.kebabCase(category)}/`,
-            component: categoryTemplate,
-            context: {
-              category,
-            },
-          });
-        });
+        // const categoryList = Array.from(categorySet);
+        // categoryList.forEach(category => {
+        //   createPage({
+        //     path: `/category/${_.kebabCase(category)}/`,
+        //     component: categoryTemplate,
+        //     context: {
+        //       category,
+        //     },
+        //   });
+        // });
 
         // Create posts
-        const posts = items.filter(item => item.node.fields.source === 'posts');
-        posts.forEach(({ node }, index) => {
-          const slug = node.fields.slug;
-          const next = index === 0 ? undefined : posts[index - 1].node;
-          const prev = index === posts.length - 1 ? undefined : posts[index + 1].node;
-          const source = node.fields.source;
+        // const posts = items.filter(item => item.node.fields.source === 'posts');
+        // posts.forEach(({ node }, index) => {
+        //   const slug = node.fields.slug;
+        //   const next = index === 0 ? undefined : posts[index - 1].node;
+        //   const prev = index === posts.length - 1 ? undefined : posts[index + 1].node;
+        //   const source = node.fields.source;
 
-          createPage({
-            path: slug,
-            component: postTemplate,
-            context: {
-              slug,
-              prev,
-              next,
-              source,
-            },
-          });
-        });
+        //   createPage({
+        //     path: slug,
+        //     component: postTemplate,
+        //     context: {
+        //       slug,
+        //       prev,
+        //       next,
+        //       source,
+        //     },
+        //   });
+        // });
 
         // and pages.
         const pages = items.filter(item => item.node.fields.source === 'pages');
