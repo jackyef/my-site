@@ -23,19 +23,15 @@ const Carousel = ({ children }) => {
       const ow = carouselRef.current.offsetWidth;
 
       if (sl <= 10) {
-        prevRef.current.style.transform = 'scale(0)';
-        prevRef.current.style.opacity = '0';
+        prevRef.current.classList.add('hide');
       } else {
-        prevRef.current.style.transform = 'scale(1)';
-        prevRef.current.style.opacity = '';
+        prevRef.current.classList.remove('hide');
       }
 
       if (sw <= sl + ow) {
-        nextRef.current.style.transform = 'scale(0)';
-        nextRef.current.style.opacity = '0';
+        nextRef.current.classList.add('hide');
       } else {
-        nextRef.current.style.transform = 'scale(1)';
-        nextRef.current.style.opacity = '';
+        nextRef.current.classList.remove('hide');
       }
     });
   }, []);
@@ -43,7 +39,7 @@ const Carousel = ({ children }) => {
   return (
     <React.Fragment>
       <section>
-        <button className="prev" ref={prevRef} onClick={handlePrev}>
+        <button className="prev hide" ref={prevRef} onClick={handlePrev}>
           <FaArrowLeft size={16} />
         </button>
         <button className="next" ref={nextRef} onClick={handleNext}>
@@ -78,33 +74,39 @@ const Carousel = ({ children }) => {
           background: ${theme.color.neutral.gray.a};
           width: ${theme.space.l};
           height: ${theme.space.l};
-          transform: translateY(-50%);
           border-radius: 50%;
           border: none;
           box-shadow: 0px 3px 9px -5px rgba(0, 0, 0, 0.6);
           top: ${`calc(50% - ${theme.space.l} / 2)`};
-          transition: transform 0.1s ease-in, opacity 0.1s ease-in;
+          transition: transform 0.2s ease-in, opacity 0.2s ease-in;
           z-index: 1;
           opacity: 0;
         }
 
-        button:hover {
-          opacity: 1;
-        }
-
         .prev {
+          transform: translateX(-30px) scale(0);
           left: -20px;
-          transform: scale(0);
         }
 
         .next {
+          transform: translateX(30px) scale(0);
           right: -20px;
-          transform: scale(1);
+        }
+
+        .prev.hide {
+          opacity: 0 !important;
+          transform: translateX(-30px) scale(0) !important;
+        }
+
+        .next.hide {
+          opacity: 0 !important;
+          transform: translateX(30px) scale(0) !important;
         }
 
         @above desktop {
-          button {
-            opacity: 0.8;
+          section:hover > button {
+            opacity: 1;
+            transform: translateX(0) scale(1);
           }
         }
 
