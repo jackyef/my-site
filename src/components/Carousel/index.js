@@ -9,11 +9,11 @@ const Carousel = ({ children }) => {
   const nextRef = useRef();
 
   const handlePrev = useCallback(() => {
-    carouselRef.current.scrollBy({ left: -window.innerWidth * 0.5, behavior: 'smooth' });
+    carouselRef.current.scrollBy({ left: -window.innerWidth * 0.3, behavior: 'smooth' });
   }, []);
 
   const handleNext = useCallback(() => {
-    carouselRef.current.scrollBy({ left: window.innerWidth * 0.5, behavior: 'smooth' });
+    carouselRef.current.scrollBy({ left: window.innerWidth * 0.3, behavior: 'smooth' });
   }, []);
 
   const handleScroll = useCallback(() => {
@@ -39,10 +39,10 @@ const Carousel = ({ children }) => {
   return (
     <React.Fragment>
       <section>
-        <button className="prev hide" ref={prevRef} onClick={handlePrev}>
+        <button className="prev hide" ref={prevRef} onClick={handlePrev} aria-label="previous">
           <FaArrowLeft size={16} />
         </button>
-        <button className="next" ref={nextRef} onClick={handleNext}>
+        <button className="next" ref={nextRef} onClick={handleNext} aria-label="next">
           <FaArrowRight size={16} />
         </button>
         <div ref={carouselRef} onScroll={handleScroll}>
