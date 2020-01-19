@@ -11,6 +11,7 @@ export const ScreenWidthContext = React.createContext(0);
 export const FontLoadedContext = React.createContext(false);
 
 import themeObjectFromYaml from '../theme/theme.yaml';
+import fontStylesheet from './fontStylesheet';
 
 class Layout extends React.Component {
   constructor() {
@@ -128,7 +129,7 @@ class Layout extends React.Component {
                       }
                     `}</style>
                     <style jsx global>{`
-                      html {
+                      ${fontStylesheet} html {
                         box-sizing: border-box;
                       }
                       *,

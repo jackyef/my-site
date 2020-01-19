@@ -2,7 +2,7 @@ module.exports = {
   siteTitle: 'Jacky Efendi', // <title>
   shortSiteTitle: 'Jacky Efendi', // <title> ending for posts and pages
   siteDescription: 'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐',
-  siteUrl: 'https://jackyef.netlify.com',
+  siteUrl: 'https://jackyef.com',
   pathPrefix: '',
   siteImage: '', // preview.jpg
   siteLanguage: 'en',

@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeContext } from '../layouts';
 
 import WhatIDo from '../components/WhatIDo';
+import Seo from '../components/Seo';
 
 const WhatIDoPage = () => {
   return (
@@ -21,6 +22,7 @@ const WhatIDoPage = () => {
               }
             }
           `}</style>
+          <Seo />
         </React.Fragment>
       )}
     </ThemeContext.Consumer>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import config from '../../../content/meta/config';
-import fontStylesheet from './fontStylesheet';
 
 const Seo = props => {
   const { data, facebook } = props;
@@ -57,7 +56,6 @@ const Seo = props => {
           as="font"
         />
       </Helmet>
-      <style jsx>{fontStylesheet}</style>
     </>
   );
 };
