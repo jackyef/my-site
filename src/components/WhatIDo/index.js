@@ -7,54 +7,79 @@ const WhatIDo = ({ theme }) => {
     <React.Fragment>
       <main className="main">
         <h1>What I do</h1>
-        <h2>I work with web stuffs 🌐</h2>
-        <p>
-          I mainly work with JavaScript and all things related to the web ecosystem. Currently, I am
-          working at{' '}
-          <a href="https://www.tokopedia.com" target="_blank" rel="noopener noreferrer">
-            Tokopedia
-          </a>{' '}
-          in the web platform team.
-        </p>
+        <div className="body">
+          <h2>I work with web stuffs 🌐</h2>
+          <p>
+            I mainly work with JavaScript and all things related to the web ecosystem. Currently, I
+            am working at{' '}
+            <a href="https://www.tokopedia.com" target="_blank" rel="noopener noreferrer">
+              Tokopedia
+            </a>{' '}
+            in the web platform team.
+          </p>
 
-        <hr />
+          <hr />
 
-        <h2>I write (kinda) 🗒</h2>
-        <p>
-          I have always been a curious person. I liked to learn things and understand how they work.
-          Sometimes if I find the discovery interesting, I try to write an article about them to
-          share them!{' '}
-        </p>
+          <h2>I write (kinda) 🗒</h2>
+          <p>
+            I have always been a curious person. I liked to learn things and understand how they
+            work. Sometimes if I find the discovery interesting, I try to write an article about
+            them to share them!{' '}
+          </p>
 
-        <MediumList />
+          <MediumList />
 
-        <p>
-          Consider checking me out on{' '}
-          <a href="https://medium.com/@jackyef" target="_blank" rel="noopener noreferrer">
-            Medium
-          </a>!
-        </p>
+          <p>
+            Consider checking me out on{' '}
+            <a href="https://medium.com/@jackyef" target="_blank" rel="noopener noreferrer">
+              Medium
+            </a>!
+          </p>
 
-        <hr />
+          <hr />
 
-        <h2>I build stuffs 🛠</h2>
-        <p>
-          Sometimes I am motivated to build stuffs. Some are just for fun and learning, some are
-          actually kind of helpful. A lot are abandoned because I got sidetracked (don&rsquo;t we
-          all? 😅). I published them as open source projects on{' '}
-          <a href="https://github.com/jackyef" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>. I also contribute to open source libraries when I could.
-        </p>
+          <h2>I build stuffs 🛠</h2>
+          <p>
+            Sometimes I am motivated to build stuffs. Some are just for fun and learning, some are
+            actually kind of helpful. A lot are abandoned because I got sidetracked (don&rsquo;t we
+            all? 😅). I published them as open source projects on{' '}
+            <a href="https://github.com/jackyef" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>. I also contribute to open source libraries when I could.
+          </p>
 
-        <GitHubList />
+          <GitHubList />
+        </div>
       </main>
 
       <style jsx>
         {`
+          @keyframes headlineEntry {
+            from {
+              opacity: 0.5;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          @keyframes bodytextEntry {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
           .main {
             padding: 0 ${theme.space.inset.default};
             margin: ${theme.space.m} auto;
+          }
+
+          .body {
+            animation-name: bodytextEntry;
+            animation-duration: ${theme.time.duration.long};
           }
 
           a {
@@ -65,6 +90,8 @@ const WhatIDo = ({ theme }) => {
 
           h1 {
             margin-bottom: ${theme.space.default};
+            animation-name: headlineEntry;
+            animation-duration: ${theme.time.duration.long};
           }
 
           h2 {

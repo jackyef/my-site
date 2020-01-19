@@ -9,11 +9,11 @@ const Carousel = ({ children }) => {
   const nextRef = useRef();
 
   const handlePrev = useCallback(() => {
-    carouselRef.current.scrollBy({ left: -window.innerWidth * 0.5, behavior: 'smooth' });
+    carouselRef.current.scrollBy({ left: -window.innerWidth * 0.3, behavior: 'smooth' });
   }, []);
 
   const handleNext = useCallback(() => {
-    carouselRef.current.scrollBy({ left: window.innerWidth * 0.5, behavior: 'smooth' });
+    carouselRef.current.scrollBy({ left: window.innerWidth * 0.3, behavior: 'smooth' });
   }, []);
 
   const handleScroll = useCallback(() => {
