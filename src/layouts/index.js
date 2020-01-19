@@ -1,4 +1,3 @@
-import 'typeface-open-sans';
 import FontFaceObserver from 'fontfaceobserver';
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
@@ -140,9 +139,7 @@ class Layout extends React.Component {
                         padding: 0;
                       }
                       body {
-                        font-family: ${this.state.font400loaded
-                          ? "'Open Sans', sans-serif;"
-                          : 'Arial, sans-serif;'};
+                        font-family: 'Open Sans', Arial, sans-serif;
                       }
                       h1,
                       h2,

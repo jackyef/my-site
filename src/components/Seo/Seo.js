@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import config from '../../../content/meta/config';
+import fontStylesheet from './fontStylesheet';
 
 const Seo = props => {
   const { data, facebook } = props;
@@ -16,30 +17,48 @@ const Seo = props => {
   const url = config.siteUrl + config.pathPrefix + postSlug;
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang: config.siteLanguage,
-        prefix: 'og: http://ogp.me/ns#',
-      }}
-    >
-      {/* General tags */}
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      {/* OpenGraph tags */}
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:type" content="website" />
-      <meta name="google-site-verification" content="MXUQmmnRvuWRzx7IMgocc8oVLeoW1KAe_R6rvFmvIEc" />
-      {facebook ? <meta property="fb:app_id" content={facebook.appId} /> : null}
-      {/* Twitter Card tags */}
-      <meta name="twitter:card" content="summary" />
-      <meta
-        name="twitter:creator"
-        content={config.authorTwitterAccount ? config.authorTwitterAccount : ''}
-      />
-    </Helmet>
+    <>
+      <Helmet
+        htmlAttributes={{
+          lang: config.siteLanguage,
+          prefix: 'og: http://ogp.me/ns#',
+        }}
+      >
+        {/* General tags */}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        {/* OpenGraph tags */}
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:type" content="website" />
+        <meta
+          name="google-site-verification"
+          content="MXUQmmnRvuWRzx7IMgocc8oVLeoW1KAe_R6rvFmvIEc"
+        />
+        {facebook ? <meta property="fb:app_id" content={facebook.appId} /> : null}
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:creator"
+          content={config.authorTwitterAccount ? config.authorTwitterAccount : ''}
+        />
+        {/* Open Sans Latin 400 Font */}
+        <link
+          rel="preload"
+          href="https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2"
+          as="font"
+        />
+        {/* Open Sans Latin 600 Font */}
+        <link
+          rel="preload"
+          href="https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2"
+          as="font"
+        />
+      </Helmet>
+      <style jsx>{fontStylesheet}</style>
+    </>
   );
 };
 
