@@ -22,7 +22,7 @@ const Footer = props => {
             padding: 0;
 
             :global(li) {
-              color: ${theme.color.neutral.gray.g};
+              color: ${theme.color.neutral.gray.h};
               font-size: ${theme.font.size.xxs};
               padding: ${theme.space.xxs} ${theme.space.s};
               position: relative;

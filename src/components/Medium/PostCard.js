@@ -60,7 +60,7 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }) => {
             }
 
             h3 > a {
-              color: ${theme.color.neutral.gray.c};
+              color: ${theme.color.neutral.gray.a};
               text-shadow: 0px 0px 5px #333;
             }
 
