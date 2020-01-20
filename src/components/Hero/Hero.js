@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { FaArrowDown } from 'react-icons/fa/';
 
 import DarkModeToggle from './DarkModeToggle';
+import DownArrowButton from './DownArrowButton';
+import { DarkModeContext } from '../../layouts';
 
 const Hero = props => {
-  const { scrollToContent, backgrounds: _backgrounds, theme } = props;
+  const { scrollToContent, theme } = props;
+  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <React.Fragment>
       <section className="hero">
-        {/* <DarkModeToggle /> */}
+        <DarkModeToggle />
         <h1>Hi, I am Jacky 👋</h1>
-        <button onClick={scrollToContent} aria-label="scroll">
-          <FaArrowDown />
-        </button>
+        <DownArrowButton theme={theme} onClick={scrollToContent} />
       </section>
 
       {/* --- STYLES --- */}
       <style jsx>{`
         .hero {
+          position: relative;
           align-items: center;
-          background: ${theme.hero.background};
+          background: ${theme.hero.background.light};
+          z-index: 5;
           background-size: cover;
+          transition: background 0.5s ease-out;
           color: ${theme.text.color.primary.inverse};
           display: flex;
           flex-flow: column nowrap;
@@ -32,6 +36,19 @@ const Hero = props => {
           height: 100px;
           padding: ${theme.space.inset.l};
           padding-top: ${theme.header.height.homepage};
+        }
+
+        .hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: ${darkMode ? 1 : 0};
+          background: ${theme.hero.background.dark};
+          transition: 0.4s;
+          z-index: -1;
         }
 
         h1 {
@@ -59,53 +76,10 @@ const Hero = props => {
           }
         }
 
-        button {
-          background: rgba(255, 255, 255, 0.3);
-          border: 0;
-          border-radius: 50%;
-          font-size: ${theme.font.size.m};
-          padding: ${theme.space.s} ${theme.space.m};
-          cursor: pointer;
-          width: ${theme.space.xl};
-          height: ${theme.space.xl};
-
-          &:focus {
-            outline-style: none;
-            background: ${theme.color.brand.primary.active};
-          }
-
-          :global(svg) {
-            position: relative;
-            top: 5px;
-            fill: ${theme.color.neutral.white};
-            stroke-width: 40;
-            stroke: ${theme.color.neutral.white};
-            animation-duration: ${theme.time.duration.long};
-            animation-name: buttonIconMove;
-            animation-iteration-count: infinite;
-          }
-        }
-
-        @keyframes buttonIconMove {
-          0% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-
         @from-width tablet {
           h1 {
             max-width: 90%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.3)`};
-          }
-
-          button {
-            font-size: ${theme.font.size.l};
           }
         }
 
@@ -114,20 +88,10 @@ const Hero = props => {
             max-width: 80%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.5)`};
           }
-
-          button {
-            font-size: ${theme.font.size.xl};
-          }
         }
       `}</style>
     </React.Fragment>
   );
-};
-
-Hero.propTypes = {
-  scrollToContent: PropTypes.func.isRequired,
-  backgrounds: PropTypes.object,
-  theme: PropTypes.object.isRequired,
 };
 
 export default Hero;

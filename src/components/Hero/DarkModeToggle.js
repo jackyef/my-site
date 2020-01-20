@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi/';
+import { DarkModeContext } from '../../layouts';
 
 const DarkModeToggle = () => {
-  const [dark, setDark] = useState(false);
+  const { darkMode: dark, toggle } = useContext(DarkModeContext);
   const [clickCount, setClickCount] = useState(dark ? 1 : 0);
   const toggleDarkMode = () => {
     setClickCount(prev => prev + 1);
-    setDark(prev => !prev);
+    toggle();
   };
 
   const baseDegree = clickCount * 180;
@@ -74,7 +75,9 @@ const DarkModeToggle = () => {
 
         @from-width desktop {
           button {
-            display: none;
+            // display: none;
+            background: transparent;
+            border: none;
           }
         }
       `}</style>

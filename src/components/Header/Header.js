@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
@@ -81,6 +80,7 @@ class Header extends React.Component {
             top: 0;
             width: 100%;
             align-items: center;
+            z-index: 10;
 
             :global(a.logoType) {
               align-items: center;
@@ -251,10 +251,4 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  pages: PropTypes.array.isRequired,
-  path: PropTypes.string.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-export default Header;
+export default React.memo(Header);
