@@ -5,6 +5,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import { getScreenWidth, timeoutThrottlerHandler } from '../utils/helpers';
 import Footer from '../components/Footer/';
 import Header from '../components/Header';
+import fontStylesheet from './fontStylesheet';
 
 const canUseDOM = typeof window !== 'undefined';
 
@@ -14,7 +15,6 @@ export const ScreenWidthContext = React.createContext(0);
 export const FontLoadedContext = React.createContext(false);
 
 import themeObjectFromYaml from '../theme/theme.yaml';
-import fontStylesheet from './fontStylesheet';
 
 class Layout extends React.Component {
   constructor() {
@@ -26,7 +26,7 @@ class Layout extends React.Component {
       screenWidth: 0,
       headerMinimized: false,
       theme: themeObjectFromYaml,
-      darkMode: canUseDOM ? (localStorage.getItem('dark-mode') === 'true' ? true : false) : false,
+      darkMode: canUseDOM ? (localStorage.getItem('theme') === 'dark' ? true : false) : false,
     };
 
     if (typeof window !== `undefined`) {
@@ -38,12 +38,18 @@ class Layout extends React.Component {
   timeouts = {};
 
   componentDidMount() {
-    this.setState({
-      screenWidth: getScreenWidth(),
-    });
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', this.resizeThrottler, false);
     }
+
+    this.setState({
+      screenWidth: getScreenWidth(),
+      darkMode: window.__theme === 'dark',
+    });
+
+    window.__onThemeChange = newTheme => {
+      this.setState({ darkMode: newTheme === 'dark' });
+    };
   }
 
   resizeThrottler = () => {
@@ -80,12 +86,10 @@ class Layout extends React.Component {
 
   toggleDarkMode = () => {
     if (this.state.darkMode) {
-      localStorage.setItem('dark-mode', false);
+      window.__setPreferredTheme('light');
     } else {
-      localStorage.setItem('dark-mode', true);
+      window.__setPreferredTheme('dark');
     }
-
-    this.setState(prev => ({ darkMode: !prev.darkMode }));
   };
 
   render() {
@@ -137,12 +141,27 @@ class Layout extends React.Component {
                       <Footer html={footnoteHTML} theme={theme} />
 
                       {/* --- STYLES --- */}
+                      <style>{fontStylesheet}</style>
+                      {/* https://github.com/gaearon/overreacted.io/blob/a1bac20ea689e31a5e7a0be2e9d56bbf74806c5f/src/utils/global.css */}
+                      <style>{`
+                        body.light {
+                          --light-mode-enabled: 1;
+                          --dark-mode-enabled: 0;
+                          --dark-mode-toggle-rotation: 0deg;
+                        }
+
+                        body.dark {
+                          -webkit-font-smoothing: antialiased;
+                          --dark-mode-enabled: 1;
+                          --light-mode-enabled: 0;
+                          --dark-mode-toggle-rotation: 180deg;
+                        }
+                      `}</style>
                       <style jsx>{`
                         main {
                           min-height: 80vh;
                         }
                       `}</style>
-                      <style>{fontStylesheet}</style>
                       <style jsx global>{`
                         html {
                           box-sizing: border-box;

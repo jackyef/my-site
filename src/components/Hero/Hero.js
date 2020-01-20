@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
-import { FaArrowDown } from 'react-icons/fa/';
+import React from 'react';
 
 import DarkModeToggle from './DarkModeToggle';
 import DownArrowButton from './DownArrowButton';
-import { DarkModeContext } from '../../layouts';
+
+const browserCanUseCssVariables = () => {
+  return typeof window !== 'undefined' && window.CSS && CSS.supports('color', 'var(--fake-var)');
+}
 
 const Hero = props => {
   const { scrollToContent, theme } = props;
-  const { darkMode } = useContext(DarkModeContext);
 
   return (
     <React.Fragment>
       <section className="hero">
-        <DarkModeToggle />
+        {browserCanUseCssVariables ? <DarkModeToggle /> : null}
         <h1>Hi, I am Jacky 👋</h1>
         <DownArrowButton theme={theme} onClick={scrollToContent} />
       </section>
@@ -45,7 +44,7 @@ const Hero = props => {
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: ${darkMode ? 1 : 0};
+          opacity: var(--dark-mode-enabled);
           background: ${theme.hero.background.dark};
           transition: 0.4s;
           z-index: -1;

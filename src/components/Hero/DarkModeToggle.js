@@ -1,27 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi/';
 import { DarkModeContext } from '../../layouts';
 
 const DarkModeToggle = () => {
-  const { darkMode: dark, toggle } = useContext(DarkModeContext);
-  const [clickCount, setClickCount] = useState(dark ? 1 : 0);
+  const { darkMode, toggle } = useContext(DarkModeContext);
+  const [clickCount, setClickCount] = useState(0);
   const toggleDarkMode = () => {
     setClickCount(prev => prev + 1);
     toggle();
   };
 
+  // some workaround needed to have a consistent toggle rotation
+  const initiallyDarkModeRef = useRef(darkMode);
   const baseDegree = clickCount * 180;
-
-  const sunClass = dark ? 'sun' : 'sun active';
-  const moonClass = dark ? 'moon active' : 'moon';
 
   return (
     <React.Fragment>
-      <div className={`darkmode-toggle ${dark ? 'darkmode-active' : ''}`}>
-        <button className={sunClass} onClick={toggleDarkMode}>
+      <div id="asd" className={`darkmode-toggle ${clickCount > 0 ? 'clicked' : ''}`}>
+        <button className="sun" onClick={toggleDarkMode}>
           <FiSun size={56} />
         </button>
-        <button className={moonClass} onClick={toggleDarkMode}>
+        <button className="moon" onClick={toggleDarkMode}>
           <FiMoon size={56} />
         </button>
       </div>
@@ -34,11 +33,12 @@ const DarkModeToggle = () => {
           justify-content: center;
           align-items: center;
           transition: transform 0.5s ease-out;
-          transform: rotateZ(${baseDegree}deg);
+          transform: rotateZ(var(--dark-mode-toggle-rotation)) rotateZ(${baseDegree}deg);
         }
 
-        .darkmode-active {
-          transform: rotateZ(${baseDegree}deg);
+        .clicked {
+          transform: rotateZ(${initiallyDarkModeRef.current ? '180deg' : '0deg'})
+            rotateZ(${baseDegree}deg);
         }
 
         button.sun,
@@ -47,18 +47,18 @@ const DarkModeToggle = () => {
           position: absolute;
           transition: opacity 0.3s;
           opacity: 0;
+          background: transparent;
+          border: none;
         }
 
         button.sun {
+          opacity: var(--light-mode-enabled);
           transform: translateY(-180px);
         }
 
         button.moon {
+          opacity: var(--dark-mode-enabled);
           transform: translateY(180px) rotateZ(180deg);
-        }
-
-        button.active {
-          opacity: 1;
         }
 
         @keyframes buttonIconMove {
@@ -75,7 +75,6 @@ const DarkModeToggle = () => {
 
         @from-width desktop {
           button {
-            // display: none;
             background: transparent;
             border: none;
           }
@@ -85,4 +84,4 @@ const DarkModeToggle = () => {
   );
 };
 
-export default DarkModeToggle;
+export default React.memo(DarkModeToggle);
