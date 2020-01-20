@@ -48,12 +48,14 @@ const Seo = props => {
           rel="preload"
           href="https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2"
           as="font"
+          crossOrigin
         />
         {/* Open Sans Latin 600 Font */}
         <link
           rel="preload"
           href="https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2"
           as="font"
+          crossOrigin
         />
       </Helmet>
     </>
