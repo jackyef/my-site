@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 
 import { FaArrowDown } from 'react-icons/fa/';
 
+import DarkModeToggle from './DarkModeToggle';
+
 const Hero = props => {
   const { scrollToContent, backgrounds: _backgrounds, theme } = props;
 
   return (
     <React.Fragment>
       <section className="hero">
+        {/* <DarkModeToggle /> */}
         <h1>Hi, I am Jacky 👋</h1>
         <button onClick={scrollToContent} aria-label="scroll">
           <FaArrowDown />

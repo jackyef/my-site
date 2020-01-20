@@ -128,7 +128,7 @@ class Layout extends React.Component {
                         min-height: 80vh;
                       }
                     `}</style>
-                    <style js>{fontStylesheet}</style>
+                    <style>{fontStylesheet}</style>
                     <style jsx global>{`
                       html {
                         box-sizing: border-box;
