@@ -10,4 +10,4 @@ Here are some places on the internet you can find me on:
 * [@jackyef_ on Instagram](https://instagram.com/jackyef_)
 * [@jackyef on Medium](https://medium.com/@jackyef)
 * [@jackyef on Github](https://medium.com/@jackyef)
-* [jackyef on KinkedIn](https://www.linkedin.com/in/jackyef/)
+* [jackyef on LinkedIn](https://www.linkedin.com/in/jackyef/)
