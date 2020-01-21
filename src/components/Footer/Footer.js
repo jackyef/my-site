@@ -60,4 +60,4 @@ Footer.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default Footer;
+export default React.memo(Footer);

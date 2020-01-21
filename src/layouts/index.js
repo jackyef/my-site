@@ -164,6 +164,7 @@ class Layout extends React.Component {
 
                         body.dark {
                           -webkit-font-smoothing: antialiased;
+
                           --dark-mode-enabled: 1;
                           --light-mode-enabled: 0;
                           --dark-mode-toggle-rotation: 180deg;

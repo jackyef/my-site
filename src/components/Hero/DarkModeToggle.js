@@ -1,44 +1,49 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi/';
 import { DarkModeContext } from '../../layouts';
 
+const MemoFiSun = React.memo(FiSun);
+const MemoFiMoon = React.memo(FiMoon);
+
 const DarkModeToggle = () => {
   const { darkMode, toggle } = useContext(DarkModeContext);
-  const [clickCount, setClickCount] = useState(0);
-  const toggleDarkMode = () => {
-    setClickCount(prev => prev + 1);
-    toggle();
-  };
-
+  const toggleRef = useRef();
+  const [count, setCount] = useState(0);
   // some workaround needed to have a consistent toggle rotation
   const initiallyDarkModeRef = useRef(darkMode);
-  const baseDegree = clickCount * 180;
+
+  const toggleDarkMode = () => {
+    setCount(count + 1);
+    toggle();
+
+    const baseDegree = (count + 1) * 180;
+    toggleRef.current.style.transform = `rotateZ(${
+      initiallyDarkModeRef.current ? '180deg' : '0deg'
+    })
+    rotateZ(${baseDegree}deg)`;
+  };
 
   return (
     <React.Fragment>
-      <div id="asd" className={`darkmode-toggle ${clickCount > 0 ? 'clicked' : ''}`}>
+      <div ref={toggleRef} className="darkmode-toggle">
         <button className="sun" onClick={toggleDarkMode} aria-label="light theme">
-          <FiSun size={56} />
+          <MemoFiSun size={56} />
         </button>
         <button className="moon" onClick={toggleDarkMode} aria-label="dark theme">
-          <FiMoon size={56} />
+          <MemoFiMoon size={56} />
         </button>
       </div>
       {/* --- STYLES --- */}
       <style jsx>{`
         .darkmode-toggle {
           position: absolute;
-          width: 100%;
+          width: 0px;
           display: flex;
           justify-content: center;
           align-items: center;
           transition: transform 0.5s ease-out;
-          transform: rotateZ(var(--dark-mode-toggle-rotation)) rotateZ(${baseDegree}deg);
-        }
-
-        .clicked {
-          transform: rotateZ(${initiallyDarkModeRef.current ? '180deg' : '0deg'})
-            rotateZ(${baseDegree}deg);
+          will-change: transform;
+          transform: rotateZ(var(--dark-mode-toggle-rotation));
         }
 
         button.sun,
