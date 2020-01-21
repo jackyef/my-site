@@ -45,11 +45,15 @@ export default class HTML extends React.Component {
             dangerouslySetInnerHTML={{
               __html: `
               (function() {
+                var __metaTheme = document.querySelector("meta[name='theme-color']");
+                var __metaThemeColor = { light: __metaTheme.getAttribute('content'), dark: '#222' };
+
                 window.__onThemeChange = function() {};
                 function setTheme(newTheme) {
                   window.__theme = newTheme;
                   preferredTheme = newTheme;
                   document.body.className = newTheme;
+                  __metaTheme.setAttribute('content', __metaThemeColor[newTheme]);
                   window.__onThemeChange(newTheme);
                 }
                 var preferredTheme;
