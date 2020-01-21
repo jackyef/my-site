@@ -39,7 +39,8 @@
     "prefer-destructuring": "off",
     "prettier/prettier": ["error"],
     "react/jsx-uses-vars": "error",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-underscore-dangle": "off"
   },
   "overrides": [
     {
