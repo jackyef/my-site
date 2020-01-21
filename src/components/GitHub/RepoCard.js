@@ -22,6 +22,7 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
               border-radius: ${theme.size.radius.default};
               margin: ${theme.space.s} ${theme.space.default} ${theme.space.s} 0;
               box-shadow: 0px 3px 9px -5px rgba(0, 0, 0, 0.3);
+              box-shadow: var(--shadow);
               width: ${`calc(100% - ${theme.space.default} * 2)`};
               white-space: normal;
               vertical-align: top;
@@ -33,14 +34,13 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
               font-size: ${theme.font.size.s};
             }
 
-            h3 > a {
-              color: ${theme.color.neutral.black};
+            a {
+              color: var(--textNormal);
             }
 
             p {
               padding: 0 ${theme.space.inset.s} ${theme.space.inset.s};
               font-size: ${theme.font.size.xxs};
-              color: ${theme.color.neutral.gray.h};
             }
 
             span {
@@ -48,7 +48,6 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
               display: flex;
               padding: 0 ${theme.space.inset.s} ${theme.space.inset.s};
               font-size: ${theme.font.size.xxs};
-              color: ${theme.color.neutral.gray.g};
             }
 
             @above tablet {

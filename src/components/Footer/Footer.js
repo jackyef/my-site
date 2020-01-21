@@ -12,9 +12,14 @@ const Footer = props => {
       <style jsx>{`
         .footer {
           background: ${theme.color.neutral.white};
+          background: var(--bgPrimary);
           padding: ${theme.space.inset.default};
           padding-top: 0;
           padding-bottom: 120px;
+
+          :global(a) {
+            color: var(--textNormal);
+          }
 
           :global(ul) {
             list-style: none;

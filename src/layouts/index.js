@@ -148,6 +148,18 @@ class Layout extends React.Component {
                           --light-mode-enabled: 1;
                           --dark-mode-enabled: 0;
                           --dark-mode-toggle-rotation: 0deg;
+
+                          --bgPrimary: #fff;
+
+                          --textNormal: #2b2826;
+                          --textTitle: #2b2826;
+                          --textLink: #0959A7;
+
+                          --lineColor: #0959A7;
+
+                          --shadow: 0px 3px 9px -5px rgba(0, 0, 0, 0.3);
+
+                          --imageFilter: none;
                         }
 
                         body.dark {
@@ -155,6 +167,18 @@ class Layout extends React.Component {
                           --dark-mode-enabled: 1;
                           --light-mode-enabled: 0;
                           --dark-mode-toggle-rotation: 180deg;
+
+                          --bgPrimary: #161616;
+
+                          --textNormal: #fafaf9;
+                          --textTitle: #fafaf9;
+                          --textLink: #f2fafe;
+
+                          --lineColor: #333;
+
+                          --shadow: 0px 3px 9px -5px rgba(200, 200, 200, 0.3);
+
+                          --imageFilter: brightness(0.8);
                         }
                       `}</style>
                       <style jsx>{`
@@ -165,6 +189,7 @@ class Layout extends React.Component {
                       <style jsx global>{`
                         html {
                           box-sizing: border-box;
+                          color: var(--textNormal);
                         }
                         *,
                         *:after,
@@ -172,9 +197,12 @@ class Layout extends React.Component {
                           box-sizing: inherit;
                           margin: 0;
                           padding: 0;
+                          transition: color 0.3s, background 0.3s;
                         }
                         body {
                           font-family: 'Open Sans', Arial, sans-serif;
+                          background: var(--bgPrimary);
+                          overflow-x: hidden;
                         }
                         h1,
                         h2,
@@ -183,19 +211,29 @@ class Layout extends React.Component {
                           line-height: 1.1;
                           letter-spacing: -0.03em;
                           margin: 0;
+                          color: var(--textTitle);
                         }
                         h1 {
                           letter-spacing: -0.04em;
                         }
                         p {
                           margin: 0;
+                          color: var(--textNormal);
                         }
+
+                        ol,
+                        ul,
+                        li {
+                          color: var(--textNormal);
+                        }
+
                         strong {
                           font-weight: ${font600loaded ? 600 : 400};
                         }
                         a {
                           text-decoration: none;
                           color: #666;
+                          color: var(--textLink);
                         }
                         main {
                           width: auto;

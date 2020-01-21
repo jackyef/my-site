@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "gatsby";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 
 const Item = props => {
   const { theme, item: { label, to, icon: Icon } = {}, onClick } = props;
 
   return (
     <React.Fragment>
-      <li className={"hiddenItem" in props ? "hiddenItem" : "item"} key={label}>
+      <li className={'hiddenItem' in props ? 'hiddenItem' : 'item'} key={label}>
         <Link
           to={to}
-          className={"hiddenItem" in props ? "inHiddenItem" : ""}
+          className={'hiddenItem' in props ? 'inHiddenItem' : ''}
           onClick={onClick}
           data-slug={to}
         >
@@ -22,6 +22,7 @@ const Item = props => {
       <style jsx>{`
         .item,
         .showItem {
+          color: var(--textNormal);
           background: transparent;
           transition: all ${theme.time.duration.default};
           display: flex;
@@ -31,6 +32,7 @@ const Item = props => {
             padding: ${theme.space.inset.s};
             display: flex;
             align-items: center;
+            color: var(--textNormal);
           }
 
           :global(svg) {
@@ -47,6 +49,7 @@ const Item = props => {
           .item {
             :global(a) {
               color: ${theme.text.color.primary};
+              color: var(--textNormal);
               padding: ${theme.space.inset.s};
               transition: all ${theme.time.duration.default};
               border-radius: ${theme.size.radius.small};
@@ -57,7 +60,8 @@ const Item = props => {
             }
 
             :global(a:hover) {
-              color: ${theme.color.brand.primary};
+              color: ${theme.color.neutral.white};
+
               background: color(white alpha(-60%));
             }
 
@@ -66,7 +70,7 @@ const Item = props => {
             }
 
             &:hover :global(svg) {
-              fill: ${theme.color.brand.primary};
+              fill: ${theme.color.neutral.white};
               opacity: 1;
 
               :global(.hero) & :global(svg) {
@@ -101,7 +105,7 @@ Item.propTypes = {
   hidden: PropTypes.bool,
   onClick: PropTypes.func,
   icon: PropTypes.func,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default Item;

@@ -84,7 +84,6 @@ const WhatIDo = ({ theme }) => {
 
           a {
             font-weight: ${theme.font.weight.bold};
-            color: ${theme.color.brand.primary};
             text-decoration: underline;
           }
 

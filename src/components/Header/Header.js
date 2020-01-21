@@ -73,7 +73,8 @@ class Header extends React.Component {
           .header {
             align-items: center;
             justify-content: center;
-            background-color: ${theme.color.neutral.white};
+            background: ${theme.color.neutral.white};
+            background: var(--bgPrimary);
             display: flex;
             height: ${theme.header.height.default};
             position: relative;
@@ -115,7 +116,6 @@ class Header extends React.Component {
 
           .logo {
             border-radius: 65% 75%;
-            border: 1px solid #eee;
             display: inline-block;
             height: 44px;
             margin: ${theme.space.inline.default};
@@ -173,7 +173,8 @@ class Header extends React.Component {
           @from-width desktop {
             .header {
               align-items: center;
-              background-color: ${theme.color.neutral.white};
+              background: ${theme.color.neutral.white};
+              background: var(--bgPrimary);
               display: flex;
               position: absolute;
               top: 0;
@@ -183,7 +184,8 @@ class Header extends React.Component {
 
               &.fixed {
                 height: ${theme.header.height.fixed};
-                background-color: ${theme.color.neutral.white};
+                background: ${theme.color.neutral.white};
+                background: var(--bgPrimary);
                 left: 0;
                 padding: 0 ${theme.space.m};
                 position: fixed;

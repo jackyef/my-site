@@ -40,7 +40,7 @@ class Image extends Component {
     if (isIntersecting && this.state.loading) {
       this.dummy.src = src;
       this.dummy.onload = () => {
-        this.image.style.opacity = 0.1;
+        // this.image.style.opacity = 0.1;
 
         loadedImageMap[src] = true;
 
@@ -59,21 +59,29 @@ class Image extends Component {
     const finalStyle = {
       width: width || '100%',
       height: height || 'auto',
-      transition: '.2s ease-in-out',
+      transition: '.2s ease-out',
       background: 'linear-gradient(112deg, #dadada, #eaeaea)',
+      opacity: '0.6',
       ...style,
     };
     const source = loading ? transparentImage : src;
 
     return (
-      <img
-        ref={this.setImageRef}
-        className={className}
-        style={finalStyle}
-        src={source}
-        alt={alt}
-        {...rest}
-      />
+      <>
+        <img
+          ref={this.setImageRef}
+          className={className}
+          style={finalStyle}
+          src={source}
+          alt={alt}
+          {...rest}
+        />
+        <style jsx>{`
+          img {
+            filter: var(--imageFilter);
+          }
+        `}</style>
+      </>
     );
   }
 }

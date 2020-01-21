@@ -166,6 +166,7 @@ class Menu extends React.Component {
           .menu {
             align-items: center;
             background: ${theme.color.neutral.white};
+            background: var(--bgPrimary);
             bottom: 0;
             display: flex;
             flex-grow: 1;
@@ -199,6 +200,7 @@ class Menu extends React.Component {
                 top: 0;
                 height: 1px;
                 background: ${theme.color.brand.primary};
+                background: var(--lineColor);
               }
 
               &.open {
@@ -213,6 +215,7 @@ class Menu extends React.Component {
 
           @from-width desktop {
             .menu {
+              color: ${theme.color.neutral.white};
               border-top: none;
               background: transparent;
               display: flex;
@@ -232,6 +235,7 @@ class Menu extends React.Component {
               margin: 0;
               position: absolute;
               background: ${theme.background.color.primary};
+              background: var(--bgPrimary);
               border: 1px solid ${theme.line.color};
               top: 48px;
               right: ${theme.space.s};
@@ -246,6 +250,7 @@ class Menu extends React.Component {
               &:after {
                 content: "";
                 background: ${theme.background.color.primary};
+                background: var(--bgPrimary);
                 z-index: 10;
                 top: -10px;
                 right: -1px;
