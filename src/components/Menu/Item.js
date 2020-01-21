@@ -61,6 +61,7 @@ const Item = props => {
 
             :global(a:hover) {
               color: ${theme.color.neutral.white};
+              color: var(--textNormal);
 
               background: color(white alpha(-60%));
             }
