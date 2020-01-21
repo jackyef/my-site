@@ -40,7 +40,7 @@ class Image extends Component {
     if (isIntersecting && this.state.loading) {
       this.dummy.src = src;
       this.dummy.onload = () => {
-        // this.image.style.opacity = 0.1;
+        this.image.style.opacity = 0.1;
 
         loadedImageMap[src] = true;
 
