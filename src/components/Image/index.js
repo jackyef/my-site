@@ -61,7 +61,6 @@ class Image extends Component {
       height: height || 'auto',
       transition: '.2s ease-out',
       background: 'linear-gradient(112deg, #dadada, #eaeaea)',
-      opacity: '0.6',
       ...style,
     };
     const source = loading ? transparentImage : src;
