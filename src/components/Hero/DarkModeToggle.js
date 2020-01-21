@@ -17,10 +17,10 @@ const DarkModeToggle = () => {
   return (
     <React.Fragment>
       <div id="asd" className={`darkmode-toggle ${clickCount > 0 ? 'clicked' : ''}`}>
-        <button className="sun" onClick={toggleDarkMode}>
+        <button className="sun" onClick={toggleDarkMode} aria-label="light theme">
           <FiSun size={56} />
         </button>
-        <button className="moon" onClick={toggleDarkMode}>
+        <button className="moon" onClick={toggleDarkMode} aria-label="dark theme">
           <FiMoon size={56} />
         </button>
       </div>

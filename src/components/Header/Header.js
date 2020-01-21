@@ -130,6 +130,7 @@ class Header extends React.Component {
 
             img {
               width: 100%;
+              filter: var(--imageFilter);
             }
           }
 
