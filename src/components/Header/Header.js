@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
@@ -74,13 +73,15 @@ class Header extends React.Component {
           .header {
             align-items: center;
             justify-content: center;
-            background-color: ${theme.color.neutral.white};
+            background: ${theme.color.neutral.white};
+            background: var(--bgPrimary);
             display: flex;
             height: ${theme.header.height.default};
             position: relative;
             top: 0;
             width: 100%;
             align-items: center;
+            z-index: 10;
 
             :global(a.logoType) {
               align-items: center;
@@ -115,7 +116,6 @@ class Header extends React.Component {
 
           .logo {
             border-radius: 65% 75%;
-            border: 1px solid #eee;
             display: inline-block;
             height: 44px;
             margin: ${theme.space.inline.default};
@@ -130,6 +130,7 @@ class Header extends React.Component {
 
             img {
               width: 100%;
+              filter: var(--imageFilter);
             }
           }
 
@@ -173,17 +174,19 @@ class Header extends React.Component {
           @from-width desktop {
             .header {
               align-items: center;
-              background-color: ${theme.color.neutral.white};
+              background: ${theme.color.neutral.white};
+              background: var(--bgPrimary);
               display: flex;
               position: absolute;
               top: 0;
               width: 100%;
               justify-content: space-between;
-              transition: padding 0.5s;
+              transition: padding 0.5s, background 0.3s;
 
               &.fixed {
                 height: ${theme.header.height.fixed};
-                background-color: ${theme.color.neutral.white};
+                background: ${theme.color.neutral.white};
+                background: var(--bgPrimary);
                 left: 0;
                 padding: 0 ${theme.space.m};
                 position: fixed;
@@ -251,10 +254,4 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  pages: PropTypes.array.isRequired,
-  path: PropTypes.string.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-export default Header;
+export default React.memo(Header);

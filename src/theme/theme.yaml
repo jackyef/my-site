@@ -91,7 +91,7 @@ font:
 #TIME
 time:
   duration:
-    default: 0.5s
+    default: 0.3s
     long: 1s
 
 
@@ -136,7 +136,9 @@ hero:
     size: *font-size-xxl
     color: *color-white
     lineHeight: *font-line-height-xs
-  background: 'linear-gradient(112deg, #3c40c6, #2C9D8A)'
+  background: 
+    light: 'linear-gradient(112deg, #3c40c6, #2C9D8A)'
+    dark: 'linear-gradient(112deg, #111, #081E31)'
 blog:
   h1:
     size: *font-size-l

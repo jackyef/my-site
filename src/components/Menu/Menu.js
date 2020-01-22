@@ -9,6 +9,7 @@ import { FaHome } from 'react-icons/fa/';
 
 import Item from './Item';
 import Expand from './Expand';
+import DarkModeToggle from './DarkModeToggle';
 
 class Menu extends React.Component {
   constructor(props) {
@@ -52,91 +53,91 @@ class Menu extends React.Component {
     this.renderedItems = this.getRenderedItems();
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.path !== prevProps.path ||
-      this.props.fixed !== prevProps.fixed ||
-      this.props.screenWidth !== prevProps.screenWidth ||
-      this.props.fontLoaded !== prevProps.fontLoaded
-    ) {
-      if (this.props.path !== prevProps.path) {
-        this.closeMenu();
-      }
-      this.hideOverflowedMenuItems();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (
+  //     this.props.path !== prevProps.path ||
+  //     this.props.fixed !== prevProps.fixed ||
+  //     this.props.screenWidth !== prevProps.screenWidth ||
+  //     this.props.fontLoaded !== prevProps.fontLoaded
+  //   ) {
+  //     if (this.props.path !== prevProps.path) {
+  //       this.closeMenu();
+  //     }
+  //     this.hideOverflowedMenuItems();
+  //   }
+  // }
 
   getRenderedItems = () => {
     const itemList = this.itemList.current;
     return Array.from(itemList.children);
   };
 
-  hideOverflowedMenuItems = () => {
-    const PADDING_AND_SPACE_FOR_MORELINK = this.props.screenWidth >= 1024 ? 60 : 0;
+  // hideOverflowedMenuItems = () => {
+  //   const PADDING_AND_SPACE_FOR_MORELINK = this.props.screenWidth >= 1024 ? 60 : 0;
 
-    const itemsContainer = this.itemList.current;
-    const maxWidth = itemsContainer.offsetWidth - PADDING_AND_SPACE_FOR_MORELINK;
+  //   const itemsContainer = this.itemList.current;
+  //   const maxWidth = itemsContainer.offsetWidth - PADDING_AND_SPACE_FOR_MORELINK;
 
-    this.setState({ hiddenItems: [] }); // clears previous state
+  //   this.setState({ hiddenItems: [] }); // clears previous state
 
-    const menu = this.renderedItems.reduce(
-      (result, item) => {
-        item.classList.add('item');
-        item.classList.remove('hideItem');
+  //   const menu = this.renderedItems.reduce(
+  //     (result, item) => {
+  //       item.classList.add('item');
+  //       item.classList.remove('hideItem');
 
-        const currentCumulativeWidth = result.cumulativeWidth + item.offsetWidth;
-        result.cumulativeWidth = currentCumulativeWidth;
+  //       const currentCumulativeWidth = result.cumulativeWidth + item.offsetWidth;
+  //       result.cumulativeWidth = currentCumulativeWidth;
 
-        if (!item.classList.contains('more') && currentCumulativeWidth > maxWidth) {
-          const link = item.querySelector('a');
+  //       if (!item.classList.contains('more') && currentCumulativeWidth > maxWidth) {
+  //         const link = item.querySelector('a');
 
-          item.classList.add('hideItem');
-          item.classList.remove('item');
-          result.hiddenItems.push({
-            to: link.getAttribute('data-slug'),
-            label: link.text,
-          });
-        }
-        return result;
-      },
-      { visibleItems: [], cumulativeWidth: 0, hiddenItems: [] },
-    );
+  //         item.classList.add('hideItem');
+  //         item.classList.remove('item');
+  //         result.hiddenItems.push({
+  //           to: link.getAttribute('data-slug'),
+  //           label: link.text,
+  //         });
+  //       }
+  //       return result;
+  //     },
+  //     { visibleItems: [], cumulativeWidth: 0, hiddenItems: [] },
+  //   );
 
-    this.setState(() => ({ hiddenItems: menu.hiddenItems }));
-  };
+  //   this.setState(() => ({ hiddenItems: menu.hiddenItems }));
+  // };
 
-  toggleMenu = e => {
-    e.preventDefault();
+  // toggleMenu = e => {
+  //   e.preventDefault();
 
-    if (this.props.screenWidth < 1024) {
-      this.renderedItems.map(item => {
-        const oldClass = this.state.open ? 'showItem' : 'hideItem';
-        const newClass = this.state.open ? 'hideItem' : 'showItem';
+  //   if (this.props.screenWidth < 1024) {
+  //     this.renderedItems.map(item => {
+  //       const oldClass = this.state.open ? 'showItem' : 'hideItem';
+  //       const newClass = this.state.open ? 'hideItem' : 'showItem';
 
-        if (item.classList.contains(oldClass)) {
-          item.classList.add(newClass);
-          item.classList.remove(oldClass);
-        }
-      });
-    }
+  //       if (item.classList.contains(oldClass)) {
+  //         item.classList.add(newClass);
+  //         item.classList.remove(oldClass);
+  //       }
+  //     });
+  //   }
 
-    this.setState(prevState => ({ open: !prevState.open }));
-  };
+  //   this.setState(prevState => ({ open: !prevState.open }));
+  // };
 
-  closeMenu = () => {
-    if (this.state.open) {
-      this.setState({ open: false });
+  // closeMenu = () => {
+  //   if (this.state.open) {
+  //     this.setState({ open: false });
 
-      if (this.props.screenWidth < 1024) {
-        this.renderedItems.map(item => {
-          if (item.classList.contains('showItem')) {
-            item.classList.add('hideItem');
-            item.classList.remove('item');
-          }
-        });
-      }
-    }
-  };
+  //     if (this.props.screenWidth < 1024) {
+  //       this.renderedItems.map(item => {
+  //         if (item.classList.contains('showItem')) {
+  //           item.classList.add('hideItem');
+  //           item.classList.remove('item');
+  //         }
+  //       });
+  //     }
+  //   }
+  // };
 
   render() {
     const { screenWidth, theme } = this.props;
@@ -149,8 +150,11 @@ class Menu extends React.Component {
             {this.items.map(item => (
               <Item item={item} key={item.label} icon={item.icon} theme={theme} />
             ))}
+            <li>
+              <DarkModeToggle />
+            </li>
           </ul>
-          {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
+          {/* {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
           {open &&
             screenWidth >= 1024 && (
               <ul className="hiddenItemList">
@@ -158,7 +162,7 @@ class Menu extends React.Component {
                   <Item item={item} key={item.label} hiddenItem theme={theme} />
                 ))}
               </ul>
-            )}
+            )} */}
         </nav>
 
         {/* --- STYLES --- */}
@@ -166,6 +170,7 @@ class Menu extends React.Component {
           .menu {
             align-items: center;
             background: ${theme.color.neutral.white};
+            background: var(--bgPrimary);
             bottom: 0;
             display: flex;
             flex-grow: 1;
@@ -199,6 +204,7 @@ class Menu extends React.Component {
                 top: 0;
                 height: 1px;
                 background: ${theme.color.brand.primary};
+                background: var(--lineColor);
               }
 
               &.open {
@@ -213,6 +219,7 @@ class Menu extends React.Component {
 
           @from-width desktop {
             .menu {
+              color: ${theme.color.neutral.white};
               border-top: none;
               background: transparent;
               display: flex;
@@ -232,6 +239,7 @@ class Menu extends React.Component {
               margin: 0;
               position: absolute;
               background: ${theme.background.color.primary};
+              background: var(--bgPrimary);
               border: 1px solid ${theme.line.color};
               top: 48px;
               right: ${theme.space.s};
@@ -246,6 +254,7 @@ class Menu extends React.Component {
               &:after {
                 content: "";
                 background: ${theme.background.color.primary};
+                background: var(--bgPrimary);
                 z-index: 10;
                 top: -10px;
                 right: -1px;

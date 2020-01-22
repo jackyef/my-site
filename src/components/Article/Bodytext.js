@@ -45,6 +45,7 @@ const Bodytext = props => {
           :global(a) {
             font-weight: ${theme.font.weight.bold};
             color: ${theme.color.brand.primary};
+            color: var(--textLink);
             text-decoration: underline;
           }
           :global(a.gatsby-resp-image-link) {

@@ -22,11 +22,63 @@ export default class HTML extends React.Component {
           <link rel="apple-touch-icon" href="/icons/144x144.png" sizes="144x144" />
           <link rel="apple-touch-icon" href="/icons/152x152.png" sizes="152x152" />
           <link rel="apple-touch-icon" href="/icons/180x180.png" sizes="180x180" />
+          <link rel="shortcut icon" href="/icons/48x48.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/icons/16x16.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/icons/32x32.png" />
           <link rel="icon" type="image/png" sizes="96x96" href="/icons/96x96.png" />
+          {/* Open Sans Latin 400 Font */}
+          <link
+            rel="preload"
+            href="https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2"
+            as="font"
+            crossOrigin="true"
+          />
+          {/* Open Sans Latin 600 Font */}
+          <link
+            rel="preload"
+            href="https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2"
+            as="font"
+            crossOrigin="true"
+          />
         </head>
-        <body {...this.props.bodyAttributes}>
+        <body {...this.props.bodyAttributes} className="light">
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              (function() {
+                var __metaTheme = document.querySelector("meta[name='theme-color']");
+                var __metaThemeColor = { light: __metaTheme.getAttribute('content'), dark: '#222' };
+                window.__resetToggleCount = function() {
+                  window.__darkThemeToggleCount = 0;
+                }
+                window.__onThemeChange = function() {};
+                function setTheme(newTheme) {
+                  window.__theme = newTheme;
+                  preferredTheme = newTheme;
+                  document.body.className = newTheme;
+                  __metaTheme.setAttribute('content', __metaThemeColor[newTheme]);
+                  window.__onThemeChange(newTheme);
+                  window.__darkThemeToggleCount = typeof window.__darkThemeToggleCount !== 'undefined' ? window.__darkThemeToggleCount + 1 : 0;
+                }
+                var preferredTheme;
+                try {
+                  preferredTheme = localStorage.getItem('theme');
+                } catch (err) { }
+                window.__setPreferredTheme = function(newTheme) {
+                  setTheme(newTheme);
+                  try {
+                    localStorage.setItem('theme', newTheme);
+                  } catch (err) {}
+                }
+                var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                darkQuery.addListener(function(e) {
+                  window.__setPreferredTheme(e.matches ? 'dark' : 'light')
+                });
+                setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+              })();
+            `,
+            }}
+          />
           {this.props.preBodyComponents}
           <div key={`body`} id="___gatsby" dangerouslySetInnerHTML={{ __html: this.props.body }} />
           {this.props.postBodyComponents}
