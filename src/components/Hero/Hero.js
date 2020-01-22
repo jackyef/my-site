@@ -35,6 +35,7 @@ const Hero = props => {
           height: 100px;
           padding: ${theme.space.inset.l};
           padding-top: ${theme.header.height.homepage};
+          overflow-x: hidden;
         }
 
         .hero::before {
