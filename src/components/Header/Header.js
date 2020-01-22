@@ -77,6 +77,7 @@ class Header extends React.Component {
             background: var(--bgPrimary);
             display: flex;
             height: ${theme.header.height.default};
+            padding: ${theme.space.s};
             position: relative;
             top: 0;
             width: 100%;
