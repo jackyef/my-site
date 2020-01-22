@@ -198,7 +198,7 @@ class Layout extends React.Component {
                           box-sizing: inherit;
                           margin: 0;
                           padding: 0;
-                          transition: color 0.3s, background 0.3s;
+                          transition: color 0.3s, background 0.3s, filter 0.3s;
                         }
                         body {
                           font-family: 'Open Sans', Arial, sans-serif;

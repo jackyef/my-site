@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi/';
 import { DarkModeContext } from '../../layouts';
 
@@ -8,28 +8,39 @@ const MemoFiMoon = React.memo(FiMoon);
 const DarkModeToggle = () => {
   const { darkMode, toggle } = useContext(DarkModeContext);
   const toggleRef = useRef();
-  const [count, setCount] = useState(0);
   // some workaround needed to have a consistent toggle rotation
   const initiallyDarkModeRef = useRef(darkMode);
 
-  const toggleDarkMode = () => {
-    setCount(count + 1);
-    toggle();
+  useEffect(() => {
+    const original = window.__onThemeChange;
+    window.__resetToggleCount();
 
-    const baseDegree = (count + 1) * 180;
-    toggleRef.current.style.transform = `rotateZ(${
-      initiallyDarkModeRef.current ? '180deg' : '0deg'
-    })
-    rotateZ(${baseDegree}deg)`;
-  };
+    window.__onThemeChange = (...args) => {
+      original(...args);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const baseDegree = window.__darkThemeToggleCount * 180;
+          toggleRef.current.style.transform = `rotateZ(${
+            initiallyDarkModeRef.current ? '180deg' : '0deg'
+          })
+          rotateZ(${baseDegree}deg)`;
+        });
+      });
+    };
+
+    return () => {
+      window.__onThemeChange = original;
+    };
+  }, []);
 
   return (
     <React.Fragment>
       <div ref={toggleRef} className="darkmode-toggle">
-        <button className="sun" onClick={toggleDarkMode} aria-label="light theme">
+        <button className="sun" onClick={toggle} aria-label="light theme">
           <MemoFiSun size={56} />
         </button>
-        <button className="moon" onClick={toggleDarkMode} aria-label="dark theme">
+        <button className="moon" onClick={toggle} aria-label="dark theme">
           <MemoFiMoon size={56} />
         </button>
       </div>

@@ -59,6 +59,10 @@ const Item = props => {
               color: ${theme.color.neutral.white};
             }
 
+            :global(.homepage):not(.fixed) & :hover :global(svg) {
+              fill: ${theme.color.neutral.white};
+            }
+
             :global(a:hover) {
               color: ${theme.color.neutral.white};
               color: var(--textNormal);
@@ -72,6 +76,7 @@ const Item = props => {
 
             &:hover :global(svg) {
               fill: ${theme.color.neutral.white};
+              fill: var(--textNormal);
               opacity: 1;
 
               :global(.hero) & :global(svg) {

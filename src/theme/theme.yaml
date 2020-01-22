@@ -91,7 +91,7 @@ font:
 #TIME
 time:
   duration:
-    default: 0.5s
+    default: 0.3s
     long: 1s
 
 

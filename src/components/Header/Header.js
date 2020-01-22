@@ -181,7 +181,7 @@ class Header extends React.Component {
               top: 0;
               width: 100%;
               justify-content: space-between;
-              transition: padding 0.5s;
+              transition: padding 0.5s, background 0.3s;
 
               &.fixed {
                 height: ${theme.header.height.fixed};

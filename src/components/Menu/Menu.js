@@ -9,6 +9,7 @@ import { FaHome } from 'react-icons/fa/';
 
 import Item from './Item';
 import Expand from './Expand';
+import DarkModeToggle from './DarkModeToggle';
 
 class Menu extends React.Component {
   constructor(props) {
@@ -149,6 +150,9 @@ class Menu extends React.Component {
             {this.items.map(item => (
               <Item item={item} key={item.label} icon={item.icon} theme={theme} />
             ))}
+            <li>
+              <DarkModeToggle />
+            </li>
           </ul>
           {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
           {open &&
