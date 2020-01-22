@@ -22,6 +22,7 @@ export default class HTML extends React.Component {
           <link rel="apple-touch-icon" href="/icons/144x144.png" sizes="144x144" />
           <link rel="apple-touch-icon" href="/icons/152x152.png" sizes="152x152" />
           <link rel="apple-touch-icon" href="/icons/180x180.png" sizes="180x180" />
+          <link rel="shortcut icon" href="/icons/48x48.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/icons/16x16.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/icons/32x32.png" />
           <link rel="icon" type="image/png" sizes="96x96" href="/icons/96x96.png" />
