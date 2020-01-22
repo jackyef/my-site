@@ -173,7 +173,7 @@ class Layout extends React.Component {
 
                           --textNormal: #fafaf9;
                           --textTitle: #fafaf9;
-                          --textLink: #f2fafe;
+                          --textLink: #3999FF;
 
                           --lineColor: #333;
 
