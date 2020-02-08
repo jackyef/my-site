@@ -4,7 +4,7 @@ module.exports = {
   siteDescription: 'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐',
   siteUrl: 'https://jackyef.com',
   pathPrefix: '',
-  siteImage: '', // preview.jpg
+  siteImage: 'cover-2.jpg', // preview.jpg
   siteLanguage: 'en',
 
   /* author */
