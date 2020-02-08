@@ -6,6 +6,12 @@ const ora = require('ora');
 
 /**
  * Very crude medium scraper. Good enough for my usage.
+ * It gets:
+ * - Title
+ * - Cover Image URL
+ * - Story URL
+ * - Time to Read
+ * - Claps
  *
  * Had to made one because medium's RSS and API are just not good enough.
  */

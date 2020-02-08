@@ -1,17 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import config from '../../../content/meta/config';
 
 const Seo = props => {
-  const { data, facebook } = props;
+  const { data, facebook, description, title } = props;
   const postTitle = ((data || {}).frontmatter || {}).title;
   const postDescription = ((data || {}).frontmatter || {}).description;
   const postCover = ((data || {}).frontmatter || {}).cover;
   const postSlug = ((data || {}).fields || {}).slug;
 
-  const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
-  const description = postDescription ? postDescription : config.siteDescription;
+  const usedTitle = title
+    ? title
+    : postTitle
+      ? `${postTitle} - ${config.shortSiteTitle}`
+      : config.siteTitle;
+  const usedDescription = postDescription
+    ? postDescription
+    : description
+      ? description
+      : config.siteDescription;
   const image = postCover ? postCover : config.siteImage;
   const url = config.siteUrl + config.pathPrefix + postSlug;
 
@@ -25,11 +32,11 @@ const Seo = props => {
       >
         {/* General tags */}
         <title>{title}</title>
-        <meta name="description" content={description} />
+        <meta name="description" content={usedDescription} />
         {/* OpenGraph tags */}
         <meta property="og:url" content={url} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:title" content={usedTitle} />
+        <meta property="og:description" content={usedDescription} />
         <meta property="og:image" content={image} />
         <meta property="og:type" content="website" />
         <meta
@@ -46,11 +53,6 @@ const Seo = props => {
       </Helmet>
     </>
   );
-};
-
-Seo.propTypes = {
-  data: PropTypes.object,
-  facebook: PropTypes.object,
 };
 
 export default Seo;

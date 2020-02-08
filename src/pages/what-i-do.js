@@ -22,7 +22,10 @@ const WhatIDoPage = () => {
               }
             }
           `}</style>
-          <Seo />
+          <Seo
+            title="What I do - Jacky Efendi"
+            description="I am a software engineer, I work with JavaScript and all things web."
+          />
         </React.Fragment>
       )}
     </ThemeContext.Consumer>
