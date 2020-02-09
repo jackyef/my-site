@@ -1,23 +1,27 @@
 import React from 'react';
 import { ThemeContext } from '../../layouts';
+import Tag from '../common/Tag';
 
-const GitHubRepoCard = ({ title, description, starCount, url }) => {
+const GitHubRepoCard = ({ title, description, starCount, url, tags = [] }) => {
   return (
     <ThemeContext.Consumer>
       {theme => (
         <React.Fragment>
-          <div>
+          <div className="container">
             <h3>
               <a href={url} target="_blank" rel="noopener noreferrer">
                 {title}
               </a>{' '}
             </h3>
             <p>{description}</p>
+            {tags.length ? (
+              <div className="taglist">{tags.map(tag => <Tag key={tag}>{tag}</Tag>)}</div>
+            ) : null}
             {starCount > 0 ? <span>{starCount} stars</span> : null}
           </div>
 
           <style jsx>{`
-            div {
+            .container {
               display: inline-block;
               border-radius: ${theme.size.radius.default};
               margin: ${theme.space.s} ${theme.space.default} ${theme.space.s} 0;
@@ -27,6 +31,11 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
               white-space: normal;
               vertical-align: top;
               scroll-snap-align: start;
+            }
+
+            .taglist {
+              display: block;
+              padding: ${theme.space.s};
             }
 
             h3 {
@@ -51,7 +60,7 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
             }
 
             @above tablet {
-              div {
+              .container {
                 display: inline-flex;
                 flex-direction: column;
                 align-self: flex-start;
@@ -59,13 +68,13 @@ const GitHubRepoCard = ({ title, description, starCount, url }) => {
                 width: ${`calc(${theme.text.maxWidth.tablet} * 0.5 - ${theme.space.default} * 2)`};
               }
 
-              div:last-child {
+              .container:last-child {
                 margin-right: 0;
               }
             }
 
             @above desktop {
-              div {
+              .container {
                 width: ${`calc(${theme.text.maxWidth.desktop} * 0.5 - ${theme.space.default} * 2)`};
               }
             }
