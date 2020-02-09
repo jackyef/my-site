@@ -45,10 +45,15 @@ const Seo = props => {
         />
         {facebook ? <meta property="fb:app_id" content={facebook.appId} /> : null}
         {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={usedTitle} />
+        <meta name="twitter:description" content={usedDescription} />
+        <meta name="twitter:image" content={image} />
         <meta
           name="twitter:creator"
-          content={config.authorTwitterAccount ? config.authorTwitterAccount : ''}
+          content={
+            config.authorTwitterAccount ? `https://twitter.com/${config.authorTwitterAccount}/` : ''
+          }
         />
       </Helmet>
     </>
