@@ -7,7 +7,7 @@ const Seo = props => {
   const postTitle = ((data || {}).frontmatter || {}).title;
   const postDescription = ((data || {}).frontmatter || {}).description;
   const postCover = ((data || {}).frontmatter || {}).cover;
-  const postSlug = ((data || {}).fields || {}).slug;
+  const postSlug = ((data || {}).fields || {}).slug || '';
 
   const usedTitle = title
     ? title
