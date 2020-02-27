@@ -31,7 +31,7 @@ const Seo = props => {
         }}
       >
         {/* General tags */}
-        <title>{title}</title>
+        <title>{usedTitle}</title>
         <meta name="description" content={usedDescription} />
         {/* OpenGraph tags */}
         <meta property="og:url" content={url} />
