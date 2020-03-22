@@ -2,7 +2,7 @@
   {
     "title": "react-isomorphic-data",
     "description":
-      "Easily fetch json data in your React components, with similar APIs to react-apollo 🎉",
+      "Easily fetch json data in your React components, similar APIs to react-apollo, with Suspense SSR 🎉",
     "url": "https://github.com/jackyef/react-isomorphic-data",
     "tags": ["react", "typescript", "rollup", "lerna", "jest"]
   },
