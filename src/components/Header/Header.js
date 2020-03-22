@@ -142,7 +142,7 @@ class Header extends React.Component {
             z-index: 1;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
             top: ${path === '/' ? theme.header.height.homepage : theme.header.height.default};
           }
 
