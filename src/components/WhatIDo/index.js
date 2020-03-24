@@ -22,7 +22,7 @@ const WhatIDo = ({ theme }) => {
 
           <h2>I write (kinda) 🗒</h2>
           <p>
-            I have always been a curious person. I liked to learn things and understand how they
+            I have always been a curious person. I love to learn things and understand how they
             work. Sometimes if I find the discovery interesting, I try to write an article about
             them to share them!{' '}
           </p>
