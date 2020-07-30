@@ -50,7 +50,7 @@ let spinner = ora('Scraping in progress...').start();
           attr: 'href',
         },
         coverImage: {
-          selector: 'img[role="presentation"]',
+          selector: 'img[alt="Image for post"]', // medium changed their markup
           attr: 'src',
         },
         timeToRead: {
