@@ -39,6 +39,10 @@ module.exports = {
       spacing: {
         '9/16': '56.25%',
       },
+      textShadow: { // defaults to {}
+        'default': '0 2px 5px rgba(0, 0, 0, 0.5)',
+        'lg': '0 2px 10px rgba(0, 0, 0, 0.5)',
+      },
       lineHeight: {
         '11': '2.75rem',
         '12': '3rem',
@@ -102,5 +106,13 @@ module.exports = {
   plugins: [
     require('@tailwindcss/ui'),
     require('@tailwindcss/typography'),
+    require('tailwindcss-typography')({
+      // all these options default to the values specified here
+      ellipsis: true,         // whether to generate ellipsis utilities
+      hyphens: true,          // whether to generate hyphenation utilities
+      kerning: true,          // whether to generate kerning utilities
+      textUnset: true,        // whether to generate utilities to unset text properties
+      componentPrefix: 'c-',  // the prefix to use for text style classes
+    }),
   ],
 }

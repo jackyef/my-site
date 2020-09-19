@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Getting Content Painted under 2 seconds on the Mobile Web",
+    "url": "https://medium.com/tokopedia-engineering/getting-content-painted-under-2-seconds-on-the-mobile-web-7b3bbaca32cb?source=---------2----------------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*dt64F0e6meLcS7WOKS7lsA.jpeg?q=75",
+    "timeToRead": "9 min read",
+    "claps": "117"
+  },
+  {
+    "title": "The Case for pnpm Over npm or Yarn",
+    "url": "https://medium.com/better-programming/the-case-for-pnpm-over-npm-or-yarn-2b221607119?source=---------4----------------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*_ZwobpKb_RVWMkt38Dl3bg.png?q=75",
+    "timeToRead": "6 min read"
+  },
+  {
+    "title": "Building 60 FPS QR Scanner for the Mobile Web",
+    "url": "https://medium.com/tokopedia-engineering/building-60-fps-qr-scanner-for-the-mobile-web-eb0deddce099?source=---------5----------------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*o-1FRXCv8hwsN5IMYRxo3Q.jpeg?q=75",
+    "timeToRead": "6 min read",
+    "claps": "288"
+  },
+  {
+    "title": "Writing Your Own Changelog Generator with Git",
+    "url": "https://medium.com/better-programming/create-your-own-changelog-generator-with-git-aefda291ea93?source=---------6----------------------------",
+    "coverImage": "https://miro.medium.com/max/600/0*s1Kr_0A-w5ZCES9A?q=75",
+    "timeToRead": "8 min read"
+  },
+  {
+    "title": "WebAssembly — Is It As Scary As It Sounds?",
+    "url": "https://medium.com/better-programming/webassembly-is-it-as-scary-as-it-sounds-b0c38fb2d9c8?source=---------7----------------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*KoFqaWev5QQ_CjhzAojv4g.png?q=75",
+    "timeToRead": "10 min read"
+  },
+  {
+    "title": "Achieving 90+ Mobile Web Performance at Tokopedia",
+    "url": "https://medium.com/tokopedia-engineering/achieving-90-mobile-web-performance-at-tokopedia-23f557d98d5?source=---------7------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*iutJ4V6Jl9CmLMy5zFcoAA.jpeg?q=75",
+    "timeToRead": "6 min read",
+    "claps": "894"
+  },
+  {
+    "title": "React Hooks: Why We should Embrace it",
+    "url": "https://medium.com/@jackyef/react-hooks-why-we-should-embrace-it-86e408663ad6?source=---------7------------------",
+    "coverImage": "https://miro.medium.com/max/600/1*SU5_ws88Kh_Oio_L4Myhvg.png?q=75",
+    "timeToRead": "4 min read",
+    "claps": "573"
+  }
+]
