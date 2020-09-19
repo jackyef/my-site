@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { SectionContainer } from '../components/SectionContainer';
 import Header from '../components/Header';
 import { MetaTags } from '../components/Seo/MetaTags';
+import { Footer } from '../components/Footer';
 
 import '../styles/tailwind.css';
 
@@ -16,6 +17,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </SectionContainer>
       <SectionContainer>
         <Component {...pageProps} />
+      </SectionContainer>
+      <SectionContainer>
+        <Footer />
       </SectionContainer>
     </>
   )

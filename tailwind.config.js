@@ -57,6 +57,7 @@ module.exports = {
           blue: '#93ddfd',
           white: '#fff',
         },
+        white: 'var(--color-white)',
       },
       typography: (theme) => ({
         default: {
