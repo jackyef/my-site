@@ -1,8 +1,13 @@
 const withImages = require('next-images');
-const withPrefresh = require('@prefresh/next')  
+const withPrefresh = require('@prefresh/next');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 const { flowRight } = require('./utils/flow.js');
 
 const conf = {
+  experimental: { modern: true }, // enable experimental module/nomodule optimisation
+
   webpack(config, { dev, isServer }) {
     // Move Preact into the framework chunk instead of duplicating in routes:
     const splitChunks = config.optimization && config.optimization.splitChunks
@@ -44,4 +49,5 @@ const conf = {
 module.exports = flowRight(
   withPrefresh,
   withImages,
+  withBundleAnalyzer,
 )(conf);
