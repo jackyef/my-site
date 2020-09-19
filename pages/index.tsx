@@ -58,7 +58,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/monochrome/800x800.svg" alt="Vercel Logo" className={styles.logo} />
+          <img src="/monochrome/logo.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
