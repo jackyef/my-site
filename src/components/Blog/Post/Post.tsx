@@ -37,6 +37,8 @@ export default function Post({ meta, children, posts }: Props) {
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
 
+  console.log({ img: meta.image })
+
   return (
     <article className="xl:divide-y xl:divide-gray-200">
       <PageMetaTags

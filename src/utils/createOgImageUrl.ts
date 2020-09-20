@@ -1,4 +1,4 @@
-const baseUrl = 'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?theme=dark&md=1&fontSize=150px';
+const baseUrl = 'https://jackyef-og-img.vercel.app/';
 
 interface Params {
   title: string;
