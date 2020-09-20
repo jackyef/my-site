@@ -5,8 +5,14 @@ const publicUrl = 'https://jackyef.com';
 const title = 'jackyef.com';
 const description =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
+const defaultOgImage =
+  'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?theme=dark&md=1&fontSize=150px';
 
-export const MetaTags: React.FC = () => {
+interface Props {
+  ogImage?: string;
+}
+
+export const MetaTags: React.FC<Props> = ({ ogImage = defaultOgImage }) => {
   const themeMetaRef = React.useRef<HTMLMetaElement>(null);
 
   // React.useEffect(() => {
@@ -89,11 +95,21 @@ export const MetaTags: React.FC = () => {
       <meta name="theme-color" content="#ffffff" />
       <meta name="apple-mobile-web-app-title" content="jackyef" />
       <meta name="application-name" content="jackyef" />
+
       {/* @TODO: og's meta tag for better links */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={publicUrl} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content="article" />
+      <meta property="og:image" content={ogImage} />
+
+      {/* Twitter Meta Tags  */}
+      <meta property="twitter:url" content={publicUrl} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+
       <meta property="twitter:creator" content="@jackyef__" />
     </Head>
   );
