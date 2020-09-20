@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-// const mdx = require('@mdx-js/mdx')
+const mdx = require('@mdx-js/mdx')
 
 module.exports = {
   future: {
@@ -9,30 +9,28 @@ module.exports = {
   purge: {
     mode: 'all',
     content: [
-      './pages/**/*.{ts,tsx,js,jsx,mdx}',
-      './components/**/*.{ts,tsx,js,jsx,mdx}',
+      './src/**/*.{ts,tsx,js,jsx,mdx}',
       './next.config.js',
     ],
-    // uncomment this when we want to enable mdx support
-    // options: {
-    //   extractors: [
-    //     {
-    //       extensions: ['mdx'],
-    //       extractor: (content) => {
-    //         content = mdx.sync(content)
+    options: {
+      extractors: [
+        {
+          extensions: ['mdx'],
+          extractor: (content) => {
+            content = mdx.sync(content)
 
-    //         // Capture as liberally as possible, including things like `h-(screen-1.5)`
-    //         const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
+            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []
 
-    //         // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-    //         const innerMatches =
-    //           content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) || []
+            // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+            const innerMatches =
+              content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) || []
 
-    //         return broadMatches.concat(innerMatches)
-    //       },
-    //     },
-    //   ],
-    // },
+            return broadMatches.concat(innerMatches)
+          },
+        },
+      ],
+    },
   },
   theme: {
     extend: {
