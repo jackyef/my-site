@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { InternalLink } from '../Typography/InternalLink';
 
 function Logo() {
   return (
@@ -20,12 +21,12 @@ export default function Header() {
         </Link>
       </div>
       <div className="text-base leading-5">
-        <a
-          href="https://tailwindcss.com"
-          className="font-medium text-gray-500 hover:text-gray-700"
+        <InternalLink
+          href="/blog"
+          className="font-medium text-gray-800 hover:text-gray-600"
         >
-          Blog &rarr;
-        </a>
+          Blog
+        </InternalLink>
       </div>
     </header>
   );

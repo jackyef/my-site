@@ -12,10 +12,10 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }: Props) => {
   return (
     <>
       <div
-        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start md:w-60 max-w-md"
+        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm"
         style={{
-          width: `calc(100% - 1rem * 2)`,
           scrollSnapAlign: 'start',
+          width: `calc(100% - 1rem * 2)`,
         }}
       >
         <img
