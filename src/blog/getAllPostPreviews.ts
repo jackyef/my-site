@@ -1,3 +1,5 @@
+import { Author } from './authors';
+
 function importAll(r: any) {
   return r.keys().map((fileName: string) => ({
     link: fileName.substr(1).replace(/\/index\.mdx$/, ''),
@@ -11,20 +13,20 @@ function dateSortDesc(a: string, b: string) {
   return 0;
 }
 
-interface PostMeta {
+export interface PostMeta {
   title: string;
   description: string;
   date: string;
   image: string;
+  authors: Author[];
 }
 
-interface Post {
+/** This is what is exported out of a .mdx file */
+export interface Post {
   link: string;
   module: {
-    default: {
-      Component: React.ElementType;
-      meta: PostMeta;
-    };
+    default: React.ComponentType;
+    meta: PostMeta;
   };
 }
 

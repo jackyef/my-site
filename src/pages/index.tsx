@@ -7,10 +7,9 @@ import { PageContainer } from '../components/Page/PageContainer';
 import { HorizontalDivider } from '../components/Divider';
 import getAllPostPreviews from '../blog/getAllPostPreviews';
 
-const posts = getAllPostPreviews()
+const posts = getAllPostPreviews();
 
-const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}')
-
+const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 export default function Home() {
   return (
@@ -27,9 +26,11 @@ export default function Home() {
       <Paragraph>
         <InternalLink href="/about">More about me &rarr;</InternalLink>
       </Paragraph>
-      
+
       <Paragraph>
-        <ExternalLink href="https://twitter.com/jackyef__">@jackyef__ on Twitter</ExternalLink>
+        <ExternalLink href="https://twitter.com/jackyef__">
+          @jackyef__ on Twitter
+        </ExternalLink>
       </Paragraph>
       <HorizontalDivider />
       <ul className="divide-y divide-gray-200">
@@ -40,7 +41,9 @@ export default function Home() {
                 <dl>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base leading-6 font-medium text-gray-500">
-                    <time dateTime={meta.date}>{postDateTemplate.render(new Date(meta.date))}</time>
+                    <time dateTime={meta.date}>
+                      {postDateTemplate.render(new Date(meta.date))}
+                    </time>
                   </dd>
                 </dl>
                 <div className="space-y-5 xl:col-span-3">
@@ -55,19 +58,17 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="text-base leading-6 font-medium">
-                    <InternalLink href={link}>
-                      <a
-                        className="text-teal-500 hover:text-teal-600"
-                        aria-label={`Read "${meta.title}"`}
-                      >
-                        Read more &rarr;
-                      </a>
+                    <InternalLink
+                      href={link}
+                      aria-label={`Read "${meta.title}"`}
+                    >
+                      Read more &rarr;
                     </InternalLink>
                   </div>
                 </div>
               </article>
             </li>
-          )
+          );
         })}
       </ul>
     </PageContainer>

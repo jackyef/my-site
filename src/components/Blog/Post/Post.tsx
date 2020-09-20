@@ -1,25 +1,37 @@
 import Head from 'next/head';
-import { PageTitle } from '@/components/Typography/PageTitle';
 import tinytime from 'tinytime';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
+import { PageTitle } from '@/components/Typography/PageTitle';
+
+import { PostMeta } from '@/blog/getAllPostPreviews';
+import { InternalLink } from '@/components/Typography/InternalLink';
+import { ExternalLink } from '@/components/Typography/ExternalLink';
 
 const mdxComponents = {
-  pre: ({ className, ...props }) => (
+  pre: ({ className, ...props }: any) => (
     <pre
       className={`${className} rounded-md bg-gray-800 py-3 px-4 overflow-x-auto`}
       {...props}
     />
   ),
-  'pre.code': ({ className, ...props }) => (
+  'pre.code': ({ className, ...props }: any) => (
     <code className={`${className} text-gray-200`} {...props} />
   ),
 };
 
 const postDateTemplate = tinytime('{dddd}, {MMMM} {DD}, {YYYY}');
 
-export default function Post({ meta, children, posts }) {
+interface Props {
+  meta: PostMeta;
+  children: React.ReactChildren;
+  posts: {
+    title: string;
+    link: string;
+  }[];
+}
+
+export default function Post({ meta, children, posts }: Props) {
   const router = useRouter();
   const postIndex = posts.findIndex((post) => post.link === router.pathname);
   const previous = posts[postIndex + 1];
@@ -91,12 +103,11 @@ export default function Post({ meta, children, posts }) {
                     <dd className="text-gray-900">{author.name}</dd>
                     <dt className="sr-only">Twitter</dt>
                     <dd>
-                      <a
+                      <ExternalLink
                         href={`https://twitter.com/${author.twitter}`}
-                        className="text-teal-500 hover:text-teal-600"
                       >
                         {author.twitter}
-                      </a>
+                      </ExternalLink>
                     </dd>
                   </dl>
                 </li>
@@ -108,19 +119,6 @@ export default function Post({ meta, children, posts }) {
           <div className="prose max-w-none pt-10 pb-8">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>
-          {meta.discussion && (
-            <div className="pt-6 pb-16">
-              <p>
-                Want to talk about this post?{' '}
-                <a
-                  href={meta.discussion}
-                  className="font-medium text-teal-500 hover:text-teal-600"
-                >
-                  Discuss this on GitHub &rarr;
-                </a>
-              </p>
-            </div>
-          )}
         </div>
         <footer className="text-sm font-medium leading-5 divide-y divide-gray-200 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
@@ -130,10 +128,8 @@ export default function Post({ meta, children, posts }) {
                   <h2 className="text-xs tracking-wide uppercase text-gray-500">
                     Next Article
                   </h2>
-                  <div className="text-teal-500 hover:text-teal-600">
-                    <Link href={next.link}>
-                      <a>{next.title}</a>
-                    </Link>
+                  <div>
+                    <InternalLink href={next.link}>{next.title}</InternalLink>
                   </div>
                 </div>
               )}
@@ -142,21 +138,17 @@ export default function Post({ meta, children, posts }) {
                   <h2 className="text-xs tracking-wide uppercase text-gray-500">
                     Previous Article
                   </h2>
-                  <div className="text-teal-500 hover:text-teal-600">
-                    <Link href={previous.link}>
-                      <a>{previous.title}</a>
-                    </Link>
+                  <div>
+                    <InternalLink href={previous.link}>
+                      {previous.title}
+                    </InternalLink>
                   </div>
                 </div>
               )}
             </div>
           )}
           <div className="pt-8">
-            <Link href="/">
-              <a className="text-teal-500 hover:text-teal-600">
-                &larr; Back to the blog
-              </a>
-            </Link>
+            <InternalLink href="/">&larr; Back to the blog</InternalLink>
           </div>
         </footer>
       </div>

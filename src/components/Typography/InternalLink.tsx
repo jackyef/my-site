@@ -9,10 +9,11 @@ export const InternalLink: React.FC<Props> = ({
   href,
   children,
   className = 'text-blue-600 underline hover:text-blue-400',
+  ...rest
 }) => {
   return (
     <Link href={href}>
-      <a className={className}>{children}</a>
+      <a className={className} {...rest}>{children}</a>
     </Link>
   );
 };

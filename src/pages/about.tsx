@@ -80,6 +80,7 @@ export default function About() {
         also contribute to open source libraries when I could.
         <GitHubList />
       </Paragraph>
+      <HorizontalDivider />
 
       <SectionTitle>I speak too, sometimes 🎤</SectionTitle>
       <Paragraph>
