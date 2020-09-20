@@ -10,8 +10,3 @@ body {
 body.dark-mode {
   --color-white: #0a0a0a;
 }
-
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* make scrollbar transparent */
-}
