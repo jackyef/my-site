@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
@@ -7,6 +6,7 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
+import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -39,30 +39,12 @@ export default function Post({ meta, children, posts }: Props) {
 
   return (
     <article className="xl:divide-y xl:divide-gray-200">
-      <Head>
-        <title>{meta.title} – Tailwind CSS</title>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@tailwindcss" />
-        <meta name="twitter:creator" content="@tailwindcss" />
-        <meta name="twitter:title" content={`${meta.title} – Tailwind CSS`} />
-        <meta name="twitter:description" content={meta.description} />
-        <meta
-          name="twitter:image"
-          content={`https://blog.tailwindcss.com${meta.image}`}
-        />
-        <meta
-          property="og:url"
-          content={`https://blog.tailwindcss.com${router.pathname}`}
-        />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={`${meta.title} – Tailwind CSS`} />
-        <meta property="og:description" content={meta.description} />
-        <meta
-          property="og:image"
-          content={`https://blog.tailwindcss.com${meta.image}`}
-        />
-        <meta name="description" content={meta.description}></meta>
-      </Head>
+      <PageMetaTags
+        title={`${meta.title} | jackyef.com`}
+        description={meta.description}
+        image={meta.image}
+        url={`${publicUrl}${router.pathname}`}
+      />
       <header className="pt-6 xl:pb-10">
         <div className="space-y-1 text-center">
           <dl className="space-y-10">

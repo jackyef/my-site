@@ -6,6 +6,7 @@ import { Paragraph } from '../components/Typography/Paragraph';
 import { PageContainer } from '../components/Page/PageContainer';
 import { HorizontalDivider } from '../components/Divider';
 import getAllPostPreviews from '../blog/getAllPostPreviews';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 const posts = getAllPostPreviews();
 
@@ -14,6 +15,7 @@ const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 export default function Home() {
   return (
     <PageContainer>
+      <PageMetaTags />
       <PageTitle>Hi, I am Jacky! 👋</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. Currently I am

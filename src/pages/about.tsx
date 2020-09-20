@@ -1,3 +1,4 @@
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '../components/Divider';
 import GitHubList from '../components/GitHub/List';
 import MediumList from '../components/Medium/List';
@@ -11,6 +12,7 @@ import { SectionTitle } from '../components/Typography/SectionTitle';
 export default function About() {
   return (
     <PageContainer>
+      <PageMetaTags />
       <PageTitle>About me</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
