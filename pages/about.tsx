@@ -1,6 +1,7 @@
 import { HorizontalDivider } from '../components/Divider';
 import GitHubList from '../components/GitHub/List';
 import MediumList from '../components/Medium/List';
+import { PageContainer } from '../components/Page/PageContainer';
 import { Code } from '../components/Typography/Code';
 import { ExternalLink } from '../components/Typography/ExternalLink';
 import { PageTitle } from '../components/Typography/PageTitle';
@@ -9,7 +10,7 @@ import { SectionTitle } from '../components/Typography/SectionTitle';
 
 export default function About() {
   return (
-    <>
+    <PageContainer>
       <PageTitle>About me</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
@@ -18,14 +19,13 @@ export default function About() {
         development, but I like to strengthen fundamentals and concepts to allow
         me to learn other things easier, even if they are not necessarily
         closely related to front-end development. In my personal time, I try to
-        get my hands on some new tools to learn more about them. I also applied
-        some of the stuffs from my personal learning at work when feasible, some
-        of them are:{' '}
-        <ExternalLink href="https://preactjs.com/">Preact</ExternalLink>,{' '}
-        <ExternalLink href="https://svelte.dev/">Svelte</ExternalLink>,{' '}
-        <ExternalLink href="https://pnpm.js.org/">pnpm</ExternalLink>,{' '}
-        <ExternalLink href="https://webassembly.org/">WebAssembly</ExternalLink>{' '}
-        and <ExternalLink href="https://nextjs.org/">NextJS</ExternalLink>.
+        get my hands on some new tools to learn more about them; sometimes, they
+        are even applicable at work! I love to have discussions about tech in
+        general. Feel free to{' '}
+        <ExternalLink href="https://twitter.com/jackyef__">
+          shoot me a DM/tweet on Twitter
+        </ExternalLink>{' '}
+        if you want to chat!
       </Paragraph>
 
       <Paragraph>
@@ -100,9 +100,9 @@ export default function About() {
       </Paragraph>
       <Paragraph>
         In the future, I am hoping to be more active in the community, giving
-        more talks about the web. Who knows, I might add a <Code>/talk</Code> page
-        on this site with the materials if it turns out to be a good idea!
+        more talks about the web. Who knows, I might add a <Code>/talk</Code>{' '}
+        page on this site with the materials if it turns out to be a good idea!
       </Paragraph>
-    </>
+    </PageContainer>
   );
 }

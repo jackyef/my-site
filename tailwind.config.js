@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 // const mdx = require('@mdx-js/mdx')
 
 module.exports = {
@@ -9,9 +9,9 @@ module.exports = {
   purge: {
     mode: 'all',
     content: [
-      './pages/**/*.{ts,tsx,js,jsx,mdx}', 
-      './components/**/*.{ts,tsx,js,jsx,mdx}', 
-      './next.config.js'
+      './pages/**/*.{ts,tsx,js,jsx,mdx}',
+      './components/**/*.{ts,tsx,js,jsx,mdx}',
+      './next.config.js',
     ],
     // uncomment this when we want to enable mdx support
     // options: {
@@ -36,12 +36,44 @@ module.exports = {
   },
   theme: {
     extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+        'halfFadeIn': {
+          '0%': {
+            opacity: 0.5,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+        'flyInTop': {
+          '0%': {
+            transform: 'translateY(-10px)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-in-out',
+        'halfFadeIn': 'halfFadeIn 0.3s ease-in-out',
+        'flyInTop': 'flyInTop 0.3s ease-in-out',
+      },
       spacing: {
         '9/16': '56.25%',
       },
-      textShadow: { // defaults to {}
-        'default': '0 2px 5px rgba(0, 0, 0, 0.5)',
-        'lg': '0 2px 10px rgba(0, 0, 0, 0.5)',
+      textShadow: {
+        // defaults to {}
+        default: '0 2px 5px rgba(0, 0, 0, 0.5)',
+        lg: '0 2px 10px rgba(0, 0, 0, 0.5)',
       },
       lineHeight: {
         '11': '2.75rem',
@@ -108,11 +140,11 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('tailwindcss-typography')({
       // all these options default to the values specified here
-      ellipsis: true,         // whether to generate ellipsis utilities
-      hyphens: true,          // whether to generate hyphenation utilities
-      kerning: true,          // whether to generate kerning utilities
-      textUnset: true,        // whether to generate utilities to unset text properties
-      componentPrefix: 'c-',  // the prefix to use for text style classes
+      ellipsis: true, // whether to generate ellipsis utilities
+      hyphens: true, // whether to generate hyphenation utilities
+      kerning: true, // whether to generate kerning utilities
+      textUnset: true, // whether to generate utilities to unset text properties
+      componentPrefix: 'c-', // the prefix to use for text style classes
     }),
   ],
-}
+};
