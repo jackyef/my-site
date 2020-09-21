@@ -17,11 +17,11 @@
   ],
   "rewrites": [
     {
-      "source": "^/service-worker.js$",
+      "source": "/service-worker.js",
       "destination": "/_next/static/service-worker.js"
     },
     {
-      "source": "^/feed.xml$",
+      "source": "/feed.xml",
       "destination": "/_next/static/feed.xml"
     }
   ]
