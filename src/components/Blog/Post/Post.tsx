@@ -61,6 +61,11 @@ export default function Post({ meta, children, posts }: Props) {
                   {postDateTemplateXl.render(new Date(meta.date))}
                 </time>
               </dd>
+              <div className="mx-1">&middot;</div>
+              <dt className="sr-only">Time to read</dt>
+              <dd className="leading-6 font text-gray-500">
+                {meta.readingTime} ☕
+              </dd>
             </div>
           </dl>
         </div>
