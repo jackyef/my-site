@@ -1,15 +1,11 @@
 ### To-do
-- setup preact
-- setup oceanwind
-- setup layout and design
-- migrate content from old gatsby site
 - deploy via vercel
 - transfer jackyef.com domain to this new site
-
+- service worker
 
 ### blog
-- time to read
-- created at, updated at
+- time to read (done)
+- created at, updated at (done)
 - webmentions (https://webmention.io/)
 
 

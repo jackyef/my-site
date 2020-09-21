@@ -3,6 +3,7 @@ const withPrefresh = require('@prefresh/next');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const withOffline = require('next-offline');
 
 const { createLoader } = require('simple-functional-loader');
 const rehypePrism = require('@mapbox/rehype-prism');
@@ -29,6 +30,37 @@ const conf = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
 
   experimental: { modern: true }, // enable experimental module/nomodule optimisation
+
+  workboxOpts: {
+    runtimeCaching: [
+      {
+        urlPattern: /.(png|jpg|jpeg|webp|svg)$/,
+        handler: 'CacheFirst',
+      },
+      {
+        urlPattern: /api/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheableResponse: {
+            statuses: [0, 200],
+            headers: {
+              'x-test': 'true',
+            },
+          },
+        },
+      },
+      {
+        urlPattern: /^https?.*/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'offlineCache',
+          expiration: {
+            maxEntries: 200,
+          },
+        },
+      },
+    ],
+  },
 
   webpack(config, options) {
     // Move Preact into the framework chunk instead of duplicating in routes:
@@ -157,4 +189,4 @@ const conf = {
   },
 };
 
-module.exports = flowRight(withPrefresh, withImages, withBundleAnalyzer)(conf);
+module.exports = flowRight(withPrefresh, withImages, withOffline, withBundleAnalyzer)(conf);
