@@ -13,6 +13,8 @@ interface Props {
   title?: string;
   description?: string;
   url?: string;
+  publishDate?: string;
+  readingTime?: string;
 }
 
 export const PageMetaTags: React.FC<Props> = ({
@@ -20,6 +22,8 @@ export const PageMetaTags: React.FC<Props> = ({
   title = defaultTitle,
   description = defaultDescription,
   url = publicUrl,
+  publishDate = '',
+  readingTime = '',
 }) => {
   return (
     <Head>
@@ -42,6 +46,19 @@ export const PageMetaTags: React.FC<Props> = ({
       <meta property="twitter:image" content={image} />
       <meta property="twitter:url" content={url} />
 
+      {publishDate ? (
+        <>
+          <meta name="twitter:label1" content="Published on" />
+          <meta name="twitter:data1" content={publishDate} />
+        </>
+      ) : null}
+
+      {readingTime ? (
+        <>
+          <meta name="twitter:label2" content="Reading Time" />
+          <meta name="twitter:data2" content={readingTime} />
+        </>
+      ) : null}
     </Head>
   );
 };

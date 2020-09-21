@@ -44,6 +44,8 @@ export default function Post({ meta, children, posts }: Props) {
         description={meta.description}
         image={meta.image}
         url={`${publicUrl}${router.pathname}`}
+        readingTime={meta.readingTime}
+        publishDate={postDateTemplate.render(new Date(meta.date))}
       />
       <header>
         <div>
