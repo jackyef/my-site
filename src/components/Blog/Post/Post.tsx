@@ -5,7 +5,6 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
-import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 
 const mdxComponents = {
@@ -20,7 +19,8 @@ const mdxComponents = {
   ),
 };
 
-const postDateTemplate = tinytime('{dddd}, {MMMM} {DD}, {YYYY}');
+const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
+const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
   meta: PostMeta;
@@ -38,71 +38,45 @@ export default function Post({ meta, children, posts }: Props) {
   const next = posts[postIndex - 1];
 
   return (
-    <article className="xl:divide-y xl:divide-gray-200">
+    <article>
       <PageMetaTags
         title={`${meta.title} | jackyef.com`}
         description={meta.description}
         image={meta.image}
         url={`${publicUrl}${router.pathname}`}
       />
-      <header className="pt-6 xl:pb-10">
-        <div className="space-y-1 text-center">
-          <dl className="space-y-10">
-            <div>
-              <dt className="sr-only">Published on</dt>
-              <dd className="text-base leading-6 font-medium text-gray-500">
-                <time dateTime={meta.date}>
+      <header className="pt-6">
+        <div>
+          <div>
+            <PageTitle>{meta.title}</PageTitle>
+          </div>
+          <dl className="flex justify-between items-center xl:justify-start mt-1">
+            <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-gray-600">
+              <dt>Published on</dt>
+              <dd>
+                <time className="block xl:hidden" dateTime={meta.date}>
                   {postDateTemplate.render(new Date(meta.date))}
+                </time>
+                <time className="hidden xl:block" dateTime={meta.date}>
+                  {postDateTemplateXl.render(new Date(meta.date))}
                 </time>
               </dd>
             </div>
           </dl>
-          <div>
-            <PageTitle>{meta.title}</PageTitle>
-          </div>
         </div>
       </header>
+      
+      <hr className="mx-6 xl:mx-8 bg-gray-600 my-6" />
+      
       <div
-        className="divide-y xl:divide-y-0 divide-gray-200 xl:grid xl:grid-cols-4 xl:col-gap-6 pb-16 xl:pb-20"
-        style={{ gridTemplateRows: 'auto 1fr' }}
+        className="pb-16 xl:pb-20"
       >
-        <dl className="pt-6 pb-10 xl:pt-11 xl:border-b xl:border-gray-200 xl:mr-4">
-          <dt className="sr-only">Authors</dt>
-          <dd>
-            <ul className="flex justify-center xl:block space-x-8 sm:space-x-12 xl:space-x-0 xl:space-y-8">
-              {meta.authors.map((author) => (
-                <li
-                  key={author.twitter}
-                  className="flex items-center space-x-2"
-                >
-                  <img
-                    src={author.avatar}
-                    alt=""
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <dl className="text-sm font-medium leading-5 whitespace-no-wrap">
-                    <dt className="sr-only">Name</dt>
-                    <dd className="text-gray-900">{author.name}</dd>
-                    <dt className="sr-only">Twitter</dt>
-                    <dd>
-                      <ExternalLink
-                        href={`https://twitter.com/${author.twitter}`}
-                      >
-                        {author.twitter}
-                      </ExternalLink>
-                    </dd>
-                  </dl>
-                </li>
-              ))}
-            </ul>
-          </dd>
-        </dl>
-        <div className="divide-y divide-gray-200 xl:pb-0 xl:col-span-3 xl:row-span-2">
-          <div className="prose max-w-none pt-10 pb-8">
+        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+          <div className="prose max-w-none pb-8">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>
         </div>
-        <footer className="text-sm font-medium leading-5 divide-y divide-gray-200 xl:col-start-1 xl:row-start-2">
+        <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
             <div className="space-y-8 py-8">
               {next && (
@@ -129,9 +103,6 @@ export default function Post({ meta, children, posts }: Props) {
               )}
             </div>
           )}
-          <div className="pt-8">
-            <InternalLink href="/">&larr; Back to the blog</InternalLink>
-          </div>
         </footer>
       </div>
     </article>
