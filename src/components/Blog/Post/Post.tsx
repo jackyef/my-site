@@ -45,7 +45,7 @@ export default function Post({ meta, children, posts }: Props) {
         image={meta.image}
         url={`${publicUrl}${router.pathname}`}
       />
-      <header className="pt-6">
+      <header>
         <div>
           <div>
             <PageTitle>{meta.title}</PageTitle>
