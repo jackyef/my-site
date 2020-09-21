@@ -19,6 +19,7 @@ export interface PostMeta {
   date: string;
   image: string;
   authors: Author[];
+  readingTime: string;
 }
 
 /** This is what is exported out of a .mdx file */

@@ -10,23 +10,32 @@ export const PostPreviewList = () => (
   <ul className="divide-y divide-gray-200 animate-fadeIn">
     {posts.map(({ link, module: { default: Component, meta } }) => {
       return (
-        <li key={link} className="py-12">
+        <li key={link} className="py-4">
           <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
-            <dl>
-              <dt className="sr-only">Published on</dt>
-              <dd className="text-base leading-6 font-medium text-gray-500">
-                <time dateTime={meta.date}>
-                  {postDateTemplate.render(new Date(meta.date))}
-                </time>
-              </dd>
-            </dl>
             <div className="space-y-5 xl:col-span-3">
-              <div className="space-y-6">
-                <h2 className="text-2xl leading-8 font-bold tracking-tight">
-                  <InternalLink href={link}>
-                    <a className="text-gray-900">{meta.title}</a>
-                  </InternalLink>
-                </h2>
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <h2 className="text-2xl leading-8 font-bold tracking-tight">
+                    <InternalLink href={link}>
+                      <a className="text-gray-900">{meta.title}</a>
+                    </InternalLink>
+                  </h2>
+                  <div>
+                    <dl className="flex">
+                      <dt className="sr-only">Published on</dt>
+                      <dd className="text-xs leading-6 font text-gray-500">
+                        <time dateTime={meta.date}>
+                          {postDateTemplate.render(new Date(meta.date))}
+                        </time>
+                      </dd>
+                      <div className="mx-1">&middot;</div>
+                      <dt className="sr-only">Time to read</dt>
+                      <dd className="text-xs leading-6 font text-gray-500">
+                        {meta.readingTime} ☕
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
                 <div className="prose max-w-none text-gray-600">
                   <Component />
                 </div>
