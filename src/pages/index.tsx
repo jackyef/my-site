@@ -6,6 +6,7 @@ import { PageContainer } from '../components/Page/PageContainer';
 import { HorizontalDivider } from '../components/Divider';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
+import { SectionTitle } from '@/components/Typography/SectionTitle';
 
 export default function Home() {
   return (
@@ -31,6 +32,9 @@ export default function Home() {
       </Paragraph>
       <HorizontalDivider />
 
+      <SectionTitle>
+        Latest writings ✍️
+      </SectionTitle>
       <PostPreviewList />
     </PageContainer>
   );

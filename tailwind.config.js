@@ -96,7 +96,7 @@ module.exports = {
       typography: (theme) => ({
         default: {
           css: {
-            color: theme('colors.gray.700'),
+            color: theme('colors.gray.800'),
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),

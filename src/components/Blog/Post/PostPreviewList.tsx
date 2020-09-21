@@ -7,7 +7,7 @@ const posts = getAllPostPreviews();
 const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 export const PostPreviewList = () => (
-  <ul className="divide-y divide-gray-200">
+  <ul className="divide-y divide-gray-200 animate-fadeIn">
     {posts.map(({ link, module: { default: Component, meta } }) => {
       return (
         <li key={link} className="py-12">
@@ -27,7 +27,7 @@ export const PostPreviewList = () => (
                     <a className="text-gray-900">{meta.title}</a>
                   </InternalLink>
                 </h2>
-                <div className="prose max-w-none text-gray-500">
+                <div className="prose max-w-none text-gray-600">
                   <Component />
                 </div>
               </div>

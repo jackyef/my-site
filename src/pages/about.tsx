@@ -13,7 +13,7 @@ export default function About() {
   return (
     <PageContainer>
       <PageMetaTags />
-      <PageTitle>About me</PageTitle>
+      <PageTitle>About me 👨‍💻</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
         person and I love to learn how things work, and why they are made the
@@ -36,7 +36,7 @@ export default function About() {
       </Paragraph>
       <HorizontalDivider />
 
-      <SectionTitle>Professional summary</SectionTitle>
+      <SectionTitle>Professional summary 💼</SectionTitle>
       <Paragraph>
         Currently I am working with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}

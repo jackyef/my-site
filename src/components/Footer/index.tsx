@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="text-sm text-center py-4">
+    <footer className="text-sm text-center py-8">
       <a
         href="https://github.com/jackyef"
         target="_blank"

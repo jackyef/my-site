@@ -38,7 +38,7 @@ export default function Post({ meta, children, posts }: Props) {
   const next = posts[postIndex - 1];
 
   return (
-    <article>
+    <article className="animate-flyInTop">
       <PageMetaTags
         title={`${meta.title} | jackyef.com`}
         description={meta.description}
@@ -50,14 +50,14 @@ export default function Post({ meta, children, posts }: Props) {
           <div>
             <PageTitle>{meta.title}</PageTitle>
           </div>
-          <dl className="flex justify-between items-center xl:justify-start mt-1">
+          <dl className="mt-1">
             <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-gray-600">
               <dt>Published on</dt>
               <dd>
-                <time className="block xl:hidden" dateTime={meta.date}>
+                <time className="block md:hidden" dateTime={meta.date}>
                   {postDateTemplate.render(new Date(meta.date))}
                 </time>
-                <time className="hidden xl:block" dateTime={meta.date}>
+                <time className="hidden md:block" dateTime={meta.date}>
                   {postDateTemplateXl.render(new Date(meta.date))}
                 </time>
               </dd>
@@ -65,13 +65,11 @@ export default function Post({ meta, children, posts }: Props) {
           </dl>
         </div>
       </header>
-      
+
       <hr className="mx-6 xl:mx-8 bg-gray-600 my-6" />
-      
-      <div
-        className="pb-16 xl:pb-20"
-      >
-        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+
+      <div className="pb-16 xl:pb-20">
+        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2 animate-fadeIn">
           <div className="prose max-w-none pb-8">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>

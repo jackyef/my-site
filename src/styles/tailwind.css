@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 body {
-  --color-white: #fff;
+  --text-color: #2b2826;
   background: #fafafa;
 }
 
 body.dark-mode {
-  --color-white: #0a0a0a;
+  --text-color: #fafaf9;
 }
