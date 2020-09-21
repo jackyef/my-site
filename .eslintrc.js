@@ -12,9 +12,11 @@ module.exports = {
     '@typescript-eslint/ordered-imports': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/camelcase': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/display-name': 'off',
   },
 };

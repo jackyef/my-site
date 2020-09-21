@@ -12,7 +12,7 @@ function Logo() {
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center py-8">
+    <header className="flex justify-between items-center py-6">
       <div>
         <Link href="/">
           <a aria-label="Jacky Efendi's personal site">

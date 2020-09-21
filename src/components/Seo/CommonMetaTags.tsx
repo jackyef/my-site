@@ -2,17 +2,8 @@ import * as React from 'react';
 import Head from 'next/head';
 
 const publicUrl = 'https://jackyef.com';
-const title = 'jackyef.com';
-const description =
-  'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
-const defaultOgImage =
-  'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?theme=dark&md=1&fontSize=150px';
 
-interface Props {
-  ogImage?: string;
-}
-
-export const MetaTags: React.FC<Props> = ({ ogImage = defaultOgImage }) => {
+export const CommonMetaTags = () => {
   const themeMetaRef = React.useRef<HTMLMetaElement>(null);
 
   // React.useEffect(() => {
@@ -24,13 +15,10 @@ export const MetaTags: React.FC<Props> = ({ ogImage = defaultOgImage }) => {
 
   return (
     <Head>
-      <title>{title}</title>
-      <meta name="description" content={description} />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta name="description" content={description} />
       <link rel="manifest" href="/manifest.json" />
       <meta name="mobile-web-app-capable" content="yes" />
       {/* <meta ref={themeMetaRef} name="theme-color" content={colorMode === 'light' ? '#fff' : '#1A202C'} /> */}
@@ -95,22 +83,6 @@ export const MetaTags: React.FC<Props> = ({ ogImage = defaultOgImage }) => {
       <meta name="theme-color" content="#ffffff" />
       <meta name="apple-mobile-web-app-title" content="jackyef" />
       <meta name="application-name" content="jackyef" />
-
-      {/* @TODO: og's meta tag for better links */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={publicUrl} />
-      <meta property="og:type" content="article" />
-      <meta property="og:image" content={ogImage} />
-
-      {/* Twitter Meta Tags  */}
-      <meta property="twitter:url" content={publicUrl} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-
-      <meta property="twitter:creator" content="@jackyef__" />
     </Head>
   );
 };

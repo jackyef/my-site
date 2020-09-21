@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./node_modules",
+    "paths": {
+      "@/*": ["../src/*"]
+    },
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",

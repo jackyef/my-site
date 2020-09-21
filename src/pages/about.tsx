@@ -1,3 +1,4 @@
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '../components/Divider';
 import GitHubList from '../components/GitHub/List';
 import MediumList from '../components/Medium/List';
@@ -11,7 +12,8 @@ import { SectionTitle } from '../components/Typography/SectionTitle';
 export default function About() {
   return (
     <PageContainer>
-      <PageTitle>About me</PageTitle>
+      <PageMetaTags />
+      <PageTitle>About me 👨‍💻</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
         person and I love to learn how things work, and why they are made the
@@ -30,11 +32,11 @@ export default function About() {
 
       <Paragraph>
         I am currently based in Jakarta, Indonesia (🇮🇩) and working here as
-        well, but I am open to remote roles accross the globe.
+        well, but I am open to remote roles across the globe.
       </Paragraph>
       <HorizontalDivider />
 
-      <SectionTitle>Professional summary</SectionTitle>
+      <SectionTitle>Professional summary 💼</SectionTitle>
       <Paragraph>
         Currently I am working with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}
@@ -80,6 +82,7 @@ export default function About() {
         also contribute to open source libraries when I could.
         <GitHubList />
       </Paragraph>
+      <HorizontalDivider />
 
       <SectionTitle>I speak too, sometimes 🎤</SectionTitle>
       <Paragraph>

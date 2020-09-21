@@ -5,7 +5,7 @@ interface Props {
 
 export const ExternalLink: React.FC<Props> = ({
   href,
-  className = `text-blue-600 underline hover:text-blue-400`,
+  className = `text-teal-500 underline hover:text-teal-300`,
   children,
 }) => {
   return (
