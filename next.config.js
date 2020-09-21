@@ -27,11 +27,14 @@ const tokenClassNames = {
 };
 
 const conf = {
+  target: 'serverless',
   pageExtensions: ['ts', 'tsx', 'mdx'],
 
   experimental: { modern: true }, // enable experimental module/nomodule optimisation
 
-  workboxOpts: {
+  workboxOpts: {    
+    swDest: 'static/service-worker.js',
+
     runtimeCaching: [
       {
         urlPattern: /.(png|jpg|jpeg|webp|svg)$/,
@@ -180,7 +183,10 @@ const conf = {
 
       config.entry = async () => {
         const entries = { ...(await originalEntry()) };
+
+        // we want to build this script as well, and run it on build to generate feed.xml file
         entries['./scripts/build-rss.js'] = './scripts/build-rss.js';
+        
         return entries;
       };
     }

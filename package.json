@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && npm run build:rss",
+    "build:rss": "node ./.next/serverless/scripts/build-rss.js",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build"
   },

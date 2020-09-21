@@ -21,4 +21,4 @@ getAllPostPreviews().forEach(({ link, module: { meta } }) => {
   });
 });
 
-fs.writeFileSync('./out/feed.xml', feed.xml({ indent: true }));
+fs.writeFileSync('./.next/static/feed.xml', feed.xml({ indent: true }));

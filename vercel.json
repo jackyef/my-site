@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "public, max-age=43200, immutable"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "^/service-worker.js$",
+      "destination": "/_next/static/service-worker.js"
+    },
+    {
+      "source": "^/feed.xml$",
+      "destination": "/_next/static/feed.xml"
+    }
+  ]
+}
