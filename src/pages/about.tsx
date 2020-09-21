@@ -32,7 +32,7 @@ export default function About() {
 
       <Paragraph>
         I am currently based in Jakarta, Indonesia (🇮🇩) and working here as
-        well, but I am open to remote roles accross the globe.
+        well, but I am open to remote roles across the globe.
       </Paragraph>
       <HorizontalDivider />
 

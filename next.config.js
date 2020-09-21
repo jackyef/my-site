@@ -102,6 +102,8 @@ const conf = {
           use: [
             ...mdx,
             createLoader(function(src) {
+              // this part will cut down the mdx content for previews, so we don't load too many content into
+              // pages that are showing list of post previews
               if (src.includes('<!--more-->')) {
                 const [preview] = src.split('<!--more-->');
                 return this.callback(null, preview);
@@ -116,6 +118,7 @@ const conf = {
           use: [
             ...mdx,
             createLoader(function(src) {
+              // we add getStaticProps function to get the post contents for each posts
               const content = [
                 'import Post from "@/components/Blog/Post/Post"',
                 'export { getStaticProps } from "@/blog/getStaticProps"',
