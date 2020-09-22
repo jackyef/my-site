@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Head from 'next/head';
 
-const publicUrl = 'https://jackyef.com';
+const domainName = `jackyef.com`;
+const publicUrl = `https://${domainName}`;
 
 export const CommonMetaTags = () => {
   const themeMetaRef = React.useRef<HTMLMetaElement>(null);
@@ -80,6 +81,8 @@ export const CommonMetaTags = () => {
 
       {/* Used for webmention */}
       <link href="https://twitter.com/jackyef__" rel="me" />
+      <link rel="webmention" href={`https://webmention.io/my-site-2-pi.vercel.app/webmention`} />
+      <link rel="pingback" href={`https://webmention.io/my-site-2-pi.vercel.app/xmlrpc`} />
 
       <link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
       <meta name="msapplication-TileColor" content="#ffffff" />
