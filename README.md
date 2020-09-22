@@ -15,6 +15,7 @@
 - https://jfelix.info/blog/how-to-make-a-static-blog-with-next-js
 - https://blog.tailwindcss.com/building-the-tailwind-blog
 - https://github.com/tailwindlabs/blog.tailwindcss.com
+- https://mxb.dev/blog/using-webmentions-on-static-sites/
 
 ### Tool and resources:
 - https://uigradients.com/#Hydrogen
