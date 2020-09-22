@@ -14,6 +14,8 @@ import { sendPageView } from '@/utils/tracker';
 
 const googleAnalyticsId = 'UA-149852843-3';
 
+let noAnimClassRemoved = false;
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
@@ -23,10 +25,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       sendPageView({ url });
     }
     
-    router.events.on('routeChangeComplete', handleRouteChange);
+    const removeNoAnimClass = () => {
+      if (!noAnimClassRemoved) {
+        document.body.classList.remove('no-animation');
+        noAnimClassRemoved = true;
+      }
+    }
 
+    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on('beforeHistoryChange', removeNoAnimClass);
+    
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('beforeHistoryChange', removeNoAnimClass);
     }
   }, [router])
 
