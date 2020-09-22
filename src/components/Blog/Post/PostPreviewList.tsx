@@ -16,19 +16,21 @@ export const PostPreviewList = () => (
               <div className="space-y-4">
                 <div className="space-y-1">
                   <h2 className="text-2xl leading-8 font-bold tracking-tight">
-                    <InternalLink href={link}>
-                      <a className="text-gray-900">{meta.title}</a>
+                    <InternalLink href={link} className="text-gray-900 underline">
+                      {meta.title}
                     </InternalLink>
                   </h2>
-                  <div>
-                    <dl className="flex">
+                  <div className="flex">
+                    <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-xs leading-6 font text-gray-500">
                         <time dateTime={meta.date}>
                           {postDateTemplate.render(new Date(meta.date))}
                         </time>
                       </dd>
-                      <div className="mx-1">&middot;</div>
+                    </dl>
+                    <div className="mx-1">&middot;</div>
+                    <dl>
                       <dt className="sr-only">Time to read</dt>
                       <dd className="text-xs leading-6 font text-gray-500">
                         {meta.readingTime} ☕

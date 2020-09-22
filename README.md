@@ -1,10 +1,11 @@
 ### To-do
-- deploy via vercel
+- deploy via vercel (done)
 - transfer jackyef.com domain to this new site
-- service worker
+- service worker + pwa (done)
+- dark mode/theming (https://mxb.dev/assets/css/theme.css)
 
 ### blog
-- time to read (done)
+- time to read (done, but manual)
 - created at, updated at (done)
 - webmentions (https://webmention.io/)
 
