@@ -43,13 +43,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <Head>
-        {/* Global site tag (gtag.js) - Google Analytics */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-
-        {/* The following script automatically track pageview as well */}
-        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}');`}} />
-      </Head>
       <CommonMetaTags />
       <SectionContainer>
         <Header />
@@ -60,6 +53,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <SectionContainer>
         <Footer />
       </SectionContainer>
+      <Head>
+        {/* Global site tag (gtag.js) - Google Analytics */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
+
+        {/* The following script automatically track pageview as well */}
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}');`}} />
+      </Head>
     </>
   )
 }

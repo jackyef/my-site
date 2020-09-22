@@ -3,12 +3,14 @@
 - transfer jackyef.com domain to this new site
 - service worker + pwa (done)
 - dark mode/theming (https://mxb.dev/assets/css/theme.css)
+- make sure gtag trackings work
+- make sure dns are updated
+- Add sitemap.xml
 
 ### blog
 - time to read (done, but manual)
 - created at, updated at (done)
 - webmentions (https://webmention.io/)
-
 
 ### References:
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk
