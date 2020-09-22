@@ -10,3 +10,19 @@ body {
 body.dark-mode {
   --text-color: #fafaf9;
 }
+
+@layer utilities {
+  .scroll-snap-align-start {
+    scroll-snap-align: start;
+  }
+  .scroll-snap-xm {
+    scroll-snap-type: x mandatory;
+  }
+
+  /* Make sure no animation is played on initial page load */
+  .no-animation * {
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

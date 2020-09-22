@@ -8,6 +8,19 @@ import { Footer } from '../components/Footer';
 
 import '../styles/tailwind.css';
 
+if (typeof window !== 'undefined') {
+  // some hack to only enable animation for page navigation
+  // but not initial page load
+  const enableAnim = () => {
+    console.log('no-anim removed')
+    document.body.classList.remove('no-animation');
+
+    window.removeEventListener('click', enableAnim);
+  };
+
+  window.addEventListener('click', enableAnim);
+}
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
