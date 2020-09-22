@@ -1,10 +1,15 @@
+import { sendEventTracker } from '@/utils/tracker';
 import Link from 'next/link';
 import { InternalLink } from '../Typography/InternalLink';
 
 function Logo() {
   return (
     <div className="flex items-center justify-center">
-      <img className="h-5 inline-block mr-2" src="/monochrome/logo.svg" alt="logo" />
+      <img
+        className="h-5 inline-block mr-2"
+        src="/monochrome/logo.svg"
+        alt="logo"
+      />
       <strong className="text-lg text">jackyef.com</strong>
     </div>
   );
@@ -15,7 +20,16 @@ export default function Header() {
     <header className="flex justify-between items-center py-6">
       <div>
         <Link href="/">
-          <a aria-label="Jacky Efendi's personal site">
+          <a
+            aria-label="Jacky Efendi's personal site"
+            onClick={() => {
+              sendEventTracker({
+                name: 'click',
+                category: 'header nav',
+                label: 'logo',
+              });
+            }}
+          >
             <Logo />
           </a>
         </Link>
@@ -24,6 +38,13 @@ export default function Header() {
         <InternalLink
           href="/blog"
           className="font-medium text-gray-800 hover:text-gray-600"
+          onClick={() => {
+            sendEventTracker({
+              name: 'click',
+              category: 'header nav',
+              label: 'blog',
+            });
+          }}
         >
           Blog
         </InternalLink>

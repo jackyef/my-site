@@ -7,8 +7,12 @@ import { HorizontalDivider } from '../components/Divider';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
+import { useRouter } from 'next/router';
+import { sendEventTracker } from '@/utils/tracker';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <PageContainer>
       <PageMetaTags />
@@ -22,19 +26,37 @@ export default function Home() {
       </Paragraph>
 
       <Paragraph>
-        <InternalLink href="/about">More about me &rarr;</InternalLink>
+        <InternalLink
+          href="/about"
+          onClick={() => {
+            sendEventTracker({
+              name: 'click',
+              category: `${router.pathname} - hero`,
+              label: 'More about me &arr;',
+            });
+          }}
+        >
+          More about me &rarr;
+        </InternalLink>
       </Paragraph>
 
       <Paragraph>
-        <ExternalLink href="https://twitter.com/jackyef__">
+        <ExternalLink
+          href="https://twitter.com/jackyef__"
+          onClick={() => {
+            sendEventTracker({
+              name: 'click',
+              category: `${router.pathname} - hero`,
+              label: '@jackyef__ on Twitter',
+            });
+          }}
+        >
           @jackyef__ on Twitter
         </ExternalLink>
       </Paragraph>
       <HorizontalDivider />
 
-      <SectionTitle>
-        Latest writings ✍️
-      </SectionTitle>
+      <SectionTitle>Latest writings ✍️</SectionTitle>
       <PostPreviewList />
     </PageContainer>
   );
