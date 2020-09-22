@@ -6,6 +6,7 @@
 - make sure gtag trackings work
 - make sure dns are updated
 - Add sitemap.xml
+- custom pwa install UI button
 
 ### blog
 - time to read (done, but manual)
