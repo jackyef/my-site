@@ -81,8 +81,8 @@ export const CommonMetaTags = () => {
 
       {/* Used for webmention */}
       <link href="https://twitter.com/jackyef__" rel="me" />
-      <link rel="webmention" href={`https://webmention.io/my-site-2-pi.vercel.app/webmention`} />
-      <link rel="pingback" href={`https://webmention.io/my-site-2-pi.vercel.app/xmlrpc`} />
+      <link rel="webmention" href={`https://webmention.io/${domainName}/webmention`} />
+      <link rel="pingback" href={`https://webmention.io/${domainName}/xmlrpc`} />
 
       <link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
       <meta name="msapplication-TileColor" content="#ffffff" />
