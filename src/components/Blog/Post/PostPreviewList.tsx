@@ -20,7 +20,7 @@ export const PostPreviewList = () => {
               <div className="space-y-5 xl:col-span-3">
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <h2 className="text-2xl leading-8 font-bold tracking-tight">
+                    <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
                       <InternalLink
                         href={link}
                         className="text-gray-900 underline"

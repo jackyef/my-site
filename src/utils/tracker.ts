@@ -1,7 +1,9 @@
 // Guide on how to send trackers
 // https://developers.google.com/analytics/devguides/collection/upgrade/analyticsjs
 
-declare const gtag: (type: string, name: string, params?: any) => void;
+declare global {
+  interface Window { gtag?: (type: string, name: string, params?: any) => void; }
+}
 
 interface EventParams {
   name: string;
@@ -15,8 +17,8 @@ interface EventParams {
 // label: "funny cats vids"
 
 export const sendEventTracker = ({ name, label, category }: EventParams) => {
-  if (gtag) {
-    gtag('event', name, { event_label: label, event_category: category });
+  if (window.gtag) {
+    window.gtag('event', name, { event_label: label, event_category: category });
   }
 };
 
@@ -39,8 +41,8 @@ export const sendTimingTracker = ({
   label,
   category,
 }: TimingParams) => {
-  if (gtag) {
-    gtag('event', 'timing_complete', {
+  if (window.gtag) {
+    window.gtag('event', 'timing_complete', {
       name,
       value,
       event_label: label,
@@ -54,8 +56,8 @@ interface PageViewParams {
 }
 
 export const sendPageView = ({ url }: PageViewParams) => {
-  if (gtag) {
-    gtag('event', 'page_view', {
+  if (window.gtag) {
+    window.gtag('event', 'page_view', {
       page_path: url,
       page_title: document.title,
       page_location: location.href,

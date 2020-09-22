@@ -1,16 +1,16 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
+import { SectionContainer } from '@/components/SectionContainer';
+import Header from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
-import { SectionContainer } from '../components/SectionContainer';
-import Header from '../components/Header';
-import { Footer } from '../components/Footer';
-
-import '../styles/tailwind.css';
-import { useRouter } from 'next/router';
 import { sendPageView } from '@/utils/tracker';
+
+import '@/styles/tailwind.css';
 
 const googleAnalyticsId = 'UA-149852843-3';
 
@@ -54,11 +54,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Footer />
       </SectionContainer>
       <Head>
-        {/* Global site tag (gtag.js) - Google Analytics */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-
-        {/* The following script automatically track pageview as well */}
-        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}');`}} />
+        {process.env.NODE_ENV === 'production'
+          ? (
+            <>
+              {/* Global site tag (gtag.js) - Google Analytics */}
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
+      
+              {/* The following script automatically track pageview as well */}
+              <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}');`}} />
+            </>
+          ) : null
+        }
       </Head>
     </>
   )

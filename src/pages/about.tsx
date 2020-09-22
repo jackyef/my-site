@@ -20,10 +20,7 @@ export default function About() {
         way they are. Most of my experience are with React and front-end
         development, but I like to strengthen fundamentals and concepts to allow
         me to learn other things easier, even if they are not necessarily
-        closely related to front-end development. In my personal time, I try to
-        get my hands on some new tools to learn more about them; sometimes, they
-        are even applicable at work! I love to have discussions about tech in
-        general. Feel free to{' '}
+        closely related to front-end development. Feel free to{' '}
         <ExternalLink href="https://twitter.com/jackyef__">
           shoot me a DM/tweet on Twitter
         </ExternalLink>{' '}
@@ -50,7 +47,7 @@ export default function About() {
       </Paragraph>
       <Paragraph>
         Before moving to the core team, I was part of the mobile web team. My
-        day-to-day tasks include collaborating with backend engineers, product
+        day-to-day tasks included collaborating with backend engineers, product
         owners and designers to ship features and products in a timely manner.
       </Paragraph>
       <HorizontalDivider />
@@ -68,15 +65,15 @@ export default function About() {
         you are reading this right now, hopefully I have published some writings
         on this site by then!
       </Paragraph>
-      <Paragraph>For now, here are some of my writings on Medium.</Paragraph>
+      <Paragraph>Here some of my writings on Medium.</Paragraph>
       <MediumList />
       <HorizontalDivider />
 
       <SectionTitle>I build stuffs 🛠️</SectionTitle>
       <Paragraph>
-        Sometimes I am motivated to build stuffs. Some are just for fun and
+        Sometimes, I feel motivated to build stuffs. Some are just for fun and
         learning, some are actually kind of helpful. A lot are abandoned because
-        I got sidetracked (don’t we all? 😅). I published them as open source
+        I got sidetracked (don’t we all? 😅). I published some of them as open source
         projects on{' '}
         <ExternalLink href="https://github.com/jackyef">GitHub</ExternalLink>. I
         also contribute to open source libraries when I could.
@@ -89,8 +86,7 @@ export default function About() {
         During the course of my career, I have been fortunate enough to be given
         some opportunities to give talks about web development and its
         ecosystem, both for internal and external audience. In 2020, I have
-        given 2 internal talks at Tokopedia, one about JavaScript modules, and
-        another one about JavaScript packages. I have also given 2 external
+        given 2 internal talks at Tokopedia. I have also given 2 external
         talks representing Tokopedia at{' '}
         <ExternalLink href="https://start-summit.com/schedule/">
           START Summit
