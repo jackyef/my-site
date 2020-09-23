@@ -2,34 +2,116 @@ import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
 
 export const meta = {
-  title: 'Hello world!',
-  description: `I just moved my personal site from gatsby to next, and I added a blog while I am at it.`,
-  date: '2020-09-20T23:52:03Z',
+  title: 'Building a Blog with Next.js + Preact + Tailwind',
+  description: `I rewrote my personal site from Gatsby.js to Next.js, and added a blog. Might as well write a first post on it, right?`,
+  date: '2020-09-23T14:32:02.372Z',
   authors: [jackyef],
-  image: createOgImageUrl({ title: 'Hello world!' }),
-  readingTime: '2 mins read',
+  image: createOgImageUrl({ title: 'Building a Blog with Next.js + Preact + Tailwind' }),
+  readingTime: '6 mins read',
 };
 
-My first personal site was using Gatsby. As I know NextJS more, I become more comfortable with its APIs 
-and wanted to move my personal site to it.
+Welcome! This is the first blog post I am publishing here! 🎉
 
-This is the first blog post I am posting on the new site! 🎉
+I rewrote my personal site and added a blog to it while doing it. I decided to write about 
+some of my thoughts during the process for the first post.
 
 <!--more-->
 
-## So what's in this post?
+## Why switch? 🤔
 
-Nothing, really. If you are wondering how this is set up, take a look at this great article on 
-Tailwind Blog: ["Building the Tailwind Blog"](https://blog.tailwindcss.com/building-the-tailwind-blog).
+My previous site was built using [Gatsby.js](https://www.gatsbyjs.com/). I didn't actually build it 
+from scratch though. Like a lot of people probably did at some point in their lives, I copied
+a template and build on top of it. The site worked well enough as I only wanted to have something
+simple, a homepage, an about page, and that's pretty much it. [The site is still live on Netlify](https://jackyef.netlify.app)
+if you want to check it out.
+
+After some time passed, I realize that I don't want to just have a personal site just for the sake of it,
+I want a personal site to be a **personal playground** as well! I want it to be a place here I can play around 
+with new tools or building new stuffs when I feel like to do so. When I wanted to try something out, I found 
+that I couldn't really do it as easily as I would like with how my previous site is set up. The template I used 
+came with a lot of features (which is great if you just want to get up and running quickly!), which eventually
+overwhelmed me. Making changes feels like a chore; it wasn't fun. You know how you sometimes might get 
+assigned tasks at work that doesn't excite you, but you have to do it? Yeah, that's kinda how it felt like, except
+I didn't have to do it (because I am not paid for it), so I ended up not working on it.
+
+Well, enough is enough. I finally decided to rewrite my site with something I feel more comfortable and productive with.
+I am not building a site, I am actually looking to build a personal playground! With that in mind, I 
+started to list down some goals.
+
+## The goal 🏁
+
+It doesn't make much sense to rewrite a site and keep everything the same, so I decided on some 
+stuffs that I want to achieve after the rewrite, they are:
+
+1. Being able to make changes and add stuffs easily
+2. A lightweight CSS solution
+3. A blog
+
+### Being able to make changes and add stuffs easily
+
+This is basically what the whole first section of this writing is about. I looked into several static
+site generators, with [11ty](https://www.11ty.dev/) being the one that I almost went with. 
+I wanted to work with [MDX](https://mdxjs.com/) for the blog, so I figured it would make more sense to go with 
+[React](https://reactjs.org/). So, I ended up going with [Next.js](https://nextjs.org/). 
+I really like all the optimisations I get from Next.js out of the box, and the APIs feel much more intuitive 
+to me compared to what I previously had.
+
+I am also using [Preact](https://preactjs.com/) in place of React, to shave some loads out of the bundle. The way to do it is very straightforward.
+Simply follow [this template](https://github.com/vercel/next.js/tree/canary/examples/using-preact) and you are good to go!
+[In the future though](https://github.com/vercel/next.js/issues/13969#issuecomment-641540051), 
+we might be getting a dedicated Next.js Preact plugin to make this process more seamless.
+
+I ended up going with Next.js + Preact combo part. 
+I am quite interested to play with 11ty + [Turbolinks](https://github.com/turbolinks/turbolinks) though, I might
+check them out for another project in the future.
+
+### A lightweight CSS solution 
+
+I have played around with some of the most popular CSS-in-JS solutions like 
+[`emotion`](https://github.com/emotion-js/emotion) and [`styled-components`](https://github.com/styled-components/styled-components). 
+I feel more productive with `emotion` APIs compared to `styled-components`, but it always bothered me 
+that they add a bit of extra work to the main thread compared to using vanilla CSS.
+
+I started looking into other CSS-in-JS solutions and found [`goober`](https://github.com/cristianbote/goober) and
+[`otion`](https://github.com/kripod/otion). `goober` has a <1 KB runtime, and `otion` is small and atomic! Once Facebook
+make [`stylex`](https://youtu.be/9JZHodNR184?t=319) open source, I would probably very be interested in that as well.
+
+I ended up deciding to hop off the CSS-in-JS train and went with [`tailwindcss`](https://tailwindcss.com/) for now. I have 
+heard a lot of good things about it, but I have never really tried it yet. I have to say, I am really liking it so far.
+I can be productive quickly by using all the utility classes provided by Tailwind. The documentations are very helpful 
+especially for people who are new to it like me. The ability to [purge unused CSS](https://tailwindcss.com/docs/controlling-file-size) also 
+makes it really performant as well. This site currently ships 4.6 KB (brotli) of CSS after purging.
+
+There are still a lot of Tailwind's features that I haven't leveraged though!
+
+### A blog 📝
+
+I wanted to add a feature that didn't exist on my previous site. A blog would be perfect for that!
+I am also hoping to write more in the future, so a blog aligns with that as well.
+
+MDX support was something I wanted to have on my blog, and apparently adding that was not really straightforward. 
+I read a lot of articles, and ended up going with how Tailwind Blog does it. If you want to know more about it, 
+I recommend reading their article on Tailwind Blog: ["Building the Tailwind Blog"](https://blog.tailwindcss.com/building-the-tailwind-blog).
 Most of the blog functionalities here currently is based on their implementations. I might play around 
 with other approaches and if I do find a better approach for me, I might switch in the future.
 
-## An image here
-![Automatically generated image from og iamge as a service](https://jackyef-og-img.vercel.app/Hello%20world!?theme=dark&amp;md=1&amp;fontSize=150px)
+## Deploying
 
-## A block quote here
+My previous site was deployed on [Netlify](https://www.netlify.com/), and I didn't really have any particular reason to switch.
+I switched to [Vercel](https://vercel.com/) anyway, thinking that it might be better in the long run, as I am using Next.js as well.
+What stood out to me though, was the speed of transferring the domain name over from Netlify's DNS to Vercel's. 
+I remember that I needed to wait for a few hours before I can actually access my site at [jackyef.com](https://jackyef.com)
+after adding the domain name to Netlify DNS. When I was transferring the domain to Vercel DNS, it took
+less than 5 minutes for the domain name to point to the new site! This is probably just a coincidence though, but 
+I feel like it is worth mentioning here.
 
-> Insert some witty wise words here
->
-> &mdash; <cite>Someone, 2020</cite>
+## Closing
 
+Well, that is all for the first post on this site! Honestly, the purpose of this post is mostly 
+so that the site has something to show on the homepage 😅, 
+but hopefully you got something out of it. 
+
+Thanks for reading this far! I had fun rewriting my old site, something that I haven't really had much of 
+in the past months. The site is a bit plain and simple so far, but that's okay. After all that means there are still 
+a lot of stuffs that I can play with on this playground! 
+We all need a playground where we can have a little bit of fun these days. 😄

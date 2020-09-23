@@ -96,7 +96,7 @@ module.exports = {
       typography: (theme) => ({
         default: {
           css: {
-            color: theme('colors.gray.800'),
+            color: theme('colors.gray.900'),
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
@@ -107,7 +107,6 @@ module.exports = {
               color: theme('colors.gray.900'),
             },
             'ol li:before': {
-              fontWeight: '600',
               color: theme('colors.gray.500'),
             },
             'ul li:before': {
@@ -117,11 +116,14 @@ module.exports = {
               color: theme('colors.gray.900'),
             },
             a: {
-              color: theme('colors.gray.900'),
+              color: theme('colors.teal.600'),
+              '&:hover': {
+                color: theme('colors.teal.400'),
+              },
             },
             pre: {
               color: theme('colors.gray.200'),
-              backgroundColor: theme('colors.gray.800'),
+              backgroundColor: theme('colors.gray.900'),
             },
             blockquote: {
               color: theme('colors.gray.900'),

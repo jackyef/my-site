@@ -11,7 +11,10 @@
 ### blog
 - time to read (done, but manual)
 - created at, updated at (done)
-- webmentions (https://webmention.io/)
+- webmentions (https://webmention.io/) (in checking)
+- pagination
+- Search
+- tag
 
 ### References:
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk

@@ -37,7 +37,7 @@ export default function Header() {
       <div className="text-base leading-5">
         <InternalLink
           href="/blog"
-          className="font-medium text-gray-800 hover:text-gray-600"
+          className="font-medium text-gray-900 hover:text-gray-600"
           onClick={() => {
             sendEventTracker({
               name: 'click',
