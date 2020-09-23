@@ -84,6 +84,10 @@ export const CommonMetaTags = () => {
       <link rel="webmention" href={`https://webmention.io/${domainName}/webmention`} />
       <link rel="pingback" href={`https://webmention.io/${domainName}/xmlrpc`} />
 
+      {/* indieauth auth */}
+      <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+      <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+
       <link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
