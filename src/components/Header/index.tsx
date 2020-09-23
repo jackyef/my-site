@@ -7,6 +7,8 @@ function Logo() {
     <div className="flex items-center justify-center">
       <img
         className="h-5 inline-block mr-2"
+        width="20"
+        height="20"
         src="/monochrome/logo.svg"
         alt="logo"
       />
