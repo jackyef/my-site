@@ -12,6 +12,7 @@
 - time to read (done, but manual)
 - created at, updated at (done)
 - webmentions (https://webmention.io/) (in checking)
+- share to twitter
 - pagination
 - Search
 - tag

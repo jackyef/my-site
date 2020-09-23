@@ -6,6 +6,8 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
+// import { TwitterShare } from '@/components/Social/TwitterShare';
+import { HorizontalDivider } from '@/components/Divider';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -80,6 +82,12 @@ export default function Post({ meta, children, posts }: Props) {
           <div className="prose max-w-none pb-8">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>
+
+          <HorizontalDivider />
+
+          {/* <TwitterShare text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}>
+            Share on Twitter &rarr;
+          </TwitterShare> */}
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
