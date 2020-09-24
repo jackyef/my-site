@@ -2,8 +2,8 @@
 import 'autotrack/lib/plugins/clean-url-tracker';
 import 'autotrack/lib/plugins/max-scroll-tracker';
 import 'autotrack/lib/plugins/outbound-link-tracker';
-import 'autotrack/lib/plugins/page-visibility-tracker';
 import 'autotrack/lib/plugins/url-change-tracker';
+import './autotrack/plugins/page-visibility-tracker.js';
 
 /* global ga */
 
