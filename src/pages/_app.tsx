@@ -30,9 +30,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       }
     }
 
+    window.addEventListener('scroll', removeNoAnimClass);
     router.events.on('beforeHistoryChange', removeNoAnimClass);
     
     return () => {
+      window.removeEventListener('scroll', removeNoAnimClass);
       router.events.off('beforeHistoryChange', removeNoAnimClass);
     }
   }, [router])

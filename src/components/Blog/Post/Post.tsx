@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
@@ -8,6 +9,8 @@ import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 // import { TwitterShare } from '@/components/Social/TwitterShare';
 import { HorizontalDivider } from '@/components/Divider';
+import useIntersect from '@/hooks/useIntersect';
+import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -35,9 +38,17 @@ interface Props {
 
 export default function Post({ meta, children, posts }: Props) {
   const router = useRouter();
+  const [showWebmention, setShowWebmention] = useState(false);
+  const webMentionWrapper = useIntersect<HTMLDivElement>(
+    {
+      onIntersect: () => setShowWebmention(true),
+      onlyOnce: true,
+    }
+  );
   const postIndex = posts.findIndex((post) => post.link === router.pathname);
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
+  const fullUrl = `${publicUrl}${router.pathname}`;
 
   return (
     <article className="animate-flyInTop">
@@ -45,7 +56,7 @@ export default function Post({ meta, children, posts }: Props) {
         title={`${meta.title} | jackyef.com`}
         description={meta.description}
         image={meta.image}
-        url={`${publicUrl}${router.pathname}`}
+        url={fullUrl}
         readingTime={meta.readingTime}
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
@@ -88,6 +99,9 @@ export default function Post({ meta, children, posts }: Props) {
           {/* <TwitterShare text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}>
             Share on Twitter &rarr;
           </TwitterShare> */}
+          <div ref={webMentionWrapper}>
+            {showWebmention ? <LazyWebmentionWidget url={fullUrl} /> : null}
+          </div>
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
