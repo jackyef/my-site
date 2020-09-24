@@ -61,7 +61,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
               <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
       
               {/* The following script automatically track pageview as well */}
-              <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}');`}} />
+              <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}', { 'transport_type': 'beacon' });`}} />
             </>
           ) : null
         }

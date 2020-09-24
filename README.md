@@ -12,6 +12,7 @@
 - time to read (done, but manual)
 - created at, updated at (done)
 - webmentions (https://webmention.io/) (in checking)
+  - https://webmention.io/api/mentions.jf2?target=https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind
 - share to twitter
 - pagination
 - Search
@@ -23,6 +24,8 @@
 - https://blog.tailwindcss.com/building-the-tailwind-blog
 - https://github.com/tailwindlabs/blog.tailwindcss.com
 - https://mxb.dev/blog/using-webmentions-on-static-sites/
+- https://stackoverflow.com/questions/52561036/google-analytics-transport-beacon-no-http-response-detected
+- https://philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build/#loading-analyticsjs
 
 ### Tool and resources:
 - https://uigradients.com/#Hydrogen
