@@ -7,7 +7,7 @@ let analyticsModule: AnalyticsModule;
 
 export const baseAnalytics = async () => {
   if (!analyticsModule) {
-    analyticsModule = await import('./base.js');
+    analyticsModule = await import(/* webpackChunkName: "analytics" */'./base.js');
   }
 
   return analyticsModule;
