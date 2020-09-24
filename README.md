@@ -13,6 +13,7 @@
 - created at, updated at (done)
 - webmentions (https://webmention.io/) (in checking)
   - https://webmention.io/api/mentions.jf2?target=https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind
+  - show discussions directly on the blog like mxb blog!
 - share to twitter
 - pagination
 - Search

@@ -42,7 +42,7 @@ export default function Post({ meta, children, posts }: Props) {
   const fullUrl = `${publicUrl}${router.pathname}`;
 
   return (
-    <article className="animate-flyInTop">
+    <article>
       <PageMetaTags
         title={`${meta.title} | jackyef.com`}
         description={meta.description}

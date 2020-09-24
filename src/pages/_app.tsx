@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app'
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import { SectionContainer } from '@/components/SectionContainer';
@@ -11,34 +10,12 @@ import { Footer } from '@/components/Footer';
 import '@/styles/tailwind.css';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
 
-let noAnimClassRemoved = false;
-
 // lazily init the analytics module from autotrack
-
 if (typeof window !== 'undefined') {
   baseAnalytics().then(m => m.init());
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const router = useRouter();
-
-  React.useEffect(() => { 
-    const removeNoAnimClass = () => {
-      if (!noAnimClassRemoved) {
-        document.body.classList.remove('no-animation');
-        noAnimClassRemoved = true;
-      }
-    }
-
-    window.addEventListener('scroll', removeNoAnimClass);
-    router.events.on('beforeHistoryChange', removeNoAnimClass);
-    
-    return () => {
-      window.removeEventListener('scroll', removeNoAnimClass);
-      router.events.off('beforeHistoryChange', removeNoAnimClass);
-    }
-  }, [router])
-
   return (
     <>
       <CommonMetaTags />
