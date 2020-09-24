@@ -6,7 +6,7 @@ const defaultTitle = 'jackyef.com';
 const defaultDescription =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
 const defaultOgImage =
-  'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?theme=dark&md=1&fontSize=150px';
+  'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?fontSize=150px';
 
 interface Props {
   image?: string;

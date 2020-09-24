@@ -2,8 +2,9 @@ const baseUrl = 'https://jackyef-og-img.vercel.app/';
 
 interface Params {
   title: string;
+  fontSize?: number;
 }
 
-export const createOgImageUrl = ({ title }: Params) => {
-  return `${baseUrl}${encodeURIComponent(title)}?theme=dark&md=1&fontSize=150px`;
+export const createOgImageUrl = ({ title, fontSize = 96 }: Params) => {
+  return `${baseUrl}${encodeURIComponent(title)}?fontSize=${fontSize}px`;
 };
