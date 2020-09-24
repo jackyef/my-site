@@ -20,7 +20,7 @@ const TRACKING_VERSION = '1';
  */
 const ALL_TRACKERS = [
   { name: 'prod', trackingId: 'UA-149852843-3' },
-  { name: 'test', trackingId: 'UA-XXXXX-Z' },
+  // { name: 'test', trackingId: 'UA-XXXXX-Z' },
 ];
 
 /**

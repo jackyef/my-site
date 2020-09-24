@@ -1,4 +1,4 @@
-import { sendEventTracker } from '@/utils/tracker';
+import { sendEventTracker } from '@/utils/analytics/tracker';
 import Link from 'next/link';
 import { InternalLink } from '../Typography/InternalLink';
 

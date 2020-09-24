@@ -1,7 +1,7 @@
 import tinytime from 'tinytime';
 import getAllPostPreviews from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
-import { sendEventTracker } from '@/utils/tracker';
+import { sendEventTracker } from '@/utils/analytics/tracker';
 import { useRouter } from 'next/router';
 
 const posts = getAllPostPreviews();
