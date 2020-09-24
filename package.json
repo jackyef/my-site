@@ -19,6 +19,7 @@
     "@types/next": "^9.0.0",
     "@types/node": "^13.7.1",
     "@types/react": "^16.9.19",
+    "@types/react-query": "^1.1.2",
     "@types/webpack-env": "^1.15.3",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
@@ -51,6 +52,7 @@
     "preact-render-to-string": "^5.1.9",
     "react": "github:preact-compat/react#1.0.0",
     "react-dom": "github:preact-compat/react-dom#1.0.0",
+    "react-query": "^2.23.0",
     "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
     "tinytime": "^0.2.6"
   }

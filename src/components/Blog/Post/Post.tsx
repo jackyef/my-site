@@ -1,13 +1,15 @@
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
-import { PageTitle } from '@/components/Typography/PageTitle';
 
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 // import { TwitterShare } from '@/components/Social/TwitterShare';
 import { HorizontalDivider } from '@/components/Divider';
+import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
+import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+import { PostHeader } from './PostHeader';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -22,7 +24,6 @@ const mdxComponents = {
 };
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
-const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
   meta: PostMeta;
@@ -38,6 +39,7 @@ export default function Post({ meta, children, posts }: Props) {
   const postIndex = posts.findIndex((post) => post.link === router.pathname);
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
+  const fullUrl = `${publicUrl}${router.pathname}`;
 
   return (
     <article className="animate-flyInTop">
@@ -45,37 +47,11 @@ export default function Post({ meta, children, posts }: Props) {
         title={`${meta.title} | jackyef.com`}
         description={meta.description}
         image={meta.image}
-        url={`${publicUrl}${router.pathname}`}
+        url={fullUrl}
         readingTime={meta.readingTime}
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
-      <header>
-        <div>
-          <div>
-            <PageTitle>{meta.title}</PageTitle>
-          </div>
-          <dl className="mt-1">
-            <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-gray-600">
-              <dt>Published on</dt>
-              <dd>
-                <time className="block md:hidden" dateTime={meta.date}>
-                  {postDateTemplate.render(new Date(meta.date))}
-                </time>
-                <time className="hidden md:block" dateTime={meta.date}>
-                  {postDateTemplateXl.render(new Date(meta.date))}
-                </time>
-              </dd>
-              <div className="mx-1">&middot;</div>
-              <dt className="sr-only">Time to read</dt>
-              <dd className="leading-6 font text-gray-500">
-                {meta.readingTime} ☕
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </header>
-
-      <hr className="mx-6 xl:mx-8 bg-gray-600 my-6" />
+      <PostHeader meta={meta} />
 
       <div className="pb-16 xl:pb-20">
         <div className="xl:pb-0 xl:col-span-3 xl:row-span-2 animate-fadeIn">
@@ -88,6 +64,9 @@ export default function Post({ meta, children, posts }: Props) {
           {/* <TwitterShare text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}>
             Share on Twitter &rarr;
           </TwitterShare> */}
+          <IOWrapper>
+            {(show) => show ?<LazyWebmentionWidget url={fullUrl} /> : null}
+          </IOWrapper>
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
