@@ -8,7 +8,8 @@ import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { useRouter } from 'next/router';
-import { sendEventTracker } from '@/utils/tracker';
+
+import { sendEventTracker } from '@/utils/analytics/tracker';
 
 export default function Home() {
   const router = useRouter();
