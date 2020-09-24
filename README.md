@@ -26,6 +26,7 @@
 - https://mxb.dev/blog/using-webmentions-on-static-sites/
 - https://stackoverflow.com/questions/52561036/google-analytics-transport-beacon-no-http-response-detected
 - https://philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build/#loading-analyticsjs
+- https://daan.dev/wordpress/difference-analyics-gtag-ga-js/
 
 ### Tool and resources:
 - https://uigradients.com/#Hydrogen

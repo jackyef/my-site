@@ -12,9 +12,13 @@ import { sendPageView } from '@/utils/tracker';
 
 import '@/styles/tailwind.css';
 
-const googleAnalyticsId = 'UA-149852843-3';
-
 let noAnimClassRemoved = false;
+
+(() => {
+  // Load custom tracking code lazily, so it's non-blocking.
+  // https://github.com/philipwalton/analyticsjs-boilerplate/blob/master/src/index.js
+  import('../utils/analytics/base.js').then((analytics) => analytics.init());
+})();
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -57,11 +61,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         {process.env.NODE_ENV === 'production'
           ? (
             <>
-              {/* Global site tag (gtag.js) - Google Analytics */}
-              <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-      
-              {/* The following script automatically track pageview as well */}
-              <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${googleAnalyticsId}', { 'transport_type': 'beacon' });`}} />
+              {/* (analytics.js) - Google Analytics */}
+              <script async src="https://www.google-analytics.com/analytics.js"></script>      
             </>
           ) : null
         }
