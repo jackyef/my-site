@@ -3,9 +3,11 @@
 - transfer jackyef.com domain to this new site
 - service worker + pwa (done)
 - dark mode/theming (https://mxb.dev/assets/css/theme.css)
-- make sure gtag trackings work
-- make sure dns are updated
+- make sure gtag trackings work (done)
+- make sure dns are updated (done)
 - Add sitemap.xml
+- add json schema for SEO purpose https://developers.google.com/search/docs/data-types/article
+- dark mode
 - custom pwa install UI button
 
 ### blog

@@ -59,6 +59,16 @@ export const PageMetaTags: React.FC<Props> = ({
           <meta name="twitter:data2" content={readingTime} />
         </>
       ) : null}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: 
+        `{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "headline": "${title}",
+          "image": ["${image}"],
+          "datePublished": "${publishDate}",
+          "dateModified": "${publishDate}"
+        }`
+      }}/>
     </Head>
   );
 };
