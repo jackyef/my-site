@@ -90,6 +90,7 @@ module.exports = {
           red: '#ff8383',
           blue: '#93ddfd',
           white: '#fff',
+          teal: '#7fdbca',
         },
         white: 'var(--color-white)',
       },
