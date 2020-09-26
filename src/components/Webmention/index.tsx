@@ -1,11 +1,17 @@
+import { PostMeta } from '@/blog/getAllPostPreviews';
+import { useRouter } from 'next/router';
+import { publicUrl } from '../Seo/PageMetaTags';
+import { TwitterShare } from '../Social/TwitterShare';
 import { useWebmention } from './hooks/useWebmention';
 
 interface Props {
   url: string;
+  meta: PostMeta;
 }
 
-const WebmentionWidget = ({ url }: Props) => {
+const WebmentionWidget = ({ url, meta }: Props) => {
   const { isLoading, isError, data, refetch } = useWebmention(url);
+  const router = useRouter();
 
   const content = (() => {
     if (isError) {
@@ -68,12 +74,22 @@ const WebmentionWidget = ({ url }: Props) => {
   })();
 
   return (
-    <div>
-      <h3 className="text-lg font-bold mb-2">Webmentions</h3>
-      <div className={isLoading ? 'animate-pulse bg-gray-300 rounded-lg' : ''}>
-        {content}
+    <>
+      <div className="mb-2">
+        <h3 className="text-lg font-bold mb-2">Webmentions</h3>
+        <div
+          className={isLoading ? 'animate-pulse bg-gray-300 rounded-lg' : ''}
+        >
+          {content}
+        </div>
       </div>
-    </div>
+
+      <TwitterShare
+        text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}
+      >
+        Discuss on Twitter
+      </TwitterShare>
+    </>
   );
 };
 

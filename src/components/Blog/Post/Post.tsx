@@ -61,11 +61,8 @@ export default function Post({ meta, children, posts }: Props) {
 
           <HorizontalDivider />
 
-          {/* <TwitterShare text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}>
-            Share on Twitter &rarr;
-          </TwitterShare> */}
           <IOWrapper>
-            {(show) => show ?<LazyWebmentionWidget url={fullUrl} /> : null}
+            {(show) => show ?<LazyWebmentionWidget url={fullUrl} meta={meta} /> : null}
           </IOWrapper>
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
