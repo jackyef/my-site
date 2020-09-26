@@ -9,8 +9,14 @@ module.exports = {
   purge: {
     mode: 'all',
     content: [
-      './src/**/*.{ts,tsx,js,jsx,mdx}',
+      // The wild card here is needed because vercel rename our next.config.js file for some of their experimental features
+      // 16:27:51.948  	-rw-r--r--   1 root root    908 Sep 26 09:27 next.config.js
+      // 16:27:51.948  	-rw-r--r--   1 root root   6595 Sep 26 09:27 next.config.original.1601112471648.js
+      // https://vercel.com/jackyef/jackyef/ekvzdkthq
+      // https://github.com/tailwindlabs/blog.tailwindcss.com/issues/13#issuecomment-699470309
       './next.config.js',
+      './code-highlighter-token.js',
+      './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     options: {
       extractors: [
@@ -90,6 +96,7 @@ module.exports = {
           red: '#ff8383',
           blue: '#93ddfd',
           white: '#fff',
+          teal: '#7fdbca',
         },
         white: 'var(--color-white)',
       },
@@ -126,6 +133,7 @@ module.exports = {
               backgroundColor: theme('colors.gray.900'),
             },
             blockquote: {
+              quotes: 'none',
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
             },

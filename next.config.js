@@ -9,22 +9,8 @@ const { createLoader } = require('simple-functional-loader');
 const rehypePrism = require('@mapbox/rehype-prism');
 const visit = require('unist-util-visit');
 
+const tokenClassNames = require('./code-highlighter-token.js')
 const { flowRight } = require('./utils/flow.js');
-
-// needed to map token to tailwind classes
-const tokenClassNames = {
-  tag: 'text-code-red',
-  'attr-name': 'text-code-yellow',
-  'attr-value': 'text-code-green',
-  deleted: 'text-code-red',
-  inserted: 'text-code-green',
-  punctuation: 'text-code-white',
-  keyword: 'text-code-purple',
-  string: 'text-code-green',
-  function: 'text-code-blue',
-  boolean: 'text-code-red',
-  comment: 'text-gray-400 italic',
-};
 
 const conf = {
   target: 'serverless',
@@ -118,8 +104,11 @@ const conf = {
                 visit(tree, 'element', (node, index, parent) => {
                   const [token, type] = node.properties.className || [];
 
+                  // console.log({ token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
+
                   if (token === 'token') {
                     node.properties.className = [tokenClassNames[type]];
+
                   }
                 });
               };
