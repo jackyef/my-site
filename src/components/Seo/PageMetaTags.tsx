@@ -59,16 +59,35 @@ export const PageMetaTags: React.FC<Props> = ({
           <meta name="twitter:data2" content={readingTime} />
         </>
       ) : null}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: 
-        `{
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `{
           "@context": "https://schema.org",
           "@type": "NewsArticle",
           "headline": "${title}",
           "image": ["${image}"],
           "datePublished": "${publishDate}",
-          "dateModified": "${publishDate}"
-        }`
-      }}/>
+          "dateModified": "${publishDate}",
+          "author": {
+            "@type": "Person",
+            "@id": "https://twitter.com/jackyef__",
+            "name": "Jacky Efendi",
+            "url": "https://twitter.com/jackyef__"
+          },
+          "publisher": {
+              "@type": "Person",
+              "@id": "https://twitter.com/jackyef__",
+              "name": "Jacky Efendi",
+              "url": "https://twitter.com/jackyef__"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://jackyef.com/"
+          }
+        }`,
+        }}
+      />
     </Head>
   );
 };
