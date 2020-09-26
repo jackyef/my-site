@@ -16,8 +16,8 @@ export const PostPreviewList = () => {
       {posts.map(({ link, module: { default: Component, meta } }) => {
         return (
           <li key={link} className="py-4">
-            <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
-              <div className="space-y-5 xl:col-span-3">
+            <article className="space-y-2">
+              <div className="space-y-5">
                 <div className="space-y-4">
                   <div className="space-y-1">
                     <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
