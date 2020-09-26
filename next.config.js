@@ -32,6 +32,10 @@ const tokenClassNames = {
   'method': 'text-code-teal',
   class: 'text-code-yellow',
   color: 'text-code-purple',
+  'function-variable': 'text-code-blue', // foo`something`; Here, foo is a function-variable
+  'variable': 'text-code-blue', // foo`something`; Here, foo is a function-variable
+  'interpolation-punctuation': 'text-code-teal', 
+  'interpolation': 'text-code-red', 
 };
 
 const conf = {
@@ -126,7 +130,7 @@ const conf = {
                 visit(tree, 'element', (node, index, parent) => {
                   const [token, type] = node.properties.className || [];
 
-                  console.log({ token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
+                  // console.log({ token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
 
                   if (token === 'token') {
                     node.properties.className = [tokenClassNames[type]];

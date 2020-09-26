@@ -127,6 +127,7 @@ module.exports = {
               backgroundColor: theme('colors.gray.900'),
             },
             blockquote: {
+              quotes: 'none',
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
             },
