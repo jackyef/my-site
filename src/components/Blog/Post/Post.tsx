@@ -44,7 +44,7 @@ export default function Post({ meta, children, posts }: Props) {
   return (
     <article>
       <PageMetaTags
-        title={`${meta.title} | jackyef.com`}
+        title={meta.title}
         description={meta.description}
         image={meta.image}
         url={fullUrl}
