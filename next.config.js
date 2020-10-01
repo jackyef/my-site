@@ -9,7 +9,7 @@ const { createLoader } = require('simple-functional-loader');
 const rehypePrism = require('@mapbox/rehype-prism');
 const visit = require('unist-util-visit');
 
-const tokenClassNames = require('./code-highlighter-token.js')
+const tokenClassNames = require('./code-highlighter-token.js');
 const { flowRight } = require('./utils/flow.js');
 
 const conf = {
@@ -18,7 +18,7 @@ const conf = {
 
   experimental: { modern: true }, // enable experimental module/nomodule optimisation
 
-  workboxOpts: {    
+  workboxOpts: {
     swDest: 'static/service-worker.js',
 
     runtimeCaching: [
@@ -69,6 +69,9 @@ const conf = {
       config.externals.push(
         /^(preact|preact-render-to-string|preact-context-provider)([\\/]|$)/,
       );
+
+      // generate sitemap.xml file
+      require('./scripts/generate-sitemap.js');
     }
 
     // Install webpack aliases:
@@ -108,7 +111,6 @@ const conf = {
 
                   if (token === 'token') {
                     node.properties.className = [tokenClassNames[type]];
-
                   }
                 });
               };
@@ -175,7 +177,7 @@ const conf = {
 
         // we want to build this script as well, and run it on build to generate feed.xml file
         entries['./scripts/build-rss.js'] = './scripts/build-rss.js';
-        
+
         return entries;
       };
     }
@@ -184,4 +186,9 @@ const conf = {
   },
 };
 
-module.exports = flowRight(withPrefresh, withImages, withOffline, withBundleAnalyzer)(conf);
+module.exports = flowRight(
+  withPrefresh,
+  withImages,
+  withOffline,
+  withBundleAnalyzer,
+)(conf);
