@@ -47,7 +47,6 @@ export default function Post({ meta, children, posts }: Props) {
         title={meta.title}
         description={meta.description}
         image={meta.image}
-        url={fullUrl}
         readingTime={meta.readingTime}
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />

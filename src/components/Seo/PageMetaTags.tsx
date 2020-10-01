@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export const publicUrl = 'https://jackyef.com';
 const defaultTitle = 'jackyef.com';
@@ -12,7 +13,6 @@ interface Props {
   image?: string;
   title?: string;
   description?: string;
-  url?: string;
   publishDate?: string;
   readingTime?: string;
 }
@@ -21,14 +21,17 @@ export const PageMetaTags: React.FC<Props> = ({
   image = defaultOgImage,
   title = defaultTitle,
   description = defaultDescription,
-  url = publicUrl,
   publishDate = '',
   readingTime = '',
 }) => {
+  const router = useRouter();
+  const url = `${publicUrl}${router.pathname}`;
+
   return (
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
 
       {/* Facebook OG meta tags */}
       <meta property="og:url" content={url} />
