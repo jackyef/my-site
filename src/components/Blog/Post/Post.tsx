@@ -62,7 +62,9 @@ export default function Post({ meta, children, posts }: Props) {
           <HorizontalDivider />
 
           <IOWrapper>
-            {(show) => show ?<LazyWebmentionWidget url={fullUrl} meta={meta} /> : null}
+            {(show) =>
+              show ? <LazyWebmentionWidget url={fullUrl} meta={meta} /> : null
+            }
           </IOWrapper>
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
