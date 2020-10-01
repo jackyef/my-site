@@ -7,7 +7,7 @@ The site is powered by:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vercel](https://vercel.com)
 
-If you are interested on the thought process of builing the site initially, you can read this blog post: [Building a Blog with Next + Preact + Tailwind](https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind)
+If you are interested on the thought process of building the site initially, you can read this blog post: [Building a Blog with Next + Preact + Tailwind](https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind)
 
 ### References:
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk
@@ -23,7 +23,7 @@ If you are interested on the thought process of builing the site initially, you 
 ### Tool and resources:
 - https://uigradients.com/#Hydrogen
 - https://github.com/nicolesaidy/awesome-web-design
-- tablericons.com
+- https://tablericons.com
 - https://1stwebdesigner.com/css-effects/
 - https://www.drawkit.io/
-- grabient.com
+- https://grabient.com

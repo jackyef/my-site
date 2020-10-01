@@ -16,13 +16,13 @@ const tokenClassNames = {
   property: 'text-code-teal',
   'property-access': 'text-code-teal',
   dom: 'text-code-blue',
-  'method': 'text-code-teal',
+  method: 'text-code-teal',
   class: 'text-code-yellow',
   color: 'text-code-purple',
-  'function-variable': 'text-code-blue', // foo`something`; Here, foo is a function-variable
-  'variable': 'text-code-blue', // foo`something`; Here, foo is a function-variable
-  'interpolation-punctuation': 'text-code-teal', 
-  'interpolation': 'text-code-red', 
+  'function-variable': 'text-code-blue',
+  variable: 'text-code-blue',
+  'interpolation-punctuation': 'text-code-teal',
+  interpolation: 'text-code-red',
 };
 
 module.exports = tokenClassNames;
