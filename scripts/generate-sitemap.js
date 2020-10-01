@@ -5,6 +5,7 @@
  * - https://support.google.com/webmasters/answer/183668?hl=en
  */
 
+const path = require('path');
 const fs = require('fs');
 const globby = require('globby');
 const xmlFormat = require('xml-formatter');
@@ -44,7 +45,10 @@ async function generateSiteMap() {
       </urlset>
   `;
 
-  fs.writeFileSync('./.next/static/sitemap.xml', xmlFormat(sitemap));
+  fs.writeFileSync(
+    path.resolve(__dirname, '../.next/static/sitemap.xml'),
+    xmlFormat(sitemap),
+  );
 }
 
 generateSiteMap();

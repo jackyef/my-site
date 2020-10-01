@@ -69,9 +69,6 @@ const conf = {
       config.externals.push(
         /^(preact|preact-render-to-string|preact-context-provider)([\\/]|$)/,
       );
-
-      // generate sitemap.xml file
-      require('./scripts/generate-sitemap.js');
     }
 
     // Install webpack aliases:
