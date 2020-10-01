@@ -42,8 +42,6 @@ const WebmentionWidget = ({ url, meta }: Props) => {
     if (data) {
       const { likes, reposts, discussions, authors } = data;
 
-      console.log({ discussions });
-
       const maxAuthorsShown = 4;
       const _authors =
         authors.length > maxAuthorsShown
