@@ -11,7 +11,7 @@ import '@/styles/tailwind.css';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
 
 // lazily init the analytics module from autotrack
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
   // the analytic script requests to /collect is blocked
   // on lighthouse, not sure why. But it causes -7 points in Best Practice,
   // so we disable them there
