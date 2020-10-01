@@ -1,25 +1,13 @@
-### To-do
-- deploy via vercel (done)
-- transfer jackyef.com domain to this new site
-- service worker + pwa (done)
-- dark mode/theming (https://mxb.dev/assets/css/theme.css)
-- make sure gtag trackings work (done)
-- make sure dns are updated (done)
-- Add sitemap.xml
-- add json schema for SEO purpose https://developers.google.com/search/docs/data-types/article
-- dark mode
-- custom pwa install UI button
+## Welcome 👋
+This repo contains the code powering [jackyef.com](https://jackyef.com)
 
-### blog
-- time to read (done, but manual)
-- created at, updated at (done)
-- webmentions (https://webmention.io/) (in checking)
-  - https://webmention.io/api/mentions.jf2?target=https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind
-  - show discussions directly on the blog like mxb blog!
-- share to twitter
-- pagination
-- Search
-- tag
+The site is powered by:
+- [Next.js](https://nextjs.org/)
+- [Preact](https://preactjs.com)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vercel](https://vercel.com)
+
+If you are interested on the thought process of builing the site initially, you can read this blog post: [Building a Blog with Next + Preact + Tailwind](https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind)
 
 ### References:
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk
