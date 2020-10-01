@@ -88,6 +88,7 @@ export const CommonMetaTags = () => {
       <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
       <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
 
+      <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
       <link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />

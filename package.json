@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run build:rss",
+    "build": "next build && npm run build:rss && npm run build:sitemap",
     "build:rss": "node ./.next/serverless/scripts/build-rss.js",
+    "build:sitemap": "node ./scripts/generate-sitemap.js",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build"
   },
@@ -29,6 +30,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "globby": "^11.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",
     "react-refresh": "^0.8.3",
@@ -37,7 +39,8 @@
     "tailwindcss": "^1.8.10",
     "tailwindcss-typography": "^3.1.0",
     "typescript": "^3.7.5",
-    "unist-util-visit": "^2.0.3"
+    "unist-util-visit": "^2.0.3",
+    "xml-formatter": "^2.3.0"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.18",
