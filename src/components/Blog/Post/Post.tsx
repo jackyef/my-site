@@ -53,7 +53,7 @@ export default function Post({ meta, children, posts }: Props) {
       <PostHeader meta={meta} />
 
       <div className="pb-16 xl:pb-20">
-        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2 animate-fadeIn">
+        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
           <div className="prose max-w-none pb-8">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>

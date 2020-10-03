@@ -2,6 +2,7 @@ import { usePwaInstall } from '@/hooks/usePwaInstall';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 import Link from 'next/link';
 import { InternalLink } from '../Typography/InternalLink';
+import PwaInstallIcon from './assets/icon-plus.svg';
 
 function Logo() {
   return (
@@ -23,7 +24,7 @@ export default function Header() {
 
   return (
     <header className="flex justify-between items-center py-6">
-      <div>
+      <div className="flex space-x-2">
         <Link href="/">
           <a
             aria-label="Jacky Efendi's personal site"
@@ -38,16 +39,19 @@ export default function Header() {
             <Logo />
           </a>
         </Link>
+        <button
+          style={{
+            opacity: isReady ? 1 : 0,
+            transform: isReady ? 'translateX(0) rotate(0deg)' : 'translateX(-1rem) rotate(-270deg)',
+            transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
+          }}
+          className="self-center w-5 h-5"
+          onClick={() => trigger()}
+        >
+          <img src={PwaInstallIcon} alt="install PWA" />
+        </button>
       </div>
       <div className="text-base leading-5">
-        {isReady ? (
-          <button
-            className="font-medium text-gray-900 hover:text-gray-600 mr-2"
-            onClick={() => trigger()}
-          >
-            Install
-          </button>
-        ) : null}
         <InternalLink
           href="/blog"
           className="font-medium text-gray-900 hover:text-gray-600"
