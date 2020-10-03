@@ -9,9 +9,10 @@ import { Footer } from '@/components/Footer';
 
 import '@/styles/tailwind.css';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
+import { canUseDOM, isProd } from '@/utils/constants';
 
 // lazily init the analytics module from autotrack
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+if (canUseDOM && isProd) {
   // the analytic script requests to /collect is blocked
   // on lighthouse, not sure why. But it causes -7 points in Best Practice,
   // so we disable them there
@@ -34,7 +35,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Footer />
       </SectionContainer>
       <Head>
-        {process.env.NODE_ENV === 'production'
+        {isProd
           ? (
             <>
               {/* (analytics.js) - Google Analytics */}

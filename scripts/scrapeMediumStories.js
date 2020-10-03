@@ -122,7 +122,7 @@ let spinner = ora('Scraping in progress...').start();
   const existingStories = require(mediumPath);
 
   existingStories.forEach(s => {
-    let freshlyScrapedStory = stories.find(e => e.title === s.title);
+    const freshlyScrapedStory = stories.find(e => e.title === s.title);
 
     if (!freshlyScrapedStory) {
       // this new story does not exist in the existing json.
