@@ -26,6 +26,8 @@ export const usePwaInstall = () => {
     onAccepted?: () => void,
     onDismissed?: () => void,
   ) => {
+    setReady(false);
+
     if (promptRef.current) {
       promptRef.current.prompt();
 

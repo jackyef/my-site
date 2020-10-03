@@ -42,10 +42,10 @@ export default function Header() {
       <div className="text-base leading-5">
         {isReady ? (
           <button
-            className="font-medium text-gray-900 hover:text-gray-600"
+            className="font-medium text-gray-900 hover:text-gray-600 mr-2"
             onClick={() => trigger()}
           >
-            +
+            Install
           </button>
         ) : null}
         <InternalLink
