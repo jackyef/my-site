@@ -49,7 +49,7 @@ export default function Header() {
           className="self-center w-5 h-5"
           onClick={() => trigger()}
         >
-          <img src={PwaInstallIcon} alt="install PWA" />
+          <img src={PwaInstallIcon} alt="install PWA" loading="lazy" />
         </button>
       </div>
       <div className="text-base leading-5">
