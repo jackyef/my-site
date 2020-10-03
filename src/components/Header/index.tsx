@@ -43,6 +43,7 @@ export default function Header() {
           style={{
             opacity: isReady ? 1 : 0,
             transform: isReady ? 'translateX(0) rotate(0deg)' : 'translateX(-1rem) rotate(-270deg)',
+            cursor: isReady ? 'auto' : 'none',
             transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
           }}
           className="self-center w-5 h-5"

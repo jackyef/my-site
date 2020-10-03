@@ -1,3 +1,4 @@
+import { sendEventTracker } from '@/utils/analytics/tracker';
 import { canUseDOM } from '@/utils/constants';
 import { useState, useRef, useEffect } from 'react';
 
@@ -14,8 +15,11 @@ let deferredPrompt: BeforeInstallPromptEvent;
 
 if (canUseDOM) {
   window.addEventListener('appinstalled', () => {
-    // Log install to analytics
-    console.log('INSTALL: Success');
+    sendEventTracker({
+      name: 'click',
+      category: `pwa`,
+      label: 'pwa installed',
+    });
   });
 }
 
@@ -27,20 +31,32 @@ export const usePwaInstall = () => {
     onDismissed?: () => void,
   ) => {
     setReady(false);
+    sendEventTracker({
+      name: 'click',
+      category: `pwa`,
+      label: 'trigger pwa install prompt',
+    });
 
     if (promptRef.current) {
       promptRef.current.prompt();
 
       promptRef.current.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-          // @TODO: might want to add some analytics here
-          console.log('User accepted the install prompt');
+          sendEventTracker({
+            name: 'click',
+            category: `pwa`,
+            label: 'pwa install accepted',
+          });
 
           if (typeof onAccepted === 'function') {
             onAccepted();
           }
         } else {
-          console.log('User dismissed the install prompt');
+          sendEventTracker({
+            name: 'click',
+            category: `pwa`,
+            label: 'pwa install dismissed',
+          });
 
           if (typeof onDismissed === 'function') {
             onDismissed();
