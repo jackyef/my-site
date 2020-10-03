@@ -1,3 +1,4 @@
+import { usePwaInstall } from '@/hooks/usePwaInstall';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 import Link from 'next/link';
 import { InternalLink } from '../Typography/InternalLink';
@@ -18,6 +19,8 @@ function Logo() {
 }
 
 export default function Header() {
+  const { isReady, trigger } = usePwaInstall();
+
   return (
     <header className="flex justify-between items-center py-6">
       <div>
@@ -37,6 +40,14 @@ export default function Header() {
         </Link>
       </div>
       <div className="text-base leading-5">
+        {isReady ? (
+          <button
+            className="font-medium text-gray-900 hover:text-gray-600"
+            onClick={() => trigger()}
+          >
+            +
+          </button>
+        ) : null}
         <InternalLink
           href="/blog"
           className="font-medium text-gray-900 hover:text-gray-600"
