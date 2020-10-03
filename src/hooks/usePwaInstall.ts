@@ -12,6 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 let deferredPrompt: BeforeInstallPromptEvent;
+let prompted = false;
 
 if (canUseDOM) {
   window.addEventListener('appinstalled', () => {
@@ -31,6 +32,8 @@ export const usePwaInstall = () => {
     onDismissed?: () => void,
   ) => {
     setReady(false);
+    prompted = true;
+
     sendEventTracker({
       name: 'click',
       category: `pwa`,
@@ -77,7 +80,7 @@ export const usePwaInstall = () => {
       setReady(true);
     };
 
-    if (!ready) {
+    if (!ready && !prompted) {
       window.addEventListener('beforeinstallprompt', handler);
     }
 
