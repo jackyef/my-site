@@ -86,7 +86,7 @@ export default function About() {
         During the course of my career, I have been fortunate enough to be given
         some opportunities to give talks about web development and its
         ecosystem, both for internal and external audience. In 2020, I have
-        given 2 internal talks at Tokopedia. I have also given 2 external
+        given 5 internal talks at Tokopedia. I have also given 2 external
         talks representing Tokopedia at{' '}
         <ExternalLink href="https://start-summit.com/schedule/">
           START Summit
