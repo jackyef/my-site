@@ -27,7 +27,7 @@
     --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
   }
 
-  #site-logo {
+  .monochrome-img {
     filter: invert(1);
   }
 }
@@ -55,7 +55,7 @@
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
 }
 
-[data-theme='dark'] #site-logo {
+[data-theme='dark'] .monochrome-img {
   filter: invert(1);
 }
 

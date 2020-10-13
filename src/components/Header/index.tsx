@@ -8,8 +8,7 @@ function Logo() {
   return (
     <div className="flex items-center justify-center">
       <img
-        id="site-logo"
-        className="h-5 inline-block mr-2"
+        className="monochrome-img h-5 inline-block mr-2"
         width="20"
         height="20"
         src="/monochrome/logo.svg"
@@ -50,7 +49,7 @@ export default function Header() {
           className="self-center w-5 h-5"
           onClick={() => trigger()}
         >
-          <img src={PwaInstallIcon} alt="install PWA" loading="lazy" />
+          <img className="monochrome-img" src={PwaInstallIcon} alt="install PWA" loading="lazy" />
         </button>
         <button onClick={() => document.body.setAttribute('data-theme', Math.random() > 0.5 ? 'dark' : 'default')}>Toggle darkmode</button>
       </div>
