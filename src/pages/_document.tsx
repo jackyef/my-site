@@ -7,7 +7,17 @@ export default class MyDocument extends Document {
         <Head />
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || '')`,
+            __html: [
+              `var __storedPerf = localStorage.getItem('theme') || '';`,
+              `if (!__storedPerf) {`,
+                `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
+                `darkQuery.addListener(function(e) {`,
+                  `document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'default')`,
+                `});`,
+              `} else {`,
+              `document.documentElement.setAttribute('data-theme', __storedPerf)`,
+              `}`
+            ].join(''),
           }}
         />
         <body>
