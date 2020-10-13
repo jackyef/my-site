@@ -119,14 +119,14 @@ const WebmentionWidget = ({ url, meta }: Props) => {
                         <ExternalLink href={author.url}>
                           <span className="font-bold">{author.name}</span>
                         </ExternalLink>
-                        <span className="ml-1 text-sm text-gray-500">
+                        <span className="ml-1 text-sm text-theme-subtitle">
                           &middot;{' '}
                           {repliesTimeTemplate.render(
                             new Date(discussion.published),
                           )}
                         </span>
                       </div>
-                      <p className="text-gray-900">{discussion.content.text}</p>
+                      <p className="text-theme-text">{discussion.content.text}</p>
                     </div>
                   </div>
                 );

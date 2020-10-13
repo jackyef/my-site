@@ -8,6 +8,7 @@ function Logo() {
   return (
     <div className="flex items-center justify-center">
       <img
+        id="site-logo"
         className="h-5 inline-block mr-2"
         width="20"
         height="20"
@@ -51,11 +52,12 @@ export default function Header() {
         >
           <img src={PwaInstallIcon} alt="install PWA" loading="lazy" />
         </button>
+        <button onClick={() => document.body.setAttribute('data-theme', Math.random() > 0.5 ? 'dark' : 'default')}>Toggle darkmode</button>
       </div>
       <div className="text-base leading-5">
         <InternalLink
           href="/blog"
-          className="font-medium text-gray-900 hover:text-gray-600"
+          className="font-medium text-theme-text hover:text-theme-text"
           onClick={() => {
             sendEventTracker({
               name: 'click',

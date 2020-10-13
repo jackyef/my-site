@@ -95,6 +95,9 @@ module.exports = {
       fontFamily: {
         sans: [...defaultTheme.fontFamily.sans],
       },
+      boxShadow: {
+        md: 'var(--shadow-md)',
+      },
       colors: {
         code: {
           green: '#b5f4a5',
@@ -105,34 +108,41 @@ module.exports = {
           white: '#fff',
           teal: '#7fdbca',
         },
-        white: 'var(--color-white)',
+        theme: {
+          text: 'var(--color-text)',
+          heading: 'var(--color-heading)',
+          subtitle: 'var(--color-subtitle)',
+          link: 'var(--color-link)',
+          background: 'var(--color-bg)',
+          backgroundOffset: 'var(--color-bg-offset)',
+        },
       },
       typography: (theme) => ({
         default: {
           css: {
-            color: theme('colors.gray.900'),
+            color: theme('colors.theme.text'),
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.900'),
+              color: theme('colors.theme.text'),
             },
             h3: {
               fontWeight: '600',
-              color: theme('colors.gray.900'),
+              color: theme('colors.theme.text'),
             },
             'ol li:before': {
-              color: theme('colors.gray.500'),
+              color: theme('colors.theme.subtitle'),
             },
             'ul li:before': {
-              backgroundColor: theme('colors.gray.400'),
+              backgroundColor: theme('colors.theme.subtitle'),
             },
             code: {
-              color: theme('colors.gray.900'),
+              color: theme('colors.theme.text'),
             },
             a: {
-              color: theme('colors.teal.600'),
+              color: theme('colors.theme.link'),
               '&:hover': {
-                color: theme('colors.teal.400'),
+                color: theme('colors.theme.link'),
               },
             },
             pre: {
@@ -141,8 +151,8 @@ module.exports = {
             },
             blockquote: {
               quotes: 'none',
-              color: theme('colors.gray.900'),
-              borderLeftColor: theme('colors.gray.200'),
+              color: theme('colors.theme.text'),
+              borderLeftColor: theme('colors.theme.subtitle'),
             },
           },
         },

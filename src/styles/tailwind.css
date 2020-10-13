@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  --text-color: #2b2826;
-  background: #fafafa;
-}
-
-body.dark-mode {
-  --text-color: #fafaf9;
-}
-
 @layer utilities {
   .scroll-snap-align-start {
     scroll-snap-align: start;

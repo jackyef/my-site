@@ -26,7 +26,7 @@ const GitHubRepoCard = ({
         }}  
       >
         <h3 className="px-4 py-2 text-lg font-bold">
-          <ExternalLink href={url} className="text-gray-900">
+          <ExternalLink href={url} className="text-theme-text">
             {title}
           </ExternalLink>{' '}
         </h3>

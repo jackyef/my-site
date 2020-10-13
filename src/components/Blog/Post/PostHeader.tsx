@@ -17,7 +17,7 @@ export const PostHeader = ({ meta }: Props) => (
           <PageTitle>{meta.title}</PageTitle>
         </div>
         <dl className="mt-1">
-          <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-gray-600">
+          <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-theme-text">
             <dt>Published on</dt>
             <dd>
               <time className="block md:hidden" dateTime={meta.date}>
@@ -29,7 +29,7 @@ export const PostHeader = ({ meta }: Props) => (
             </dd>
             <div className="mx-1">&middot;</div>
             <dt className="sr-only">Time to read</dt>
-            <dd className="leading-6 font text-gray-500">
+            <dd className="leading-6 font text-theme-subtitle">
               {meta.readingTime} ☕
             </dd>
           </div>
