@@ -7,6 +7,7 @@ import { SectionContainer } from '@/components/SectionContainer';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
+import '@/styles/theme.css';
 import '@/styles/tailwind.css';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
 import { canUseDOM, isProd } from '@/utils/constants';

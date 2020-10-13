@@ -71,7 +71,7 @@ export default function Post({ meta, children, posts }: Props) {
             <div className="space-y-8 py-8">
               {next && (
                 <div>
-                  <h2 className="text-xs tracking-wide uppercase text-gray-500">
+                  <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
                     Next Article
                   </h2>
                   <div>
@@ -81,7 +81,7 @@ export default function Post({ meta, children, posts }: Props) {
               )}
               {previous && (
                 <div>
-                  <h2 className="text-xs tracking-wide uppercase text-gray-500">
+                  <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
                     Previous Article
                   </h2>
                   <div>

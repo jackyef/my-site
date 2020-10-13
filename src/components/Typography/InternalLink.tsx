@@ -9,7 +9,7 @@ interface Props {
 export const InternalLink: React.FC<Props> = ({
   href,
   children,
-  className = `text-teal-600 underline hover:text-teal-400`,
+  className = `text-theme-link underline`,
   onClick,
   ...rest
 }) => {

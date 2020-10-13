@@ -6,7 +6,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement>{
 
 export const ExternalLink: React.FC<Props> = ({
   href,
-  className = `text-teal-600 underline hover:text-teal-400`,
+  className = `text-theme-link underline`,
   onClick,
   children,
 }) => {

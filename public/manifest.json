@@ -3,7 +3,7 @@
   "short_name": "jackyef",
   "start_url": "/",
   "background_color": "#fafafa",
-  "theme_color": "#fafafa",
+  "theme_color": "#1d242c",
   "display": "standalone",
   "icons": [
     {

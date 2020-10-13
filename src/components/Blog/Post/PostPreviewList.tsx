@@ -23,7 +23,7 @@ export const PostPreviewList = () => {
                     <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
                       <InternalLink
                         href={link}
-                        className="text-gray-900 underline"
+                        className="text-theme-text underline"
                         onClick={() => {
                           sendEventTracker({
                             name: 'click',
@@ -38,7 +38,7 @@ export const PostPreviewList = () => {
                     <div className="flex">
                       <dl>
                         <dt className="sr-only">Published on</dt>
-                        <dd className="text-xs leading-6 font text-gray-500">
+                        <dd className="text-xs leading-6 font text-theme-subtitle">
                           <time dateTime={meta.date}>
                             {postDateTemplate.render(new Date(meta.date))}
                           </time>
@@ -47,13 +47,13 @@ export const PostPreviewList = () => {
                       <div className="mx-1">&middot;</div>
                       <dl>
                         <dt className="sr-only">Time to read</dt>
-                        <dd className="text-xs leading-6 font text-gray-500">
+                        <dd className="text-xs leading-6 font text-theme-subtitle">
                           {meta.readingTime} ☕
                         </dd>
                       </dl>
                     </div>
                   </div>
-                  <div className="prose max-w-none text-gray-600">
+                  <div className="prose max-w-none text-theme-text">
                     <Component />
                   </div>
                 </div>
