@@ -1,6 +1,7 @@
 import { usePwaInstall } from '@/hooks/usePwaInstall';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 import Link from 'next/link';
+import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
 import PwaInstallIcon from './assets/icon-plus.svg';
 
@@ -42,18 +43,24 @@ export default function Header() {
         <button
           style={{
             opacity: isReady ? 1 : 0,
-            transform: isReady ? 'translateX(0) rotate(0deg)' : 'translateX(-1rem) rotate(-270deg)',
+            transform: isReady
+              ? 'translateX(0) rotate(0deg)'
+              : 'translateX(-1rem) rotate(-270deg)',
             cursor: isReady ? 'auto' : 'none',
             transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
           }}
           className="self-center w-5 h-5"
           onClick={() => trigger()}
         >
-          <img className="monochrome-img" src={PwaInstallIcon} alt="install PWA" loading="lazy" />
+          <img
+            className="monochrome-img"
+            src={PwaInstallIcon}
+            alt="install PWA"
+            loading="lazy"
+          />
         </button>
-        <button onClick={() => document.body.setAttribute('data-theme', Math.random() > 0.5 ? 'dark' : 'default')}>Toggle darkmode</button>
       </div>
-      <div className="text-base leading-5">
+      <div className="text-base leading-5 flex items-center">
         <InternalLink
           href="/blog"
           className="font-medium text-theme-text hover:text-theme-text"
@@ -67,6 +74,7 @@ export default function Header() {
         >
           Blog
         </InternalLink>
+        <ThemeToggle />
       </div>
     </header>
   );

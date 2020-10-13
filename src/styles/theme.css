@@ -17,7 +17,7 @@
 
 @media(prefers-color-scheme: dark) {
   :root {
-    --color-bg: #1d1f21;
+    --color-bg: #1d242c;
     --color-bg-offset: #252526;
     --color-heading: #fafafa;
     --color-text: #efefef;
@@ -45,7 +45,7 @@
 }
 
 [data-theme='dark'] {
-  --color-bg: #1d1f21;
+  --color-bg: #1d242c;
   --color-bg-offset: #252526;
   --color-heading: #fafafa;
   --color-text: #efefef;
