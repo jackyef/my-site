@@ -23,7 +23,7 @@ export const CommonMetaTags = () => {
       <link rel="manifest" href="/manifest.json" />
       <meta name="mobile-web-app-capable" content="yes" />
       {/* <meta ref={themeMetaRef} name="theme-color" content={colorMode === 'light' ? '#fff' : '#1A202C'} /> */}
-      <meta ref={themeMetaRef} name="theme-color" content={'#1A202C'} />
+      <meta ref={themeMetaRef} name="theme-color" content={'#1d242c'} />
       <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
       <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
       <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
