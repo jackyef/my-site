@@ -4,10 +4,13 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <script dangerouslySetInnerHTML={{ __html: `document.body.setAttribute('data-theme', localStorage.getItem('theme))`}} />
-        </Head>
-        <body data-theme="default">
+        <Head />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || '')`,
+          }}
+        />
+        <body>
           <Main />
           <NextScript />
         </body>
