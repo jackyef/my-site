@@ -1,4 +1,6 @@
 :root {
+  --theme:default;
+
   --color-bg: #fafafa;
   --color-bg-offset: #f7f7f9;
   --color-heading: #373a3c;
@@ -13,12 +15,14 @@
 
 @media(prefers-color-scheme: dark) {
   :root {
+    --theme:dark;
+
     --color-bg: #1d242c;
     --color-bg-offset: #252526;
     --color-heading: #fafafa;
     --color-text: #efefef;
-    --color-subtitle: #ab9280;
-    --color-link: #34a4b1;
+    --color-subtitle: #d9d9d9;
+    --color-link: #54b4c1;
     
     --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
     
@@ -34,6 +38,8 @@
  Add more themes here!
 */
 [data-theme='default'] {
+  --theme:default;
+
   --color-bg: #fafafa;
   --color-bg-offset: #f7f7f9;
   --color-heading: #373a3c;
@@ -47,6 +53,8 @@
 }
 
 [data-theme='dark'] {
+  --theme:dark;
+
   --color-bg: #1d242c;
   --color-bg-offset: #252526;
   --color-heading: #fafafa;

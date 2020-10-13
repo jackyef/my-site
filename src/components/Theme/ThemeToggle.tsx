@@ -7,8 +7,7 @@ import { sendEventTracker } from '@/utils/analytics/tracker';
  */
 export const ThemeToggle = () => {
   const [theme, setTheme] = React.useState<string>(
-    // @ts-expect-error
-    canUseDOM ? window.__storedPerf : '',
+    canUseDOM ? getComputedStyle(document.body).getPropertyValue('--theme') : '',
   );
 
   React.useEffect(() => {
