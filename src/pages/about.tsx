@@ -35,7 +35,10 @@ export default function About() {
 
       <SectionTitle>Professional summary 💼</SectionTitle>
       <Paragraph>
-        Currently I am working with JavaScript at{' '}
+        I am currently taking a short break before starting my next adventure. 
+      </Paragraph>
+      <Paragraph> 
+        From 2017 to the end of October 2020, I worked with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}
         in the web platform team. Since July 2019, I have been part of the core
         team, working on things that help other developers in their work such
