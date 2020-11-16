@@ -1,5 +1,6 @@
-const withImages = require('next-images');
+const preact = require('preact')
 const withPrefresh = require('@prefresh/next');
+const withImages = require('next-images');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -76,15 +77,33 @@ const conf = {
     aliases.react = aliases['react-dom'] = 'preact/compat';
 
     // Automatically inject Preact DevTools:
-    if (options.dev && !options.isServer) {
-      const entry = config.entry;
-      config.entry = () =>
-        entry().then((entries) => {
-          entries['main.js'] = ['preact/debug'].concat(
-            entries['main.js'] || [],
-          );
-          return entries;
-        });
+    if (options.dev) {
+      if (options.isServer) {
+        // Remove circular `__self` and `__source` props only meant for development
+        const oldVNodeHook = preact.options.vnode
+        
+        preact.options.vnode = (vnode) => {
+          const props = vnode.props
+          if (props != null) {
+            if ('__self' in props) props.__self = null
+            if ('__source' in props) props.__source = null
+          }
+
+          if (oldVNodeHook) {
+            oldVNodeHook(vnode)
+          }
+        }
+      } else {
+        // Automatically inject Preact DevTools:
+        const entry = config.entry
+        config.entry = () =>
+          entry().then((entries) => {
+            entries['main.js'] = ['preact/debug'].concat(
+              entries['main.js'] || []
+            )
+            return entries
+          })
+      }
     }
 
     /**

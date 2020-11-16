@@ -32,7 +32,6 @@
     "globby": "^11.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",
-    "react-refresh": "^0.8.3",
     "rss": "^1.2.2",
     "simple-functional-loader": "^1.2.1",
     "tailwindcss": "^1.8.10",
@@ -44,18 +43,18 @@
   "dependencies": {
     "@mdx-js/react": "^1.6.18",
     "@next/bundle-analyzer": "^9.5.3",
-    "@prefresh/next": "^0.3.0",
+    "@prefresh/next": "^1.3.0",
     "autotrack": "^2.4.1",
     "cross-env": "^7.0.2",
     "next": "^10.0.1",
     "next-images": "^1.5.0",
     "next-offline": "^5.0.2",
-    "preact": "^10.4.4",
-    "preact-render-to-string": "^5.1.9",
-    "react": "github:preact-compat/react#1.0.0",
-    "react-dom": "github:preact-compat/react-dom#1.0.0",
+    "preact": "^10.5.4",
+    "preact-render-to-string": "^5.1.10",
+    "react": "npm:@preact/compat@^0.0.3",
+    "react-dom": "npm:@preact/compat@^0.0.3",
     "react-query": "^2.23.0",
-    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.1.2",
     "tinytime": "^0.2.6"
   }
 }
