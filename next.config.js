@@ -123,7 +123,7 @@ const conf = {
                 visit(tree, 'element', (node, index, parent) => {
                   const [token, type] = node.properties.className || [];
 
-                  console.log({ node, token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
+                  // console.log({ node, token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
 
                   if (token === 'token') {
                     node.properties.className = [tokenClassNames[type]];

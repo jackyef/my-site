@@ -7,6 +7,7 @@
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
   --color-link: #047481;
+  --color-scrollbar: #777;
   
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -18,11 +19,12 @@
     --theme:dark;
 
     --color-bg: #1d242c;
-    --color-bg-offset: #252526;
+    --color-bg-offset: #242d3c;
     --color-heading: #fafafa;
     --color-text: #efefef;
     --color-subtitle: #d9d9d9;
     --color-link: #54b4c1;
+    --color-scrollbar: #3d445c;
     
     --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
     
@@ -46,6 +48,7 @@
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
   --color-link: #047481;
+  --color-scrollbar: #777;
   
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -56,11 +59,12 @@
   --theme:dark;
 
   --color-bg: #1d242c;
-  --color-bg-offset: #252526;
+  --color-bg-offset: #242d3c;
   --color-heading: #fafafa;
   --color-text: #efefef;
   --color-subtitle: #d9d9d9;
   --color-link: #54b4c1;
+  --color-scrollbar: #3d445c;
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
 
@@ -79,6 +83,7 @@ body {
   transition: 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
+/* some fancy hover effect for anchor tags */
 .fancy-anchor {
   text-decoration: none;
   position: relative;
@@ -106,4 +111,20 @@ body {
 .fancy-anchor:hover:after {
   top: 0%;
   opacity: 0.25;
+}
+
+/* make scrollbar more bearable to look at */
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--color-bg-offset);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--color-scrollbar);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: transparent;
 }
