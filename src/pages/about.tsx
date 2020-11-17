@@ -68,7 +68,7 @@ export default function About() {
         you are reading this right now, hopefully I have published some writings
         on this site by then!
       </Paragraph>
-      <Paragraph>Here some of my writings on Medium.</Paragraph>
+      <Paragraph>Here are some of my writings on Medium.</Paragraph>
       <MediumList />
       <HorizontalDivider />
 

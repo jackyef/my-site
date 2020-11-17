@@ -78,3 +78,32 @@ body {
   
   transition: 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
+
+.fancy-anchor {
+  text-decoration: none;
+  position: relative;
+  color: var(--color-link);
+  transition: 200ms cubic-bezier(0, .8, .13, 1);
+}
+
+.fancy-anchor:hover {
+  color: var(--color-text);
+}
+
+.fancy-anchor:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 95%;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: 0;
+  transition: 200ms cubic-bezier(0, .8, .13, 1);
+  background-color: var(--color-link);
+  opacity: 1;
+}
+
+.fancy-anchor:hover:after {
+  top: 0%;
+  opacity: 0.25;
+}

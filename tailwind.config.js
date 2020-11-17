@@ -142,7 +142,7 @@ module.exports = {
             a: {
               color: theme('colors.theme.link'),
               '&:hover': {
-                color: theme('colors.theme.link'),
+                color: theme('colors.theme.text'),
               },
             },
             pre: {

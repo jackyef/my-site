@@ -23,7 +23,7 @@ export const PostPreviewList = () => {
                     <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
                       <InternalLink
                         href={link}
-                        className="text-theme-text underline"
+                        className="fancy-anchor text-theme-text font-bold"
                         onClick={() => {
                           sendEventTracker({
                             name: 'click',
