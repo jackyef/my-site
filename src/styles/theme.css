@@ -134,6 +134,7 @@ h6:hover .hash-link {
 /* make scrollbar more bearable to look at */
 ::-webkit-scrollbar {
   width: 12px;
+  height: 12px;
   background-color: var(--color-bg-offset);
 }
 
