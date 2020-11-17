@@ -25,6 +25,7 @@ module.exports = {
       './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     options: {
+      whitelist: ['::-webkit-scrollbar-thumb', '::-webkit-scrollbar-track'],
       extractors: [
         {
           extensions: ['mdx'],
