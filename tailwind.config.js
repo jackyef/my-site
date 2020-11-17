@@ -25,6 +25,7 @@ module.exports = {
       './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     options: {
+      whitelist: ['::-webkit-scrollbar-thumb', '::-webkit-scrollbar-track', 'hash-link'],
       extractors: [
         {
           extensions: ['mdx'],
@@ -141,8 +142,9 @@ module.exports = {
             },
             a: {
               color: theme('colors.theme.link'),
+              textDecoration: 'none',
               '&:hover': {
-                color: theme('colors.theme.link'),
+                color: theme('colors.theme.text'),
               },
             },
             pre: {
