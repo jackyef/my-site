@@ -114,6 +114,23 @@ body {
   opacity: 0.25;
 }
 
+/* heading anchor tags */
+.hash-link {
+  line-height: 1;
+  margin-left: 0.5rem;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+h1:hover .hash-link, 
+h2:hover .hash-link, 
+h3:hover .hash-link, 
+h4:hover .hash-link, 
+h5:hover .hash-link, 
+h6:hover .hash-link {
+  opacity: 1;
+} 
+
 /* make scrollbar more bearable to look at */
 ::-webkit-scrollbar {
   width: 12px;

@@ -1,4 +1,4 @@
-const preact = require('preact')
+const preact = require('preact');
 const withPrefresh = require('@prefresh/next');
 const withImages = require('next-images');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -8,7 +8,11 @@ const withOffline = require('next-offline');
 
 const { createLoader } = require('simple-functional-loader');
 const rehypePrism = require('@mapbox/rehype-prism');
+const rehypeAutolinkHeadings = require('rehype-autolink-headings');
+const rehypeSlug = require('rehype-slug');
 const visit = require('unist-util-visit');
+const hastToString = require('hast-util-to-string');
+const hast = require('hastscript');
 
 const tokenClassNames = require('./code-highlighter-token.js');
 const { flowRight } = require('./utils/flow.js');
@@ -80,29 +84,29 @@ const conf = {
     if (options.dev) {
       if (options.isServer) {
         // Remove circular `__self` and `__source` props only meant for development
-        const oldVNodeHook = preact.options.vnode
-        
+        const oldVNodeHook = preact.options.vnode;
+
         preact.options.vnode = (vnode) => {
-          const props = vnode.props
+          const props = vnode.props;
           if (props != null) {
-            if ('__self' in props) props.__self = null
-            if ('__source' in props) props.__source = null
+            if ('__self' in props) props.__self = null;
+            if ('__source' in props) props.__source = null;
           }
 
           if (oldVNodeHook) {
-            oldVNodeHook(vnode)
+            oldVNodeHook(vnode);
           }
-        }
+        };
       } else {
         // Automatically inject Preact DevTools:
-        const entry = config.entry
+        const entry = config.entry;
         config.entry = () =>
           entry().then((entries) => {
             entries['main.js'] = ['preact/debug'].concat(
-              entries['main.js'] || []
-            )
-            return entries
-          })
+              entries['main.js'] || [],
+            );
+            return entries;
+          });
       }
     }
 
@@ -117,6 +121,17 @@ const conf = {
         loader: '@mdx-js/loader',
         options: {
           rehypePlugins: [
+            rehypeSlug,
+            [
+              rehypeAutolinkHeadings,
+              {
+                behavior: 'append',
+                // behavior: 'wrap',
+                properties: { ariaHidden: true, tabIndex: -1, class: 'hash-link fancy-anchor' },
+                // properties: { ariaHidden: true, tabIndex: -1, class: 'fancy-anchor text-theme-text' },
+                content: hast('span', '🔗'),
+              },
+            ],
             rehypePrism,
             () => {
               return (tree) => {
