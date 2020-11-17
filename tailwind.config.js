@@ -141,6 +141,7 @@ module.exports = {
             },
             a: {
               color: theme('colors.theme.link'),
+              textDecoration: 'none',
               '&:hover': {
                 color: theme('colors.theme.text'),
               },
