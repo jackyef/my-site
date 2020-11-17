@@ -106,6 +106,7 @@ body {
   transition: 200ms cubic-bezier(0, .8, .13, 1);
   background-color: var(--color-link);
   opacity: 1;
+  border-radius: 4px;
 }
 
 .fancy-anchor:hover:after {
