@@ -131,6 +131,27 @@ h6:hover .hash-link {
   opacity: 1;
 } 
 
+/* For table of content */
+.page-outline {
+  position: relative;
+  left: 100%;
+  margin-left: 3rem;
+  padding-right: 1rem;
+}
+
+.page-outline::before {
+  display: block;
+  position: fixed;
+  content: 'Table of Contents';
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: -2rem !important;
+}
+
+.toc-level-1 {
+  position: fixed;
+}
+
 /* make scrollbar more bearable to look at */
 ::-webkit-scrollbar {
   width: 12px;
