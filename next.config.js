@@ -125,7 +125,7 @@ const conf = {
             [
               rehypeToc,
               {
-                headings: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], // Include h1-h6 in the TOC
+                headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
                 cssClasses: {
                   toc: 'page-outline hidden xl:block', // Change the CSS class for the TOC
                   link: 'page-link', // Change the CSS class for links in the TOC
@@ -136,13 +136,11 @@ const conf = {
               rehypeAutolinkHeadings,
               {
                 behavior: 'append',
-                // behavior: 'wrap',
                 properties: {
                   ariaHidden: true,
                   tabIndex: -1,
                   class: 'hash-link fancy-anchor',
                 },
-                // properties: { ariaHidden: true, tabIndex: -1, class: 'fancy-anchor text-theme-text' },
                 content: hast('span', '🔗'),
               },
             ],
@@ -175,7 +173,16 @@ const conf = {
         {
           resourceQuery: /preview/,
           use: [
-            ...mdx,
+            mdx[0],
+            {
+              ...mdx[1],
+              options: {
+                ...mdx[1].options,
+                rehypePlugins: [
+                  ...mdx[1].options.rehypePlugins.filter(v => v[0] !== rehypeToc), // do not generate ToC for post previews
+                ]
+              }
+            },
             createLoader(function(src) {
               // this part will cut down the mdx content for previews, so we don't load too many content into
               // pages that are showing list of post previews
