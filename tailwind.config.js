@@ -140,6 +140,9 @@ module.exports = {
             code: {
               color: theme('colors.theme.text'),
             },
+            strong: {
+              color: theme('colors.theme.text'),
+            },
             a: {
               color: theme('colors.theme.link'),
               textDecoration: 'none',
