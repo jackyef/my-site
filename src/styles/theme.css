@@ -19,14 +19,14 @@
   :root {
     --theme:dark;
 
-    --color-bg: #1d242c;
-    --color-bg-offset: #242d3c;
+    --color-bg: #111820;
+    --color-bg-offset: #1F2930;
     --color-heading: #fafafa;
     --color-text: #efefef;
     --color-subtitle: #d9d9d9;
     --color-link: #54b4c1;
     --color-link-highlight: rgba(84, 180, 193, 0.25);
-    --color-scrollbar: #3d445c;
+    --color-scrollbar: #374151;
     
     --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
     
@@ -61,14 +61,14 @@
 [data-theme='dark'] {
   --theme:dark;
 
-  --color-bg: #1d242c;
-  --color-bg-offset: #242d3c;
+  --color-bg: #111820;
+  --color-bg-offset: #1F2930;
   --color-heading: #fafafa;
   --color-text: #efefef;
   --color-subtitle: #d9d9d9;
   --color-link: #54b4c1;
   --color-link-highlight: rgba(84, 180, 193, 0.25);
-  --color-scrollbar: #3d445c;
+  --color-scrollbar: #374151;
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
 
