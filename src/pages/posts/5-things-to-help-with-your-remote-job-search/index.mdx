@@ -1,9 +1,10 @@
+import { Panel } from '@/components/common/Panel';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
 
 export const meta = {
   title: '6 Things I Learned during my Remote Job Search',
-  description: `I recently landed my first remote job as a software engineer! Here are some of the stuffs that I feel helped me during the process.`,
+  description: `I recently landed my first remote job as a software engineer! Here are some of the stuffs that I learned during the process.`,
   date: '2020-11-18T12:35:23.870Z',
   authors: [jackyef],
   image: createOgImageUrl({
@@ -23,16 +24,19 @@ as a semi-tutorial on how to look for remote jobs.
 
 <!--more-->
 
----
-
-**_Disclaimer_** ⚠️
-
-I am by no means a seasoned veteran in remote working. Heck, at the time of this writing
-I haven't even started my first remote job yet! 😂 The point of this writing is to share
-the things that I learned during my very first remote job search, which hopefully could be useful
-to people who are looking to start looking for remote jobs as well.
-
----
+<Panel
+  type="warning"
+  title="⚠️ Disclaimer ⚠️"
+>
+  <p>
+    I am by no means a seasoned veteran in remote working. Heck, at the time of this writing
+    I haven't even started my first remote job yet! 😂 
+  </p>
+  <p>
+    The point of this writing is to share the things that I learned during my very first remote job search, 
+    which hopefully could be useful to people who are looking to start looking for remote jobs as well.
+  </p>
+</Panel>
 
 Let's start by talking a little about **_why_** you might want to work remotely.
 

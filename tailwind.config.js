@@ -123,6 +123,7 @@ module.exports = {
           link: 'var(--color-link)',
           background: 'var(--color-bg)',
           backgroundOffset: 'var(--color-bg-offset)',
+          warning: 'var(--color-warning)',
         },
       },
       typography: (theme) => ({

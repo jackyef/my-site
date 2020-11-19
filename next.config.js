@@ -159,6 +159,10 @@ const conf = {
                   if (node.tagName === 'a') {
                     node.properties.className = ['fancy-anchor'];
                   }
+
+                  if (node.tagName === 'hr') {
+                    node.properties.className = ['mx-6', 'xl:mx-12', 'border-gray-400', 'opacity-50', 'my-4'];
+                  }
                 });
               };
             },
