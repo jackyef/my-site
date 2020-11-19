@@ -95,6 +95,10 @@ body {
   transition: 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
+div {
+  transition: 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
 /* some fancy hover effect for anchor tags */
 .fancy-anchor {
   text-decoration: none;
@@ -136,6 +140,7 @@ h6:hover .hash-link {
 .page-outline {
   position: relative;
   left: 100%;
+  top: -8rem;
   margin-left: 3rem;
   padding-right: 1rem;
 }
