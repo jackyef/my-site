@@ -37,6 +37,6 @@ export const PostHeader = ({ meta }: Props) => (
       </div>
     </header>
 
-    <hr className="mx-6 xl:mx-8 bg-gray-600 my-6" />
+    <hr className="mx-6 xl:mx-8 border-gray-400 border-opacity-50 my-6" />
   </>
 );

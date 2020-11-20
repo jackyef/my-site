@@ -12,7 +12,7 @@ export const PostPreviewList = () => {
   const router = useRouter();
 
   return (
-    <ul className="divide-y divide-gray-200">
+    <ul className="divide-y divide-gray-400 divide-opacity-50">
       {posts.map(({ link, module: { default: Component, meta } }) => {
         return (
           <li key={link} className="py-4">

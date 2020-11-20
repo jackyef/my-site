@@ -25,7 +25,14 @@ module.exports = {
       './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     options: {
-      whitelist: ['::-webkit-scrollbar-thumb', '::-webkit-scrollbar-track', 'hash-link'],
+      whitelist: [
+        '::-webkit-scrollbar-thumb',
+        '::-webkit-scrollbar-track',
+        'hash-link',
+        'page-outline',
+        'toc-level-1',
+        'xl:block',
+      ],
       extractors: [
         {
           extensions: ['mdx'],
@@ -116,6 +123,7 @@ module.exports = {
           link: 'var(--color-link)',
           background: 'var(--color-bg)',
           backgroundOffset: 'var(--color-bg-offset)',
+          warning: 'var(--color-warning)',
         },
       },
       typography: (theme) => ({
@@ -138,6 +146,9 @@ module.exports = {
               backgroundColor: theme('colors.theme.subtitle'),
             },
             code: {
+              color: theme('colors.theme.text'),
+            },
+            strong: {
               color: theme('colors.theme.text'),
             },
             a: {

@@ -10,8 +10,8 @@ const { createLoader } = require('simple-functional-loader');
 const rehypePrism = require('@mapbox/rehype-prism');
 const rehypeAutolinkHeadings = require('rehype-autolink-headings');
 const rehypeSlug = require('rehype-slug');
+const rehypeToc = require('@jsdevtools/rehype-toc');
 const visit = require('unist-util-visit');
-const hastToString = require('hast-util-to-string');
 const hast = require('hastscript');
 
 const tokenClassNames = require('./code-highlighter-token.js');
@@ -123,12 +123,24 @@ const conf = {
           rehypePlugins: [
             rehypeSlug,
             [
+              rehypeToc,
+              {
+                headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
+                cssClasses: {
+                  toc: 'page-outline hidden xl:block', // Change the CSS class for the TOC
+                  link: 'page-link', // Change the CSS class for links in the TOC
+                },
+              },
+            ],
+            [
               rehypeAutolinkHeadings,
               {
                 behavior: 'append',
-                // behavior: 'wrap',
-                properties: { ariaHidden: true, tabIndex: -1, class: 'hash-link fancy-anchor' },
-                // properties: { ariaHidden: true, tabIndex: -1, class: 'fancy-anchor text-theme-text' },
+                properties: {
+                  ariaHidden: true,
+                  tabIndex: -1,
+                  class: 'hash-link fancy-anchor',
+                },
                 content: hast('span', '🔗'),
               },
             ],
@@ -147,6 +159,10 @@ const conf = {
                   if (node.tagName === 'a') {
                     node.properties.className = ['fancy-anchor'];
                   }
+
+                  if (node.tagName === 'hr') {
+                    node.properties.className = ['mx-6', 'xl:mx-12', 'border-gray-400', 'opacity-50', 'my-4'];
+                  }
                 });
               };
             },
@@ -161,7 +177,16 @@ const conf = {
         {
           resourceQuery: /preview/,
           use: [
-            ...mdx,
+            mdx[0],
+            {
+              ...mdx[1],
+              options: {
+                ...mdx[1].options,
+                rehypePlugins: [
+                  ...mdx[1].options.rehypePlugins.filter(v => v[0] !== rehypeToc), // do not generate ToC for post previews
+                ]
+              }
+            },
             createLoader(function(src) {
               // this part will cut down the mdx content for previews, so we don't load too many content into
               // pages that are showing list of post previews
