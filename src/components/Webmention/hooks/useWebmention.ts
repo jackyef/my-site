@@ -13,6 +13,8 @@ const endpoint = 'https://webmention.io/api/mentions.jf2?per-page=1000';
 export const useWebmention = (url: string) => {
   const finalUrl = `${endpoint}&target=${url}`;
 
+  console.log('useWebMention', { url });
+
   const { isLoading, isError, data, error, refetch } = useQuery(finalUrl, () => {
     return fetch(finalUrl)
       .then((res) => res.json())
@@ -51,9 +53,11 @@ export const useWebmention = (url: string) => {
           authors: [...authors].map(([, value]) => value),
         }
       });
-  }, {
-    staleTime: Infinity,
-  });
+  }, 
+  // {
+  //   staleTime: Infinity,
+  // }
+  );
 
   return {
     isLoading,

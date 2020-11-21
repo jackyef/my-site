@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { PostMeta } from '@/blog/getAllPostPreviews';
-import { useRouter } from 'next/router';
-import { publicUrl } from '../Seo/PageMetaTags';
 import { TwitterShare } from '../Social/TwitterShare';
 import { useWebmention } from './hooks/useWebmention';
 import { ExternalLink } from '../Typography/ExternalLink';
@@ -17,7 +15,6 @@ const repliesTimeTemplate = tinytime('{DD} {MM} {YYYY} - {h}:{mm} {a}');
 const WebmentionWidget = ({ url, meta }: Props) => {
   const { isLoading, isError, data, refetch } = useWebmention(url);
   const [showReplies, setShowReplies] = useState(false);
-  const router = useRouter();
 
   const content = (() => {
     if (isError) {
@@ -35,7 +32,7 @@ const WebmentionWidget = ({ url, meta }: Props) => {
     }
 
     if (isLoading) {
-      return <div className="opacity-0 h-12">a</div>;
+      return <div className="opacity-0 h-12">.</div>;
     }
 
     if (data) {
@@ -90,7 +87,7 @@ const WebmentionWidget = ({ url, meta }: Props) => {
           </div>
 
           <TwitterShare
-            text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}
+            text={`${meta.title} ${url} via @jackyef__`}
           >
             Discuss on Twitter
           </TwitterShare>

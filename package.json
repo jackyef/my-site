@@ -55,8 +55,8 @@
     "next-offline": "^5.0.2",
     "preact": "^10.5.4",
     "preact-render-to-string": "^5.1.10",
-    "react": "npm:@preact/compat@^0.0.3",
-    "react-dom": "npm:@preact/compat@^0.0.3",
+    "react": "^16.10.0",
+    "react-dom": "^16.10.0",
     "react-query": "^2.26.3",
     "react-ssr-prepass": "npm:preact-ssr-prepass@^1.1.2",
     "tinytime": "^0.2.6"

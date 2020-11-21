@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useIntersect from '@/hooks/useIntersect';
 
 interface Props {
-  children: (show: boolean) => React.ReactElement | null;
+  children: React.ReactNode;
 }
 
 /**
@@ -11,16 +11,10 @@ interface Props {
  */
 export const IOWrapper = ({ children }: Props) => {
   const [show, setShow] = useState(false);
-  const wrapperRef = useIntersect<HTMLDivElement>(
-    {
-      onIntersect: () => setShow(true),
-      onlyOnce: true,
-    }
-  );
+  const wrapperRef = useIntersect<HTMLDivElement>({
+    onIntersect: () => setShow(true),
+    onlyOnce: true,
+  });
 
-  return (
-    <div ref={!show ? wrapperRef : null}>
-      {children(show)}
-    </div>
-  )
-}
+  return !show ? <div ref={wrapperRef} /> : <>{children}</>;
+};
