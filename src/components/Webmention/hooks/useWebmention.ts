@@ -51,8 +51,6 @@ export const useWebmention = (url: string) => {
           authors: [...authors].map(([, value]) => value),
         }
       });
-  }, {
-    staleTime: Infinity,
   });
 
   return {
