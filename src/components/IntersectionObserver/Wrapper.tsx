@@ -19,7 +19,7 @@ export const IOWrapper = ({ children }: Props) => {
   );
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={!show ? wrapperRef : null}>
       {children(show)}
     </div>
   )
