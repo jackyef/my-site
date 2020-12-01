@@ -1,4 +1,4 @@
-import { LazyFeedbackFish } from "@/components/FeedbackFish/Lazy"
+import { IOLazyFeedbackFish } from "@/components/FeedbackFish/Lazy"
 
 export const Footer = () => {
   return (
@@ -15,11 +15,11 @@ export const Footer = () => {
         LinkedIn
       </a>{' '}
       &middot;{' '}
-      <LazyFeedbackFish>
+      <IOLazyFeedbackFish>
         <button>
           Got feedback?
         </button>
-      </LazyFeedbackFish>
+      </IOLazyFeedbackFish>
     </footer>
   );
 };
