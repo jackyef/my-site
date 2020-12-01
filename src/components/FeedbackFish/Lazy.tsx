@@ -10,7 +10,7 @@ export const LazyFeedbackFish = dynamic(
 );
 
 export const IOLazyFeedbackFish: React.FC = (props) => (
-  <IOWrapper>
+  <IOWrapper inline>
     {(show) =>
       show ? <LazyFeedbackFish {...props} /> : <button>Got feedback?</button>
     }
