@@ -105,6 +105,7 @@ export default function About() {
         more talks about the web. Who knows, I might add a <Code>/talk</Code>{' '}
         page on this site with the materials if it turns out to be a good idea!
       </Paragraph>
+      <HorizontalDivider />
     </PageContainer>
   );
 }

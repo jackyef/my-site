@@ -1,3 +1,5 @@
+import { LazyFeedbackFish } from "@/components/FeedbackFish/Lazy"
+
 export const Footer = () => {
   return (
     <footer className="text-sm text-center py-8">
@@ -11,7 +13,13 @@ export const Footer = () => {
       &middot;{' '}
       <a href="https://www.linkedin.com/in/jackyef/" rel="me">
         LinkedIn
-      </a>
+      </a>{' '}
+      &middot;{' '}
+      <LazyFeedbackFish>
+        <button>
+          Got feedback?
+        </button>
+      </LazyFeedbackFish>
     </footer>
   );
 };
