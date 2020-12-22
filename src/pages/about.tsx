@@ -35,9 +35,14 @@ export default function About() {
 
       <SectionTitle>Professional summary 💼</SectionTitle>
       <Paragraph>
-        I am currently taking a short break before starting my next adventure. 
+        I am currently working at{' '}
+        <ExternalLink href="https://www.stickermule.com">
+          Sticker Mule
+        </ExternalLink>
+        , tinkering around with the web stuffs.
       </Paragraph>
-      <Paragraph> 
+      <HorizontalDivider />
+      <Paragraph>
         From 2017 to the end of October 2020, I worked with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}
         in the web platform team. Since July 2019, I have been part of the core
@@ -45,13 +50,16 @@ export default function About() {
         as: development toolings, CIs, and monitoring tools. I also tinker
         around with build processes and maintain Tokopedia&apos;s web platform
         monorepo that houses 20+ services and 30+ reusable packages to which 80+
-        developers are contributing daily. At Tokopedia, I work mostly with
-        React, Node, TypeScript, GraphQL and Apollo.
+        developers are contributing daily.
       </Paragraph>
       <Paragraph>
         Before moving to the core team, I was part of the mobile web team. My
         day-to-day tasks included collaborating with backend engineers, product
         owners and designers to ship features and products in a timely manner.
+      </Paragraph>
+      <Paragraph>
+        At Tokopedia, I work mostly with React, Node, TypeScript, GraphQL and
+        Apollo.
       </Paragraph>
       <HorizontalDivider />
 
@@ -76,8 +84,8 @@ export default function About() {
       <Paragraph>
         Sometimes, I feel motivated to build stuffs. Some are just for fun and
         learning, some are actually kind of helpful. A lot are abandoned because
-        I got sidetracked (don’t we all? 😅). I published some of them as open source
-        projects on{' '}
+        I got sidetracked (don’t we all? 😅). I published some of them as open
+        source projects on{' '}
         <ExternalLink href="https://github.com/jackyef">GitHub</ExternalLink>. I
         also contribute to open source libraries when I could.
         <GitHubList />
@@ -89,8 +97,8 @@ export default function About() {
         During the course of my career, I have been fortunate enough to be given
         some opportunities to give talks about web development and its
         ecosystem, both for internal and external audience. In 2020, I have
-        given 5 internal talks at Tokopedia. I have also given 2 external
-        talks representing Tokopedia at{' '}
+        given 5 internal talks at Tokopedia. I have also given 2 external talks
+        representing Tokopedia at{' '}
         <ExternalLink href="https://start-summit.com/schedule/">
           START Summit
         </ExternalLink>{' '}

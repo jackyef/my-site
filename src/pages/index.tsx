@@ -21,11 +21,15 @@ export default function Home() {
       <PageTitle>Hi, I am Jacky! 👋</PageTitle>
       <Paragraph>
         I am a software engineer working with JavaScript and on all-things-web.
-        I am currently taking a short break before continuing on to the next
-        adventure. You might know me from my works with{' '}
-        <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>.
-        I previously worked in the web platform team there. I am currently based
-        in Indonesia (🇮🇩).
+        I am currently based in Jakarta, Indonesia (🇮🇩), working remotely at{' '}
+        <ExternalLink href="https://www.stickermule.com">
+          Sticker Mule
+        </ExternalLink>
+        . You might know me from my previous work with{' '}
+        <ExternalLink href="https://www.tokopedia.com">
+          Tokopedia&rsquo;s Web Platform team
+        </ExternalLink>
+        .
       </Paragraph>
 
       <Paragraph>
