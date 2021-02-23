@@ -12,7 +12,7 @@ const Error: NextPage<Props> = ({ statusCode }) => {
     return <Error404View />;
   }
 
-  return <ErrorView />;
+  return <ErrorView statusCode={statusCode} />;
 };
 
 Error.getInitialProps = ({ res, err }) => {
