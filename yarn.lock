@@ -6379,10 +6379,10 @@ preact-render-to-string@^5.1.10:
   dependencies:
     pretty-format "^3.8.0"
 
-preact@^10.5.4:
-  version "10.5.7"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.7.tgz#f1d84725539e18f7ccbea937cf3db5895661dbd3"
-  integrity sha512-4oEpz75t/0UNcwmcsjk+BIcDdk68oao+7kxcpc1hQPNs2Oo3ZL9xFz8UBf350mxk/VEdD41L5b4l2dE3Ug3RYg==
+preact@^10.5.12:
+  version "10.5.12"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.12.tgz#6a8ee8bf40a695c505df9abebacd924e4dd37704"
+  integrity sha512-r6siDkuD36oszwlCkcqDJCAKBQxGoeEGytw2DGMD5A/GGdu5Tymw+N2OBXwvOLxg6d1FeY8MgMV3cc5aVQo4Cg==
 
 prebuild-install@^5.3.5:
   version "5.3.6"
@@ -6620,10 +6620,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-dom@npm:@preact/compat@^0.0.3", "react@npm:@preact/compat@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-0.0.3.tgz#54f5688533607488e2c4e08ac17cb3fdc704c7b0"
-  integrity sha512-91h26PC9ZvyePT9VHrQF+4ZyIx4HsGm0nwLz7VwBRGPbp3cPj0mLGaKr4wvWNJU5Mzpf1fOzFmK6oltFyrr+Xg==
+"react-dom@npm:@preact/compat@^0.0.4", "react@npm:@preact/compat@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-0.0.4.tgz#f329e41caa330199eaf779c9bc9cf9556e3984a0"
+  integrity sha512-NdazvKTisqbua54srMCVGuPwae53SM3u85yxrTymT+eJnScJOIAybDEzyOcAOpJsvo6vnGOiSyxmID7rlGw3nw==
 
 react-is@16.13.1, react-is@^16.8.1:
   version "16.13.1"
