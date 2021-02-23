@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 import { IOWrapper } from '../IntersectionObserver/Wrapper';
 
 export const LazyFeedbackFish = dynamic(
@@ -6,13 +6,18 @@ export const LazyFeedbackFish = dynamic(
   {
     ssr: false,
     loading: () => null,
-  }
+  },
 );
 
-export const IOLazyFeedbackFish: React.FC = (props) => (
+interface Props {
+  placeholder?: JSX.Element;
+}
+
+export const IOLazyFeedbackFish: React.FC<Props> = ({
+  placeholder = <button>Got feedback?</button>,
+  ...rest
+}) => (
   <IOWrapper inline>
-    {(show) =>
-      show ? <LazyFeedbackFish {...props} /> : <button>Got feedback?</button>
-    }
+    {(show) => (show ? <LazyFeedbackFish {...rest} /> : placeholder)}
   </IOWrapper>
-)
+);
