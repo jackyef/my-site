@@ -3,7 +3,7 @@ import { IOLazyFeedbackFish } from "@/components/FeedbackFish/Lazy"
 export const Footer = () => {
   return (
     <footer className="text-sm text-center py-8">
-      <a href="https://github.com/jackyef" rel="me">
+      <a href="https://github.com/jackyef/my-site">
         &lt;/&gt;
       </a>{' '}
       &middot;{' '}
