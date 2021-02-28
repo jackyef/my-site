@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
@@ -8,7 +10,9 @@ import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+
 import { PostHeader } from './PostHeader';
+import { canUseDOM } from '@/utils/constants';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -39,6 +43,29 @@ export default function Post({ meta, children, posts }: Props) {
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
+  const shouldFadeIn = canUseDOM;
+
+  useEffect(() => {
+    const el = document.getElementById('restOfArticle');
+
+    if (el && shouldFadeIn) {
+      el.style.opacity = '0';
+
+      spring({
+        config: 'noWobble',
+        values: {
+          translateY: [-15, 0],
+          opacity: [0, 1],
+        },
+        // @ts-expect-error
+        onUpdate: ({ translateY, opacity }) => {
+          el.style.opacity = opacity;
+          el.style.transform = `translateY(${translateY}px)`;
+        },
+        delay: 400,
+      });
+    }
+  });
 
   return (
     <article>

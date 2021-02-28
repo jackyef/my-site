@@ -1,7 +1,8 @@
 import tinytime from 'tinytime';
+import { Flipped } from 'react-flip-toolkit';
+
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
-import { Flipped } from 'react-flip-toolkit';
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');
@@ -15,7 +16,7 @@ export const PostHeader = ({ meta }: Props) => (
     <header>
       <div>
         <div>
-          <Flipped flipId={meta.title} spring="noWobble" stagger>
+          <Flipped flipId={meta.title} spring="noWobble" translate>
             {(flippedProps) => (
               <PageTitle {...flippedProps}>{meta.title}</PageTitle>
             )}

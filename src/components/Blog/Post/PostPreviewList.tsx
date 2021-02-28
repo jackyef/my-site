@@ -1,9 +1,10 @@
 import tinytime from 'tinytime';
+import { useRouter } from 'next/router';
+import { Flipped } from 'react-flip-toolkit';
+
 import getAllPostPreviews from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { sendEventTracker } from '@/utils/analytics/tracker';
-import { useRouter } from 'next/router';
-import { Flipped } from 'react-flip-toolkit';
 
 const posts = getAllPostPreviews();
 
@@ -21,7 +22,11 @@ export const PostPreviewList = () => {
               <div className="space-y-5">
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <Flipped flipId={meta.title} spring="noWobble" stagger>
+                    <Flipped
+                      flipId={meta.title}
+                      spring="noWobble"
+                      translate
+                    >
                       <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
                         <InternalLink
                           href={link}
@@ -38,11 +43,7 @@ export const PostPreviewList = () => {
                         </InternalLink>
                       </h2>
                     </Flipped>
-                    <Flipped
-                      flipId={`${meta.title}-meta`}
-                      spring="noWobble"
-                      stagger
-                    >
+                    <Flipped flipId={`${meta.title}-meta`} spring="noWobble">
                       <div className="flex">
                         <dl>
                           <dt className="sr-only">Published on</dt>
@@ -62,9 +63,16 @@ export const PostPreviewList = () => {
                       </div>
                     </Flipped>
                   </div>
-                  <div className="prose max-w-none text-theme-text">
-                    <Component />
-                  </div>
+
+                  <Flipped
+                    flipId={`${meta.title}-excerpt`}
+                    spring="noWobble"
+                    translate
+                  >
+                    <div className="prose max-w-none text-theme-text">
+                      <Component />
+                    </div>
+                  </Flipped>
                 </div>
                 <div className="text-base leading-6 font-medium">
                   <InternalLink
