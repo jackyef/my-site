@@ -1,3 +1,5 @@
+import { Flipped } from 'react-flip-toolkit';
+
 import { InternalLink } from '../components/Typography/InternalLink';
 import { ExternalLink } from '../components/Typography/ExternalLink';
 import { PageTitle } from '../components/Typography/PageTitle';
@@ -61,7 +63,11 @@ export default function Home() {
 
       <div className="my-16" />
 
-      <SectionTitle>Latest writings ✍️</SectionTitle>
+      <Flipped flipId="latest-writing-heading" spring="noWobble" translate>
+        {(flippedProps) => (
+          <SectionTitle {...flippedProps}>Latest writings ✍️</SectionTitle>
+        )}
+      </Flipped>
       <PostPreviewList />
     </>
   );
