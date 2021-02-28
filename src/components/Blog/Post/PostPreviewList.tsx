@@ -22,11 +22,7 @@ export const PostPreviewList = () => {
               <div className="space-y-5">
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <Flipped
-                      flipId={meta.title}
-                      spring="noWobble"
-                      translate
-                    >
+                    <Flipped flipId={meta.title} spring="noWobble" translate>
                       <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
                         <InternalLink
                           href={link}
@@ -74,21 +70,23 @@ export const PostPreviewList = () => {
                     </div>
                   </Flipped>
                 </div>
-                <div className="text-base leading-6 font-medium">
-                  <InternalLink
-                    href={link}
-                    aria-label={`Read "${meta.title}"`}
-                    onClick={() => {
-                      sendEventTracker({
-                        name: 'click',
-                        category: `${router.pathname} - post preview read more`,
-                        label: meta.title,
-                      });
-                    }}
-                  >
-                    Read more &rarr;
-                  </InternalLink>
-                </div>
+                <Flipped flipId={`${meta.title}-readmore`} spring="noWobble">
+                  <div className="text-base leading-6 font-medium">
+                    <InternalLink
+                      href={link}
+                      aria-label={`Read "${meta.title}"`}
+                      onClick={() => {
+                        sendEventTracker({
+                          name: 'click',
+                          category: `${router.pathname} - post preview read more`,
+                          label: meta.title,
+                        });
+                      }}
+                    >
+                      Read more &rarr;
+                    </InternalLink>
+                  </div>
+                </Flipped>
               </div>
             </article>
           </li>
