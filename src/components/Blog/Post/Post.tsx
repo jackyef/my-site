@@ -5,7 +5,6 @@ import { MDXProvider } from '@mdx-js/react';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
-// import { TwitterShare } from '@/components/Social/TwitterShare';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
