@@ -14,6 +14,7 @@ import { useReduceMotion } from '@/hooks/useReduceMotion';
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
+import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigation';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -31,34 +32,36 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <CommonMetaTags />
-      <SectionContainer>
-        <Header />
-      </SectionContainer>
-      <Flipper 
-        flipKey={prefersReducedMotion ? 'static' : router.asPath} 
-        staggerConfig={{
-          default: {
-            speed: 1,
-          },
-        }}>
+      <ShouldAnimateNavigationProvider>
+        <CommonMetaTags />
         <SectionContainer>
-          <Component {...pageProps} />
+          <Header />
         </SectionContainer>
-      </Flipper>
-      <SectionContainer>
-        <Footer />
-      </SectionContainer>
-      <Head>
-        {isProd
-          ? (
-            <>
-              {/* (analytics.js) - Google Analytics */}
-              <script async src="https://www.google-analytics.com/analytics.js"></script>      
-            </>
-          ) : null
-        }
-      </Head>
+        <Flipper 
+          flipKey={prefersReducedMotion ? 'static' : router.asPath} 
+          staggerConfig={{
+            default: {
+              speed: 1,
+            },
+          }}>
+          <SectionContainer>
+            <Component {...pageProps} />
+          </SectionContainer>
+        </Flipper>
+        <SectionContainer>
+          <Footer />
+        </SectionContainer>
+        <Head>
+          {isProd
+            ? (
+              <>
+                {/* (analytics.js) - Google Analytics */}
+                <script async src="https://www.google-analytics.com/analytics.js"></script>      
+              </>
+            ) : null
+          }
+        </Head>
+      </ShouldAnimateNavigationProvider>
     </>
   )
 }

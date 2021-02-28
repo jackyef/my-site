@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
@@ -10,9 +10,9 @@ import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+import { useShouldAnimateNavigation } from '@/contexts/shouldAnimateNavigation';
 
 import { PostHeader } from './PostHeader';
-import { canUseDOM } from '@/utils/constants';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -43,12 +43,12 @@ export default function Post({ meta, children, posts }: Props) {
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
-  const shouldFadeIn = canUseDOM;
+  const shouldAnimateNavigation = useShouldAnimateNavigation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = document.getElementById('restOfArticle');
 
-    if (el && shouldFadeIn) {
+    if (el && shouldAnimateNavigation) {
       el.style.opacity = '0';
 
       spring({
@@ -65,7 +65,7 @@ export default function Post({ meta, children, posts }: Props) {
         delay: 400,
       });
     }
-  });
+  }, [shouldAnimateNavigation]);
 
   return (
     <article>
