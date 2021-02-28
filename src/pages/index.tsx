@@ -2,21 +2,18 @@ import { InternalLink } from '../components/Typography/InternalLink';
 import { ExternalLink } from '../components/Typography/ExternalLink';
 import { PageTitle } from '../components/Typography/PageTitle';
 import { Paragraph } from '../components/Typography/Paragraph';
-import { PageContainer } from '../components/Page/PageContainer';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { useRouter } from 'next/router';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
-import { WaveBackground } from '@/components/Background/WaveBackground';
 
 export default function Home() {
   const router = useRouter();
 
   return (
-    <PageContainer>
-      <WaveBackground />
+    <>
       <PageMetaTags />
       <PageTitle>Hi, I am Jacky! 👋</PageTitle>
       <Paragraph>
@@ -66,6 +63,6 @@ export default function Home() {
 
       <SectionTitle>Latest writings ✍️</SectionTitle>
       <PostPreviewList />
-    </PageContainer>
+    </>
   );
 }

@@ -8,13 +8,14 @@ import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import { SectionContainer } from '@/components/SectionContainer';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { PageContainer } from '@/components/Page/PageContainer';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
 import { canUseDOM, isProd } from '@/utils/constants';
 import { useReduceMotion } from '@/hooks/useReduceMotion';
+import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigation';
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
-import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigation';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -45,7 +46,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             },
           }}>
           <SectionContainer>
-            <Component {...pageProps} />
+            <PageContainer>
+              <Component {...pageProps} />
+            </PageContainer>
           </SectionContainer>
         </Flipper>
         <SectionContainer>

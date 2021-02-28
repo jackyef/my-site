@@ -1,4 +1,8 @@
-export const WaveBackground = () => {
+import { useReduceMotion } from '@/hooks/useReduceMotion';
+
+export const WaveBackground = ({ hidden = false }) => {
+  const prefersReducedMotion = useReduceMotion();
+
   return (
     <>
       <div
@@ -12,15 +16,15 @@ export const WaveBackground = () => {
           display: 'flex',
           alignItems: 'flex-end',
           overflow: 'hidden',
-          transform: 'translateY(1px)',
+          transform: hidden ? 'translateY(-32rem)' : 'translateY(1px)',
+          transition: prefersReducedMotion ? '' : 'transform .4s ease-in-out', // https://easings.net/#easeInOutExpo
         }}
       >
         {/* we use 2 divs here to transition between 2 linear-gradient by using opacity */}
         <div
           style={{
             position: 'absolute',
-            background:
-              'linear-gradient(0deg, #1F2930, #111820)', // --color-bg-offset, --color-bg 
+            background: 'linear-gradient(0deg, #1F2930, #111820)', // --color-bg-offset, --color-bg
             zIndex: -1,
             minHeight: '28rem',
             left: 0,
@@ -34,7 +38,7 @@ export const WaveBackground = () => {
           style={{
             position: 'absolute',
             background:
-              'linear-gradient(0deg, #fafafa,  rgba(4, 116, 129, 0.25))', // --color-bg, --color-link-highlight 
+              'linear-gradient(0deg, #fafafa,  rgba(4, 116, 129, 0.25))', // --color-bg, --color-link-highlight
             zIndex: -1,
             minHeight: '28rem',
             left: 0,

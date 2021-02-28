@@ -5,7 +5,7 @@ export function useReduceMotion() {
   const [matches, setMatch] = useState(
     canUseDOM
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      : true,
+      : false,
   );
 
   useEffect(() => {
