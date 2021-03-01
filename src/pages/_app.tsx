@@ -16,7 +16,6 @@ import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigat
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
-import '@/styles/fonts.css';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {

@@ -12,18 +12,27 @@ export default class MyDocument extends Document {
               `var __storedPerf = localStorage.getItem('theme') || '';`,
 
               `if (__storedPerf) {`,
-                `document.documentElement.setAttribute('data-theme', __storedPerf);`,
+              `document.documentElement.setAttribute('data-theme', __storedPerf);`,
               `}`,
 
               // setup listener to make it reactive
               `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
               `darkQuery.addListener(function(e) {`,
-                `var __newTheme = e.matches ? 'dark' : 'default';`,
-                `document.documentElement.setAttribute('data-theme', __newTheme);`,
-                `typeof window.__themeBinding === 'function' && window.__themeBinding(__newTheme);`,
+              `var __newTheme = e.matches ? 'dark' : 'default';`,
+              `document.documentElement.setAttribute('data-theme', __newTheme);`,
+              `typeof window.__themeBinding === 'function' && window.__themeBinding(__newTheme);`,
               `});`,
             ].join(''),
           }}
+        />
+        {/* Preload the css file containing our font-faces */}
+        <link rel="preload" as="style" href="/fonts.css" />
+        <link
+          rel="stylesheet"
+          href="/fonts.css"
+          media="print"
+          // @ts-expect-error
+          onLoad="this.media='all'"
         />
         <body>
           <Main />
