@@ -55,7 +55,7 @@ export default function Header() {
           <img
             className="monochrome-img"
             src={PwaInstallIcon}
-            alt="install PWA"
+            alt="Add to home screen"
             loading="lazy"
           />
         </button>
