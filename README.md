@@ -28,4 +28,4 @@ If you are interested on the thought process of building the site initially, you
 - https://www.drawkit.io/
 - https://grabient.com
 - https://vectr.com/
-
+- https://easings.net/
