@@ -16,6 +16,7 @@ import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigat
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
+import '@/styles/fonts.css';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -64,7 +65,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             ) : null
           }
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+          <link 
+            rel="preload" 
+            as="font" 
+            crossOrigin="anonymous" 
+            href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2" 
+            type="font/woff2"
+          />
         </Head>
       </ShouldAnimateNavigationProvider>
     </>
