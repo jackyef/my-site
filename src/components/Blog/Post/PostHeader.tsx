@@ -1,4 +1,6 @@
 import tinytime from 'tinytime';
+import { Flipped } from 'react-flip-toolkit';
+
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 
@@ -14,26 +16,32 @@ export const PostHeader = ({ meta }: Props) => (
     <header>
       <div>
         <div>
-          <PageTitle>{meta.title}</PageTitle>
+          <Flipped flipId={meta.title} spring="noWobble" translate>
+            {(flippedProps) => (
+              <PageTitle {...flippedProps}>{meta.title}</PageTitle>
+            )}
+          </Flipped>
         </div>
-        <dl className="mt-1">
-          <div className="flex flex-row space-x-1 text-sm leading-6 font-md text-theme-text">
-            <dt>Published on</dt>
-            <dd>
-              <time className="block md:hidden" dateTime={meta.date}>
-                {postDateTemplate.render(new Date(meta.date))}
-              </time>
-              <time className="hidden md:block" dateTime={meta.date}>
-                {postDateTemplateXl.render(new Date(meta.date))}
-              </time>
-            </dd>
-            <div className="mx-1">&middot;</div>
-            <dt className="sr-only">Time to read</dt>
-            <dd className="leading-6 font text-theme-subtitle">
-              {meta.readingTime} ☕
-            </dd>
-          </div>
-        </dl>
+        <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
+          <dl className="mt-1">
+            <div className="flex flex-row space-x-1 text-sm leading-6 text-theme-text">
+              <dt>Published on</dt>
+              <dd>
+                <time className="block md:hidden" dateTime={meta.date}>
+                  {postDateTemplate.render(new Date(meta.date))}
+                </time>
+                <time className="hidden md:block" dateTime={meta.date}>
+                  {postDateTemplateXl.render(new Date(meta.date))}
+                </time>
+              </dd>
+              <div className="mx-1">&middot;</div>
+              <dt className="sr-only">Time to read</dt>
+              <dd className="leading-6 font text-theme-subtitle">
+                {meta.readingTime} ☕
+              </dd>
+            </div>
+          </dl>
+        </Flipped>
       </div>
     </header>
 

@@ -2,7 +2,6 @@ import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '../components/Divider';
 import GitHubList from '../components/GitHub/List';
 import MediumList from '../components/Medium/List';
-import { PageContainer } from '../components/Page/PageContainer';
 import { Code } from '../components/Typography/Code';
 import { ExternalLink } from '../components/Typography/ExternalLink';
 import { PageTitle } from '../components/Typography/PageTitle';
@@ -11,7 +10,7 @@ import { SectionTitle } from '../components/Typography/SectionTitle';
 
 export default function About() {
   return (
-    <PageContainer>
+    <>
       <PageMetaTags />
       <PageTitle>About me 👨‍💻</PageTitle>
       <Paragraph>
@@ -114,6 +113,6 @@ export default function About() {
         page on this site with the materials if it turns out to be a good idea!
       </Paragraph>
       <HorizontalDivider />
-    </PageContainer>
+    </>
   );
 }

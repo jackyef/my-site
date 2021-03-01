@@ -1,3 +1,5 @@
+import { useLayoutEffect } from 'react';
+import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
@@ -5,10 +7,11 @@ import { MDXProvider } from '@mdx-js/react';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
-// import { TwitterShare } from '@/components/Social/TwitterShare';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+import { useShouldAnimateNavigation } from '@/contexts/shouldAnimateNavigation';
+
 import { PostHeader } from './PostHeader';
 
 const mdxComponents = {
@@ -40,6 +43,29 @@ export default function Post({ meta, children, posts }: Props) {
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
+  const shouldAnimateNavigation = useShouldAnimateNavigation();
+
+  useLayoutEffect(() => {
+    const el = document.getElementById('restOfArticle');
+
+    if (el && shouldAnimateNavigation) {
+      el.style.opacity = '0';
+
+      spring({
+        config: 'noWobble',
+        values: {
+          translateY: [-15, 0],
+          opacity: [0, 1],
+        },
+        // @ts-expect-error
+        onUpdate: ({ translateY, opacity }) => {
+          el.style.opacity = opacity;
+          el.style.transform = `translateY(${translateY}px)`;
+        },
+        delay: 400,
+      });
+    }
+  }, [shouldAnimateNavigation]);
 
   return (
     <article>

@@ -19,6 +19,7 @@ If you are interested on the thought process of building the site initially, you
 - https://philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build/#loading-analyticsjs
 - https://daan.dev/wordpress/difference-analyics-gtag-ga-js/
 - https://joshwcomeau.com/gatsby/dark-mode/
+- https://csswizardry.com/2020/05/the-fastest-google-fonts/
 
 ### Tool and resources:
 - https://uigradients.com/#Hydrogen
@@ -28,4 +29,4 @@ If you are interested on the thought process of building the site initially, you
 - https://www.drawkit.io/
 - https://grabient.com
 - https://vectr.com/
-
+- https://easings.net/

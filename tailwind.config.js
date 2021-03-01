@@ -101,7 +101,7 @@ module.exports = {
         '14': '3.5rem',
       },
       fontFamily: {
-        sans: [...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         md: 'var(--shadow-md)',

@@ -1,4 +1,4 @@
-const withPreact = require('next-plugin-preact')
+const withPreact = require('next-plugin-preact');
 const withImages = require('next-images');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -96,8 +96,6 @@ const conf = {
                 visit(tree, 'element', (node, index, parent) => {
                   const [token, type] = node.properties.className || [];
 
-                  // console.log({ node, token, type, children: JSON.stringify(node.children.map(({ value }) => value).join(' | '), null, 2) });
-
                   if (token === 'token') {
                     node.properties.className = [tokenClassNames[type]];
                   }
@@ -107,7 +105,13 @@ const conf = {
                   }
 
                   if (node.tagName === 'hr') {
-                    node.properties.className = ['mx-6', 'xl:mx-12', 'border-gray-400', 'opacity-50', 'my-4'];
+                    node.properties.className = [
+                      'mx-6',
+                      'xl:mx-12',
+                      'border-gray-400',
+                      'opacity-50',
+                      'my-4',
+                    ];
                   }
                 });
               };
@@ -129,9 +133,11 @@ const conf = {
               options: {
                 ...mdx[1].options,
                 rehypePlugins: [
-                  ...mdx[1].options.rehypePlugins.filter(v => v[0] !== rehypeToc), // do not generate ToC for post previews
-                ]
-              }
+                  ...mdx[1].options.rehypePlugins.filter(
+                    (v) => v[0] !== rehypeToc,
+                  ), // do not generate ToC for post previews
+                ],
+              },
             },
             createLoader(function(src) {
               // this part will cut down the mdx content for previews, so we don't load too many content into
@@ -150,20 +156,32 @@ const conf = {
           use: [
             ...mdx,
             createLoader(function(src) {
-              // we add getStaticProps function to get the post contents for each posts
               const content = [
+                'import { Flipped } from "react-flip-toolkit"',
                 'import Post from "@/components/Blog/Post/Post"',
+
+                // We add getStaticProps function to get the post contents for each posts
                 'export { getStaticProps } from "@/blog/getStaticProps"',
-                src,
+
+                // We use <Flipped> here to add FLIP animation to the preview texts
+                // on client-side navigation
+                src.replace(
+                  /<!--start-->(.*)<!--more-->(.*)/s,
+                  [
+                    '<Flipped flipId={`${meta.title}-excerpt`} spring="noWobble">',
+                    '<div id={`${meta.title}-excerpt`}>$1</div>',
+                    '</Flipped>',
+                    '<div id="restOfArticle">',
+                    '$2',
+                    '</div>',
+                  ].join('\n'),
+                ),
+
+                // This new line is needed
+                '',
+
                 'export default (props) => <Post meta={meta} {...props} />',
               ].join('\n');
-
-              if (content.includes('<!--more-->')) {
-                return this.callback(
-                  null,
-                  content.split('<!--more-->').join('\n'),
-                );
-              }
 
               return this.callback(
                 null,

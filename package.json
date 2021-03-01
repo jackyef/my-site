@@ -59,6 +59,7 @@
     "preact-render-to-string": "^5.1.10",
     "react": "npm:@preact/compat@^0.0.4",
     "react-dom": "npm:@preact/compat@^0.0.4",
+    "react-flip-toolkit": "^7.0.13",
     "react-query": "^2.26.3",
     "react-ssr-prepass": "npm:preact-ssr-prepass@^1.1.2",
     "tinytime": "^0.2.6"
