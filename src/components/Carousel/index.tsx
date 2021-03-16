@@ -81,7 +81,7 @@ const Carousel: React.FC = ({ children }) => {
       <div
         ref={carouselRef}
         onScroll={handleScroll}
-        className="first:ml-4 overflow-x-scroll align-top scrolling-touch whitespace-no-wrap py-4 scroll-snap-xm"
+        className="first:ml-4 overflow-x-scroll align-top whitespace-nowrap py-4 scroll-snap-xm"
       >
         {children}
       </div>
