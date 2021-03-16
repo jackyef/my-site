@@ -116,7 +116,6 @@ body {
   position: relative;
   color: var(--color-link);
   transition: var(--transition-faster);
-
   box-shadow:
     inset 0 0em transparent,
     inset 0 -0.1em var(--color-link);

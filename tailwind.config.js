@@ -2,10 +2,6 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const mdx = require('@mdx-js/mdx');
 
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
   purge: {
     mode: 'all',
     content: [
@@ -22,17 +18,11 @@ module.exports = {
        */
       './next.config.js',
       './code-highlighter-token.js',
+      './safelists.js',
       './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
+    preserveHtmlElements: false,
     options: {
-      whitelist: [
-        '::-webkit-scrollbar-thumb',
-        '::-webkit-scrollbar-track',
-        'hash-link',
-        'page-outline',
-        'toc-level-1',
-        'xl:block',
-      ],
       extractors: [
         {
           extensions: ['mdx'],
@@ -54,6 +44,28 @@ module.exports = {
     },
   },
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    },
+    /**
+     * Required to override the lineheight added to each font-size in Tailwind v2
+     * Ref: https://tailwindcss.com/docs/upgrading-to-v2#configure-your-font-size-scale-explicitly
+     */
+    fontSize: {
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
+    },
     extend: {
       keyframes: {
         fadeIn: {
@@ -91,7 +103,7 @@ module.exports = {
       },
       textShadow: {
         // defaults to {}
-        default: '0 2px 5px rgba(0, 0, 0, 0.5)',
+        DEFAULT: '0 2px 5px rgba(0, 0, 0, 0.5)',
         lg: '0 2px 10px rgba(0, 0, 0, 0.5)',
       },
       lineHeight: {
@@ -127,7 +139,7 @@ module.exports = {
         },
       },
       typography: (theme) => ({
-        default: {
+        DEFAULT: {
           css: {
             color: theme('colors.theme.text'),
             h2: {
@@ -154,6 +166,7 @@ module.exports = {
             a: {
               color: theme('colors.theme.link'),
               textDecoration: 'none',
+              fontWeight: '400',
               '&:hover': {
                 color: theme('colors.theme.text'),
               },
@@ -175,14 +188,6 @@ module.exports = {
   variants: {},
   plugins: [
     require('@tailwindcss/ui'),
-    require('@tailwindcss/typography'),
-    require('tailwindcss-typography')({
-      // all these options default to the values specified here
-      ellipsis: true, // whether to generate ellipsis utilities
-      hyphens: true, // whether to generate hyphenation utilities
-      kerning: true, // whether to generate kerning utilities
-      textUnset: true, // whether to generate utilities to unset text properties
-      componentPrefix: 'c-', // the prefix to use for text style classes
-    }),
+    require('@tailwindcss/typography')
   ],
 };
