@@ -18,18 +18,11 @@ module.exports = {
        */
       './next.config.js',
       './code-highlighter-token.js',
+      './safelists.js',
       './src/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     preserveHtmlElements: false,
     options: {
-      safelist: [
-        '::-webkit-scrollbar-thumb',
-        '::-webkit-scrollbar-track',
-        'hash-link',
-        'page-outline',
-        'toc-level-1',
-        'xl:block',
-      ],
       extractors: [
         {
           extensions: ['mdx'],
