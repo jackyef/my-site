@@ -1,4 +1,5 @@
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
+import { TECHNOLOGIES } from '@/constants/technologies';
 import { HorizontalDivider } from '../components/Divider';
 import GitHubList from '../components/GitHub/List';
 import MediumList from '../components/Medium/List';
@@ -7,6 +8,28 @@ import { ExternalLink } from '../components/Typography/ExternalLink';
 import { PageTitle } from '../components/Typography/PageTitle';
 import { Paragraph } from '../components/Typography/Paragraph';
 import { SectionTitle } from '../components/Typography/SectionTitle';
+
+const TechnologyAnchors = () => {
+  return (
+    <>
+      {TECHNOLOGIES.map(({ name, href }, index) => {
+        const isLastItem = index === TECHNOLOGIES.length - 1;
+        const prefix = isLastItem ? 'and ' : '';
+        const suffix = isLastItem ? '' : ', ';
+
+        return (
+          <>
+            {prefix}
+            <ExternalLink key={name} href={href}>
+              {name}
+            </ExternalLink>
+            {suffix}
+          </>
+        );
+      })}
+    </>
+  );
+};
 
 export default function About() {
   return (
@@ -38,7 +61,10 @@ export default function About() {
         <ExternalLink href="https://www.stickermule.com">
           Sticker Mule
         </ExternalLink>
-        , tinkering around with the web stuffs.
+        , tinkering around with more web-related stuffs! I play around with{' '}
+        <TechnologyAnchors /> on a daily basis; trying to build awesome user
+        experiences while also taking care of{' '}
+        <ExternalLink href="https://www.a11yproject.com/">a11y</ExternalLink>.
       </Paragraph>
       <HorizontalDivider />
       <Paragraph>
@@ -57,7 +83,7 @@ export default function About() {
         owners and designers to ship features and products in a timely manner.
       </Paragraph>
       <Paragraph>
-        At Tokopedia, I work mostly with React, Node, TypeScript, GraphQL and
+        At Tokopedia, I worked mostly with React, Node, TypeScript, GraphQL and
         Apollo.
       </Paragraph>
       <HorizontalDivider />
@@ -95,17 +121,17 @@ export default function About() {
       <Paragraph>
         During the course of my career, I have been fortunate enough to be given
         some opportunities to give talks about web development and its
-        ecosystem, both for internal and external audience. In 2020, I have
-        given 5 internal talks at Tokopedia. I have also given 2 external talks
-        representing Tokopedia at{' '}
+        ecosystem, both for internal and external audience. In 2020, I gave 5
+        internal talks at Tokopedia and 2 external talks representing Tokopedia
+        at{' '}
         <ExternalLink href="https://start-summit.com/schedule/">
           START Summit
         </ExternalLink>{' '}
         and{' '}
         <ExternalLink href="https://developersonair.withgoogle.com/events/partnersforumid">
           web.dev partners forum
-        </ExternalLink>{' '}
-        this year.
+        </ExternalLink>
+        .
       </Paragraph>
       <Paragraph>
         In the future, I am hoping to be more active in the community, giving
