@@ -1,3 +1,4 @@
+import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { TECHNOLOGIES } from '@/constants/technologies';
 import { HorizontalDivider } from '../components/Divider';
@@ -53,6 +54,10 @@ export default function About() {
         I am currently based in Jakarta, Indonesia (🇮🇩) and working here as
         well, but I am open to remote roles across the globe.
       </Paragraph>
+      <HorizontalDivider />
+
+      <SectionTitle>Recent Projects 🧰</SectionTitle>
+      <ProjectsList />
       <HorizontalDivider />
 
       <SectionTitle>Professional summary 💼</SectionTitle>

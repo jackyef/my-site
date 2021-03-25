@@ -8,7 +8,7 @@
   },
   {
     "title": "bundle-calc",
-    "description": "calculate bundle size of your next project!",
+    "description": "Calculate bundle size of your next project!",
     "url": "https://github.com/jackyef/bundle-calc",
     "tags": ["next", "chakra-ui"]
   },

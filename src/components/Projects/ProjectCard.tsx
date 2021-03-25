@@ -1,14 +1,9 @@
 import { ExternalLink } from '../Typography/ExternalLink';
 import MediumLogo from './assets/medium.svg';
 
-interface Props {
-  title: string;
-  timeToRead: string;
-  coverImage: string;
-  url: string;
-}
+import { Project } from './projects';
 
-const MediumPostCard = ({ title, timeToRead, coverImage, url }: Props) => {
+export const ProjectCard = ({ name, repo, coverImage, url }: Project) => {
   return (
     <>
       <div
@@ -20,26 +15,32 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }: Props) => {
         <img
           loading="lazy"
           src={coverImage}
-          alt={title}
+          alt={name}
           className="w-full h-64 rounded-md object-cover"
         />
         <div className="absolute pt-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
-          <h3 className="p-2 text-lg text-shadow">
+          <h3 className="p-2 text-xl text-shadow font-bold">
             <ExternalLink
               className="text-gray-50 hover:text-gray-200"
               href={url}
             >
-              {title}
+              {name}
             </ExternalLink>{' '}
           </h3>
-          <span className="items-center flex p-2 pt-0 text-xs text-gray-200">
-            <img src={MediumLogo} alt="medium logo" className="w-4 h-4" />
-            &nbsp;&middot; {timeToRead}
+          <span className="items-center flex p-2 pt-0 text-md text-gray-200">
+            {repo ? (
+              <ExternalLink
+                className="text-gray-50 hover:text-gray-200"
+                href={repo}
+              >
+                Repository &rarr;
+              </ExternalLink>
+            ) : (
+              ' '
+            )}
           </span>
         </div>
       </div>
     </>
   );
 };
-
-export default MediumPostCard;
