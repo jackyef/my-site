@@ -1,5 +1,4 @@
 import { ExternalLink } from '../Typography/ExternalLink';
-import MediumLogo from './assets/medium.svg';
 
 import { Project } from './projects';
 
@@ -18,8 +17,8 @@ export const ProjectCard = ({ name, repo, coverImage, url }: Project) => {
           alt={name}
           className="w-full h-64 rounded-md object-cover"
         />
-        <div className="absolute pt-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
-          <h3 className="p-2 text-xl text-shadow font-bold">
+        <div className="absolute p-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
+          <h3 className="text-xl text-shadow font-bold">
             <ExternalLink
               className="text-gray-50 hover:text-gray-200"
               href={url}
@@ -27,7 +26,7 @@ export const ProjectCard = ({ name, repo, coverImage, url }: Project) => {
               {name}
             </ExternalLink>{' '}
           </h3>
-          <span className="items-center flex p-2 pt-0 text-md text-gray-200">
+          <span className="items-center flex text-md text-gray-200">
             {repo ? (
               <ExternalLink
                 className="text-gray-50 hover:text-gray-200"

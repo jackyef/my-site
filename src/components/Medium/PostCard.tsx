@@ -23,8 +23,8 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }: Props) => {
           alt={title}
           className="w-full h-64 rounded-md object-cover"
         />
-        <div className="absolute pt-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
-          <h3 className="p-2 text-lg text-shadow">
+        <div className="absolute p-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
+          <h3 className="text-lg text-shadow">
             <ExternalLink
               className="text-gray-50 hover:text-gray-200"
               href={url}
@@ -32,7 +32,7 @@ const MediumPostCard = ({ title, timeToRead, coverImage, url }: Props) => {
               {title}
             </ExternalLink>{' '}
           </h3>
-          <span className="items-center flex p-2 pt-0 text-xs text-gray-200">
+          <span className="items-center flex text-xs text-gray-200">
             <img src={MediumLogo} alt="medium logo" className="w-4 h-4" />
             &nbsp;&middot; {timeToRead}
           </span>
