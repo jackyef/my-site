@@ -15,7 +15,7 @@ export const ProjectCard = ({ name, repo, coverImage, url }: Project) => {
           loading="lazy"
           src={coverImage}
           alt={name}
-          className="w-full h-64 rounded-md object-cover"
+          className="w-full h-52 rounded-md object-cover"
         />
         <div className="absolute p-4 bottom-0 bg-gradient-to-t from-gray-900 rounded-md w-full max-w-lg h-full flex flex-col justify-end">
           <h3 className="text-xl text-shadow font-bold">
