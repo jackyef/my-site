@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 export const publicUrl = 'https://jackyef.com';
-const defaultTitle = 'jackyef.com';
+const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
 const defaultDescription =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
 const defaultOgImage =
