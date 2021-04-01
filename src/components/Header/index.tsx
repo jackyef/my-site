@@ -49,7 +49,8 @@ export default function Header() {
             cursor: isReady ? 'auto' : 'none',
             transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
           }}
-          className="self-center w-5 h-5"
+          tabIndex={isReady ? 0 : -1}
+          className="self-center w-7 h-7 p-1"
           onClick={() => trigger()}
         >
           <img
