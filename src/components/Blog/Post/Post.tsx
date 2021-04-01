@@ -10,7 +10,7 @@ import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
-import { useShouldAnimateNavigation } from '@/contexts/shouldAnimateNavigation';
+import { useShouldAnimateNavigation } from '@/contexts/navigation';
 
 import { PostHeader } from './PostHeader';
 

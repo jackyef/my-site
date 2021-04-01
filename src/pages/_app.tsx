@@ -12,7 +12,7 @@ import { PageContainer } from '@/components/Page/PageContainer';
 import { baseAnalytics } from '@/utils/analytics/base.lazy';
 import { canUseDOM, isProd } from '@/utils/constants';
 import { useReduceMotion } from '@/hooks/useReduceMotion';
-import { ShouldAnimateNavigationProvider } from '@/contexts/shouldAnimateNavigation';
+import { NavigationProvider } from '@/contexts/navigation';
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
@@ -33,7 +33,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <ShouldAnimateNavigationProvider>
+      <NavigationProvider>
         <CommonMetaTags />
         <SectionContainer>
           <Header />
@@ -72,7 +72,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             type="font/woff2"
           />
         </Head>
-      </ShouldAnimateNavigationProvider>
+      </NavigationProvider>
     </>
   )
 }
