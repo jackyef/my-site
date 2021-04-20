@@ -71,7 +71,6 @@ export default function About() {
         experiences while also taking care of{' '}
         <ExternalLink href="https://www.a11yproject.com/">a11y</ExternalLink>.
       </Paragraph>
-      <HorizontalDivider />
       <Paragraph>
         From 2017 to the end of October 2020, I worked with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}

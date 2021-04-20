@@ -17,7 +17,7 @@ export const PostPreviewList = () => {
     <ul className="divide-y divide-gray-400 divide-opacity-50">
       {posts.map(({ link, module: { default: Component, meta } }) => {
         return (
-          <li key={link} className="py-4">
+          <li key={link} className="pb-4 pt-8">
             <article className="space-y-2">
               <div className="space-y-5">
                 <div className="space-y-4">
