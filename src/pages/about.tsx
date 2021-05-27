@@ -1,14 +1,14 @@
 import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { TECHNOLOGIES } from '@/constants/technologies';
-import { HorizontalDivider } from '../components/Divider';
-import GitHubList from '../components/GitHub/List';
-import MediumList from '../components/Medium/List';
-import { Code } from '../components/Typography/Code';
-import { ExternalLink } from '../components/Typography/ExternalLink';
-import { PageTitle } from '../components/Typography/PageTitle';
-import { Paragraph } from '../components/Typography/Paragraph';
-import { SectionTitle } from '../components/Typography/SectionTitle';
+import { HorizontalDivider } from '@/components/Divider';
+import GitHubList from '@/components/GitHub/List';
+import MediumList from '@/components/Medium/List';
+import { Code } from '@/components/Typography/Code';
+import { ExternalLink } from '@/components/Typography/ExternalLink';
+import { PageTitle } from '@/components/Typography/PageTitle';
+import { Paragraph } from '@/components/Typography/Paragraph';
+import { SectionTitle } from '@/components/Typography/SectionTitle';
 
 const TechnologyAnchors = () => {
   return (
@@ -67,28 +67,24 @@ export default function About() {
           Sticker Mule
         </ExternalLink>
         , tinkering around with more web-related stuffs! I play around with{' '}
-        <TechnologyAnchors /> on a daily basis; trying to build awesome user
-        experiences while also taking care of{' '}
-        <ExternalLink href="https://www.a11yproject.com/">a11y</ExternalLink>.
+        <TechnologyAnchors /> on a daily basis; striving to building awesome and
+        accessible user experiences. I work on some products and also write
+        reusable components to be used across different products.
       </Paragraph>
       <Paragraph>
         From 2017 to the end of October 2020, I worked with JavaScript at{' '}
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}
         in the web platform team. Since July 2019, I have been part of the core
         team, working on things that help other developers in their work such
-        as: development toolings, CIs, and monitoring tools. I also tinker
-        around with build processes and maintain Tokopedia&apos;s web platform
-        monorepo that houses 20+ services and 30+ reusable packages to which 80+
-        developers are contributing daily.
+        as: development toolings, CIs, and monitoring tools. I also tinkered
+        around with build processes and maintained Tokopedia&apos;s web platform
+        monorepo that housed 20+ services and 30+ reusable packages to which 80+
+        developers were contributing daily.
       </Paragraph>
       <Paragraph>
         Before moving to the core team, I was part of the mobile web team. My
         day-to-day tasks included collaborating with backend engineers, product
         owners and designers to ship features and products in a timely manner.
-      </Paragraph>
-      <Paragraph>
-        At Tokopedia, I worked mostly with React, Node, TypeScript, GraphQL and
-        Apollo.
       </Paragraph>
       <HorizontalDivider />
 
@@ -99,10 +95,10 @@ export default function About() {
         I try to write an article about them to share them!
       </Paragraph>
       <Paragraph>
-        I have mostly been writing on{' '}
+        I had mostly been writing on{' '}
         <ExternalLink href="https://medium.com/@jackyef">Medium</ExternalLink>,
-        but I am currently thinking of publishing my writing on my own blog. If
-        you are reading this right now, hopefully I have published some writings
+        but I have been trying to start writing on my own blog. If you are
+        reading this right now, hopefully I have already published some writings
         on this site by then!
       </Paragraph>
       <Paragraph>Here are some of my writings on Medium.</Paragraph>
@@ -113,8 +109,8 @@ export default function About() {
       <Paragraph>
         Sometimes, I feel motivated to build stuffs. Some are just for fun and
         learning, some are actually kind of helpful. A lot are abandoned because
-        I got sidetracked (don’t we all? 😅). I published some of them as open
-        source projects on{' '}
+        I got sidetracked (don’t we all? 😅). I published some of them in the
+        open on{' '}
         <ExternalLink href="https://github.com/jackyef">GitHub</ExternalLink>. I
         also contribute to open source libraries when I could.
         <GitHubList />
