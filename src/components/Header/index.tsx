@@ -9,10 +9,10 @@ function Logo() {
   return (
     <div className="flex items-center justify-center">
       <img
-        className="monochrome-img h-5 inline-block mr-2"
+        className="h-5 inline-block mr-2"
         width="20"
         height="20"
-        src="/monochrome/logo.svg"
+        src="/android-icon-96x96.png"
         alt="logo"
       />
       <strong className="text-lg text">jackyef.com</strong>
