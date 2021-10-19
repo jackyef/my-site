@@ -8,6 +8,7 @@ interface Props {
   starCount?: number;
   url: string;
   tags: string[];
+  isFirst?: boolean
 }
 
 const GitHubRepoCard = ({
@@ -16,6 +17,7 @@ const GitHubRepoCard = ({
   starCount = 0,
   url,
   tags = [],
+  isFirst
 }: Props) => {
   return (
     <>
@@ -23,6 +25,7 @@ const GitHubRepoCard = ({
        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start md:w-60 max-w-sm scroll-snap-align-start"
        style={{
           width: `calc(100% - 1rem * 2)`,
+          scrollMargin: isFirst ? `0px 1rem` : undefined
         }}  
       >
         <h3 className="px-4 py-2 text-lg font-bold">

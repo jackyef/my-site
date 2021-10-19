@@ -10,6 +10,23 @@
     scroll-snap-type: x mandatory;
   }
 
+  .zoom-on-hover-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .zoom-on-hover {
+    will-change: transform;
+    transform: scale(1);
+    transition: transform 1000ms;
+  }
+
+  .zoom-on-hover-container:focus-within .zoom-on-hover,
+  .zoom-on-hover-container:hover .zoom-on-hover {
+    transform: scale(1.2);
+    transition: transform 400ms;
+  }
+
   /* Make sure no animation is played on initial page load */
   .no-animation * {
     transition-property: none !important;
