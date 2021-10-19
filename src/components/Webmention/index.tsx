@@ -61,20 +61,22 @@ const WebmentionWidget = ({ url, meta }: Props) => {
         <>
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0">
             <div className="flex space-x-3 items-center">
-              <div className="flex space-x-1">
-                <span>❤️</span> <span>{likes.length}</span>
+              <div className="flex space-x-2">
+                <span className="inline-block w-4">❤️</span> <span>{likes.length}</span>
               </div>
-              <div className="flex space-x-1">
-                <span>🔄</span> <span>{reposts.length}</span>
+              <div className="flex space-x-2">
+                <span className="inline-block w-4">🔄</span> <span>{reposts.length}</span>
               </div>
-              <div className="flex space-x-1">
-                <span>💬</span> <span>{discussions.length}</span>
-                <button
-                  onClick={() => setShowReplies((prev) => !prev)}
-                  className="hover:underline"
-                >
-                  (show all)
-                </button>
+              <div className="flex space-x-2">
+                <span className="inline-block w-4">💬</span> <span>{discussions.length}</span>
+                {discussions.length > 0 && (
+                  <button
+                    onClick={() => setShowReplies((prev) => !prev)}
+                    className="hover:underline"
+                    >
+                    (show all)
+                  </button>
+                )}
               </div>
             </div>
             <div className="pl-0 md:pl-6">
