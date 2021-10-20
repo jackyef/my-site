@@ -107,10 +107,10 @@ module.exports = {
         lg: '0 2px 10px rgba(0, 0, 0, 0.5)',
       },
       lineHeight: {
-        '11': '2.75rem',
-        '12': '3rem',
-        '13': '3.25rem',
-        '14': '3.5rem',
+        11: '2.75rem',
+        12: '3rem',
+        13: '3.25rem',
+        14: '3.5rem',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
@@ -186,8 +186,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [
-    require('@tailwindcss/ui'),
-    require('@tailwindcss/typography')
-  ],
+  plugins: [require('@tailwindcss/ui'), require('@tailwindcss/typography')],
 };

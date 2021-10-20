@@ -1,0 +1,50 @@
+import { Audio, GaplessAudio } from '@/components/Audio';
+import { Panel } from '@/components/common/Panel';
+import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { jackyef } from '@/blog/authors';
+
+export const meta = {
+  title: 'Gapless Audio Loops on the Web 🔉♻️',
+  description: `I recently landed my first remote job as a software engineer! Here are some of the stuffs that I learned during the process.`,
+  date: '2021-10-20T08:59:45.863Z',
+  authors: [jackyef],
+  image: createOgImageUrl({
+    title: '**Gapless Audio Loops on the Web** 🔉♻️',
+    fontSize: 112,
+  }),
+  readingTime: '15 mins read',
+};
+
+<!--start-->
+
+In July, I built [Tranquil](https://tranquil.vercel.app), a very simple web-app that
+allows you to create your own mix of environmental musics. I have always loved the
+sounds of nature such as the sound of the rain, wind blowing, etc.
+
+I thought the project would be very simple, I should probably be just able to slap
+some `<audio>` elements with `loop="true"`, right? Well, as it turned out, it wasn't that
+straightforward.
+
+<!--more-->
+
+## The Problem
+
+The following audio embed is created using an `<audio>` element with the `loop` attribute set
+to `true`. Try listening to it. Do you notice the problem?
+
+<Audio
+  title="Raining sound (loop)"
+  src="https://tranquil.vercel.app/audio/rain2.wav"
+  loop
+/>
+
+Most likely, you heard that the audio stopped abruptly before starting again. This gap makes
+the audio loop very annoying to listen to. It is almost like the experience you get when you
+watch a YouTube video, and then it buffers for 0.5 second before continuing.
+
+Compare it with this improved version, see if you can notice the difference!
+
+<GaplessAudio
+  title="Raining sound (loop)"
+  src="https://tranquil.vercel.app/audio/rain2.wav"
+/>
