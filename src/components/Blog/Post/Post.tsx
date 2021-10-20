@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
@@ -11,8 +11,10 @@ import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 import { useShouldAnimateNavigation } from '@/contexts/navigation';
+import { supabase } from '@/utils/supabase';
 
 import { PostHeader } from './PostHeader';
+import { PostLikesCount, PostUserLikes } from '../../../../types/supabase';
 
 const mdxComponents = {
   pre: ({ className, ...props }: any) => (
@@ -40,6 +42,7 @@ interface Props {
 export default function Post({ meta, children, posts }: Props) {
   const router = useRouter();
   const postIndex = posts.findIndex((post) => post.link === router.pathname);
+  const post = posts[postIndex]
   const previous = posts[postIndex + 1];
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
@@ -67,6 +70,30 @@ export default function Post({ meta, children, posts }: Props) {
     }
   }, [shouldAnimateNavigation]);
 
+  const [likesCount, setLikesCount] = useState(0)
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.from<PostLikesCount>('post_likes_count').select('likes_count').eq('post_slug', post.link)
+
+      console.log({ data })
+    })()
+  }, [])
+
+  const addLikesCount = async () => {
+    console.log(await supabase.from<PostLikesCount>('post_likes_count').upsert({
+      likes_count: 1,
+      post_slug: post.link
+    }))
+    console.log(await supabase.from<PostUserLikes>('post_user_likes').upsert({
+      id: 'testing-id',
+      likes_count: 1,
+      post_slug: post.link
+    }))
+
+    setLikesCount(prev => prev + 1)
+  }
+
   return (
     <article>
       <PageMetaTags
@@ -91,6 +118,10 @@ export default function Post({ meta, children, posts }: Props) {
               show ? <LazyWebmentionWidget url={fullUrl} meta={meta} /> : null
             }
           </IOWrapper>
+          <div>
+            <div>Likes: {likesCount}</div>
+            <button onClick={addLikesCount}>+1</button>
+          </div>
         </div>
         <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
           {(next || previous) && (
