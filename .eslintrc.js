@@ -1,11 +1,17 @@
+const prettierConfig = require('./.prettierrc.js');
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     jsx: true,
     useJSXTextNode: true,
   },
-  extends: ['plugin:@typescript-eslint/recommended', 'prettier', 'prettier/@typescript-eslint', 'plugin:react/recommended'],
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'eslint-config-prettier',
+  ],
+  plugins: ['@typescript-eslint', 'react-hooks', 'eslint-plugin-prettier'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -18,5 +24,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
+
+    // prettier rules
+    'prettier/prettier': ['error', prettierConfig],
   },
 };
