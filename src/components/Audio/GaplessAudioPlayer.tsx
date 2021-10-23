@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
-import { ProgressBar } from '../ProgressBar';
-import { secondsToMMSS } from './helpers';
+
+import { ControlsContainer } from './ControlsContainer';
+import { PlayerContainer } from './PlayerContainer';
+import { PlayerTitle } from './PlayerTitle';
+import { PlayPauseButton } from './PlayPauseButton';
+import { TimeInformation } from './TimeInformation';
+import { Track } from './Track';
 
 interface Props {
   src: string;
   title: string;
 }
 
-export const GaplessAudio = ({ src, title }: Props) => {
+export const GaplessAudioPlayer = ({ src, title }: Props) => {
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,39 +64,36 @@ export const GaplessAudio = ({ src, title }: Props) => {
   }, [isPlaying, audioContext, duration]);
 
   return (
-    <div className="bg-theme-backgroundOffset rounded-md px-4 py-2">
-      <h5 className="mb-2 font-semibold">
-        {title}
-        <span className="italic text-sm font-light">
-          {isLoading ? ' (loading audio file...)' : ''}
-        </span>
-      </h5>
-      <div className="flex space-x-4 px-2">
-        <button
-          aria-label={isPlaying ? 'Pause' : 'Play'}
-          disabled={isLoading}
-          onClick={() => {
-            if (isPlaying) {
-              audioContext?.suspend();
-            } else {
-              if (audioContext) {
-                audioContext?.resume();
-              } else {
-                initializeAudioContext();
-              }
-            }
+    <PlayerContainer>
+      <PlayerTitle
+        title={title}
+        subtitle={isLoading ? '(loading audio file...)' : undefined}
+      />
+      <ControlsContainer>
+        <PlayPauseButton
+          isPlaying={isPlaying}
+          isDisabled={isLoading}
+          onPause={() => {
+            audioContext?.suspend();
             setIsPlaying((prev) => !prev);
           }}
-        >
-          {isPlaying ? '⏸️' : '▶️'}
-        </button>
-        <div className="flex flex-1 items-center">
-          <ProgressBar value={(currentTime / duration) * 100} />
-        </div>
-        <div>
-          {secondsToMMSS(currentTime)} / {secondsToMMSS(duration)}
-        </div>
-      </div>
-    </div>
+          onPlay={() => {
+            if (audioContext) {
+              audioContext?.resume();
+            } else {
+              initializeAudioContext();
+            }
+
+            setIsPlaying((prev) => !prev);
+          }}
+        />
+        <Track
+          currentTime={currentTime}
+          duration={duration}
+          isLoading={isLoading}
+        />
+        <TimeInformation currentTime={currentTime} duration={duration} />
+      </ControlsContainer>
+    </PlayerContainer>
   );
 };

@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ProgressBar } from '../ProgressBar';
-import { secondsToMMSS } from './helpers';
+
+import { ControlsContainer } from './ControlsContainer';
+import { PlayerContainer } from './PlayerContainer';
+import { PlayerTitle } from './PlayerTitle';
+import { PlayPauseButton } from './PlayPauseButton';
+import { TimeInformation } from './TimeInformation';
+import { Track } from './Track';
 
 type Props = Omit<React.HTMLProps<HTMLAudioElement>, 'controls'> & {
   title: string;
@@ -9,7 +14,7 @@ type Props = Omit<React.HTMLProps<HTMLAudioElement>, 'controls'> & {
 /**
  * A wrapper for the native <audio> element with our own UI controls implementation
  */
-export const Audio = ({ title, ...props }: Props) => {
+export const AudioPlayer = ({ title, ...props }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -50,29 +55,18 @@ export const Audio = ({ title, ...props }: Props) => {
   return (
     <>
       <audio ref={audioRef} {...props} />
-      <div className="bg-theme-backgroundOffset rounded-md px-4 py-2">
-        <h5 className="mb-2 font-semibold">{title}</h5>
-        <div className="flex space-x-4 px-2">
-          <button
-            aria-label={isPlaying ? 'Pause' : 'Play'}
-            onClick={() => {
-              if (isPlaying) {
-                audioRef.current?.pause();
-              } else {
-                audioRef.current?.play();
-              }
-            }}
-          >
-            {isPlaying ? '⏸️' : '▶️'}
-          </button>
-          <div className="flex flex-1 items-center">
-            <ProgressBar value={(currentTime / duration) * 100} />
-          </div>
-          <div>
-            {secondsToMMSS(currentTime)} / {secondsToMMSS(duration)}
-          </div>
-        </div>
-      </div>
+      <PlayerContainer>
+        <PlayerTitle title={title} />
+        <ControlsContainer>
+          <PlayPauseButton
+            isPlaying={isPlaying}
+            onPause={() => audioRef.current?.pause()}
+            onPlay={() => audioRef.current?.play()}
+          />
+          <Track currentTime={currentTime} duration={duration} />
+          <TimeInformation currentTime={currentTime} duration={duration} />
+        </ControlsContainer>
+      </PlayerContainer>
     </>
   );
 };

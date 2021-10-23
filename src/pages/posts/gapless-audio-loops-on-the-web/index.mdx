@@ -1,4 +1,4 @@
-import { Audio, GaplessAudio } from '@/components/Audio';
+import { AudioPlayer, GaplessAudioPlayer } from '@/components/Audio';
 import { Panel } from '@/components/common/Panel';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
@@ -32,7 +32,7 @@ straightforward.
 The following audio embed is created using an `<audio>` element with the `loop` attribute set
 to `true`. Try listening to it. Do you notice the problem?
 
-<Audio
+<AudioPlayer
   title="Raining sound (loop)"
   src="https://tranquil.vercel.app/audio/rain2.wav"
   loop
@@ -44,7 +44,7 @@ watch a YouTube video, and then it buffers for 0.5 second before continuing.
 
 Compare it with this improved version, see if you can notice the difference!
 
-<GaplessAudio
+<GaplessAudioPlayer
   title="Raining sound (loop)"
   src="https://tranquil.vercel.app/audio/rain2.wav"
 />

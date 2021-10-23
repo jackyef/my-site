@@ -1,2 +1,2 @@
-export { Audio } from './Audio';
-export { GaplessAudio } from './GaplessAudio';
+export { AudioPlayer } from './AudioPlayer';
+export { GaplessAudioPlayer } from './GaplessAudioPlayer';
