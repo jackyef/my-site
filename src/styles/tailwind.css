@@ -12,6 +12,10 @@
     cursor: pointer;
   }
 
+  #restOfArticle summary p:first-child {
+    @apply mt-0;
+  }
+
   #restOfArticle summary::after {
     @apply mt-4 block underline;
     content: 'Read more 👇';
