@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  #restOfArticle details {
+    @apply block bg-theme-info rounded-lg my-8 px-5 py-4;
+  }
+
+  #restOfArticle summary {
+    @apply block;
+    cursor: pointer;
+  }
+
+  #restOfArticle summary::after {
+    @apply mt-4 block underline;
+    content: 'Read more 👇';
+  }
+}
+
 @layer utilities {
   .scroll-snap-align-start {
     scroll-snap-align: start;

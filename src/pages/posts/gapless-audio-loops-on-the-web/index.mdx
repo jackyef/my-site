@@ -21,7 +21,7 @@ In July, I built [Tranquil](https://tranquil.vercel.app), a very simple web-app 
 allows you to create your own mix of environmental musics. I have always loved the
 sounds of nature such as the sound of the rain, wind blowing, etc.
 
-I thought the project would be very simple, I should probably be just able to slap
+I thought the project would be very simple, I should probably be able to just slap
 some `<audio>` elements with `loop="true"`, right? Well, as it turned out, it wasn't that
 straightforward.
 
@@ -30,7 +30,12 @@ straightforward.
 ## The Problem
 
 The following audio embed is created using an `<audio>` element with the `loop` attribute set
-to `true`. Try listening to it. Do you notice the problem?
+to `true`. Try listening to the audio below. The code for it is essentially, but with some custom
+controls UI for it.
+
+```jsx
+<audio src="https://tranquil.vercel.app/audio/rain2.wav" loop controls />
+```
 
 <AudioPlayer
   title="Raining sound (loop)"
@@ -38,9 +43,98 @@ to `true`. Try listening to it. Do you notice the problem?
   loop
 />
 
+Do you notice the problem?
+
 Most likely, you heard that the audio stopped abruptly before starting again. This gap makes
 the audio loop very annoying to listen to. It is almost like the experience you get when you
 watch a YouTube video, and then it buffers for 0.5 second before continuing.
+
+This is an inherent limitation of the native `<audio>` element. [A quick search for "seamless audio loop html"](https://www.google.com/search?q=seamless+audio+loop+html)
+should show people struggling with this issue as well. Unfortunately, as far as I know,
+there is no way to make it work using the native `<audio>` element.
+
+## The Web Audio API
+
+The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) allows developers
+to do all sorts of audio processing on the web. Developers can choose audio sources,
+add effects to audio, create audio visualizations, apply spatial effects (such as panning) and much more.
+One thing that we care about it is that it is able to play audio loops without the annoying gap
+that we have in `<audio>` element.
+
+### Playing audio file
+
+Compared to the `<audio>` element, the Web Audio might feel quite a bit more complicated. To get started,
+we need to create a new [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
+
+```jsx
+const audioCtx = new window.AudioContext();
+```
+
+Next, we would need to create an [`AudioBufferSourceNode`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode) for the `AudioContext`.
+
+```jsx
+const source = audioCtx.createBufferSource();
+```
+
+The 2 lines of code we have so far are not really doing anything yet. Next, we need to load the audio file and assign it
+to the `AudioBufferSourceNode` we just created. We can load the audio file using a `fetch()` call and retrieve
+the value as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+
+```jsx
+const arrayBuffer = await fetch(
+  'https://tranquil.vercel.app/audio/rain2.wav',
+).then((res) => res.arrayBuffer());
+```
+
+The `AudioBufferSourceNode` instance does not accept an `ArrayBuffer` though, it needs (you guessed it) an
+[`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) instead.
+Fortunately, it is easy to convert the `ArrayBuffer` we have to an `AudioBuffer`.
+
+```jsx
+const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+```
+
+Now that we have the `AudioBuffer`, we can assign it to our `AudioBufferSourceNode`.
+While we are at it, we can also set the audio to loop forever.
+
+```jsx
+source.buffer = audioBuffer;
+source.loop = true;
+```
+
+At this point, we can connect the source node to `AudioContext`'s destination, and start playing the audio file.
+
+```jsx
+source.connect(audioCtx.destination);
+source.start();
+```
+
+<details>
+
+<summary>
+  
+The Web Audio API works with nodes. Nodes are the building blocks of the
+audio processing pipeline.
+
+</summary>
+
+For example, we can add a `GainNode` to increase
+the volume of the audio. If you are familiar with Audio Editor programs, you've probably
+heard of "Gain" before.
+
+```jsx
+const gainNode = audioCtx.createGain(); // create a GainNode
+
+gainNode.gain.value = 0.5; // set the gain to 50%
+source.connect(gainNode); // connect the audio source to the GainNode
+gainNode.connect(audioCtx.destination); // connect the GainNode to the AudioContext destination
+```
+
+[The MDN docs page explains this more in-depth](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
+We don't need them for our use case, but it is useful to see how powerful the Web Audio API is. You
+can probably build a pretty complex audio processing web-app using them!
+
+</details>
 
 Compare it with this improved version, see if you can notice the difference!
 
@@ -48,3 +142,53 @@ Compare it with this improved version, see if you can notice the difference!
   title="Raining sound (loop)"
   src="https://tranquil.vercel.app/audio/rain2.wav"
 />
+
+Playing the audio file with the Web Audio API allows us to work around the issue of the `<audio>` element,
+we are now able to have a gapless audio loop!
+
+
+<details>
+
+<summary>
+
+For easy access, here is the complete code of what we have so far.
+
+</summary>
+
+```jsx
+const playAudioWithWebAudioAPI = async () => {
+  const audioCtx = new window.AudioContext();
+  const source = audioCtx.createBufferSource();
+  const arrayBuffer = await fetch(
+    'https://tranquil.vercel.app/audio/rain2.wav',
+  ).then((res) => res.arrayBuffer());
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+  source.buffer = audioBuffer;
+  source.loop = true;
+  source.connect(audioCtx.destination);
+  source.start();
+}
+```
+
+</details>
+
+## Web Audio API vs. `<audio>` element
+
+Though powerful, the Web Audio API isn't without its own sets of caveats. Observant readers might have noticed that 
+before we are able to play an audio file with the Web Audio API, we need to download the whole audio file beforehand!
+This is a very noticeable issue especially with bigger audio files. The `<audio>` element, on the other hand, does 
+not have the same issue. The `<audio>` element comes with built-in streaming capabilities, allowing it to play 
+chunks of the audio as it downloads them.
+
+This makes sense though. It would be pretty hard to do processing on audio files without having all of the chunks ready in 
+memory beforehand, which is what the Web Audio API does. In most cases, for playing audio files, the `<audio>` element
+is still preferred unless there is a specific use case that requires the Web Audio API.
+
+---
+
+## Closing
+
+The Web Audio API is still a pretty much unknown thing for me. If I hadn't built [Tranquil](https://tranquil.vercel.app/),
+I wouldn't have even known about them. Though, it is pretty rad to see that the web platform has
+such powerful APIs! 🔥
