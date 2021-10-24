@@ -12,7 +12,7 @@ export const meta = {
     title: '**Gapless Audio Loops on the Web** 🔉♻️',
     fontSize: 112,
   }),
-  readingTime: '15 mins read',
+  readingTime: '5 mins read',
 };
 
 <!--start-->
@@ -30,12 +30,13 @@ straightforward.
 ## The Problem
 
 The following audio embed is created using an `<audio>` element with the `loop` attribute set
-to `true`. Try listening to the audio below. The code for it is essentially, but with some custom
-controls UI for it.
+to `true`. This is how we would use an `<audio>` element.
 
 ```jsx
 <audio src="https://tranquil.vercel.app/audio/rain2.wav" loop controls />
 ```
+
+I added some custom controls UI below. Try listening to it!
 
 <AudioPlayer
   title="Raining sound (loop)"
@@ -43,7 +44,7 @@ controls UI for it.
   loop
 />
 
-Do you notice the problem?
+Did you notice the problem?
 
 Most likely, you heard that the audio stopped abruptly before starting again. This gap makes
 the audio loop very annoying to listen to. It is almost like the experience you get when you
@@ -58,12 +59,12 @@ there is no way to make it work using the native `<audio>` element.
 The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) allows developers
 to do all sorts of audio processing on the web. Developers can choose audio sources,
 add effects to audio, create audio visualizations, apply spatial effects (such as panning) and much more.
-One thing that we care about it is that it is able to play audio loops without the annoying gap
+One thing that we care about is that it is able to play audio loops without the annoying gap
 that we have in `<audio>` element.
 
 ### Playing audio file
 
-Compared to the `<audio>` element, the Web Audio might feel quite a bit more complicated. To get started,
+Compared to the `<audio>` element, the Web Audio API might feel quite a bit more complicated. To get started,
 we need to create a new [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
 
 ```jsx
@@ -130,8 +131,8 @@ source.connect(gainNode); // connect the audio source to the GainNode
 gainNode.connect(audioCtx.destination); // connect the GainNode to the AudioContext destination
 ```
 
-[The MDN docs page explains this more in-depth](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
-We don't need them for our use case, but it is useful to see how powerful the Web Audio API is. You
+[The MDN docs page explains about this in more depth](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
+We don't need them for our use case, but it is useful to know how powerful the Web Audio API is. You
 can probably build a pretty complex audio processing web-app using them!
 
 </details>
@@ -176,14 +177,14 @@ const playAudioWithWebAudioAPI = async () => {
 ## Web Audio API vs. `<audio>` element
 
 Though powerful, the Web Audio API isn't without its own sets of caveats. Observant readers might have noticed that 
-before we are able to play an audio file with the Web Audio API, we need to download the whole audio file beforehand!
+before we were able to play an audio file with the Web Audio API, we needed to download the whole audio file beforehand!
 This is a very noticeable issue especially with bigger audio files. The `<audio>` element, on the other hand, does 
 not have the same issue. The `<audio>` element comes with built-in streaming capabilities, allowing it to play 
 chunks of the audio as it downloads them.
 
 This makes sense though. It would be pretty hard to do processing on audio files without having all of the chunks ready in 
 memory beforehand, which is what the Web Audio API does. In most cases, for playing audio files, the `<audio>` element
-is still preferred unless there is a specific use case that requires the Web Audio API.
+is still preferred unless there is a specific use case that requires the Web Audio API (like we do here!).
 
 ---
 
