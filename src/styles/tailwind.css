@@ -15,6 +15,14 @@
   #restOfArticle summary p:first-child {
     @apply mt-0;
   }
+  
+  /* Removes the default marker in <summary> elements */
+  #restOfArticle summary::marker,
+  /* For safari */
+  #restOfArticle summary::-webkit-details-marker {
+    content: '';
+    display: none;
+  }
 
   #restOfArticle summary::after {
     @apply mt-4 block underline;
