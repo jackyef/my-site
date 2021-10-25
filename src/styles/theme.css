@@ -114,6 +114,12 @@ body {
   transition: var(--transition-default);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* some fancy hover effect for anchor tags */
 .fancy-anchor {
   text-decoration: none;
@@ -139,6 +145,10 @@ body {
   margin-left: 0.5rem;
   opacity: 0;
   transition: opacity .3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-block-start: 3rem;
 }
 
 h1:hover .hash-link, 

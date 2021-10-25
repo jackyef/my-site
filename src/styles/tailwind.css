@@ -28,6 +28,10 @@
     @apply mt-4 block underline;
     content: 'Read more 👇';
   }
+
+  #restOfArticle p > img {
+    @apply block mx-auto;
+  }
 }
 
 @layer utilities {

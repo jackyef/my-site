@@ -4,12 +4,12 @@ import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
 
 export const meta = {
-  title: 'Gapless Audio Loops on the Web 🔉♻️',
-  description: `I recently landed my first remote job as a software engineer! Here are some of the stuffs that I learned during the process.`,
+  title: 'Building an Audio-loop player on the Web 🔉♻️',
+  description: `Some learnings from building Tranquil, a web-app for mixing environmental sounds.`,
   date: '2021-10-20T08:59:45.863Z',
   authors: [jackyef],
   image: createOgImageUrl({
-    title: '**Gapless Audio Loops on the Web** 🔉♻️',
+    title: '**Building an Audio-loop player on the Web** 🔉♻️',
     fontSize: 112,
   }),
   readingTime: '5 mins read',
@@ -18,8 +18,8 @@ export const meta = {
 <!--start-->
 
 In July, I built [Tranquil](https://tranquil.vercel.app), a very simple web-app that
-allows you to create your own mix of environmental musics. I have always loved the
-sounds of nature such as the sound of the rain, wind blowing, etc.
+allows you to create your own mix of environmental sounds. I have always loved the
+sounds of nature such as the rain 🌧️ , the blowing wind 🎐 , the sound of waves hitting the shore 🏖️ , etc.
 
 I thought the project would be very simple, I should probably be able to just slap
 some `<audio>` elements with `loop="true"`, right? Well, as it turned out, it wasn't that
@@ -27,7 +27,7 @@ straightforward.
 
 <!--more-->
 
-## The Problem
+## The `<audio>` loop gap
 
 The following audio embed is created using an `<audio>` element with the `loop` attribute set
 to `true`. This is how we would use an `<audio>` element.
@@ -147,7 +147,6 @@ Compare it with this improved version, see if you can notice the difference!
 Playing the audio file with the Web Audio API allows us to work around the issue of the `<audio>` element,
 we are now able to have a gapless audio loop!
 
-
 <details>
 
 <summary>
@@ -169,27 +168,108 @@ const playAudioWithWebAudioAPI = async () => {
   source.loop = true;
   source.connect(audioCtx.destination);
   source.start();
-}
+};
 ```
 
 </details>
 
 ## Web Audio API vs. `<audio>` element
 
-Though powerful, the Web Audio API isn't without its own sets of caveats. Observant readers might have noticed that 
+Though powerful, the Web Audio API isn't without its own sets of caveats. Observant readers might have noticed that
 before we were able to play an audio file with the Web Audio API, we needed to download the whole audio file beforehand!
-This is a very noticeable issue especially with bigger audio files. The `<audio>` element, on the other hand, does 
-not have the same issue. The `<audio>` element comes with built-in streaming capabilities, allowing it to play 
+This is a very noticeable issue especially with bigger audio files. The `<audio>` element, on the other hand, does
+not have the same issue. The `<audio>` element comes with built-in streaming capabilities, allowing it to play
 chunks of the audio as it downloads them.
 
-This makes sense though. It would be pretty hard to do processing on audio files without having all of the chunks ready in 
+This makes sense though. It would be pretty hard to do processing on audio files without having all of the chunks ready in
 memory beforehand, which is what the Web Audio API does. In most cases, for playing audio files, the `<audio>` element
 is still preferred unless there is a specific use case that requires the Web Audio API (like we do here!).
+
+## The MediaSession API
+
+The [MediaSession API](https://developer.mozilla.org/en-US/docs/Web/API/MediaSession) is an experimental Web API that
+allows our web-app to integrate in a nicer way to the operating system. For instance, when Tranquil is running on an
+Android device, it will show up in the notification tray and users can play/pause from there.
+
+![MediaSession API on Android device](/assets/media-session-android.png)
+
+For comparison, here is how it looks on a Mac device.
+
+![MediaSession API on Mac device](/assets/media-session-macos.png)
+
+The implementation is pretty simple. We just need to initialize a media session by setting metadata and some action handlers.
+In React apps, we can do this in a `useEffect()` hook.
+
+```jsx
+useEffect(() => {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'Environmental sounds',
+      artist: 'Tranquil',
+      album: '',
+      artwork: [
+        {
+          src: '/images/rain.jpeg',
+          sizes: '951x634', // HeightxWidth
+          type: 'image/jpeg',
+        },
+      ],
+    });
+
+    navigator.mediaSession.setActionHandler('play', () => play());
+    navigator.mediaSession.setActionHandler('pause', () => pause());
+  }
+}, [play, pause]);
+```
+
+Unfortunately, the media controls will not be shown unless there is a playing `<audio>` element in the page. Since Tranquil
+plays audio file using the Web Audio API, I had to add a blank `<audio>` element to the page.
+
+```jsx
+// Audio file from: https://github.com/anars/blank-audio
+<audio ref={dummyAudioElementRef} src="/audio/15-seconds-of-silence.mp3" />
+```
+
+To make sure the blank audio isn't interfering with the environmental sounds Tranquil is playing, I set its volume to 0.
+We also want to set the `<audio>` to loop because the environmental sounds are also looping.
+
+```jsx
+useEffect(() => {
+  if (dummyAudioElementRef.current) {
+    dummyAudioElementRef.current.volume = 0;
+    dummyAudioElementRef.current.loop = true;
+  }
+}, []);
+```
+
+Finally, we need to play/pause the `<audio>` element when the user interacts with the media controls from the MediaSession API.
+
+```tsx
+const [playStatus, setPlayStatus] = useState<'PLAYING' | 'STOPPED'>('STOPPED');
+
+useEffect(() => {
+  if ('mediaSession' in navigator) {
+    if (playStatus === 'PLAYING') {
+      navigator.mediaSession.playbackState = 'playing';
+      dummyAudioElementRef.current?.play();
+    } else {
+      navigator.mediaSession.playbackState = 'paused';
+      dummyAudioElementRef.current?.pause();
+    }
+  }
+}, [playStatus]);
+```
+
+With that, Tranquil is now fully controllable via the media controls that are integrated nicely with the underlying
+operating system! ✨
 
 ---
 
 ## Closing
 
-The Web Audio API is still a pretty much unknown thing for me. If I hadn't built [Tranquil](https://tranquil.vercel.app/),
-I wouldn't have even known about them. Though, it is pretty rad to see that the web platform has
-such powerful APIs! 🔥
+The Web Audio API in particular is still a very unknown thing for me.
+If I hadn't built Tranquil, I wouldn't have even known about them.
+Though, it is pretty rad to see that the web platform has such powerful APIs! 🔥
+
+All in all, building Tranquil was pretty fun as it provided me with an opportunity to play with
+Web APIs I otherwise wouldn't be playing with.
