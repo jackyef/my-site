@@ -7,7 +7,7 @@ interface Props {
 
 export const TimeInformation = ({ currentTime, duration }: Props) => {
   return (
-    <div>
+    <div className="w-24 text-right">
       {secondsToMMSS(currentTime)} / {secondsToMMSS(duration)}
     </div>
   );

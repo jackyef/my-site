@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ControlsContainer } from './ControlsContainer';
 import { PlayerContainer } from './PlayerContainer';
@@ -18,6 +18,7 @@ export const GaplessAudioPlayer = ({ src, title }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const audioLoadTimeRef = useRef(0);
 
   const initializeAudioContext = async () => {
     setIsLoading(true);
@@ -56,8 +57,16 @@ export const GaplessAudioPlayer = ({ src, title }: Props) => {
   useEffect(() => {
     if (!audioContext || !isPlaying) return;
 
+    if (!audioLoadTimeRef.current) {
+      audioLoadTimeRef.current = Math.round(audioContext.currentTime);
+    }
+
     const interval = setInterval(() => {
-      setCurrentTime(Math.floor(audioContext.currentTime % duration));
+      setCurrentTime(
+        Math.floor(
+          (audioContext.currentTime - audioLoadTimeRef.current) % duration,
+        ),
+      );
     }, 1000);
 
     return () => clearInterval(interval);
@@ -78,6 +87,8 @@ export const GaplessAudioPlayer = ({ src, title }: Props) => {
             setIsPlaying((prev) => !prev);
           }}
           onPlay={() => {
+            if (isLoading) return;
+
             if (audioContext) {
               audioContext?.resume();
             } else {

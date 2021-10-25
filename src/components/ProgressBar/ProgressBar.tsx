@@ -25,6 +25,11 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
     <div
       className="overflow-hidden h-2 text-xs flex w-full rounded bg-theme-background"
       role="progressbar"
+      style={{
+        // We are not transforming this element,
+        // but omitting this will cause overflow: hidden to not work properly in safari
+        willChange: 'transform',
+      }}
       {...ariaProps}
     >
       <div

@@ -4,15 +4,15 @@ import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
 
 export const meta = {
-  title: 'Building an Audio-loop player on the Web 🔉♻️',
+  title: 'Building an Audio-loop Player on the Web 🔉♻️',
   description: `Some learnings from building Tranquil, a web-app for mixing environmental sounds.`,
-  date: '2021-10-20T08:59:45.863Z',
+  date: '2021-10-25T09:32:13.801Z',
   authors: [jackyef],
   image: createOgImageUrl({
-    title: '**Building an Audio-loop player on the Web** 🔉♻️',
+    title: '**Building an Audio-loop Player on the Web** 🔉♻️',
     fontSize: 112,
   }),
-  readingTime: '5 mins read',
+  readingTime: '7 mins read',
 };
 
 <!--start-->
@@ -36,7 +36,7 @@ to `true`. This is how we would use an `<audio>` element.
 <audio src="https://tranquil.vercel.app/audio/rain2.wav" loop controls />
 ```
 
-I added some custom controls UI below. Try listening to it!
+I added some custom UI for the controls below. Try listening to it!
 
 <AudioPlayer
   title="Raining sound (loop)"
@@ -89,9 +89,10 @@ const arrayBuffer = await fetch(
 
 The `AudioBufferSourceNode` instance does not accept an `ArrayBuffer` though, it needs (you guessed it) an
 [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) instead.
-Fortunately, it is easy to convert the `ArrayBuffer` we have to an `AudioBuffer`.
+Fortunately, it is easy to convert the `ArrayBuffer` to an `AudioBuffer`.
 
 ```jsx
+// Convert ArrayBuffer to an AudioBuffer
 const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
 ```
 
@@ -151,7 +152,8 @@ we are now able to have a gapless audio loop!
 
 <summary>
 
-For easy access, here is the complete code of what we have so far.
+For easy access, here is the complete code of what we have so far. You can copy them to your browser console
+to try it out!
 
 </summary>
 
@@ -188,7 +190,7 @@ is still preferred unless there is a specific use case that requires the Web Aud
 ## The MediaSession API
 
 The [MediaSession API](https://developer.mozilla.org/en-US/docs/Web/API/MediaSession) is an experimental Web API that
-allows our web-app to integrate in a nicer way to the operating system. For instance, when Tranquil is running on an
+allows our web-app to integrate to the operating system in a nicer way. For instance, when Tranquil is running on an
 Android device, it will show up in the notification tray and users can play/pause from there.
 
 ![MediaSession API on Android device](/assets/media-session-android.png)
@@ -273,3 +275,9 @@ Though, it is pretty rad to see that the web platform has such powerful APIs! �
 
 All in all, building Tranquil was pretty fun as it provided me with an opportunity to play with
 Web APIs I otherwise wouldn't be playing with.
+
+<Panel type="info" title="Looking for code for Tranquil?">
+
+If you are interested in looking at the code for Tranquil, you can find it on [GitHub](https://github.com/jackyef/tranquil).
+
+</Panel>
