@@ -21,16 +21,15 @@ In July, I built [Tranquil](https://tranquil.vercel.app), a very simple web-app 
 allows you to create your own mix of environmental sounds. I have always loved the
 sounds of nature such as the rain 🌧️ , the blowing wind 🎐 , the sound of waves hitting the shore 🏖️ , etc.
 
-I thought the project would be very simple, I should probably be able to just slap
-some `<audio>` elements with `loop="true"`, right? Well, as it turned out, it wasn't that
+I thought the project would be super simple. I should probably be able to just put
+some `<audio>` elements with `loop="true"` on them, right? Well, as it turned out, it wasn't that
 straightforward.
 
 <!--more-->
 
 ## The `<audio>` loop gap
 
-The following audio embed is created using an `<audio>` element with the `loop` attribute set
-to `true`. This is how we would use an `<audio>` element.
+Typically, this is how we would use an `<audio>` element.
 
 ```jsx
 <audio src="https://tranquil.vercel.app/audio/rain2.wav" loop controls />
@@ -48,7 +47,7 @@ Did you notice the problem?
 
 Most likely, you heard that the audio stopped abruptly before starting again. This gap makes
 the audio loop very annoying to listen to. It is almost like the experience you get when you
-watch a YouTube video, and then it buffers for 0.5 second before continuing.
+watch a YouTube video, and then it buffers for 0.5 seconds before continuing.
 
 This is an inherent limitation of the native `<audio>` element. [A quick search for "seamless audio loop html"](https://www.google.com/search?q=seamless+audio+loop+html)
 should show people struggling with this issue as well. Unfortunately, as far as I know,
@@ -58,7 +57,7 @@ there is no way to make it work using the native `<audio>` element.
 
 The [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) allows developers
 to do all sorts of audio processing on the web. Developers can choose audio sources,
-add effects to audio, create audio visualizations, apply spatial effects (such as panning) and much more.
+add effects to audio, create audio visualizations, apply spatial effects (such as panning), and much more.
 One thing that we care about is that it is able to play audio loops without the annoying gap
 that we have in `<audio>` element.
 
@@ -104,7 +103,8 @@ source.buffer = audioBuffer;
 source.loop = true;
 ```
 
-At this point, we can connect the source node to `AudioContext`'s destination, and start playing the audio file.
+At this point, we can connect the source node to `AudioContext`'s destination. 
+Then we can start playing the audio file.
 
 ```jsx
 source.connect(audioCtx.destination);
@@ -132,7 +132,7 @@ source.connect(gainNode); // connect the audio source to the GainNode
 gainNode.connect(audioCtx.destination); // connect the GainNode to the AudioContext destination
 ```
 
-[The MDN docs page explains about this in more depth](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
+[The MDN docs page explains this in more depth](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
 We don't need them for our use case, but it is useful to know how powerful the Web Audio API is. You
 can probably build a pretty complex audio processing web-app using them!
 
@@ -179,19 +179,19 @@ const playAudioWithWebAudioAPI = async () => {
 
 Though powerful, the Web Audio API isn't without its own sets of caveats. Observant readers might have noticed that
 before we were able to play an audio file with the Web Audio API, we needed to download the whole audio file beforehand!
-This is a very noticeable issue especially with bigger audio files. The `<audio>` element, on the other hand, does
+This is a very noticeable issue, especially with bigger audio files. The `<audio>` element, on the other hand, does
 not have the same issue. The `<audio>` element comes with built-in streaming capabilities, allowing it to play
 chunks of the audio as it downloads them.
 
-This makes sense though. It would be pretty hard to do processing on audio files without having all of the chunks ready in
-memory beforehand, which is what the Web Audio API does. In most cases, for playing audio files, the `<audio>` element
+This makes sense though. It would be pretty hard to do audio processing before having all of the audio chunks ready in
+memory, which is what the Web Audio API does. In most cases, for playing audio files, the `<audio>` element
 is still preferred unless there is a specific use case that requires the Web Audio API (like we do here!).
 
 ## The MediaSession API
 
 The [MediaSession API](https://developer.mozilla.org/en-US/docs/Web/API/MediaSession) is an experimental Web API that
-allows our web-app to integrate to the operating system in a nicer way. For instance, when Tranquil is running on an
-Android device, it will show up in the notification tray and users can play/pause from there.
+allows our web-app to integrate with the operating system in a nicer way. For instance, when Tranquil is running on an
+Android device, it will show up in the notification tray. Users can play/pause Tranquil from there.
 
 ![MediaSession API on Android device](/assets/media-session-android.png)
 
@@ -269,7 +269,7 @@ operating system! ✨
 
 ## Closing
 
-The Web Audio API in particular is still a very unknown thing for me.
+The Web Audio API in particular is still a mysterious thing for me.
 If I hadn't built Tranquil, I wouldn't have even known about them.
 Though, it is pretty rad to see that the web platform has such powerful APIs! 🔥
 
