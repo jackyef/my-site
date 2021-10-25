@@ -1,19 +1,22 @@
 import * as React from 'react';
 
 interface Props {
-  // only warning is implemented currently
-  type: 'warning'; // | 'info' | 'error' | 'success'; 
+  type: 'warning' | 'info'; //  | 'error' | 'success';
   title: string;
 }
 
 const bgMap = {
   warning: 'bg-theme-warning',
-  // info: 'bg-yellow-500',
+  info: 'bg-theme-info',
   // error: 'bg-yellow-500',
   // success: 'bg-yellow-500',
 };
 
-export const Panel: React.FC<Props> = ({ type = 'warning', title = '', children }) => {
+export const Panel: React.FC<Props> = ({
+  type = 'warning',
+  title = '',
+  children,
+}) => {
   const bgClass = bgMap[type];
 
   return (

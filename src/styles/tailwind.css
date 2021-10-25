@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  #restOfArticle details {
+    @apply block bg-theme-info rounded-lg my-8 px-5 py-4;
+  }
+
+  #restOfArticle summary {
+    @apply block;
+    cursor: pointer;
+  }
+
+  #restOfArticle summary p:first-child {
+    @apply mt-0;
+  }
+  
+  /* Removes the default marker in <summary> elements */
+  #restOfArticle summary::marker,
+  /* For safari */
+  #restOfArticle summary::-webkit-details-marker {
+    content: '';
+    display: none;
+  }
+
+  #restOfArticle summary::after {
+    @apply mt-4 block underline;
+    content: 'Read more 👇';
+  }
+
+  #restOfArticle p > img {
+    @apply block mx-auto;
+  }
+}
+
 @layer utilities {
   .scroll-snap-align-start {
     scroll-snap-align: start;

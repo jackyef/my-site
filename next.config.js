@@ -139,7 +139,7 @@ const conf = {
                 ],
               },
             },
-            createLoader(function(src) {
+            createLoader(function (src) {
               // this part will cut down the mdx content for previews, so we don't load too many content into
               // pages that are showing list of post previews
               if (src.includes('<!--more-->')) {
@@ -155,7 +155,7 @@ const conf = {
         {
           use: [
             ...mdx,
-            createLoader(function(src) {
+            createLoader(function (src) {
               const content = [
                 'import { Flipped } from "react-flip-toolkit"',
                 'import Post from "@/components/Blog/Post/Post"',

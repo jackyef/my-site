@@ -2,7 +2,7 @@
   --theme:default;
 
   --color-bg: #fafafa;
-  --color-bg-offset: #f3f3f3;
+  --color-bg-offset: #eaeaea;
   --color-heading: #373a3c;
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
@@ -11,6 +11,7 @@
   --color-scrollbar: #cacaca;
   
   --color-warning: #ecef09;
+  --color-info: #dcf9ff;
   
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -37,6 +38,7 @@
     --color-scrollbar: #374151;
 
     --color-warning: #5d5e21;
+    --color-info: #0f2940;
     
     --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
     
@@ -58,7 +60,7 @@
   --theme:default;
 
   --color-bg: #fafafa;
-  --color-bg-offset: #f3f3f3;
+  --color-bg-offset: #eaeaea;
   --color-heading: #373a3c;
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
@@ -67,6 +69,7 @@
   --color-scrollbar: #cacaca;
 
   --color-warning: #ecef09;
+  --color-info: #dcf9ff;
   
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -89,6 +92,7 @@
   --color-scrollbar: #374151;
 
   --color-warning: #5d5e21;
+  --color-info: #0f2940;
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
 
@@ -108,6 +112,12 @@ body {
   color: var(--color-text);
   
   transition: var(--transition-default);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* some fancy hover effect for anchor tags */
@@ -135,6 +145,10 @@ body {
   margin-left: 0.5rem;
   opacity: 0;
   transition: opacity .3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-block-start: 3rem;
 }
 
 h1:hover .hash-link, 
