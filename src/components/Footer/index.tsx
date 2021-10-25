@@ -1,12 +1,9 @@
-import { IOLazyFeedbackFish } from "@/components/FeedbackFish/Lazy"
+import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 
 export const Footer = () => {
   return (
     <footer className="text-sm text-center py-8">
-      <a href="https://github.com/jackyef/my-site">
-        &lt;/&gt;
-      </a>{' '}
-      &middot;{' '}
+      <a href="https://github.com/jackyef/my-site">&lt;/&gt;</a> &middot;{' '}
       <a href="https://twitter.com/jackyef__" rel="me">
         @jackyef__
       </a>{' '}
@@ -16,9 +13,7 @@ export const Footer = () => {
       </a>{' '}
       &middot;{' '}
       <IOLazyFeedbackFish>
-        <button>
-          Got feedback?
-        </button>
+        <button>Got feedback?</button>
       </IOLazyFeedbackFish>
     </footer>
   );

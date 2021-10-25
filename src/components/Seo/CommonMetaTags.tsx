@@ -78,17 +78,24 @@ export const CommonMetaTags = () => {
         href="/favicon-16x16.png"
       />
 
-      {/* Used for webmention */}
-      <link href="https://twitter.com/jackyef__" rel="me" />
-      <link rel="webmention" href={`https://webmention.io/${domainName}/webmention`} />
-      <link rel="pingback" href={`https://webmention.io/${domainName}/xmlrpc`} />
+      {/* Used for webmention login via indielogin.com */}
+      <link href="https://github.com/jackyef" rel="me authn" />
+
+      <link
+        rel="webmention"
+        href={`https://webmention.io/${domainName}/webmention`}
+      />
+      <link
+        rel="pingback"
+        href={`https://webmention.io/${domainName}/xmlrpc`}
+      />
 
       {/* indieauth auth */}
       <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
       <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
 
-      <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
-      <link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
+      <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+      <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       <meta name="apple-mobile-web-app-title" content="jackyef" />
