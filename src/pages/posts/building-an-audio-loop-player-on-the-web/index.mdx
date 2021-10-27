@@ -1,7 +1,12 @@
+import Image from 'next/image';
+
 import { AudioPlayer, GaplessAudioPlayer } from '@/components/Audio';
 import { Panel } from '@/components/common/Panel';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { jackyef } from '@/blog/authors';
+
+import mediaSessionAndroidImage from './_assets/media-session-android.png';
+import mediaSessionMacOSImage from './_assets/media-session-macos.png';
 
 export const meta = {
   title: 'Building an Audio-loop Player on the Web 🔉♻️',
@@ -103,7 +108,7 @@ source.buffer = audioBuffer;
 source.loop = true;
 ```
 
-At this point, we can connect the source node to `AudioContext`'s destination. 
+At this point, we can connect the source node to `AudioContext`'s destination.
 Then we can start playing the audio file.
 
 ```jsx
@@ -193,11 +198,23 @@ The [MediaSession API](https://developer.mozilla.org/en-US/docs/Web/API/MediaSes
 allows our web-app to integrate with the operating system in a nicer way. For instance, when Tranquil is running on an
 Android device, it will show up in the notification tray. Users can play/pause Tranquil from there.
 
-![MediaSession API on Android device](/assets/media-session-android.png)
+<div className="flex place-content-center">
+  <Image
+    src={mediaSessionAndroidImage}
+    alt="MediaSession API on Android device"
+    placeholder="blur"
+  />
+</div>
 
 For comparison, here is how it looks on a Mac device.
 
-![MediaSession API on Mac device](/assets/media-session-macos.png)
+<div className="flex place-content-center">
+  <Image
+    src={mediaSessionMacOSImage}
+    alt="MediaSession API on Mac device"
+    placeholder="blur"
+  />
+</div>
 
 The implementation is pretty simple. We just need to initialize a media session by setting metadata and some action handlers.
 In React apps, we can do this in a `useEffect()` hook.
