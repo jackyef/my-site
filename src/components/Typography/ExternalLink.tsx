@@ -1,4 +1,4 @@
-interface Props extends React.HTMLProps<HTMLAnchorElement>{
+interface Props extends React.HTMLProps<HTMLAnchorElement> {
   href: string;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;

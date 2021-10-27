@@ -8,7 +8,8 @@
     "build:rss": "node ./.next/serverless/scripts/build-rss.js",
     "build:sitemap": "node ./scripts/generate-sitemap.js",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
+    "lint": "next lint"
   },
   "devDependencies": {
     "@jsdevtools/rehype-toc": "^3.0.2",

@@ -12,18 +12,12 @@ interface Props {
  */
 export const IOWrapper = ({ children, inline = false }: Props) => {
   const [show, setShow] = useState(false);
-  const wrapperRef = useIntersect<HTMLDivElement>(
-    {
-      onIntersect: () => setShow(true),
-      onlyOnce: true,
-    }
-  );
+  const wrapperRef = useIntersect<HTMLDivElement>({
+    onIntersect: () => setShow(true),
+    onlyOnce: true,
+  });
 
   const Element = inline ? 'span' : 'div';
 
-  return (
-    <Element ref={!show ? wrapperRef : null}>
-      {children(show)}
-    </Element>
-  )
-}
+  return <Element ref={!show ? wrapperRef : null}>{children(show)}</Element>;
+};

@@ -7,7 +7,9 @@ import { sendEventTracker } from '@/utils/analytics/tracker';
  */
 export const ThemeToggle = () => {
   const [theme, setTheme] = React.useState<string>(
-    canUseDOM ? getComputedStyle(document.body).getPropertyValue('--theme') : '',
+    canUseDOM
+      ? getComputedStyle(document.body).getPropertyValue('--theme')
+      : '',
   );
 
   React.useEffect(() => {
@@ -19,7 +21,7 @@ export const ThemeToggle = () => {
     // a binding to handle user changing their preferred scheme without reloading page
     // @ts-expect-error
     window.__themeBinding = (newTheme: 'dark' | 'default') => {
-      console.log('called', newTheme)
+      console.log('called', newTheme);
       setTheme(newTheme);
     };
   }, []);
@@ -30,7 +32,7 @@ export const ThemeToggle = () => {
         className="inline-block ml-2 p-2"
         onClick={() => {
           const newTheme = theme !== 'dark' ? 'dark' : 'default';
-          
+
           setTheme(newTheme);
 
           sendEventTracker({
