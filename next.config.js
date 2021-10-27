@@ -8,7 +8,6 @@ const { flowRight } = require('./utils/flow.js');
 const configureMDX = require('./utils/configs/configureMDX.js');
 
 const conf = {
-  target: 'serverless',
   pageExtensions: ['ts', 'tsx', 'mdx'],
 
   experimental: { modern: true }, // enable experimental module/nomodule optimisation
@@ -56,7 +55,7 @@ const conf = {
         const entries = { ...(await originalEntry()) };
 
         // we want to build this script as well, and run it on build to generate feed.xml file
-        entries['./scripts/build-rss.js'] = './scripts/build-rss.js';
+        entries['scripts/build-rss'] = './scripts/build-rss.js';
 
         return entries;
       };
