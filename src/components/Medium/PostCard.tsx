@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { ExternalLink } from '../Typography/ExternalLink';
 import MediumLogo from './assets/medium.svg';
 
@@ -25,6 +27,8 @@ const MediumPostCard = ({
           scrollMargin: isFirst ? `0px 1rem` : undefined,
         }}
       >
+        {/* The cover images are hosted on Medium */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           loading="lazy"
           src={coverImage}
@@ -41,7 +45,13 @@ const MediumPostCard = ({
             </ExternalLink>{' '}
           </h3>
           <span className="items-center flex text-xs text-gray-200">
-            <img src={MediumLogo} alt="medium logo" className="w-4 h-4" />
+            <Image
+              src={MediumLogo}
+              alt="medium logo"
+              className="w-4 h-4"
+              width="16px"
+              height="16px"
+            />
             &nbsp;&middot; {timeToRead}
           </span>
         </div>
