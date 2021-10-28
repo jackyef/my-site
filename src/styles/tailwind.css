@@ -35,6 +35,10 @@
 }
 
 @layer utilities {
+  .backdrop-blur {
+    backdrop-filter: blur(3px);
+  }
+
   .scroll-snap-align-start {
     scroll-snap-align: start;
   }

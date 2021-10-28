@@ -111,7 +111,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   
-  transition: var(--transition-default);
+  transition: background var(--transition-default), color var(--transition-default);
 }
 
 @media (prefers-reduced-motion: no-preference) {

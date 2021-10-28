@@ -16,6 +16,7 @@ import { NavigationProvider } from '@/contexts/navigation';
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
+import { CommandPalette } from '@/components/CommandPalette';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -55,6 +56,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <SectionContainer>
           <Footer />
         </SectionContainer>
+
+        <CommandPalette />
+
         <Head>
           {isProd ? (
             <>
