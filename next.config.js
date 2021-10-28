@@ -9,8 +9,10 @@ const configureMDX = require('./utils/configs/configureMDX.js');
 
 const conf = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
-
   experimental: { modern: true }, // enable experimental module/nomodule optimisation
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 
   workboxOpts: {
     swDest: 'static/service-worker.js',
