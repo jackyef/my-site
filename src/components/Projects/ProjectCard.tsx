@@ -3,17 +3,23 @@ import { ExternalLink } from '../Typography/ExternalLink';
 import { Project } from './projects';
 
 type Props = Project & {
-  isFirst?: boolean
-}
+  isFirst?: boolean;
+};
 
-export const ProjectCard = ({ name, repo, coverImage, url, isFirst }: Props) => {
+export const ProjectCard = ({
+  name,
+  repo,
+  coverImage,
+  url,
+  isFirst,
+}: Props) => {
   return (
     <>
       <div
         className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm scroll-snap-align-start zoom-on-hover-container"
         style={{
           width: `calc(100% - 1rem * 2)`,
-          scrollMargin: isFirst ? `0px 1rem` : undefined
+          scrollMargin: isFirst ? `0px 1rem` : undefined,
         }}
       >
         <img

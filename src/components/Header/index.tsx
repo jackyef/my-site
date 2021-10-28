@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { usePwaInstall } from '@/hooks/usePwaInstall';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 import Link from 'next/link';
@@ -8,14 +9,14 @@ import PwaInstallIcon from './assets/icon-plus.svg';
 function Logo() {
   return (
     <div className="flex items-center justify-center">
-      <img
-        className="h-5 inline-block mr-2"
+      <Image
+        className="h-5 inline-block"
         width="20"
         height="20"
         src="/android-icon-96x96.png"
         alt="logo"
       />
-      <strong className="text-lg text">jackyef.com</strong>
+      <strong className="ml-2 text-lg text">jackyef.com</strong>
     </div>
   );
 }
@@ -53,7 +54,7 @@ export default function Header() {
           className="self-center w-7 h-7 p-1"
           onClick={() => trigger()}
         >
-          <img
+          <Image
             className="monochrome-img"
             src={PwaInstallIcon}
             alt="Add to home screen"

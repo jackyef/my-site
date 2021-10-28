@@ -15,7 +15,9 @@ export const InternalLink: React.FC<Props> = ({
 }) => {
   return (
     <Link href={href}>
-      <a className={className} onClick={onClick} {...rest}>{children}</a>
+      <a className={className} onClick={onClick} {...rest}>
+        {children}
+      </a>
     </Link>
   );
 };

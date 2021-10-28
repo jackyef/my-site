@@ -9,6 +9,10 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+
+    // Disabling eslint-plugin-next for now as we are seeing errors with it
+    // TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    // 'plugin:@next/next/recommended',
     'eslint-config-prettier',
   ],
   plugins: ['@typescript-eslint', 'react-hooks', 'eslint-plugin-prettier'],

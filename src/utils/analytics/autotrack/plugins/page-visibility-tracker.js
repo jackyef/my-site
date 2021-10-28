@@ -1,7 +1,7 @@
 /**
  * This is copied straight from autotrack source,
  * the only thing we change is the TERMINATION_EVENT
- * 
+ *
  * Reason: https://developers.google.com/web/updates/2018/07/page-lifecycle-api?utm_source=lighthouse&utm_medium=lr#the-unload-event
  */
 /**
@@ -20,23 +20,26 @@
  * limitations under the License.
  */
 
-
-import {NULL_DIMENSION} from 'autotrack/lib/constants';
+import { NULL_DIMENSION } from 'autotrack/lib/constants';
 import MethodChain from 'autotrack/lib/method-chain';
 import provide from 'autotrack/lib/provide';
 import Session from 'autotrack/lib/session';
 import Store from 'autotrack/lib/store';
-import {plugins, trackUsage} from 'autotrack/lib/usage';
-import {assign, createFieldsObj, deferUntilPluginsLoaded,
-    isObject, now, uuid} from 'autotrack/lib/utilities';
-
+import { plugins, trackUsage } from 'autotrack/lib/usage';
+import {
+  assign,
+  createFieldsObj,
+  deferUntilPluginsLoaded,
+  isObject,
+  now,
+  uuid,
+} from 'autotrack/lib/utilities';
 
 const TERMINATION_EVENT = 'onpagehide' in self ? 'pagehide' : 'unload';
 const HIDDEN = 'hidden';
 const VISIBLE = 'visible';
 const PAGE_ID = uuid();
 const SECONDS = 1000;
-
 
 /**
  * Class for the `pageVisibilityTracker` analytics.js plugin.
@@ -67,7 +70,8 @@ class PageVisibilityTracker {
     };
 
     this.opts = /** @type {PageVisibilityTrackerOpts} */ (
-        assign(defaultOpts, opts));
+      assign(defaultOpts, opts)
+    );
 
     this.tracker = tracker;
     this.lastPageState = document.visibilityState;
@@ -82,12 +86,17 @@ class PageVisibilityTracker {
 
     // Creates the store and binds storage change events.
     this.store = Store.getOrCreate(
-        tracker.get('trackingId'), 'plugins/page-visibility-tracker');
+      tracker.get('trackingId'),
+      'plugins/page-visibility-tracker',
+    );
     this.store.on('externalSet', this.handleExternalStoreSet);
 
     // Creates the session and binds session events.
     this.session = Session.getOrCreate(
-        tracker, this.opts.sessionTimeout, this.opts.timeZone);
+      tracker,
+      this.opts.sessionTimeout,
+      this.opts.timeZone,
+    );
 
     // Override the built-in tracker.set method to watch for changes.
     MethodChain.add(tracker, 'set', this.trackerSetOverride);
@@ -100,15 +109,17 @@ class PageVisibilityTracker {
     deferUntilPluginsLoaded(this.tracker, () => {
       if (document.visibilityState == VISIBLE) {
         if (this.opts.sendInitialPageview) {
-          this.sendPageview({isPageLoad: true});
+          this.sendPageview({ isPageLoad: true });
           this.isInitialPageviewSent_ = true;
         }
-        this.store.set(/** @type {PageVisibilityStoreData} */ ({
-          time: now(),
-          state: VISIBLE,
-          pageId: PAGE_ID,
-          sessionId: this.session.getId(),
-        }));
+        this.store.set(
+          /** @type {PageVisibilityStoreData} */ ({
+            time: now(),
+            state: VISIBLE,
+            pageId: PAGE_ID,
+            sessionId: this.session.getId(),
+          }),
+        );
       } else {
         if (this.opts.sendInitialPageview && this.opts.pageLoadsMetricIndex) {
           this.sendPageLoad();
@@ -128,8 +139,12 @@ class PageVisibilityTracker {
    * were actually looking at your page versus when it was in the background.
    */
   handleChange() {
-    if (!(document.visibilityState == VISIBLE ||
-        document.visibilityState == HIDDEN)) {
+    if (
+      !(
+        document.visibilityState == VISIBLE ||
+        document.visibilityState == HIDDEN
+      )
+    ) {
       return;
     }
 
@@ -146,8 +161,11 @@ class PageVisibilityTracker {
     // If the visibilityState has changed to visible and the initial pageview
     // has not been sent (and the `sendInitialPageview` option is `true`).
     // Send the initial pageview now.
-    if (document.visibilityState == VISIBLE &&
-        this.opts.sendInitialPageview && !this.isInitialPageviewSent_) {
+    if (
+      document.visibilityState == VISIBLE &&
+      this.opts.sendInitialPageview &&
+      !this.isInitialPageviewSent_
+    ) {
       this.sendPageview();
       this.isInitialPageviewSent_ = true;
     }
@@ -160,8 +178,7 @@ class PageVisibilityTracker {
 
     if (this.session.isExpired(lastStoredChange.sessionId)) {
       this.store.clear();
-      if (this.lastPageState == HIDDEN &&
-          document.visibilityState == VISIBLE) {
+      if (this.lastPageState == HIDDEN && document.visibilityState == VISIBLE) {
         // If the session has expired, changes from hidden to visible should
         // be considered a new pageview rather than a visibility event.
         // This behavior ensures all sessions contain a pageview so
@@ -176,12 +193,14 @@ class PageVisibilityTracker {
         clearTimeout(this.visibleThresholdTimeout_);
         this.visibleThresholdTimeout_ = setTimeout(() => {
           this.store.set(change);
-          this.sendPageview({hitTime: change.time});
+          this.sendPageview({ hitTime: change.time });
         }, this.opts.visibleThreshold);
       }
     } else {
-      if (lastStoredChange.pageId == PAGE_ID &&
-          lastStoredChange.state == VISIBLE) {
+      if (
+        lastStoredChange.pageId == PAGE_ID &&
+        lastStoredChange.state == VISIBLE
+      ) {
         this.sendPageVisibilityEvent(lastStoredChange);
       }
       this.store.set(change);
@@ -207,12 +226,15 @@ class PageVisibilityTracker {
    * @return {!PageVisibilityStoreData}
    */
   getAndValidateChangeData() {
-    const lastStoredChange =
-        /** @type {PageVisibilityStoreData} */ (this.store.get());
+    const lastStoredChange = /** @type {PageVisibilityStoreData} */ (
+      this.store.get()
+    );
 
-    if (this.lastPageState == VISIBLE &&
-        lastStoredChange.state == HIDDEN &&
-        lastStoredChange.pageId != PAGE_ID) {
+    if (
+      this.lastPageState == VISIBLE &&
+      lastStoredChange.state == HIDDEN &&
+      lastStoredChange.pageId != PAGE_ID
+    ) {
       lastStoredChange.state = VISIBLE;
       lastStoredChange.pageId = PAGE_ID;
       this.store.set(lastStoredChange);
@@ -229,9 +251,10 @@ class PageVisibilityTracker {
    *     - hitTime: A hit timestap used to help ensure original order in cases
    *                where the send is delayed.
    */
-  sendPageVisibilityEvent(lastStoredChange, {hitTime} = {}) {
-    const delta = this.getTimeSinceLastStoredChange(
-        lastStoredChange, {hitTime});
+  sendPageVisibilityEvent(lastStoredChange, { hitTime } = {}) {
+    const delta = this.getTimeSinceLastStoredChange(lastStoredChange, {
+      hitTime,
+    });
 
     // If the detla is greater than the visibileThreshold, report it.
     if (delta && delta >= this.opts.visibleThreshold) {
@@ -256,9 +279,15 @@ class PageVisibilityTracker {
         defaultFields['metric' + this.opts.visibleMetricIndex] = deltaInSeconds;
       }
 
-      this.tracker.send('event',
-          createFieldsObj(defaultFields, this.opts.fieldsObj,
-              this.tracker, this.opts.hitFilter));
+      this.tracker.send(
+        'event',
+        createFieldsObj(
+          defaultFields,
+          this.opts.fieldsObj,
+          this.tracker,
+          this.opts.hitFilter,
+        ),
+      );
     }
   }
 
@@ -275,9 +304,15 @@ class PageVisibilityTracker {
       ['metric' + this.opts.pageLoadsMetricIndex]: 1,
       nonInteraction: true,
     };
-    this.tracker.send('event',
-        createFieldsObj(defaultFields, this.opts.fieldsObj,
-            this.tracker, this.opts.hitFilter));
+    this.tracker.send(
+      'event',
+      createFieldsObj(
+        defaultFields,
+        this.opts.fieldsObj,
+        this.tracker,
+        this.opts.hitFilter,
+      ),
+    );
   }
 
   /**
@@ -289,9 +324,9 @@ class PageVisibilityTracker {
    *     hitTime: The timestamp of the current hit.
    *     isPageLoad: True if this pageview was also a page load.
    */
-  sendPageview({hitTime, isPageLoad} = {}) {
+  sendPageview({ hitTime, isPageLoad } = {}) {
     /** @type {FieldsObj} */
-    const defaultFields = {transport: 'beacon'};
+    const defaultFields = { transport: 'beacon' };
     if (hitTime) {
       defaultFields.queueTime = now() - hitTime;
     }
@@ -299,9 +334,15 @@ class PageVisibilityTracker {
       defaultFields['metric' + this.opts.pageLoadsMetricIndex] = 1;
     }
 
-    this.tracker.send('pageview',
-        createFieldsObj(defaultFields, this.opts.fieldsObj,
-            this.tracker, this.opts.hitFilter));
+    this.tracker.send(
+      'pageview',
+      createFieldsObj(
+        defaultFields,
+        this.opts.fieldsObj,
+        this.tracker,
+        this.opts.hitFilter,
+      ),
+    );
   }
 
   /**
@@ -314,7 +355,7 @@ class PageVisibilityTracker {
   trackerSetOverride(originalMethod) {
     return (field, value) => {
       /** @type {!FieldsObj} */
-      const fields = isObject(field) ? field : {[field]: value};
+      const fields = isObject(field) ? field : { [field]: value };
       if (fields.page && fields.page !== this.tracker.get('page')) {
         if (this.lastPageState == VISIBLE) {
           this.handleChange();
@@ -332,9 +373,10 @@ class PageVisibilityTracker {
    *     hitTime: The time of the current hit (defaults to now).
    * @return {number} The time (in ms) since the last change.
    */
-  getTimeSinceLastStoredChange(lastStoredChange, {hitTime} = {}) {
-    return lastStoredChange.time ?
-        (hitTime || now()) - lastStoredChange.time : 0;
+  getTimeSinceLastStoredChange(lastStoredChange, { hitTime } = {}) {
+    return lastStoredChange.time
+      ? (hitTime || now()) - lastStoredChange.time
+      : 0;
   }
 
   /**
@@ -357,10 +399,12 @@ class PageVisibilityTracker {
     // page, but this page is where the previous change event occurred, then
     // this page is the one that needs to send the event (so all dimension
     // data is correct).
-    if (oldData.pageId == PAGE_ID &&
-        oldData.state == VISIBLE &&
-        !this.session.isExpired(oldData.sessionId)) {
-      this.sendPageVisibilityEvent(oldData, {hitTime: newData.time});
+    if (
+      oldData.pageId == PAGE_ID &&
+      oldData.state == VISIBLE &&
+      !this.session.isExpired(oldData.sessionId)
+    ) {
+      this.sendPageVisibilityEvent(oldData, { hitTime: newData.time });
     }
   }
 
@@ -390,6 +434,5 @@ class PageVisibilityTracker {
     document.removeEventListener('visibilitychange', this.handleChange);
   }
 }
-
 
 provide('pageVisibilityTracker', PageVisibilityTracker);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Flipper } from 'react-flip-toolkit';
@@ -23,7 +23,7 @@ if (canUseDOM && isProd) {
   // on lighthouse, not sure why. But it causes -7 points in Best Practice,
   // so we disable them there
   if (!/lighthouse/gi.test(navigator.userAgent)) {
-    baseAnalytics().then(m => m.init());
+    baseAnalytics().then((m) => m.init());
   }
 }
 
@@ -38,13 +38,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <SectionContainer>
           <Header />
         </SectionContainer>
-        <Flipper 
-          flipKey={prefersReducedMotion ? 'static' : router.asPath} 
+        <Flipper
+          flipKey={prefersReducedMotion ? 'static' : router.asPath}
           staggerConfig={{
             default: {
               speed: 1,
             },
-          }}>
+          }}
+        >
           <SectionContainer>
             <PageContainer>
               <Component {...pageProps} />
@@ -55,26 +56,27 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Footer />
         </SectionContainer>
         <Head>
-          {isProd
-            ? (
-              <>
-                {/* (analytics.js) - Google Analytics */}
-                <script async src="https://www.google-analytics.com/analytics.js"></script>      
-              </>
-            ) : null
-          }
+          {isProd ? (
+            <>
+              {/* (analytics.js) - Google Analytics */}
+              <script
+                async
+                src="https://www.google-analytics.com/analytics.js"
+              ></script>
+            </>
+          ) : null}
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link 
-            rel="preload" 
-            as="font" 
-            crossOrigin="anonymous" 
-            href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2" 
+          <link
+            rel="preload"
+            as="font"
+            crossOrigin="anonymous"
+            href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
             type="font/woff2"
           />
         </Head>
       </NavigationProvider>
     </>
-  )
-}
+  );
+};
 
-export default MyApp
+export default MyApp;

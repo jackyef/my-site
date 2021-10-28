@@ -32,9 +32,7 @@ export interface Post {
 }
 
 export default function getAllPostPreviews(): Post[] {
-  return importAll(
-    require.context('../pages/?preview', true, /\.mdx$/),
-  ).sort((a: any, b: any) =>
-    dateSortDesc(a.module.meta.date, b.module.meta.date),
+  return importAll(require.context('../pages/?preview', true, /\.mdx$/)).sort(
+    (a: any, b: any) => dateSortDesc(a.module.meta.date, b.module.meta.date),
   );
 }

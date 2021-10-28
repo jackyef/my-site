@@ -66,11 +66,12 @@ export default function About() {
         <ExternalLink href="https://www.stickermule.com">
           Sticker Mule
         </ExternalLink>
-        , tinkering around with web-related stuffs! If you are looking for specifics, 
-        I play around with{' '} <TechnologyAnchors /> on a daily basis; 
-        striving to building awesome and accessible user experiences. 
-        I work on some products and also write reusable components to be used across different products.
-        My work includes a mix of both frontend-infra and frontend-product stuffs.
+        , tinkering around with web-related stuffs! If you are looking for
+        specifics, I play around with <TechnologyAnchors /> on a daily basis;
+        striving to building awesome and accessible user experiences. I work on
+        some products and also write reusable components to be used across
+        different products. My work includes a mix of both frontend-infra and
+        frontend-product stuffs.
       </Paragraph>
       <Paragraph>
         From 2017 to the end of October 2020, I worked with JavaScript at{' '}
