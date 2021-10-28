@@ -16,6 +16,7 @@ const conf = {
 
   workboxOpts: {
     swDest: 'static/service-worker.js',
+    exclude: [/middleware-manifest.json/],
 
     runtimeCaching: [
       {
