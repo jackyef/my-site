@@ -9,6 +9,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:@next/next/recommended',
     'eslint-config-prettier',
   ],
   plugins: ['@typescript-eslint', 'react-hooks', 'eslint-plugin-prettier'],
