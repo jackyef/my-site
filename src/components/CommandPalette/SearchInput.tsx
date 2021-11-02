@@ -8,6 +8,8 @@ export const SearchInput = ({ hasResults = false, ...props }: Props) => {
   return (
     <input
       className={clsx(
+        'focusable-cmd-item', // Used to set focus
+
         {
           'rounded-lg': !hasResults,
           'rounded-t-lg': hasResults,

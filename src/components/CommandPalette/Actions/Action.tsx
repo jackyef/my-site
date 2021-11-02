@@ -40,6 +40,8 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
       role="listitem"
       onClick={handleClick}
       className={clsx(
+        'focusable-cmd-item', // Used to set focus
+
         'rounded-sm',
         'last:rounded-b-lg',
         'px-4',
