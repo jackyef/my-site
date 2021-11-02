@@ -128,32 +128,6 @@ export default () => {
               })}
             </ResultBox>
           )}
-          <Dialog.Close asChild>
-            <button
-              className={clsx(
-                'w-4',
-                'h-4',
-                'p-4',
-                'absolute',
-                'grid',
-                'place-content-center',
-                'rounded-full',
-                'bg-opacity-70',
-                'text-2xl',
-                'bg-theme-background',
-                'text-theme-text',
-                'transition-colors',
-                'duration-500',
-              )}
-              style={{
-                top: '-1rem',
-                right: 0,
-                transform: 'translateY(-100%)',
-              }}
-            >
-              &times;
-            </button>
-          </Dialog.Close>
         </div>
       </Dialog.Content>
     </Dialog.Root>
