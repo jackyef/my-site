@@ -39,14 +39,19 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
     <button
       role="listitem"
       onClick={handleClick}
+      style={{
+        scrollMarginTop: '3rem',
+        scrollMarginBottom: '3rem',
+      }}
       className={clsx(
         'focusable-cmd-item', // Used to set focus
 
         'rounded-sm',
         'last:rounded-b-lg',
+
+        'mx-4',
         'px-4',
         'py-2',
-        'w-full',
         'text-left',
         'flex',
         'justify-between',

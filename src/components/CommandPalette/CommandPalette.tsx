@@ -60,10 +60,14 @@ export default () => {
 
       // Move focus with arrow keys
       if (e.key === 'ArrowDown') {
+        e.preventDefault();
+
         const newIndex = (activeElementIndex + 1) % focusableElements.length;
 
         (focusableElements[newIndex] as HTMLElement)?.focus();
       } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+
         const newIndex =
           activeElementIndex === 0
             ? focusableElements.length - 1
@@ -104,6 +108,7 @@ export default () => {
             'animate-fadeIn',
             'transition-colors',
             'duration-500',
+            'border-dark-only',
           )}
           style={{
             position: 'fixed',
@@ -112,7 +117,6 @@ export default () => {
             transform: 'translate(-50%)',
             width: '90vw',
             maxWidth: '44rem',
-            maxHeight: '60vh',
           }}
         >
           <SearchInput

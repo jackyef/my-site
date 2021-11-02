@@ -16,7 +16,21 @@ export const ResultBox: React.FC = ({ children }) => {
       <div
         role="listbox"
         aria-label="available actions or results"
-        className={clsx('mt-4', 'flex', 'flex-col', 'space-y-2')}
+        className={clsx(
+          'mt-4',
+          'flex',
+          '-mx-4',
+          '-mb-4',
+          'flex-col',
+          'py-4',
+          'space-y-2',
+          'overflow-y-auto',
+          'overflow-x-hidden',
+          'max-h-full',
+        )}
+        style={{
+          maxHeight: '40vh',
+        }}
       >
         {children}
       </div>
