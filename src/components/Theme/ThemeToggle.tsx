@@ -1,30 +1,9 @@
 import * as React from 'react';
-import { canUseDOM } from '@/utils/constants';
 import { sendEventTracker } from '@/utils/analytics/tracker';
+import { ThemeContext } from './ThemeProvider';
 
-/**
- * @TODO: Support multiple theme, not just light and dark mode.
- */
-export const ThemeToggle = () => {
-  const [theme, setTheme] = React.useState<string>(
-    canUseDOM
-      ? getComputedStyle(document.body).getPropertyValue('--theme')
-      : '',
-  );
-
-  React.useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  React.useEffect(() => {
-    // a binding to handle user changing their preferred scheme without reloading page
-    // @ts-expect-error
-    window.__themeBinding = (newTheme: 'dark' | 'default') => {
-      console.log('called', newTheme);
-      setTheme(newTheme);
-    };
-  }, []);
+export const ThemeToggle: React.FC = () => {
+  const [theme, setTheme] = React.useContext(ThemeContext);
 
   return (
     <>

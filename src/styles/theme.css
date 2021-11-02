@@ -1,4 +1,5 @@
 :root {
+  /* prettier-ignore */
   --theme:default;
 
   --color-bg: #fafafa;
@@ -9,27 +10,31 @@
   --color-link: #047481;
   --color-link-highlight: rgba(4, 116, 129, 0.25);
   --color-scrollbar: #cacaca;
-  
+
   --color-warning: #ecef09;
   --color-info: #dcf9ff;
-  
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  --focus-outline: 0 0 0 3px rgba(66, 153, 225, 0.6);
 
   --filter-invert: '';
 
   --hide-in-light-mode: 0;
   --hide-in-dark-mode: 1;
 
-  --transition-default: 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
-  --transition-faster: 0.25s cubic-bezier(0.215, 0.610, 0.355, 1);
+  --transition-default: 0.5s;
+  --transition-faster: 0.25s;
 }
 
-@media(prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
+    /* prettier-ignore */
     --theme:dark;
 
     --color-bg: #111820;
-    --color-bg-offset: #1F2930;
+    --color-bg-offset: #1f2930;
     --color-heading: #fafafa;
     --color-text: #efefef;
     --color-subtitle: #d9d9d9;
@@ -39,9 +44,12 @@
 
     --color-warning: #5d5e21;
     --color-info: #0f2940;
-    
-    --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
-    
+
+    --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
+      0 2px 4px -1px rgba(255, 255, 255, 0.06);
+
+    --focus-outline: 0 0 0 3px rgba(66, 153, 225, 0.6);
+
     --filter-invert: invert(1);
 
     --hide-in-light-mode: 1;
@@ -57,6 +65,7 @@
  Add more themes here!
 */
 [data-theme='default'] {
+  /* prettier-ignore */
   --theme:default;
 
   --color-bg: #fafafa;
@@ -64,14 +73,17 @@
   --color-heading: #373a3c;
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
-  --color-link: rgb(0, 135, 94);;
+  --color-link: rgb(0, 135, 94);
   --color-link-highlight: rgba(130, 255, 218, 0.25);
   --color-scrollbar: #cacaca;
 
   --color-warning: #ecef09;
   --color-info: #dcf9ff;
-  
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  --focus-outline: 0 0 0 3px rgba(66, 153, 225, 0.6);
 
   --filter-invert: '';
 
@@ -80,10 +92,11 @@
 }
 
 [data-theme='dark'] {
+  /* prettier-ignore */
   --theme:dark;
 
   --color-bg: #111820;
-  --color-bg-offset: #1F2930;
+  --color-bg-offset: #1f2930;
   --color-heading: #fafafa;
   --color-text: #efefef;
   --color-subtitle: #d9d9d9;
@@ -94,10 +107,13 @@
   --color-warning: #5d5e21;
   --color-info: #0f2940;
 
-  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
+    0 2px 4px -1px rgba(255, 255, 255, 0.06);
+
+  --focus-outline: 0 0 0 3px rgba(66, 153, 225, 0.6);
 
   --filter-invert: invert(1);
-  
+
   --hide-in-light-mode: 1;
   --hide-in-dark-mode: 0;
 }
@@ -106,12 +122,12 @@
   filter: var(--filter-invert);
 }
 
-
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  
-  transition: background var(--transition-default), color var(--transition-default);
+
+  transition: background var(--transition-default),
+    color var(--transition-default);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -126,16 +142,14 @@ body {
   position: relative;
   color: var(--color-link);
   transition: var(--transition-faster);
-  box-shadow:
-    inset 0 0em transparent,
-    inset 0 -0.1em var(--color-link);
-  }
-  
-.fancy-anchor:hover {
+  box-shadow: inset 0 0em transparent, inset 0 -0.1em var(--color-link);
+}
+
+.fancy-anchor:hover,
+.fancy-anchor:focus {
   color: var(--color-text);
-    
-  box-shadow:
-    inset 0 0em transparent,
+
+  box-shadow: inset 0 0em transparent,
     inset 0 -1.1em var(--color-link-highlight);
 }
 
@@ -144,21 +158,26 @@ body {
   line-height: 1;
   margin-left: 0.5rem;
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   scroll-margin-block-start: 3rem;
 }
 
-h1:hover .hash-link, 
-h2:hover .hash-link, 
-h3:hover .hash-link, 
-h4:hover .hash-link, 
-h5:hover .hash-link, 
+h1:hover .hash-link,
+h2:hover .hash-link,
+h3:hover .hash-link,
+h4:hover .hash-link,
+h5:hover .hash-link,
 h6:hover .hash-link {
   opacity: 1;
-} 
+}
 
 /* For table of content */
 .page-outline {
@@ -180,6 +199,13 @@ h6:hover .hash-link {
 
 .toc-level-1 {
   position: fixed;
+}
+
+button:focus,
+input:focus,
+a:focus {
+  outline: none !important;
+  box-shadow: var(--focus-outline) !important;
 }
 
 /* make scrollbar more bearable to look at */
