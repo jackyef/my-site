@@ -5,9 +5,19 @@ import { Query } from './actions';
 
 interface Props {
   query: Query;
+  userSubmittedQuery: string;
 }
 
-export const Action = ({ query }: Props) => {
+const HighlightedQuery = ({ query, userSubmittedQuery }: Props) => {
+  const __html = query.replace(
+    new RegExp(`(${userSubmittedQuery})`, 'gi'),
+    '<span class="font-extrabold">$1</span>',
+  );
+
+  return <span dangerouslySetInnerHTML={{ __html }} />;
+};
+
+export const Action = ({ query, userSubmittedQuery }: Props) => {
   const [theme, setTheme] = useContext(ThemeContext);
 
   const getToggleThemeIcon = () => {
@@ -47,7 +57,7 @@ export const Action = ({ query }: Props) => {
         'duration-500',
       )}
     >
-      <span>{query}</span>
+      <HighlightedQuery query={query} userSubmittedQuery={userSubmittedQuery} />
       <span>{icon}</span>
     </button>
   );

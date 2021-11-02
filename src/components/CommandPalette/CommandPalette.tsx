@@ -80,8 +80,8 @@ export default () => {
           />
           {actionQueries.length > 0 && (
             <ResultBox>
-              {actionQueries.map((query) => {
-                return <Action key={query} query={query} />;
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
               })}
             </ResultBox>
           )}
