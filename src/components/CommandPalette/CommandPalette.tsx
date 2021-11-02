@@ -59,7 +59,7 @@ export default () => {
             'text-theme-text',
             'rounded-3xl',
             'top',
-            'animate-halfFadeIn',
+            'animate-fadeIn',
             'transition-colors',
             'duration-500',
           )}
@@ -77,6 +77,7 @@ export default () => {
             placeholder="search..."
             value={query}
             onChange={handleChangeQuery}
+            hasResults={actionQueries.length > 0}
           />
           {actionQueries.length > 0 && (
             <ResultBox>

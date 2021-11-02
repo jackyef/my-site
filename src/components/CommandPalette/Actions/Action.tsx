@@ -42,9 +42,10 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
       role="listitem"
       onClick={handleClick}
       className={clsx(
+        'rounded-sm',
+        'last:rounded-b-lg',
         'px-4',
         'py-2',
-        'rounded-lg',
         'w-full',
         'text-left',
         'flex',

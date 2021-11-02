@@ -1,9 +1,27 @@
-type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'>;
+import clsx from 'clsx';
 
-export const SearchInput = ({ ...props }: Props) => {
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
+  hasResults?: boolean;
+};
+
+export const SearchInput = ({ hasResults = false, ...props }: Props) => {
   return (
     <input
-      className="rounded-lg py-2 px-4 text-lg bg-transparent outline-none w-full"
+      className={clsx(
+        {
+          'rounded-lg': !hasResults,
+          'rounded-t-lg': hasResults,
+          'rounded-b-sm': hasResults,
+        },
+
+        'py-2',
+        'px-4',
+        'text-lg',
+        'bg-transparent',
+        'outline-none',
+        'w-full',
+        'round',
+      )}
       type="text"
       {...props}
     />
