@@ -21,8 +21,6 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
   const [theme, setTheme] = useContext(ThemeContext);
 
   const getToggleThemeIcon = () => {
-    const theme = getComputedStyle(document.body).getPropertyValue('--theme');
-
     return theme !== 'dark' ? '☀️' : '🌙';
   };
 
