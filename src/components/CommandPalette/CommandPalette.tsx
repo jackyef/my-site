@@ -13,7 +13,11 @@ export default () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.metaKey && event.key === 'k') {
+      if (
+        (event.metaKey && event.key === 'k') ||
+        (event.ctrlKey && event.key === 'k')
+      ) {
+        event.preventDefault();
         setIsOpen((prev) => !prev);
       }
     };
