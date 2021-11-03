@@ -18,5 +18,7 @@ export const QUERIES_ACTIONS_MAP: Record<Query, Action> = {
 };
 
 export const filterValidQueries = (query: string): Query[] => {
-  return QUERIES.filter((q) => q.toLowerCase().includes(query.toLowerCase()));
+  const words = query.split(' ');
+
+  return QUERIES.filter((q) => words.every((word) => q.includes(word)));
 };

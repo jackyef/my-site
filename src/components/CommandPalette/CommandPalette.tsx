@@ -120,13 +120,31 @@ export default () => {
           }}
         >
           <SearchInput
-            placeholder="search..."
+            placeholder={`Psst, try typing "dark theme"!`}
             value={query}
             onChange={handleChangeQuery}
             hasResults={actionQueries.length > 0}
           />
           {actionQueries.length > 0 && (
             <ResultBox>
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
+              {actionQueries.map((q) => {
+                return <Action key={q} query={q} userSubmittedQuery={query} />;
+              })}
               {actionQueries.map((q) => {
                 return <Action key={q} query={q} userSubmittedQuery={query} />;
               })}

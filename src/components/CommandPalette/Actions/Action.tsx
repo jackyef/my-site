@@ -9,8 +9,10 @@ interface Props {
 }
 
 const HighlightedQuery = ({ query, userSubmittedQuery }: Props) => {
+  const words = userSubmittedQuery.split(' ').join('|');
+
   const __html = query.replace(
-    new RegExp(`(${userSubmittedQuery})`, 'gi'),
+    new RegExp(`(${words})`, 'gi'),
     '<span class="font-extrabold">$1</span>',
   );
 
@@ -61,6 +63,8 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
         'text-theme-text',
         'transition-colors',
         'duration-500',
+        'hover:duration-100',
+        'focus:duration-100',
       )}
     >
       <HighlightedQuery query={query} userSubmittedQuery={userSubmittedQuery} />
