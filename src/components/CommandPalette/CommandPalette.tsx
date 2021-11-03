@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
 import { ResultBox } from './ResultBox';
@@ -10,7 +10,6 @@ export default () => {
   const [isOpen, setIsOpen] = useState(true);
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
-  const contentContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -40,49 +39,39 @@ export default () => {
     }
   });
 
-  useEffect(() => {
-    const container = contentContainerRef.current;
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    const activeElement = document.activeElement;
+    const container = e.currentTarget;
 
-    if (!container) return;
+    if (!activeElement) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const activeElement = document.activeElement;
+    const focusableElements = Array.from(
+      container.querySelectorAll('.focusable-cmd-item'),
+    );
 
-      if (!activeElement) return;
+    const activeElementIndex = focusableElements.findIndex(
+      (el) => el === activeElement,
+    );
 
-      const focusableElements = Array.from(
-        container.querySelectorAll('.focusable-cmd-item'),
-      );
+    // Move focus with arrow keys
+    if (e.key === 'ArrowDown') {
+      console.log('keydown arrowDown');
+      e.preventDefault();
 
-      const activeElementIndex = focusableElements.findIndex(
-        (el) => el === activeElement,
-      );
+      const newIndex = (activeElementIndex + 1) % focusableElements.length;
 
-      // Move focus with arrow keys
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
+      (focusableElements[newIndex] as HTMLElement)?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
 
-        const newIndex = (activeElementIndex + 1) % focusableElements.length;
+      const newIndex =
+        activeElementIndex === 0
+          ? focusableElements.length - 1
+          : activeElementIndex - 1;
 
-        (focusableElements[newIndex] as HTMLElement)?.focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-
-        const newIndex =
-          activeElementIndex === 0
-            ? focusableElements.length - 1
-            : activeElementIndex - 1;
-
-        (focusableElements[newIndex] as HTMLElement)?.focus();
-      }
-    };
-
-    container.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      container.removeEventListener('keydown', handleKeyDown);
-    };
-  });
+      (focusableElements[newIndex] as HTMLElement)?.focus();
+    }
+  };
 
   const handleChangeQuery: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
@@ -98,7 +87,7 @@ export default () => {
       </Dialog.Overlay>
       <Dialog.Content asChild>
         <div
-          ref={contentContainerRef}
+          onKeyDown={handleKeyDown}
           className={clsx(
             'p-4',
             'bg-theme-background',
