@@ -1,3 +1,4 @@
+import { toast } from '@/lib/toast';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
@@ -6,10 +7,41 @@ import { filterValidQueries, Query } from './Actions/actions';
 import { ResultBox } from './ResultBox';
 import { SearchInput } from './SearchInput';
 
+let hasOpenedBefore = false;
+
 export default () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
+
+  useEffect(() => {
+    if (localStorage.getItem('cmd_k_opened_before') === 'true') {
+      hasOpenedBefore = true;
+    }
+  });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const isProbablyDesktop = window.innerWidth > 800;
+      const platformString = (
+        navigator.platform ||
+        // @ts-expect-error
+        navigator.userAgentData.platform ||
+        ''
+      ).toLowerCase();
+      const isMac = platformString.indexOf('mac') >= 0;
+
+      if (!hasOpenedBefore && isProbablyDesktop) {
+        const metaKey = isMac ? 'CMD' : 'Ctrl';
+
+        toast({ text: `Pssst! Try pressing ${metaKey}+K 🤫` });
+      }
+    }, 6000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -19,6 +51,11 @@ export default () => {
       ) {
         event.preventDefault();
         setIsOpen((prev) => !prev);
+
+        if (!hasOpenedBefore) {
+          hasOpenedBefore = true;
+          localStorage.setItem('cmd_k_opened_before', 'true');
+        }
       }
     };
 

@@ -19,6 +19,8 @@ import { CommandPalette } from '@/components/CommandPalette';
 import { ThemeProvider } from '@/components/Theme/ThemeProvider';
 import { AppType } from 'next/dist/shared/lib/utils';
 
+import { Toaster } from 'react-hot-toast';
+
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
   // the analytic script requests to /collect is blocked
@@ -38,6 +40,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <NavigationProvider>
         <ThemeProvider>
           <CommonMetaTags />
+          <Toaster />
           <SectionContainer>
             <Header />
           </SectionContainer>
