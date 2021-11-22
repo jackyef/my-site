@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { toast } from '@/lib/toast';
+import { getPlatformMetaKey } from '@/utils/keyboard';
 
 let hasOpenedBefore = false;
 
@@ -15,16 +16,8 @@ export const useOnboardingToast = () => {
       const isProbablyTouchDevice =
         window.matchMedia('(pointer: coarse)').matches;
 
-      const platformString = (
-        navigator.platform ||
-        // @ts-expect-error
-        navigator.userAgentData.platform ||
-        ''
-      ).toLowerCase();
-      const isMac = platformString.indexOf('mac') >= 0;
-
       if (!hasOpenedBefore && !isProbablyTouchDevice) {
-        const metaKey = isMac ? 'CMD' : 'Ctrl';
+        const metaKey = getPlatformMetaKey();
 
         toast({ text: `Pssst! Try pressing ${metaKey}+K 🤫` });
       }
@@ -44,5 +37,6 @@ export const useOnboardingToast = () => {
 
   return {
     onFirstTimeOpen,
+    hasOpenedBefore,
   };
 };

@@ -1,3 +1,4 @@
+import { getPlatformMetaKey } from '@/utils/keyboard';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
@@ -19,11 +20,11 @@ export default () => {
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
   const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
   const { data: postSearchResult } = usePostSearch(query);
-  const { onFirstTimeOpen } = useOnboardingToast();
+  const { onFirstTimeOpen, hasOpenedBefore } = useOnboardingToast();
 
   const closeCommandPalette = useCallback(() => {
     setIsOpen(false);
-  }, []);
+  }, [setIsOpen]);
 
   const { setShouldCloseAfterNavigation } = useNavigationAction({
     onCommandPaletteClose: closeCommandPalette,
@@ -105,6 +106,17 @@ export default () => {
     setPageSearchResult(value ? filterPages(value) : []);
   };
 
+  const getPlaceholderText = () => {
+    const defaultMessage = `Psst, try typing "dark theme" or "learn"!`;
+
+    if (!hasOpenedBefore) {
+      return defaultMessage;
+    } else {
+      const shortcutMessage = `Press ${getPlatformMetaKey()} + K anytime to access this command palette.`;
+      return Math.random() > 0.5 ? defaultMessage : shortcutMessage;
+    }
+  };
+
   const hasActions = actionQueries.length > 0;
   const hasPostResults = postSearchResult.length > 0;
   const hasPageResults = pageSearchResult.length > 0;
@@ -138,7 +150,7 @@ export default () => {
           }}
         >
           <SearchInput
-            placeholder={`Psst, try typing "dark theme" or "learn"!`}
+            placeholder={getPlaceholderText()}
             value={query}
             onChange={handleChangeQuery}
             hasResults={actionQueries.length > 0}
