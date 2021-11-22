@@ -16,13 +16,14 @@ export const usePostSearch = (query: string) => {
     {
       enabled: Boolean(query),
       staleTime: Infinity,
+      keepPreviousData: true,
     },
   );
 
   return {
     isLoading,
     isError,
-    data: data || [],
+    data: query ? data || [] : [],
     error,
     refetch,
   };
