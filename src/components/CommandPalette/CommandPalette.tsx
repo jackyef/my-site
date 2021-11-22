@@ -1,6 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { PageData } from '../../../types/types';
 import { Action } from './Actions/Action';
