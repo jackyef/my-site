@@ -10,20 +10,30 @@ export const usePostSearch = (query: string) => {
     finalUrl,
     () => {
       return fetch(finalUrl)
-        .then((res) => res.json())
-        .then((json) => json.data);
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(res.statusText);
+          }
+
+          return res.json();
+        })
+        .then((json) => json.data)
+        .catch(() => {
+          throw new Error('Network error');
+        });
     },
     {
       enabled: Boolean(query),
       staleTime: Infinity,
       keepPreviousData: true,
+      retry: false,
     },
   );
 
   return {
     isLoading,
     isError,
-    data: query ? data || [] : [],
+    data: query && !isError ? data || [] : [],
     error,
     refetch,
   };

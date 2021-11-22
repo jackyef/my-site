@@ -20,6 +20,7 @@ import { ThemeProvider } from '@/components/Theme/ThemeProvider';
 import { AppType } from 'next/dist/shared/lib/utils';
 
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -31,60 +32,64 @@ if (canUseDOM && isProd) {
   }
 }
 
+const queryClient = new QueryClient();
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   const router = useRouter();
   const prefersReducedMotion = useReduceMotion();
 
   return (
     <>
-      <NavigationProvider>
-        <ThemeProvider>
-          <CommonMetaTags />
-          <Toaster />
-          <SectionContainer>
-            <Header />
-          </SectionContainer>
-          <Flipper
-            flipKey={prefersReducedMotion ? 'static' : router.asPath}
-            staggerConfig={{
-              default: {
-                speed: 1,
-              },
-            }}
-          >
+      <QueryClientProvider client={queryClient}>
+        <NavigationProvider>
+          <ThemeProvider>
+            <CommonMetaTags />
+            <Toaster />
             <SectionContainer>
-              <PageContainer>
-                <Component {...pageProps} />
-              </PageContainer>
+              <Header />
             </SectionContainer>
-          </Flipper>
-          <SectionContainer>
-            <Footer />
-          </SectionContainer>
+            <Flipper
+              flipKey={prefersReducedMotion ? 'static' : router.asPath}
+              staggerConfig={{
+                default: {
+                  speed: 1,
+                },
+              }}
+            >
+              <SectionContainer>
+                <PageContainer>
+                  <Component {...pageProps} />
+                </PageContainer>
+              </SectionContainer>
+            </Flipper>
+            <SectionContainer>
+              <Footer />
+            </SectionContainer>
 
-          <CommandPalette />
+            <CommandPalette />
 
-          <Head>
-            {isProd ? (
-              <>
-                {/* (analytics.js) - Google Analytics */}
-                <script
-                  async
-                  src="https://www.google-analytics.com/analytics.js"
-                ></script>
-              </>
-            ) : null}
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="anonymous"
-              href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
-              type="font/woff2"
-            />
-          </Head>
-        </ThemeProvider>
-      </NavigationProvider>
+            <Head>
+              {isProd ? (
+                <>
+                  {/* (analytics.js) - Google Analytics */}
+                  <script
+                    async
+                    src="https://www.google-analytics.com/analytics.js"
+                  ></script>
+                </>
+              ) : null}
+              <link rel="preconnect" href="https://fonts.gstatic.com" />
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="anonymous"
+                href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
+                type="font/woff2"
+              />
+            </Head>
+          </ThemeProvider>
+        </NavigationProvider>
+      </QueryClientProvider>
     </>
   );
 };

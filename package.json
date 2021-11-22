@@ -23,7 +23,7 @@
     "@types/mdx-js__react": "^1.5.2",
     "@types/node": "^13.7.1",
     "@types/react": "^16.9.19",
-    "@types/react-query": "^1.1.2",
+    "@types/react-query": "^1.2.9",
     "@types/webpack-env": "^1.15.3",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
@@ -68,7 +68,7 @@
     "react-dom": "^17.0.2",
     "react-flip-toolkit": "^7.0.13",
     "react-hot-toast": "^2.1.1",
-    "react-query": "^2.26.3",
+    "react-query": "^3.33.3",
     "react-ssr-prepass": "npm:preact-ssr-prepass@^1.1.2",
     "tinytime": "^0.2.6"
   }
