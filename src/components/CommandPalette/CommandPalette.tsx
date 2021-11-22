@@ -1,23 +1,17 @@
-import { toast } from '@/lib/toast';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PageData } from '../../../types/types';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
 import { filterPages } from './Actions/pages';
+import { useNavigationAction } from './hooks/useNavigationAction';
+import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
 import { ResultBox } from './ResultBox';
 import { ResultSectionHeading } from './ResultSectionHeading';
 import { SearchInput } from './SearchInput';
-
-let hasOpenedBefore = false;
-let shouldCloseAfterNavigation = false;
-
-const setShouldCloseAfterNavigation = () => {
-  shouldCloseAfterNavigation = true;
-};
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,38 +19,15 @@ export default () => {
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
   const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
   const { data: postSearchResult } = usePostSearch(query);
-  const router = useRouter();
+  const { onFirstTimeOpen } = useOnboardingToast();
 
-  useEffect(() => {
-    if (localStorage.getItem('cmd_k_opened_before') === 'true') {
-      hasOpenedBefore = true;
-    }
-  });
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const isProbablyTouchDevice =
-        window.matchMedia('(pointer: coarse)').matches;
-
-      const platformString = (
-        navigator.platform ||
-        // @ts-expect-error
-        navigator.userAgentData.platform ||
-        ''
-      ).toLowerCase();
-      const isMac = platformString.indexOf('mac') >= 0;
-
-      if (!hasOpenedBefore && !isProbablyTouchDevice) {
-        const metaKey = isMac ? 'CMD' : 'Ctrl';
-
-        toast({ text: `Pssst! Try pressing ${metaKey}+K 🤫` });
-      }
-    }, 6000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
+  const closeCommandPalette = useCallback(() => {
+    setIsOpen(false);
   }, []);
+
+  const { setShouldCloseAfterNavigation } = useNavigationAction({
+    onCommandPaletteClose: closeCommandPalette,
+  });
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -67,10 +38,7 @@ export default () => {
         event.preventDefault();
         setIsOpen((prev) => !prev);
 
-        if (!hasOpenedBefore) {
-          hasOpenedBefore = true;
-          localStorage.setItem('cmd_k_opened_before', 'true');
-        }
+        onFirstTimeOpen();
       }
     };
 
@@ -79,7 +47,7 @@ export default () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [onFirstTimeOpen]);
 
   useEffect(() => {
     const rootContainer = document.getElementById('__next');
@@ -95,21 +63,6 @@ export default () => {
       rootContainer.style.transform = 'scale(1)';
     }
   });
-
-  useEffect(() => {
-    const handleRouteChangeEnd = () => {
-      if (shouldCloseAfterNavigation) {
-        setIsOpen(false);
-        shouldCloseAfterNavigation = false;
-      }
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChangeEnd);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChangeEnd);
-    };
-  }, [router.events]);
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const activeElement = document.activeElement;
