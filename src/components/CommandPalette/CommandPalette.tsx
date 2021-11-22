@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
+import { useSearchPosts } from './hooks/useSearchPosts';
 import { ResultBox } from './ResultBox';
 import { SearchInput } from './SearchInput';
 
@@ -13,6 +14,9 @@ export default () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
+  const { data } = useSearchPosts(query);
+
+  console.log({ data });
 
   useEffect(() => {
     if (localStorage.getItem('cmd_k_opened_before') === 'true') {
