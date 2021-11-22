@@ -22,7 +22,9 @@ export default () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const isProbablyDesktop = window.innerWidth > 800;
+      const isProbablyTouchDevice =
+        window.matchMedia('(pointer: coarse)').matches;
+
       const platformString = (
         navigator.platform ||
         // @ts-expect-error
@@ -31,7 +33,7 @@ export default () => {
       ).toLowerCase();
       const isMac = platformString.indexOf('mac') >= 0;
 
-      if (!hasOpenedBefore && isProbablyDesktop) {
+      if (!hasOpenedBefore && !isProbablyTouchDevice) {
         const metaKey = isMac ? 'CMD' : 'Ctrl';
 
         toast({ text: `Pssst! Try pressing ${metaKey}+K 🤫` });
