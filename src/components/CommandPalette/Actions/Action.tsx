@@ -1,7 +1,7 @@
 import { ThemeContext } from '@/components/Theme/ThemeProvider';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { HighlightedQuery } from './HighlightedQuery';
 
 interface Props {
@@ -21,6 +21,7 @@ export const Action = ({
   description,
   onClick,
 }: Props) => {
+  const actionElementRef = useRef<HTMLButtonElement>(null);
   const [theme, setTheme] = useContext(ThemeContext);
   const router = useRouter();
 
@@ -45,8 +46,38 @@ export const Action = ({
     }
   };
 
+  /**
+   * This effect handle prefetching routes when the button is focused.
+   * We can't use react `onFocus` because we are triggering focus on
+   * elements with `focusable-cmd-item` class manually.
+   */
+  useEffect(() => {
+    console.log('useeffect a', { href });
+    if (type !== 'navigation' || !href) return;
+    console.log('useeffect b', { href });
+
+    const element = actionElementRef.current;
+    const handlePrefetch = () => {
+      console.log('handling prefetch', { href });
+      router.prefetch(href);
+    };
+
+    if (element) {
+      element.addEventListener('focus', handlePrefetch);
+      element.addEventListener('hover', handlePrefetch);
+    }
+
+    return () => {
+      if (element) {
+        element.removeEventListener('focus', handlePrefetch);
+        element.removeEventListener('hover', handlePrefetch);
+      }
+    };
+  }, [href, router, type]);
+
   return (
     <button
+      ref={actionElementRef}
       role="listitem"
       onClick={handleClick}
       style={{
