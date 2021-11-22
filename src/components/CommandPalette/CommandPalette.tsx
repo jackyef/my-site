@@ -1,22 +1,28 @@
 import { toast } from '@/lib/toast';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
-import { useSearchPosts } from './hooks/useSearchPosts';
+import { usePostSearch } from './hooks/usePostSearch';
 import { ResultBox } from './ResultBox';
+import { ResultSectionHeading } from './ResultSectionHeading';
 import { SearchInput } from './SearchInput';
 
 let hasOpenedBefore = false;
+let shouldCloseAfterNavigation = false;
+
+const setShouldCloseAfterNavigation = () => {
+  shouldCloseAfterNavigation = true;
+};
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
-  const { data } = useSearchPosts(query);
-
-  console.log({ data });
+  const { data: postSearchResult } = usePostSearch(query);
+  const router = useRouter();
 
   useEffect(() => {
     if (localStorage.getItem('cmd_k_opened_before') === 'true') {
@@ -78,6 +84,7 @@ export default () => {
     if (!rootContainer) return;
 
     rootContainer.style.transition = 'transform 0.15s ease-in-out';
+    rootContainer.style.transformOrigin = 'top center';
 
     if (isOpen) {
       rootContainer.style.transform = 'scale(0.997)';
@@ -85,6 +92,21 @@ export default () => {
       rootContainer.style.transform = 'scale(1)';
     }
   });
+
+  useEffect(() => {
+    const handleRouteChangeEnd = () => {
+      if (shouldCloseAfterNavigation) {
+        setIsOpen(false);
+        shouldCloseAfterNavigation = false;
+      }
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChangeEnd);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChangeEnd);
+    };
+  }, [router.events]);
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const activeElement = document.activeElement;
@@ -102,7 +124,6 @@ export default () => {
 
     // Move focus with arrow keys
     if (e.key === 'ArrowDown') {
-      console.log('keydown arrowDown');
       e.preventDefault();
 
       const newIndex = (activeElementIndex + 1) % focusableElements.length;
@@ -126,6 +147,9 @@ export default () => {
     setQuery(value);
     setActionQueries(value ? filterValidQueries(value) : []);
   };
+
+  const hasActions = actionQueries.length > 0;
+  const hasPostResults = postSearchResult.length > 0;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
@@ -156,33 +180,58 @@ export default () => {
           }}
         >
           <SearchInput
-            placeholder={`Psst, try typing "dark theme"!`}
+            placeholder={`Psst, try typing "dark theme" or "learn"!`}
             value={query}
             onChange={handleChangeQuery}
             hasResults={actionQueries.length > 0}
           />
-          {actionQueries.length > 0 && (
+          {(hasActions || hasPostResults) && (
             <ResultBox>
+              {hasActions && (
+                <ResultSectionHeading>Actions</ResultSectionHeading>
+              )}
               {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
+                return (
+                  <Action
+                    key={q}
+                    query={q}
+                    userSubmittedQuery={query}
+                    type="action"
+                  />
+                );
               })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
-              })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
-              })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
-              })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
-              })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
-              })}
-              {actionQueries.map((q) => {
-                return <Action key={q} query={q} userSubmittedQuery={query} />;
+
+              {hasActions && hasPostResults && (
+                <div>
+                  <div
+                    className={clsx(
+                      'my-2',
+                      'mx-6',
+                      'h-[2px]',
+                      'w-full',
+                      'bg-theme-backgroundOffset',
+                      'transition-colors',
+                      'duration-500',
+                    )}
+                  />
+                </div>
+              )}
+
+              {hasPostResults && (
+                <ResultSectionHeading>Posts</ResultSectionHeading>
+              )}
+              {postSearchResult.map((post) => {
+                return (
+                  <Action
+                    key={post.link}
+                    query={post.title}
+                    href={post.link}
+                    description={post.description}
+                    userSubmittedQuery={query}
+                    onClick={setShouldCloseAfterNavigation}
+                    type="post"
+                  />
+                );
               })}
             </ResultBox>
           )}

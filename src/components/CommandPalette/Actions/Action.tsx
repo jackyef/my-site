@@ -1,39 +1,47 @@
 import { ThemeContext } from '@/components/Theme/ThemeProvider';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { Query } from './actions';
+import { HighlightedQuery } from './HighlightedQuery';
 
 interface Props {
-  query: Query;
+  query: string;
   userSubmittedQuery: string;
+  description?: string;
+  type: 'action' | 'post';
+  href?: string;
+  onClick?: () => void;
 }
 
-const HighlightedQuery = ({ query, userSubmittedQuery }: Props) => {
-  const words = userSubmittedQuery.split(' ').join('|');
-
-  const __html = query.replace(
-    new RegExp(`(${words})`, 'gi'),
-    '<span class="font-extrabold">$1</span>',
-  );
-
-  return <span dangerouslySetInnerHTML={{ __html }} />;
-};
-
-export const Action = ({ query, userSubmittedQuery }: Props) => {
+export const Action = ({
+  query,
+  userSubmittedQuery,
+  type,
+  href,
+  description,
+  onClick,
+}: Props) => {
   const [theme, setTheme] = useContext(ThemeContext);
+  const router = useRouter();
 
   const getToggleThemeIcon = () => {
     return theme !== 'dark' ? '☀️' : '🌙';
   };
 
   const isThemeToggleAction = query === 'Toggle dark/light theme';
-  const icon = isThemeToggleAction ? getToggleThemeIcon() : '';
+  const icon = isThemeToggleAction ? getToggleThemeIcon() : '↗️';
 
   const handleClick = () => {
     if (isThemeToggleAction) {
       setTheme(theme === 'dark' ? 'default' : 'dark');
-    } else {
-      // no-op for now
+    } else if (type === 'post') {
+      router.push({
+        pathname: href,
+      });
+    }
+
+    if (typeof onClick === 'function') {
+      onClick();
     }
   };
 
@@ -55,8 +63,6 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
         'px-4',
         'py-2',
         'text-left',
-        'flex',
-        'justify-between',
         'hover:bg-theme-backgroundOffset',
         'focus:bg-theme-backgroundOffset',
         'bg-theme-background',
@@ -67,8 +73,23 @@ export const Action = ({ query, userSubmittedQuery }: Props) => {
         'focus:duration-100',
       )}
     >
-      <HighlightedQuery query={query} userSubmittedQuery={userSubmittedQuery} />
-      <span>{icon}</span>
+      <div className={clsx('flex', 'justify-between')}>
+        <h4 className="font-medium">
+          <HighlightedQuery
+            query={query}
+            userSubmittedQuery={userSubmittedQuery}
+          />
+        </h4>
+        <span>{icon}</span>
+      </div>
+      {description && (
+        <p className={clsx('text-sm', 'text-theme-subtitle', 'mt-2', 'pr-4')}>
+          <HighlightedQuery
+            query={description}
+            userSubmittedQuery={userSubmittedQuery}
+          />
+        </p>
+      )}
     </button>
   );
 };
