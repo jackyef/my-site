@@ -3,8 +3,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { PageData } from '../../../types/types';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
+import { filterPages } from './Actions/pages';
 import { usePostSearch } from './hooks/usePostSearch';
 import { ResultBox } from './ResultBox';
 import { ResultSectionHeading } from './ResultSectionHeading';
@@ -21,6 +23,7 @@ export default () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
+  const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
   const { data: postSearchResult } = usePostSearch(query);
   const router = useRouter();
 
@@ -146,10 +149,12 @@ export default () => {
 
     setQuery(value);
     setActionQueries(value ? filterValidQueries(value) : []);
+    setPageSearchResult(value ? filterPages(value) : []);
   };
 
   const hasActions = actionQueries.length > 0;
   const hasPostResults = postSearchResult.length > 0;
+  const hasPageResults = pageSearchResult.length > 0;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
@@ -185,8 +190,9 @@ export default () => {
             onChange={handleChangeQuery}
             hasResults={actionQueries.length > 0}
           />
-          {(hasActions || hasPostResults) && (
+          {(hasActions || hasPostResults || hasPageResults) && (
             <ResultBox>
+              {/* Actions */}
               {hasActions && (
                 <ResultSectionHeading>Actions</ResultSectionHeading>
               )}
@@ -201,7 +207,7 @@ export default () => {
                 );
               })}
 
-              {hasActions && hasPostResults && (
+              {hasActions && hasPageResults && (
                 <div>
                   <div
                     className={clsx(
@@ -217,6 +223,41 @@ export default () => {
                 </div>
               )}
 
+              {/* Pages */}
+              {hasPageResults && (
+                <ResultSectionHeading>Pages</ResultSectionHeading>
+              )}
+              {pageSearchResult.map((page) => {
+                return (
+                  <Action
+                    key={page.link}
+                    query={page.title}
+                    href={page.link}
+                    description={page.description}
+                    userSubmittedQuery={query}
+                    onClick={setShouldCloseAfterNavigation}
+                    type="navigation"
+                  />
+                );
+              })}
+
+              {hasPageResults && hasPostResults && (
+                <div>
+                  <div
+                    className={clsx(
+                      'my-2',
+                      'mx-6',
+                      'h-[2px]',
+                      'w-full',
+                      'bg-theme-backgroundOffset',
+                      'transition-colors',
+                      'duration-500',
+                    )}
+                  />
+                </div>
+              )}
+
+              {/* Posts */}
               {hasPostResults && (
                 <ResultSectionHeading>Posts</ResultSectionHeading>
               )}
@@ -229,7 +270,7 @@ export default () => {
                     description={post.description}
                     userSubmittedQuery={query}
                     onClick={setShouldCloseAfterNavigation}
-                    type="post"
+                    type="navigation"
                   />
                 );
               })}

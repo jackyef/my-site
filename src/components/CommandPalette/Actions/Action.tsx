@@ -8,7 +8,7 @@ interface Props {
   query: string;
   userSubmittedQuery: string;
   description?: string;
-  type: 'action' | 'post';
+  type: 'action' | 'navigation';
   href?: string;
   onClick?: () => void;
 }
@@ -34,7 +34,7 @@ export const Action = ({
   const handleClick = () => {
     if (isThemeToggleAction) {
       setTheme(theme === 'dark' ? 'default' : 'dark');
-    } else if (type === 'post') {
+    } else if (type === 'navigation') {
       router.push({
         pathname: href,
       });
