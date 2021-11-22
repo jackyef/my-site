@@ -21,6 +21,7 @@ import { AppType } from 'next/dist/shared/lib/utils';
 
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
 
 // lazily init the analytics module from autotrack
 if (canUseDOM && isProd) {
@@ -40,56 +41,58 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <NavigationProvider>
-          <ThemeProvider>
-            <CommonMetaTags />
-            <Toaster />
-            <SectionContainer>
-              <Header />
-            </SectionContainer>
-            <Flipper
-              flipKey={prefersReducedMotion ? 'static' : router.asPath}
-              staggerConfig={{
-                default: {
-                  speed: 1,
-                },
-              }}
-            >
+      <CommandPaletteProvider>
+        <QueryClientProvider client={queryClient}>
+          <NavigationProvider>
+            <ThemeProvider>
+              <CommonMetaTags />
+              <Toaster />
               <SectionContainer>
-                <PageContainer>
-                  <Component {...pageProps} />
-                </PageContainer>
+                <Header />
               </SectionContainer>
-            </Flipper>
-            <SectionContainer>
-              <Footer />
-            </SectionContainer>
+              <Flipper
+                flipKey={prefersReducedMotion ? 'static' : router.asPath}
+                staggerConfig={{
+                  default: {
+                    speed: 1,
+                  },
+                }}
+              >
+                <SectionContainer>
+                  <PageContainer>
+                    <Component {...pageProps} />
+                  </PageContainer>
+                </SectionContainer>
+              </Flipper>
+              <SectionContainer>
+                <Footer />
+              </SectionContainer>
 
-            <CommandPalette />
+              <CommandPalette />
 
-            <Head>
-              {isProd ? (
-                <>
-                  {/* (analytics.js) - Google Analytics */}
-                  <script
-                    async
-                    src="https://www.google-analytics.com/analytics.js"
-                  ></script>
-                </>
-              ) : null}
-              <link rel="preconnect" href="https://fonts.gstatic.com" />
-              <link
-                rel="preload"
-                as="font"
-                crossOrigin="anonymous"
-                href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
-                type="font/woff2"
-              />
-            </Head>
-          </ThemeProvider>
-        </NavigationProvider>
-      </QueryClientProvider>
+              <Head>
+                {isProd ? (
+                  <>
+                    {/* (analytics.js) - Google Analytics */}
+                    <script
+                      async
+                      src="https://www.google-analytics.com/analytics.js"
+                    ></script>
+                  </>
+                ) : null}
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link
+                  rel="preload"
+                  as="font"
+                  crossOrigin="anonymous"
+                  href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
+                  type="font/woff2"
+                />
+              </Head>
+            </ThemeProvider>
+          </NavigationProvider>
+        </QueryClientProvider>
+      </CommandPaletteProvider>
     </>
   );
 };

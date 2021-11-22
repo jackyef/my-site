@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
 import PwaInstallIcon from './assets/icon-plus.svg';
+import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
 
 function Logo() {
   return (
@@ -23,6 +24,7 @@ function Logo() {
 
 export default function Header() {
   const { isReady, trigger } = usePwaInstall();
+  const { setIsOpen } = useCommandPaletteContext();
 
   return (
     <header className="flex justify-between items-center py-6">
@@ -62,7 +64,7 @@ export default function Header() {
           />
         </button>
       </div>
-      <div className="text-base leading-5 flex items-center">
+      <div className="text-base leading-5 flex items-center space-x-2">
         <InternalLink
           href="/blog"
           className="font-medium text-theme-text hover:text-theme-text"
@@ -76,6 +78,14 @@ export default function Header() {
         >
           Blog
         </InternalLink>
+        <button
+          className="font-medium text-theme-text hover:text-theme-text"
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+          }}
+        >
+          <code>/cmd</code>
+        </button>
         <ThemeToggle />
       </div>
     </header>

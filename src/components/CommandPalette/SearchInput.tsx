@@ -18,7 +18,8 @@ export const SearchInput = ({ hasResults = false, ...props }: Props) => {
 
         'py-2',
         'px-4',
-        'text-lg',
+        'text-md',
+        'md:text-lg',
         'bg-transparent',
         'outline-none',
         'w-full',

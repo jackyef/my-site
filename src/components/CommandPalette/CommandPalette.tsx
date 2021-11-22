@@ -5,6 +5,7 @@ import { PageData } from '../../../types/types';
 import { Action } from './Actions/Action';
 import { filterValidQueries, Query } from './Actions/actions';
 import { filterPages } from './Actions/pages';
+import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
@@ -13,7 +14,7 @@ import { ResultSectionHeading } from './ResultSectionHeading';
 import { SearchInput } from './SearchInput';
 
 export default () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useCommandPaletteContext();
   const [query, setQuery] = useState('');
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
   const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
@@ -46,7 +47,7 @@ export default () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onFirstTimeOpen]);
+  }, [onFirstTimeOpen, setIsOpen]);
 
   useEffect(() => {
     const rootContainer = document.getElementById('__next');
