@@ -8,7 +8,7 @@ interface Props {
   query: string;
   userSubmittedQuery: string;
   description?: string;
-  type: 'action' | 'navigation';
+  type: 'action' | 'navigation' | 'navigation-external';
   href?: string;
   onClick?: () => void;
 }
@@ -39,6 +39,8 @@ export const Action = ({
       router.push({
         pathname: href,
       });
+    } else if (type === 'navigation-external') {
+      window.open(href, '_blank');
     }
 
     if (typeof onClick === 'function') {
@@ -85,7 +87,7 @@ export const Action = ({
         'focusable-cmd-item', // Used to set focus
 
         'rounded-sm',
-        'last:rounded-b-lg',
+        'last:rounded-b-lg', // TODO: Change this with last-of-type when we upgrade tailwind
 
         'mx-4',
         'px-4',

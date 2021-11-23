@@ -2,23 +2,20 @@ import { getPlatformMetaKey } from '@/utils/keyboard';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import { PageData } from '../../../types/types';
-import { Action } from './Actions/Action';
-import { filterValidQueries, Query } from './Actions/actions';
-import { filterPages } from './Actions/pages';
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
+import { useStaticResult } from './hooks/useStaticResult';
 import { ResultBox } from './ResultBox';
-import { ResultSectionHeading } from './ResultSectionHeading';
+import { ResultSection } from './ResultSection';
 import { SearchInput } from './SearchInput';
 
 export default () => {
   const { isOpen, setIsOpen } = useCommandPaletteContext();
   const [query, setQuery] = useState('');
-  const [actionQueries, setActionQueries] = useState<Query[]>([]);
-  const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
+  const { actionQueries, externalLinkResult, pageSearchResult } =
+    useStaticResult({ query });
   const { data: postSearchResult } = usePostSearch(query);
   const { onFirstTimeOpen, hasOpenedBefore } = useOnboardingToast();
 
@@ -102,8 +99,6 @@ export default () => {
     const { value } = e.target;
 
     setQuery(value);
-    setActionQueries(value ? filterValidQueries(value) : []);
-    setPageSearchResult(value ? filterPages(value) : []);
   };
 
   const getPlaceholderText = () => {
@@ -120,6 +115,9 @@ export default () => {
   const hasActions = actionQueries.length > 0;
   const hasPostResults = postSearchResult.length > 0;
   const hasPageResults = pageSearchResult.length > 0;
+  const hasExternalLinkResults = externalLinkResult.length > 0;
+  const hasResults =
+    hasActions || hasPostResults || hasPageResults || hasExternalLinkResults;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
@@ -153,92 +151,43 @@ export default () => {
             placeholder={getPlaceholderText()}
             value={query}
             onChange={handleChangeQuery}
-            hasResults={actionQueries.length > 0}
+            hasResults={hasResults}
           />
-          {(hasActions || hasPostResults || hasPageResults) && (
+          {hasResults && (
             <ResultBox>
               {/* Actions */}
-              {hasActions && (
-                <ResultSectionHeading>Actions</ResultSectionHeading>
-              )}
-              {actionQueries.map((q) => {
-                return (
-                  <Action
-                    key={q}
-                    query={q}
-                    userSubmittedQuery={query}
-                    type="action"
-                  />
-                );
-              })}
-
-              {hasActions && hasPageResults && (
-                <div>
-                  <div
-                    className={clsx(
-                      'my-2',
-                      'mx-6',
-                      'h-[2px]',
-                      'w-full',
-                      'bg-theme-backgroundOffset',
-                      'transition-colors',
-                      'duration-500',
-                    )}
-                  />
-                </div>
-              )}
+              <ResultSection
+                query={query}
+                results={actionQueries}
+                type="action"
+                heading="Actions"
+              />
 
               {/* Pages */}
-              {hasPageResults && (
-                <ResultSectionHeading>Pages</ResultSectionHeading>
-              )}
-              {pageSearchResult.map((page) => {
-                return (
-                  <Action
-                    key={page.link}
-                    query={page.title}
-                    href={page.link}
-                    description={page.description}
-                    userSubmittedQuery={query}
-                    onClick={setShouldCloseAfterNavigation}
-                    type="navigation"
-                  />
-                );
-              })}
+              <ResultSection
+                query={query}
+                results={pageSearchResult}
+                type="navigation"
+                heading="Pages"
+                onResultClick={setShouldCloseAfterNavigation}
+              />
 
-              {hasPageResults && hasPostResults && (
-                <div>
-                  <div
-                    className={clsx(
-                      'my-2',
-                      'mx-6',
-                      'h-[2px]',
-                      'w-full',
-                      'bg-theme-backgroundOffset',
-                      'transition-colors',
-                      'duration-500',
-                    )}
-                  />
-                </div>
-              )}
+              {/* External links */}
+              <ResultSection
+                query={query}
+                results={externalLinkResult}
+                type="navigation-external"
+                heading="External links"
+              />
 
               {/* Posts */}
-              {hasPostResults && (
-                <ResultSectionHeading>Posts</ResultSectionHeading>
-              )}
-              {postSearchResult.map((post) => {
-                return (
-                  <Action
-                    key={post.link}
-                    query={post.title}
-                    href={post.link}
-                    description={post.description}
-                    userSubmittedQuery={query}
-                    onClick={setShouldCloseAfterNavigation}
-                    type="navigation"
-                  />
-                );
-              })}
+              <ResultSection
+                query={query}
+                results={postSearchResult}
+                type="navigation"
+                heading="Posts"
+                onResultClick={setShouldCloseAfterNavigation}
+              />
             </ResultBox>
           )}
         </div>

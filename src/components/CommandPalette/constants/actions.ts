@@ -10,6 +10,8 @@ export const QUERIES = ['Toggle dark/light theme'] as const;
 
 export const ACTIONS = ['TOGGLE_DARK_LIGHT_THEME'] as const;
 
+export const DEFAULT_QUERIES = [...QUERIES];
+
 export type Action = typeof ACTIONS[number];
 export type Query = typeof QUERIES[number];
 
