@@ -186,6 +186,8 @@ module.exports = {
       }),
     },
   },
-  variants: {},
+  variants: {
+    display: ['last'],
+  },
   plugins: [require('@tailwindcss/ui'), require('@tailwindcss/typography')],
 };
