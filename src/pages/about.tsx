@@ -9,6 +9,7 @@ import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
+import { Fragment } from 'react';
 
 const TechnologyAnchors = () => {
   return (
@@ -19,13 +20,13 @@ const TechnologyAnchors = () => {
         const suffix = isLastItem ? '' : ', ';
 
         return (
-          <>
+          <Fragment key={name}>
             {prefix}
             <ExternalLink key={name} href={href}>
               {name}
             </ExternalLink>
             {suffix}
-          </>
+          </Fragment>
         );
       })}
     </>
@@ -115,8 +116,8 @@ export default function About() {
         open on{' '}
         <ExternalLink href="https://github.com/jackyef">GitHub</ExternalLink>. I
         also contribute to open source libraries when I could.
-        <GitHubList />
       </Paragraph>
+      <GitHubList />
       <HorizontalDivider />
 
       <SectionTitle>I speak too, sometimes 🎤</SectionTitle>
