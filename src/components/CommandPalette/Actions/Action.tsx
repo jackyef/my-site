@@ -52,13 +52,10 @@ export const Action = ({
    * elements with `focusable-cmd-item` class manually.
    */
   useEffect(() => {
-    console.log('useeffect a', { href });
     if (type !== 'navigation' || !href) return;
-    console.log('useeffect b', { href });
 
     const element = actionElementRef.current;
     const handlePrefetch = () => {
-      console.log('handling prefetch', { href });
       router.prefetch(href);
     };
 
