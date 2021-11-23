@@ -87,7 +87,7 @@ export const Action = ({
         'focusable-cmd-item', // Used to set focus
 
         'rounded-sm',
-        'last:rounded-b-lg',
+        'last:rounded-b-lg', // TODO: Change this with last-of-type when we upgrade tailwind
 
         'mx-4',
         'px-4',
