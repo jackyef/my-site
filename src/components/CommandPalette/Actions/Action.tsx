@@ -8,7 +8,7 @@ interface Props {
   query: string;
   userSubmittedQuery: string;
   description?: string;
-  type: 'action' | 'navigation';
+  type: 'action' | 'navigation' | 'navigation-external';
   href?: string;
   onClick?: () => void;
 }
@@ -39,6 +39,8 @@ export const Action = ({
       router.push({
         pathname: href,
       });
+    } else if (type === 'navigation-external') {
+      window.open(href, '_blank');
     }
 
     if (typeof onClick === 'function') {
