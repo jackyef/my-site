@@ -1,4 +1,4 @@
-const withPreact = require('next-plugin-preact');
+// const withPreact = require('next-plugin-preact');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -68,4 +68,4 @@ const conf = {
   },
 };
 
-module.exports = flowRight(withPreact, withOffline, withBundleAnalyzer)(conf);
+module.exports = flowRight(withOffline, withBundleAnalyzer)(conf);

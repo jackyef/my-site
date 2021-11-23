@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
@@ -28,6 +28,9 @@ const mdxComponents = {
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
+const useIsomorphicLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 interface Props {
   meta: PostMeta;
   children: React.ReactChildren;
@@ -45,7 +48,7 @@ export default function Post({ meta, children, posts }: Props) {
   const fullUrl = `${publicUrl}${router.pathname}`;
   const shouldAnimateNavigation = useShouldAnimateNavigation();
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const el = document.getElementById('restOfArticle');
 
     if (el && shouldAnimateNavigation) {

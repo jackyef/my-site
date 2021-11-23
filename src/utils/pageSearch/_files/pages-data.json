@@ -1,0 +1,22 @@
+[
+  {
+    "title": "6 Things I Learned during my Remote Job Search",
+    "description": "I recently landed my first remote job as a software engineer! Here are some of the stuffs that I learned during the process.",
+    "link": "/posts/6-things-i-learned-during-my-remote-job-search"
+  },
+  {
+    "title": "Building a Blog with Next.js + Preact + Tailwind",
+    "description": "I rewrote my personal site from Gatsby.js to Next.js, and added a blog. Might as well write a first post on it, right?",
+    "link": "/posts/building-a-blog-with-next-preact-tailwind"
+  },
+  {
+    "title": "Building an Audio-loop Player on the Web 🔉♻️",
+    "description": "Some learnings from building Tranquil, a web-app for mixing environmental sounds.",
+    "link": "/posts/building-an-audio-loop-player-on-the-web"
+  },
+  {
+    "title": "Writing Your Own CSS-in-JS Library",
+    "description": "Learn how to create a simple, minimal CSS-in-JS library with vendor prefixing + server rendering support!",
+    "link": "/posts/writing-your-own-css-in-js-library"
+  }
+]

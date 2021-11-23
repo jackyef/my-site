@@ -35,6 +35,14 @@
 }
 
 @layer utilities {
+  .backdrop-blur {
+    backdrop-filter: blur(3px);
+  }
+
+  .border-dark-only {
+    border: var(--border-dark-only);
+  }
+
   .scroll-snap-align-start {
     scroll-snap-align: start;
   }
