@@ -2,25 +2,22 @@ import { getPlatformMetaKey } from '@/utils/keyboard';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import { PageData } from '../../../types/types';
 import { Action } from './Actions/Action';
-import { filterValidQueries, Query } from './Actions/actions';
-import { filterExternalLinks } from './Actions/externalLinks';
-import { filterPages } from './Actions/pages';
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
+import { useStaticResult } from './hooks/useStaticResult';
 import { ResultBox } from './ResultBox';
 import { ResultSectionHeading } from './ResultSectionHeading';
+import { ResultSectionSeparator } from './ResultSectionSeparator';
 import { SearchInput } from './SearchInput';
 
 export default () => {
   const { isOpen, setIsOpen } = useCommandPaletteContext();
   const [query, setQuery] = useState('');
-  const [actionQueries, setActionQueries] = useState<Query[]>([]);
-  const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
-  const [externalLinkResult, setExternalLinkResult] = useState<PageData[]>([]);
+  const { actionQueries, externalLinkResult, pageSearchResult } =
+    useStaticResult({ query });
   const { data: postSearchResult } = usePostSearch(query);
   const { onFirstTimeOpen, hasOpenedBefore } = useOnboardingToast();
 
@@ -104,9 +101,6 @@ export default () => {
     const { value } = e.target;
 
     setQuery(value);
-    setActionQueries(value ? filterValidQueries(value) : []);
-    setPageSearchResult(value ? filterPages(value) : []);
-    setExternalLinkResult(value ? filterExternalLinks(value) : []);
   };
 
   const getPlaceholderText = () => {
@@ -179,21 +173,7 @@ export default () => {
                 );
               })}
 
-              {hasActions && hasPageResults && (
-                <div>
-                  <div
-                    className={clsx(
-                      'my-2',
-                      'mx-6',
-                      'h-[2px]',
-                      'w-full',
-                      'bg-theme-backgroundOffset',
-                      'transition-colors',
-                      'duration-500',
-                    )}
-                  />
-                </div>
-              )}
+              {hasActions && <ResultSectionSeparator />}
 
               {/* Pages */}
               {hasPageResults && (
@@ -213,21 +193,26 @@ export default () => {
                 );
               })}
 
-              {hasPageResults && hasPostResults && (
-                <div>
-                  <div
-                    className={clsx(
-                      'my-2',
-                      'mx-6',
-                      'h-[2px]',
-                      'w-full',
-                      'bg-theme-backgroundOffset',
-                      'transition-colors',
-                      'duration-500',
-                    )}
-                  />
-                </div>
+              {hasPageResults && <ResultSectionSeparator />}
+
+              {/* External links */}
+              {hasExternalLinkResults && (
+                <ResultSectionHeading>External links</ResultSectionHeading>
               )}
+              {externalLinkResult.map((externalLink) => {
+                return (
+                  <Action
+                    key={externalLink.link}
+                    query={externalLink.title}
+                    href={externalLink.link}
+                    description={externalLink.description}
+                    userSubmittedQuery={query}
+                    type="navigation-external"
+                  />
+                );
+              })}
+
+              {hasExternalLinkResults && <ResultSectionSeparator />}
 
               {/* Posts */}
               {hasPostResults && (
@@ -243,39 +228,6 @@ export default () => {
                     userSubmittedQuery={query}
                     onClick={setShouldCloseAfterNavigation}
                     type="navigation"
-                  />
-                );
-              })}
-
-              {hasPostResults && hasExternalLinkResults && (
-                <div>
-                  <div
-                    className={clsx(
-                      'my-2',
-                      'mx-6',
-                      'h-[2px]',
-                      'w-full',
-                      'bg-theme-backgroundOffset',
-                      'transition-colors',
-                      'duration-500',
-                    )}
-                  />
-                </div>
-              )}
-
-              {/* External links */}
-              {hasExternalLinkResults && (
-                <ResultSectionHeading>External links</ResultSectionHeading>
-              )}
-              {externalLinkResult.map((externalLink) => {
-                return (
-                  <Action
-                    key={externalLink.link}
-                    query={externalLink.title}
-                    href={externalLink.link}
-                    description={externalLink.description}
-                    userSubmittedQuery={query}
-                    type="navigation-external"
                   />
                 );
               })}
