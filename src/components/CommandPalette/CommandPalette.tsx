@@ -107,7 +107,7 @@ export default () => {
   };
 
   const getPlaceholderText = () => {
-    const defaultMessage = `Psst, try typing "dark theme" or "learn"!`;
+    const defaultMessage = `Try typing "dark theme" or "learn"!`;
 
     if (!hasOpenedBefore) {
       return defaultMessage;
