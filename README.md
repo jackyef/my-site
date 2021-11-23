@@ -1,15 +1,21 @@
 ## Welcome 👋
+
 This repo contains the code powering [jackyef.com](https://jackyef.com)
 
 The site is powered by:
+
 - [Next.js](https://nextjs.org/)
-- [Preact](https://preactjs.com)
+- ~~[Preact](https://preactjs.com)~~
+- [React](https://reactjs.org)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vercel](https://vercel.com)
 
 If you are interested on the thought process of building the site initially, you can read this blog post: [Building a Blog with Next + Preact + Tailwind](https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind)
 
+As I added more stuffs to the site, I've gone back to using React as some dependencies I am using aren't compatible with Preact. `radix-ui`, for instance.
+
 ### References:
+
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk
 - https://jfelix.info/blog/how-to-make-a-static-blog-with-next-js
 - https://blog.tailwindcss.com/building-the-tailwind-blog
@@ -22,6 +28,7 @@ If you are interested on the thought process of building the site initially, you
 - https://csswizardry.com/2020/05/the-fastest-google-fonts/
 
 ### Tool and resources:
+
 - https://uigradients.com/#Hydrogen
 - https://github.com/nicolesaidy/awesome-web-design
 - https://tablericons.com
