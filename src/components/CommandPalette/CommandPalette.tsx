@@ -2,15 +2,13 @@ import { getPlatformMetaKey } from '@/utils/keyboard';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
-import { Action } from './Actions/Action';
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
 import { useStaticResult } from './hooks/useStaticResult';
 import { ResultBox } from './ResultBox';
-import { ResultSectionHeading } from './ResultSectionHeading';
-import { ResultSectionSeparator } from './ResultSectionSeparator';
+import { ResultSection } from './ResultSection';
 import { SearchInput } from './SearchInput';
 
 export default () => {
@@ -118,6 +116,8 @@ export default () => {
   const hasPostResults = postSearchResult.length > 0;
   const hasPageResults = pageSearchResult.length > 0;
   const hasExternalLinkResults = externalLinkResult.length > 0;
+  const hasResults =
+    hasActions || hasPostResults || hasPageResults || hasExternalLinkResults;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
@@ -151,86 +151,43 @@ export default () => {
             placeholder={getPlaceholderText()}
             value={query}
             onChange={handleChangeQuery}
-            hasResults={actionQueries.length > 0}
+            hasResults={hasResults}
           />
-          {(hasActions ||
-            hasPostResults ||
-            hasPageResults ||
-            hasExternalLinkResults) && (
+          {hasResults && (
             <ResultBox>
               {/* Actions */}
-              {hasActions && (
-                <ResultSectionHeading>Actions</ResultSectionHeading>
-              )}
-              {actionQueries.map((q) => {
-                return (
-                  <Action
-                    key={q}
-                    query={q}
-                    userSubmittedQuery={query}
-                    type="action"
-                  />
-                );
-              })}
-
-              {hasActions && <ResultSectionSeparator />}
+              <ResultSection
+                query={query}
+                results={actionQueries}
+                type="action"
+                heading="Actions"
+              />
 
               {/* Pages */}
-              {hasPageResults && (
-                <ResultSectionHeading>Pages</ResultSectionHeading>
-              )}
-              {pageSearchResult.map((page) => {
-                return (
-                  <Action
-                    key={page.link}
-                    query={page.title}
-                    href={page.link}
-                    description={page.description}
-                    userSubmittedQuery={query}
-                    onClick={setShouldCloseAfterNavigation}
-                    type="navigation"
-                  />
-                );
-              })}
-
-              {hasPageResults && <ResultSectionSeparator />}
+              <ResultSection
+                query={query}
+                results={pageSearchResult}
+                type="navigation"
+                heading="Pages"
+                onResultClick={setShouldCloseAfterNavigation}
+              />
 
               {/* External links */}
-              {hasExternalLinkResults && (
-                <ResultSectionHeading>External links</ResultSectionHeading>
-              )}
-              {externalLinkResult.map((externalLink) => {
-                return (
-                  <Action
-                    key={externalLink.link}
-                    query={externalLink.title}
-                    href={externalLink.link}
-                    description={externalLink.description}
-                    userSubmittedQuery={query}
-                    type="navigation-external"
-                  />
-                );
-              })}
-
-              {hasExternalLinkResults && <ResultSectionSeparator />}
+              <ResultSection
+                query={query}
+                results={externalLinkResult}
+                type="navigation-external"
+                heading="External links"
+              />
 
               {/* Posts */}
-              {hasPostResults && (
-                <ResultSectionHeading>Posts</ResultSectionHeading>
-              )}
-              {postSearchResult.map((post) => {
-                return (
-                  <Action
-                    key={post.link}
-                    query={post.title}
-                    href={post.link}
-                    description={post.description}
-                    userSubmittedQuery={query}
-                    onClick={setShouldCloseAfterNavigation}
-                    type="navigation"
-                  />
-                );
-              })}
+              <ResultSection
+                query={query}
+                results={postSearchResult}
+                type="navigation"
+                heading="Posts"
+                onResultClick={setShouldCloseAfterNavigation}
+              />
             </ResultBox>
           )}
         </div>

@@ -236,3 +236,14 @@ a:focus {
   border-radius: 3px;
   background-color: transparent;
 }
+
+/* Hacks alert! Remove when possible! */
+
+/*
+ * Sets a nicer looking outline for CMD palette item focus 
+ * TODO: Remove this once we can start using tailwind last-of-type variant
+ */
+.focusable-cmd-item:nth-last-child(2) {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
