@@ -7,5 +7,5 @@ module.exports = [
   'hash-link',
   'page-outline',
   'toc-level-1',
-  'xl:block',
+  '2xl:block',
 ];

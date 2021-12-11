@@ -25,7 +25,7 @@ module.exports = (config, options) => {
             {
               headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
               cssClasses: {
-                toc: 'page-outline hidden xl:block', // Change the CSS class for the TOC
+                toc: 'page-outline hidden 2xl:block', // Change the CSS class for the TOC
                 link: 'page-link', // Change the CSS class for links in the TOC
               },
             },
