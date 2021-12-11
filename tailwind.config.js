@@ -49,6 +49,7 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
+      '2xl': '1440px',
     },
     /**
      * Required to override the lineheight added to each font-size in Tailwind v2

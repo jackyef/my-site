@@ -1,3 +1,4 @@
+import { publicUrl } from '@/components/Seo/CommonMetaTags';
 import { ThemeContext } from '@/components/Theme/ThemeProvider';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -30,11 +31,19 @@ export const Action = ({
   };
 
   const isThemeToggleAction = query === 'Toggle dark/light theme';
+  const isShareArticleAction = query === 'Share this article';
   const icon = isThemeToggleAction ? getToggleThemeIcon() : '↗️';
 
   const handleClick = () => {
     if (isThemeToggleAction) {
       setTheme(theme === 'dark' ? 'default' : 'dark');
+    } else if (isShareArticleAction) {
+      const text = `${document.title} ${publicUrl}${router.pathname} via @jackyef__`;
+
+      window.open(
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+        '_blank',
+      );
     } else if (type === 'navigation') {
       router.push({
         pathname: href,

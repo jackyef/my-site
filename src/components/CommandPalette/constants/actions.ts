@@ -6,9 +6,14 @@
  * are not included here.
  */
 
-export const QUERIES = ['Toggle dark/light theme'] as const;
+import { NextRouter } from 'next/router';
 
-export const ACTIONS = ['TOGGLE_DARK_LIGHT_THEME'] as const;
+export const QUERIES = [
+  'Toggle dark/light theme',
+  'Share this article',
+] as const;
+
+export const ACTIONS = ['TOGGLE_DARK_LIGHT_THEME', 'SHARE_ARTICLE'] as const;
 
 export const DEFAULT_QUERIES = [...QUERIES];
 
@@ -17,12 +22,22 @@ export type Query = typeof QUERIES[number];
 
 export const QUERIES_ACTIONS_MAP: Record<Query, Action> = {
   'Toggle dark/light theme': 'TOGGLE_DARK_LIGHT_THEME',
+  'Share this article': 'SHARE_ARTICLE',
 };
 
-export const filterValidQueries = (query: string): Query[] => {
+export const filterValidQueries = (
+  query: string,
+  router: NextRouter,
+): Query[] => {
   const words = query.split(' ').map((word) => word.toLowerCase());
 
-  return QUERIES.filter((q) =>
+  const filtered = QUERIES.filter((q) =>
     words.every((word) => q.toLowerCase().includes(word)),
   );
+
+  const isPostPage = router.pathname.startsWith('/posts/');
+
+  return isPostPage
+    ? filtered
+    : filtered.filter((q) => q !== 'Share this article');
 };

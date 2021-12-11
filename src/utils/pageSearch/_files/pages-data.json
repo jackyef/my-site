@@ -5,6 +5,11 @@
     "link": "/posts/6-things-i-learned-during-my-remote-job-search"
   },
   {
+    "title": "A year into working remotely – A retrospective 💭",
+    "description": "Around a year ago, I left a cushy job at an Indonesian tech unicorn, looking for something else. Today I share about my experience through all of it.",
+    "link": "/posts/a-year-into-working-remotely-a-retrospective"
+  },
+  {
     "title": "Building a Blog with Next.js + Preact + Tailwind",
     "description": "I rewrote my personal site from Gatsby.js to Next.js, and added a blog. Might as well write a first post on it, right?",
     "link": "/posts/building-a-blog-with-next-preact-tailwind"

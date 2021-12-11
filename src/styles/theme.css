@@ -193,24 +193,25 @@ h6:hover .hash-link {
 
 /* For table of content */
 .page-outline {
-  position: relative;
-  left: 100%;
-  top: -8rem;
-  margin-left: 3rem;
-  padding-right: 1rem;
+  position: sticky;
+  top: 8rem;
+  transform: translateX(0);
 }
 
 .page-outline::before {
   display: block;
-  position: fixed;
   content: 'Table of Contents';
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: -2rem !important;
 }
 
-.toc-level-1 {
+.page-outline::before, .toc-level-1 {
   position: fixed;
+  left: 100%;
+  width: 100%;
+  max-width: clamp(240px, 18vw, 400px);
+  margin-left: 2rem;
 }
 
 button:focus,

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { PageData } from '../../../../types/types';
 
@@ -10,6 +11,7 @@ type Params = {
 };
 
 export const useStaticResult = ({ query }: Params) => {
+  const router = useRouter();
   const [actionQueries, setActionQueries] = useState<Query[]>([]);
   const [pageSearchResult, setPageSearchResult] = useState<PageData[]>([]);
   const [externalLinkResult, setExternalLinkResult] = useState<PageData[]>([]);
@@ -22,13 +24,13 @@ export const useStaticResult = ({ query }: Params) => {
 
   useEffect(() => {
     if (query) {
-      setActionQueries(query ? filterValidQueries(query) : []);
+      setActionQueries(query ? filterValidQueries(query, router) : []);
       setPageSearchResult(query ? filterPages(query) : []);
       setExternalLinkResult(query ? filterExternalLinks(query) : []);
     } else {
       reset();
     }
-  }, [query, reset]);
+  }, [query, reset, router]);
 
   return {
     actionQueries,
