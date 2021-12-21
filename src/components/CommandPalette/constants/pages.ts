@@ -2,7 +2,6 @@
  * We store all pages (excluding posts) we want to be available in the Command Palette here.
  */
 
-import { matchSorter } from 'match-sorter';
 import { PageData } from '../../../../types/types';
 
 export const PAGES: readonly PageData[] = [
@@ -25,9 +24,13 @@ export const PAGES: readonly PageData[] = [
 ];
 
 export const filterPages = (query: string): PageData[] => {
-  const matched = matchSorter(PAGES, query, {
-    keys: ['title', 'description', 'link'],
-  });
+  const words = query.split(' ').map((word) => word.toLowerCase());
 
-  return matched;
+  return PAGES.filter((page) =>
+    words.every(
+      (word) =>
+        page.title.toLowerCase().includes(word) ||
+        page.description.toLowerCase().includes(word),
+    ),
+  );
 };
