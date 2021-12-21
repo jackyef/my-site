@@ -2,6 +2,7 @@
  * We store all external links we want to be available in the Command Palette here.
  */
 
+import { matchSorter } from 'match-sorter';
 import { PageData } from '../../../../types/types';
 
 export const EXTERNAL_LINKS: readonly PageData[] = [
@@ -27,14 +28,9 @@ export const EXTERNAL_LINKS: readonly PageData[] = [
 ];
 
 export const filterExternalLinks = (query: string): PageData[] => {
-  const words = query.split(' ').map((word) => word.toLowerCase());
+  const matched = matchSorter(EXTERNAL_LINKS, query, {
+    keys: ['title', 'hiddenSearchTerm', 'description', 'link'],
+  });
 
-  return EXTERNAL_LINKS.filter((page) =>
-    words.every(
-      (word) =>
-        page.title.toLowerCase().includes(word) ||
-        page.description.toLowerCase().includes(word) ||
-        page.hiddenSearchTerm?.toLowerCase().includes(word),
-    ),
-  );
+  return matched;
 };

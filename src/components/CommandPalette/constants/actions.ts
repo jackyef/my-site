@@ -6,6 +6,7 @@
  * are not included here.
  */
 
+import { matchSorter } from 'match-sorter';
 import { NextRouter } from 'next/router';
 
 export const QUERIES = [
@@ -29,15 +30,11 @@ export const filterValidQueries = (
   query: string,
   router: NextRouter,
 ): Query[] => {
-  const words = query.split(' ').map((word) => word.toLowerCase());
-
-  const filtered = QUERIES.filter((q) =>
-    words.every((word) => q.toLowerCase().includes(word)),
-  );
+  const matched = matchSorter(QUERIES, query);
 
   const isPostPage = router.pathname.startsWith('/posts/');
 
   return isPostPage
-    ? filtered
-    : filtered.filter((q) => q !== 'Share this article');
+    ? matched
+    : matched.filter((q) => q !== 'Share this article');
 };
