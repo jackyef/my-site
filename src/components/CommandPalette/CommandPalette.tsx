@@ -48,7 +48,7 @@ export default () => {
   }, [onFirstTimeOpen, setIsOpen]);
 
   useEffect(() => {
-    const rootContainer = document.getElementById('__next');
+    const rootContainer = document.getElementById('__commandPaletteContainer');
 
     if (!rootContainer) return;
 

@@ -17,7 +17,7 @@ export const CommandPaletteProvider: React.FC = ({ children }) => {
 
   return (
     <CommandPaletteContext.Provider value={{ isOpen, setIsOpen }}>
-      {children}
+      <div id="__commandPaletteContainer">{children}</div>
     </CommandPaletteContext.Provider>
   );
 };
