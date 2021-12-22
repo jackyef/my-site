@@ -25,7 +25,7 @@ export const PAGES: readonly PageData[] = [
   // Tools
   {
     title: 'Tools ▶️ Claymorphism',
-    description: `Simple tool for generating for claymorphic style CSS `,
+    description: `Simple tool for generating for claymorphism-style CSS `,
     link: '/tools/claymorphism',
   },
 ];

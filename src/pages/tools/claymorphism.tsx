@@ -10,10 +10,10 @@ import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 
 const meta = {
-  title: 'Claymorphism CSS generator',
-  description: 'Play around and generate a claymorphism style CSS!',
+  title: 'Claymorphism-style CSS generator',
+  description: 'Play around and generate claymorphism-style CSS!',
   image: createOgImageUrl({
-    title: 'Claymorphism CSS generator',
+    title: '**Claymorphism-style CSS generator**',
     fontSize: 120,
   }),
   date: '2021-12-22T09:45:30.326Z',
