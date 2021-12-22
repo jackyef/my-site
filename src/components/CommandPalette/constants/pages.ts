@@ -21,6 +21,13 @@ export const PAGES: readonly PageData[] = [
       'Get to know me! This page contains what I worked on, where I worked at, where to find me, etc.',
     link: '/about',
   },
+
+  // Tools
+  {
+    title: 'Tools ▶️ Claymorphism',
+    description: `Simple tool for generating for claymorphic style CSS `,
+    link: '/tools/claymorphism',
+  },
 ];
 
 export const filterPages = (query: string): PageData[] => {
