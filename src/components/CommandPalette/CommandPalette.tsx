@@ -48,7 +48,7 @@ export default () => {
   }, [onFirstTimeOpen, setIsOpen]);
 
   useEffect(() => {
-    const rootContainer = document.getElementById('__next');
+    const rootContainer = document.getElementById('__commandPaletteContainer');
 
     if (!rootContainer) return;
 
@@ -102,7 +102,7 @@ export default () => {
   };
 
   const getPlaceholderText = () => {
-    const defaultMessage = `Try typing "dark theme" or "learn"!`;
+    const defaultMessage = `Try typing "dark theme" or "tools"!`;
 
     if (!hasOpenedBefore) {
       return defaultMessage;

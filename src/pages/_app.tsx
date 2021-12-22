@@ -41,12 +41,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Toaster />
       <CommandPaletteProvider>
         <QueryClientProvider client={queryClient}>
           <NavigationProvider>
             <ThemeProvider>
               <CommonMetaTags />
-              <Toaster />
               <SectionContainer>
                 <Header />
               </SectionContainer>

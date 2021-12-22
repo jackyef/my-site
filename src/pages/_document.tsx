@@ -1,10 +1,34 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentProps,
+} from 'next/document';
+import { extractCss } from 'goober';
 
-export default class MyDocument extends Document {
+interface Props extends DocumentProps {
+  css: string;
+}
+export default class MyDocument extends Document<Props> {
+  static async getInitialProps({ renderPage }: DocumentContext) {
+    const page = await renderPage();
+    const css = extractCss();
+
+    return { ...page, css };
+  }
+
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <style
+            id={'_goober'}
+            // And defined it in here
+            dangerouslySetInnerHTML={{ __html: ' ' + this.props.css }}
+          />
+        </Head>
         <script
           dangerouslySetInnerHTML={{
             __html: [

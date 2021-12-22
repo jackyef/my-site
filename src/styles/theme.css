@@ -7,7 +7,7 @@
   --color-heading: #373a3c;
   --color-text: #161e2e;
   --color-subtitle: #6b7280;
-  --color-link: #047481;
+  --color-link: rgba(4, 116, 129, 1);
   --color-link-highlight: rgba(4, 116, 129, 0.25);
   --color-outline: rgba(4, 116, 129, 0.7);
   --color-scrollbar: #cacaca;
