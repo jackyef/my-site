@@ -42,14 +42,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
       <Toaster />
-      <CommandPaletteProvider>
-        <QueryClientProvider client={queryClient}>
-          <NavigationProvider>
-            <ThemeProvider>
-              <CommonMetaTags />
-              <SectionContainer>
-                <Header />
-              </SectionContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationProvider>
+          <ThemeProvider>
+            <CommonMetaTags />
+
+            <Header />
+
+            <CommandPaletteProvider>
               <Flipper
                 flipKey={prefersReducedMotion ? 'static' : router.asPath}
                 staggerConfig={{
@@ -69,30 +69,29 @@ const MyApp: AppType = ({ Component, pageProps }) => {
               </SectionContainer>
 
               <CommandPalette />
-
-              <Head>
-                {isProd ? (
-                  <>
-                    {/* (analytics.js) - Google Analytics */}
-                    <script
-                      async
-                      src="https://www.google-analytics.com/analytics.js"
-                    ></script>
-                  </>
-                ) : null}
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                  rel="preload"
-                  as="font"
-                  crossOrigin="anonymous"
-                  href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
-                  type="font/woff2"
-                />
-              </Head>
-            </ThemeProvider>
-          </NavigationProvider>
-        </QueryClientProvider>
-      </CommandPaletteProvider>
+            </CommandPaletteProvider>
+            <Head>
+              {isProd ? (
+                <>
+                  {/* (analytics.js) - Google Analytics */}
+                  <script
+                    async
+                    src="https://www.google-analytics.com/analytics.js"
+                  ></script>
+                </>
+              ) : null}
+              <link rel="preconnect" href="https://fonts.gstatic.com" />
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="anonymous"
+                href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
+                type="font/woff2"
+              />
+            </Head>
+          </ThemeProvider>
+        </NavigationProvider>
+      </QueryClientProvider>
     </>
   );
 };

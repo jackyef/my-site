@@ -8,7 +8,7 @@ export const ThemeToggle: React.FC = () => {
   return (
     <>
       <button
-        className="inline-block p-2"
+        className="inline-block p-2 rounded-md"
         onClick={() => {
           const newTheme = theme !== 'dark' ? 'dark' : 'default';
 
