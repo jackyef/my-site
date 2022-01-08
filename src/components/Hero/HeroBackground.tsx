@@ -14,6 +14,25 @@ export const HeroBackground = () => {
     }
   `;
 
+  /**
+   * Safari seems to have a bug where some square artifacts are visible
+   * upon switching between theme.
+   * Forcing a repaint fixes this.
+   */
+  const blurBreathing = keyframes`
+    from {
+      opacity: var(--blob-opacity);
+    }
+
+    50% {
+      opacity: calc(var(--blob-opacity) * 0.8);
+    }
+
+    to {
+      opacity: var(--blob-opacity);
+    }
+  `;
+
   const wrapper = css`
     position: absolute;
     inset: 0;
@@ -24,6 +43,8 @@ export const HeroBackground = () => {
   const base = css`
     position: absolute;
     filter: blur(60px);
+    animation: ${blurBreathing} 15s linear infinite;
+    animation-fill-mode: both;
     opacity: var(--blob-opacity);
     transition: opacity 2s, width 2s, height 2s;
   `;
