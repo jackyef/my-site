@@ -38,7 +38,7 @@ export default function Header() {
     z-index: 3;
 
     @supports (backdrop-filter: blur(8px)) {
-      --bg-opacity: 0.1;
+      --bg-opacity: 0.3;
     }
   `;
 

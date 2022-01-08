@@ -58,11 +58,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                   },
                 }}
               >
-                <SectionContainer>
-                  <PageContainer>
-                    <Component {...pageProps} />
-                  </PageContainer>
-                </SectionContainer>
+                <PageContainer>
+                  <Component {...pageProps} />
+                </PageContainer>
               </Flipper>
               <SectionContainer>
                 <Footer />

@@ -19,7 +19,11 @@
   /* prettier-ignore */
   --theme:default;
 
-  --rgb-bg: 250, 250, 250;
+  --rgb-primary: 0, 135, 94;
+  --rgb-secondary: 94, 0, 135;
+  --rgb-tertiary: 135, 94, 0; 
+
+  --rgb-bg: 244, 244, 244;
   --rgb-bg-offset: 234, 234, 234;
   --rgb-heading: 55, 58, 60;
   --rgb-text: 22, 30, 46;
@@ -51,6 +55,10 @@
 [data-theme='dark'] {
   /* prettier-ignore */
   --theme:dark;
+
+  --rgb-primary: 84, 180, 193;
+  --rgb-secondary: 193, 84, 180;
+  --rgb-tertiary: 180, 193, 84; 
 
   --rgb-bg: 17, 24, 32;
   --rgb-bg-offset: 31, 41, 48;

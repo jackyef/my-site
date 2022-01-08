@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 
-import { WaveBackground } from '../Background/WaveBackground';
+import { SectionContainer } from '@/components/SectionContainer';
+import { Hero } from '../Hero';
 
 export const PageContainer: React.FC = ({ children }) => {
   const router = useRouter();
 
   return (
     <div>
-      <WaveBackground hidden={router.pathname !== '/'} />
-      {children}
+      <Hero hidden={router.pathname !== '/'} />
+      <SectionContainer>{children}</SectionContainer>
     </div>
   );
 };

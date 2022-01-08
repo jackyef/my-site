@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
-import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { sendEventTracker } from '@/utils/analytics/tracker';
+import { PageTitle } from '@/components/Typography/PageTitle';
 
 export default function Home() {
   const router = useRouter();
