@@ -23,10 +23,10 @@ export const PostPreviewList = () => {
                 <div className="space-y-4">
                   <div className="space-y-1">
                     <Flipped flipId={meta.title} spring="noWobble" translate>
-                      <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
+                      <h2 className="text-xl md:text-2xl leading-8 font-bold">
                         <InternalLink
                           href={link}
-                          className="fancy-anchor text-theme-text font-bold"
+                          className="fancy-anchor font-bold text-theme-heading"
                           onClick={() => {
                             sendEventTracker({
                               name: 'click',

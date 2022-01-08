@@ -59,7 +59,7 @@ export default class MyDocument extends Document<Props> {
         {/*
          * We load the fonts.css asynchronously
          * Doing it this way cause some FOUT and layout shifts
-         * But ultimately it loading time because we have no blocking resources
+         * But ultimately it improves loading time because we have no blocking resources
          * Read: https://csswizardry.com/2020/05/the-fastest-google-fonts/
          */}
         <link
