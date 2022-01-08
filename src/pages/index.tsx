@@ -67,7 +67,8 @@ export default function Home() {
           <SectionTitle {...flippedProps}>Latest writings ✍️</SectionTitle>
         )}
       </Flipped>
-      <PostPreviewList />
+
+      <PostPreviewList count={4} />
     </>
   );
 }

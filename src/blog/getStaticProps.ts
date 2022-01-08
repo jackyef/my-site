@@ -1,4 +1,4 @@
-import getAllPostPreviews from './getAllPostPreviews'
+import getAllPostPreviews from './getAllPostPreviews';
 
 export async function getStaticProps() {
   return {
@@ -8,5 +8,5 @@ export async function getStaticProps() {
         link: post.link,
       })),
     },
-  }
+  };
 }
