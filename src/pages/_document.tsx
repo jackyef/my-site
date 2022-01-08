@@ -34,21 +34,14 @@ export default class MyDocument extends Document<Props> {
             __html: [
               // set initial theme
               `try {`,
-              `console.log('start of script');`,
               `var __storedPerf = localStorage.getItem('theme') || '';`,
               `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
-              `console.log('stored from localStorage', __storedPerf);`,
-              `console.log('condition', !__storedPerf && darkQuery.matches, Boolean(__storedPerf), darkQuery.matches);`,
 
               `if (!__storedPerf && darkQuery.matches) {`,
-              `console.log('inside initial matches', __storedPerf);`,
               `__storedPerf = 'dark';`,
               `}`,
 
-              `if (__storedPerf) {`,
-              `console.log('inside storedPerf', __storedPerf);`,
-              `document.documentElement.setAttribute('data-theme', __storedPerf);`,
-              `}`,
+              `document.documentElement.setAttribute('data-theme', __storedPerf || 'default');`,
 
               // setup listener to make it reactive
               `darkQuery.addListener(function(e) {`,
