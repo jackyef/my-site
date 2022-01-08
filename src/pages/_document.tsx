@@ -33,23 +33,32 @@ export default class MyDocument extends Document<Props> {
           dangerouslySetInnerHTML={{
             __html: [
               // set initial theme
+              `try {`,
+              `console.log('start of script');`,
               `var __storedPerf = localStorage.getItem('theme') || '';`,
+              `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
+              `console.log('stored from localStorage', __storedPerf);`,
+              `console.log('condition', !__storedPerf && darkQuery.matches, Boolean(__storedPerf), darkQuery.matches);`,
 
-              `if (!__storedPerf && window.matchMedia('(prefers-color-scheme: dark)').matches) {`,
+              `if (!__storedPerf && darkQuery.matches) {`,
+              `console.log('inside initial matches', __storedPerf);`,
               `__storedPerf = 'dark';`,
               `}`,
 
               `if (__storedPerf) {`,
+              `console.log('inside storedPerf', __storedPerf);`,
               `document.documentElement.setAttribute('data-theme', __storedPerf);`,
               `}`,
 
               // setup listener to make it reactive
-              `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
               `darkQuery.addListener(function(e) {`,
               `var __newTheme = e.matches ? 'dark' : 'default';`,
               `document.documentElement.setAttribute('data-theme', __newTheme);`,
               `typeof window.__themeBinding === 'function' && window.__themeBinding(__newTheme);`,
               `});`,
+              `} catch (err) {`,
+              `console.log('error in setting initial theme', err);`,
+              `}`,
             ].join(''),
           }}
         />
