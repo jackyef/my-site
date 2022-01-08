@@ -8,7 +8,7 @@ import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
 import PwaInstallIcon from './assets/icon-plus.svg';
 import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
-import { CSSProperties } from 'react';
+import { css } from 'goober';
 
 function Logo() {
   return (
@@ -31,18 +31,21 @@ export default function Header() {
   const { isReady, trigger } = usePwaInstall();
   const { setIsOpen } = useCommandPaletteContext();
 
+  const glassyHeaderClass = css`
+    --bg-opacity: 0.98;
+    background: rgba(var(--rgb-bg), var(--bg-opacity));
+    backdrop-filter: blur(8px);
+    z-index: 3;
+
+    @supports (backdrop-filter: blur(8px)) {
+      --bg-opacity: 0.1;
+    }
+  `;
+
   return (
     <>
       <header
-        className={clsx('py-4', 'sticky', 'top-0', 'w-full')}
-        style={
-          {
-            '--bg-opacity': 0.1,
-            background: 'rgba(var(--rgb-bg), var(--bg-opacity))',
-            backdropFilter: 'blur(8px)',
-            zIndex: 3,
-          } as CSSProperties
-        }
+        className={clsx('py-4', 'sticky', 'top-0', 'w-full', glassyHeaderClass)}
       >
         <SectionContainer>
           <div className={clsx('flex', 'justify-between', 'items-center')}>
