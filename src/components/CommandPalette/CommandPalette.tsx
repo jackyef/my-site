@@ -47,21 +47,6 @@ export default () => {
     };
   }, [onFirstTimeOpen, setIsOpen]);
 
-  useEffect(() => {
-    const rootContainer = document.getElementById('__commandPaletteContainer');
-
-    if (!rootContainer) return;
-
-    rootContainer.style.transition = 'transform 0.15s ease-in-out';
-    rootContainer.style.transformOrigin = 'top center';
-
-    if (isOpen) {
-      rootContainer.style.transform = 'scale(0.997)';
-    } else {
-      rootContainer.style.transform = 'scale(1)';
-    }
-  });
-
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const activeElement = document.activeElement;
     const container = e.currentTarget;
