@@ -37,8 +37,8 @@ export default function Header() {
         className={clsx('py-4', 'sticky', 'top-0', 'w-full')}
         style={
           {
-            '--bg-opacity': 0.5,
-            background: 'var(--bg-color)',
+            '--bg-opacity': 0.1,
+            background: 'rgba(var(--rgb-bg), var(--bg-opacity))',
             backdropFilter: 'blur(8px)',
             zIndex: 3,
           } as CSSProperties
