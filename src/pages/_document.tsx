@@ -35,6 +35,10 @@ export default class MyDocument extends Document<Props> {
               // set initial theme
               `var __storedPerf = localStorage.getItem('theme') || '';`,
 
+              `if (!__storedPerf && window.matchMedia('(prefers-color-scheme: dark)').matches) {`,
+              `__storedPerf = 'dark';`,
+              `}`,
+
               `if (__storedPerf) {`,
               `document.documentElement.setAttribute('data-theme', __storedPerf);`,
               `}`,
