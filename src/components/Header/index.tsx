@@ -32,10 +32,11 @@ export default function Header() {
   const { setIsOpen } = useCommandPaletteContext();
 
   const glassyHeaderClass = css`
-    --bg-opacity: 0.98;
+    --bg-opacity: 0.95;
     background: rgba(var(--rgb-bg), var(--bg-opacity));
-    backdrop-filter: blur(8px);
+    backdrop-filter: contrast(105%) saturate(120%) blur(8px);
     z-index: 3;
+    height: var(--navbar-height);
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: 0.3;
@@ -48,7 +49,7 @@ export default function Header() {
         className={clsx('py-4', 'sticky', 'top-0', 'w-full', glassyHeaderClass)}
       >
         <SectionContainer>
-          <div className={clsx('flex', 'justify-between', 'items-center')}>
+          <nav className={clsx('flex', 'justify-between', 'items-center')}>
             <div className="flex space-x-2">
               <Link href="/">
                 <a
@@ -111,7 +112,7 @@ export default function Header() {
               </button>
               <ThemeToggle />
             </div>
-          </div>
+          </nav>
         </SectionContainer>
       </header>
     </>

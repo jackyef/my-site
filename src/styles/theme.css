@@ -10,6 +10,8 @@
 
   --transition-default: 0.5s;
   --transition-faster: 0.25s;
+
+  --navbar-height: 75px;
 }
 
 /*
@@ -19,9 +21,9 @@
   /* prettier-ignore */
   --theme:default;
 
-  --rgb-primary: 0, 135, 94;
-  --rgb-secondary: 94, 0, 135;
-  --rgb-tertiary: 135, 94, 0; 
+  --rgb-primary: 130, 255, 218;
+  --rgb-secondary: 218, 130, 255;
+  --rgb-tertiary: 255, 219, 130; 
 
   --rgb-bg: 244, 244, 244;
   --rgb-bg-offset: 234, 234, 234;

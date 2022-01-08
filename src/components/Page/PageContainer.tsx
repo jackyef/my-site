@@ -9,7 +9,9 @@ export const PageContainer: React.FC = ({ children }) => {
   return (
     <div>
       <Hero hidden={router.pathname !== '/'} />
-      <SectionContainer>{children}</SectionContainer>
+      <SectionContainer>
+        <div className="pt-12">{children}</div>
+      </SectionContainer>
     </div>
   );
 };

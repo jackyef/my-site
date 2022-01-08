@@ -24,14 +24,15 @@ export const HeroBackground = () => {
   const base = css`
     position: absolute;
     filter: blur(60px);
-    opacity: 0.15;
+    opacity: var(--blob-opacity);
+    transition: opacity 2s, width 2s, height 2s;
   `;
 
   const one = css`
     border-radius: 100%;
-    width: 150%;
-    height: 150%;
-    background-color: rgb(var(--rgb-tertiary));
+    width: calc(var(--blob-scale) * 150%);
+    height: calc(var(--blob-scale) * 150%);
+    background-color: rgb(var(--rgb-secondary));
     left: -20%;
     top: -75%;
     z-index: 3;
@@ -40,8 +41,8 @@ export const HeroBackground = () => {
   `;
 
   const two = css`
-    width: 125%;
-    height: 200%;
+    width: calc(var(--blob-scale) * 125%);
+    height: calc(var(--blob-scale) * 200%);
     background-color: rgb(var(--rgb-primary));
     bottom: -10%;
     left: -20%;
@@ -49,11 +50,11 @@ export const HeroBackground = () => {
 
   const three = css`
     border-radius: 100%;
-    width: 108%;
-    height: 108%;
+    width: calc(var(--blob-scale) * 108%);
+    height: calc(var(--blob-scale) * 108%);
     bottom: -20%;
     right: -25%;
-    background-color: rgb(var(--rgb-secondary));
+    background-color: rgb(var(--rgb-tertiary));
     animation: ${flyPlus} 8s linear infinite;
     transform: rotate(0) translate(100px) rotate(0);
   `;
@@ -67,7 +68,7 @@ export const HeroBackground = () => {
   const right = css`
     position: absolute;
     inset: 0;
-    transform: translateX(92%) rotate(0.5turn) translateY(-34%);
+    transform: translateX(80%) rotate(0.5turn) translateY(14%);
   `;
 
   return (
