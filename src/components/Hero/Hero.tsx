@@ -17,6 +17,7 @@ export const Hero: FC<Props> = ({ hidden }) => {
     left: 0;
     right: 0;
     overflow: hidden;
+    pointer-events: none;
     --blob-opacity: ${hidden ? 0.1 : 0.2};
     --blob-scale: ${hidden ? 0.8 : 1};
   `;

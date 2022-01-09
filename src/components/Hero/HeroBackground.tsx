@@ -22,14 +22,17 @@ export const HeroBackground = () => {
   const blurBreathing = keyframes`
     from {
       opacity: var(--blob-opacity);
+      transform: scale(1);
     }
 
     50% {
       opacity: calc(var(--blob-opacity) * 0.8);
+      transform: scale(0.9);
     }
 
     to {
       opacity: var(--blob-opacity);
+      transform: scale(1);
     }
   `;
 
