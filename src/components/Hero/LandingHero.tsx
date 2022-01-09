@@ -65,12 +65,9 @@ export const LandingHero = () => {
         </h1>
         <Paragraph>
           I am a software engineer working with JavaScript and on
-          all-things-web. I am currently based in Jakarta, Indonesia (🇮🇩),
-          working remotely at{' '}
-          <ExternalLink href="https://www.stickermule.com">
-            Sticker Mule
-          </ExternalLink>
-          . You might know me from my previous work with{' '}
+          all-things-web. In general, I love balancing between infrastructure
+          and product side of the frontend work. I am currently based in
+          Jakarta, Indonesia (🇮🇩). You might know me from my previous work with{' '}
           <ExternalLink href="https://www.tokopedia.com">
             Tokopedia&rsquo;s Web Platform team
           </ExternalLink>
