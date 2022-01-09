@@ -13,11 +13,36 @@ export const LandingHero = () => {
     background: rgba(var(--rgb-bg), var(--bg-opacity));
     backdrop-filter: contrast(105%) saturate(120%) blur(8px);
     z-index: 3;
-    transition: var(--transition-default);
+    transition: background var(--transition-default),
+      opacity var(--transition-default);
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: 0.2;
     }
+  `;
+
+  const baseCtaButton = css`
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    border-radius: 0.75rem;
+
+    transition: background-position var(--transition-faster);
+    background-size: 200%;
+    background-position: 0% 50%;
+
+    &:hover,
+    &:focus {
+      background-position: 100% 50%;
+    }
+  `;
+
+  const ctaButton = css`
+    background-image: linear-gradient(
+      70deg,
+      rgba(var(--rgb-primary), 0.7),
+      rgba(var(--rgb-tertiary), 0.4),
+      rgba(var(--rgb-primary), 0.4)
+    );
   `;
 
   return (
@@ -53,21 +78,7 @@ export const LandingHero = () => {
         </Paragraph>
 
         <Paragraph>
-          <InternalLink
-            href="/about"
-            onClick={() => {
-              sendEventTracker({
-                name: 'click',
-                category: `${router.pathname} - hero`,
-                label: 'More about me &arr;',
-              });
-            }}
-          >
-            More about me &rarr;
-          </InternalLink>
-        </Paragraph>
-
-        <Paragraph>
+          I am{' '}
           <ExternalLink
             href="https://twitter.com/jackyef__"
             onClick={() => {
@@ -79,8 +90,27 @@ export const LandingHero = () => {
             }}
           >
             @jackyef__ on Twitter
-          </ExternalLink>
+          </ExternalLink>{' '}
+          . From time to time, I tweet about things I learned in my personal
+          journey, be it tech, career, or even just general things about life.
+          If you are on the platform, let&rsquo;s connect!
         </Paragraph>
+
+        <div className={clsx('mt-12', 'flex')}>
+          <InternalLink
+            className={clsx(baseCtaButton, ctaButton)}
+            href="/about"
+            onClick={() => {
+              sendEventTracker({
+                name: 'click',
+                category: `${router.pathname} - hero`,
+                label: 'More about me &arr;',
+              });
+            }}
+          >
+            More about me &rarr;
+          </InternalLink>
+        </div>
       </div>
     </>
   );
