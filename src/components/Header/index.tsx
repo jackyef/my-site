@@ -60,7 +60,7 @@ export default function Header() {
     transition: background var(--transition-default);
 
     @supports (backdrop-filter: blur(8px)) {
-      --bg-opacity: 0.3;
+      --bg-opacity: 0.2;
     }
   `;
 

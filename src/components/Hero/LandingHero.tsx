@@ -13,11 +13,13 @@ export const LandingHero = () => {
     background: rgba(var(--rgb-bg), var(--bg-opacity));
     backdrop-filter: contrast(105%) saturate(120%) blur(8px);
     z-index: 3;
+    transition: var(--transition-default);
 
     @supports (backdrop-filter: blur(8px)) {
-      --bg-opacity: 0.3;
+      --bg-opacity: 0.2;
     }
   `;
+
   return (
     <>
       <div
@@ -33,7 +35,7 @@ export const LandingHero = () => {
           'sm:mt-0',
         )}
       >
-        <h1 className="text-4xl md:text-6xl font-bold text-theme-heading">
+        <h1 className="text-4xl md:text-6xl font-bold text-theme-heading transition-colors">
           Hi, I am Jacky! 👋
         </h1>
         <Paragraph>
