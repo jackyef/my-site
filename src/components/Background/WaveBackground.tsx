@@ -9,7 +9,7 @@ export const WaveBackground = ({ hidden = false }) => {
         style={{
           position: 'absolute',
           zIndex: -1,
-          minHeight: '28rem',
+          minHeight: '24rem',
           left: 0,
           right: 0,
           top: -4,
@@ -26,7 +26,7 @@ export const WaveBackground = ({ hidden = false }) => {
             position: 'absolute',
             background: 'linear-gradient(0deg, #1F2930, #111820)', // --color-bg-offset, --color-bg
             zIndex: -1,
-            minHeight: '28rem',
+            minHeight: '24rem',
             left: 0,
             right: 0,
             transform: 'translateY(1px)',
@@ -38,9 +38,9 @@ export const WaveBackground = ({ hidden = false }) => {
           style={{
             position: 'absolute',
             background:
-              'linear-gradient(0deg, #fafafa,  rgba(4, 116, 129, 0.25))', // --color-bg, --color-link-highlight
+              'linear-gradient(0deg, rgba(4, 116, 129, 0.25), #fafafa)', //  --color-link-highlight, --color-bg
             zIndex: -1,
-            minHeight: '28rem',
+            minHeight: '24rem',
             left: 0,
             right: 0,
             transform: 'translateY(1px)',

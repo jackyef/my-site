@@ -10,12 +10,17 @@ const posts = getAllPostPreviews();
 
 const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
-export const PostPreviewList = () => {
+interface Props {
+  count?: number;
+}
+
+export const PostPreviewList = ({ count = 0 }: Props) => {
   const router = useRouter();
+  const shownPosts = count ? posts.slice(0, count) : posts;
 
   return (
     <ul className="divide-y divide-gray-400 divide-opacity-50">
-      {posts.map(({ link, module: { default: Component, meta } }) => {
+      {shownPosts.map(({ link, module: { default: Component, meta } }) => {
         return (
           <li key={link} className="pb-4 pt-8">
             <article className="space-y-2">
@@ -23,10 +28,10 @@ export const PostPreviewList = () => {
                 <div className="space-y-4">
                   <div className="space-y-1">
                     <Flipped flipId={meta.title} spring="noWobble" translate>
-                      <h2 className="text-xl md:text-2xl leading-8 font-bold tracking-tight">
+                      <h2 className="text-xl md:text-2xl leading-8 font-bold">
                         <InternalLink
                           href={link}
-                          className="fancy-anchor text-theme-text font-bold"
+                          className="fancy-anchor font-bold text-theme-heading"
                           onClick={() => {
                             sendEventTracker({
                               name: 'click',

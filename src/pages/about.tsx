@@ -40,11 +40,17 @@ export default function About() {
       <PageTitle>About me 👨‍💻</PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
-        person and I love to learn how things work, and why they are made the
-        way they are. Most of my experience are with React and front-end
-        development, but I like to strengthen fundamentals and concepts to allow
-        me to learn other things easier, even if they are not necessarily
-        closely related to front-end development. Feel free to{' '}
+        person and I love to learn how things work. It gives me a satisfying
+        feeling when I discover the reasons why some things are made the way
+        they are.
+      </Paragraph>
+
+      <Paragraph>
+        Most of my experience are with React and front-end development. I work
+        on both infrastructure and product side of the frontend work. I like to
+        strengthen fundamentals and concepts to allow me to learn other things
+        easier, even when they may not be necessarily closely related to
+        front-end development. Feel free to{' '}
         <ExternalLink href="https://twitter.com/jackyef__">
           shoot me a DM/tweet on Twitter
         </ExternalLink>{' '}

@@ -24,7 +24,7 @@ export const PostHeader = ({ meta }: Props) => (
         </div>
         <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
           <dl className="mt-1">
-            <div className="flex flex-row space-x-1 text-sm leading-6 text-theme-text">
+            <div className="flex flex-row space-x-1 text-sm leading-6 text-theme-subtitle">
               <dt>Published on</dt>
               <dd>
                 <time className="block md:hidden" dateTime={meta.date}>
@@ -36,9 +36,7 @@ export const PostHeader = ({ meta }: Props) => (
               </dd>
               <div className="mx-1">&middot;</div>
               <dt className="sr-only">Time to read</dt>
-              <dd className="leading-6 font text-theme-subtitle">
-                {meta.readingTime} ☕
-              </dd>
+              <dd className="leading-6 font">{meta.readingTime} ☕</dd>
             </div>
           </dl>
         </Flipped>

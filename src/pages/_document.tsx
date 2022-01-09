@@ -33,19 +33,25 @@ export default class MyDocument extends Document<Props> {
           dangerouslySetInnerHTML={{
             __html: [
               // set initial theme
+              `try {`,
               `var __storedPerf = localStorage.getItem('theme') || '';`,
+              `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
 
-              `if (__storedPerf) {`,
-              `document.documentElement.setAttribute('data-theme', __storedPerf);`,
+              `if (!__storedPerf && darkQuery.matches) {`,
+              `__storedPerf = 'dark';`,
               `}`,
 
+              `document.documentElement.setAttribute('data-theme', __storedPerf || 'default');`,
+
               // setup listener to make it reactive
-              `var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');`,
               `darkQuery.addListener(function(e) {`,
               `var __newTheme = e.matches ? 'dark' : 'default';`,
               `document.documentElement.setAttribute('data-theme', __newTheme);`,
               `typeof window.__themeBinding === 'function' && window.__themeBinding(__newTheme);`,
               `});`,
+              `} catch (err) {`,
+              `console.log('error in setting initial theme', err);`,
+              `}`,
             ].join(''),
           }}
         />
@@ -55,7 +61,7 @@ export default class MyDocument extends Document<Props> {
         {/*
          * We load the fonts.css asynchronously
          * Doing it this way cause some FOUT and layout shifts
-         * But ultimately it loading time because we have no blocking resources
+         * But ultimately it improves loading time because we have no blocking resources
          * Read: https://csswizardry.com/2020/05/the-fastest-google-fonts/
          */}
         <link

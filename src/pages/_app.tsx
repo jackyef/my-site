@@ -47,9 +47,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <NavigationProvider>
             <ThemeProvider>
               <CommonMetaTags />
-              <SectionContainer>
-                <Header />
-              </SectionContainer>
+
+              <Header />
+
               <Flipper
                 flipKey={prefersReducedMotion ? 'static' : router.asPath}
                 staggerConfig={{
@@ -58,18 +58,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                   },
                 }}
               >
-                <SectionContainer>
-                  <PageContainer>
-                    <Component {...pageProps} />
-                  </PageContainer>
-                </SectionContainer>
+                <PageContainer>
+                  <Component {...pageProps} />
+                </PageContainer>
               </Flipper>
               <SectionContainer>
                 <Footer />
               </SectionContainer>
 
               <CommandPalette />
-
               <Head>
                 {isProd ? (
                   <>
