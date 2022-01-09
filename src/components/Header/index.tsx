@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { usePwaInstall } from '@/hooks/usePwaInstall';
@@ -30,13 +31,33 @@ function Logo() {
 export default function Header() {
   const { isReady, trigger } = usePwaInstall();
   const { setIsOpen } = useCommandPaletteContext();
+  const [shouldBeMoreOpaque, setShouldBeMoreOpaque] = useState(false);
+
+  /*
+   * Better header handling for browser not supporting backdrop-filter
+   * Yes, looking at you, Safari.
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      const NAVBAR_HEIGHT = 75;
+      const shouldBeMoreOpaque = window.scrollY > NAVBAR_HEIGHT;
+      setShouldBeMoreOpaque(shouldBeMoreOpaque);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const glassyHeaderClass = css`
-    --bg-opacity: 0.95;
+    --bg-opacity: ${shouldBeMoreOpaque ? 0.95 : 0.4};
     background: rgba(var(--rgb-bg), var(--bg-opacity));
     backdrop-filter: contrast(105%) saturate(120%) blur(8px);
     z-index: 3;
     height: var(--navbar-height);
+    transition: background var(--transition-default);
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: 0.3;

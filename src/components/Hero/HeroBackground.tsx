@@ -86,13 +86,13 @@ export const HeroBackground = () => {
   const left = css`
     position: absolute;
     inset: 0;
-    transform: translateX(-100%) rotate(0.5turn);
+    transform: translateX(-50%) translateY(-10%);
   `;
 
   const right = css`
     position: absolute;
     inset: 0;
-    transform: translateX(80%) rotate(0.5turn) translateY(14%);
+    transform: translateX(50%) translateY(-10%);
   `;
 
   return (

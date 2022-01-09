@@ -20,6 +20,7 @@ export const Hero: FC<Props> = ({ hidden }) => {
     pointer-events: none;
     --blob-opacity: ${hidden ? 0.1 : 0.2};
     --blob-scale: ${hidden ? 0.8 : 1};
+    isolation: isolate;
   `;
 
   return (
@@ -29,6 +30,7 @@ export const Hero: FC<Props> = ({ hidden }) => {
           position: sticky;
           margin-top: calc(var(--navbar-height) * -1);
           top: -30vh;
+          z-index: -1;
         `}
       >
         <div className={clsx(containerClass)}>
