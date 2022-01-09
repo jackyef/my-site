@@ -58,7 +58,7 @@ export const HeroBackground = () => {
     height: calc(var(--blob-scale) * 150%);
     background-color: rgb(var(--rgb-secondary));
     left: -20%;
-    top: -75%;
+    top: -45%;
     z-index: 3;
     animation: ${fly} 12s linear infinite;
     transform: rotate(0) translate(80px) rotate(0);
@@ -86,23 +86,12 @@ export const HeroBackground = () => {
   const left = css`
     position: absolute;
     inset: 0;
-    transform: translateX(-50%) translateY(-10%);
-  `;
-
-  const right = css`
-    position: absolute;
-    inset: 0;
-    transform: translateX(50%) translateY(-10%);
+    transform: translateY(-10%);
   `;
 
   return (
     <div className={wrapper}>
       <div className={left}>
-        <div className={clsx(base, one)}></div>
-        <div className={clsx(base, two)}></div>
-        <div className={clsx(base, three)}></div>
-      </div>
-      <div className={right}>
         <div className={clsx(base, one)}></div>
         <div className={clsx(base, two)}></div>
         <div className={clsx(base, three)}></div>
