@@ -96,7 +96,7 @@ export const LandingHero = () => {
           If you are on the platform, let&rsquo;s connect!
         </Paragraph>
 
-        <div className={clsx('mt-12', 'flex')}>
+        <div className={clsx('mt-8', 'sm:mt-12', 'flex')}>
           <InternalLink
             className={clsx(baseCtaButton, ctaButton)}
             href="/about"
