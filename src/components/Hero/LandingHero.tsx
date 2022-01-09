@@ -83,8 +83,8 @@ export const LandingHero = () => {
             }}
           >
             @jackyef__ on Twitter
-          </ExternalLink>{' '}
-          . From time to time, I tweet about things I learned in my personal
+          </ExternalLink>.{' '}
+          From time to time, I tweet about things I learned in my personal
           journey, be it tech, career, or even just general things about life.
           If you are on the platform, let&rsquo;s connect!
         </Paragraph>
