@@ -51,6 +51,7 @@ export const LandingHero = () => {
         className={clsx(
           container,
           'p-4',
+          'pb-8',
           'sm:p-8',
           'rounded-b-none',
           'sm:rounded-xl',

@@ -52,15 +52,31 @@ export default function Header() {
   }, []);
 
   const glassyHeaderClass = css`
-    --bg-opacity: ${shouldBeMoreOpaque ? 0.95 : 0.4};
+    --bg-opacity: ${shouldBeMoreOpaque ? 0.95 : 0};
+    --saturate-power: ${shouldBeMoreOpaque ? '120%' : '100%'};
+    --contrast-power: ${shouldBeMoreOpaque ? '105%' : '100%'};
+    --blur-size: ${shouldBeMoreOpaque ? '8px' : '0px'};
+
     background: rgba(var(--rgb-bg), var(--bg-opacity));
-    backdrop-filter: contrast(105%) saturate(120%) blur(8px);
+    backdrop-filter: contrast(var(--contrast-power))
+      saturate(var(--saturate-power)) blur(var(--blur-size));
     z-index: 3;
     height: var(--navbar-height);
     transition: background var(--transition-default);
 
     @supports (backdrop-filter: blur(8px)) {
-      --bg-opacity: 0.2;
+      --bg-opacity: ${shouldBeMoreOpaque ? 0.4 : 0};
+    }
+
+    @media (max-width: 640px) {
+      --bg-opacity: ${shouldBeMoreOpaque ? 0.95 : 0.4};
+      --saturate-power: 120%;
+      --contrast-power: 105%;
+      --blur-size: 8px;
+
+      @supports (backdrop-filter: blur(8px)) {
+        --bg-opacity: 0.2;
+      }
     }
   `;
 

@@ -44,6 +44,7 @@ module.exports = {
     },
   },
   theme: {
+    // Extract this somewhere, to be used by Goober
     screens: {
       sm: '640px',
       md: '768px',
