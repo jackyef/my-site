@@ -10,6 +10,7 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { Fragment } from 'react';
+import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 
 const TechnologyAnchors = () => {
   return (
@@ -37,7 +38,9 @@ export default function About() {
   return (
     <>
       <PageMetaTags />
-      <PageTitle>About me 👨‍💻</PageTitle>
+      <PageTitle>
+        About me <EmojiSpan>👨‍💻</EmojiSpan>
+      </PageTitle>
       <Paragraph>
         I am a software engineer working on all-things-web. I am a curious
         person and I love to learn how things work. It gives me a satisfying
