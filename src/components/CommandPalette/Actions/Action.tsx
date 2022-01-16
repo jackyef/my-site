@@ -119,7 +119,7 @@ export const Action = ({
             userSubmittedQuery={userSubmittedQuery}
           />
         </h4>
-        <span>{icon}</span>
+        <span aria-hidden>{icon}</span>
       </div>
       {description && (
         <p className={clsx('text-sm', 'text-theme-subtitle', 'mt-2', 'pr-4')}>
