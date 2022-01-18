@@ -57,20 +57,6 @@ export default class MyDocument extends Document<Props> {
         />
         {/* Preload the css file containing our font-faces */}
         <link rel="preload" as="style" href="/fonts.css" />
-
-        {/*
-         * We load the fonts.css asynchronously
-         * Doing it this way cause some FOUT and layout shifts
-         * But ultimately it improves loading time because we have no blocking resources
-         * Read: https://csswizardry.com/2020/05/the-fastest-google-fonts/
-         */}
-        <link
-          rel="stylesheet"
-          href="/fonts.css"
-          media="print"
-          // @ts-expect-error
-          onLoad="this.media='all'"
-        />
         <body>
           <Main />
           <NextScript />
