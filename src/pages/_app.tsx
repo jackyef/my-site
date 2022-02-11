@@ -77,27 +77,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                     ></script>
                   </>
                 ) : null}
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                  rel="preload"
-                  as="font"
-                  crossOrigin="anonymous"
-                  href="https://fonts.gstatic.com/s/inter/v3/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
-                  type="font/woff2"
-                />
-                {/*
-                 * We load the fonts.css asynchronously
-                 * Doing it this way cause some FOUT and layout shifts
-                 * But ultimately it improves loading time because we have no blocking resources
-                 * Read: https://csswizardry.com/2020/05/the-fastest-google-fonts/
-                 */}
-                <link
-                  rel="stylesheet"
-                  href="/fonts.css"
-                  media="print"
-                  // @ts-expect-error
-                  onLoad="this.media='all'"
-                />
               </Head>
             </ThemeProvider>
           </NavigationProvider>
