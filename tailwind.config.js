@@ -2,47 +2,47 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const mdx = require('@mdx-js/mdx');
 
 module.exports = {
-  purge: {
-    mode: 'all',
-    content: [
-      /**
-       * We need to extract the classnames used for mdx tokens to a separate `code-highlighter-token.js` file
-       * Previously, we put it in the `next.config.js` file, but the token got purged.
-       * It was caused by vercel renaming our original next.config.js file during build.
-       *
-       * Log from debugging:
-       * 16:27:51.948  	-rw-r--r--   1 root root    908 Sep 26 09:27 next.config.js
-       * 16:27:51.948  	-rw-r--r--   1 root root   6595 Sep 26 09:27 next.config.original.1601112471648.js
-       * https://vercel.com/jackyef/jackyef/ekvzdkthq
-       * https://github.com/tailwindlabs/blog.tailwindcss.com/issues/13#issuecomment-699470309
-       */
-      './next.config.js',
-      './code-highlighter-token.js',
-      './safelists.js',
-      './src/**/*.{ts,tsx,js,jsx,mdx}',
-    ],
-    preserveHtmlElements: false,
-    options: {
-      extractors: [
-        {
-          extensions: ['mdx'],
-          extractor: (content) => {
-            content = mdx.sync(content);
+  content: [
+    /**
+     * We need to extract the classnames used for mdx tokens to a separate `code-highlighter-token.js` file
+     * Previously, we put it in the `next.config.js` file, but the token got purged.
+     * It was caused by vercel renaming our original next.config.js file during build.
+     *
+     * Log from debugging:
+     * 16:27:51.948  	-rw-r--r--   1 root root    908 Sep 26 09:27 next.config.js
+     * 16:27:51.948  	-rw-r--r--   1 root root   6595 Sep 26 09:27 next.config.original.1601112471648.js
+     * https://vercel.com/jackyef/jackyef/ekvzdkthq
+     * https://github.com/tailwindlabs/blog.tailwindcss.com/issues/13#issuecomment-699470309
+     */
+    './next.config.js',
+    './code-highlighter-token.js',
+    './safelists.js',
+    './src/**/*.{ts,tsx,js,jsx,mdx}',
+  ],
+  // purge: {
+  //   mode: 'all',
+  //   preserveHtmlElements: false,
+  //   options: {
+  //     extractors: [
+  //       {
+  //         extensions: ['mdx'],
+  //         extractor: (content) => {
+  //           content = mdx.sync(content);
 
-            // Capture as liberally as possible, including things like `h-(screen-1.5)`
-            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+  //           // Capture as liberally as possible, including things like `h-(screen-1.5)`
+  //           const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
 
-            // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-            const innerMatches =
-              content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) ||
-              [];
+  //           // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+  //           const innerMatches =
+  //             content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) ||
+  //             [];
 
-            return broadMatches.concat(innerMatches);
-          },
-        },
-      ],
-    },
-  },
+  //           return broadMatches.concat(innerMatches);
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
   theme: {
     // Extract this somewhere, to be used by Goober
     screens: {
@@ -191,5 +191,5 @@ module.exports = {
   variants: {
     display: ['last'],
   },
-  plugins: [require('@tailwindcss/ui'), require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography')],
 };
