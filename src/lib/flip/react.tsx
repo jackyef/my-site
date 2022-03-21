@@ -22,13 +22,10 @@ export const useFlip = ({ id, animateFunction }: Params) => {
     const newScrollTop = document.documentElement.scrollTop;
     const computedStyle = getComputedStyle(node);
 
-    if (prevRect && node) {
-      animateFunction
-        ? animateFunction(node, newRect, prevRect)
-        : animate(node, newRect, prevRect);
-    }
-
     if (node) {
+      // Store latest information for next transition
+      // Some of the variable here are reactive (like computedStyle)
+      // So, we store the info before animating
       storeInfo(id, {
         domRect: newRect,
         computedStyle,
@@ -36,8 +33,18 @@ export const useFlip = ({ id, animateFunction }: Params) => {
       });
     }
 
+    if (prevRect && node) {
+      animateFunction
+        ? animateFunction(node, newRect, prevRect)
+        : animate(node, newRect, prevRect);
+    }
+  });
+
+  useIsomorphicLayoutEffect(() => {
+    const node = nodeRef?.current as Element;
+
     return () => {
-      // store the final info before unmounting the previous state
+      // Store the final info before unmounting the previous state
       if (node) {
         const domRect = node.getBoundingClientRect();
         const computedStyle = getComputedStyle(node);
@@ -46,7 +53,7 @@ export const useFlip = ({ id, animateFunction }: Params) => {
         storeInfo(id, { domRect, computedStyle, documentScrollTop: scrollTop });
       }
     };
-  });
+  }, []);
 
   return nodeRef;
 };

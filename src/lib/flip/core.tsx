@@ -60,11 +60,15 @@ export const animate = (
     [
       {
         transform: `translate(${deltaX}px, ${deltaY}px) scale(${deltaScaleX}, ${deltaScaleY})`,
+
+        // Add more properties here if we want to animate them
         backgroundColor: prevInfo.backgroundColor,
         color: prevInfo.color,
       },
       {
         transform: 'none',
+
+        // Add more properties here if we want to animate them
         backgroundColor: newComputedStyle.backgroundColor,
         color: newComputedStyle.color,
       },
