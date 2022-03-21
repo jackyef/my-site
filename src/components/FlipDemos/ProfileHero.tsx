@@ -31,7 +31,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
           'border',
           'border-theme-backgroundOffset',
           'rounded-lg',
-          'max-width-full',
+          'max-w-full',
           'w-[720px]',
           'overflow-hidden',
         )}
