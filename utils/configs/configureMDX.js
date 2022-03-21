@@ -10,7 +10,7 @@ const tokenClassNames = require('../../code-highlighter-token.js');
 
 module.exports = (config, options) => {
   /**
-   * Start of MDX stuffs
+   * Start of MDX stuff
    * https://github.com/tailwindlabs/blog.tailwindcss.com/blob/master/next.config.js
    */
   const mdx = [
