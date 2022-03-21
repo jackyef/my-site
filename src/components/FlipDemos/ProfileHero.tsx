@@ -84,7 +84,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
             <div className="font-semibold text-lg">Jacky Efendi</div>
             <div className="opacity-70 mb-4 mt-1">@jackyef__</div>
             <div>
-              Code web-related stuffs. I sometimes tweet about tech and career,
+              Code web-related stuff. I sometimes tweet about tech and career,
               other times about all random thoughts in adulting life.
             </div>
           </div>

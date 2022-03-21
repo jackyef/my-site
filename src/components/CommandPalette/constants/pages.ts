@@ -12,7 +12,7 @@ export const PAGES: readonly PageData[] = [
   },
   {
     title: 'Blog',
-    description: `Some stuffs that I wrote. I write about things I find interesting from time to time. ✍️`,
+    description: `Some stuff that I wrote. I write about things I find interesting from time to time. ✍️`,
     link: '/blog',
   },
   {

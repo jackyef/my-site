@@ -96,7 +96,7 @@ let spinner = ora('Scraping in progress...').start();
     }
   });
 
-  spinner = spinnerNext(spinner, 'Filtering stuffs...');
+  spinner = spinnerNext(spinner, 'Filtering stuff...');
   const stories = json.stories.filter(j => {
     const conditions = [
       !(!j.title || !j.url || !j.coverImage), // any of the field is empty

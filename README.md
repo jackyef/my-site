@@ -12,7 +12,7 @@ The site is powered by:
 
 If you are interested on the thought process of building the site initially, you can read this blog post: [Building a Blog with Next + Preact + Tailwind](https://jackyef.com/posts/building-a-blog-with-next-preact-tailwind)
 
-As I added more stuffs to the site, I've gone back to using React as some dependencies I am using aren't compatible with Preact. `radix-ui`, for instance.
+As I added more stuff to the site, I've gone back to using React as some dependencies I am using aren't compatible with Preact. `radix-ui`, for instance.
 
 ### References:
 

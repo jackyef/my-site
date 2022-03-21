@@ -76,12 +76,12 @@ export default function About() {
         <ExternalLink href="https://www.stickermule.com">
           Sticker Mule
         </ExternalLink>
-        , tinkering around with web-related stuffs! If you are looking for
+        , tinkering around with web-related stuff! If you are looking for
         specifics, I play around with <TechnologyAnchors /> on a daily basis;
         striving to building awesome and accessible user experiences. I work on
         some products and also write reusable components to be used across
         different products. My work includes a mix of both frontend-infra and
-        frontend-product stuffs.
+        frontend-product stuff.
       </Paragraph>
       <Paragraph>
         From 2017 to the end of October 2020, I worked with JavaScript at{' '}
@@ -117,9 +117,9 @@ export default function About() {
       <MediumList />
       <HorizontalDivider />
 
-      <SectionTitle>I build stuffs 🛠️</SectionTitle>
+      <SectionTitle>I build stuff 🛠️</SectionTitle>
       <Paragraph>
-        Sometimes, I feel motivated to build stuffs. Some are just for fun and
+        Sometimes, I feel motivated to build stuff. Some are just for fun and
         learning, some are actually kind of helpful. A lot are abandoned because
         I got sidetracked (don’t we all? 😅). I published some of them in the
         open on{' '}

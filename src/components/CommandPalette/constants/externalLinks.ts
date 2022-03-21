@@ -20,7 +20,7 @@ export const EXTERNAL_LINKS: readonly PageData[] = [
   {
     title: 'Twitter',
     description:
-      'Follow me on Twitter! I tweet random stuffs related to tech and adulting life there 🙂',
+      'Follow me on Twitter! I tweet random stuff related to tech and adulting life there 🙂',
     link: 'https://twitter.com/jackyef__',
     hiddenSearchTerm: 'social',
   },

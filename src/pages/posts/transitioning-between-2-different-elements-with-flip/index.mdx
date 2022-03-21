@@ -37,9 +37,9 @@ Consider the following kanban board. Try clicking on the tasks to move them arou
 The animation isn't trivial to write with CSS because of 2 main reasons:
 
 1. In most cases, the animated element isn't actually one element. They are 2 totally different elements,
-   though representing a same entity; in this case, a `Task`
+   though representing the same entity; in this case, a `Task`
 2. The animation can not be statically defined. The position of the element is dynamic.
-   The amount of pixel we need to move the element by is dependendent on
+   The amount of pixel we need to move the element by is dependent on
    how many items are in the list, media queries, viewport size, document scroll position, etc.
 
 We definitely need to write some JavaScript to help with this, but how?
@@ -63,7 +63,7 @@ Let's read the following story of a frontend engineer to understand more about F
 ## FLIP-ing from `ProfileCard` to `ProfileHero`
 
 Imagine we are a frontend engineer at a super famous social network platform, **_Tweaker_**.
-In various parts of the web-app, there are `ProfileCard` components which look like the following:
+In various parts of the web app, there are `ProfileCard` components that look like the following:
 
 <div className="mt-8 mb-12 flex flex-col items-center space-y-2">
   <ProfileCard />
@@ -106,7 +106,7 @@ One day, in the daily stand-up call, the PM proposes an idea.
 **You**: "..."
 
 The call finishes. You left the call all frustrated because the PM proposed an idea that is just making your life harder.
-You aren't even sure if it's possible to implement it. You go for a lunch to clear off your mind. You need to take a break
+You aren't even sure if it's possible to implement it. You go for lunch to clear off your mind. You need to take a break
 before continuing working because of the frustration. You think to yourself, "I really need to update my CV to get away from
 this PM.". But then, you remembered a blog post you read the other day — FLIP!
 
@@ -157,20 +157,20 @@ img2.getBoundingClientRect();
  */
 ```
 
-Ah, that's super helpful! You now know that the profile picture was initially positioned at `x: 320, y: 407` and in the
-second state, it is positioned at `x: 452, y: 255`. You also now that the first profile picture has a size of
-`height: 60, width: 60` and the second one has a size of `height: 120, width: 120`.
+Ah, that's super helpful! You now know that the profile picture was initially positioned at `x: 320, y: 407`, and in the
+second state, it is positioned at `x: 452, y: 255`. You also now know that the first profile picture has a size of
+`height: 60, width: 60`, and the second one has a size of `height: 120, width: 120`.
 
 ### Invert
 
-With that information, you can calculate the transformation you need, to make it seem like that the profile picture in the
+With that information, you can calculate the transformation you need, to make it seem like the profile picture in the
 second state is exactly the same as the first state.
 
 ```jsx
 // In practice, only one of img1 and img2 will exist at the same time,
-// since one of the element will be removed from the DOM already when the other one appears.
+// since one of the elements will be removed from the DOM already when the other one appears.
 // You should cache the DOMRect of the previous state somewhere to make it work.
-// In this snippet, we assume img1 and img2 both exist in the same time for the sake of simplicity.
+// In this snippet, we assume img1 and img2 both exist at the same time for the sake of simplicity.
 const firstDOMRect = img1.getBoundingClientRect();
 const secondDOMRect = img2.getBoundingClientRect();
 
@@ -204,13 +204,13 @@ With that _inverting_ transformation in place, you have something like this:
   </span>
 </div>
 
-Notice that with the inverting transformation, you have made the profile picture in the second state to look exactly
+Notice that with the inverting transformation, you have made the profile picture in the second state look exactly
 like the profile picture in the first state! Now for the final piece...
 
 ### Play
 
 We now need to undo the inverting transformation that we've done, so that the profile picture in the second state will
-be restored to where it is supposed to be placed. This as simple as it sounds, just remove the transformation! Though, we need to
+be restored to where it is supposed to be placed. This is as simple as it sounds, just remove the transformation! Though, we need to
 explicitly wait for the previous inverting transformation to be painted to the DOM first before removing the transformation. We do this
 with [`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). The callback
 passed to `requestAnimationFrame()` will only be invoked once the browser has painted a frame.
@@ -238,7 +238,7 @@ With that in place, now we have something to show to our PM and designer!
 <Panel type="info" title="Improving the code with Web Animation API">
 
 Applying styles manually via JavaScript can be ugly. You would also need to take care of cleaning up the styles after
-you are done with it. Not to mention that you also need to use `requestAnimationFrame()` to schedule them correctly.
+you are done with them. Not to mention that you also need to use `requestAnimationFrame()` to schedule them correctly.
 
 Fortunately, we can avoid all that! A better way to apply the inverting transformation and
 schedule the removal of the transformation is by using the Web Animation API.
@@ -246,7 +246,7 @@ schedule the removal of the transformation is by using the Web Animation API.
 ```jsx
 // Using the Web Animation API
 img2.animate(
-  // Array of keyframes, in this case we only need 2.
+  // Array of keyframes, in this case, we only need 2.
   [
     // The first keyframe contains the inverting transformation
     {
@@ -274,7 +274,7 @@ you have pushed the changes to production. You share your screen in the call and
 Everyone is impressed. "Good job!", says the PM. The PM then tries it on their own device. And... sure enough, they found
 a bug with the animation.
 
-Surprised by the bug, you apologize and tell the team that you will work on a fix ASAP. You lost your confidence immediately,
+Surprised by the bug, you apologize and tell the team that you will work on a fix ASAP. You lose your confidence immediately
 and now are back to feeling like an impostor. "Maybe it's not the time to update my CV yet after all...", you think to yourself.
 
 <HorizontalDivider />
@@ -283,26 +283,28 @@ and now are back to feeling like an impostor. "Maybe it's not the time to update
 
 There you go! That's essentially what FLIP is and how it works.
 It's worth noting that the technique also works for animating page navigation
-(e.g. : Going from `/` to `/profile` page). This makes some interesting client-side page navigation experience possible!
+(e.g.: Going from `/` to `/profile` page). This makes some interesting client-side page navigation experience possible!
 
 Note that the code snippets we have been using in this post are highly simplified. In practice, we would need 
 to take more things into account to make it work well. For instance:
 
 1. Viewport scroll position (`document.documentElement.scrollTop`)
 2. Calculate `deltaCenterpointX` and `deltaCenterpointY` instead of just `deltaX` and `deltaY`. This is needed to handle
-   cases where the 2 states have different aspect ratio.
+   cases where the 2 states have different aspect ratios.
 
 We also haven't handled cases where the 2 states have different `backgroundColor`, `color`, etc. To animate
 between the 2 colors (or other CSS properties) smoothly, we can utilize [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
-to get the style information. We can then use the information to animate between the 2 colors, or any other CSS property
+to get the style information. We can then use the information to animate between the 2 colors or any other CSS property
 we might want to animate!
 
 Writing a library to automatically handle FLIP animation for any given 2 elements is a huge undertaking in itself,
 and is not in the scope of this writing. Though, if you are interested in the tiny FLIP library I wrote for this writing,
-you can check them out [here](TODO:addlink).
+you can check them out [here](https://github.com/jackyef/my-site/blob/712a681498a7496ba64a74d15528dfc66b73a72d/src/lib/flip/react.tsx).
+While it's written to be used with React, it should be pretty easy to write a wrapper around it to make it work with 
+other frameworks as the `core` logic has been extracted out.
 
 If you are looking for a more robust react-based library to do this, I'd
-suggest taking a look at at [`framer-motion`'s `layoutId`](https://www.framer.com/docs/component/###layoutid) and/or
+suggest taking a look at [`framer-motion`'s `layoutId`](https://www.framer.com/docs/component/###layoutid) and/or
 [`react-flip-toolkit`](https://github.com/aholachek/react-flip-toolkit).
 
 ## References
