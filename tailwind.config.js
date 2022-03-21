@@ -163,10 +163,23 @@ module.exports = {
             code: {
               color: theme('colors.theme.text'),
             },
+            li: {
+              '&::marker': {
+                color: theme('colors.theme.text'),
+              },
+            },
             strong: {
               color: theme('colors.theme.text'),
             },
             a: {
+              color: theme('colors.theme.link'),
+              textDecoration: 'none',
+              fontWeight: '400',
+              '&:hover': {
+                color: theme('colors.theme.text'),
+              },
+            },
+            'a code': {
               color: theme('colors.theme.link'),
               textDecoration: 'none',
               fontWeight: '400',
