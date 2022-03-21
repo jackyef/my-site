@@ -7,8 +7,23 @@ export type ElementInfo = Omit<DOMRect, 'toJSON'> & {
 
 const prevElementInfos: Record<string, ElementInfo> = {};
 
-export const storeInfo = (id: string, rect: ElementInfo) => {
-  prevElementInfos[id] = rect;
+type RawElementInfo = {
+  domRect: DOMRect;
+  computedStyle: CSSStyleDeclaration;
+  documentScrollTop: number;
+};
+
+export const storeInfo = (id: string, info: RawElementInfo) => {
+  const { domRect, documentScrollTop, computedStyle } = info;
+
+  prevElementInfos[id] = {
+    ...domRect.toJSON(),
+    scrollTop: documentScrollTop,
+
+    // Store any additional properties we want to animate here
+    backgroundColor: computedStyle.backgroundColor,
+    color: computedStyle.color,
+  };
 };
 
 export const getInfo = (id: string) => {
@@ -20,7 +35,7 @@ export const animate = (
   newRect: DOMRect,
   prevInfo: ElementInfo,
 ) => {
-  const currentScrollTop = document.documentElement.scrollTop
+  const currentScrollTop = document.documentElement.scrollTop;
   // To better handle cases where the 2 states have different aspect ratio,
   // we need to find the centerpoint of the element and find the delta between those centerpoints
   // instead of just simply finding deltaX and deltaY
@@ -28,8 +43,7 @@ export const animate = (
   const prevCenterY = prevInfo.y + prevInfo.scrollTop + prevInfo.height / 2;
 
   const newCenterX = newRect.x + newRect.width / 2;
-  const newCenterY =
-    newRect.y + currentScrollTop + newRect.height / 2;
+  const newCenterY = newRect.y + currentScrollTop + newRect.height / 2;
 
   // Calculate how much the position has changed between the 2 states
   const deltaX = prevCenterX - newCenterX;

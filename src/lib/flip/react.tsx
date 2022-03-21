@@ -20,11 +20,7 @@ export const useFlip = ({ id, animateFunction }: Params) => {
     const node = nodeRef?.current as Element;
     const newRect = node?.getBoundingClientRect();
     const newScrollTop = document.documentElement.scrollTop;
-
-    // Add any properties we want to animate here
     const computedStyle = getComputedStyle(node);
-    const newBackgroundColor = computedStyle.backgroundColor;
-    const newColor = computedStyle.color;
 
     if (prevRect && node) {
       animateFunction
@@ -34,10 +30,9 @@ export const useFlip = ({ id, animateFunction }: Params) => {
 
     if (node) {
       storeInfo(id, {
-        ...newRect.toJSON(),
-        scrollTop: newScrollTop,
-        backgroundColor: newBackgroundColor,
-        color: newColor,
+        domRect: newRect,
+        computedStyle,
+        documentScrollTop: newScrollTop,
       });
     }
 
@@ -46,18 +41,11 @@ export const useFlip = ({ id, animateFunction }: Params) => {
       if (node) {
         const domRect = node.getBoundingClientRect();
         const computedStyle = getComputedStyle(node);
-        const backgroundColor = computedStyle.backgroundColor;
-        const color = computedStyle.color;
         const scrollTop = document.documentElement.scrollTop;
 
-        storeInfo(id, {
-          ...domRect.toJSON(),
-          scrollTop,
-          backgroundColor,
-          color,
-        });
+        storeInfo(id, { domRect, computedStyle, documentScrollTop: scrollTop });
       }
-    }
+    };
   });
 
   return nodeRef;
