@@ -10,7 +10,7 @@ export const invert = (
 
   const newCenterX = newRect.left + newRect.width / 2;
   const newCenterY =
-    newRect.top + document.documentElement.scrollTop + newRect.height / 2;
+    newRect.y + document.documentElement.scrollTop + newRect.height / 2;
 
   const deltaX = prevCenterX - newCenterX;
   const deltaY = prevCenterY - newCenterY;

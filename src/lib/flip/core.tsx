@@ -20,6 +20,7 @@ export const animate = (
   newRect: DOMRect,
   prevInfo: ElementInfo,
 ) => {
+  const currentScrollTop = document.documentElement.scrollTop
   // To better handle cases where the 2 states have different aspect ratio,
   // we need to find the centerpoint of the element and find the delta between those centerpoints
   // instead of just simply finding deltaX and deltaY
@@ -28,7 +29,7 @@ export const animate = (
 
   const newCenterX = newRect.x + newRect.width / 2;
   const newCenterY =
-    newRect.top + document.documentElement.scrollTop + newRect.height / 2;
+    newRect.y + currentScrollTop + newRect.height / 2;
 
   // Calculate how much the position has changed between the 2 states
   const deltaX = prevCenterX - newCenterX;
