@@ -176,6 +176,10 @@ h6:hover .hash-link {
   margin-left: 4rem;
 }
 
+.toc-level-1 {
+  margin-top: 1.25rem;
+}
+
 button:focus,
 input:focus,
 a:focus {
