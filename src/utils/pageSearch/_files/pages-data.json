@@ -20,6 +20,11 @@
     "link": "/posts/building-an-audio-loop-player-on-the-web"
   },
   {
+    "title": "Transitioning between 2 different elements with FLIP",
+    "description": "Learn the concept of FLIP to unlock new transition possibilities, while writing your own FLIP library in the process.",
+    "link": "/posts/transitioning-between-2-different-elements-with-flip"
+  },
+  {
     "title": "Writing Your Own CSS-in-JS Library",
     "description": "Learn how to create a simple, minimal CSS-in-JS library with vendor prefixing + server rendering support!",
     "link": "/posts/writing-your-own-css-in-js-library"
