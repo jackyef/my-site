@@ -20,5 +20,6 @@ export const invert = (
 
   // Apply the inverting transformation without playing the animation,
   // For blog post demo purposes
+  // @ts-expect-error
   newNode.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${deltaScaleX}, ${deltaScaleY})`;
 };
