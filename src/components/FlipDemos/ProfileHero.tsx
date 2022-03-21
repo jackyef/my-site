@@ -1,6 +1,6 @@
 import { Flip } from '@/lib/flip/react';
 import clsx from 'clsx';
-import { invert } from '../_helpers/invert';
+import { invert } from './invert';
 
 type Props = {
   flipId?: string;
