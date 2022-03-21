@@ -45,8 +45,8 @@ export const ProfileCard = ({
         </a>
         <div className="opacity-70 mt-1 mb-2">@jackyef__</div>
         <div>
-          Code web-related stuff. I sometimes tweet about tech and career,
-          other times about all random thoughts in adulting life.
+          Code web-related stuff. I sometimes tweet about tech and career, other
+          times about all random thoughts in adulting life.
         </div>
       </div>
     </div>
