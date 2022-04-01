@@ -26,7 +26,8 @@ export const projects: Project[] = [
   },
   {
     name: 'DOTA Rewind 2020',
-    url: 'https://dotarewind.com',
-    coverImage: 'https://dotarewind.com/assets/previews/static-preview.png',
+    url: 'https://dotarewind.vercel.app',
+    coverImage:
+      'https://dotarewind.vercel.app/assets/previews/static-preview.png',
   },
 ];
