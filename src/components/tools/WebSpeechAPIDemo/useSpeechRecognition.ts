@@ -28,7 +28,7 @@ export const useSpeechRecognition = ({ language }: Params) => {
   };
 
   const showErrorState = (
-    errorType: SpeechRecognitionErrorCode | 'unsupported',
+    errorType: SpeechRecognitionErrorCode | 'unsupported' | 'unknown',
   ) => {
     if (errorType === 'not-allowed') {
       setErrorMessage(
@@ -41,6 +41,10 @@ export const useSpeechRecognition = ({ language }: Params) => {
     } else if (errorType === 'unsupported') {
       setErrorMessage(
         'Web Speech API is not supported on your browser. Try using latest version of Chrome for the best experience.',
+      );
+    } else {
+      setErrorMessage(
+        'An unexpected error occured. If you could reproduce the issue please open an issue on the Github repo, thanks! Check the console for the logged error event.',
       );
     }
   };
@@ -113,13 +117,17 @@ export const useSpeechRecognition = ({ language }: Params) => {
     recognition.onerror = (event) => {
       const errorType = event.error;
 
+      console.error('[WebSpeechAPIDemo error]', event);
+
       // Reference: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent/error
       if (errorType === 'not-allowed') {
         // Permission to use microphone is denied
         // Show a message telling the user
+        showErrorState(errorType);
       } else if (errorType === 'audio-capture') {
         // No audio capture device
         // Show a message telling the user
+        showErrorState(errorType);
       } else if (errorType === 'no-speech') {
         // No speech was detected
         // Nothing to do here
@@ -134,7 +142,8 @@ export const useSpeechRecognition = ({ language }: Params) => {
         );
       } else {
         // We don't care about other errors
-        console.error('[WebSpeechAPIDemo]', errorType);
+        console.error('[WebSpeechAPIDemo error]', event);
+        showErrorState('unknown');
       }
     };
 
