@@ -5,16 +5,24 @@ import { Language } from './useSpeechRecognition';
 interface Props {
   activeLanguage: Language;
   onToggle: () => void;
+  disabled: boolean;
 }
 
-export const LanguageSwitcher = ({ activeLanguage, onToggle }: Props) => {
+export const LanguageSwitcher = ({
+  activeLanguage,
+  onToggle,
+  disabled,
+}: Props) => {
   const baseButton = css`
     padding: 0.5rem 0.6rem;
+    color: rgba(var(--rgb-text), 0.6);
     width: 8rem;
     border-style: solid;
     border-color: rgba(var(--rgb-text), 0.3);
     border-top-width: 2px;
     border-bottom-width: 2px;
+    transition: opacity var(--transition-faster), color var(--transition-faster),
+      background-color var(--transition-faster);
 
     &:first-child {
       border-radius: 0.5rem 0 0 0.5rem;
@@ -24,6 +32,10 @@ export const LanguageSwitcher = ({ activeLanguage, onToggle }: Props) => {
     &:last-child {
       border-radius: 0 0.5rem 0.5rem 0;
       border-right-width: 2px;
+    }
+
+    &[disabled] {
+      opacity: 0.6;
     }
   `;
 
@@ -58,6 +70,7 @@ export const LanguageSwitcher = ({ activeLanguage, onToggle }: Props) => {
           [activeButton]: activeLanguage === 'en-US',
         })}
         onClick={activeLanguage === 'en-US' ? undefined : onToggle}
+        disabled={disabled}
       >
         en-US 🇺🇸
       </button>
@@ -71,6 +84,7 @@ export const LanguageSwitcher = ({ activeLanguage, onToggle }: Props) => {
           [activeButton]: activeLanguage === 'id-ID',
         })}
         onClick={activeLanguage === 'id-ID' ? undefined : onToggle}
+        disabled={disabled}
       >
         id-ID 🇮🇩
       </button>

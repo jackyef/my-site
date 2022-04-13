@@ -54,6 +54,9 @@ export const useSpeechRecognition = ({ language }: Params) => {
 
         return prev;
       });
+    } else {
+      // Clear interim output
+      setInterimOutput('');
     }
   }, [isListening]);
 

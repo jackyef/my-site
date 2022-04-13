@@ -33,7 +33,11 @@ export const WebSpeechAPIDemo = () => {
   return (
     <>
       {!hasError && (
-        <LanguageSwitcher activeLanguage={language} onToggle={toggleLanguage} />
+        <LanguageSwitcher
+          activeLanguage={language}
+          onToggle={toggleLanguage}
+          disabled={isListening}
+        />
       )}
 
       <Container hasError={hasError}>
