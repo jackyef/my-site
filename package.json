@@ -55,6 +55,7 @@
   "dependencies": {
     "//": "goober is used by react-hot-toast and in parts of the web where using Tailwind require too much customization",
     "@feedback-fish/react": "^1.2.1",
+    "@heroicons/react": "^1.0.6",
     "@mdx-js/react": "^1.6.22",
     "@next/bundle-analyzer": "^12.0.0",
     "@prefresh/next": "^1.4.0",
