@@ -1,11 +1,15 @@
 import clsx from 'clsx';
-import { css } from 'goober';
 import { useState } from 'react';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { ToggleButton } from './ToggleButton';
 import { Language, useSpeechRecognition } from './useSpeechRecognition';
 
 export const WebSpeechAPIDemo = () => {
   const [language, setLanguage] = useState<Language>('en-US');
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === 'en-US' ? 'id-ID' : 'en-US'));
+  };
 
   const {
     isListening,
@@ -25,13 +29,7 @@ export const WebSpeechAPIDemo = () => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setLanguage((prev) => (prev === 'en-US' ? 'id-ID' : 'en-US'));
-        }}
-      >
-        Language: {language}
-      </button>
+      <LanguageSwitcher activeLanguage={language} onToggle={toggleLanguage} />
 
       <div
         className={clsx(
