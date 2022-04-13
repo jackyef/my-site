@@ -22,26 +22,33 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const recorderRef = useRef<MediaRecorder | null>();
 
-  const ANALYSE = (stream: MediaStream) => {
-    const CONTEXT = new AudioContext();
-    const ANALYSER = CONTEXT.createAnalyser();
-    const SOURCE = CONTEXT.createMediaStreamSource(stream);
-    const DATA_ARR = new Uint8Array(ANALYSER.frequencyBinCount);
-    SOURCE.connect(ANALYSER);
-    const REPORT = () => {
-      ANALYSER.getByteFrequencyData(DATA_ARR);
-      const VOLUME = Math.floor((Math.max(...DATA_ARR) / 255) * 100);
+  const analyze = (stream: MediaStream) => {
+    const context = new AudioContext();
+    const analyzer = context.createAnalyser();
+    const source = context.createMediaStreamSource(stream);
+    const dataArray = new Uint8Array(analyzer.frequencyBinCount);
+
+    source.connect(analyzer);
+
+    const report = () => {
+      analyzer.getByteFrequencyData(dataArray);
+
+      const VOLUME = Math.floor((Math.max(...dataArray) / 255) * 100);
+
       setVolume(VOLUME);
-      if (recorderRef.current) requestAnimationFrame(REPORT);
-      else {
-        CONTEXT.close();
+
+      if (recorderRef.current) {
+        requestAnimationFrame(report);
+      } else {
+        context.close();
         setVolume(0);
       }
     };
-    REPORT();
+
+    report();
   };
 
-  const RECORD = () => {
+  const record = () => {
     const toggleRecording = async () => {
       let recorder = recorderRef.current;
 
@@ -51,27 +58,24 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
         if (!audioNode) return;
         // Reset the audio tag
         audioNode.removeAttribute('src');
-        const CHUNKS: BlobPart[] = [];
-        const MEDIA_STREAM = await window.navigator.mediaDevices.getUserMedia({
+        const blobChunks: BlobPart[] = [];
+        const mediaStream = await window.navigator.mediaDevices.getUserMedia({
           audio: true,
         });
-        recorderRef.current = new MediaRecorder(MEDIA_STREAM);
+        recorderRef.current = new MediaRecorder(mediaStream);
 
         recorder = recorderRef.current;
         recorder.ondataavailable = (event) => {
-          // Update the UI
-          // TOGGLE.innerText = 'Start Recording';
           // Create the blob and show an audio element
-          CHUNKS.push(event.data);
-          const AUDIO_BLOB = new Blob(CHUNKS, { type: 'audio/mp3' });
-          audioNode.setAttribute('src', window.URL.createObjectURL(AUDIO_BLOB));
+          blobChunks.push(event.data);
+          const audioBlob = new Blob(blobChunks, { type: 'audio/mp3' });
+          audioNode.setAttribute('src', window.URL.createObjectURL(audioBlob));
           // Tear down after recording.
           recorder?.stream.getTracks().forEach((t) => t.stop());
           recorderRef.current = null;
         };
-        // TOGGLE.innerText = 'Stop Recording';
         recorderRef.current?.start();
-        ANALYSE(recorderRef.current.stream);
+        analyze(recorderRef.current.stream);
       } else {
         recorderRef.current?.stop();
       }
@@ -87,7 +91,7 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
         aria-label={isEnabled ? 'Stop' : 'Start'}
         onClick={() => {
           onToggle();
-          RECORD();
+          record();
         }}
       >
         {isEnabled ? <StopIcon height="72px" /> : <PlayIcon height="72px" />}

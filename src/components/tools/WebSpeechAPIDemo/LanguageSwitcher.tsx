@@ -9,7 +9,7 @@ interface Props {
 
 export const LanguageSwitcher = ({ activeLanguage, onToggle }: Props) => {
   const baseButton = css`
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.6rem;
     width: 8rem;
     border-style: solid;
     border-color: rgba(var(--rgb-text), 0.3);

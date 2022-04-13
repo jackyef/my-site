@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useState } from 'react';
+import { Container } from './Container';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ToggleButton } from './ToggleButton';
 import { Language, useSpeechRecognition } from './useSpeechRecognition';
@@ -23,50 +24,53 @@ export const WebSpeechAPIDemo = () => {
     const hasOutput = Boolean(output.trim());
 
     if (isListening) return 'Start speaking...';
-    else if (hasOutput) return 'Click on the button to start listening again';
+    else if (hasOutput) return 'Click on the button to start again';
     else return 'Click on the button above to get started';
   };
 
+  const hasError = Boolean(errorMessage);
+
   return (
     <>
-      <LanguageSwitcher activeLanguage={language} onToggle={toggleLanguage} />
+      {!hasError && (
+        <LanguageSwitcher activeLanguage={language} onToggle={toggleLanguage} />
+      )}
 
-      <div
-        className={clsx(
-          'lg:mx-8',
-          'mt-8',
-          'mb-16',
-          'p-8',
-          'rounded-2xl',
-          'border-2',
-          'border-theme-backgroundOffset',
+      <Container hasError={hasError}>
+        {!hasError && (
+          <>
+            <div className={clsx('flex', 'justify-center', '-mt-20', 'mb-12')}>
+              <ToggleButton
+                isEnabled={isListening}
+                onToggle={toggleListeningState}
+              />
+            </div>
+
+            <div
+              className={clsx(
+                'flex',
+                'justify-center',
+                'text-2xl',
+                'text-theme-subtitle',
+                'mb-16',
+                'text-center',
+              )}
+            >
+              {getMessage()}
+            </div>
+
+            <span dangerouslySetInnerHTML={{ __html: output }} />
+            <span className="opacity-50">{interimOutput}</span>
+          </>
         )}
-      >
-        <div className={clsx('flex', 'justify-center', '-mt-20', 'mb-12')}>
-          <ToggleButton
-            isEnabled={isListening}
-            onToggle={toggleListeningState}
-          />
-        </div>
 
-        <div
-          className={clsx(
-            'flex',
-            'justify-center',
-            'text-2xl',
-            'text-theme-subtitle',
-            'mb-16',
-            'text-center',
-          )}
-        >
-          {getMessage()}
-        </div>
-
-        <span dangerouslySetInnerHTML={{ __html: output }} />
-        <span className="opacity-50">{interimOutput}</span>
-      </div>
-
-      <div>Error: {errorMessage}</div>
+        {hasError && (
+          <div className={clsx('flex', 'flex-col', 'space-y-4')}>
+            <span>Error:</span>
+            <span>{errorMessage}</span>
+          </div>
+        )}
+      </Container>
     </>
   );
 };

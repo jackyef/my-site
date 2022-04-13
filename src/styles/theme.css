@@ -25,6 +25,9 @@
   --rgb-secondary: 218, 130, 255;
   --rgb-tertiary: 255, 219, 130; 
 
+  --rgb-info: 220, 249, 255;
+  --rgb-warning: 236, 239, 9;
+
   --rgb-bg: 244, 244, 244;
   --rgb-bg-offset: 234, 234, 234;
   --rgb-heading: 55, 58, 60;
@@ -38,8 +41,8 @@
   --color-outline: rgba(var(--rgb-outline), 0.7);
   --color-scrollbar: #cacaca;
 
-  --color-warning: #ecef09;
-  --color-info: #dcf9ff;
+  --color-warning: rgb(var(--rgb-warning));
+  --color-info: rgb(var(--rgb-info));
 
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -62,6 +65,9 @@
   --rgb-secondary: 193, 84, 180;
   --rgb-tertiary: 180, 193, 84; 
 
+  --rgb-info: 15, 41, 64;
+  --rgb-warning: 93, 94, 33;
+
   --rgb-bg: 17, 24, 32;
   --rgb-bg-offset: 31, 41, 48;
   --rgb-heading: 247, 247, 247;
@@ -75,8 +81,8 @@
   --color-outline: rgba(var(--rgb-outline), 1);
   --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
 
-  --color-warning: rgba(93, 94, 33, var(--bg-opacity));
-  --color-info: rgba(15, 41, 64, var(--bg-opacity));
+  --color-warning: rgba(var(--rgb-warning), var(--bg-opacity));
+  --color-info: rgba(var(--rgb-info), var(--bg-opacity));
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
     0 2px 4px -1px rgba(255, 255, 255, 0.06);
