@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Container } from './Container';
+import { InfoBanner } from './InfoBanner';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ToggleButton } from './ToggleButton';
 import { Language, useSpeechRecognition } from './useSpeechRecognition';
@@ -32,6 +33,8 @@ export const WebSpeechAPIDemo = () => {
 
   return (
     <>
+      <InfoBanner />
+
       {!hasError && (
         <LanguageSwitcher
           activeLanguage={language}

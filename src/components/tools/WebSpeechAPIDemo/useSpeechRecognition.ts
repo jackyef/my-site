@@ -141,7 +141,7 @@ export const useSpeechRecognition = ({ language }: Params) => {
           'Failed to communicate with speech recognition service',
         );
       } else {
-        // We don't care about other errors
+        // Other errors
         console.error('[WebSpeechAPIDemo error]', event);
         showErrorState('unknown');
       }

@@ -40,13 +40,19 @@ export const LanguageSwitcher = ({
   `;
 
   const activeButton = css`
-    color: rgb(var(--rgb-link));
-    background-color: rgba(var(--rgb-primary), 0.1);
+    --text-lightness: calc(var(--l-primary) - 12%);
+
+    [data-theme='dark'] & {
+      --text-lightness: var(--l-primary);
+    }
+
+    color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
+    background: hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.04);
     font-weight: 700;
 
     /* Specificity hack */
     & {
-      border-color: rgb(var(--rgb-link));
+      border-color: hsl(var(--h-primary) var(--s-primary) var(--l-primary));
     }
 
     &:first-child {
