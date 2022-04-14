@@ -30,8 +30,9 @@ export const PAGES: readonly PageData[] = [
   },
   {
     title: 'Tools ▶️ Speech-to-text',
-    description: `Speech-to-text using the Web Speech API`,
+    description: `Speech-to-text demo using the Web Speech API's SpeechRecognition`,
     link: '/tools/speech-to-text',
+    hiddenSearchTerm: 'voice',
   },
 ];
 

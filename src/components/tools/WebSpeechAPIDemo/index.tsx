@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { css } from 'goober';
 import { useState } from 'react';
 import { Container } from './Container';
 import { InfoBanner } from './InfoBanner';

@@ -5,7 +5,7 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import tinytime from 'tinytime';
 
-const meta = {
+export const meta = {
   title: 'Speech-to-text with Web Speech API',
   description:
     "Speech-to-text demo using the Web Speech API's SpeechRecognition",
