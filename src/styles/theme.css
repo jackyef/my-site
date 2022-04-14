@@ -26,6 +26,10 @@
   --s-primary: 40%;
   --l-primary: 51%;
 
+  --h-secondary: 282deg;
+  --s-secondary: 100%;
+  --l-secondary: 75%;
+
   --rgb-primary: 80, 180, 180;
   --rgb-secondary: 218, 130, 255;
   --rgb-tertiary: 255, 219, 130;
@@ -69,6 +73,10 @@
   --h-primary: 187deg;
   --s-primary: 46.8%;
   --l-primary: 54.3%;
+
+  --h-secondary: 307deg;
+  --s-secondary: 47%;
+  --l-secondary: 54.1%;
 
   --rgb-primary: 84, 180, 193;
   --rgb-secondary: 193, 84, 180;
