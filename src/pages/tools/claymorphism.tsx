@@ -9,7 +9,7 @@ import { Paragraph } from '@/components/Typography/Paragraph';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 
-const meta = {
+export const meta = {
   title: 'Claymorphism-style CSS generator',
   description: 'Play around and generate claymorphism-style CSS!',
   image: createOgImageUrl({

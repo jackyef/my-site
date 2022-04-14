@@ -25,8 +25,14 @@ export const PAGES: readonly PageData[] = [
   // Tools
   {
     title: 'Tools ▶️ Claymorphism',
-    description: `Simple tool for generating for claymorphism-style CSS `,
+    description: `Simple tool for generating for claymorphism-style CSS`,
     link: '/tools/claymorphism',
+  },
+  {
+    title: 'Tools ▶️ Speech-to-text',
+    description: `Speech-to-text demo using the Web Speech API's SpeechRecognition`,
+    link: '/tools/speech-to-text',
+    hiddenSearchTerm: 'voice',
   },
 ];
 

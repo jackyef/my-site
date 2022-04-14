@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { Flipper } from 'react-flip-toolkit';
 
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
-import { SectionContainer } from '@/components/SectionContainer';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageContainer } from '@/components/Page/PageContainer';
@@ -62,9 +61,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                   <Component {...pageProps} />
                 </PageContainer>
               </Flipper>
-              <SectionContainer>
-                <Footer />
-              </SectionContainer>
+
+              <Footer />
 
               <CommandPalette />
               <Head>

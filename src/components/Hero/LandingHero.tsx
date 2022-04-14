@@ -39,9 +39,9 @@ export const LandingHero = () => {
   const ctaButton = css`
     background-image: linear-gradient(
       70deg,
-      rgba(var(--rgb-primary), 0.7),
+      rgba(var(--rgb-primary), 0.4),
       rgba(var(--rgb-secondary), 0.4),
-      rgba(var(--rgb-primary), 0.4)
+      rgba(var(--rgb-primary), 0.3)
     );
   `;
 
