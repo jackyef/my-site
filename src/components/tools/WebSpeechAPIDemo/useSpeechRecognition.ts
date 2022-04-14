@@ -162,5 +162,6 @@ export const useSpeechRecognition = ({ language }: Params) => {
     errorMessage,
     output,
     interimOutput,
+    clear: () => setOutput(''),
   };
 };

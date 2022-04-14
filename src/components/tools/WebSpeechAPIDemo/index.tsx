@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { css } from 'goober';
 import { useState } from 'react';
 import { Container } from './Container';
 import { InfoBanner } from './InfoBanner';
@@ -19,11 +20,11 @@ export const WebSpeechAPIDemo = () => {
     output,
     interimOutput,
     errorMessage,
+    clear,
   } = useSpeechRecognition({ language });
 
+  const hasOutput = Boolean(output.trim());
   const getMessage = () => {
-    const hasOutput = Boolean(output.trim());
-
     if (isListening) return 'Start speaking...';
     else if (hasOutput) return 'Click on the button to start again';
     else return 'Click on the button above to get started';
@@ -33,8 +34,6 @@ export const WebSpeechAPIDemo = () => {
 
   return (
     <>
-      <InfoBanner />
-
       {!hasError && (
         <LanguageSwitcher
           activeLanguage={language}
@@ -68,6 +67,22 @@ export const WebSpeechAPIDemo = () => {
 
             <span dangerouslySetInnerHTML={{ __html: output }} />
             <span className="opacity-50">{interimOutput}</span>
+
+            {hasOutput && (
+              <button
+                className={clsx(
+                  'mt-8',
+                  'mx-auto',
+                  'block',
+                  'text-theme-subtitle',
+                  'underline',
+                )}
+                onClick={clear}
+                type="button"
+              >
+                Clear
+              </button>
+            )}
           </>
         )}
 
@@ -78,6 +93,8 @@ export const WebSpeechAPIDemo = () => {
           </div>
         )}
       </Container>
+
+      <InfoBanner />
     </>
   );
 };

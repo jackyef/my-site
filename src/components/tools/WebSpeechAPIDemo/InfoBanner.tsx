@@ -19,18 +19,19 @@ export const InfoBanner = () => {
       className={clsx(
         container,
         'lg:mx-8',
-        'mt-8',
-        'mb-16',
+        'my-8',
         'p-8',
         'rounded-2xl',
         'border-2',
+        'space-y-2',
       )}
     >
       <h3 className="text-xl mb-4">Note</h3>
       At the time of this writing, the Web Speech API does not seem to be well
-      implemented across browsers. It works well on desktop version of Chrome.
-      It also works on desktop Safari but the experience is not as smooth.
-      Though, it is not going to work on mobile Chrome.
+      implemented across browsers yet. It works well on desktop version of
+      Chrome. It also works on desktop Safari but the experience is not as
+      smooth. Though, it does not seem to work on mobile browsers, even Chrome
+      on Android.
       <p>
         You can also try{' '}
         <a

@@ -6,10 +6,11 @@ import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import tinytime from 'tinytime';
 
 const meta = {
-  title: 'Speech-to-text demo with Web Speech API',
-  description: 'Speak in English and get the text back',
+  title: 'Speech-to-text with Web Speech API',
+  description:
+    "Speech-to-text demo using the Web Speech API's SpeechRecognition",
   image: createOgImageUrl({
-    title: '**Web Speech API Demo**',
+    title: '**Speech-to-text with Web Speech API**',
     fontSize: 120,
   }),
   date: '2022-04-13T06:43:37.680Z',

@@ -65,7 +65,7 @@ export const LanguageSwitcher = ({
   `;
 
   return (
-    <div className={clsx('flex', 'justify-center', 'mb-24')}>
+    <div className={clsx('flex', 'justify-center', 'mt-12', 'mb-24')}>
       <button
         aria-label={
           activeLanguage === 'en-US'
