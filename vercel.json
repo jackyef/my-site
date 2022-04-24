@@ -28,5 +28,11 @@
       "source": "/sitemap.xml",
       "destination": "/_next/static/sitemap.xml"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/chat",
+      "destination": "https://calendly.com/jackyef/casual-chat"
+    }
   ]
 }
