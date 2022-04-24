@@ -7,10 +7,10 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: 'Flair UI kit',
-    url: 'https://flair.jackyef.com',
-    repo: 'https://github.com/jackyef/flair',
-    coverImage: 'https://flair.jackyef.com/flair-og.png',
+    name: 'Indonesian remote-friendly companies 🇮🇩',
+    url: 'https://id-wfa-companies.vercel.app',
+    repo: 'https://github.com/jackyef/id-wfa',
+    coverImage: 'https://id-wfa-companies.vercel.app/og.png',
   },
   {
     name: 'Luck 🍀 or Hard Work 🛠️ ?',
