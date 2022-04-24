@@ -32,7 +32,7 @@
   "redirects": [
     {
       "source": "/chat",
-      "destination": "https://calendly.com/jackyef/casual-chat"
+      "destination": "https://cal.com/jackyef/casual-chat"
     }
   ]
 }
