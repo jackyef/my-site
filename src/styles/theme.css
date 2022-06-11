@@ -199,7 +199,7 @@ h6:hover .hash-link {
 .page-outline::before,
 .toc-level-1 {
   position: fixed;
-  left: 100%;
+  left: 95%;
   width: 100%;
   max-width: clamp(240px, 15vw, 320px);
   margin-left: 4rem;
