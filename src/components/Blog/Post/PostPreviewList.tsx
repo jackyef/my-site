@@ -2,9 +2,12 @@ import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
 
-import getAllPostPreviews from '@/blog/getAllPostPreviews';
+import getAllPostPreviews, {
+  getAllPostWithTags,
+} from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { sendEventTracker } from '@/utils/analytics/tracker';
+import { Tag } from '@/components/Tag';
 
 const posts = getAllPostPreviews();
 
@@ -12,11 +15,16 @@ const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
   count?: number;
+  tags?: string[];
 }
 
-export const PostPreviewList = ({ count = 0 }: Props) => {
+export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
   const router = useRouter();
-  const shownPosts = count ? posts.slice(0, count) : posts;
+  let shownPosts = count ? posts.slice(0, count) : posts;
+
+  if (tags.length > 0) {
+    shownPosts = getAllPostWithTags(tags);
+  }
 
   return (
     <ul className="divide-y divide-gray-400 divide-opacity-50">
@@ -45,7 +53,7 @@ export const PostPreviewList = ({ count = 0 }: Props) => {
                       </h2>
                     </Flipped>
                     <Flipped flipId={`${meta.title}-meta`} spring="noWobble">
-                      <div className="flex">
+                      <div className="flex items-center flex-wrap">
                         <dl>
                           <dt className="sr-only">Published on</dt>
                           <dd className="text-xs leading-6 font text-theme-subtitle">
@@ -55,10 +63,25 @@ export const PostPreviewList = ({ count = 0 }: Props) => {
                           </dd>
                         </dl>
                         <div className="mx-1">&middot;</div>
-                        <dl>
+                        <dl className="mr-3">
                           <dt className="sr-only">Time to read</dt>
                           <dd className="text-xs leading-6 font text-theme-subtitle">
                             {meta.readingTime} ☕
+                          </dd>
+                        </dl>
+                        <dl>
+                          <dt className="sr-only">Post category</dt>
+                          <dd className="flex space-x-2 text-xs">
+                            {meta.tags.map((tag) => (
+                              <Tag key={tag} variant="secondary">
+                                <InternalLink
+                                  className="hover:underline"
+                                  href={`/blog?tags=${tag}`}
+                                >
+                                  {tag}
+                                </InternalLink>
+                              </Tag>
+                            ))}
                           </dd>
                         </dl>
                       </div>

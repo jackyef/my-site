@@ -8,11 +8,11 @@ export const HeroBackground = () => {
     }
   `;
 
-  const flyPlus = keyframes`
-    100% {
-      transform: rotate(-1turn) translate(100px) rotate(1turn);
-    }
-  `;
+  // const flyPlus = keyframes`
+  //   100% {
+  //     transform: rotate(-1turn) translate(100px) rotate(1turn);
+  //   }
+  // `;
 
   /**
    * Safari seems to have a bug where some square artifacts are visible
@@ -72,16 +72,16 @@ export const HeroBackground = () => {
     left: -20%;
   `;
 
-  const three = css`
-    border-radius: 100%;
-    width: calc(var(--blob-scale) * 108%);
-    height: calc(var(--blob-scale) * 108%);
-    bottom: -20%;
-    right: -25%;
-    background-color: rgb(var(--rgb-tertiary));
-    animation: ${flyPlus} 8s linear infinite;
-    transform: rotate(0) translate(100px) rotate(0);
-  `;
+  // const three = css`
+  //   border-radius: 100%;
+  //   width: calc(var(--blob-scale) * 108%);
+  //   height: calc(var(--blob-scale) * 108%);
+  //   bottom: -20%;
+  //   right: -25%;
+  //   background-color: rgb(var(--rgb-tertiary));
+  //   animation: ${flyPlus} 8s linear infinite;
+  //   transform: rotate(0) translate(100px) rotate(0);
+  // `;
 
   const left = css`
     position: absolute;
@@ -94,7 +94,8 @@ export const HeroBackground = () => {
       <div className={left}>
         <div className={clsx(base, one)}></div>
         <div className={clsx(base, two)}></div>
-        <div className={clsx(base, three)}></div>
+        {/* Turning this off for now, looks pretty nice */}
+        {/* <div className={clsx(base, three)}></div> */}
       </div>
     </div>
   );

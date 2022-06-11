@@ -20,6 +20,7 @@ export interface PostMeta {
   image: string;
   authors: Author[];
   readingTime: string;
+  tags: string[];
 }
 
 /** This is what is exported out of a .mdx file */
@@ -35,4 +36,14 @@ export default function getAllPostPreviews(): Post[] {
   return importAll(require.context('../pages/?preview', true, /\.mdx$/)).sort(
     (a: any, b: any) => dateSortDesc(a.module.meta.date, b.module.meta.date),
   );
+}
+
+export function getAllPostWithTags(tags: string[]): Post[] {
+  return importAll(require.context('../pages/?preview', true, /\.mdx$/))
+    .filter(({ module }: Post) => {
+      return tags.some((tag) => module.meta.tags.includes(tag));
+    })
+    .sort((a: any, b: any) =>
+      dateSortDesc(a.module.meta.date, b.module.meta.date),
+    );
 }
