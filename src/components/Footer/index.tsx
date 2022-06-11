@@ -44,10 +44,6 @@ const FOOTER_LINKS: FooterSection[] = [
     sectionTitle: 'Navigation',
     links: [
       {
-        label: 'Blog',
-        href: '/blog',
-      },
-      {
         label: 'About',
         href: '/about',
       },
@@ -55,6 +51,28 @@ const FOOTER_LINKS: FooterSection[] = [
         label: 'Speech-to-text',
         href: '/tools/speech-to-text',
       },
+    ],
+  },
+  {
+    sectionTitle: 'Blog',
+    links: [
+      {
+        label: 'All posts',
+        href: '/blog',
+      },
+      {
+        label: 'Tech',
+        href: '/blog?tags=tech',
+      },
+      {
+        label: 'Career',
+        href: '/blog?tags=career',
+      },
+      // Show this once we have post tagged 'life'
+      // {
+      //   label: 'Life',
+      //   href: '/blog?tags=life',
+      // },
     ],
   },
 ];
