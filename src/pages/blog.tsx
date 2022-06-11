@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
 
 import { PageTitle } from '../components/Typography/PageTitle';
@@ -6,6 +7,9 @@ import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 
 export default function Home() {
+  const router = useRouter();
+  const tags = router.query.tags ? String(router.query.tags).split(',') : [];
+
   return (
     <>
       <PageMetaTags />
@@ -16,7 +20,7 @@ export default function Home() {
           </PageTitle>
         )}
       </Flipped>
-      <PostPreviewList />
+      <PostPreviewList tags={tags} />
     </>
   );
 }

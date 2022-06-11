@@ -2,7 +2,9 @@ import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
 
-import getAllPostPreviews from '@/blog/getAllPostPreviews';
+import getAllPostPreviews, {
+  getAllPostWithTags,
+} from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
@@ -12,11 +14,16 @@ const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
   count?: number;
+  tags?: string[];
 }
 
-export const PostPreviewList = ({ count = 0 }: Props) => {
+export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
   const router = useRouter();
-  const shownPosts = count ? posts.slice(0, count) : posts;
+  let shownPosts = count ? posts.slice(0, count) : posts;
+
+  if (tags.length > 0) {
+    shownPosts = getAllPostWithTags(tags);
+  }
 
   return (
     <ul className="divide-y divide-gray-400 divide-opacity-50">
