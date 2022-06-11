@@ -5,6 +5,26 @@ import { PageTitle } from '../components/Typography/PageTitle';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
+import { Tag } from '@/components/Tag';
+import { Fragment } from 'react';
+
+const Tags = ({ tags = [] }: { tags: string[] }) => {
+  if (tags.length === 0) return null;
+
+  return (
+    <div className="inline-flex space-x-4 items-center">
+      <span>in</span>
+      {tags.map((tag, i) => {
+        return (
+          <Fragment key={i}>
+            <Tag variant="secondary">{tag}</Tag>
+            {i !== tags.length - 1 ? ',' : ''}
+          </Fragment>
+        );
+      })}
+    </div>
+  );
+};
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +36,7 @@ export default function Home() {
       <Flipped flipId="latest-writing-heading" spring="noWobble" translate>
         {(flippedProps) => (
           <PageTitle {...flippedProps}>
-            Latest writings <EmojiSpan>✍️</EmojiSpan>
+            Latest writings <Tags tags={tags} /> <EmojiSpan>✍️</EmojiSpan>
           </PageTitle>
         )}
       </Flipped>
