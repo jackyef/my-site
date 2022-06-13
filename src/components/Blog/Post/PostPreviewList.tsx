@@ -7,7 +7,7 @@ import getAllPostPreviews, {
 } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { sendEventTracker } from '@/utils/analytics/tracker';
-import { Tag } from '@/components/Tag';
+import { Tag } from '@/components/common/Tag';
 
 const posts = getAllPostPreviews();
 

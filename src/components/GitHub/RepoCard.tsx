@@ -1,5 +1,5 @@
 import React from 'react';
-import Tag from '../common/Tag';
+import { Tag } from '../common/Tag';
 import { ExternalLink } from '../Typography/ExternalLink';
 
 interface Props {
@@ -35,9 +35,11 @@ const GitHubRepoCard = ({
         </h3>
         <p className="px-4 py-2 pt-0 text-sm">{description}</p>
         {tags.length ? (
-          <div className="px-4 py-2">
+          <div className="px-4 py-2 flex space-x-2 text-xs">
             {tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
+              <Tag key={tag} variant="primary">
+                {tag}
+              </Tag>
             ))}
           </div>
         ) : null}

@@ -3,7 +3,7 @@ import { Flipped } from 'react-flip-toolkit';
 
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
-import { Tag } from '@/components/Tag';
+import { Tag } from '@/components/common/Tag';
 import { InternalLink } from '@/components/Typography/InternalLink';
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');

@@ -5,7 +5,7 @@ import { PageTitle } from '../components/Typography/PageTitle';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
-import { Tag } from '@/components/Tag';
+import { Tag } from '@/components/common/Tag';
 import { Fragment } from 'react';
 
 const Tags = ({ tags = [] }: { tags: string[] }) => {
