@@ -3,5 +3,8 @@ module.exports = {
   "printWidth": 80,
   "singleQuote": true,
   "trailingComma": "all",
-  "arrowParens": "always"
+  "arrowParens": "always",
+
+  // For wrapping text in .md and .mdx files
+  "proseWrap": "always"
 }

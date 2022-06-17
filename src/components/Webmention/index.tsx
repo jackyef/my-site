@@ -97,7 +97,7 @@ const WebmentionWidget = ({ url, meta }: Props) => {
           <TwitterShare
             text={`${meta.title} ${publicUrl}${router.pathname} via @jackyef__`}
           >
-            Discuss on Twitter
+            Share on Twitter
           </TwitterShare>
 
           {showReplies ? (
