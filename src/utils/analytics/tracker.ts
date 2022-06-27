@@ -1,7 +1,6 @@
-import { baseAnalytics } from './base.lazy';
-
 // Guide on how to send trackers
 // https://developers.google.com/analytics/devguides/collection/upgrade/analyticsjs
+// https://developers.google.com/analytics/devguides/migration/ua/analyticsjs-to-gtagjs#send_custom_dimensions_and_metrics
 
 interface EventParams {
   name: string;
@@ -15,7 +14,10 @@ interface EventParams {
 // label: "funny cats vids"
 
 export const sendEventTracker = ({ name, label, category }: EventParams) => {
-  baseAnalytics().then(({ gaAll }) => {
-    gaAll('send', 'event', category, name, label);
+  if (!window.gtag) return;
+
+  window.gtag('event', name, {
+    label,
+    category,
   });
 };

@@ -7,8 +7,7 @@ import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageContainer } from '@/components/Page/PageContainer';
-import { baseAnalytics } from '@/utils/analytics/base.lazy';
-import { canUseDOM, isProd } from '@/utils/constants';
+import { isProd } from '@/utils/constants';
 import { useReduceMotion } from '@/hooks/useReduceMotion';
 import { NavigationProvider } from '@/contexts/navigation';
 
@@ -21,16 +20,7 @@ import { AppType } from 'next/dist/shared/lib/utils';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
-
-// lazily init the analytics module from autotrack
-if (canUseDOM && isProd) {
-  // the analytic script requests to /collect is blocked
-  // on lighthouse, not sure why. But it causes -7 points in Best Practice,
-  // so we disable them there
-  if (!/lighthouse/gi.test(navigator.userAgent)) {
-    baseAnalytics().then((m) => m.init());
-  }
-}
+import Script from 'next/script';
 
 const queryClient = new QueryClient();
 
@@ -65,17 +55,27 @@ const MyApp: AppType = ({ Component, pageProps }) => {
               <Footer />
 
               <CommandPalette />
-              <Head>
-                {isProd ? (
-                  <>
-                    {/* (analytics.js) - Google Analytics */}
+              {isProd ? (
+                <>
+                  <Script
+                    strategy="afterInteractive"
+                    src="https://www.googletagmanager.com/gtag/js?id=G-6CK1QFKMHJ"
+                  ></Script>
+                  <Head>
+                    {/* Global site tag (gtag.js) - Google Analytics */}
                     <script
-                      async
-                      src="https://www.google-analytics.com/analytics.js"
+                      dangerouslySetInnerHTML={{
+                        __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-6CK1QFKMHJ');`,
+                      }}
                     ></script>
-                  </>
-                ) : null}
-              </Head>
+                  </Head>
+                </>
+              ) : null}
             </ThemeProvider>
           </NavigationProvider>
         </QueryClientProvider>
