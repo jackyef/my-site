@@ -47,7 +47,6 @@ export default function Post({ meta, children, posts }: Props) {
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
   const shouldAnimateNavigation = useShouldAnimateNavigation();
-  const isBlogPost = router.pathname.startsWith('/posts/');
 
   useIsomorphicLayoutEffect(() => {
     const el = document.getElementById('restOfArticle');
@@ -90,44 +89,40 @@ export default function Post({ meta, children, posts }: Props) {
 
           <HorizontalDivider />
 
-          {isBlogPost && (
-            <IOWrapper>
-              {(show) =>
-                show ? <LazyWebmentionWidget url={fullUrl} meta={meta} /> : null
-              }
-            </IOWrapper>
-          )}
+          <IOWrapper>
+            {(show) =>
+              show ? <LazyWebmentionWidget url={fullUrl} meta={meta} /> : null
+            }
+          </IOWrapper>
         </div>
-        {isBlogPost && (
-          <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
-            {(next || previous) && (
-              <div className="space-y-8 py-8">
-                {next && (
+        <footer className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">
+          {(next || previous) && (
+            <div className="space-y-8 py-8">
+              {next && (
+                <div>
+                  <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
+                    Next Article
+                  </h2>
                   <div>
-                    <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
-                      Next Article
-                    </h2>
-                    <div>
-                      <InternalLink href={next.link}>{next.title}</InternalLink>
-                    </div>
+                    <InternalLink href={next.link}>{next.title}</InternalLink>
                   </div>
-                )}
-                {previous && (
+                </div>
+              )}
+              {previous && (
+                <div>
+                  <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
+                    Previous Article
+                  </h2>
                   <div>
-                    <h2 className="text-xs tracking-wide uppercase text-theme-subtitle">
-                      Previous Article
-                    </h2>
-                    <div>
-                      <InternalLink href={previous.link}>
-                        {previous.title}
-                      </InternalLink>
-                    </div>
+                    <InternalLink href={previous.link}>
+                      {previous.title}
+                    </InternalLink>
                   </div>
-                )}
-              </div>
-            )}
-          </footer>
-        )}
+                </div>
+              )}
+            </div>
+          )}
+        </footer>
       </div>
     </article>
   );
