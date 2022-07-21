@@ -47,7 +47,7 @@ export default function Post({ meta, children, posts }: Props) {
   const next = posts[postIndex - 1];
   const fullUrl = `${publicUrl}${router.pathname}`;
   const shouldAnimateNavigation = useShouldAnimateNavigation();
-  const isBlogPost = router.pathname.startsWith('/posts');
+  const isBlogPost = router.pathname.startsWith('/posts/');
 
   useIsomorphicLayoutEffect(() => {
     const el = document.getElementById('restOfArticle');

@@ -17,7 +17,7 @@ interface Props {
 export const PostHeader = ({ meta }: Props) => {
   const router = useRouter();
 
-  const isBlogPost = router.pathname.startsWith('/posts');
+  const isBlogPost = router.pathname.startsWith('/posts/');
 
   return (
     <>
