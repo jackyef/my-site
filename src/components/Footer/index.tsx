@@ -48,8 +48,8 @@ const FOOTER_LINKS: FooterSection[] = [
         href: '/about',
       },
       {
-        label: 'Uses',
-        href: '/uses',
+        label: 'Speech-to-text',
+        href: '/tools/speech-to-text',
       },
     ],
   },

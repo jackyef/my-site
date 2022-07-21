@@ -21,11 +21,6 @@ export const PAGES: readonly PageData[] = [
       'Get to know me! This page contains what I worked on, where I worked at, where to find me, etc.',
     link: '/about',
   },
-  {
-    title: 'Uses',
-    description: 'List of things that I use daily',
-    link: '/uses',
-  },
 
   // Tools
   {
