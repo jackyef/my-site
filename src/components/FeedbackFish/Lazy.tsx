@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
 import { IOWrapper } from '../IntersectionObserver/Wrapper';
 
@@ -6,7 +7,7 @@ export const LazyFeedbackFish = dynamic(
   () => import(/* webpackChunkName: "feedbackfish-widget" */ './index'),
   {
     ssr: false,
-    loading: () => null,
+    suspense: true,
   },
 );
 
@@ -19,6 +20,14 @@ export const IOLazyFeedbackFish: React.FC<Props> = ({
   ...rest
 }) => (
   <IOWrapper inline>
-    {(show) => (show ? <LazyFeedbackFish {...rest} /> : placeholder)}
+    {(show) =>
+      show ? (
+        <Suspense fallback={null}>
+          <LazyFeedbackFish {...rest} />
+        </Suspense>
+      ) : (
+        placeholder
+      )
+    }
   </IOWrapper>
 );

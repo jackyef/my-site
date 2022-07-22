@@ -1,5 +1,13 @@
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-export const CommandPalette = dynamic(() => import('./CommandPalette'), {
+const _CommandPalette = dynamic(() => import('./CommandPalette'), {
   ssr: false,
+  suspense: true,
 });
+
+export const CommandPalette = () => (
+  <Suspense fallback={null}>
+    <_CommandPalette />
+  </Suspense>
+);
