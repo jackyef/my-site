@@ -17,10 +17,10 @@ import { CommandPalette } from '@/components/CommandPalette';
 import { ThemeProvider } from '@/components/Theme/ThemeProvider';
 import { AppType } from 'next/dist/shared/lib/utils';
 
-import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
 import Script from 'next/script';
+import { Toaster } from '@/components/Toaster';
 
 const queryClient = new QueryClient();
 
