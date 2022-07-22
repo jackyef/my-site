@@ -1,6 +1,10 @@
 import clsx from 'clsx';
 
-export const ResultSectionHeading: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const ResultSectionHeading = ({ children }: Props) => {
   return (
     <h3
       className={clsx(

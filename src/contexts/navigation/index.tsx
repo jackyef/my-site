@@ -9,7 +9,11 @@ const NavigationContext = createContext({
   shouldAnimate: true,
 });
 
-export const NavigationProvider: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const NavigationProvider = ({ children }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReduceMotion();
   const router = useRouter();

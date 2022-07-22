@@ -10,6 +10,9 @@ const configureMDX = require('./utils/configs/configureMDX.js');
  * @type {import('next').NextConfig}
  */
 const conf = {
+  experimental: {
+    nextScriptWorkers: true,
+  },
   pageExtensions: ['ts', 'tsx', 'mdx'],
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -18,12 +21,12 @@ const conf = {
   workboxOpts: {
     swDest: 'static/service-worker.js',
     exclude: [
-      /middleware-manifest.json/,
+      /middleware-manifest\.js/,
 
       // These files don't exist with Next, even though react-loadable is used under the hood
       // we don't care about precaching them
-      /build-manifest.json/,
-      /react-loadable-manifest.json/,
+      /build-manifest\.js/,
+      /react-loadable-manifest\.js/,
     ],
 
     runtimeCaching: [
@@ -77,4 +80,8 @@ const conf = {
   },
 };
 
-module.exports = flowRight(withOffline, withBundleAnalyzer)(conf);
+module.exports = flowRight(
+  // Disabling this for now since it seems to interfere with partytown
+  // withOffline,
+  withBundleAnalyzer,
+)(conf);

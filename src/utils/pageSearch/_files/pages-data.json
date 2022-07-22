@@ -20,6 +20,11 @@
     "link": "/posts/building-an-audio-loop-player-on-the-web"
   },
   {
+    "title": "Tech folks, take care of yourself 🏃‍♂️",
+    "description": "Recent life events served as a wake-up call for me. It was an expensive learning experience that I wished someone would warn me about before.",
+    "link": "/posts/tech-folks-take-care-of-yourself"
+  },
+  {
     "title": "Transitioning between 2 different elements with FLIP",
     "description": "Learn the concept of FLIP to unlock new transition possibilities, while writing your own FLIP library in the process.",
     "link": "/posts/transitioning-between-2-different-elements-with-flip"

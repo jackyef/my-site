@@ -1,17 +1,18 @@
 import * as React from 'react';
 
-import { canUseDOM } from '@/utils/constants';
+interface Props {
+  children?: React.ReactNode;
+  fallback?: React.ReactNode;
+}
 
-export const SkipSSR = ({
-  children,
-}: {
-  children: React.ReactElement;
-}): React.ReactElement | null => {
-  const [state, setState] = React.useState(canUseDOM);
+export const SkipSSR = ({ children, fallback = null }: Props) => {
+  const [state, setState] = React.useState(false);
 
   React.useEffect(() => {
     setState(true);
   }, []);
 
-  return state ? children : null;
+  if (state) return <>{children}</>;
+
+  return <>{fallback}</>;
 };

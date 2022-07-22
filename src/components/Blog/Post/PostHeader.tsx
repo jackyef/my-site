@@ -6,6 +6,7 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { Tag } from '@/components/common/Tag';
 import { InternalLink } from '@/components/Typography/InternalLink';
+import { SkipSSR } from '@/components/SkipSSR';
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');
@@ -37,10 +38,14 @@ export const PostHeader = ({ meta }: Props) => {
                   <dt>Published on</dt>
                   <dd>
                     <time className="block md:hidden" dateTime={meta.date}>
-                      {postDateTemplate.render(new Date(meta.date))}
+                      <SkipSSR fallback={meta.date}>
+                        {postDateTemplate.render(new Date(meta.date))}
+                      </SkipSSR>
                     </time>
                     <time className="hidden md:block" dateTime={meta.date}>
-                      {postDateTemplateXl.render(new Date(meta.date))}
+                      <SkipSSR fallback={meta.date}>
+                        {postDateTemplateXl.render(new Date(meta.date))}
+                      </SkipSSR>
                     </time>
                   </dd>
                   <div className="mx-1">&middot;</div>

@@ -1,5 +1,6 @@
 interface Props {
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const Paragraph: React.FC<Props> = ({ children, className = '' }) => {

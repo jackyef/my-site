@@ -3,6 +3,7 @@ import * as React from 'react';
 interface Props {
   type: 'warning' | 'info'; //  | 'error' | 'success';
   title: string;
+  children?: React.ReactNode;
 }
 
 const bgMap = {

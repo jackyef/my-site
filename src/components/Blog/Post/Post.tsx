@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect } from 'react';
+import { useLayoutEffect, useEffect, Suspense } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
@@ -33,7 +33,7 @@ const useIsomorphicLayoutEffect =
 
 interface Props {
   meta: PostMeta;
-  children: React.ReactChildren;
+  children?: React.ReactNode;
   posts: {
     title: string;
     link: string;
@@ -93,7 +93,15 @@ export default function Post({ meta, children, posts }: Props) {
           {isBlogPost && (
             <IOWrapper>
               {(show) =>
-                show ? <LazyWebmentionWidget url={fullUrl} meta={meta} /> : null
+                show ? (
+                  <Suspense
+                    fallback={
+                      <h3 className="text-lg font-bold mb-2">Webmentions</h3>
+                    }
+                  >
+                    <LazyWebmentionWidget url={fullUrl} meta={meta} />
+                  </Suspense>
+                ) : null
               }
             </IOWrapper>
           )}

@@ -37,6 +37,7 @@ const TaskItem = ({ id, title, onClick, variant }: TaskItemProps) => {
 interface TaskColumnProps {
   title: string;
   count: number;
+  children?: React.ReactNode;
 }
 
 const TaskColumn: React.FC<TaskColumnProps> = ({ title, count, children }) => {

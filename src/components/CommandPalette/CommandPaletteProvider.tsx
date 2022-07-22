@@ -12,7 +12,11 @@ export const CommandPaletteContext = createContext<CommandPaletteProviderProps>(
   },
 );
 
-export const CommandPaletteProvider: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const CommandPaletteProvider = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

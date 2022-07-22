@@ -24,7 +24,7 @@ const useIntersect = <T>({
   const options = optionsData || initialOptions;
 
   const handleIntersect = useCallback(
-    (entries) => {
+    (entries: IntersectionObserverEntry[]) => {
       const isIntersecting = (entries[0] && entries[0].isIntersecting) || false;
 
       if (isIntersecting) {

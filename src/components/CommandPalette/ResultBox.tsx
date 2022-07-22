@@ -1,6 +1,10 @@
 import clsx from 'clsx';
 
-export const ResultBox: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const ResultBox = ({ children }: Props) => {
   return (
     <>
       <div

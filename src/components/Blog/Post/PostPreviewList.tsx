@@ -7,6 +7,7 @@ import getAllPostPreviews, {
 } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { Tag } from '@/components/common/Tag';
+import { SkipSSR } from '@/components/SkipSSR';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
@@ -59,7 +60,9 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                           <dt className="sr-only">Published on</dt>
                           <dd className="text-xs leading-6 font text-theme-subtitle">
                             <time dateTime={meta.date}>
-                              {postDateTemplate.render(new Date(meta.date))}
+                              <SkipSSR fallback={meta.date}>
+                                {postDateTemplate.render(new Date(meta.date))}
+                              </SkipSSR>
                             </time>
                           </dd>
                         </dl>

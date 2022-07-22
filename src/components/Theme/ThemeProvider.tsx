@@ -14,10 +14,14 @@ export const ThemeContext = createContext<
   [Theme, Dispatch<SetStateAction<Theme>>]
 >(['default', () => {}]);
 
+interface Props {
+  children?: React.ReactNode;
+}
+
 /**
  * @TODO: Support multiple theme, not just light and dark mode.
  */
-export const ThemeProvider: React.FC = ({ children }) => {
+export const ThemeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState<string>(
     canUseDOM
       ? getComputedStyle(document.body).getPropertyValue('--theme')

@@ -4,6 +4,7 @@ interface Props {
   href: string;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  children?: React.ReactNode;
 }
 
 export const InternalLink: React.FC<Props> = ({
