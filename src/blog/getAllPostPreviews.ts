@@ -2,7 +2,7 @@ import { Author } from './authors';
 
 function importAll(r: any) {
   return r.keys().map((fileName: string) => ({
-    link: fileName.substr(1).replace(/\/index\.mdx$/, ''),
+    link: `/posts${fileName.substr(1).replace(/\/index\.mdx$/, '')}`,
     module: r(fileName),
   }));
 }
