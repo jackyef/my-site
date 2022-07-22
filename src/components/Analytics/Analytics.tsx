@@ -7,7 +7,7 @@ export const Analytics = () => {
   return isProd ? (
     <>
       <Script
-        strategy="worker"
+        strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=G-6CK1QFKMHJ"
       ></Script>
       <Head>
