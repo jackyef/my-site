@@ -1078,6 +1078,11 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
+"@builder.io/partytown@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@builder.io/partytown/-/partytown-0.6.2.tgz#3437fb5a0fcbdd36f239bbde05ff31c60948386e"
+  integrity sha512-2wSTB7v3176Mzfu+gTGm+I7MAALeOpvATQ5qf+NUMLfeuvVEX/eWxcJPrrIy7UcoQyT3Mm6Tsb2sfBqJy4R4EQ==
+
 "@csstools/postcss-color-function@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@csstools/postcss-color-function/-/postcss-color-function-1.0.3.tgz#251c961a852c99e9aabdbbdbefd50e9a96e8a9ff"

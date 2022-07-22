@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { Flipper } from 'react-flip-toolkit';
 import { AppType } from 'next/dist/shared/lib/utils';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Script from 'next/script';
 
+import { Analytics } from '@/components/Analytics/Analytics';
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -58,27 +57,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
               <Footer />
 
               <CommandPalette />
-              {isProd ? (
-                <>
-                  <Script
-                    strategy="afterInteractive"
-                    src="https://www.googletagmanager.com/gtag/js?id=G-6CK1QFKMHJ"
-                  ></Script>
-                  <Head>
-                    {/* Global site tag (gtag.js) - Google Analytics */}
-                    <script
-                      dangerouslySetInnerHTML={{
-                        __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-6CK1QFKMHJ');`,
-                      }}
-                    ></script>
-                  </Head>
-                </>
-              ) : null}
+              {isProd ? <Analytics /> : null}
             </ThemeProvider>
           </NavigationProvider>
         </QueryClientProvider>

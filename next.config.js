@@ -10,7 +10,9 @@ const configureMDX = require('./utils/configs/configureMDX.js');
  * @type {import('next').NextConfig}
  */
 const conf = {
-  productionBrowserSourceMaps: true,
+  experimental: {
+    nextScriptWorkers: true,
+  },
   pageExtensions: ['ts', 'tsx', 'mdx'],
   images: {
     formats: ['image/avif', 'image/webp'],
