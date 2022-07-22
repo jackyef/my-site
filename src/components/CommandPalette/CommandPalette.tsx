@@ -1,7 +1,9 @@
-import { getPlatformMetaKey } from '@/utils/keyboard';
 import * as Dialog from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
+
+import { getPlatformMetaKey } from '@/utils/keyboard';
+
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { useOnboardingToast } from './hooks/useOnboardingToast';

@@ -1,6 +1,8 @@
 import React from 'react';
-import { ProjectCard } from './ProjectCard';
+
 import Carousel from '../Carousel';
+
+import { ProjectCard } from './ProjectCard';
 import { projects } from './projects';
 
 const ProjectsList = () => {

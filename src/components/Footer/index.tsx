@@ -1,9 +1,11 @@
 import { Fragment } from 'react';
-import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 import clsx from 'clsx';
 import { css } from 'goober';
-import { SectionContainer } from '../SectionContainer';
 import Link, { LinkProps } from 'next/link';
+
+import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
+
+import { SectionContainer } from '../SectionContainer';
 
 type FooterLink = {
   label: string;

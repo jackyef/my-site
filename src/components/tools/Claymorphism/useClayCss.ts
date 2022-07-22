@@ -1,4 +1,5 @@
 import Prism from 'prismjs';
+
 import { prismTokenMap } from '@/lib/prismTokenMap';
 
 const BASE_DISTANCE = 20;

@@ -1,7 +1,9 @@
-import { sendEventTracker } from '@/utils/analytics/tracker';
 import clsx from 'clsx';
 import { css } from 'goober';
 import { useRouter } from 'next/router';
+
+import { sendEventTracker } from '@/utils/analytics/tracker';
+
 import { ExternalLink } from '../Typography/ExternalLink';
 import { InternalLink } from '../Typography/InternalLink';
 import { Paragraph } from '../Typography/Paragraph';

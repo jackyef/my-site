@@ -1,13 +1,14 @@
 import tinytime from 'tinytime';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { ClaymorphismTools } from '@/components/tools/Claymorphism';
 import { HorizontalDivider } from '@/components/Divider';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
+
+import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
 export const meta = {
   title: 'Claymorphism-style CSS generator',

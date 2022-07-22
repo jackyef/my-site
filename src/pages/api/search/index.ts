@@ -1,5 +1,6 @@
-import { search } from '@/utils/pageSearch';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { search } from '@/utils/pageSearch';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {

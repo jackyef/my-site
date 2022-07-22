@@ -1,5 +1,7 @@
 import { useCallback, useEffect } from 'react';
+
 import { toast } from '@/lib/toast';
+
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
 let hasOpenedBefore = false;

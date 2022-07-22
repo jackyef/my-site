@@ -1,4 +1,5 @@
 import { cloneElement, useEffect, useLayoutEffect, useRef } from 'react';
+
 import { getInfo, storeInfo, animate } from './core';
 
 const useIsomorphicLayoutEffect =

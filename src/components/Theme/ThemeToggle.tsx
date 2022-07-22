@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { sendEventTracker } from '@/utils/analytics/tracker';
+
 import { ThemeContext } from './ThemeProvider';
 
 export const ThemeToggle: React.FC = () => {

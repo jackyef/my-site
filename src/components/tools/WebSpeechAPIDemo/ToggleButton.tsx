@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import StopIcon from '@heroicons/react/solid/StopIcon';
 import PlayIcon from '@heroicons/react/solid/PlayIcon';
+import { css } from 'goober';
 
 import { Button } from './Button';
-import { css } from 'goober';
 
 const MAX_RIPPLE_SCALE = 2;
 const MIN_RIPPLE_SCALE = 0.85;

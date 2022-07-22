@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { usePwaInstall } from '@/hooks/usePwaInstall';
-import { sendEventTracker } from '@/utils/analytics/tracker';
-import { SectionContainer } from '@/components/SectionContainer';
 import Link from 'next/link';
+import { css } from 'goober';
+
+import { SectionContainer } from '@/components/SectionContainer';
+
+import { usePwaInstall } from '@/hooks/usePwaInstall';
+
+import { sendEventTracker } from '@/utils/analytics/tracker';
+
 import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
-import PwaInstallIcon from './assets/icon-plus.svg';
 import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
-import { css } from 'goober';
+
+import PwaInstallIcon from './assets/icon-plus.svg';
 
 function Logo() {
   return (

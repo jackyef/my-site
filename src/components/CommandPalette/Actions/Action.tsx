@@ -1,8 +1,10 @@
-import { publicUrl } from '@/components/Seo/CommonMetaTags';
-import { ThemeContext } from '@/components/Theme/ThemeProvider';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef } from 'react';
+
+import { ThemeContext } from '@/components/Theme/ThemeProvider';
+import { publicUrl } from '@/components/Seo/CommonMetaTags';
+
 import { HighlightedQuery } from './HighlightedQuery';
 
 interface Props {

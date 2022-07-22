@@ -7,7 +7,7 @@ const initialOptions = {
 };
 
 interface Params {
-  onIntersect: Function;
+  onIntersect: () => void;
   onlyOnce?: boolean;
   optionsData?: typeof initialOptions;
 }
