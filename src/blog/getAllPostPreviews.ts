@@ -2,7 +2,7 @@ import { Author } from './authors';
 
 function importAll(r: any) {
   return r.keys().map((fileName: string) => ({
-    link: fileName.substr(1).replace(/\/index\.mdx$/, ''),
+    link: `/posts${fileName.substr(1).replace(/\/index\.mdx$/, '')}`,
     module: r(fileName),
   }));
 }
@@ -33,13 +33,15 @@ export interface Post {
 }
 
 export default function getAllPostPreviews(): Post[] {
-  return importAll(require.context('../pages/?preview', true, /\.mdx$/)).sort(
-    (a: any, b: any) => dateSortDesc(a.module.meta.date, b.module.meta.date),
+  return importAll(
+    require.context('../pages/posts/?preview', true, /\.mdx$/),
+  ).sort((a: any, b: any) =>
+    dateSortDesc(a.module.meta.date, b.module.meta.date),
   );
 }
 
 export function getAllPostWithTags(tags: string[]): Post[] {
-  return importAll(require.context('../pages/?preview', true, /\.mdx$/))
+  return importAll(require.context('../pages/posts/?preview', true, /\.mdx$/))
     .filter(({ module }: Post) => {
       return tags.some((tag) => module.meta.tags.includes(tag));
     })
