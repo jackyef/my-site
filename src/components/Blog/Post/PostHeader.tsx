@@ -34,7 +34,7 @@ export const PostHeader = ({ meta }: Props) => {
           {isBlogPost && (
             <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
               <dl className="mt-1">
-                <div className="flex flex-row space-x-1 text-sm leading-6 text-theme-subtitle items-center">
+                <div className="flex flex-row flex-wrap space-x-1 text-sm leading-6 text-theme-subtitle items-center">
                   <dt>Published on</dt>
                   <dd>
                     <time className="block md:hidden" dateTime={meta.date}>
