@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Flipper } from 'react-flip-toolkit';
 
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import Header from '@/components/Header';
@@ -21,6 +20,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
 import Script from 'next/script';
 import { Toaster } from '@/components/Toaster';
+import { Flipper } from '@/components/Flipper';
 
 const queryClient = new QueryClient();
 
