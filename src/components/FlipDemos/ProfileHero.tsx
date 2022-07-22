@@ -1,5 +1,7 @@
-import { Flip } from '@/lib/flip/react';
 import clsx from 'clsx';
+
+import { Flip } from '@/lib/flip/react';
+
 import { invert } from './invert';
 
 type Props = {

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { PageData } from '../../../../types/types';
 
+import { PageData } from '../../../../types/types';
 import { filterValidQueries, Query } from '../constants/actions';
 import { filterExternalLinks } from '../constants/externalLinks';
 import { filterPages } from '../constants/pages';

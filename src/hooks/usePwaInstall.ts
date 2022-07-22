@@ -1,6 +1,7 @@
+import { useState, useRef, useEffect } from 'react';
+
 import { sendEventTracker } from '@/utils/analytics/tracker';
 import { canUseDOM } from '@/utils/constants';
-import { useState, useRef, useEffect } from 'react';
 
 interface ChoiceResult {
   outcome: 'accepted' | 'dismissed';

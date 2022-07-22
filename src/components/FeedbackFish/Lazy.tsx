@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+
 import { IOWrapper } from '../IntersectionObserver/Wrapper';
 
 export const LazyFeedbackFish = dynamic(

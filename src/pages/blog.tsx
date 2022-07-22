@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
+import { Fragment } from 'react';
 
-import { PageTitle } from '../components/Typography/PageTitle';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { Tag } from '@/components/common/Tag';
-import { Fragment } from 'react';
+
+import { PageTitle } from '../components/Typography/PageTitle';
 
 const Tags = ({ tags = [] }: { tags: string[] }) => {
   if (tags.length === 0) return null;

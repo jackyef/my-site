@@ -1,9 +1,11 @@
+import tinytime from 'tinytime';
+
 import { HorizontalDivider } from '@/components/Divider';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { WebSpeechAPIDemo } from '@/components/tools/WebSpeechAPIDemo';
 import { PageTitle } from '@/components/Typography/PageTitle';
+
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import tinytime from 'tinytime';
 
 export const meta = {
   title: 'Speech-to-text with Web Speech API',

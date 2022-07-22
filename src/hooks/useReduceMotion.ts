@@ -1,5 +1,6 @@
-import { canUseDOM } from '@/utils/constants';
 import { useEffect, useState } from 'react';
+
+import { canUseDOM } from '@/utils/constants';
 
 export function useReduceMotion() {
   const [matches, setMatch] = useState(

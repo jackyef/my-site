@@ -1,6 +1,8 @@
 import React from 'react';
-import MediumPostCard from './PostCard';
+
 import Carousel from '../Carousel';
+
+import MediumPostCard from './PostCard';
 import stories from './medium-stories.json';
 
 const MediumList = () => {

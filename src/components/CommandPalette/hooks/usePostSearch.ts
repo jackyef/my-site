@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+
 import { PageData } from '../../../../types/types';
 
 const endpoint = '/api/search';

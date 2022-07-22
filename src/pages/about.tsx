@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { TECHNOLOGIES } from '@/constants/technologies';
@@ -9,7 +11,6 @@ import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
-import { Fragment } from 'react';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 
 const TechnologyAnchors = () => {

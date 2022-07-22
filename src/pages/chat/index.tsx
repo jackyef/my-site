@@ -1,5 +1,6 @@
-import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import Head from 'next/head';
+
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 const ChatPage = () => {
   return (

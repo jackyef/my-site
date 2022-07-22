@@ -1,7 +1,8 @@
 import React from 'react';
-import GitHubRepoCard from './RepoCard';
+
 import Carousel from '../Carousel';
 
+import GitHubRepoCard from './RepoCard';
 import RepoList from './repo-list.json';
 
 const GitHubList = () => {

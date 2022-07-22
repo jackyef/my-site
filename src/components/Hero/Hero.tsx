@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { css } from 'goober';
 import { FC } from 'react';
+
 import { HeroBackground } from './HeroBackground';
 
 interface Props {

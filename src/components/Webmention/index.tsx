@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { PostMeta } from '@/blog/getAllPostPreviews';
 import { useRouter } from 'next/router';
+import tinytime from 'tinytime';
+
+import { PostMeta } from '@/blog/getAllPostPreviews';
+
 import { publicUrl } from '../Seo/PageMetaTags';
 import { TwitterShare } from '../Social/TwitterShare';
-import { useWebmention } from './hooks/useWebmention';
 import { ExternalLink } from '../Typography/ExternalLink';
-import tinytime from 'tinytime';
+
+import { useWebmention } from './hooks/useWebmention';
 
 interface Props {
   url: string;

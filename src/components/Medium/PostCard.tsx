@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { ExternalLink } from '../Typography/ExternalLink';
+
 import MediumLogo from './assets/medium.svg';
 
 interface Props {

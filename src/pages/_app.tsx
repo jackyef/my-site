@@ -2,25 +2,26 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Flipper } from 'react-flip-toolkit';
+import { AppType } from 'next/dist/shared/lib/utils';
+import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Script from 'next/script';
 
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
 import Header from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageContainer } from '@/components/Page/PageContainer';
-import { isProd } from '@/utils/constants';
-import { useReduceMotion } from '@/hooks/useReduceMotion';
+import { CommandPalette } from '@/components/CommandPalette';
+import { ThemeProvider } from '@/components/Theme/ThemeProvider';
+import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
 import { NavigationProvider } from '@/contexts/navigation';
+
+import { useReduceMotion } from '@/hooks/useReduceMotion';
+
+import { isProd } from '@/utils/constants';
 
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
-import { CommandPalette } from '@/components/CommandPalette';
-import { ThemeProvider } from '@/components/Theme/ThemeProvider';
-import { AppType } from 'next/dist/shared/lib/utils';
-
-import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPaletteProvider';
-import Script from 'next/script';
 
 const queryClient = new QueryClient();
 

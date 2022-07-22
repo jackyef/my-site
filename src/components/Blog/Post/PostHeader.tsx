@@ -1,11 +1,11 @@
 import tinytime from 'tinytime';
 import { Flipped } from 'react-flip-toolkit';
+import { useRouter } from 'next/router';
 
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { Tag } from '@/components/common/Tag';
 import { InternalLink } from '@/components/Typography/InternalLink';
-import { useRouter } from 'next/router';
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');

@@ -1,4 +1,5 @@
 import { matchSorter } from 'match-sorter';
+
 import { PageData } from '../../../types/types';
 
 const pageData = require('./_files/pages-data.json') as PageData[];

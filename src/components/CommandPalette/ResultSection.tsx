@@ -1,4 +1,5 @@
 import { PageData } from '../../../types/types';
+
 import { Action } from './Actions/Action';
 import { Query } from './constants/actions';
 import { ResultSectionHeading } from './ResultSectionHeading';
