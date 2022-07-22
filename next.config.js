@@ -1,4 +1,3 @@
-// const withPreact = require('next-plugin-preact');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -7,9 +6,11 @@ const withOffline = require('next-offline');
 const { flowRight } = require('./utils/flow.js');
 const configureMDX = require('./utils/configs/configureMDX.js');
 
+/**
+ * @type {import('next').NextConfig}
+ */
 const conf = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
-  experimental: { modern: true }, // enable experimental module/nomodule optimisation
   images: {
     formats: ['image/avif', 'image/webp'],
   },

@@ -60,7 +60,6 @@
     "@heroicons/react": "^1.0.6",
     "@mdx-js/react": "^1.6.22",
     "@next/bundle-analyzer": "^12.0.0",
-    "@prefresh/next": "^1.4.0",
     "@radix-ui/react-dialog": "^0.1.1",
     "autotrack": "^2.4.1",
     "canvas-confetti": "^1.5.1",
@@ -69,16 +68,15 @@
     "cross-env": "^7.0.3",
     "goober": "2.0.41",
     "match-sorter": "^6.3.1",
-    "next": "^12.0.8",
+    "next": "^12.2.3",
     "next-images": "^1.5.0",
     "next-offline": "^5.0.2",
     "prismjs": "1.21.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.13",
     "react-hot-toast": "^2.1.1",
     "react-query": "^3.33.3",
-    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.1.2",
     "tinytime": "^0.2.6"
   }
 }
