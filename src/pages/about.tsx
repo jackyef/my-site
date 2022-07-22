@@ -88,15 +88,16 @@ export default function About() {
         <ExternalLink href="https://www.tokopedia.com">Tokopedia</ExternalLink>{' '}
         in the web platform team. Since July 2019, I have been part of the core
         team, working on things that help other developers in their work such
-        as: development toolings, CIs, and monitoring tools. I also tinkered
-        around with build processes and maintained Tokopedia&apos;s web platform
+        as: development tools, CIs, and monitoring tools. I also tinkered around
+        with build processes and maintained Tokopedia&apos;s web platform
         monorepo that housed 20+ services and 30+ reusable packages to which 80+
         developers were contributing daily.
       </Paragraph>
       <Paragraph>
-        Before moving to the core team, I was part of the mobile web team. My
-        day-to-day tasks included collaborating with backend engineers, product
-        owners and designers to ship features and products in a timely manner.
+        Before moving to the core team at Tokopedia, I was part of the mobile
+        web team. My day-to-day tasks included collaborating with backend
+        engineers, product owners and designers to ship features and products in
+        a timely manner.
       </Paragraph>
       <HorizontalDivider />
 
