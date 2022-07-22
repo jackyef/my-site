@@ -1,15 +1,17 @@
 import * as React from 'react';
 
-export const SkipSSR = ({
-  children,
-}: {
-  children: React.ReactElement;
-}): React.ReactElement | null => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const SkipSSR = ({ children }: Props) => {
   const [state, setState] = React.useState(false);
 
   React.useEffect(() => {
     setState(true);
   }, []);
 
-  return state ? children : null;
+  if (state) return <>{children}</>;
+
+  return null;
 };
