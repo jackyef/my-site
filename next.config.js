@@ -80,4 +80,8 @@ const conf = {
   },
 };
 
-module.exports = flowRight(withOffline, withBundleAnalyzer)(conf);
+module.exports = flowRight(
+  // Disabling this for now since it seems to interfere with partytown
+  // withOffline,
+  withBundleAnalyzer,
+)(conf);
