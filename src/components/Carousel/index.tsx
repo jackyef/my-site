@@ -7,7 +7,11 @@ const baseButtonStyles = {
   transition: `transform 0.2s ease-in, opacity 0.2s ease-in`,
 };
 
-const Carousel: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+const Carousel = ({ children }: Props) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const prevRef = React.useRef<HTMLButtonElement>(null);
   const nextRef = React.useRef<HTMLButtonElement>(null);

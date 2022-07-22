@@ -1,5 +1,6 @@
 interface Props {
   text: string;
+  children?: React.ReactNode;
 }
 
 export const TwitterShare: React.FC<Props> = ({ text, children }) => (

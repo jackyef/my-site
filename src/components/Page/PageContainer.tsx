@@ -4,7 +4,11 @@ import { SectionContainer } from '@/components/SectionContainer';
 
 import { Hero } from '../Hero';
 
-export const PageContainer: React.FC = ({ children }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const PageContainer = ({ children }: Props) => {
   const router = useRouter();
 
   return (

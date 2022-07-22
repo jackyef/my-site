@@ -3,7 +3,9 @@ import { Suspense } from 'react';
 
 import { IOWrapper } from '../IntersectionObserver/Wrapper';
 
-export const LazyFeedbackFish = dynamic(
+import type { FeedbackFishProps } from './index';
+
+export const LazyFeedbackFish = dynamic<FeedbackFishProps>(
   () => import(/* webpackChunkName: "feedbackfish-widget" */ './index'),
   {
     ssr: false,
@@ -15,7 +17,7 @@ interface Props {
   placeholder?: JSX.Element;
 }
 
-export const IOLazyFeedbackFish: React.FC<Props> = ({
+export const IOLazyFeedbackFish: React.FC<Props & FeedbackFishProps> = ({
   placeholder = <button>Got feedback?</button>,
   ...rest
 }) => (

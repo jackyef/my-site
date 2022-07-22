@@ -3,7 +3,7 @@ import { css } from 'goober';
 
 interface Props {
   hasError: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Container = ({ children, hasError }: Props) => {

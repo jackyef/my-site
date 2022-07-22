@@ -33,6 +33,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <>
       <Toaster />
       <CommandPaletteProvider>
+        {/* Suppress children prop error because of React 18 */}
+        {/* @ts-expect-error */}
         <QueryClientProvider client={queryClient}>
           <NavigationProvider>
             <ThemeProvider>

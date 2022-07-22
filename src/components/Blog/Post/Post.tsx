@@ -33,7 +33,7 @@ const useIsomorphicLayoutEffect =
 
 interface Props {
   meta: PostMeta;
-  children: React.ReactChildren;
+  children?: React.ReactNode;
   posts: {
     title: string;
     link: string;
