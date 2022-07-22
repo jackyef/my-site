@@ -60,7 +60,7 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                           <dt className="sr-only">Published on</dt>
                           <dd className="text-xs leading-6 font text-theme-subtitle">
                             <time dateTime={meta.date}>
-                              <SkipSSR>
+                              <SkipSSR fallback={meta.date}>
                                 {postDateTemplate.render(new Date(meta.date))}
                               </SkipSSR>
                             </time>

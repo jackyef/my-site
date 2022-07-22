@@ -19,12 +19,12 @@ const conf = {
   workboxOpts: {
     swDest: 'static/service-worker.js',
     exclude: [
-      /middleware-manifest.json/,
+      /middleware-manifest\.js/,
 
       // These files don't exist with Next, even though react-loadable is used under the hood
       // we don't care about precaching them
-      /build-manifest.json/,
-      /react-loadable-manifest.json/,
+      /build-manifest\.js/,
+      /react-loadable-manifest\.js/,
     ],
 
     runtimeCaching: [

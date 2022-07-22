@@ -38,12 +38,12 @@ export const PostHeader = ({ meta }: Props) => {
                   <dt>Published on</dt>
                   <dd>
                     <time className="block md:hidden" dateTime={meta.date}>
-                      <SkipSSR>
+                      <SkipSSR fallback={meta.date}>
                         {postDateTemplate.render(new Date(meta.date))}
                       </SkipSSR>
                     </time>
                     <time className="hidden md:block" dateTime={meta.date}>
-                      <SkipSSR>
+                      <SkipSSR fallback={meta.date}>
                         {postDateTemplateXl.render(new Date(meta.date))}
                       </SkipSSR>
                     </time>
