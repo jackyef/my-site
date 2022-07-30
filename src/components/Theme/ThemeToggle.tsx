@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
+import { SkipSSR } from '../SkipSSR';
+
 import { ThemeContext } from './ThemeProvider';
 
 export const ThemeToggle: React.FC = () => {
@@ -23,7 +25,7 @@ export const ThemeToggle: React.FC = () => {
           });
         }}
       >
-        {theme !== 'dark' ? '☀️' : '🌙'}
+        <SkipSSR fallback="🌐">{theme !== 'dark' ? '☀️' : '🌙'}</SkipSSR>
       </button>
     </>
   );
