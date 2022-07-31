@@ -44,7 +44,7 @@ export const LinkPreview = ({ href }: Props) => {
     animation-fill-mode: both;
 
     & > img {
-      border-radius: 4px;
+      border-radius: 8px;
       max-height: 200px;
       object-fit: contain;
       width: 100%;
