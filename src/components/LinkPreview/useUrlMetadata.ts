@@ -17,11 +17,17 @@ type UrlMetadata = {
 export const useUrlMetadata = (url: string) => {
   const apiUrl = `/api/og?url=${encodeURIComponent(url)}`;
 
-  return useQuery(apiUrl, () => {
-    return fetch(apiUrl)
-      .then((res) => res.json())
-      .then((json) => {
-        return json.metadata as UrlMetadata;
-      });
-  });
+  return useQuery(
+    apiUrl,
+    () => {
+      return fetch(apiUrl)
+        .then((res) => res.json())
+        .then((json) => {
+          return json.metadata as UrlMetadata;
+        });
+    },
+    {
+      staleTime: Infinity, // Never stale, so always get data from cache
+    },
+  );
 };

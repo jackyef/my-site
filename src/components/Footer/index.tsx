@@ -166,13 +166,13 @@ export const Footer = () => {
                       return (
                         <li key={link.href}>
                           <Wrapper {...wrapperProps}>
-                            <ExternalLink
+                            <a
                               href={link.href}
                               rel={link.rel}
                               className="hover:text-theme-text"
                             >
                               {link.label}
-                            </ExternalLink>
+                            </a>
                           </Wrapper>
                         </li>
                       );
