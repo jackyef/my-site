@@ -1,6 +1,4 @@
-import clsx from 'clsx';
-import { css } from 'goober';
-import { useState } from 'react';
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 import { LinkPreview } from '../LinkPreview';
 
@@ -9,7 +7,7 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   children?: React.ReactNode;
-  previewOnHover?: boolean;
+  shouldShowPreviewOnHover?: boolean;
 }
 
 export const ExternalLink: React.FC<Props> = ({
@@ -17,41 +15,42 @@ export const ExternalLink: React.FC<Props> = ({
   className = `fancy-anchor`,
   onClick,
   children,
-  previewOnHover = true,
+  shouldShowPreviewOnHover = false,
 }) => {
-  const [isShowingPreview, setIsShowingPreview] = useState(false);
-
-  const handleHover = async () => {
-    if (!previewOnHover) return;
-
-    setIsShowingPreview(true);
-  };
-
-  const handleLeave = () => {
-    if (!previewOnHover) return;
-
-    setIsShowingPreview(false);
-  };
+  if (!shouldShowPreviewOnHover) {
+    return (
+      <a
+        className={className}
+        href={href}
+        onClick={onClick}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
-    <a
-      onMouseOver={handleHover}
-      onMouseLeave={handleLeave}
-      className={clsx(
-        className,
-        previewOnHover
-          ? css`
-              position: relative;
-            `
-          : '',
-      )}
-      href={href}
-      onClick={onClick}
-      target="_blank"
-      rel="noreferrer"
-    >
-      {children}
-      {isShowingPreview && <LinkPreview href={href} />}
-    </a>
+    <Tooltip.Provider delayDuration={300} skipDelayDuration={200}>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <a
+            className={className}
+            href={href}
+            onClick={onClick}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {children}
+          </a>
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content>
+            <LinkPreview href={href} />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   );
 };

@@ -24,7 +24,7 @@ const TechnologyAnchors = () => {
         return (
           <Fragment key={name}>
             {prefix}
-            <ExternalLink key={name} href={href}>
+            <ExternalLink key={name} href={href} shouldShowPreviewOnHover>
               {name}
             </ExternalLink>
             {suffix}

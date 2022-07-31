@@ -57,7 +57,7 @@ const Carousel = ({ children }: Props) => {
   }, []);
 
   return (
-    <section className="relative overflow-x-hidden md:overflow-x-visible">
+    <section className="relative overflow-x-hidden md:overflow-x-visible isolate">
       <button
         className={`${baseButtonClasses} transform scale-0`}
         style={{

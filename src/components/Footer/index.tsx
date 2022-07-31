@@ -6,6 +6,7 @@ import Link, { LinkProps } from 'next/link';
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 
 import { SectionContainer } from '../SectionContainer';
+import { ExternalLink } from '../Typography/ExternalLink';
 
 type FooterLink = {
   label: string;
@@ -165,13 +166,13 @@ export const Footer = () => {
                       return (
                         <li key={link.href}>
                           <Wrapper {...wrapperProps}>
-                            <a
+                            <ExternalLink
                               href={link.href}
                               rel={link.rel}
                               className="hover:text-theme-text"
                             >
                               {link.label}
-                            </a>
+                            </ExternalLink>
                           </Wrapper>
                         </li>
                       );

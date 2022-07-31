@@ -22,6 +22,6 @@ export const useUrlMetadata = (url: string) => {
       .then((res) => res.json())
       .then((json) => {
         return json.metadata as UrlMetadata;
-      })
+      });
   });
 };
