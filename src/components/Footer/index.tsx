@@ -6,7 +6,6 @@ import Link, { LinkProps } from 'next/link';
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 
 import { SectionContainer } from '../SectionContainer';
-import { ExternalLink } from '../Typography/ExternalLink';
 
 type FooterLink = {
   label: string;
