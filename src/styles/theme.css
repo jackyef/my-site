@@ -3,10 +3,10 @@
 
   --color-bg: hsla(var(--h-bg) var(--s-bg) var(--l-bg) / var(--bg-opacity));
   --color-bg-offset: hsla(var(--h-bg-offset) var(--s-bg-offset) var(--l-bg-offset) / var(--bg-opacity));
-  --color-heading: rgba(var(--rgb-heading), var(--bg-opacity));
-  --color-text: rgba(var(--rgb-text), var(--bg-opacity));
-  --color-subtitle: rgba(var(--rgb-subtitle), var(--bg-opacity));
-  --color-link: rgba(var(--rgb-link), var(--bg-opacity));
+  --color-heading: hsla(var(--h-heading) var(--s-heading) var(--l-heading) / var(--bg-opacity));
+  --color-text: hsla(var(--h-text) var(--s-text) var(--l-text) / var(--bg-opacity));
+  --color-subtitle: hsla(var(--h-subtitle) var(--s-subtitle) var(--l-subtitle) / var(--bg-opacity));
+  --color-link: hsla(var(--h-link) var(--s-link) var(--l-link) / var(--bg-opacity));
 
   --transition-default: 0.5s;
   --transition-faster: 0.25s;
@@ -50,15 +50,30 @@
   --s-bg-offset: 0%;
   --l-bg-offset: 91.8%;
 
-  --rgb-primary: 80, 180, 180;
-  --rgb-secondary: 218, 130, 255;
-  --rgb-tertiary: 255, 219, 130;
+  --h-heading: 204deg;
+  --s-heading: 4.3%;
+  --l-heading: 22.5%;
 
-  --rgb-info: 220, 249, 255;
-  --rgb-warning: 236, 239, 9;
+  --h-text: 220deg;
+  --s-text: 35.3%;
+  --l-text: 13.3%;
 
-  --rgb-bg: 244, 244, 244;
-  --rgb-bg-offset: 234, 234, 234;
+  --h-subtitle: 220deg;
+  --s-subtitle: 8.9%;
+  --l-subtitle: 46.1%;
+
+  --h-link: 162deg;
+  --s-link: 100%;
+  --l-link: 26.5%;
+
+  --h-link-highlight: 162deg;
+  --s-link-highlight: 100%;
+  --l-link-highlight: 75.5%;
+
+  --h-outline: 186deg;
+  --s-outline: 94%;
+  --l-outline: 26.1%;
+
   --rgb-heading: 55, 58, 60;
   --rgb-text: 22, 30, 46;
   --rgb-subtitle: 107, 114, 128;
@@ -66,11 +81,10 @@
   --rgb-link-highlight: 130, 255, 218;
   --rgb-outline: 4, 116, 129;
 
-  --color-link-highlight: rgba(var(--rgb-link-highlight), 0.25);
-  --color-outline: rgba(var(--rgb-outline), 0.7);
+  --color-link-highlight: hsla(var(--h-link-highlight) var(--s-link-highlight) var(--l-link-highlight) / 0.25);
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
   --color-scrollbar: #cacaca;
 
-  --color-warning: hsl(var(--h-warning) var(--s-warning) var(--l-warning));
   --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
   
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -118,27 +132,34 @@
   --s-bg-offset: 21.5%;
   --l-bg-offset: 15.5%;
 
-  --rgb-primary: 84, 180, 193;
-  --rgb-secondary: 193, 84, 180;
-  --rgb-tertiary: 180, 193, 84;
+  --h-heading: 0deg;
+  --s-heading: 0%;
+  --l-heading: 96.9%;
 
-  --rgb-info: 15, 41, 64;
-  --rgb-warning: 93, 94, 33;
+  --h-text: 216deg;
+  --s-text: 12.2%;
+  --l-text: 83.9%;
 
-  --rgb-bg: 17, 24, 32;
-  --rgb-bg-offset: 31, 41, 48;
-  --rgb-heading: 247, 247, 247;
-  --rgb-text: 209, 213, 219;
-  --rgb-subtitle: 148, 163, 184;
-  --rgb-link: 84, 180, 193;
-  --rgb-link-highlight: var(--rgb-link);
-  --rgb-outline: var(--rgb-link);
+  --h-subtitle: 215deg;
+  --s-subtitle: 20.2%;
+  --l-subtitle: 65.1%;
 
-  --color-link-highlight: rgba(var(--rgb-link-highlight), 0.25);
-  --color-outline: rgba(var(--rgb-outline), 1);
+  --h-link: 187deg;
+  --s-link: 46.8%;
+  --l-link: 54.3%;
+
+  --h-link-highlight: 187deg;
+  --s-link-highlight: 46.8%;
+  --l-link-highlight: 54.3%;
+
+  --h-outline: 187deg;
+  --s-outline: 46.8%;
+  --l-outline: 54.3%;
+
+  --color-link-highlight: hsla(var(--h-link-highlight) var(--s-link-highlight) var(--l-link-highlight) / 0.25);
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 1);
   --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
 
-  --color-warning: hsla(var(--h-warning) var(--s-warning) var(--l-warning) / var(--bg-opacity));
   --color-info: hsla(var(--h-info) var(--s-info) var(--l-info) / var(--bg-opacity));
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),

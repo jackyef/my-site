@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { css, keyframes } from 'goober';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 import { HorizontalDivider } from '../Divider';
 
 import { useUrlMetadata } from './useUrlMetadata';
@@ -33,7 +35,7 @@ export const LinkPreview = ({ href }: Props) => {
     max-width: 100%;
     margin: 0 auto;
     border-radius: 16px;
-    background-color: var(--color-bg-offset);
+    background-color: ${getHslaColor('bg-offset')};
     box-shadow: var(--shadow-md);
     padding: 12px;
     transform-origin: var(--radix-tooltip-content-transform-origin);

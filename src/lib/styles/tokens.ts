@@ -38,6 +38,35 @@ export const colors = {
     s: varString('s-bg-offset'),
     l: varString('l-bg-offset'),
   },
+
+  // Text-related colors
+  text: {
+    h: varString('h-text'),
+    s: varString('s-text'),
+    l: varString('l-text'),
+  },
+  heading: {
+    h: varString('h-heading'),
+    s: varString('s-heading'),
+    l: varString('l-heading'),
+  },
+  subtitle: {
+    h: varString('h-subtitle'),
+    s: varString('s-subtitle'),
+    l: varString('l-subtitle'),
+  },
+  link: {
+    h: varString('h-link'),
+    s: varString('s-link'),
+    l: varString('l-link'),
+  },
+
+  // Other colors
+  outline: {
+    h: varString('h-outline'),
+    s: varString('s-outline'),
+    l: varString('l-outline'),
+  },
 } as const;
 
 export type HSLColor = keyof typeof colors;

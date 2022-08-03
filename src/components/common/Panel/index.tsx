@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 interface Props {
   type: 'warning' | 'info'; //  | 'error' | 'success';
   title: string;
@@ -7,8 +9,8 @@ interface Props {
 }
 
 const bgMap = {
-  warning: 'bg-theme-warning',
-  info: 'bg-theme-info',
+  warning: getHslaColor('warning'),
+  info: getHslaColor('info'),
   // error: 'bg-yellow-500',
   // success: 'bg-yellow-500',
 };

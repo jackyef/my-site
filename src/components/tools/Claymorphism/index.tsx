@@ -4,6 +4,7 @@ import { useState } from 'react';
 import copy from 'clipboard-copy';
 
 import { toast } from '@/lib/toast';
+import { getHslaColor } from '@/lib/styles/colors';
 
 import { useClayCss } from './useClayCss';
 
@@ -28,7 +29,7 @@ export const ClaymorphismTools = () => {
   const containerClass = css`
     margin: 0 auto;
     width: clamp(150px, 80vw, 400px);
-    background: var(--color-bg-offset);
+    background: ${getHslaColor('bg-offset')};
   `;
 
   const { boxShadowCss, highlightedCode } = useClayCss({
