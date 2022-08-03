@@ -59,6 +59,7 @@ export const PostHeader = ({ meta }: Props) => {
                         <InternalLink
                           className="hover:underline"
                           href={`/blog?tags=${tag}`}
+                          isNotFancy
                         >
                           {tag}
                         </InternalLink>

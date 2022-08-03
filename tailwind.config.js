@@ -134,7 +134,6 @@ module.exports = {
           text: 'var(--color-text)',
           heading: 'var(--color-heading)',
           subtitle: 'var(--color-subtitle)',
-          link: 'var(--color-link)',
           background: 'var(--color-bg)',
           backgroundOffset: 'var(--color-bg-offset)',
           info: 'var(--color-info)',
@@ -171,7 +170,7 @@ module.exports = {
               color: theme('colors.theme.text'),
             },
             a: {
-              color: theme('colors.theme.link'),
+              color: theme('colors.theme.secondary'),
               textDecoration: 'none',
               fontWeight: '400',
               '&:hover': {
@@ -179,7 +178,7 @@ module.exports = {
               },
             },
             'a code': {
-              color: theme('colors.theme.link'),
+              color: theme('colors.theme.secondary'),
               textDecoration: 'none',
               fontWeight: '400',
               '&:hover': {

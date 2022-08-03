@@ -33,6 +33,7 @@ export const ProjectCard = ({
             <ExternalLink
               className="text-gray-50 hover:text-gray-200"
               href={url}
+              isNotFancy
             >
               {name}
             </ExternalLink>{' '}
@@ -42,6 +43,7 @@ export const ProjectCard = ({
               <ExternalLink
                 className="text-gray-50 hover:text-gray-200"
                 href={repo}
+                isNotFancy
               >
                 Repository &rarr;
               </ExternalLink>

@@ -2,7 +2,6 @@ import { useLayoutEffect, useEffect, Suspense } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
-import { MDXProvider } from '@mdx-js/react';
 
 import { PostMeta } from '@/blog/getAllPostPreviews';
 import { InternalLink } from '@/components/Typography/InternalLink';
@@ -11,20 +10,9 @@ import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 import { useShouldAnimateNavigation } from '@/contexts/navigation';
+import { MDXProvider } from '@/components/common/MDX';
 
 import { PostHeader } from './PostHeader';
-
-const mdxComponents = {
-  pre: ({ className, ...props }: any) => (
-    <pre
-      className={`${className} rounded-md bg-gray-800 py-3 px-4 overflow-x-auto`}
-      {...props}
-    />
-  ),
-  'pre.code': ({ className, ...props }: any) => (
-    <code className={`${className} text-gray-200`} {...props} />
-  ),
-};
 
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
@@ -85,7 +73,7 @@ export default function Post({ meta, children, posts }: Props) {
       <div className="pb-16 xl:pb-20">
         <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
           <div className="prose max-w-none pb-8">
-            <MDXProvider components={mdxComponents}>{children}</MDXProvider>
+            <MDXProvider>{children}</MDXProvider>
           </div>
 
           <HorizontalDivider />

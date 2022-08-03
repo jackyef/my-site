@@ -18,10 +18,10 @@ export const LanguageSwitcher = ({
 }: Props) => {
   const baseButton = css`
     padding: 0.5rem 0.6rem;
-    color: rgba(var(--rgb-text), 0.6);
+    color: ${getHslaColor('text', 0.6)};
     width: 8rem;
     border-style: solid;
-    border-color: rgba(var(--rgb-text), 0.3);
+    border-color: ${getHslaColor('text', 0.3)};
     border-top-width: 2px;
     border-bottom-width: 2px;
     transition: opacity var(--transition-faster), color var(--transition-faster),

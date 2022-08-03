@@ -105,6 +105,7 @@ export const LandingHero = () => {
                 label: 'More about me &arr;',
               });
             }}
+            isNotFancy
           >
             More about me &rarr;
           </InternalLink>

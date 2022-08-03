@@ -142,6 +142,7 @@ export default function Header() {
                     label: 'blog',
                   });
                 }}
+                isNotFancy
               >
                 Blog
               </InternalLink>

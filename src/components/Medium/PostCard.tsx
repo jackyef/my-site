@@ -40,6 +40,7 @@ const MediumPostCard = ({
             <ExternalLink
               className="text-gray-50 hover:text-gray-200"
               href={url}
+              isNotFancy
             >
               {title}
             </ExternalLink>{' '}

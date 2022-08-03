@@ -2,7 +2,7 @@ import { css } from 'goober';
 import clsx from 'clsx';
 import React from 'react';
 
-import { getHslString } from '@/lib/styles/colors';
+import { getHslaColor, getHslString } from '@/lib/styles/colors';
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   isEnabled: boolean;
 }
@@ -29,12 +29,12 @@ export const Button = ({ isEnabled, ...props }: Props) => {
 
       & > svg {
         transition: var(--transition-faster);
-        fill: rgba(var(--rgb-text), 1);
+        fill: ${getHslaColor('text')};
       }
     }
 
     & > svg {
-      fill: rgba(var(--rgb-text), 0.9);
+      fill: ${getHslaColor('text', 0.9)};
     }
   `;
 

@@ -1,3 +1,8 @@
+import clsx from 'clsx';
+import { css } from 'goober';
+
+import { getHslaColor } from '@/lib/styles/colors';
+
 const INDETERMINATE_BAR_WIDTH = 30;
 
 interface Props {
@@ -39,9 +44,15 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
             : `${INDETERMINATE_BAR_WIDTH}%`,
           willChange: 'width, transform',
         }}
-        className={`progressBar ${
-          indeterminate ? 'indeterminate' : ''
-        } shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-theme-link`}
+        className={clsx(
+          `progressBar shadow-none flex flex-col`,
+          `text-center whitespace-nowrap text-white`,
+          `justify-center`,
+          indeterminate,
+          css`
+            background: ${getHslaColor('primary')};
+          `,
+        )}
       />
       <style jsx>{`
         @keyframes shuffling {

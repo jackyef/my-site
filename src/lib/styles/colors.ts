@@ -25,7 +25,7 @@ type Adjustments = {
 
 export const rotateHue = (hue: HueToken, amount: number) => {
   if (amount < 0) {
-    return `calc(${hue} - ${amount}deg)` as const;
+    return `calc(${hue} - ${Math.abs(amount)}deg)` as const;
   }
 
   return `calc(${hue} + ${amount}deg)` as const;
@@ -38,7 +38,7 @@ const adjustPercentageBasedValues = <
   amount: number,
 ) => {
   if (amount < 0) {
-    return `calc(${value} - ${amount}%)` as const;
+    return `calc(${value} - ${Math.abs(amount)}%)` as const;
   }
 
   return `calc(${value} + ${amount}%)` as const;
