@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { css } from 'goober';
 import { useRouter } from 'next/router';
 
+import { getHslaColor, getHslString } from '@/lib/styles/colors';
+
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
 import { ExternalLink } from '../Typography/ExternalLink';
@@ -12,7 +14,7 @@ export const LandingHero = () => {
   const router = useRouter();
   const container = css`
     --bg-opacity: 0.4;
-    background: rgba(var(--rgb-bg), var(--bg-opacity));
+    background: hsla(${getHslString('bg')} / var(--bg-opacity));
     backdrop-filter: contrast(105%) saturate(120%) blur(8px);
     z-index: 3;
     transition: background var(--transition-default),
@@ -41,9 +43,9 @@ export const LandingHero = () => {
   const ctaButton = css`
     background-image: linear-gradient(
       70deg,
-      rgba(var(--rgb-primary), 0.4),
-      rgba(var(--rgb-secondary), 0.4),
-      rgba(var(--rgb-primary), 0.3)
+      ${getHslaColor('primary', 0.4)},
+      ${getHslaColor('secondary', 0.4)},
+      ${getHslaColor('primary', 0.3)}
     );
   `;
 

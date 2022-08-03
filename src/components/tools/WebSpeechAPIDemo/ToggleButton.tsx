@@ -3,6 +3,8 @@ import StopIcon from '@heroicons/react/solid/StopIcon';
 import PlayIcon from '@heroicons/react/solid/PlayIcon';
 import { css } from 'goober';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 import { Button } from './Button';
 
 const MAX_RIPPLE_SCALE = 2;
@@ -105,7 +107,7 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
               inset: 0;
               border-radius: 50%;
               border: 2px solid;
-              border-color: rgba(var(--rgb-secondary), 0.6);
+              border-color: ${getHslaColor('secondary', 0.6)};
               transform: scale(${getRippleScale(volume / 100)});
               transition: transform 50ms;
             `}

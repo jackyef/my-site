@@ -1,8 +1,8 @@
 :root {
   --bg-opacity: 1;
 
-  --color-bg: rgba(var(--rgb-bg), var(--bg-opacity));
-  --color-bg-offset: rgba(var(--rgb-bg-offset), var(--bg-opacity));
+  --color-bg: hsla(var(--h-bg) var(--s-bg) var(--l-bg) / var(--bg-opacity));
+  --color-bg-offset: hsla(var(--h-bg-offset) var(--s-bg-offset) var(--l-bg-offset) / var(--bg-opacity));
   --color-heading: rgba(var(--rgb-heading), var(--bg-opacity));
   --color-text: rgba(var(--rgb-text), var(--bg-opacity));
   --color-subtitle: rgba(var(--rgb-subtitle), var(--bg-opacity));
@@ -30,6 +30,26 @@
   --s-secondary: 100%;
   --l-secondary: 75%;
 
+  --h-tertiary: 43deg;
+  --s-tertiary: 100%;
+  --l-tertiary: 75%;
+
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
+
+  --h-warning: 61deg;
+  --s-warning: 91%;
+  --l-warning: 49%;
+
+  --h-bg: 0deg;
+  --s-bg: 0%;
+  --l-bg: 95.7%;
+
+  --h-bg-offset: 0deg;
+  --s-bg-offset: 0%;
+  --l-bg-offset: 91.8%;
+
   --rgb-primary: 80, 180, 180;
   --rgb-secondary: 218, 130, 255;
   --rgb-tertiary: 255, 219, 130;
@@ -50,9 +70,9 @@
   --color-outline: rgba(var(--rgb-outline), 0.7);
   --color-scrollbar: #cacaca;
 
-  --color-warning: rgb(var(--rgb-warning));
-  --color-info: rgb(var(--rgb-info));
-
+  --color-warning: hsl(var(--h-warning) var(--s-warning) var(--l-warning));
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
+  
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -78,6 +98,26 @@
   --s-secondary: 47%;
   --l-secondary: 54.1%;
 
+  --h-tertiary: 67deg;
+  --s-tertiary: 46.8%;
+  --l-tertiary: 54.3%;
+
+  --h-info: 208deg;
+  --s-info: 62%;
+  --l-info: 15.5%;
+
+  --h-warning: 61deg;
+  --s-warning: 48%;
+  --l-warning: 24.9%;
+
+  --h-bg: 212deg;
+  --s-bg: 30.6%;
+  --l-bg: 9.6%;
+
+  --h-bg-offset: 205deg;
+  --s-bg-offset: 21.5%;
+  --l-bg-offset: 15.5%;
+
   --rgb-primary: 84, 180, 193;
   --rgb-secondary: 193, 84, 180;
   --rgb-tertiary: 180, 193, 84;
@@ -98,8 +138,8 @@
   --color-outline: rgba(var(--rgb-outline), 1);
   --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
 
-  --color-warning: rgba(var(--rgb-warning), var(--bg-opacity));
-  --color-info: rgba(var(--rgb-info), var(--bg-opacity));
+  --color-warning: hsla(var(--h-warning) var(--s-warning) var(--l-warning) / var(--bg-opacity));
+  --color-info: hsla(var(--h-info) var(--s-info) var(--l-info) / var(--bg-opacity));
 
   --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
     0 2px 4px -1px rgba(255, 255, 255, 0.06);

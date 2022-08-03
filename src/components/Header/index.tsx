@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'goober';
 
 import { SectionContainer } from '@/components/SectionContainer';
+import { getHslString } from '@/lib/styles/colors';
 
 import { usePwaInstall } from '@/hooks/usePwaInstall';
 
@@ -62,7 +63,7 @@ export default function Header() {
     --contrast-power: ${shouldBeMoreOpaque ? '105%' : '100%'};
     --blur-size: ${shouldBeMoreOpaque ? '8px' : '0px'};
 
-    background: rgba(var(--rgb-bg), var(--bg-opacity));
+    background: hsla(${getHslString('bg')} / var(--bg-opacity));
     backdrop-filter: contrast(var(--contrast-power))
       saturate(var(--saturate-power)) blur(var(--blur-size));
     z-index: 3;

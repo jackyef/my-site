@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { css } from 'goober';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 interface Props {
   hasError: boolean;
   children?: React.ReactNode;
@@ -8,9 +10,9 @@ interface Props {
 
 export const Container = ({ children, hasError }: Props) => {
   const errorContainerClass = css`
-    color: rgba(var(--rgb-secondary), 1);
-    background: rgba(var(--rgb-secondary), 0.1);
-    border-color: rgba(var(--rgb-secondary), 0.6) !important;
+    color: ${getHslaColor('secondary')};
+    background: ${getHslaColor('secondary', 0.1)};
+    border-color: ${getHslaColor('secondary', 0.6)} !important;
   `;
 
   return (

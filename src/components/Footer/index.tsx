@@ -4,6 +4,7 @@ import { css } from 'goober';
 import Link, { LinkProps } from 'next/link';
 
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
+import { getHslaColor } from '@/lib/styles/colors';
 
 import { SectionContainer } from '../SectionContainer';
 
@@ -81,22 +82,19 @@ const FOOTER_LINKS: FooterSection[] = [
 
 export const Footer = () => {
   const feedbackButton = css`
-    --text-lightness: calc(var(--l-primary) - 12%);
+    color: ${getHslaColor('primary', 1, { l: -12 })};
 
     [data-theme='dark'] & {
-      --text-lightness: var(--l-primary);
+      color: ${getHslaColor('primary')};
     }
 
-    color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
-    background: hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.1);
-    border-color: hsl(var(--h-primary) var(--s-primary) var(--l-primary));
+    background: ${getHslaColor('primary', 0.1)};
+    border-color: ${getHslaColor('primary')};
     border-radius: 0.5rem;
 
     &:hover,
     &:focus {
-      background: hsla(
-        var(--h-primary) var(--s-primary) var(--l-primary) / 0.08
-      );
+      background: ${getHslaColor('primary', 0.08)};
     }
   `;
 
@@ -109,7 +107,7 @@ export const Footer = () => {
         'border-t-2',
         'border-theme-backgroundOffset',
         css`
-          background-color: rgba(var(--rgb-bg-offset), 0.1);
+          background-color: ${getHslaColor('bg-offset', 0.1)};
         `,
       )}
     >

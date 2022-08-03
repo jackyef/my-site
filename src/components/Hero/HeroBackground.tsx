@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { css, keyframes } from 'goober';
 
+import { getHslString } from '@/lib/styles/colors';
+
 export const HeroBackground = () => {
   const fly = keyframes`
     100% {
@@ -56,7 +58,7 @@ export const HeroBackground = () => {
     border-radius: 100%;
     width: calc(var(--blob-scale) * 150%);
     height: calc(var(--blob-scale) * 150%);
-    background-color: rgb(var(--rgb-secondary));
+    background-color: hsl(${getHslString('secondary')});
     left: -20%;
     top: -45%;
     z-index: 3;
@@ -67,7 +69,7 @@ export const HeroBackground = () => {
   const two = css`
     width: calc(var(--blob-scale) * 125%);
     height: calc(var(--blob-scale) * 200%);
-    background-color: rgb(var(--rgb-primary));
+    background-color: hsl(${getHslString('primary')});
     bottom: -10%;
     left: -20%;
   `;
@@ -78,7 +80,7 @@ export const HeroBackground = () => {
   //   height: calc(var(--blob-scale) * 108%);
   //   bottom: -20%;
   //   right: -25%;
-  //   background-color: rgb(var(--rgb-tertiary));
+  //   background-color: hsl(${getHslString('tertiary')});
   //   animation: ${flyPlus} 8s linear infinite;
   //   transform: rotate(0) translate(100px) rotate(0);
   // `;

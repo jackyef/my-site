@@ -1,17 +1,18 @@
 import clsx from 'clsx';
 import { css } from 'goober';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 export const InfoBanner = () => {
   const container = css`
-    --text-lightness: calc(var(--l-primary) - 12%);
+    color: ${getHslaColor('primary', 1, { l: -12 })};
 
     [data-theme='dark'] & {
-      --text-lightness: var(--l-primary);
+      color: ${getHslaColor('primary')};
     }
 
-    color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
-    background: hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.04);
-    border-color: hsl(var(--h-primary) var(--s-primary) var(--l-primary));
+    background: ${getHslaColor('primary', 0.04)};
+    border-color: ${getHslaColor('primary')};
   `;
 
   return (
