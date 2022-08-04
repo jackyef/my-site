@@ -22,7 +22,7 @@ const MediumPostCard = ({
   return (
     <>
       <div
-        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm scroll-snap-align-start zoom-on-hover-container"
+        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-surface-2 whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm scroll-snap-align-start zoom-on-hover-container"
         style={{
           width: `calc(100% - 1rem * 2)`,
           scrollMargin: isFirst ? `0px 1rem` : undefined,

@@ -24,7 +24,7 @@ export const Container = ({ children, hasError }: Props) => {
         'p-8',
         'rounded-2xl',
         'border-2',
-        'border-theme-backgroundOffset',
+        'border-surface-0',
         {
           [errorContainerClass]: hasError,
         },

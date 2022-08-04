@@ -31,7 +31,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
       <div
         className={clsx(
           'border',
-          'border-theme-backgroundOffset',
+          'border-surface-3',
           'rounded-lg',
           'max-w-full',
           'w-[720px]',

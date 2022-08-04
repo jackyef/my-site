@@ -2,19 +2,15 @@
   --bg-opacity: 1;
 
   --color-bg: hsla(var(--h-bg) var(--s-bg) var(--l-bg) / var(--bg-opacity));
-  --color-bg-offset: hsla(var(--h-bg-offset) var(--s-bg-offset) var(--l-bg-offset) / var(--bg-opacity));
   --color-heading: hsla(var(--h-heading) var(--s-heading) var(--l-heading) / var(--bg-opacity));
   --color-text: hsla(var(--h-text) var(--s-text) var(--l-text) / var(--bg-opacity));
   --color-subtitle: hsla(var(--h-subtitle) var(--s-subtitle) var(--l-subtitle) / var(--bg-opacity));
-
+  
   --transition-default: 0.5s;
   --transition-faster: 0.25s;
-
+  
   --shadow-color: rgba(0, 0, 0, 0.1);
-
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-  0 2px 4px -1px rgba(0, 0, 0, 0.06);
-
+  
   --navbar-height: 75px;
 }
 
@@ -25,7 +21,6 @@
   /* prettier-ignore */
   --theme:default;
 
-  /* TODO: Consider updating all other colors to hsl as well for better adjustments */
   --h-primary: 180deg;
   --s-primary: 40%;
   --l-primary: 51%;
@@ -49,10 +44,6 @@
   --h-bg: 0deg;
   --s-bg: 0%;
   --l-bg: 95.7%;
-
-  --h-bg-offset: 0deg;
-  --s-bg-offset: 0%;
-  --l-bg-offset: 91.8%;
 
   --h-heading: 204deg;
   --s-heading: 4.3%;
@@ -78,6 +69,7 @@
   --focus-outline: 0 0 0 3px var(--color-outline);
 
   --border-dark-only: 2px solid transparent;
+  --scroll-gutter: hsl(0deg 0% 91.8%);
 
   --filter-invert: '';
 
@@ -113,10 +105,6 @@
   --s-bg: 30.6%;
   --l-bg: 9.6%;
 
-  --h-bg-offset: 205deg;
-  --s-bg-offset: 21.5%;
-  --l-bg-offset: 15.5%;
-
   --h-heading: 0deg;
   --s-heading: 0%;
   --l-heading: 96.9%;
@@ -140,7 +128,8 @@
 
   --focus-outline: 0 0 0 3px var(--color-outline);
 
-  --border-dark-only: 2px solid var(--color-bg-offset);
+  --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
+  --scroll-gutter: hsl(205deg 21.5% 15.5%);
 
   --filter-invert: invert(1);
 
@@ -151,6 +140,131 @@
 [data-theme='dark'] .monochrome-img {
   filter: var(--filter-invert);
 }
+
+[data-theme='purple-and-gold'] {
+  /* prettier-ignore */
+  --theme:purple-and-gold;
+
+  --h-primary: 272deg;
+  --s-primary: 81%;
+  --l-primary: 82%;
+
+  --h-secondary: 42deg;
+  --s-secondary: 98%;
+  --l-secondary: 56%;
+
+  --h-tertiary: 37deg;
+  --s-tertiary: 9%;
+  --l-tertiary: 81%;
+
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
+
+  --h-warning: 58deg;
+  --s-warning: 100%;
+  --l-warning: 52%;
+
+  --h-bg: 257deg;
+  --s-bg: 22%;
+  --l-bg: 94%;
+
+  --h-heading: 204deg;
+  --s-heading: 4.3%;
+  --l-heading: 22.5%;
+
+  --h-text: 220deg;
+  --s-text: 35.3%;
+  --l-text: 13.3%;
+
+  --h-subtitle: 220deg;
+  --s-subtitle: 8.9%;
+  --l-subtitle: 46.1%;
+
+  --h-outline: var(--h-primary);
+  --s-outline: var(--s-primary);
+  --l-outline: var(--l-primary);
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
+  --color-scrollbar: #cacaca;
+
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
+
+  --focus-outline: 0 0 0 3px var(--color-outline);
+
+  --border-dark-only: 2px solid transparent;
+  --scroll-gutter: hsl(0deg 0% 91.8%);
+
+  --filter-invert: '';
+
+  --hide-in-light-mode: 0;
+  --hide-in-dark-mode: 1;
+}
+
+[data-theme='ikea'] {
+  /* prettier-ignore */
+  --theme:ikea;
+
+  --h-primary: 54deg;
+  --s-primary: 67%;
+  --l-primary: 70%;
+
+  --h-secondary: 215deg;
+  --s-secondary: 90%;
+  --l-secondary: 80%;
+
+  --h-tertiary: 0deg;
+  --s-tertiary: 100%;
+  --l-tertiary: 79%;
+
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
+
+  --h-warning: 48deg;
+  --s-warning: 100%;
+  --l-warning: 62%;
+
+  --h-bg: 219deg;
+  --s-bg: 38%;
+  --l-bg: 12%;
+
+  --h-heading: 204deg;
+  --s-heading: 10.3%;
+  --l-heading: 91.5%;
+
+  --h-text: 200deg;
+  --s-text: 30.3%;
+  --l-text: 90.3%;
+
+  --h-subtitle: 190deg;
+  --s-subtitle: 20.9%;
+  --l-subtitle: 80.1%;
+
+  --h-outline: var(--h-primary);
+  --s-outline: var(--s-primary);
+  --l-outline: var(--l-primary);
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
+  --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
+
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
+
+  --focus-outline: 0 0 0 3px var(--color-outline);
+
+  --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
+  --scroll-gutter: hsl(205deg 21.5% 15.5%);
+
+  --filter-invert: invert(1);
+
+  --hide-in-light-mode: 1;
+  --hide-in-dark-mode: 0;
+}
+
+[data-theme='ikea'] .monochrome-img {
+  filter: var(--filter-invert);
+}
+
 
 body {
   background: var(--color-bg);
@@ -231,7 +345,7 @@ a:focus {
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  background-color: var(--color-bg-offset);
+  background-color: var(--scroll-gutter);
 }
 
 ::-webkit-scrollbar-thumb {

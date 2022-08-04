@@ -33,11 +33,6 @@ export const colors = {
     s: varString('s-bg'),
     l: varString('l-bg'),
   },
-  // 'bg-offset': {
-  //   h: varString('h-bg-offset'),
-  //   s: varString('s-bg-offset'),
-  //   l: varString('l-bg-offset'),
-  // },
 
   // Text-related colors
   text: {

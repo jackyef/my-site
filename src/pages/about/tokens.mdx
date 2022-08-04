@@ -83,3 +83,28 @@ export const LightButton = ({
   );
 };
 ```
+
+## Other tokens
+
+Other tokens such as text size, spacing, etc. are following `tailwindcss`
+tokens.
+
+## Reasons for this approach
+
+I initially started working on this site and fully rely on `tailwindcss` for the
+styling part. After some time, I started realizing that because I treat my site
+as a personal playground to try various things, I tend to be very dynamic in
+making styles. While I can definitely update tailwind configuration to
+accomodate this use cases, there are problems with that approach.
+
+1. It's annoying to have to update `tailwind.config.js` everytime I need to do
+   this
+2. Using `tailwindcss`, we can support dark mode but not multiple themes at
+   once; this is something I plan to do in the future.
+3. The resulting `.css` is never codesplitted. This can result in big stylesheet
+   as I add more different styles.
+
+My current approach is to still rely on `tailwindcss` classes for most basic
+spacing and layout styles that aren't as dynamic as colors. For colors and other
+things that might be more dynamic, I derive them on runtime from a set of css
+variables.

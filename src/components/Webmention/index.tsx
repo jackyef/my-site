@@ -111,7 +111,7 @@ const WebmentionWidget = ({ url, meta }: Props) => {
                 return (
                   <div
                     key={discussion['wm-id']}
-                    className="p-4 md:p-6 rounded-lg shadow-md"
+                    className="p-4 md:p-6 rounded-lg shadow-surface-2"
                   >
                     <div className="flex flex-col space-y-2">
                       <div>

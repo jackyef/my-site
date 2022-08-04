@@ -81,7 +81,7 @@ export const KanbanBoard = () => {
   };
 
   return (
-    <div className="border-2 border-theme-backgroundOffset p-4 rounded-md">
+    <div className="border-2 border-surface-3 p-4 rounded-md">
       <div className="flex space-x-2 min-h-[300px] mb-4">
         <TaskColumn title="To-do" count={todos.length}>
           {todos.map((task) => (

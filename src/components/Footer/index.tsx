@@ -1,10 +1,8 @@
 import { Fragment } from 'react';
 import clsx from 'clsx';
-import { css } from 'goober';
 import Link, { LinkProps } from 'next/link';
 
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
-import { getHslaColor } from '@/lib/styles/colors';
 
 import { SectionContainer } from '../SectionContainer';
 import { LightButton } from '../common/Button/LightButton';
@@ -93,7 +91,7 @@ export const Footer = () => {
         'py-16',
         'mt-20',
         'border-t-2',
-        'border-theme-backgroundOffset',
+        'border-surface-0',
         'bg-surface-3',
       )}
     >
