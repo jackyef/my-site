@@ -6,7 +6,7 @@ export const useAnchorClassName = () => {
   return css`
     color: ${getHslaColor('primary', 1, { l: -12 })};
 
-    [data-theme='dark'] {
+    [data-theme='dark'] & {
       color: ${getHslaColor('primary')};
     }
 

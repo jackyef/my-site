@@ -143,6 +143,7 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme('colors.theme.text'),
+            a: false, // Override the link color as we'll use the one in defined in useAnchorClassNames()
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
@@ -169,14 +170,7 @@ module.exports = {
             strong: {
               color: theme('colors.theme.text'),
             },
-            a: {
-              color: theme('colors.theme.secondary'),
-              textDecoration: 'none',
-              fontWeight: '400',
-              '&:hover': {
-                color: theme('colors.theme.text'),
-              },
-            },
+
             'a code': {
               color: theme('colors.theme.secondary'),
               textDecoration: 'none',
