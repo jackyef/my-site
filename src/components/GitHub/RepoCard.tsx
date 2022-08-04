@@ -1,4 +1,7 @@
 import React from 'react';
+import clsx from 'clsx';
+
+import { getHslaColor } from '@/lib/styles/colors';
 
 import { Tag } from '../common/Tag';
 import { ExternalLink } from '../Typography/ExternalLink';
@@ -23,7 +26,23 @@ const GitHubRepoCard = ({
   return (
     <>
       <div
-        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-md whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start md:w-60 max-w-sm scroll-snap-align-start"
+        className={clsx(
+          'inline-block',
+          'relative',
+          'rounded-md',
+          'mx-2',
+          'mt-4',
+          'mb-0',
+          'whitespace-normal',
+          'align-top',
+          'last:mr-0',
+          'md:inline-flex',
+          'md:flex-col',
+          'md:self-start',
+          'md:content-start md:w-60 max-w-sm scroll-snap-align-start',
+          'bg-surface-2',
+          'shadow-surface-2',
+        )}
         style={{
           width: `calc(100% - 1rem * 2)`,
           scrollMargin: isFirst ? `0px 1rem` : undefined,

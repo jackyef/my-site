@@ -10,6 +10,11 @@
   --transition-default: 0.5s;
   --transition-faster: 0.25s;
 
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
   --navbar-height: 75px;
 }
 
@@ -69,9 +74,6 @@
   --color-scrollbar: #cacaca;
 
   --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
-  
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
   --focus-outline: 0 0 0 3px var(--color-outline);
 
@@ -135,9 +137,6 @@
   --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
 
   --color-info: hsla(var(--h-info) var(--s-info) var(--l-info) / var(--bg-opacity));
-
-  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
-    0 2px 4px -1px rgba(255, 255, 255, 0.06);
 
   --focus-outline: 0 0 0 3px var(--color-outline);
 
