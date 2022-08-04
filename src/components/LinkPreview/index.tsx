@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import { css, keyframes } from 'goober';
 
-import { getHslaColor } from '@/lib/styles/colors';
-
 import { HorizontalDivider } from '../Divider';
 
 import { useUrlMetadata } from './useUrlMetadata';

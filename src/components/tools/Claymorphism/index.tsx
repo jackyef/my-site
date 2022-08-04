@@ -4,7 +4,6 @@ import { useState } from 'react';
 import copy from 'clipboard-copy';
 
 import { toast } from '@/lib/toast';
-import { getHslaColor } from '@/lib/styles/colors';
 
 import { useClayCss } from './useClayCss';
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { getHslaColor } from '@/lib/styles/colors';
-
 import { Tag } from '../common/Tag';
 import { ExternalLink } from '../Typography/ExternalLink';
 
