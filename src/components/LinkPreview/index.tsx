@@ -35,8 +35,6 @@ export const LinkPreview = ({ href }: Props) => {
     max-width: 100%;
     margin: 0 auto;
     border-radius: 16px;
-    background-color: ${getHslaColor('bg-offset')};
-    box-shadow: var(--shadow-md);
     padding: 12px;
     transform-origin: var(--radix-tooltip-content-transform-origin);
     opacity: 0;
@@ -57,6 +55,7 @@ export const LinkPreview = ({ href }: Props) => {
     <span
       className={clsx(
         container,
+        'bg-surface-3 shadow-surface-3',
         'flex flex-col space-y-2',
         'text-sm font-normal',
       )}

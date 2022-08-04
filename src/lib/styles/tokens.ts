@@ -33,11 +33,11 @@ export const colors = {
     s: varString('s-bg'),
     l: varString('l-bg'),
   },
-  'bg-offset': {
-    h: varString('h-bg-offset'),
-    s: varString('s-bg-offset'),
-    l: varString('l-bg-offset'),
-  },
+  // 'bg-offset': {
+  //   h: varString('h-bg-offset'),
+  //   s: varString('s-bg-offset'),
+  //   l: varString('l-bg-offset'),
+  // },
 
   // Text-related colors
   text: {
@@ -54,11 +54,6 @@ export const colors = {
     h: varString('h-subtitle'),
     s: varString('s-subtitle'),
     l: varString('l-subtitle'),
-  },
-  link: {
-    h: varString('h-link'),
-    s: varString('s-link'),
-    l: varString('l-link'),
   },
 
   // Other colors

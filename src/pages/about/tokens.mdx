@@ -1,0 +1,85 @@
+import clsx from 'clsx';
+
+import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { jackyef } from '@/blog/authors';
+import { LightButton } from '@/components/common/Button/LightButton';
+import { Surfaces, Colors } from '@/components/DesignDemo';
+
+export const meta = {
+  title: `Tokens 🖌️`,
+  description: `Some design tokens I am using on this site.`,
+  date: '2022-08-04T03:36:40.989Z',
+  authors: [jackyef],
+  image: createOgImageUrl({
+    title: '**Design tokens** 🖌️',
+    fontSize: 112,
+  }),
+  readingTime: '3 min read',
+  tags: [],
+};
+
+<!--start-->
+
+This page shows some of the design tokens I am using here on this site.
+Specifically about the colors, I do not define color scales, but I do have some
+base colors from which I tweak to make custom components like buttons.
+
+<!--more-->
+
+## Surfaces
+
+There are 6 surfaces ranging from 0 to 5 which denotes how elevated that surface
+is. Since they do not need to be highly dynamic, they are defined in the
+`tailwind.config.js` file. Each surface ( `bg-surface-n`) is made to be paired
+with its shadow ( `shadow-surface-n`).
+
+Surface 1 is the _default_ surface, which is a surface that lies flat on the
+page, which means it does not have a shadow.
+
+<Surfaces />
+
+---
+
+## Colors
+
+Most colors used on this site is derived from the following base colors. Some
+hue rotation, saturation and lightness adjusting is done when needed to build a
+specific component.
+
+<Colors />
+
+As an example, consider the following buttons and the css used to build it.
+
+<div className={clsx('flex flex-wrap space-x-4')}>
+  <LightButton variant="primary">primary</LightButton>
+  <LightButton variant="secondary">secondary</LightButton>
+</div>
+
+```tsx
+export const LightButton = ({
+  variant = 'primary',
+  className,
+  ...props
+}: Props) => {
+  const base = css`
+    color: ${getHslaColor(variant, 1, { l: -12 })};
+
+    [data-theme='dark'] & {
+      color: ${getHslaColor(variant)};
+    }
+
+    background: ${getHslaColor(variant, 0.1)};
+    border-color: ${getHslaColor(variant)};
+    border-radius: 0.5rem;
+
+    &:hover,
+    &:focus {
+      background: ${getHslaColor(variant, 0.08)};
+    }
+  `;
+
+  return (
+    <button className={clsx(base, 'px-4', 'py-2', className)} {...props} />
+  );
+};
+```

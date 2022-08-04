@@ -29,7 +29,6 @@ export const ClaymorphismTools = () => {
   const containerClass = css`
     margin: 0 auto;
     width: clamp(150px, 80vw, 400px);
-    background: ${getHslaColor('bg-offset')};
   `;
 
   const { boxShadowCss, highlightedCode } = useClayCss({
@@ -65,6 +64,7 @@ export const ClaymorphismTools = () => {
         className={clsx(
           clayClass,
           containerClass,
+          'bg-surface-3',
           'p-8',
           'flex',
           'flex-col',

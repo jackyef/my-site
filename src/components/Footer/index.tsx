@@ -7,6 +7,7 @@ import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 import { getHslaColor } from '@/lib/styles/colors';
 
 import { SectionContainer } from '../SectionContainer';
+import { LightButton } from '../common/Button/LightButton';
 
 type FooterLink = {
   label: string;
@@ -51,6 +52,10 @@ const FOOTER_LINKS: FooterSection[] = [
         href: '/about',
       },
       {
+        label: 'Tokens',
+        href: '/about/tokens',
+      },
+      {
         label: 'Uses',
         href: '/uses',
       },
@@ -81,23 +86,6 @@ const FOOTER_LINKS: FooterSection[] = [
 ];
 
 export const Footer = () => {
-  const feedbackButton = css`
-    color: ${getHslaColor('primary', 1, { l: -12 })};
-
-    [data-theme='dark'] & {
-      color: ${getHslaColor('primary')};
-    }
-
-    background: ${getHslaColor('primary', 0.1)};
-    border-color: ${getHslaColor('primary')};
-    border-radius: 0.5rem;
-
-    &:hover,
-    &:focus {
-      background: ${getHslaColor('primary', 0.08)};
-    }
-  `;
-
   return (
     <footer
       className={clsx(
@@ -106,9 +94,7 @@ export const Footer = () => {
         'mt-20',
         'border-t-2',
         'border-theme-backgroundOffset',
-        css`
-          background-color: ${getHslaColor('bg-offset', 0.1)};
-        `,
+        'bg-surface-3',
       )}
     >
       <SectionContainer>
@@ -180,9 +166,7 @@ export const Footer = () => {
             })}
           </div>
           <IOLazyFeedbackFish>
-            <button className={clsx('px-4', 'py-2', feedbackButton)}>
-              Got feedback?
-            </button>
+            <LightButton>Got feedback?</LightButton>
           </IOLazyFeedbackFish>
         </div>
       </SectionContainer>

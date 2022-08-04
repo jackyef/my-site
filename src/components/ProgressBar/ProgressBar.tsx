@@ -28,7 +28,7 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
 
   return (
     <div
-      className="overflow-hidden h-2 text-xs flex w-full rounded bg-theme-background"
+      className="overflow-hidden h-2 text-xs flex w-full rounded bg-surface-1"
       role="progressbar"
       style={{
         // We are not transforming this element,

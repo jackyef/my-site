@@ -12,7 +12,7 @@ export const ResultBox = ({ children }: Props) => {
           'my-4',
           'h-[2px]',
           'w-full',
-          'bg-theme-backgroundOffset',
+          'bg-surface-3',
           'transition-colors',
           'duration-500',
         )}

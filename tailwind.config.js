@@ -120,7 +120,8 @@ module.exports = {
       boxShadow: {
         md: 'var(--shadow-md)',
         'surface-0': 'inset 0 5px 2px -1px var(--shadow-color)',
-        'surface-1': '0 5px 2px -1px var(--shadow-color)',
+        'surface-1': 'none',
+        // 'surface-2': '0 5px 2px -1px var(--shadow-color)',
         'surface-2': '0 6.6px 2.6px -1.3px var(--shadow-color)',
         'surface-3': '0 10px 4px -2px var(--shadow-color)',
         'surface-4': '0 13.3px 5.3px -2.7px var(--shadow-color)',
@@ -128,6 +129,7 @@ module.exports = {
       },
       backgroundColor: {
         surface: {
+          0: 'hsla(var(--h-bg) calc(var(--s-bg) - 1%) calc(var(--l-bg) - 1%) / 1)',
           1: 'hsla(var(--h-bg) var(--s-bg) var(--l-bg) / 1)',
           2: 'hsla(var(--h-bg) calc(var(--s-bg) + 1%) calc(var(--l-bg) + 1%) / 1)',
           3: 'hsla(var(--h-bg) calc(var(--s-bg) + 2%) calc(var(--l-bg) + 2%) / 1)',
