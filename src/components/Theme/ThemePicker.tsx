@@ -4,11 +4,7 @@ import XIcon from '@heroicons/react/solid/XIcon';
 import clsx from 'clsx';
 import { css } from 'goober';
 
-import {
-  constructHslString,
-  getHslaColor,
-  HSLObject,
-} from '@/lib/styles/colors';
+import { getHslaColor } from '@/lib/styles/colors';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
@@ -17,79 +13,47 @@ import { SectionTitle } from '../Typography/SectionTitle';
 import { ThemeContext, THEMES, Theme } from './ThemeProvider';
 
 const ThemeColors = ({ theme }: { theme: Theme }) => {
-  const [colors, setColors] = React.useState<{
-    primary: string;
-    secondary: string;
-    tertiary: string;
-    bg: string;
-    text: string;
-  }>();
-
-  React.useEffect(() => {
-    const dummyDiv = document.createElement('div');
-    dummyDiv.setAttribute('data-theme', theme);
-    document.body.appendChild(dummyDiv);
-
-    const primary = {
-      h: getComputedStyle(dummyDiv).getPropertyValue('--h-primary'),
-      s: getComputedStyle(dummyDiv).getPropertyValue('--s-primary'),
-      l: getComputedStyle(dummyDiv).getPropertyValue('--l-primary'),
-    } as HSLObject;
-    const secondary = {
-      h: getComputedStyle(dummyDiv).getPropertyValue('--h-secondary'),
-      s: getComputedStyle(dummyDiv).getPropertyValue('--s-secondary'),
-      l: getComputedStyle(dummyDiv).getPropertyValue('--l-secondary'),
-    } as HSLObject;
-    const tertiary = {
-      h: getComputedStyle(dummyDiv).getPropertyValue('--h-tertiary'),
-      s: getComputedStyle(dummyDiv).getPropertyValue('--s-tertiary'),
-      l: getComputedStyle(dummyDiv).getPropertyValue('--l-tertiary'),
-    } as HSLObject;
-    const bg = {
-      h: getComputedStyle(dummyDiv).getPropertyValue('--h-bg'),
-      s: getComputedStyle(dummyDiv).getPropertyValue('--s-bg'),
-      l: getComputedStyle(dummyDiv).getPropertyValue('--l-bg'),
-    } as HSLObject;
-    const text = {
-      h: getComputedStyle(dummyDiv).getPropertyValue('--h-text'),
-      s: getComputedStyle(dummyDiv).getPropertyValue('--s-text'),
-      l: getComputedStyle(dummyDiv).getPropertyValue('--l-text'),
-    } as HSLObject;
-
-    setColors({
-      primary: `hsl(${constructHslString(primary)})`,
-      secondary: `hsl(${constructHslString(secondary)})`,
-      tertiary: `hsl(${constructHslString(tertiary)})`,
-      bg: `hsl(${constructHslString(bg)})`,
-      text: `hsl(${constructHslString(text)})`,
-    });
-
-    return () => {
-      document.body.removeChild(dummyDiv);
-    };
-  }, [theme]);
-
   return (
-    <div className="flex -space-x-2">
+    <div className="flex -space-x-2" data-theme={theme}>
       <div
-        className="rounded-full border-2 border-surface-5 w-8 h-8"
-        style={{ background: colors?.primary }}
+        className={clsx(
+          'rounded-full border-2 border-slate-800/50 w-8 h-8',
+          css`
+            background: ${getHslaColor('primary')};
+          `,
+        )}
       />
       <div
-        className="rounded-full border-2 border-surface-5 w-8 h-8"
-        style={{ background: colors?.secondary }}
+        className={clsx(
+          'rounded-full border-2 border-slate-800/50 w-8 h-8',
+          css`
+            background: ${getHslaColor('secondary')};
+          `,
+        )}
       />
       <div
-        className="rounded-full border-2 border-surface-5 w-8 h-8"
-        style={{ background: colors?.tertiary }}
+        className={clsx(
+          'rounded-full border-2 border-slate-800/50 w-8 h-8',
+          css`
+            background: ${getHslaColor('tertiary')};
+          `,
+        )}
       />
       <div
-        className="rounded-full border-2 border-surface-5 w-8 h-8"
-        style={{ background: colors?.bg }}
+        className={clsx(
+          'rounded-full border-2 border-slate-800/50 w-8 h-8',
+          css`
+            background: ${getHslaColor('bg')};
+          `,
+        )}
       />
       <div
-        className="rounded-full border-2 border-surface-5 w-8 h-8"
-        style={{ background: colors?.text }}
+        className={clsx(
+          'rounded-full border-2 border-slate-800/50 w-8 h-8',
+          css`
+            background: ${getHslaColor('text')};
+          `,
+        )}
       />
     </div>
   );
@@ -133,7 +97,7 @@ export const ThemePicker = () => {
               'duration-500',
               'border-dark-only',
               'max-h-[70%]',
-              'overflow-y-scroll',
+              'overflow-y-auto',
             )}
             style={{
               position: 'fixed',
@@ -168,6 +132,7 @@ export const ThemePicker = () => {
                       'p-8',
                       'flex-1 flex flex-col items-center justify-center space-y-4',
                       'rounded-lg',
+                      'transform hover:scale-105 focus:scale:105 transition-transform duration-100',
                       {
                         [activeTheme]: t === theme,
                         [inactiveTheme]: t !== theme,
@@ -182,7 +147,9 @@ export const ThemePicker = () => {
                       });
                     }}
                   >
-                    <span>{t}</span>
+                    <span className="first-letter:capitalize">
+                      {t.replace(/-/g, ' ')}
+                    </span>
 
                     <ThemeColors theme={t} />
                   </button>
