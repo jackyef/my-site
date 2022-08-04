@@ -261,7 +261,7 @@
   --hide-in-dark-mode: 0;
 }
 
-[data-theme='ikea'] .monochrome-img {
+[data-theme='cobalt'] .monochrome-img {
   filter: var(--filter-invert);
 }
 
