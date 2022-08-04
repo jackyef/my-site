@@ -13,6 +13,7 @@ const xmlFormat = require('xml-formatter');
 async function generateSiteMap() {
   const pages = await globby([
     'src/pages/**/*.tsx',
+    'src/pages/**/*.mdx',
     'src/pages/posts/**/*.mdx',
     '!src/pages/_*.tsx',
     '!src/pages/**/[id].tsx',
