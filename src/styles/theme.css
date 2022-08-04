@@ -201,7 +201,7 @@
   --hide-in-dark-mode: 1;
 }
 
-[data-theme='ikea'] {
+[data-theme='cobalt'] {
   /* prettier-ignore */
   --theme:ikea;
 

@@ -11,9 +11,9 @@ import { usePwaInstall } from '@/hooks/usePwaInstall';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
-import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
 import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
+import { ThemePicker } from '../Theme/ThemePicker';
 
 import PwaInstallIcon from './assets/icon-plus.svg';
 
@@ -154,7 +154,8 @@ export default function Header() {
               >
                 <code>/cmd</code>
               </button>
-              <ThemeToggle />
+
+              <ThemePicker />
             </div>
           </nav>
         </SectionContainer>

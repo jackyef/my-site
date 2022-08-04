@@ -8,7 +8,9 @@ import {
 
 import { canUseDOM } from '@/utils/constants';
 
-export type Theme = 'default' | 'dark';
+export const THEMES = ['default', 'dark', 'cobalt', 'purple-and-gold'] as const;
+
+export type Theme = typeof THEMES[number];
 
 export const ThemeContext = createContext<
   [Theme, Dispatch<SetStateAction<Theme>>]

@@ -11,7 +11,7 @@ type AdjustedHue = `calc(${HueToken} ${Degree})`;
 type AdjustedSaturation = `calc(${SaturationToken} ${Percentage})`;
 type AdjustedLightness = `calc(${LightnessToken} ${Percentage})`;
 
-type HSLObject = {
+export type HSLObject = {
   h: HueToken | AdjustedHue;
   s: SaturationToken | AdjustedSaturation;
   l: LightnessToken | AdjustedLightness;
