@@ -129,7 +129,7 @@ export const ThemePicker = () => {
                   <button
                     key={t}
                     className={clsx(
-                      'p-8',
+                      'py-8 px-4',
                       'flex-1 flex flex-col items-center justify-center space-y-4',
                       'rounded-lg',
                       'transform hover:scale-105 focus:scale:105 transition-transform duration-100',
