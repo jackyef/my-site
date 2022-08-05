@@ -1,6 +1,9 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
+import clsx from 'clsx';
 
 import { LinkPreview } from '../LinkPreview';
+
+import { useAnchorClassName } from './hooks/useAnchorClassName';
 
 interface Props extends React.HTMLProps<HTMLAnchorElement> {
   href: string;
@@ -8,19 +11,24 @@ interface Props extends React.HTMLProps<HTMLAnchorElement> {
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   children?: React.ReactNode;
   shouldShowPreviewOnHover?: boolean;
+
+  isNotFancy?: boolean; // Disables the box-shadow highlight effect on hover/focus
 }
 
 export const ExternalLink: React.FC<Props> = ({
   href,
-  className = `fancy-anchor`,
+  className,
   onClick,
   children,
   shouldShowPreviewOnHover = false,
+  isNotFancy = false,
 }) => {
+  const baseClass = useAnchorClassName();
+
   if (!shouldShowPreviewOnHover) {
     return (
       <a
-        className={className}
+        className={clsx({ [baseClass]: !isNotFancy }, className)}
         href={href}
         onClick={onClick}
         target="_blank"
@@ -36,7 +44,7 @@ export const ExternalLink: React.FC<Props> = ({
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <a
-            className={className}
+            className={clsx({ [baseClass]: !isNotFancy }, className)}
             href={href}
             onClick={onClick}
             target="_blank"

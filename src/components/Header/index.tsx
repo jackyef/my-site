@@ -5,14 +5,15 @@ import Link from 'next/link';
 import { css } from 'goober';
 
 import { SectionContainer } from '@/components/SectionContainer';
+import { getHslString } from '@/lib/styles/colors';
 
 import { usePwaInstall } from '@/hooks/usePwaInstall';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
-import { ThemeToggle } from '../Theme/ThemeToggle';
 import { InternalLink } from '../Typography/InternalLink';
 import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
+import { ThemePicker } from '../Theme/ThemePicker';
 
 import PwaInstallIcon from './assets/icon-plus.svg';
 
@@ -62,7 +63,7 @@ export default function Header() {
     --contrast-power: ${shouldBeMoreOpaque ? '105%' : '100%'};
     --blur-size: ${shouldBeMoreOpaque ? '8px' : '0px'};
 
-    background: rgba(var(--rgb-bg), var(--bg-opacity));
+    background: hsla(${getHslString('bg')} / var(--bg-opacity));
     backdrop-filter: contrast(var(--contrast-power))
       saturate(var(--saturate-power)) blur(var(--blur-size));
     z-index: 3;
@@ -141,6 +142,7 @@ export default function Header() {
                     label: 'blog',
                   });
                 }}
+                isNotFancy
               >
                 Blog
               </InternalLink>
@@ -152,7 +154,8 @@ export default function Header() {
               >
                 <code>/cmd</code>
               </button>
-              <ThemeToggle />
+
+              <ThemePicker />
             </div>
           </nav>
         </SectionContainer>

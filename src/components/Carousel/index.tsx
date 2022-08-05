@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const baseButtonClasses =
-  'opacity-0 md:opacity-100 flex items-center content-center absolute bg-theme-backgroundOffset w-12 h-12 rounded-full border-none shadow-md z-10 items-center justify-center font-bold text-3xl';
+  'opacity-0 md:opacity-100 flex items-center content-center absolute bg-surface-3 w-12 h-12 rounded-full border-none shadow-surface-2 z-10 items-center justify-center font-bold text-3xl';
 const baseButtonStyles = {
   top: `calc(50% - 3rem / 2)`,
   transition: `transform 0.2s ease-in, opacity 0.2s ease-in`,

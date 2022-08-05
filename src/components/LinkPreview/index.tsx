@@ -33,11 +33,9 @@ export const LinkPreview = ({ href }: Props) => {
     max-width: 100%;
     margin: 0 auto;
     border-radius: 16px;
-    background-color: var(--color-bg-offset);
-    box-shadow: var(--shadow-md);
     padding: 12px;
-    opacity: 0;
     transform-origin: var(--radix-tooltip-content-transform-origin);
+    opacity: 0;
     transform: scale(0.5);
     pointer-events: none;
     animation: ${anim} 0.3s;
@@ -45,7 +43,7 @@ export const LinkPreview = ({ href }: Props) => {
 
     & > img {
       border-radius: 8px;
-      max-height: 200px;
+      height: 150px;
       object-fit: contain;
       width: 100%;
     }
@@ -55,13 +53,14 @@ export const LinkPreview = ({ href }: Props) => {
     <span
       className={clsx(
         container,
+        'bg-surface-3 shadow-surface-3',
         'flex flex-col space-y-2',
         'text-sm font-normal',
       )}
     >
       {Boolean(data.image) && (
         <>
-          <img src={data.image} className="mb-2" />
+          <img src={data.image} className="mb-2" height={150} />
           <HorizontalDivider />
         </>
       )}

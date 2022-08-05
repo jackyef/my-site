@@ -8,4 +8,18 @@ module.exports = [
   'page-outline',
   'toc-level-1',
   '2xl:block',
+
+  // Surface and shadow classes
+  'bg-surface-0',
+  'bg-surface-1',
+  'bg-surface-2',
+  'bg-surface-3',
+  'bg-surface-4',
+  'bg-surface-5',
+  'shadow-surface-0',
+  'shadow-surface-1',
+  'shadow-surface-2',
+  'shadow-surface-3',
+  'shadow-surface-4',
+  'shadow-surface-5',
 ];

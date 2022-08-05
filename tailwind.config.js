@@ -46,6 +46,7 @@ module.exports = {
   theme: {
     // Extract this somewhere, to be used by Goober
     screens: {
+      xs: '480px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -118,7 +119,33 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
-        md: 'var(--shadow-md)',
+        'surface-0': 'inset 0 5px 2px -1px var(--shadow-color)',
+        'surface-1': 'none',
+        // 'surface-2': '0 5px 2px -1px var(--shadow-color)',
+        'surface-2': '0 6.6px 2.6px -1.3px var(--shadow-color)',
+        'surface-3': '0 10px 4px -2px var(--shadow-color)',
+        'surface-4': '0 13.3px 5.3px -2.7px var(--shadow-color)',
+        'surface-5': '0 20px 8px -4px var(--shadow-color)',
+      },
+      borderColor: {
+        surface: {
+          0: 'hsla(var(--h-bg) calc(var(--s-bg) - 1%) calc(var(--l-bg) - 1%) / 1)',
+          1: 'hsla(var(--h-bg) var(--s-bg) var(--l-bg) / 1)',
+          2: 'hsla(var(--h-bg) calc(var(--s-bg) + 1%) calc(var(--l-bg) + 1%) / 1)',
+          3: 'hsla(var(--h-bg) calc(var(--s-bg) + 2%) calc(var(--l-bg) + 2%) / 1)',
+          4: 'hsla(var(--h-bg) calc(var(--s-bg) + 3%) calc(var(--l-bg) + 3%) / 1)',
+          5: 'hsla(var(--h-bg) calc(var(--s-bg) + 5%) calc(var(--l-bg) + 5%) / 1)',
+        },
+      },
+      backgroundColor: {
+        surface: {
+          0: 'hsla(var(--h-bg) calc(var(--s-bg) - 1%) calc(var(--l-bg) - 1%) / 1)',
+          1: 'hsla(var(--h-bg) var(--s-bg) var(--l-bg) / 1)',
+          2: 'hsla(var(--h-bg) calc(var(--s-bg) + 1%) calc(var(--l-bg) + 1%) / 1)',
+          3: 'hsla(var(--h-bg) calc(var(--s-bg) + 2%) calc(var(--l-bg) + 2%) / 1)',
+          4: 'hsla(var(--h-bg) calc(var(--s-bg) + 3%) calc(var(--l-bg) + 3%) / 1)',
+          5: 'hsla(var(--h-bg) calc(var(--s-bg) + 5%) calc(var(--l-bg) + 5%) / 1)',
+        },
       },
       colors: {
         code: {
@@ -134,10 +161,7 @@ module.exports = {
           text: 'var(--color-text)',
           heading: 'var(--color-heading)',
           subtitle: 'var(--color-subtitle)',
-          link: 'var(--color-link)',
           background: 'var(--color-bg)',
-          backgroundOffset: 'var(--color-bg-offset)',
-          warning: 'var(--color-warning)',
           info: 'var(--color-info)',
         },
       },
@@ -145,6 +169,7 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme('colors.theme.text'),
+            a: false, // Override the link color as we'll use the one in defined in useAnchorClassNames()
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
@@ -171,16 +196,9 @@ module.exports = {
             strong: {
               color: theme('colors.theme.text'),
             },
-            a: {
-              color: theme('colors.theme.link'),
-              textDecoration: 'none',
-              fontWeight: '400',
-              '&:hover': {
-                color: theme('colors.theme.text'),
-              },
-            },
+
             'a code': {
-              color: theme('colors.theme.link'),
+              color: theme('colors.theme.secondary'),
               textDecoration: 'none',
               fontWeight: '400',
               '&:hover': {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Flip } from '@/lib/flip/react';
+import { getHslaColor } from '@/lib/styles/colors';
 
 type Task = {
   id: string;
@@ -16,8 +17,8 @@ const TaskItem = ({ id, title, onClick, variant }: TaskItemProps) => {
   const bgStyle = {
     backgroundColor:
       variant === 'to-do'
-        ? `rgba(var(--rgb-primary), 0.7)`
-        : `rgba(var(--rgb-secondary), 0.7)`,
+        ? getHslaColor('primary', 0.7)
+        : getHslaColor('secondary', 0.7),
   };
 
   return (
@@ -80,7 +81,7 @@ export const KanbanBoard = () => {
   };
 
   return (
-    <div className="border-2 border-theme-backgroundOffset p-4 rounded-md">
+    <div className="border-2 border-surface-3 p-4 rounded-md">
       <div className="flex space-x-2 min-h-[300px] mb-4">
         <TaskColumn title="To-do" count={todos.length}>
           {todos.map((task) => (
@@ -113,7 +114,7 @@ export const KanbanBoard = () => {
       <button
         className="py-2 px-4 text-base rounded-lg"
         style={{
-          background: `rgba(var(--rgb-tertiary), 0.5)`,
+          background: getHslaColor('tertiary', 0.5),
         }}
         onClick={handleShuffle}
       >

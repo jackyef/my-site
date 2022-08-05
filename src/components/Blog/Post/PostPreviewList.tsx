@@ -1,6 +1,8 @@
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
+import clsx from 'clsx';
+import { css } from 'goober';
 
 import getAllPostPreviews, {
   getAllPostWithTags,
@@ -8,6 +10,8 @@ import getAllPostPreviews, {
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { Tag } from '@/components/common/Tag';
 import { SkipSSR } from '@/components/SkipSSR';
+import { MDXProvider } from '@/components/common/MDX';
+import { getHslaColor } from '@/lib/styles/colors';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
@@ -41,7 +45,14 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                       <h2 className="text-xl md:text-2xl leading-8 font-bold">
                         <InternalLink
                           href={link}
-                          className="fancy-anchor font-bold text-theme-heading"
+                          className={clsx(
+                            'font-bold',
+                            css`
+                              & {
+                                color: ${getHslaColor('heading')} !important;
+                              }
+                            `,
+                          )}
                           onClick={() => {
                             sendEventTracker({
                               name: 'click',
@@ -81,6 +92,7 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                                 <InternalLink
                                   className="hover:underline"
                                   href={`/blog?tags=${tag}`}
+                                  isNotFancy
                                 >
                                   {tag}
                                 </InternalLink>
@@ -98,7 +110,9 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                     translate
                   >
                     <div className="prose max-w-none text-theme-text">
-                      <Component />
+                      <MDXProvider>
+                        <Component />
+                      </MDXProvider>
                     </div>
                   </Flipped>
                 </div>

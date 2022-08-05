@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { css } from 'goober';
 
+import { getHslaColor } from '@/lib/styles/colors';
+
 import { Language } from './useSpeechRecognition';
 
 interface Props {
@@ -16,10 +18,10 @@ export const LanguageSwitcher = ({
 }: Props) => {
   const baseButton = css`
     padding: 0.5rem 0.6rem;
-    color: rgba(var(--rgb-text), 0.6);
+    color: ${getHslaColor('text', 0.6)};
     width: 8rem;
     border-style: solid;
-    border-color: rgba(var(--rgb-text), 0.3);
+    border-color: ${getHslaColor('text', 0.3)};
     border-top-width: 2px;
     border-bottom-width: 2px;
     transition: opacity var(--transition-faster), color var(--transition-faster),
@@ -41,19 +43,18 @@ export const LanguageSwitcher = ({
   `;
 
   const activeButton = css`
-    --text-lightness: calc(var(--l-primary) - 12%);
+    color: ${getHslaColor('primary', 1, { l: -12 })};
 
     [data-theme='dark'] & {
-      --text-lightness: var(--l-primary);
+      color: ${getHslaColor('primary')};
     }
-
-    color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
-    background: hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.04);
+    
+    background: ${getHslaColor('primary', 0.04)}
     font-weight: 700;
 
     /* Specificity hack */
     & {
-      border-color: hsl(var(--h-primary) var(--s-primary) var(--l-primary));
+      border-color: ${getHslaColor('primary')};
     }
 
     &:first-child {

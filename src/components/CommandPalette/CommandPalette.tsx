@@ -116,7 +116,7 @@ export default () => {
           onKeyDown={handleKeyDown}
           className={clsx(
             'p-4',
-            'bg-theme-background',
+            'bg-surface-1',
             'text-theme-text',
             'rounded-3xl',
             'top',

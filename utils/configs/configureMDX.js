@@ -37,7 +37,7 @@ module.exports = (config, options) => {
               properties: {
                 ariaHidden: true,
                 tabIndex: -1,
-                class: 'hash-link fancy-anchor',
+                class: 'hash-link',
               },
               content: hast('span', '🔗'),
             },
@@ -50,10 +50,6 @@ module.exports = (config, options) => {
 
                 if (token === 'token') {
                   node.properties.className = [tokenClassNames[type]];
-                }
-
-                if (node.tagName === 'a') {
-                  node.properties.className = ['fancy-anchor'];
                 }
 
                 if (node.tagName === 'hr') {

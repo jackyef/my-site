@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import clsx from 'clsx';
-import { css } from 'goober';
 import Link, { LinkProps } from 'next/link';
 
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 
 import { SectionContainer } from '../SectionContainer';
+import { LightButton } from '../common/Button/LightButton';
 
 type FooterLink = {
   label: string;
@@ -50,6 +50,10 @@ const FOOTER_LINKS: FooterSection[] = [
         href: '/about',
       },
       {
+        label: 'Tokens',
+        href: '/about/tokens',
+      },
+      {
         label: 'Uses',
         href: '/uses',
       },
@@ -80,26 +84,6 @@ const FOOTER_LINKS: FooterSection[] = [
 ];
 
 export const Footer = () => {
-  const feedbackButton = css`
-    --text-lightness: calc(var(--l-primary) - 12%);
-
-    [data-theme='dark'] & {
-      --text-lightness: var(--l-primary);
-    }
-
-    color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
-    background: hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.1);
-    border-color: hsl(var(--h-primary) var(--s-primary) var(--l-primary));
-    border-radius: 0.5rem;
-
-    &:hover,
-    &:focus {
-      background: hsla(
-        var(--h-primary) var(--s-primary) var(--l-primary) / 0.08
-      );
-    }
-  `;
-
   return (
     <footer
       className={clsx(
@@ -107,10 +91,8 @@ export const Footer = () => {
         'py-16',
         'mt-20',
         'border-t-2',
-        'border-theme-backgroundOffset',
-        css`
-          background-color: rgba(var(--rgb-bg-offset), 0.1);
-        `,
+        'border-surface-0',
+        'bg-surface-3',
       )}
     >
       <SectionContainer>
@@ -182,9 +164,7 @@ export const Footer = () => {
             })}
           </div>
           <IOLazyFeedbackFish>
-            <button className={clsx('px-4', 'py-2', feedbackButton)}>
-              Got feedback?
-            </button>
+            <LightButton>Got feedback?</LightButton>
           </IOLazyFeedbackFish>
         </div>
       </SectionContainer>

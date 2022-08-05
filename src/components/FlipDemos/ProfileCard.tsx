@@ -28,7 +28,7 @@ export const ProfileCard = ({
   };
 
   return (
-    <div className="flex justify-start border border-theme-backgroundOffset rounded-lg p-4 w-[400px] max-w-full gap-3">
+    <div className="flex justify-start border border-surface-3 rounded-lg p-4 w-[400px] max-w-full gap-3">
       {renderWithWrapper(
         <img
           loading="lazy"

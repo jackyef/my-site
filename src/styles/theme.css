@@ -1,16 +1,16 @@
 :root {
   --bg-opacity: 1;
 
-  --color-bg: rgba(var(--rgb-bg), var(--bg-opacity));
-  --color-bg-offset: rgba(var(--rgb-bg-offset), var(--bg-opacity));
-  --color-heading: rgba(var(--rgb-heading), var(--bg-opacity));
-  --color-text: rgba(var(--rgb-text), var(--bg-opacity));
-  --color-subtitle: rgba(var(--rgb-subtitle), var(--bg-opacity));
-  --color-link: rgba(var(--rgb-link), var(--bg-opacity));
-
+  --color-bg: hsla(var(--h-bg) var(--s-bg) var(--l-bg) / var(--bg-opacity));
+  --color-heading: hsla(var(--h-heading) var(--s-heading) var(--l-heading) / var(--bg-opacity));
+  --color-text: hsla(var(--h-text) var(--s-text) var(--l-text) / var(--bg-opacity));
+  --color-subtitle: hsla(var(--h-subtitle) var(--s-subtitle) var(--l-subtitle) / var(--bg-opacity));
+  
   --transition-default: 0.5s;
   --transition-faster: 0.25s;
-
+  
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  
   --navbar-height: 75px;
 }
 
@@ -21,7 +21,6 @@
   /* prettier-ignore */
   --theme:default;
 
-  /* TODO: Consider updating all other colors to hsl as well for better adjustments */
   --h-primary: 180deg;
   --s-primary: 40%;
   --l-primary: 51%;
@@ -30,35 +29,47 @@
   --s-secondary: 100%;
   --l-secondary: 75%;
 
-  --rgb-primary: 80, 180, 180;
-  --rgb-secondary: 218, 130, 255;
-  --rgb-tertiary: 255, 219, 130;
+  --h-tertiary: 43deg;
+  --s-tertiary: 100%;
+  --l-tertiary: 75%;
 
-  --rgb-info: 220, 249, 255;
-  --rgb-warning: 236, 239, 9;
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
 
-  --rgb-bg: 244, 244, 244;
-  --rgb-bg-offset: 234, 234, 234;
-  --rgb-heading: 55, 58, 60;
-  --rgb-text: 22, 30, 46;
-  --rgb-subtitle: 107, 114, 128;
-  --rgb-link: 0, 135, 94;
-  --rgb-link-highlight: 130, 255, 218;
-  --rgb-outline: 4, 116, 129;
+  --h-warning: 61deg;
+  --s-warning: 91%;
+  --l-warning: 49%;
 
-  --color-link-highlight: rgba(var(--rgb-link-highlight), 0.25);
-  --color-outline: rgba(var(--rgb-outline), 0.7);
+  --h-bg: 0deg;
+  --s-bg: 0%;
+  --l-bg: 95.7%;
+
+  --h-heading: 204deg;
+  --s-heading: 4.3%;
+  --l-heading: 22.5%;
+
+  --h-text: 220deg;
+  --s-text: 35.3%;
+  --l-text: 13.3%;
+
+  --h-subtitle: 220deg;
+  --s-subtitle: 8.9%;
+  --l-subtitle: 46.1%;
+
+  --h-outline: 186deg;
+  --s-outline: 94%;
+  --l-outline: 26.1%;
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
   --color-scrollbar: #cacaca;
 
-  --color-warning: rgb(var(--rgb-warning));
-  --color-info: rgb(var(--rgb-info));
-
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
 
   --focus-outline: 0 0 0 3px var(--color-outline);
 
   --border-dark-only: 2px solid transparent;
+  --scroll-gutter: hsl(0deg 0% 91.8%);
 
   --filter-invert: '';
 
@@ -78,35 +89,47 @@
   --s-secondary: 47%;
   --l-secondary: 54.1%;
 
-  --rgb-primary: 84, 180, 193;
-  --rgb-secondary: 193, 84, 180;
-  --rgb-tertiary: 180, 193, 84;
+  --h-tertiary: 67deg;
+  --s-tertiary: 46.8%;
+  --l-tertiary: 54.3%;
 
-  --rgb-info: 15, 41, 64;
-  --rgb-warning: 93, 94, 33;
+  --h-info: 208deg;
+  --s-info: 62%;
+  --l-info: 15.5%;
 
-  --rgb-bg: 17, 24, 32;
-  --rgb-bg-offset: 31, 41, 48;
-  --rgb-heading: 247, 247, 247;
-  --rgb-text: 209, 213, 219;
-  --rgb-subtitle: 148, 163, 184;
-  --rgb-link: 84, 180, 193;
-  --rgb-link-highlight: var(--rgb-link);
-  --rgb-outline: var(--rgb-link);
+  --h-warning: 61deg;
+  --s-warning: 48%;
+  --l-warning: 24.9%;
 
-  --color-link-highlight: rgba(var(--rgb-link-highlight), 0.25);
-  --color-outline: rgba(var(--rgb-outline), 1);
+  --h-bg: 212deg;
+  --s-bg: 30.6%;
+  --l-bg: 9.6%;
+
+  --h-heading: 0deg;
+  --s-heading: 0%;
+  --l-heading: 96.9%;
+
+  --h-text: 216deg;
+  --s-text: 12.2%;
+  --l-text: 83.9%;
+
+  --h-subtitle: 215deg;
+  --s-subtitle: 20.2%;
+  --l-subtitle: 65.1%;
+
+  --h-outline: 187deg;
+  --s-outline: 46.8%;
+  --l-outline: 54.3%;
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 1);
   --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
 
-  --color-warning: rgba(var(--rgb-warning), var(--bg-opacity));
-  --color-info: rgba(var(--rgb-info), var(--bg-opacity));
-
-  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.1),
-    0 2px 4px -1px rgba(255, 255, 255, 0.06);
+  --color-info: hsla(var(--h-info) var(--s-info) var(--l-info) / var(--bg-opacity));
 
   --focus-outline: 0 0 0 3px var(--color-outline);
 
-  --border-dark-only: 2px solid var(--color-bg-offset);
+  --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
+  --scroll-gutter: hsl(205deg 21.5% 15.5%);
 
   --filter-invert: invert(1);
 
@@ -117,6 +140,131 @@
 [data-theme='dark'] .monochrome-img {
   filter: var(--filter-invert);
 }
+
+[data-theme='purple-and-gold'] {
+  /* prettier-ignore */
+  --theme:purple-and-gold;
+
+  --h-primary: 272deg;
+  --s-primary: 81%;
+  --l-primary: 82%;
+
+  --h-secondary: 42deg;
+  --s-secondary: 98%;
+  --l-secondary: 56%;
+
+  --h-tertiary: 37deg;
+  --s-tertiary: 9%;
+  --l-tertiary: 81%;
+
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
+
+  --h-warning: 58deg;
+  --s-warning: 100%;
+  --l-warning: 52%;
+
+  --h-bg: 257deg;
+  --s-bg: 22%;
+  --l-bg: 94%;
+
+  --h-heading: 204deg;
+  --s-heading: 4.3%;
+  --l-heading: 22.5%;
+
+  --h-text: 220deg;
+  --s-text: 35.3%;
+  --l-text: 13.3%;
+
+  --h-subtitle: 220deg;
+  --s-subtitle: 8.9%;
+  --l-subtitle: 46.1%;
+
+  --h-outline: var(--h-primary);
+  --s-outline: var(--s-primary);
+  --l-outline: var(--l-primary);
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
+  --color-scrollbar: #cacaca;
+
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
+
+  --focus-outline: 0 0 0 3px var(--color-outline);
+
+  --border-dark-only: 2px solid transparent;
+  --scroll-gutter: hsl(0deg 0% 91.8%);
+
+  --filter-invert: '';
+
+  --hide-in-light-mode: 0;
+  --hide-in-dark-mode: 1;
+}
+
+[data-theme='cobalt'] {
+  /* prettier-ignore */
+  --theme:ikea;
+
+  --h-primary: 54deg;
+  --s-primary: 67%;
+  --l-primary: 70%;
+
+  --h-secondary: 215deg;
+  --s-secondary: 90%;
+  --l-secondary: 80%;
+
+  --h-tertiary: 0deg;
+  --s-tertiary: 100%;
+  --l-tertiary: 79%;
+
+  --h-info: 190deg;
+  --s-info: 100%;
+  --l-info: 93%;
+
+  --h-warning: 48deg;
+  --s-warning: 100%;
+  --l-warning: 62%;
+
+  --h-bg: 219deg;
+  --s-bg: 38%;
+  --l-bg: 12%;
+
+  --h-heading: 204deg;
+  --s-heading: 10.3%;
+  --l-heading: 91.5%;
+
+  --h-text: 200deg;
+  --s-text: 30.3%;
+  --l-text: 90.3%;
+
+  --h-subtitle: 190deg;
+  --s-subtitle: 20.9%;
+  --l-subtitle: 80.1%;
+
+  --h-outline: var(--h-primary);
+  --s-outline: var(--s-primary);
+  --l-outline: var(--l-primary);
+
+  --color-outline: hsla(var(--h-outline) var(--s-outline) var(--l-outline) / 0.7);
+  --color-scrollbar: rgba(55, 65, 81, var(--bg-opacity));
+
+  --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
+
+  --focus-outline: 0 0 0 3px var(--color-outline);
+
+  --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
+  --scroll-gutter: hsl(205deg 21.5% 15.5%);
+
+  --filter-invert: invert(1);
+
+  --hide-in-light-mode: 1;
+  --hide-in-dark-mode: 0;
+}
+
+[data-theme='cobalt'] .monochrome-img {
+  filter: var(--filter-invert);
+}
+
 
 body {
   background: var(--color-bg);
@@ -130,29 +278,6 @@ body {
   html {
     scroll-behavior: smooth;
   }
-}
-
-/* some fancy hover effect for anchor tags */
-[data-theme='dark'] .fancy-anchor {
-  --text-lightness: var(--l-primary);
-}
-
-.fancy-anchor {
-  --text-lightness: calc(var(--l-primary) - 12%);
-  text-decoration: none;
-  position: relative;
-  color: hsl(var(--h-primary) var(--s-primary) var(--text-lightness));
-  transition: var(--transition-faster);
-  box-shadow: inset 0 0em transparent,
-    inset 0 -0.1em hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 1);
-}
-
-.fancy-anchor:hover,
-.fancy-anchor:focus {
-  color: var(--color-text);
-
-  box-shadow: inset 0 0em transparent,
-    inset 0 -1.1em hsla(var(--h-primary) var(--s-primary) var(--l-primary) / 0.2);
 }
 
 /* heading anchor tags */
@@ -220,7 +345,7 @@ a:focus {
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  background-color: var(--color-bg-offset);
+  background-color: var(--scroll-gutter);
 }
 
 ::-webkit-scrollbar-thumb {

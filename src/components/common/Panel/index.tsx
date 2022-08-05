@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { css } from 'goober';
+
+import { getHslaColor } from '@/lib/styles/colors';
 
 interface Props {
   type: 'warning' | 'info'; //  | 'error' | 'success';
@@ -6,19 +9,14 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const bgMap = {
-  warning: 'bg-theme-warning',
-  info: 'bg-theme-info',
-  // error: 'bg-yellow-500',
-  // success: 'bg-yellow-500',
-};
-
 export const Panel: React.FC<Props> = ({
   type = 'warning',
   title = '',
   children,
 }) => {
-  const bgClass = bgMap[type];
+  const bgClass = css`
+    background: ${getHslaColor(type)};
+  `;
 
   return (
     // Different margins for x and y axis to account for the vertical spacing
