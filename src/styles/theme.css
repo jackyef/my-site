@@ -33,13 +33,13 @@
   --s-tertiary: 100%;
   --l-tertiary: 75%;
 
-  --h-info: 190deg;
-  --s-info: 100%;
-  --l-info: 93%;
+  --h-info: 188deg;
+  --s-info: 95%;
+  --l-info: 48%;
 
   --h-warning: 61deg;
-  --s-warning: 91%;
-  --l-warning: 49%;
+  --s-warning: 95%;
+  --l-warning: 44%;
 
   --h-bg: 0deg;
   --s-bg: 0%;
@@ -95,11 +95,11 @@
 
   --h-info: 208deg;
   --s-info: 62%;
-  --l-info: 15.5%;
+  --l-info: 70.5%;
 
-  --h-warning: 61deg;
-  --s-warning: 48%;
-  --l-warning: 24.9%;
+  --h-warning: 48deg;
+  --s-warning: 90%;
+  --l-warning: 62%;
 
   --h-bg: 212deg;
   --s-bg: 30.6%;
@@ -157,13 +157,13 @@
   --s-tertiary: 9%;
   --l-tertiary: 81%;
 
-  --h-info: 190deg;
-  --s-info: 100%;
-  --l-info: 93%;
+  --h-info: 188deg;
+  --s-info: 95%;
+  --l-info: 48%;
 
-  --h-warning: 58deg;
-  --s-warning: 100%;
-  --l-warning: 52%;
+  --h-warning: 61deg;
+  --s-warning: 95%;
+  --l-warning: 44%;
 
   --h-bg: 257deg;
   --s-bg: 22%;
