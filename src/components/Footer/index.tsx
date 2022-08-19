@@ -122,9 +122,9 @@ export const Footer = () => {
                   key={section.sectionTitle}
                   className={clsx('flex', 'flex-col', 'space-y-4')}
                 >
-                  <h4 className={clsx('text-2xl', 'text-theme-heading')}>
+                  <h3 className={clsx('text-2xl', 'text-theme-heading')}>
                     {section.sectionTitle}
-                  </h4>
+                  </h3>
                   <ul
                     className={clsx(
                       'text-theme-subtitle',

@@ -22,8 +22,8 @@ function Logo() {
     <div className="flex items-center justify-center">
       <Image
         className="h-5 inline-block"
-        width="20"
-        height="20"
+        width={20}
+        height={20}
         src="/android-icon-96x96.png"
         alt="logo"
       />
@@ -126,6 +126,8 @@ export default function Header() {
                 <Image
                   className="monochrome-img"
                   src={PwaInstallIcon}
+                  width={20}
+                  height={20}
                   alt="Add to home screen"
                   loading="lazy"
                 />
