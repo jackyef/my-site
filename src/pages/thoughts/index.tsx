@@ -1,7 +1,8 @@
+import type { GetStaticProps, NextPage } from 'next';
+
 import { UnorderedList } from '@/components/common/List/UnorderedList';
 import { Panel } from '@/components/common/Panel';
 import { HorizontalDivider } from '@/components/Divider';
-import { SectionContainer } from '@/components/SectionContainer';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
@@ -9,8 +10,22 @@ import { InternalLink } from '@/components/Typography/InternalLink';
 import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
+import { SkipSSR } from '@/components/SkipSSR';
+import { getAllThoughtPages } from '@/blog/getAllThoughtPages';
 
-const ThoughtsIndexPage = () => {
+import { getRelativeTimeFromNow } from '@/utils/datetime/getRelativeTime';
+
+type Thought = {
+  title: string;
+  href: string;
+  lastUpdatedAt: string;
+};
+
+interface Props {
+  thoughts: Thought[];
+}
+
+const ThoughtsIndexPage: NextPage<Props> = ({ thoughts }) => {
   return (
     <>
       <PageMetaTags
@@ -60,19 +75,42 @@ const ThoughtsIndexPage = () => {
 
       <div className="my-4">
         <UnorderedList>
-          <li>
-            <InternalLink
-              className="hover:underline"
-              isNotFancy
-              href="/thoughts/self-taught-first-job-in-tech"
-            >
-              I am self-taught. how do I land my first job in tech?
-            </InternalLink>
-          </li>
+          {thoughts.map((thought) => (
+            <li key={thought.title}>
+              <InternalLink
+                className="hover:underline"
+                isNotFancy
+                href={thought.href}
+              >
+                {thought.title}
+              </InternalLink>
+
+              <span className="text-theme-subtitle text-sm italic ml-2">
+                Last updated{' '}
+                <SkipSSR fallback={thought.lastUpdatedAt}>
+                  {getRelativeTimeFromNow(new Date(thought.lastUpdatedAt))}
+                </SkipSSR>
+              </span>
+            </li>
+          ))}
         </UnorderedList>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const thoughtPosts = await getAllThoughtPages();
+
+  return {
+    props: {
+      thoughts: thoughtPosts.map((thoughtPost) => ({
+        href: thoughtPost.link,
+        title: thoughtPost.module.meta.title.replace('Thoughts: ', ''),
+        lastUpdatedAt: thoughtPost.module.meta.date,
+      })),
+    },
+  };
 };
 
 export default ThoughtsIndexPage;
