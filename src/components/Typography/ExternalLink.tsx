@@ -28,7 +28,7 @@ export const ExternalLink: React.FC<Props> = ({
   if (!shouldShowPreviewOnHover) {
     return (
       <a
-        className={clsx({ [baseClass]: !isNotFancy }, className)}
+        className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
         href={href}
         onClick={onClick}
         target="_blank"

@@ -24,7 +24,7 @@ export const InternalLink: React.FC<Props> = ({
   return (
     <Link href={href}>
       <a
-        className={clsx({ [baseClass]: !isNotFancy }, className)}
+        className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
         onClick={onClick}
         {...rest}
       >
