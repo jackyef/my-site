@@ -57,6 +57,10 @@ const FOOTER_LINKS: FooterSection[] = [
         label: 'Uses',
         href: '/uses',
       },
+      {
+        label: 'Thoughts',
+        href: '/thoughts',
+      },
     ],
   },
   {

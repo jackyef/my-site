@@ -12,6 +12,7 @@ import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { SkipSSR } from '@/components/SkipSSR';
 import { getAllThoughtPages } from '@/blog/getAllThoughtPages';
+import { LightButton } from '@/components/common/Button/LightButton';
 
 import { getRelativeTimeFromNow } from '@/utils/datetime/getRelativeTime';
 
@@ -42,12 +43,7 @@ const ThoughtsIndexPage: NextPage<Props> = ({ thoughts }) => {
         when I felt like I was getting asked similar questions quite often.
         Instead of answering them with a similar answer everytime, why not
         compile them at one place so they can be easily discoverable and
-        shareable? It&apos;s kinda like{' '}
-        <ExternalLink href="https://reactjs.org/docs/error-decoder.html/?invariant=425">
-          React error page
-        </ExternalLink>
-        , where you can find answer for specific invariant error code, but for
-        topics instead!
+        shareable?
       </Paragraph>
 
       <Paragraph></Paragraph>
@@ -67,6 +63,25 @@ const ThoughtsIndexPage: NextPage<Props> = ({ thoughts }) => {
           that being said, I do hope my perspectives can be helpful to a subset
           of people. <EmojiSpan>😄</EmojiSpan>
         </Paragraph>
+      </Panel>
+
+      <Panel
+        type="primary"
+        title="Got topics you would like to hear my thought of?"
+      >
+        <Paragraph className="text-inherit">
+          If you have some topics you would like to hear my thoughts of, feel
+          free to submit an issue on the GitHub repository!
+        </Paragraph>
+
+        <div className="mx-auto mb-4">
+          <ExternalLink
+            isNotFancy
+            href="https://github.com/jackyef/my-site/issues/new"
+          >
+            <LightButton variant="primary">Submit an issue</LightButton>
+          </ExternalLink>
+        </div>
       </Panel>
 
       <HorizontalDivider />
