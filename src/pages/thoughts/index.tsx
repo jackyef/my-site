@@ -30,12 +30,12 @@ const ThoughtsIndexPage: NextPage<Props> = ({ thoughts }) => {
   return (
     <>
       <PageMetaTags
-        title="Thoughts 🤔💭"
+        title="Thoughts 💭"
         description="List of my thoughts on some topics"
         image="https://jackyef-og-img.vercel.app/**Thoughts%20%F0%9F%A4%94%F0%9F%92%AD**.png?fontSize=150px"
       />
       <PageTitle>
-        Thoughts <EmojiSpan>🤔💭</EmojiSpan>
+        Thoughts <EmojiSpan>💭</EmojiSpan>
       </PageTitle>
 
       <Paragraph>
@@ -109,6 +109,24 @@ const ThoughtsIndexPage: NextPage<Props> = ({ thoughts }) => {
             </li>
           ))}
         </UnorderedList>
+
+        <div className="my-4">
+          <UnorderedList>
+            {/* TODO: Write thoughts on these */}
+            <li>
+              Keeping up with new technology
+              <span className="text-theme-subtitle text-sm italic ml-2">
+                Upcoming...
+              </span>
+            </li>
+            <li>
+              Knowing how to write &apos;good&apos; code
+              <span className="text-theme-subtitle text-sm italic ml-2">
+                Upcoming...
+              </span>
+            </li>
+          </UnorderedList>
+        </div>
       </div>
     </>
   );
