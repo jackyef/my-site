@@ -1,4 +1,5 @@
 import { Flipped } from 'react-flip-toolkit';
+import { GetServerSideProps } from 'next';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
@@ -23,3 +24,16 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<any> = async (ctx) => {
+  if (ctx.req.headers?.['user-agent']?.includes('Instagram')) {
+    // When opened in the IG in-app browser, make it as if this page is sending
+    // a file response to download. This will cause IG to defer to the external browser
+    ctx.res.setHeader('Content-type', 'application/pdf');
+    ctx.res.setHeader('Content-Disposition', 'inline');
+  }
+
+  return {
+    props: {},
+  };
+};
