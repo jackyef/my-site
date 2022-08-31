@@ -14,6 +14,8 @@ function dateSortDesc(a: string, b: string) {
 }
 
 export interface PostMeta {
+  isExternalSource: boolean;
+  source: string | undefined;
   title: string;
   description: string;
   date: string;

@@ -4,6 +4,7 @@ import { Flipped } from 'react-flip-toolkit';
 import clsx from 'clsx';
 import { css } from 'goober';
 
+import { CheckSourceArticle } from '@/components/common/Button/CheckSourceArticle';
 import getAllPostPreviews, {
   getAllPostWithTags,
 } from '@/blog/getAllPostPreviews';
@@ -118,19 +119,13 @@ export const PostPreviewList = ({ count = 0, tags = [] }: Props) => {
                 </div>
                 <Flipped flipId={`${meta.title}-readmore`} spring="noWobble">
                   <div className="text-base leading-6 font-medium">
-                    <InternalLink
-                      href={link}
-                      aria-label={`Read "${meta.title}"`}
-                      onClick={() => {
-                        sendEventTracker({
-                          name: 'click',
-                          category: `${router.pathname} - post preview read more`,
-                          label: meta.title,
-                        });
-                      }}
-                    >
-                      Read more &rarr;
-                    </InternalLink>
+                    <CheckSourceArticle
+                      isExternalSource={meta.isExternalSource}
+                      link={link}
+                      source={meta.source ? meta.source : ''}
+                      title={!meta.isExternalSource ? meta.title : ''}
+                      pathname={!meta.isExternalSource ? router.pathname : ''}
+                    ></CheckSourceArticle>
                   </div>
                 </Flipped>
               </div>
