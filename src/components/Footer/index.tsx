@@ -57,6 +57,10 @@ const FOOTER_LINKS: FooterSection[] = [
         label: 'Uses',
         href: '/uses',
       },
+      {
+        label: 'Thoughts',
+        href: '/thoughts',
+      },
     ],
   },
   {
@@ -74,11 +78,10 @@ const FOOTER_LINKS: FooterSection[] = [
         label: 'Career',
         href: '/blog?tags=career',
       },
-      // Show this once we have post tagged 'life'
-      // {
-      //   label: 'Life',
-      //   href: '/blog?tags=life',
-      // },
+      {
+        label: 'Life',
+        href: '/blog?tags=life',
+      },
     ],
   },
 ];

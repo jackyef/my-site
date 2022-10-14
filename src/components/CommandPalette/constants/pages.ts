@@ -26,6 +26,11 @@ export const PAGES: readonly PageData[] = [
     description: 'List of things that I use daily',
     link: '/uses',
   },
+  {
+    title: 'Thoughts',
+    description: 'My thoughts on some topics – bias alert!',
+    link: '/thoughts',
+  },
 
   // Tools
   {
