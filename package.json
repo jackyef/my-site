@@ -57,7 +57,6 @@
     "xml-formatter": "^2.3.0"
   },
   "dependencies": {
-    "//": "goober is used by react-hot-toast and in parts of the web where using Tailwind require too much customization",
     "@feedback-fish/react": "^1.2.1",
     "@heroicons/react": "^1.0.6",
     "@mdx-js/react": "^1.6.22",
@@ -70,12 +69,11 @@
     "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
+    "csstype": "2.6.2",
     "goober": "2.0.41",
     "match-sorter": "^6.3.1",
     "metadata-scraper": "^0.2.57",
     "next": "^12.2.3",
-    "next-images": "^1.5.0",
-    "next-offline": "^5.0.2",
     "prismjs": "1.21.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -83,5 +81,8 @@
     "react-hot-toast": "^2.1.1",
     "react-query": "^3.33.3",
     "tinytime": "^0.2.6"
+  },
+  "dependenciesComments": {
+    "goober": "goober is used by react-hot-toast and in parts of the web where using Tailwind require too much customization"
   }
 }
