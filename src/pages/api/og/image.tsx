@@ -52,7 +52,7 @@ export default async function (req: NextRequest) {
             tw="mb-4"
             style={{
               fontWeight: 700,
-              fontSize: 90,
+              fontSize: 84,
             }}
           >
             {title}
