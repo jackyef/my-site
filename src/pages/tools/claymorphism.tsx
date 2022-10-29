@@ -14,8 +14,7 @@ export const meta = {
   title: 'Claymorphism-style CSS generator',
   description: 'Play around and generate claymorphism-style CSS!',
   image: createOgImageUrl({
-    title: '**Claymorphism-style CSS generator**',
-    fontSize: 120,
+    title: 'Claymorphism-style CSS generator',
   }),
   date: '2021-12-22T09:45:30.326Z',
 };

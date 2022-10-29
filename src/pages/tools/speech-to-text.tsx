@@ -12,8 +12,7 @@ export const meta = {
   description:
     "Speech-to-text demo using the Web Speech API's SpeechRecognition",
   image: createOgImageUrl({
-    title: '**Speech-to-text with Web Speech API**',
-    fontSize: 120,
+    title: 'Speech-to-text with Web Speech API',
   }),
   date: '2022-04-13T06:43:37.680Z',
 };

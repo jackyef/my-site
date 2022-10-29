@@ -16,8 +16,7 @@ export const meta = {
   date: '2022-03-21T07:05:10.253Z',
   authors: [jackyef],
   image: createOgImageUrl({
-    title: '**Transitioning between 2 different elements with FLIP**',
-    fontSize: 112,
+    title: 'Transitioning between 2 different elements with FLIP',
   }),
   readingTime: '10 min read',
   tags: ['tech'],
@@ -25,61 +24,72 @@ export const meta = {
 
 <!--start-->
 
-CSS transitions are great, but they aren't always sufficient for more complex animations.
-Imagine a situation where you want to reorder a list of items, how would you write the
-CSS transitions for it?
+CSS transitions are great, but they aren't always sufficient for more complex
+animations. Imagine a situation where you want to reorder a list of items, how
+would you write the CSS transitions for it?
 
 <!--more-->
 
-Consider the following kanban board. Try clicking on the tasks to move them around!
+Consider the following kanban board. Try clicking on the tasks to move them
+around!
 
 <KanbanBoard />
 
 The animation isn't trivial to write with CSS because of 2 main reasons:
 
-1. In most cases, the animated element isn't actually one element. They are 2 totally different elements,
-   though representing the same entity; in this case, a `Task`
-2. The animation can not be statically defined. The position of the element is dynamic.
-   The amount of pixel we need to move the element by is dependent on
-   how many items are in the list, media queries, viewport size, document scroll position, etc.
+1. In most cases, the animated element isn't actually one element. They are 2
+   totally different elements, though representing the same entity; in this
+   case, a `Task`
+2. The animation can not be statically defined. The position of the element is
+   dynamic. The amount of pixel we need to move the element by is dependent on
+   how many items are in the list, media queries, viewport size, document scroll
+   position, etc.
 
 We definitely need to write some JavaScript to help with this, but how?
 
 ## The FLIP technique
 
-FLIP is an acronym first coined by Paul Lewis (read the article: [FLIP Your Animations](https://aerotwist.com/blog/flip-your-animations/)).
-It stands for **F**irst, **L**ast, **I**nvert, **P**lay.
+FLIP is an acronym first coined by Paul Lewis (read the article:
+[FLIP Your Animations](https://aerotwist.com/blog/flip-your-animations/)). It
+stands for **F**irst, **L**ast, **I**nvert, **P**lay.
 
-- **First** – we need to know the initial state (position, size, etc) of the element we're animating.
+- **First** – we need to know the initial state (position, size, etc) of the
+  element we're animating.
 - **Last** – the final state of the element
-- **Invert** – find what changed between **Last** and **First**, craft a transformation to invert it so the final state looks like
-  the initial state
+- **Invert** – find what changed between **Last** and **First**, craft a
+  transformation to invert it so the final state looks like the initial state
 - **Play** – remove the inversion and let the animation play!
 
 It might sound a bit complicated for now, but I promise, once it clicks for you,
-it would make so much sense that you probably won't forget the concept ever again!
+it would make so much sense that you probably won't forget the concept ever
+again!
 
-Let's read the following story of a frontend engineer to understand more about FLIP.
+Let's read the following story of a frontend engineer to understand more about
+FLIP.
 
 ## FLIP-ing from `ProfileCard` to `ProfileHero`
 
-Imagine we are a frontend engineer at a super famous social network platform, **_Tweaker_**.
-In various parts of the web app, there are `ProfileCard` components that look like the following:
+Imagine we are a frontend engineer at a super famous social network platform,
+**_Tweaker_**. In various parts of the web app, there are `ProfileCard`
+components that look like the following:
 
 <div className="mt-8 mb-12 flex flex-col items-center space-y-2">
   <ProfileCard />
   <span className="italic text-sm">The `ProfileCard` component</span>
 </div>
 
-When the name on the card is clicked, it would go to a profile page, which contains a `ProfileHero` component.
+When the name on the card is clicked, it would go to a profile page, which
+contains a `ProfileHero` component.
 
 <div className="mt-8 mb-12 flex flex-col items-center space-y-2">
   <ProfileHero />
   <span className="italic text-sm">The `ProfileHero` component</span>
 </div>
 
-For the longest time, we have just been switching between the 2 elements immediately, without any animation, and it
-has been working fine! Try clicking on the name in the `ProfileCard` and the back arrow in the `ProfileHero` to navigate between the 2 states.
+For the longest time, we have just been switching between the 2 elements
+immediately, without any animation, and it has been working fine! Try clicking
+on the name in the `ProfileCard` and the back arrow in the `ProfileHero` to
+navigate between the 2 states.
 
 <div className="mt-8 mb-12 flex flex-col items-center space-y-2">
   <ProfileCardToHero />
@@ -87,9 +97,11 @@ has been working fine! Try clicking on the name in the `ProfileCard` and the bac
 
 One day, in the daily stand-up call, the PM proposes an idea.
 
-**PM**: "Let's add a feeling of continuity when the user navigates from the card to the profile page. Make the navigation feels more seamless!"
+**PM**: "Let's add a feeling of continuity when the user navigates from the card
+to the profile page. Make the navigation feels more seamless!"
 
-**Designer**: "That sounds great! Maybe we can animate the profile picture that exists in both states? I have a mock-up here, what do you think about it?"
+**Designer**: "That sounds great! Maybe we can animate the profile picture that
+exists in both states? I have a mock-up here, what do you think about it?"
 
 <div className="mt-8 mb-12 flex flex-col items-center space-y-2">
   <ProfileCardToHero id="first" />
@@ -98,27 +110,35 @@ One day, in the daily stand-up call, the PM proposes an idea.
   </span>
 </div>
 
-**PM**: "That... looks... AWESOME! I am sure our very capable frontend engineer can implement it in one day, right? Right!?"
+**PM**: "That... looks... AWESOME! I am sure our very capable frontend engineer
+can implement it in one day, right? Right!?"
 
-**You**: "Uh.., I am not sure if that is possible. You see, technically they are 2 different elements."
+**You**: "Uh.., I am not sure if that is possible. You see, technically they are
+2 different elements."
 
-**PM**: "Huh, I am sure you can figure it out. You have our full support, just make sure it's deployed by tomorrow!".
+**PM**: "Huh, I am sure you can figure it out. You have our full support, just
+make sure it's deployed by tomorrow!".
 
 **You**: "..."
 
-The call finishes. You left the call all frustrated because the PM proposed an idea that is just making your life harder.
-You aren't even sure if it's possible to implement it. You go for lunch to clear off your mind. You need to take a break
-before continuing working because of the frustration. You think to yourself, "I really need to update my CV to get away from
-this PM.". But then, you remembered a blog post you read the other day — FLIP!
+The call finishes. You left the call all frustrated because the PM proposed an
+idea that is just making your life harder. You aren't even sure if it's possible
+to implement it. You go for lunch to clear off your mind. You need to take a
+break before continuing working because of the frustration. You think to
+yourself, "I really need to update my CV to get away from this PM.". But then,
+you remembered a blog post you read the other day — FLIP!
 
-You recalled that animating between 2 different elements should be possible with the FLIP technique! You left your lunch on the table.
-All excited with an idea to try, you sprint back to your work desk and start bashing on your mechanical keyboard,
-typing into your favorite code editor... _Notepad_.
+You recalled that animating between 2 different elements should be possible with
+the FLIP technique! You left your lunch on the table. All excited with an idea
+to try, you sprint back to your work desk and start bashing on your mechanical
+keyboard, typing into your favorite code editor... _Notepad_.
 
 ### First
 
-First, you figured you need to store the position of the image in the first state. You open MDN docs like a good developer you are
-and found that what you need is available via the [`getBoundingClientRect()` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
+First, you figured you need to store the position of the image in the first
+state. You open MDN docs like a good developer you are and found that what you
+need is available via the
+[`getBoundingClientRect()` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
 ```jsx
 // `img1` here is the profile picture element
@@ -158,14 +178,17 @@ img2.getBoundingClientRect();
  */
 ```
 
-Ah, that's super helpful! You now know that the profile picture was initially positioned at `x: 320, y: 407`, and in the
-second state, it is positioned at `x: 452, y: 255`. You also now know that the first profile picture has a size of
-`height: 60, width: 60`, and the second one has a size of `height: 120, width: 120`.
+Ah, that's super helpful! You now know that the profile picture was initially
+positioned at `x: 320, y: 407`, and in the second state, it is positioned at
+`x: 452, y: 255`. You also now know that the first profile picture has a size of
+`height: 60, width: 60`, and the second one has a size of
+`height: 120, width: 120`.
 
 ### Invert
 
-With that information, you can calculate the transformation you need, to make it seem like the profile picture in the
-second state is exactly the same as the first state.
+With that information, you can calculate the transformation you need, to make it
+seem like the profile picture in the second state is exactly the same as the
+first state.
 
 ```jsx
 // In practice, only one of img1 and img2 will exist at the same time,
@@ -184,8 +207,9 @@ const deltaScaleX = secondDOMRect.width / firstDOMRect.width;
 const deltaScaleY = secondDOMRect.height / firstDOMRect.height;
 ```
 
-With those numbers, you can now write a tranformation to invert the position and size of the second profile picture so that
-it looks like it is the first profile picture.
+With those numbers, you can now write a tranformation to invert the position and
+size of the second profile picture so that it looks like it is the first profile
+picture.
 
 ```jsx
 const invertedDeltaX = -deltaX;
@@ -205,16 +229,20 @@ With that _inverting_ transformation in place, you have something like this:
   </span>
 </div>
 
-Notice that with the inverting transformation, you have made the profile picture in the second state look exactly
-like the profile picture in the first state! Now for the final piece...
+Notice that with the inverting transformation, you have made the profile picture
+in the second state look exactly like the profile picture in the first state!
+Now for the final piece...
 
 ### Play
 
-We now need to undo the inverting transformation that we've done, so that the profile picture in the second state will
-be restored to where it is supposed to be placed. This is as simple as it sounds, just remove the transformation! Though, we need to
-explicitly wait for the previous inverting transformation to be painted to the DOM first before removing the transformation. We do this
-with [`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). The callback
-passed to `requestAnimationFrame()` will only be invoked once the browser has painted a frame.
+We now need to undo the inverting transformation that we've done, so that the
+profile picture in the second state will be restored to where it is supposed to
+be placed. This is as simple as it sounds, just remove the transformation!
+Though, we need to explicitly wait for the previous inverting transformation to
+be painted to the DOM first before removing the transformation. We do this with
+[`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
+The callback passed to `requestAnimationFrame()` will only be invoked once the
+browser has painted a frame.
 
 ```jsx
 // Note that we are actually using 2 requestAnimationFrame here
@@ -238,11 +266,13 @@ With that in place, now we have something to show to our PM and designer!
 
 <Panel type="info" title="Improving the code with Web Animation API">
 
-Applying styles manually via JavaScript can be ugly. You would also need to take care of cleaning up the styles after
-you are done with them. Not to mention that you also need to use `requestAnimationFrame()` to schedule them correctly.
+Applying styles manually via JavaScript can be ugly. You would also need to take
+care of cleaning up the styles after you are done with them. Not to mention that
+you also need to use `requestAnimationFrame()` to schedule them correctly.
 
-Fortunately, we can avoid all that! A better way to apply the inverting transformation and
-schedule the removal of the transformation is by using the Web Animation API.
+Fortunately, we can avoid all that! A better way to apply the inverting
+transformation and schedule the removal of the transformation is by using the
+Web Animation API.
 
 ```jsx
 // Using the Web Animation API
@@ -260,53 +290,67 @@ img2.animate(
 );
 ```
 
-Refer to the [Web Animation API docs on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) for more details.
+Refer to the
+[Web Animation API docs on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+for more details.
 
 </Panel>
 
 ### Epilogue
 
-You feel satisfied. The fact that you managed to find the solution to a problem you initially thought might
-be impossible to solve has boosted your confidence. You feel like you have leveled up and are pretty pleased
-with the situation.
+You feel satisfied. The fact that you managed to find the solution to a problem
+you initially thought might be impossible to solve has boosted your confidence.
+You feel like you have leveled up and are pretty pleased with the situation.
 
-The next day, you attend the daily stand-up call. With the confidence of a rockstar developer, you mentioned that
-you have pushed the changes to production. You share your screen in the call and show the new fancy animation.
-Everyone is impressed. "Good job!", says the PM. The PM then tries it on their own device. And... sure enough, they found
-a bug with the animation.
+The next day, you attend the daily stand-up call. With the confidence of a
+rockstar developer, you mentioned that you have pushed the changes to
+production. You share your screen in the call and show the new fancy animation.
+Everyone is impressed. "Good job!", says the PM. The PM then tries it on their
+own device. And... sure enough, they found a bug with the animation.
 
-Surprised by the bug, you apologize and tell the team that you will work on a fix ASAP. You lose your confidence immediately
-and now are back to feeling like an impostor. "Maybe it's not the time to update my CV yet after all...", you think to yourself.
+Surprised by the bug, you apologize and tell the team that you will work on a
+fix ASAP. You lose your confidence immediately and now are back to feeling like
+an impostor. "Maybe it's not the time to update my CV yet after all...", you
+think to yourself.
 
 <HorizontalDivider />
 
 ## Closing
 
-There you go! That's essentially what FLIP is and how it works.
-It's worth noting that the technique also works for animating page navigation
-(e.g.: Going from `/` to `/profile` page). This makes some interesting client-side page navigation experience possible!
+There you go! That's essentially what FLIP is and how it works. It's worth
+noting that the technique also works for animating page navigation (e.g.: Going
+from `/` to `/profile` page). This makes some interesting client-side page
+navigation experience possible!
 
-Note that the code snippets we have been using in this post are highly simplified. In practice, we would need 
-to take more things into account to make it work well. For instance:
+Note that the code snippets we have been using in this post are highly
+simplified. In practice, we would need to take more things into account to make
+it work well. For instance:
 
 1. Viewport scroll position (`document.documentElement.scrollTop`)
-2. Calculate `deltaCenterpointX` and `deltaCenterpointY` instead of just `deltaX` and `deltaY`. This is needed to handle
-   cases where the 2 states have different aspect ratios.
+2. Calculate `deltaCenterpointX` and `deltaCenterpointY` instead of just
+   `deltaX` and `deltaY`. This is needed to handle cases where the 2 states have
+   different aspect ratios.
 
-We also haven't handled cases where the 2 states have different `backgroundColor`, `color`, etc. To animate
-between the 2 colors (or other CSS properties) smoothly, we can utilize [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
-to get the style information. We can then use the information to animate between the 2 colors or any other CSS property
-we might want to animate!
+We also haven't handled cases where the 2 states have different
+`backgroundColor`, `color`, etc. To animate between the 2 colors (or other CSS
+properties) smoothly, we can utilize
+[`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
+to get the style information. We can then use the information to animate between
+the 2 colors or any other CSS property we might want to animate!
 
-Writing a library to automatically handle FLIP animation for any given 2 elements is a huge undertaking in itself,
-and is not in the scope of this writing. Though, if you are interested in the tiny FLIP library I wrote for this writing,
-you can check them out [here](https://github.com/jackyef/my-site/blob/master/src/lib/flip/react.tsx).
-While it's written to be used with React, it should be pretty easy to write a wrapper around it to make it work with 
-other frameworks as the `core` logic has been extracted out.
+Writing a library to automatically handle FLIP animation for any given 2
+elements is a huge undertaking in itself, and is not in the scope of this
+writing. Though, if you are interested in the tiny FLIP library I wrote for this
+writing, you can check them out
+[here](https://github.com/jackyef/my-site/blob/master/src/lib/flip/react.tsx).
+While it's written to be used with React, it should be pretty easy to write a
+wrapper around it to make it work with other frameworks as the `core` logic has
+been extracted out.
 
-If you are looking for a more robust react-based library to do this, I'd
-suggest taking a look at [`framer-motion`'s `layoutId`](https://www.framer.com/docs/component/###layoutid) and/or
-[`react-flip-toolkit`](https://github.com/aholachek/react-flip-toolkit).
+If you are looking for a more robust react-based library to do this, I'd suggest
+taking a look at
+[`framer-motion`'s `layoutId`](https://www.framer.com/docs/component/###layoutid)
+and/or [`react-flip-toolkit`](https://github.com/aholachek/react-flip-toolkit).
 
 ## References
 

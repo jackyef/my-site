@@ -2,13 +2,19 @@ import Head from 'next/head';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
+import { createOgImageUrl } from '@/utils/createOgImageUrl';
+
 const ChatPage = () => {
   return (
     <>
       <PageMetaTags
         title="30-min casual chat 💬"
         description="Schedule a casual chat about tech/career related stuff"
-        image="https://jackyef-og-img.vercel.app/**30-min%20casual%20chat**%20%F0%9F%92%AC.png?fontSize=150px"
+        image={createOgImageUrl({
+          title: '30-min casual chat',
+          description:
+            'Schedule a chat to talk about tech, web, and career-related stuff!',
+        })}
       />
       <Head>
         <meta
