@@ -15,7 +15,7 @@ const conf = {
   },
 
   webpack(config, options) {
-    configureMDX(config, options);
+    // configureMDX(config, options);
 
     // https://github.com/vercel/next.js/issues/36896#issuecomment-1126202598
     if (!options.dev && options.isServer && options.nextRuntime === 'nodejs') {

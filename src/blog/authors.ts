@@ -1,9 +1,3 @@
-export interface Author {
-  name: string;
-  twitter: string;
-  avatar: string;
-}
-
 export const jackyef = {
   name: 'Jacky Efendi',
   twitter: '@jackyef__',

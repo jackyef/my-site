@@ -1,4 +1,4 @@
-import { Author } from './authors';
+import { Author } from './types';
 
 function importAll(r: any) {
   return r.keys().map((fileName: string) => ({

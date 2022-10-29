@@ -15,7 +15,6 @@ module.exports = {
      * https://github.com/tailwindlabs/blog.tailwindcss.com/issues/13#issuecomment-699470309
      */
     './next.config.js',
-    './code-highlighter-token.js',
     './safelists.js',
     './src/**/*.{ts,tsx,js,jsx,mdx}',
   ],

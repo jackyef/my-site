@@ -1,4 +1,4 @@
-import { MDXProvider as _MDXProvider } from '@mdx-js/react';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 import { Anchor } from './components/Anchor';
 import { Pre, PreCode } from './components/Pre';
@@ -10,16 +10,15 @@ const mdxComponents = {
 };
 
 interface Props {
-  children?: React.ReactNode;
+  mdxSource?: MDXRemoteSerializeResult;
 }
 
-export const MDXProvider = ({ children }: Props) => {
+export const MDXProvider = ({ mdxSource }: Props) => {
   return (
-    <_MDXProvider
+    <MDXRemote
+      {...mdxSource}
       // @ts-ignore
       components={mdxComponents}
-    >
-      {children}
-    </_MDXProvider>
+    />
   );
 };
