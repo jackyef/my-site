@@ -1,6 +1,5 @@
-import { Fragment } from 'react';
 import clsx from 'clsx';
-import Link, { LinkProps } from 'next/link';
+import Link from 'next/link';
 
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
 
