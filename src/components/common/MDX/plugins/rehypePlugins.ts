@@ -80,3 +80,7 @@ export const rehypePlugins = [
     };
   },
 ];
+
+export const rehypePluginsForPreview = rehypePlugins.filter(
+  (v) => v[0] !== rehypeToc,
+); // do not generate ToC for post previews

@@ -3,7 +3,10 @@ import path from 'path';
 
 import { serialize } from 'next-mdx-remote/serialize';
 
-import { rehypePlugins } from '@/components/common/MDX/plugins/rehypePlugins';
+import {
+  rehypePlugins,
+  rehypePluginsForPreview,
+} from '@/components/common/MDX/plugins/rehypePlugins';
 
 import { PostMeta, Post } from './types';
 
@@ -30,9 +33,8 @@ export const getPosts = async ({
   limit,
   onlyPreview = false,
 }: Opts = {}): Promise<Post[]> => {
-  const slugs = fs
-    .readdirSync(path.join(process.cwd(), './src/pages/posts'))
-    .filter((v) => v === 'writing-your-own-css-in-js-library');
+  const slugs = fs.readdirSync(path.join(process.cwd(), './src/pages/posts'));
+
   let mdxContents = slugs.map((slug) => {
     const mdxPath = path.join(
       process.cwd(),
@@ -63,7 +65,7 @@ export const getPosts = async ({
       return serialize(mdxContent, {
         parseFrontmatter: true,
         mdxOptions: {
-          rehypePlugins,
+          rehypePlugins: !onlyPreview ? rehypePlugins : rehypePluginsForPreview,
           format: 'mdx',
         },
       });

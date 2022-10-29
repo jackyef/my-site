@@ -19,7 +19,7 @@ export interface PostMeta {
   tags: string[];
 }
 
-export type PostPreview = {
+export type Post = {
   link: string;
   metadata: PostMeta;
   mdxSource: MDXRemoteSerializeResult;

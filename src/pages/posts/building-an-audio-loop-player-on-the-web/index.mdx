@@ -1,26 +1,14 @@
-import Image from 'next/image';
+---
+title: Building an Audio-loop Player on the Web 🔉♻️
+description: Some learnings from building Tranquil, a web-app for mixing environmental sounds.
+date: '2021-10-25T09:32:13.801Z'
+ogImage:
+  title: Building an Audio-loop Player on the Web 🔉♻️
+readingTime: 7 min read
+tags: ['tech']
+---
 
-import { AudioPlayer, GaplessAudioPlayer } from '@/components/Audio';
-import { Panel } from '@/components/common/Panel';
-import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { jackyef } from '@/blog/authors';
-
-import mediaSessionAndroidImage from './_assets/media-session-android.png';
-import mediaSessionMacOSImage from './_assets/media-session-macos.png';
-
-export const meta = {
-  title: `Building an Audio-loop Player on the Web 🔉♻️`,
-  description: `Some learnings from building Tranquil, a web-app for mixing environmental sounds.`,
-  date: '2021-10-25T09:32:13.801Z',
-  authors: [jackyef],
-  image: createOgImageUrl({
-    title: 'Building an Audio-loop Player on the Web 🔉♻️',
-  }),
-  readingTime: '7 min read',
-  tags: ['tech'],
-};
-
-<!--start-->
+{/* !start-of-preview */}
 
 In July, I built [Tranquil](https://tranquil.vercel.app), a very simple web-app
 that allows you to create your own mix of environmental sounds. I have always
@@ -31,7 +19,7 @@ I thought the project would be super simple. I should probably be able to just
 put some `<audio>` elements with `loop="true"` on them, right? Well, as it
 turned out, it wasn't that straightforward.
 
-<!--more-->
+{/* !end-of-preview */}
 
 ## The `<audio>` loop gap
 
@@ -220,7 +208,7 @@ Tranquil from there.
 
 <div className="flex place-content-center">
   <Image
-    src={mediaSessionAndroidImage}
+    src={'./assets/blog/media-session-andriud.png'}
     alt="MediaSession API on Android device"
     placeholder="blur"
   />
@@ -230,7 +218,7 @@ For comparison, here is how it looks on a Mac device.
 
 <div className="flex place-content-center">
   <Image
-    src={mediaSessionMacOSImage}
+    src={'./assets/blog/media-session-macos.png'}
     alt="MediaSession API on Mac device"
     placeholder="blur"
   />

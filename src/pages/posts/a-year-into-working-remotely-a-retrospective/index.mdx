@@ -1,23 +1,14 @@
-import { Panel } from '@/components/common/Panel';
-import { InternalLink } from '@/components/Typography/InternalLink';
-import { FunctionRenderer } from '@/components/FunctionRenderer';
-import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { jackyef } from '@/blog/authors';
-import { getPlatformMetaKey } from '@/utils/keyboard';
+---
+title: A year into working remotely – A retrospective 💭
+description: Around a year ago, I left a cushy job at an Indonesian tech unicorn, looking for something else. Today I share about my experience through all of it.
+date: '2021-12-11T13:30:19.530Z'
+ogImage:
+  title: A year into working remotely \n– A retrospective 💭
+readingTime: 15 min read
+tags: ['tech', 'career']
+---
 
-export const meta = {
-  title: `A year into working remotely – A retrospective 💭`,
-  description: `Around a year ago, I left a cushy job at an Indonesian tech unicorn, looking for something else. Today I share about my experience through all of it.`,
-  date: '2021-12-11T13:30:19.530Z',
-  authors: [jackyef],
-  image: createOgImageUrl({
-    title: 'A year into working remotely \n– A retrospective 💭',
-  }),
-  readingTime: '15 min read',
-  tags: ['tech', 'career'],
-};
-
-<!--start-->
+{/* !start-of-preview */}
 
 In mid-late 2020, I left what most people would consider a very cushy and stable
 job: a software engineer position at a big tech unicorn. It definitely was not
@@ -28,7 +19,7 @@ This writing serves as a personal reflection and retrospective of my journey
 from the past couple of years, which hopefully might be of interest to some
 people.
 
-<!--more-->
+{/* !end-of-preview */}
 
 ---
 
@@ -127,9 +118,8 @@ getting interviewed in 7 of them, and got offers in 3 of those.
 <Panel title="Want to know more about the search?" type="info">
 
 I wrote
-<InternalLink href="/posts/6-things-i-learned-during-my-remote-job-search">a
-post last year about things I learned during my search</InternalLink>. I will
-try not to repeat stuff from there here, as this one focuses more on my
+[a post last year about things I learned during my search]('/posts/6-things-i-learned-during-my-remote-job-search').
+I will try not to repeat stuff from there here, as this one focuses more on my
 experience in the past year.
 
 </Panel>
@@ -334,7 +324,7 @@ improve more and share more as I go through my journey. 🙂
 
 <Panel type="info" title="Tips 💡">
 
-Try pressing <FunctionRenderer renderer={getPlatformMetaKey} /> + K and type in
+Try pressing <MetaKey /> + K and type in
 "share"!
 
 </Panel>
