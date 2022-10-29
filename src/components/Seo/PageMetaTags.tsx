@@ -2,12 +2,15 @@ import * as React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-export const publicUrl = 'https://jackyef.com';
+export const publicUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
 const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
 const defaultDescription =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
-const defaultOgImage =
-  'https://jackyef-og-img.vercel.app/Hi%2C%20I%20am%20**Jacky**!%20%20%F0%9F%91%8B.png?fontSize=150px';
+
+const defaultOgImageTitle = `Hi, I am Jacky!`;
+const defaultOgImage = `${publicUrl}/api/og/image?title=${encodeURIComponent(
+  defaultOgImageTitle,
+)}`;
 
 interface Props {
   image?: string;

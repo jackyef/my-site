@@ -7,8 +7,8 @@ export const meta = {
   date: '2020-09-26T08:32:02.372Z',
   authors: [jackyef],
   image: createOgImageUrl({
-    title: 'Writing Your Own **CSS-in-JS** Library',
-    fontSize: 82,
+    title: 'Writing Your Own CSS-in-JS Library',
+    description: `Learn how to create a simple, minimal CSS-in-JS library with vendor prefixing + server rendering support!`,
   }),
   readingTime: '10 min read',
   tags: ['tech'],
@@ -16,23 +16,27 @@ export const meta = {
 
 <!--start-->
 
-[CSS-in-JS](https://github.com/MicheleBertoli/css-in-js) has been around for quite a while now. There are some valid
-reasons both for and against them, but we are not going to talk about those.
+[CSS-in-JS](https://github.com/MicheleBertoli/css-in-js) has been around for
+quite a while now. There are some valid reasons both for and against them, but
+we are not going to talk about those.
 
-I have always believed that writing our own, simple version of something will help a lot to understand how something works, so let's try writing one!
+I have always believed that writing our own, simple version of something will
+help a lot to understand how something works, so let's try writing one!
 
 <!--more-->
 
 > Note ⚠️
 >
-> The library we are going to write is by no means a production-ready one, but it still
-> serves well as a way to learn about how CSS-in-JS might be implemented.
+> The library we are going to write is by no means a production-ready one, but
+> it still serves well as a way to learn about how CSS-in-JS might be
+> implemented.
 
 ## The [`CSSStyleSheet`](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet) interface
 
-Let's get to know the web API that will help us in our quest. The `CSSStyleSheet` API allows us to
-add style rules to the page. First, we would need to get a `CSSStyleSheet` instance. We can do this
-by creating a `style` element. We will also want to append this `style` element to the `document.head`
+Let's get to know the web API that will help us in our quest. The
+`CSSStyleSheet` API allows us to add style rules to the page. First, we would
+need to get a `CSSStyleSheet` instance. We can do this by creating a `style`
+element. We will also want to append this `style` element to the `document.head`
 so it affects the page.
 
 ```js
@@ -48,20 +52,23 @@ Here's a code doing the same thing, but shorter.
 const sheet = document.head.appendChild(document.createElement('style')).sheet;
 ```
 
-Now we have our `CSSStyleSheet` instance, what can we do with it? Well, the complete documentation about the interface
-can be looked at on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet). For our case, we mostly care about
-`cssRules` and `insertRule()`.
+Now we have our `CSSStyleSheet` instance, what can we do with it? Well, the
+complete documentation about the interface can be looked at on
+[MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet). For our
+case, we mostly care about `cssRules` and `insertRule()`.
 
 ### `cssRules`
 
-This property returns a [`CSSRuleList`](https://developer.mozilla.org/en-US/docs/Web/API/CSSRuleList) containing all the rules
-inside this `CSSStyleSheet`. It is an array-like object, which means we can do some stuff we can do to an array, like accessing the
-`.length` property. Keep this in mind as we move on.
+This property returns a
+[`CSSRuleList`](https://developer.mozilla.org/en-US/docs/Web/API/CSSRuleList)
+containing all the rules inside this `CSSStyleSheet`. It is an array-like
+object, which means we can do some stuff we can do to an array, like accessing
+the `.length` property. Keep this in mind as we move on.
 
 ### `insertRule(rule, index)`
 
-This method inserts a rule into the specified index of the `cssRules` list. The `rule` is basically just a textual representation of a
-rule, for example:
+This method inserts a rule into the specified index of the `cssRules` list. The
+`rule` is basically just a textual representation of a rule, for example:
 
 ```css
 .blue {
@@ -69,12 +76,14 @@ rule, for example:
 }
 ```
 
-That's it! Those are the 2 APIs we are going to work with as we write our own CSS-in-JS library. Now, let's start writing down our goal on
-how we want our library to look like.
+That's it! Those are the 2 APIs we are going to work with as we write our own
+CSS-in-JS library. Now, let's start writing down our goal on how we want our
+library to look like.
 
 ## The goal 🏁
 
-We will work on these step-by-step, with each of the goal built upon the previous goal.
+We will work on these step-by-step, with each of the goal built upon the
+previous goal.
 
 1. Have a `css()` function that works
 
@@ -82,7 +91,8 @@ We will work on these step-by-step, with each of the goal built upon the previou
    const blueClass = css(`color: blue;`);
    ```
 
-2. Support [tagged template literal](https://wesbos.com/tagged-template-literals)
+2. Support
+   [tagged template literal](https://wesbos.com/tagged-template-literals)
    ```js
    const blueClass = css`
      color: blue;
@@ -93,8 +103,9 @@ We will work on these step-by-step, with each of the goal built upon the previou
 
 ## Have a `css()` function that works
 
-Let's start by writing down parts our `css()` function. We basically want it to receive a style rule string, and return a `className`, and
-it should insert the rule to the stylesheet in the process.
+Let's start by writing down parts our `css()` function. We basically want it to
+receive a style rule string, and return a `className`, and it should insert the
+rule to the stylesheet in the process.
 
 ```js
 const sheet = document.head.appendChild(document.createElement('style')).sheet;
@@ -108,10 +119,13 @@ const css = (styleString) => {
 };
 ```
 
-As you can see, inserting the rule is pretty straightforward. Now, we need to have a way to generate a `className`. Some libraries generate
-hashes to be used as a `className`, but for our use case, let's keep it simple. We will use the `sheet.cssRules.length`, convert it to a `string`, and
-use that as a `className`. This is a simple way to ensure that all `css()` calls will return a different `className`, as the `sheet.cssRules.length`
-will keep increasing with each calls.
+As you can see, inserting the rule is pretty straightforward. Now, we need to
+have a way to generate a `className`. Some libraries generate hashes to be used
+as a `className`, but for our use case, let's keep it simple. We will use the
+`sheet.cssRules.length`, convert it to a `string`, and use that as a
+`className`. This is a simple way to ensure that all `css()` calls will return a
+different `className`, as the `sheet.cssRules.length` will keep increasing with
+each calls.
 
 This is how our `css()` function looks like at this point.
 
@@ -136,7 +150,13 @@ That's all for now! You can try it out on this sandbox to see it in action.
 <iframe
   src="https://codesandbox.io/embed/wild-wildflower-8818r?codemirror=1&fontsize=14&hidenavigation=1&theme=dark"
   loading="lazy"
-  style={{ width:'100%', height:'500px', border:0, borderRadius: '4px', overflow:'hidden' }}
+  style={{
+    width: '100%',
+    height: '500px',
+    border: 0,
+    borderRadius: '4px',
+    overflow: 'hidden',
+  }}
   title="wild-wildflower-8818r"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -144,8 +164,11 @@ That's all for now! You can try it out on this sandbox to see it in action.
 
 ## Support template literal
 
-Alright, we have our basic stuff working so far! Now, we want to make it so we can write css with [tagged template literal](https://wesbos.com/tagged-template-literals).
-If you are not familiar with it, basically we want to be able to write our css this way:
+Alright, we have our basic stuff working so far! Now, we want to make it so we
+can write css with
+[tagged template literal](https://wesbos.com/tagged-template-literals). If you
+are not familiar with it, basically we want to be able to write our css this
+way:
 
 ```js
 const blue = css`
@@ -153,7 +176,9 @@ const blue = css`
 `;
 ```
 
-This is actually a valid JavaScript! To understand what is actually going on with this code, try copy-pasting the following snippet into your browser console.
+This is actually a valid JavaScript! To understand what is actually going on
+with this code, try copy-pasting the following snippet into your browser
+console.
 
 ```js
 // just log all the arguments, so we understand what is going on
@@ -163,8 +188,9 @@ foo`what is happening?`;
 // => [["What is happening?"]]
 ```
 
-Huh, seems like it is just returning an array with our input string as the element. Let's see what happens if we introduce
-some injected variables inside the template literal.
+Huh, seems like it is just returning an array with our input string as the
+element. Let's see what happens if we introduce some injected variables inside
+the template literal.
 
 ```js
 // just log all the arguments, so we understand what is going on
@@ -176,8 +202,10 @@ foo`You know what's ${gerund}? ${boom}`;
 // => [ ["You know what's ", "? ", ""],  "cooking", "BOOM!"]
 ```
 
-Now we are seeing something different! The first argument to `foo` is still an array of our string, but now it has multiple elements inside
-of it. If we take a look at it, it seems that each of the element is splitted when there is a variable injected at that point in the string.
+Now we are seeing something different! The first argument to `foo` is still an
+array of our string, but now it has multiple elements inside of it. If we take a
+look at it, it seems that each of the element is splitted when there is a
+variable injected at that point in the string.
 
 So, it's basically the same thing as calling the `foo` function like this:
 
@@ -185,8 +213,9 @@ So, it's basically the same thing as calling the `foo` function like this:
 foo(["You know what's", '? ', ''], 'cooking', 'BOOM!');
 ```
 
-Now that we know what is going on, we can write a function to construct them into a complete string. Let's call the function `interleave()`.
-We will also name the injected variables as `interpolations`.
+Now that we know what is going on, we can write a function to construct them
+into a complete string. Let's call the function `interleave()`. We will also
+name the injected variables as `interpolations`.
 
 ```js
 const interleave = (strings, interpolations) => {
@@ -209,7 +238,8 @@ foo`You know what's ${gerund}? ${boom}`;
 ```
 
 I hope that function makes it clear enough on how tagged template literals work.
-We now have a function to contruct them into a string, let's use that in our `css()` function.
+We now have a function to contruct them into a string, let's use that in our
+`css()` function.
 
 ```js
 const css = (strings, ...interpolations) => {
@@ -222,12 +252,19 @@ const css = (strings, ...interpolations) => {
 };
 ```
 
-We can now use the tagged template literal with our `css()` function! See it in action in the following codesandbox.
+We can now use the tagged template literal with our `css()` function! See it in
+action in the following codesandbox.
 
 <iframe
   src="https://codesandbox.io/embed/autumn-browser-b9qxq?codemirror=1&fontsize=14&hidenavigation=1&theme=dark"
   loading="lazy"
-  style={{ width:'100%', height:'500px', border:0, borderRadius: '4px', overflow:'hidden' }}
+  style={{
+    width: '100%',
+    height: '500px',
+    border: 0,
+    borderRadius: '4px',
+    overflow: 'hidden',
+  }}
   title="autumn-browser-b9qxq"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -235,12 +272,17 @@ We can now use the tagged template literal with our `css()` function! See it in 
 
 ## Vendor prefixing
 
-Some CSS properties need to have browser vendor prefixes for them to work. This could be because they are non-standard, [more about this on MDN](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix).
+Some CSS properties need to have browser vendor prefixes for them to work. This
+could be because they are non-standard,
+[more about this on MDN](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix).
 
-Usually, vendor prefixes are added at compile-time, using tools like [autoprefixer](https://github.com/postcss/autoprefixer). For our case though, we will do it
-on runtime using [`tiny-css-prefixer`](https://github.com/kitten/tiny-css-prefixer).
+Usually, vendor prefixes are added at compile-time, using tools like
+[autoprefixer](https://github.com/postcss/autoprefixer). For our case though, we
+will do it on runtime using
+[`tiny-css-prefixer`](https://github.com/kitten/tiny-css-prefixer).
 
-`tiny-css-prefixer` comes with a simple `prefixProperty()` function. We can utilise it in a helper function like this:
+`tiny-css-prefixer` comes with a simple `prefixProperty()` function. We can
+utilise it in a helper function like this:
 
 ```js
 import { prefixProperty } from 'tiny-css-prefixer';
@@ -262,14 +304,19 @@ prefix('writing-mode', 'auto');
 // -ms-writing: auto;
 ```
 
-Our helper `prefix()` function can receive a CSS property and value and add the necessary vendor prefixes to it. Next, we are going to utililse this
-helper function into our `css()` function.
+Our helper `prefix()` function can receive a CSS property and value and add the
+necessary vendor prefixes to it. Next, we are going to utililse this helper
+function into our `css()` function.
 
-> Note that `tiny-css-prefixer` doesn't add prefixes for all CSS properties; [it only does that to those it finds necessary](https://github.com/kitten/tiny-css-prefixer/blob/master/SUPPORT.md).
-> This is good enough for our use case, especially if we don't particularly care about really old browsers.
+> Note that `tiny-css-prefixer` doesn't add prefixes for all CSS properties;
+> [it only does that to those it finds necessary](https://github.com/kitten/tiny-css-prefixer/blob/master/SUPPORT.md).
+> This is good enough for our use case, especially if we don't particularly care
+> about really old browsers.
 
-Since our `css()` function accepts the style string as a whole, we will need to do some splitting to get each `prop` and `value` pairs. A way to do this would be to
-split by `;` and `:` characters. We will do this in a `getPrefixedStyleString()` function.
+Since our `css()` function accepts the style string as a whole, we will need to
+do some splitting to get each `prop` and `value` pairs. A way to do this would
+be to split by `;` and `:` characters. We will do this in a
+`getPrefixedStyleString()` function.
 
 Here is how our `css()` function looks like after the change.
 
@@ -317,13 +364,20 @@ const css = (strings, ...interpolations) => {
 };
 ```
 
-Nothing is different from the appearance, but if you look at your browser console, you should see the vendor prefixes added
-to the style string. Check out the following codesandbox.
+Nothing is different from the appearance, but if you look at your browser
+console, you should see the vendor prefixes added to the style string. Check out
+the following codesandbox.
 
 <iframe
   src="https://codesandbox.io/embed/weathered-cache-59hmo?codemirror=1&fontsize=14&hidenavigation=1&theme=dark"
   loading="lazy"
-  style={{ width:'100%', height:'500px', border:0, borderRadius: '4px', overflow:'hidden' }}
+  style={{
+    width: '100%',
+    height: '500px',
+    border: 0,
+    borderRadius: '4px',
+    overflow: 'hidden',
+  }}
   title="weathered-cache-59hmo"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -331,9 +385,11 @@ to the style string. Check out the following codesandbox.
 
 ## Server rendering support
 
-Finally, let's add a simple server rendering capabilities to the library. Basically, what we want to do is to have a way
-to extract the stylesheets and inject them into `<style>` tag in our HTML document. Since our whole implementation is based on
-the `CSSStyleSheet` API, which is not available in the Node.js environment, we will need to kind of mock it in Node.js environment.
+Finally, let's add a simple server rendering capabilities to the library.
+Basically, what we want to do is to have a way to extract the stylesheets and
+inject them into `<style>` tag in our HTML document. Since our whole
+implementation is based on the `CSSStyleSheet` API, which is not available in
+the Node.js environment, we will need to kind of mock it in Node.js environment.
 
 Let's make a little change to the code that create our `sheet`.
 
@@ -344,8 +400,9 @@ const sheet =
     : mockSheet();
 ```
 
-Now, we need to implement `mockSheet()`. Remember that we pretty much only needed `cssRules` and `insertRule`, so let's make
-a simple version of them in our mocked sheet.
+Now, we need to implement `mockSheet()`. Remember that we pretty much only
+needed `cssRules` and `insertRule`, so let's make a simple version of them in
+our mocked sheet.
 
 ```js
 const mockSheet = () => {
@@ -365,11 +422,19 @@ const mockSheet = () => {
 };
 ```
 
-That's it! Now we can use our CSS-in-JS library in a server environment. Here is a sandbox showing it.
+That's it! Now we can use our CSS-in-JS library in a server environment. Here is
+a sandbox showing it.
 
-<iframe src="https://codesandbox.io/embed/jolly-lichterman-s1eec?codemirror=1&fontsize=14&hidenavigation=1&theme=dark"
+<iframe
+  src="https://codesandbox.io/embed/jolly-lichterman-s1eec?codemirror=1&fontsize=14&hidenavigation=1&theme=dark"
   loading="lazy"
-  style={{ width:'100%', height:'500px', border:0, borderRadius: '4px', overflow:'hidden' }}
+  style={{
+    width: '100%',
+    height: '500px',
+    border: 0,
+    borderRadius: '4px',
+    overflow: 'hidden',
+  }}
   title="jolly-lichterman-s1eec"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -377,20 +442,24 @@ That's it! Now we can use our CSS-in-JS library in a server environment. Here is
 
 ## Closing
 
-We have successfully written our own simple, < 1KB CSS-in-JS library. Sure, it doesn't really handle a lot of things yet, but it works!
-The important thing is that we (hopefully) have learned something during the process. If you are interested, you can try adding some more
-features to the libraries such as:
+We have successfully written our own simple, < 1KB CSS-in-JS library. Sure, it
+doesn't really handle a lot of things yet, but it works! The important thing is
+that we (hopefully) have learned something during the process. If you are
+interested, you can try adding some more features to the libraries such as:
 
 1. `keyframes()` function
 2. `global()` function
-3. Better SSR support that can have separate sheet for each incoming HTTP requests
+3. Better SSR support that can have separate sheet for each incoming HTTP
+   requests
 
 Hopefully you enjoyed reading this article and learned new stuff like I did!
 
 ## Resources
 
-I have published the code during this learning in the [`basic-css-in-js` repo](https://github.com/jackyef/basic-css-in-js). You can
-take a look at the code to see how it works. Here's how the final APIs look like.
+I have published the code during this learning in the
+[`basic-css-in-js` repo](https://github.com/jackyef/basic-css-in-js). You can
+take a look at the code to see how it works. Here's how the final APIs look
+like.
 
 ```jsx
 import { css, keyframes } from 'basic-css-in-js';
