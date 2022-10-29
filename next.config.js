@@ -3,13 +3,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const { flowRight } = require('./utils/flow.js');
-const configureMDX = require('./utils/configs/configureMDX.js');
+// const configureMDX = require('./utils/configs/configureMDX.js');
 
 /**
  * @type {import('next').NextConfig}
  */
 const conf = {
-  pageExtensions: ['ts', 'tsx', 'mdx'],
+  pageExtensions: ['ts', 'tsx'],
   images: {
     formats: ['image/avif', 'image/webp'],
   },

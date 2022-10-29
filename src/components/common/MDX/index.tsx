@@ -46,6 +46,10 @@ export const MDXProvider = ({ mdxSource }: Props) => {
       {...mdxSource}
       // @ts-ignore
       components={mdxComponents}
+      // This will initialize custom components lazily, needed to prevent hydration mismatches warnings
+      // This is a compromise we have to live with when using next-mdx-remote, as the MDX aren't parsed
+      // in the bundler lifecycle, so it cannot resolves the custom components used there.
+      lazy
     />
   );
 };

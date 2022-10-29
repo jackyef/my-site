@@ -9,14 +9,14 @@ import { Tag } from '@/components/common/Tag';
 import { SkipSSR } from '@/components/SkipSSR';
 import { MDXProvider } from '@/components/common/MDX';
 import { getHslaColor } from '@/lib/styles/colors';
-import { PostPreview } from '@/blog/types';
+import { Post } from '@/blog/types';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
 const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
-  posts?: PostPreview[];
+  posts?: Post[];
 }
 
 export const PostPreviewList = ({ posts = [] }: Props) => {
