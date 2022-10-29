@@ -94,20 +94,19 @@ export default function Header() {
         <SectionContainer>
           <nav className={clsx('flex', 'justify-between', 'items-center')}>
             <div className="flex space-x-2">
-              <Link href="/">
-                <a
-                  aria-label="Jacky Efendi's personal site"
-                  className="rounded-md p-2"
-                  onClick={() => {
-                    sendEventTracker({
-                      name: 'click',
-                      category: 'header nav',
-                      label: 'logo',
-                    });
-                  }}
-                >
-                  <Logo />
-                </a>
+              <Link
+                href="/"
+                aria-label="Jacky Efendi's personal site"
+                className="rounded-md p-2"
+                onClick={() => {
+                  sendEventTracker({
+                    name: 'click',
+                    category: 'header nav',
+                    label: 'logo',
+                  });
+                }}
+              >
+                <Logo />
               </Link>
               <button
                 style={{

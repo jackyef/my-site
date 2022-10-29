@@ -134,27 +134,16 @@ export const Footer = () => {
                     )}
                   >
                     {section.links.map((link) => {
-                      const Wrapper =
-                        link.type !== 'external' ? Link : Fragment;
-                      const wrapperProps =
-                        Wrapper === Fragment
-                          ? ({} as LinkProps)
-                          : {
-                              href: link.href,
-                              passHref: true,
-                            };
+                      const Wrapper = link.type !== 'external' ? Link : 'a';
+                      const wrapperProps = {
+                        href: link.href,
+                        rel: link.rel,
+                        className: 'hover:text-theme-text',
+                      };
 
                       return (
                         <li key={link.href}>
-                          <Wrapper {...wrapperProps}>
-                            <a
-                              href={link.href}
-                              rel={link.rel}
-                              className="hover:text-theme-text"
-                            >
-                              {link.label}
-                            </a>
-                          </Wrapper>
+                          <Wrapper {...wrapperProps}>{link.label}</Wrapper>
                         </li>
                       );
                     })}

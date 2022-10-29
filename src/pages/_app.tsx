@@ -4,6 +4,7 @@ import { Flipper } from 'react-flip-toolkit';
 import { AppType } from 'next/dist/shared/lib/utils';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import clsx from 'clsx';
 
 import { Analytics } from '@/components/Analytics/Analytics';
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
@@ -18,9 +19,9 @@ import { NavigationProvider } from '@/contexts/navigation';
 import { useReduceMotion } from '@/hooks/useReduceMotion';
 
 import { isProd } from '@/utils/constants';
-
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
+import { interFont } from '@/utils/fonts';
 
 const queryClient = new QueryClient();
 
@@ -29,7 +30,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const prefersReducedMotion = useReduceMotion();
 
   return (
-    <>
+    <div className={clsx(interFont.className)}>
       <Toaster />
       <CommandPaletteProvider>
         {/* Suppress children prop error because of React 18 */}
@@ -62,7 +63,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           </NavigationProvider>
         </QueryClientProvider>
       </CommandPaletteProvider>
-    </>
+    </div>
   );
 };
 

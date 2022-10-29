@@ -22,14 +22,13 @@ export const InternalLink: React.FC<Props> = ({
   const baseClass = useAnchorClassName();
 
   return (
-    <Link href={href}>
-      <a
-        className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
-        onClick={onClick}
-        {...rest}
-      >
-        {children}
-      </a>
+    <Link
+      href={href}
+      className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
+      onClick={onClick}
+      {...rest}
+    >
+      {children}
     </Link>
   );
 };
