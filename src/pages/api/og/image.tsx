@@ -52,25 +52,25 @@ export default async function (req: NextRequest) {
             tw="mb-4"
             style={{
               fontWeight: 700,
-              fontSize: 80,
+              fontSize: 90,
             }}
           >
             {title}
           </span>
           {Boolean(description) && (
-            <span tw="mb-2 text-2xl">{description}</span>
+            <span tw="mb-2 text-3xl text-slate-600">{description}</span>
           )}
         </div>
         <span
           tw="absolute bottom-16 left-16 text-slate-500"
           style={{
-            fontSize: 60,
+            fontSize: 70,
           }}
         >
           🤓📝
         </span>
         <span
-          tw="absolute text-lg bottom-16 right-16 text-slate-500"
+          tw="absolute text-2xl bottom-16 right-16 text-slate-500"
           style={{
             fontWeight: 400,
           }}
