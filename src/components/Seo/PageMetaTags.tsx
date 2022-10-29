@@ -2,15 +2,18 @@ import * as React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-export const publicUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
+import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { isProd } from '@/utils/constants';
+
+export const publicUrl = `${isProd ? 'https://' : 'http://'}${
+  process.env.NEXT_PUBLIC_VERCEL_URL
+}`;
 const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
 const defaultDescription =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
 
 const defaultOgImageTitle = `Hi, I am Jacky!`;
-const defaultOgImage = `${publicUrl}/api/og/image?title=${encodeURIComponent(
-  defaultOgImageTitle,
-)}`;
+const defaultOgImage = createOgImageUrl({ title: defaultOgImageTitle });
 
 interface Props {
   image?: string;
