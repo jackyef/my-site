@@ -22,6 +22,11 @@ export const PAGES: readonly PageData[] = [
     link: '/about',
   },
   {
+    title: 'Tokens 🖌️',
+    description: 'Shows some of the design tokens used on this site.',
+    link: '/about',
+  },
+  {
     title: 'Uses',
     description: 'List of things that I use daily',
     link: '/uses',

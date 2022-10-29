@@ -50,8 +50,8 @@ const MediumPostCard = ({
               src={MediumLogo}
               alt="medium logo"
               className="w-4 h-4"
-              width="16px"
-              height="16px"
+              width={16}
+              height={16}
             />
             &nbsp;&middot; {timeToRead}
           </span>

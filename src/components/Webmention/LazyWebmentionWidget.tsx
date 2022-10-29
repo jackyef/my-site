@@ -4,6 +4,6 @@ export const LazyWebmentionWidget = dynamic(
   () => import(/* webpackChunkName: "webmention-widget" */ './index'),
   {
     ssr: false,
-    suspense: true,
+    suspense: false,
   },
 );
