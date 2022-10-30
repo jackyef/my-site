@@ -1,6 +1,7 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Image from 'next/image';
 import { Flipped } from 'react-flip-toolkit';
+import clsx from 'clsx';
 
 import { Panel } from '@/components/common/Panel';
 import { KanbanBoard } from '@/components/FlipDemos/KanbanBoard';
@@ -10,6 +11,8 @@ import { ProfileCardToHero } from '@/components/FlipDemos/ProfileCardToHero';
 import { HorizontalDivider } from '@/components/Divider';
 import { AudioPlayer, GaplessAudioPlayer } from '@/components/Audio';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
+import { LightButton } from '@/components/common/Button/LightButton';
+import { Surfaces, Colors } from '@/components/DesignDemo';
 
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
@@ -29,6 +32,10 @@ const mdxComponents = {
 
   /* Needed for some posts */
   Panel,
+  LightButton,
+  Surfaces,
+  Colors,
+
   KanbanBoard,
   ProfileCard,
   ProfileHero,
@@ -46,6 +53,9 @@ export const MDXProvider = ({ mdxSource }: Props) => {
   return (
     <MDXRemote
       {...mdxSource}
+      scope={{
+        clsx,
+      }}
       // @ts-ignore
       components={mdxComponents}
       // This will initialize custom components lazily, needed to prevent hydration mismatches warnings
