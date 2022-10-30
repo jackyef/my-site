@@ -1,5 +1,6 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Image from 'next/image';
+import { Flipped } from 'react-flip-toolkit';
 
 import { Panel } from '@/components/common/Panel';
 import { KanbanBoard } from '@/components/FlipDemos/KanbanBoard';
@@ -21,6 +22,7 @@ const mdxComponents = {
   'pre.code': PreCode,
   Image,
   HorizontalDivider,
+  Flipped,
   MetaKey: () => {
     return <FunctionRenderer renderer={getPlatformMetaKey} />;
   },

@@ -63,19 +63,20 @@ export const getMDXContent = (filePath: string, onlyPreview?: boolean) => {
   let source = fs.readFileSync(mdxPath, 'utf8').toString();
 
   const title = getTitleInFrontMatter(source);
-  const slug = title.replace(/ /g, '-').toLowerCase();
 
-  source = source.replace(
-    /{\/\* \!start-of-preview \*\/}(.*){\/\* \!end-of-preview \*\/}(.*)/s,
-    [
-      `<Flipped flipId="${slug}-excerpt" spring="noWobble">`,
-      `<div id="${slug}-excerpt">$1</div>`,
-      '</Flipped>',
-      '<div id="restOfArticle">',
-      '$2',
-      '</div>',
-    ].join('\n'),
-  );
+  if (!onlyPreview) {
+    source = source.replace(
+      /{\/\* \!start-of-preview \*\/}(.*){\/\* \!end-of-preview \*\/}(.*)/s,
+      [
+        `<Flipped flipId="${title}-excerpt" spring="noWobble">`,
+        `<div id="${title}-excerpt">$1</div>`,
+        '</Flipped>',
+        '<div id="restOfArticle">',
+        '$2',
+        '</div>',
+      ].join('\n'),
+    );
+  }
 
   return !onlyPreview
     ? source
