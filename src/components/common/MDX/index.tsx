@@ -62,7 +62,7 @@ const mdxComponents = {
 };
 
 interface Props {
-  mdxSource?: MDXRemoteSerializeResult;
+  mdxSource: MDXRemoteSerializeResult;
 }
 
 export const MDXProvider = ({ mdxSource }: Props) => {

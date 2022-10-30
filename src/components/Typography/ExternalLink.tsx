@@ -42,6 +42,7 @@ export const ExternalLink: React.FC<Props> = ({
   return (
     <Tooltip.Provider delayDuration={300} skipDelayDuration={200}>
       <Tooltip.Root>
+        {/* @ts-expect-error */}
         <Tooltip.Trigger asChild>
           <a
             className={clsx({ [baseClass]: !isNotFancy }, className)}
@@ -54,6 +55,7 @@ export const ExternalLink: React.FC<Props> = ({
           </a>
         </Tooltip.Trigger>
         <Tooltip.Portal>
+          {/* @ts-expect-error */}
           <Tooltip.Content>
             <LinkPreview href={href} />
           </Tooltip.Content>
