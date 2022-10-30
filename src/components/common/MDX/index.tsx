@@ -37,7 +37,7 @@ const mdxComponents = {
   Surfaces,
   Colors,
 
-  KanbanBoard: dynamic(() =>
+  KanbanBoard: dynamic<any>(() =>
     import('@/components/FlipDemos/KanbanBoard').then((m) => m.KanbanBoard),
   ),
 

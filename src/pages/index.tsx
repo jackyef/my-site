@@ -1,7 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
-import { serialize } from 'next-mdx-remote/serialize';
 import { Flipped } from 'react-flip-toolkit';
 import { GetStaticProps } from 'next/types';
 
