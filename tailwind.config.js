@@ -1,5 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const mdx = require('@mdx-js/mdx');
 
 module.exports = {
   content: [
