@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
 import { Fragment } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next/types';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
@@ -34,9 +34,16 @@ type Props = {
   posts: Post[];
 };
 
-export default function Home({ posts }: Props) {
+export default function BlogPage({ posts }: Props) {
   const router = useRouter();
   const tags = router.query.tags ? String(router.query.tags).split(',') : [];
+
+  const filteredPosts =
+    tags.length > 0
+      ? posts.filter((post) => {
+          return tags.some((tag) => post.metadata.tags.includes(tag));
+        })
+      : posts;
 
   return (
     <>
@@ -48,18 +55,15 @@ export default function Home({ posts }: Props) {
           </PageTitle>
         )}
       </Flipped>
-      <PostPreviewList posts={posts} />
+      <PostPreviewList posts={filteredPosts} />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const tags = ctx.query.tags ? String(ctx.query.tags).split(',') : [];
-
+export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      posts: await getPosts({ limit: 0, onlyPreview: true, tags }),
-      tags,
+      posts: await getPosts({ limit: 0, onlyPreview: true }),
     },
   };
 };
