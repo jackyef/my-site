@@ -2,14 +2,10 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Image from 'next/image';
 import { Flipped } from 'react-flip-toolkit';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
 
 import { Panel } from '@/components/common/Panel';
-import { KanbanBoard } from '@/components/FlipDemos/KanbanBoard';
-import { ProfileCard } from '@/components/FlipDemos/ProfileCard';
-import { ProfileHero } from '@/components/FlipDemos/ProfileHero';
-import { ProfileCardToHero } from '@/components/FlipDemos/ProfileCardToHero';
 import { HorizontalDivider } from '@/components/Divider';
-import { AudioPlayer, GaplessAudioPlayer } from '@/components/Audio';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
 import { LightButton } from '@/components/common/Button/LightButton';
 import { Surfaces, Colors } from '@/components/DesignDemo';
@@ -36,13 +32,27 @@ const mdxComponents = {
   Surfaces,
   Colors,
 
-  KanbanBoard,
-  ProfileCard,
-  ProfileHero,
-  ProfileCardToHero,
+  KanbanBoard: dynamic(() =>
+    import('@/components/FlipDemos/KanbanBoard').then((m) => m.KanbanBoard),
+  ),
+  ProfileCard: dynamic(() =>
+    import('@/components/FlipDemos/ProfileCard').then((m) => m.ProfileCard),
+  ),
+  ProfileHero: dynamic(() =>
+    import('@/components/FlipDemos/ProfileHero').then((m) => m.ProfileHero),
+  ),
+  ProfileCardToHero: dynamic(() =>
+    import('@/components/FlipDemos/ProfileCardToHero').then(
+      (m) => m.ProfileCardToHero,
+    ),
+  ),
 
-  AudioPlayer,
-  GaplessAudioPlayer,
+  AudioPlayer: dynamic(() =>
+    import('@/components/Audio').then((m) => m.AudioPlayer),
+  ),
+  GaplessAudioPlayer: dynamic(() =>
+    import('@/components/Audio').then((m) => m.GaplessAudioPlayer),
+  ),
 };
 
 interface Props {

@@ -34,4 +34,6 @@ export const ProfileCardToHero = ({ id, invertOnly }: Props) => {
       />
     );
   }
+
+  return null;
 };

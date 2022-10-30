@@ -39,7 +39,7 @@ const getDateInFrontMatter = (mdxContent: string) => {
     secondDelimiter,
   );
 
-  const date = frontmatterContent.match(/date: (.*)/)?.[1] as string;
+  const date = frontmatterContent.match(/date: \'(.*)\'/)?.[1] as string;
 
   return new Date(date);
 };
@@ -140,7 +140,7 @@ export const getPosts = async ({
 }: Opts = {}): Promise<Post[]> => {
   const slugs = fs.readdirSync(path.join(process.cwd(), './src/pages/posts'));
 
-  let mdxContents = slugs.map((slug) => {
+  let mdxContents = slugs.map((slug, i) => {
     const mdxPath = path.join(
       process.cwd(),
       './src/pages/posts',
@@ -148,12 +148,15 @@ export const getPosts = async ({
       'index.mdx',
     );
 
-    return getMDXContent(mdxPath, onlyPreview);
+    return {
+      slugIndex: i,
+      content: getMDXContent(mdxPath, onlyPreview),
+    };
   });
 
   mdxContents = mdxContents.sort((a, b) => {
-    const aDate = getDateInFrontMatter(a);
-    const bDate = getDateInFrontMatter(b);
+    const aDate = getDateInFrontMatter(a.content);
+    const bDate = getDateInFrontMatter(b.content);
 
     return bDate.getTime() - aDate.getTime();
   });
@@ -163,18 +166,18 @@ export const getPosts = async ({
   }
 
   if (tags.length > 0) {
-    mdxContents = mdxContents.filter((mdxContent) => {
-      const postTags = getTagsInFrontMatter(mdxContent);
+    mdxContents = mdxContents.filter((m) => {
+      const postTags = getTagsInFrontMatter(m.content);
 
       return tags.some((tag) => postTags.includes(tag));
     });
   }
 
   const posts = await Promise.all(
-    mdxContents.map((mdxContent, i) => {
+    mdxContents.map((m) => {
       return getPostFromMDXContent(
-        mdxContent,
-        `/posts/${slugs[i]}`,
+        m.content,
+        `/posts/${slugs[m.slugIndex]}`,
         onlyPreview,
       );
     }),
