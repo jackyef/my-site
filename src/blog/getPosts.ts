@@ -25,9 +25,11 @@ const getTitleInFrontMatter = (mdxContent: string) => {
     secondDelimiter,
   );
 
-  const title = frontmatterContent.match(/title: (.*)/)?.[1] as string;
+  const title = frontmatterContent.match(
+    /title:( |\s)(.*?)description:/ms,
+  )?.[1] as string;
 
-  return title;
+  return title.trim();
 };
 
 const getDateInFrontMatter = (mdxContent: string) => {
@@ -39,7 +41,7 @@ const getDateInFrontMatter = (mdxContent: string) => {
     secondDelimiter,
   );
 
-  const date = frontmatterContent.match(/date: \'(.*)\'/)?.[1] as string;
+  const date = frontmatterContent.match(/date: \'(.*)\'/)?.[2] as string;
 
   return new Date(date);
 };
