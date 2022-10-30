@@ -14,8 +14,8 @@ const pagesData = postSlugs.map((slug) => {
   );
 
   const postMeta = {
-    title: fileContent.match(/title: `(.*)`/)[1],
-    description: fileContent.match(/description: `(.*)`/)[1],
+    title: fileContent.match(/title: (.*)/)[1],
+    description: fileContent.match(/description: (.*)/)[1],
     link: `/posts/${slug}`,
   };
 
