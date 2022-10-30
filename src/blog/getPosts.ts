@@ -16,6 +16,20 @@ type Opts = {
   tags?: string[];
 };
 
+const getTitleInFrontMatter = (mdxContent: string) => {
+  const firstDelimiter = mdxContent.indexOf('---');
+  const secondDelimiter = mdxContent.indexOf('---', firstDelimiter + 1);
+
+  const frontmatterContent = mdxContent.slice(
+    firstDelimiter + 3,
+    secondDelimiter,
+  );
+
+  const title = frontmatterContent.match(/title: (.*)/)?.[1] as string;
+
+  return title;
+};
+
 const getDateInFrontMatter = (mdxContent: string) => {
   const firstDelimiter = mdxContent.indexOf('---');
   const secondDelimiter = mdxContent.indexOf('---', firstDelimiter + 1);
@@ -46,7 +60,22 @@ const getTagsInFrontMatter = (mdxContent: string) => {
 
 export const getMDXContent = (filePath: string, onlyPreview?: boolean) => {
   const mdxPath = path.join(filePath);
-  const source = fs.readFileSync(mdxPath, 'utf8').toString();
+  let source = fs.readFileSync(mdxPath, 'utf8').toString();
+
+  const title = getTitleInFrontMatter(source);
+  const slug = title.replace(/ /g, '-').toLowerCase();
+
+  source = source.replace(
+    /{\/\* \!start-of-preview \*\/}(.*){\/\* \!end-of-preview \*\/}(.*)/s,
+    [
+      `<Flipped flipId="${slug}-excerpt" spring="noWobble">`,
+      `<div id="${slug}-excerpt">$1</div>`,
+      '</Flipped>',
+      '<div id="restOfArticle">',
+      '$2',
+      '</div>',
+    ].join('\n'),
+  );
 
   return !onlyPreview
     ? source
