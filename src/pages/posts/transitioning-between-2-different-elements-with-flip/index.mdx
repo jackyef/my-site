@@ -1,34 +1,22 @@
-import Image from 'next/image';
+---
+title: Transitioning between 2 different elements with FLIP
+description:
+  Learn the concept of FLIP to unlock new transition possibilities, while
+  writing your own FLIP library in the process.
+date: '2022-03-21T07:05:10.253Z'
+ogImage:
+  title: Transitioning between 2 different elements with FLIP
+readingTime: 10 min read
+tags: ['tech']
+---
 
-import { Panel } from '@/components/common/Panel';
-import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { jackyef } from '@/blog/authors';
-import { HorizontalDivider } from '@/components/Divider';
-
-import { KanbanBoard } from '@/components/FlipDemos/KanbanBoard';
-import { ProfileCard } from '@/components/FlipDemos/ProfileCard';
-import { ProfileHero } from '@/components/FlipDemos/ProfileHero';
-import { ProfileCardToHero } from '@/components/FlipDemos/ProfileCardToHero';
-
-export const meta = {
-  title: `Transitioning between 2 different elements with FLIP`,
-  description: `Learn the concept of FLIP to unlock new transition possibilities, while writing your own FLIP library in the process.`,
-  date: '2022-03-21T07:05:10.253Z',
-  authors: [jackyef],
-  image: createOgImageUrl({
-    title: 'Transitioning between 2 different elements with FLIP',
-  }),
-  readingTime: '10 min read',
-  tags: ['tech'],
-};
-
-<!--start-->
+{/* !start-of-preview */}
 
 CSS transitions are great, but they aren't always sufficient for more complex
 animations. Imagine a situation where you want to reorder a list of items, how
 would you write the CSS transitions for it?
 
-<!--more-->
+{/* !end-of-preview */}
 
 Consider the following kanban board. Try clicking on the tasks to move them
 around!

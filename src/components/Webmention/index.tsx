@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import tinytime from 'tinytime';
 
-import { PostMeta } from '@/blog/getAllPostPreviews';
+import { PostMeta } from '@/blog/types';
 
 import { publicUrl } from '../Seo/PageMetaTags';
 import { TwitterShare } from '../Social/TwitterShare';

@@ -1,11 +1,18 @@
 import { Flipped } from 'react-flip-toolkit';
+import { GetStaticProps } from 'next/types';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { LandingHero } from '@/components/Hero';
+import { Post } from '@/blog/types';
+import { getPosts } from '@/blog/getPosts';
 
-export default function Home() {
+type Props = {
+  posts: Post[];
+};
+
+export default function Home({ posts }: Props) {
   return (
     <>
       <PageMetaTags />
@@ -14,12 +21,20 @@ export default function Home() {
       <div className="my-16" />
 
       <Flipped flipId="latest-writing-heading" spring="noWobble" translate>
-        {(flippedProps) => (
+        {(flippedProps: any) => (
           <SectionTitle {...flippedProps}>Latest writings ✍️</SectionTitle>
         )}
       </Flipped>
 
-      <PostPreviewList count={4} />
+      <PostPreviewList posts={posts} />
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  return {
+    props: {
+      posts: await getPosts({ limit: 3, onlyPreview: true }),
+    },
+  };
+};

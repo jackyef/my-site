@@ -1,6 +1,6 @@
 import { Flip } from '@/lib/flip/react';
 
-type Props = {
+export type Props = {
   flipId?: string;
   onLinkClick?: () => void;
   invertOnly?: boolean;
@@ -28,7 +28,7 @@ export const ProfileCard = ({
   };
 
   return (
-    <div className="flex justify-start border border-surface-3 rounded-lg p-4 w-[400px] max-w-full gap-3">
+    <div className="flex justify-start shadow-surface-2 bg-surface-2 rounded-lg p-4 w-[400px] max-w-full gap-3">
       {renderWithWrapper(
         <img
           loading="lazy"

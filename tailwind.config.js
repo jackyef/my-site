@@ -15,7 +15,6 @@ module.exports = {
      * https://github.com/tailwindlabs/blog.tailwindcss.com/issues/13#issuecomment-699470309
      */
     './next.config.js',
-    './code-highlighter-token.js',
     './safelists.js',
     './src/**/*.{ts,tsx,js,jsx,mdx}',
   ],
@@ -119,13 +118,13 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
-        'surface-0': 'inset 0 5px 2px -1px var(--shadow-color)',
+        'surface-0': 'inset 3px 5px 2px -1px var(--shadow-color)',
         'surface-1': 'none',
         // 'surface-2': '0 5px 2px -1px var(--shadow-color)',
-        'surface-2': '0 6.6px 2.6px -1.3px var(--shadow-color)',
-        'surface-3': '0 10px 4px -2px var(--shadow-color)',
-        'surface-4': '0 13.3px 5.3px -2.7px var(--shadow-color)',
-        'surface-5': '0 20px 8px -4px var(--shadow-color)',
+        'surface-2': '3px 6.6px 2.6px -1.3px var(--shadow-color)',
+        'surface-3': '6px 10px 4px -2px var(--shadow-color)',
+        'surface-4': '8px 13.3px 5.3px -2.7px var(--shadow-color)',
+        'surface-5': '12px 20px 8px -4px var(--shadow-color)',
       },
       borderColor: {
         surface: {

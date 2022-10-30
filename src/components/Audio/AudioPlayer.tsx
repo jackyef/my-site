@@ -7,7 +7,7 @@ import { PlayPauseButton } from './PlayPauseButton';
 import { TimeInformation } from './TimeInformation';
 import { Track } from './Track';
 
-type Props = Omit<React.HTMLProps<HTMLAudioElement>, 'controls'> & {
+export type Props = Omit<React.HTMLProps<HTMLAudioElement>, 'controls'> & {
   title: string;
 };
 

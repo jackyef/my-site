@@ -4,7 +4,7 @@ import { Flip } from '@/lib/flip/react';
 
 import { invert } from './invert';
 
-type Props = {
+export type Props = {
   flipId?: string;
   onBack?: () => void;
   invertOnly?: boolean;
@@ -30,8 +30,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
     <>
       <div
         className={clsx(
-          'border',
-          'border-surface-3',
+          'shadow-surface-2 bg-surface-2',
           'rounded-lg',
           'max-w-full',
           'w-[720px]',

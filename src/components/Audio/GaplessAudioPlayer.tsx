@@ -7,7 +7,7 @@ import { PlayPauseButton } from './PlayPauseButton';
 import { TimeInformation } from './TimeInformation';
 import { Track } from './Track';
 
-interface Props {
+export interface Props {
   src: string;
   title: string;
 }

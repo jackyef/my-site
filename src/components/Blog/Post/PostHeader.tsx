@@ -3,7 +3,7 @@ import { Flipped } from 'react-flip-toolkit';
 import { useRouter } from 'next/router';
 
 import { PageTitle } from '@/components/Typography/PageTitle';
-import { PostMeta } from '@/blog/getAllPostPreviews';
+import { PostMeta } from '@/blog/types';
 import { Tag } from '@/components/common/Tag';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { SkipSSR } from '@/components/SkipSSR';
@@ -12,7 +12,7 @@ const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 const postDateTemplateXl = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
-  meta: PostMeta;
+  meta: Exclude<PostMeta, 'ogImage'>;
 }
 
 export const PostHeader = ({ meta }: Props) => {
@@ -26,7 +26,7 @@ export const PostHeader = ({ meta }: Props) => {
         <div>
           <div>
             <Flipped flipId={meta.title} spring="noWobble" translate>
-              {(flippedProps) => (
+              {(flippedProps: any) => (
                 <PageTitle {...flippedProps}>{meta.title}</PageTitle>
               )}
             </Flipped>

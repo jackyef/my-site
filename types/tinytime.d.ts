@@ -1,18 +1,18 @@
 declare module 'tinytime' {
   interface TinyTime {
-    render: (date: Date) => string
+    render: (date: Date) => string;
   }
 
   interface TinyTimeOptions {
-    padHours?: boolean
-    padDays?: boolean
-    padMonth?: boolean
+    padHours?: boolean;
+    padDays?: boolean;
+    padMonth?: boolean;
   }
 
   declare const tinytime: (
     template: string,
-    options: TinyTimeOptions = {}
-  ) => TinyTime
+    options: TinyTimeOptions = {},
+  ) => TinyTime;
 
-  export default tinytime
+  export default tinytime;
 }
