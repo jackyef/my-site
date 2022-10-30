@@ -108,6 +108,7 @@ export default () => {
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
+      {/* @ts-expect-error */}
       <Dialog.Overlay>
         <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn" />
       </Dialog.Overlay>
