@@ -4,7 +4,7 @@ import { Flip } from '@/lib/flip/react';
 
 import { invert } from './invert';
 
-type Props = {
+export type Props = {
   flipId?: string;
   onBack?: () => void;
   invertOnly?: boolean;

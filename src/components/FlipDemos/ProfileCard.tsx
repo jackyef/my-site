@@ -1,6 +1,6 @@
 import { Flip } from '@/lib/flip/react';
 
-type Props = {
+export type Props = {
   flipId?: string;
   onLinkClick?: () => void;
   invertOnly?: boolean;

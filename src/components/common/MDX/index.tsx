@@ -9,6 +9,11 @@ import { HorizontalDivider } from '@/components/Divider';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
 import { LightButton } from '@/components/common/Button/LightButton';
 import { Surfaces, Colors } from '@/components/DesignDemo';
+import type { Props as ProfileCardProps } from '@/components/FlipDemos/ProfileCard';
+import type { Props as ProfileHeroProps } from '@/components/FlipDemos/ProfileHero';
+import type { Props as ProfileCardToHeroProps } from '@/components/FlipDemos/ProfileCardToHero';
+import type { Props as AudioPlayerProps } from '@/components/Audio/AudioPlayer';
+import type { Props as GaplessAudioPlayerProps } from '@/components/Audio/GaplessAudioPlayer';
 
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
@@ -35,22 +40,23 @@ const mdxComponents = {
   KanbanBoard: dynamic(() =>
     import('@/components/FlipDemos/KanbanBoard').then((m) => m.KanbanBoard),
   ),
-  ProfileCard: dynamic(() =>
+
+  ProfileCard: dynamic<ProfileCardProps>(() =>
     import('@/components/FlipDemos/ProfileCard').then((m) => m.ProfileCard),
   ),
-  ProfileHero: dynamic(() =>
+  ProfileHero: dynamic<ProfileHeroProps>(() =>
     import('@/components/FlipDemos/ProfileHero').then((m) => m.ProfileHero),
   ),
-  ProfileCardToHero: dynamic(() =>
+  ProfileCardToHero: dynamic<ProfileCardToHeroProps>(() =>
     import('@/components/FlipDemos/ProfileCardToHero').then(
       (m) => m.ProfileCardToHero,
     ),
   ),
 
-  AudioPlayer: dynamic(() =>
+  AudioPlayer: dynamic<AudioPlayerProps>(() =>
     import('@/components/Audio').then((m) => m.AudioPlayer),
   ),
-  GaplessAudioPlayer: dynamic(() =>
+  GaplessAudioPlayer: dynamic<GaplessAudioPlayerProps>(() =>
     import('@/components/Audio').then((m) => m.GaplessAudioPlayer),
   ),
 };

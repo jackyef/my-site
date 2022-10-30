@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ProfileCard } from './ProfileCard';
 import { ProfileHero } from './ProfileHero';
 
-interface Props {
+export interface Props {
   id?: string;
   invertOnly?: boolean;
 }
