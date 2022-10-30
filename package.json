@@ -21,6 +21,7 @@
     "@tailwindcss/line-clamp": "^0.3.1",
     "@tailwindcss/typography": "^0.5.2",
     "@types/canvas-confetti": "^1.4.2",
+    "@types/dom-mediacapture-record": "^1.0.13",
     "@types/dom-speech-recognition": "^0.0.1",
     "@types/node": "^13.7.1",
     "@types/prismjs": "^1.16.6",
