@@ -206,21 +206,23 @@ operating system in a nicer way. For instance, when Tranquil is running on an
 Android device, it will show up in the notification tray. Users can play/pause
 Tranquil from there.
 
-<div className="flex place-content-center">
+<div className="relative flex place-content-center h-80 not-prose">
   <Image
-    src={'./assets/blog/media-session-andriud.png'}
+    className="object-contain"
+    fill
+    src={'/assets/blog/media-session-android.png'}
     alt="MediaSession API on Android device"
-    placeholder="blur"
   />
 </div>
 
 For comparison, here is how it looks on a Mac device.
 
-<div className="flex place-content-center">
+<div className="relative flex place-content-center h-80 not-prose">
   <Image
-    src={'./assets/blog/media-session-macos.png'}
+    className="object-contain"
+    fill
+    src={'/assets/blog/media-session-macos.png'}
     alt="MediaSession API on Mac device"
-    placeholder="blur"
   />
 </div>
 
