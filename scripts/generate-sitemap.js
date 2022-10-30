@@ -8,6 +8,7 @@
 const path = require('path');
 const fs = require('fs');
 
+const RSS = require('rss');
 const globby = require('globby');
 const xmlFormat = require('xml-formatter');
 
@@ -22,7 +23,7 @@ const getTitleInFrontMatter = (mdxContent) => {
 
   const title = frontmatterContent.match(/title:( |\s)(.*?)description:/ms)[2];
 
-  return title.trim();
+  return title.trim().replace(/(\r\n|\r|\n) /g, '');
 };
 
 const getDescriptionInFrontMatter = (mdxContent) => {
@@ -38,7 +39,7 @@ const getDescriptionInFrontMatter = (mdxContent) => {
     /description:( |\s)(.*?)date:/ms,
   )[2];
 
-  return description.trim();
+  return description.trim().replace(/(\r\n|\r|\n) /g, '');
 };
 
 const getDateInFrontMatter = (mdxContent) => {
@@ -61,19 +62,35 @@ async function generateRSSFeed() {
     site_url: 'https://jackyef.com',
     feed_url: 'https://jackyef.com/feed.xml',
   });
-  const posts = await globby(['src/pages/posts/**/index.tsx']);
-
-  posts.forEach((post) => {
-    const path = page.replace('src/pages', '').replace('/index.tsx', '');
+  const posts = await globby(['src/pages/posts/**/index.mdx']);
+  let contents = posts.map((post, index) => {
     const content = fs.readFileSync(post, 'utf-8');
+
+    return {
+      postIndex: index,
+      content,
+    };
+  });
+
+  contents = contents.sort((a, b) => {
+    const aDate = new Date(getDateInFrontMatter(a.content));
+    const bDate = new Date(getDateInFrontMatter(b.content));
+
+    return bDate.getTime() - aDate.getTime();
+  });
+
+  contents.forEach(({ content, postIndex }) => {
+    const path = posts[postIndex]
+      .replace('src/pages', '')
+      .replace('/index.mdx', '');
 
     feed.item({
       title: getTitleInFrontMatter(content),
       guid: path,
-      url: `https://jackyef.com${link}`,
+      url: `https://jackyef.com${path}`,
       date: getDateInFrontMatter(content),
       description: getDescriptionInFrontMatter(content),
-      custom_elements: ['Jacky Efendi'],
+      custom_elements: [{ author: [{ name: 'Jacky Efendi' }] }],
     });
   });
 

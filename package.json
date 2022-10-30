@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development next dev",
-    "build": "cross-env NODE_ENV=production next build && npm run build:rss && npm run build:sitemap",
+    "build": "cross-env NODE_ENV=production next build && npm run build:sitemap",
     "build:rss": "node ./.next/server/scripts/build-rss.js",
     "build:index": "node ./scripts/generate-post-search-index.js",
     "build:sitemap": "node ./scripts/generate-sitemap.js",
