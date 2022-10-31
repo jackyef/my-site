@@ -73,14 +73,12 @@ export const ThemePicker = () => {
 
   return (
     <Dialog.Root modal>
-      {/* @ts-expect-error */}
       <Dialog.Trigger asChild>
         <button aria-label="Pick theme" className="inline-block p-2 rounded-md">
           🎨
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        {/* @ts-expect-error */}
         <Dialog.Overlay>
           <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn" />
         </Dialog.Overlay>
@@ -110,7 +108,6 @@ export const ThemePicker = () => {
             }}
           >
             <div className="flex justify-end mb-2">
-              {/* @ts-expect-error */}
               <Dialog.Close asChild>
                 <button
                   aria-label="Close"

@@ -3,11 +3,11 @@ import { Flipped } from 'react-flip-toolkit';
 import { Fragment } from 'react';
 import { GetStaticProps } from 'next/types';
 
+import { getPosts } from '@/blog/getPosts';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { Tag } from '@/components/common/Tag';
-import { getPosts } from '@/blog/getPosts';
 import { Post } from '@/blog/types';
 
 import { PageTitle } from '../components/Typography/PageTitle';
