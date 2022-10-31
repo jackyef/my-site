@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./node_modules",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "../src/*"
+        "src/*"
       ]
     },
     "allowJs": true,
