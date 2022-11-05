@@ -160,8 +160,6 @@ export const getPosts = async ({
     const aDate = getDateInFrontMatter(a.content);
     const bDate = getDateInFrontMatter(b.content);
 
-    console.log({ aDate, bDate })
-
     return bDate.getTime() - aDate.getTime();
   });
 
