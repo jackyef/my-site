@@ -2,7 +2,6 @@ import * as React from 'react';
 import Head from 'next/head';
 
 const domainName = `jackyef.com`;
-export const publicUrl = `https://${domainName}`;
 
 export const CommonMetaTags = () => {
   const themeMetaRef = React.useRef<HTMLMetaElement>(null);
