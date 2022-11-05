@@ -6,7 +6,7 @@ import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { isProd } from '@/utils/constants';
 
 export const publicUrl = `${isProd ? 'https://' : 'http://'}${
-  process.env.NEXT_PUBLIC_VERCEL_URL
+  process.env.NEXT_PUBLIC_URL
 }`;
 const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
 const defaultDescription =
