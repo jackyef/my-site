@@ -41,7 +41,7 @@ const getDateInFrontMatter = (mdxContent: string) => {
     secondDelimiter,
   );
 
-  const date = frontmatterContent.match(/date: \'(.*)\'/)?.[2] as string;
+  const date = frontmatterContent.match(/date: \'(.*)\'/)?.[1] as string;
 
   return new Date(date);
 };
@@ -159,6 +159,8 @@ export const getPosts = async ({
   mdxContents = mdxContents.sort((a, b) => {
     const aDate = getDateInFrontMatter(a.content);
     const bDate = getDateInFrontMatter(b.content);
+
+    console.log({ aDate, bDate })
 
     return bDate.getTime() - aDate.getTime();
   });
