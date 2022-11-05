@@ -3,11 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { isProd } from '@/utils/constants';
+import { publicUrl } from '@/utils/constants';
 
-export const publicUrl = `${isProd ? 'https://' : 'http://'}${
-  process.env.NEXT_PUBLIC_VERCEL_URL
-}`;
 const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
 const defaultDescription =
   'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';

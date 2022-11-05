@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef } from 'react';
 
 import { ThemeContext } from '@/components/Theme/ThemeProvider';
-import { publicUrl } from '@/components/Seo/CommonMetaTags';
+
+import { publicUrl } from '@/utils/constants';
 
 import { HighlightedQuery } from './HighlightedQuery';
 

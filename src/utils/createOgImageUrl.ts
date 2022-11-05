@@ -1,8 +1,5 @@
-import { isProd } from './constants';
+import { publicUrl } from './constants';
 
-const publicUrl = `${isProd ? 'https://' : 'http://'}${
-  process.env.NEXT_PUBLIC_VERCEL_URL
-}`;
 const baseUrl = `${publicUrl}/api/og/image`;
 
 interface Params {

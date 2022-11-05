@@ -3,7 +3,7 @@ import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 
-import { PageMetaTags, publicUrl } from '@/components/Seo/PageMetaTags';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
 import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
@@ -26,7 +26,7 @@ interface Props {
 
 export default function Post({ post }: Props) {
   const router = useRouter();
-  const fullUrl = `${publicUrl}${router.pathname}`;
+  const fullUrl = `https://jackyef.com${router.pathname}`;
   const shouldAnimateNavigation = useShouldAnimateNavigation();
   const isBlogPost = router.pathname.startsWith('/posts/');
 

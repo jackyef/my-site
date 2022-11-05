@@ -4,7 +4,8 @@ import tinytime from 'tinytime';
 
 import { PostMeta } from '@/blog/types';
 
-import { publicUrl } from '../Seo/PageMetaTags';
+import { publicUrl } from '@/utils/constants';
+
 import { TwitterShare } from '../Social/TwitterShare';
 import { ExternalLink } from '../Typography/ExternalLink';
 
