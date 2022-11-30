@@ -119,6 +119,7 @@ export const getPost = async (filePath: string) => {
   const rootPathStart = filePath.indexOf('src/pages');
   const link = filePath
     .replace('/index.mdx', '')
+    .replace(/\.mdx$/, '')
     .substring(rootPathStart + 'src/pages'.length);
 
   return getPostFromMDXContent(mdxContent, link);
