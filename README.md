@@ -30,6 +30,7 @@ As I added more stuff to the site, I've gone back to using React as some depende
 ### Tool and resources:
 
 - https://uigradients.com/#Hydrogen
+- https://branition.com/colors
 - https://github.com/nicolesaidy/awesome-web-design
 - https://tablericons.com
 - https://1stwebdesigner.com/css-effects/
