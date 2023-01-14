@@ -55,41 +55,43 @@ export default function Post({ post }: Props) {
   }, [shouldAnimateNavigation]);
 
   return (
-    <article>
-      <PageMetaTags
-        title={meta.title}
-        description={meta.description}
-        image={createOgImageUrl(meta.ogImage)}
-        readingTime={meta.readingTime}
-        publishDate={postDateTemplate.render(new Date(meta.date))}
-      />
-      <PostHeader meta={meta} />
+    <main>
+      <article>
+        <PageMetaTags
+          title={meta.title}
+          description={meta.description}
+          image={createOgImageUrl(meta.ogImage)}
+          readingTime={meta.readingTime}
+          publishDate={postDateTemplate.render(new Date(meta.date))}
+        />
+        <PostHeader meta={meta} />
 
-      <div className="pb-16 xl:pb-20">
-        <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
-          <div className="prose max-w-none pb-8">
-            <MDXProvider mdxSource={post.mdxSource} />
+        <div className="pb-16 xl:pb-20">
+          <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+            <div className="prose max-w-none pb-8">
+              <MDXProvider mdxSource={post.mdxSource} />
+            </div>
+
+            <HorizontalDivider />
+
+            {isBlogPost && (
+              <IOWrapper>
+                {(show) =>
+                  show ? (
+                    <Suspense
+                      fallback={
+                        <h3 className="text-lg font-bold mb-2">Webmentions</h3>
+                      }
+                    >
+                      <LazyWebmentionWidget url={fullUrl} meta={meta} />
+                    </Suspense>
+                  ) : null
+                }
+              </IOWrapper>
+            )}
           </div>
-
-          <HorizontalDivider />
-
-          {isBlogPost && (
-            <IOWrapper>
-              {(show) =>
-                show ? (
-                  <Suspense
-                    fallback={
-                      <h3 className="text-lg font-bold mb-2">Webmentions</h3>
-                    }
-                  >
-                    <LazyWebmentionWidget url={fullUrl} meta={meta} />
-                  </Suspense>
-                ) : null
-              }
-            </IOWrapper>
-          )}
         </div>
-      </div>
-    </article>
+      </article>
+    </main>
   );
 }
