@@ -39,6 +39,11 @@ export const rehypePlugins = [
     rehypeToc,
     {
       headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
+      customizeTOC: (toc) => {
+        toc.properties['aria-label'] = 'Table of content';
+
+        return toc;
+      },
       cssClasses: {
         toc: 'page-outline hidden 2xl:block', // Change the CSS class for the TOC
         link: 'page-link', // Change the CSS class for links in the TOC
