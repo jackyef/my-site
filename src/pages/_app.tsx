@@ -21,7 +21,7 @@ import { useReduceMotion } from '@/hooks/useReduceMotion';
 import { isProd } from '@/utils/constants';
 import '@/styles/theme.css';
 import '@/styles/tailwind.css';
-import { interFont } from '@/utils/fonts';
+import { mainFont } from '@/utils/fonts';
 
 const queryClient = new QueryClient();
 
@@ -30,7 +30,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const prefersReducedMotion = useReduceMotion();
 
   return (
-    <div className={clsx(interFont.className)}>
+    <div className={clsx(mainFont.className)}>
       <Toaster />
       <CommandPaletteProvider>
         {/* Suppress children prop error because of React 18 */}
