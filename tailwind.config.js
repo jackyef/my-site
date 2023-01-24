@@ -114,7 +114,9 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        // The CSS variables for fonts are handled in ./utils/fonts/index
+        sans: ['var(--main-font)', ...defaultTheme.fontFamily.sans],
+        heading: ['var(--heading-font)', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'surface-0': 'inset 3px 5px 2px -1px var(--shadow-color)',

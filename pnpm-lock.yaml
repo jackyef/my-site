@@ -26,7 +26,7 @@ specifiers:
   '@types/webpack-env': ^1.15.3
   '@typescript-eslint/eslint-plugin': ^3.0.0
   '@typescript-eslint/parser': ^3.0.0
-  '@vercel/og': ^0.0.20
+  '@vercel/og': 0.0.22
   autoprefixer: ^10.4.4
   autotrack: ^2.4.1
   canvas-confetti: ^1.5.1
@@ -74,7 +74,7 @@ dependencies:
   '@next/font': 13.0.1
   '@radix-ui/react-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
   '@radix-ui/react-tooltip': 1.0.0_knhnagtyfncgg2hpin7s37uixq
-  '@vercel/og': 0.0.20
+  '@vercel/og': 0.0.22
   autotrack: 2.4.1
   canvas-confetti: 1.5.1
   clipboard-copy: 4.0.1
@@ -131,7 +131,7 @@ devDependencies:
   rehype-slug: 4.0.1
   rss: 1.2.2
   simple-functional-loader: 1.2.1
-  tailwindcss: 3.0.23_autoprefixer@10.4.4
+  tailwindcss: 3.0.23_oteqkzb4e6vohtaztglqa2eiha
   typescript: 4.8.4
   unist-util-visit: 2.0.3
   xml-formatter: 2.3.0
@@ -936,7 +936,7 @@ packages:
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.23_autoprefixer@10.4.4
+      tailwindcss: 3.0.23_oteqkzb4e6vohtaztglqa2eiha
     dev: true
 
   /@tailwindcss/forms/0.5.0_tailwindcss@3.0.23:
@@ -945,7 +945,7 @@ packages:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.0.23_autoprefixer@10.4.4
+      tailwindcss: 3.0.23_oteqkzb4e6vohtaztglqa2eiha
     dev: true
 
   /@tailwindcss/line-clamp/0.3.1_tailwindcss@3.0.23:
@@ -953,7 +953,7 @@ packages:
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.23_autoprefixer@10.4.4
+      tailwindcss: 3.0.23_oteqkzb4e6vohtaztglqa2eiha
     dev: true
 
   /@tailwindcss/typography/0.5.2_tailwindcss@3.0.23:
@@ -964,7 +964,7 @@ packages:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
-      tailwindcss: 3.0.23_autoprefixer@10.4.4
+      tailwindcss: 3.0.23_oteqkzb4e6vohtaztglqa2eiha
     dev: true
 
   /@types/acorn/4.0.6:
@@ -1218,12 +1218,12 @@ packages:
       eslint-visitor-keys: 1.3.0
     dev: true
 
-  /@vercel/og/0.0.20:
-    resolution: {integrity: sha512-089P+TfqWz0xBxjOvOhkZIDDtfrLcye94H4IZ+SqxoGPWpNGXaBvRJER/z5SoJxJRcCAL8tPiK5zdjRskM6tLw==}
+  /@vercel/og/0.0.22:
+    resolution: {integrity: sha512-HJjYfjpuNVnxwH7GnEv5QxzdIV4xytjY2RkVmhaOAKlms4X071WSPR9Jp6vjZ3Zmjz0tKSiRnrT5uN/PkW/q9Q==}
     engines: {node: '>=16'}
     dependencies:
       '@resvg/resvg-wasm': 2.0.0-alpha.4
-      satori: 0.0.43
+      satori: 0.0.45
       yoga-wasm-web: 0.1.2
     dev: false
 
@@ -4603,8 +4603,8 @@ packages:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
     dev: false
 
-  /satori/0.0.43:
-    resolution: {integrity: sha512-SzYwr+LsELWRJU9KMviEOE9TdShry+R5AdS54YQvgAVKFDN4yniAIzwQk1/z2TtIx0ceUT9zTeosWAoWvJBEtQ==}
+  /satori/0.0.45:
+    resolution: {integrity: sha512-jF7AAK5ddZQVE6r6gTG07YxOvhldev0wBrFqBXRNbPH/mEy15gfIqA4xjGfVHczcGYZvY/VWmKri6DzRJF8cgQ==}
     engines: {node: '>=16'}
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
@@ -4894,12 +4894,13 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwindcss/3.0.23_autoprefixer@10.4.4:
+  /tailwindcss/3.0.23_oteqkzb4e6vohtaztglqa2eiha:
     resolution: {integrity: sha512-+OZOV9ubyQ6oI2BXEhzw4HrqvgcARY38xv3zKcjnWtMIZstEsXdI9xftd1iB7+RbOnj2HOEzkA0OyB5BaSxPQA==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
       autoprefixer: ^10.0.2
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.1
       autoprefixer: 10.4.4_postcss@8.4.14

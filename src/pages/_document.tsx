@@ -7,6 +7,9 @@ import Document, {
   DocumentProps,
 } from 'next/document';
 import { extractCss } from 'goober';
+
+import { fontsClasses } from '@/utils/fonts';
+
 interface Props extends DocumentProps {
   css: string;
 }
@@ -20,7 +23,7 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className={fontsClasses}>
         <Head>
           <style
             id={'_goober'}

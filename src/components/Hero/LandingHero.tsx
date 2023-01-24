@@ -65,7 +65,7 @@ export const LandingHero = () => {
           'sm:mt-0',
         )}
       >
-        <h1 className="text-4xl md:text-6xl font-bold text-theme-heading transition-colors">
+        <h1 className="text-4xl md:text-6xl font-bold font-heading text-theme-heading transition-colors">
           Hi, I am Jacky! 👋
         </h1>
         <Paragraph>

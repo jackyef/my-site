@@ -36,7 +36,7 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                       spring="noWobble"
                       translate
                     >
-                      <h2 className="text-xl md:text-2xl leading-8 font-bold">
+                      <h2 className="text-xl md:text-2xl font-heading leading-8 font-bold">
                         <InternalLink
                           href={link}
                           className={clsx(

@@ -4,7 +4,10 @@ type Props = React.HTMLAttributes<HTMLHeadingElement> & {
 
 export const PageTitle = ({ children, ...rest }: Props) => {
   return (
-    <h1 className="text-3xl md:text-5xl font-bold text-theme-heading" {...rest}>
+    <h1
+      className="text-3xl md:text-5xl font-bold font-heading text-theme-heading"
+      {...rest}
+    >
       {children}
     </h1>
   );
