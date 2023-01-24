@@ -22,6 +22,7 @@ export const LandingHero = () => {
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: 0.2;
+      box-shadow: 0 6px 6px 0px ${getHslaColor('bg', 0.4)};
     }
   `;
 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { css } from 'goober';
 
 import { SectionContainer } from '@/components/SectionContainer';
-import { getHslString } from '@/lib/styles/colors';
+import { getHslaColor, getHslString } from '@/lib/styles/colors';
 
 import { usePwaInstall } from '@/hooks/usePwaInstall';
 
@@ -72,6 +72,12 @@ export default function Header() {
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: ${shouldBeMoreOpaque ? 0.4 : 0};
+      --shadow-color: ${getHslaColor('bg', shouldBeMoreOpaque ? 0.4 : 0, {
+        h: 5,
+        s: -10,
+        l: 0,
+      })};
+      box-shadow: 0 6px 6px 0px var(--shadow-color);
     }
 
     @media (max-width: 640px) {
