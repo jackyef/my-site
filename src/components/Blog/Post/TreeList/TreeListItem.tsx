@@ -24,8 +24,8 @@ export const TreeListItem = ({ children }: Props) => {
       />
       <div
         className={clsx(
-          'mt-4 ml-1.5 md:ml-[2.125rem] w-2 md:w-4 h-[2px]',
-          'sticky float-left top-24',
+          'mt-4 ml-1.5 md:ml-[2.125rem] w-1 md:w-4 h-[2px]',
+          'absolute',
           css`
             background: ${getHslaColor('primary', lineColorOpacity)};
           `,
