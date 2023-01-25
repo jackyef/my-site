@@ -17,7 +17,7 @@ export type HSLObject = {
   l: LightnessToken | AdjustedLightness;
 };
 
-type Adjustments = {
+export type Adjustments = {
   h?: number;
   s?: number;
   l?: number;

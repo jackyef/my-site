@@ -13,6 +13,8 @@ import { Post } from '@/blog/types';
 
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
+import { TreeList, TreeListItem } from './TreeList';
+
 const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
 
 interface Props {
@@ -23,11 +25,11 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
   const router = useRouter();
 
   return (
-    <ul className="divide-y divide-gray-400 divide-opacity-50">
+    <TreeList>
       {posts.map(({ link, mdxSource, metadata }) => {
         return (
-          <li key={link} className="pb-4 pt-8">
-            <article className="space-y-2">
+          <TreeListItem key={link}>
+            <article className="space-y-2 pl-4 md:pl-16">
               <div className="space-y-5">
                 <div className="space-y-4">
                   <div className="space-y-1">
@@ -36,7 +38,11 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                       spring="noWobble"
                       translate
                     >
-                      <h2 className="text-xl md:text-2xl font-heading leading-8 font-bold">
+                      <h2
+                        className={clsx(
+                          'text-xl md:text-2xl font-heading leading-8 font-bold',
+                        )}
+                      >
                         <InternalLink
                           href={link}
                           className={clsx(
@@ -135,9 +141,9 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                 </Flipped>
               </div>
             </article>
-          </li>
+          </TreeListItem>
         );
       })}
-    </ul>
+    </TreeList>
   );
 };
