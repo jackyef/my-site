@@ -1,6 +1,6 @@
-import { Lato, Lora } from '@next/font/google';
+import { Lora, Plus_Jakarta_Sans } from '@next/font/google';
 
-export const mainFont = Lato({
+export const mainFont = Plus_Jakarta_Sans({
   variable: '--main-font',
   display: 'swap',
   subsets: ['latin'],

@@ -18,17 +18,24 @@ export default async function (req: NextRequest) {
   //   'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hjg.woff',
   // ).then((res) => res.arrayBuffer());
 
-  const latoFontArrayBuffer = await fetch(
-    'https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wWA.woff',
-  ).then((res) => res.arrayBuffer());
-  const latoFontBoldArrayBuffer = await fetch(
-    'https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVSwiPHw.woff',
-  ).then((res) => res.arrayBuffer());
+  // const latoFontArrayBuffer = await fetch(
+  //   'https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wWA.woff',
+  // ).then((res) => res.arrayBuffer());
+  // const latoFontBoldArrayBuffer = await fetch(
+  //   'https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVSwiPHw.woff',
+  // ).then((res) => res.arrayBuffer());
   const loraFontArrayBuffer = await fetch(
     'https://fonts.gstatic.com/s/lora/v26/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkqs.woff',
   ).then((res) => res.arrayBuffer());
   const loraFontBoldArrayBuffer = await fetch(
     'https://fonts.gstatic.com/s/lora/v26/0QI6MX1D_JOuGQbT0gvTJPa787z5vBJBkqs.woff',
+  ).then((res) => res.arrayBuffer());
+
+  const plusJakartaSansFontArrayBuffer = await fetch(
+    'https://fonts.gstatic.com/s/plusjakartasans/v3/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU79TR_T.woff',
+  ).then((res) => res.arrayBuffer());
+  const plusJakartaSansFontBoldArrayBuffer = await fetch(
+    'https://fonts.gstatic.com/s/plusjakartasans/v3/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_Tkn9TR_T.woff',
   ).then((res) => res.arrayBuffer());
 
   const url = req.nextUrl;
@@ -90,7 +97,7 @@ export default async function (req: NextRequest) {
         <span
           tw="absolute text-2xl bottom-16 right-16 text-slate-500"
           style={{
-            fontFamily: 'Lato',
+            fontFamily: 'plusJakartaSans',
             fontWeight: 400,
           }}
         >
@@ -101,14 +108,24 @@ export default async function (req: NextRequest) {
     {
       debug: false,
       fonts: [
+        // {
+        //   name: 'Lato',
+        //   data: latoFontArrayBuffer,
+        //   weight: 400,
+        // },
+        // {
+        //   name: 'Lato',
+        //   data: latoFontBoldArrayBuffer,
+        //   weight: 800,
+        // },
         {
-          name: 'Lato',
-          data: latoFontArrayBuffer,
+          name: 'plusJakartaSans',
+          data: plusJakartaSansFontArrayBuffer,
           weight: 400,
         },
         {
-          name: 'Lato',
-          data: latoFontBoldArrayBuffer,
+          name: 'plusJakartaSans',
+          data: plusJakartaSansFontBoldArrayBuffer,
           weight: 800,
         },
         {
