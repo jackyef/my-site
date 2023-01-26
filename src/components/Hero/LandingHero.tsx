@@ -58,8 +58,8 @@ export const LandingHero = () => {
           'p-4',
           'pb-8',
           'sm:p-8',
-          'rounded-b-none',
-          'sm:rounded-xl',
+          'rounded-none',
+          'sm:rounded-3xl',
           '-mx-4',
           'sm:mx-0',
           '-mt-12', // Cancels out the padding of <PageContainer />
