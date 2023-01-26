@@ -1,43 +1,22 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import clsx from 'clsx';
-import Link from 'next/link';
 import { css } from 'goober';
+import { Flipper } from 'react-flip-toolkit';
+import { useRouter } from 'next/router';
 
 import { SectionContainer } from '@/components/SectionContainer';
-import { getHslString } from '@/lib/styles/colors';
+import { getHslaColor, getHslString } from '@/lib/styles/colors';
 
-import { usePwaInstall } from '@/hooks/usePwaInstall';
-
-import { sendEventTracker } from '@/utils/analytics/tracker';
-
-import { InternalLink } from '../Typography/InternalLink';
-import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
 import { ThemePicker } from '../Theme/ThemePicker';
 
-import PwaInstallIcon from './assets/icon-plus.svg';
-
-function Logo() {
-  return (
-    <div className="flex items-center justify-center">
-      <Image
-        className="h-5 inline-block"
-        width={20}
-        height={20}
-        src="/android-icon-96x96.png"
-        alt="logo"
-      />
-      <strong className="hidden ml-2 text-lg text sm:inline">
-        jackyef.com
-      </strong>
-    </div>
-  );
-}
+import { navLinks } from './constants';
+import { NavLink } from './NavLink';
+import { PwaInstallButton } from './PwaInstallButton';
+import { CommandBarToggle } from './CommandBarToggle';
 
 export default function Header() {
-  const { isReady, trigger } = usePwaInstall();
-  const { setIsOpen } = useCommandPaletteContext();
   const [shouldBeMoreOpaque, setShouldBeMoreOpaque] = useState(false);
+  const router = useRouter();
 
   /*
    * Better header handling for browser not supporting backdrop-filter
@@ -72,6 +51,12 @@ export default function Header() {
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: ${shouldBeMoreOpaque ? 0.4 : 0};
+      --shadow-color: ${getHslaColor('bg', shouldBeMoreOpaque ? 0.4 : 0, {
+        h: 5,
+        s: -10,
+        l: 0,
+      })};
+      box-shadow: 0 6px 6px 0px var(--shadow-color);
     }
 
     @media (max-width: 640px) {
@@ -87,80 +72,26 @@ export default function Header() {
   `;
 
   return (
-    <>
-      <header
-        className={clsx('py-4', 'sticky', 'top-0', 'w-full', glassyHeaderClass)}
-      >
+    <header
+      className={clsx('py-4', 'sticky', 'top-0', 'w-full', glassyHeaderClass)}
+    >
+      <Flipper flipKey={router.pathname}>
         <SectionContainer>
           <nav className={clsx('flex', 'justify-between', 'items-center')}>
             <div className="flex space-x-2">
-              <Link
-                href="/"
-                aria-label="Jacky Efendi's personal site"
-                className="rounded-md p-2"
-                onClick={() => {
-                  sendEventTracker({
-                    name: 'click',
-                    category: 'header nav',
-                    label: 'logo',
-                  });
-                }}
-              >
-                <Logo />
-              </Link>
-              <button
-                style={{
-                  opacity: isReady ? 1 : 0,
-                  transform: isReady
-                    ? 'translateX(0) rotate(0deg)'
-                    : 'translateX(-1rem) rotate(-270deg)',
-                  cursor: isReady ? 'auto' : 'none',
-                  transition:
-                    'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
-                }}
-                tabIndex={isReady ? 0 : -1}
-                className="self-center w-7 h-7 p-1 rounded-full"
-                onClick={() => trigger()}
-              >
-                <Image
-                  className="monochrome-img"
-                  src={PwaInstallIcon}
-                  width={20}
-                  height={20}
-                  alt="Add to home screen"
-                  loading="lazy"
-                />
-              </button>
+              {navLinks.map((navLink) => (
+                <NavLink key={navLink.href} {...navLink} />
+              ))}
+
+              <PwaInstallButton />
             </div>
             <div className="text-base leading-5 flex items-center space-x-2">
-              <InternalLink
-                href="/blog"
-                className="font-medium text-theme-text hover:text-theme-text rounded-md p-2"
-                onClick={() => {
-                  sendEventTracker({
-                    name: 'click',
-                    category: 'header nav',
-                    label: 'blog',
-                  });
-                }}
-                isNotFancy
-              >
-                Blog
-              </InternalLink>
-              <button
-                className="font-medium text-theme-text hover:text-theme-text rounded-md p-2"
-                onClick={() => {
-                  setIsOpen((prev) => !prev);
-                }}
-              >
-                <code>/cmd</code>
-              </button>
-
+              <CommandBarToggle />
               <ThemePicker />
             </div>
           </nav>
         </SectionContainer>
-      </header>
-    </>
+      </Flipper>
+    </header>
   );
 }

@@ -14,6 +14,7 @@ import type { Props as ProfileHeroProps } from '@/components/FlipDemos/ProfileHe
 import type { Props as ProfileCardToHeroProps } from '@/components/FlipDemos/ProfileCardToHero';
 import type { Props as AudioPlayerProps } from '@/components/Audio/AudioPlayer';
 import type { Props as GaplessAudioPlayerProps } from '@/components/Audio/GaplessAudioPlayer';
+import { H1, H2, H3, H4, H5 } from '@/components/Typography/Heading';
 
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
@@ -24,6 +25,11 @@ const mdxComponents = {
   a: Anchor,
   pre: Pre,
   'pre.code': PreCode,
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
   Image,
   HorizontalDivider,
   Flipped,

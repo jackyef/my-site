@@ -60,7 +60,7 @@
     "@next/font": "^13.0.1",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.0",
-    "@vercel/og": "^0.0.20",
+    "@vercel/og": "0.0.22",
     "autotrack": "^2.4.1",
     "canvas-confetti": "^1.5.1",
     "clipboard-copy": "^4.0.1",

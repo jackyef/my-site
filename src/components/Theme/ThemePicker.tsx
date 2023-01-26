@@ -74,7 +74,10 @@ export const ThemePicker = () => {
   return (
     <Dialog.Root modal>
       <Dialog.Trigger asChild>
-        <button aria-label="Pick theme" className="inline-block p-2 rounded-md">
+        <button
+          aria-label="Pick theme"
+          className="inline-block p-2 rounded-full"
+        >
           🎨
         </button>
       </Dialog.Trigger>

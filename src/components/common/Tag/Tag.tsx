@@ -21,7 +21,7 @@ export const Tag: React.FC<Props> = ({ children, variant }) => {
     border-color: hsl(
       var(--h-${variant}) var(--s-${variant}) var(--l-${variant})
     );
-    border-radius: 0.5rem;
+    border-radius: 4rem;
 
     /* override focus style when children is focusable */
     &:focus-within {
@@ -35,7 +35,8 @@ export const Tag: React.FC<Props> = ({ children, variant }) => {
   `;
 
   return (
-    <span className={clsx('inline-block py-1 px-2', variantCss)}>
+    // Using 'em' here because we want to padding to grow relative to the font size
+    <span className={clsx('inline-block py-[0.25em] px-[0.5em]', variantCss)}>
       {children}
     </span>
   );

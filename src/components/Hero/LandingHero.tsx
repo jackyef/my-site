@@ -22,13 +22,14 @@ export const LandingHero = () => {
 
     @supports (backdrop-filter: blur(8px)) {
       --bg-opacity: 0.2;
+      box-shadow: 0 6px 6px 0px ${getHslaColor('bg', 0.4)};
     }
   `;
 
   const baseCtaButton = css`
     display: inline-block;
-    padding: 0.8rem 1.3rem;
-    border-radius: 0.75rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 4rem;
 
     transition: background-position var(--transition-faster);
     background-size: 200%;
@@ -57,15 +58,15 @@ export const LandingHero = () => {
           'p-4',
           'pb-8',
           'sm:p-8',
-          'rounded-b-none',
-          'sm:rounded-xl',
+          'rounded-none',
+          'sm:rounded-3xl',
           '-mx-4',
           'sm:mx-0',
           '-mt-12', // Cancels out the padding of <PageContainer />
           'sm:mt-0',
         )}
       >
-        <h1 className="text-4xl md:text-6xl font-bold text-theme-heading transition-colors">
+        <h1 className="text-4xl md:text-6xl font-bold font-heading text-theme-heading transition-colors">
           Hi, I am Jacky! 👋
         </h1>
         <Paragraph>
