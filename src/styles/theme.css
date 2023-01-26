@@ -66,7 +66,7 @@
 
   --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
 
-  --focus-outline: 0 0 0 3px var(--color-outline);
+  --focus-outline: 0 0 0 2px var(--color-outline);
 
   --border-dark-only: 2px solid transparent;
   --scroll-gutter: hsl(0deg 0% 91.8%);
@@ -126,7 +126,7 @@
 
   --color-info: hsla(var(--h-info) var(--s-info) var(--l-info) / var(--bg-opacity));
 
-  --focus-outline: 0 0 0 3px var(--color-outline);
+  --focus-outline: 0 0 0 2px var(--color-outline);
 
   --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
   --scroll-gutter: hsl(205deg 21.5% 15.5%);
@@ -190,7 +190,7 @@
 
   --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
 
-  --focus-outline: 0 0 0 3px var(--color-outline);
+  --focus-outline: 0 0 0 2px var(--color-outline);
 
   --border-dark-only: 2px solid transparent;
   --scroll-gutter: hsl(0deg 0% 91.8%);
@@ -250,7 +250,7 @@
 
   --color-info: hsl(var(--h-info) var(--s-info) var(--l-info));
 
-  --focus-outline: 0 0 0 3px var(--color-outline);
+  --focus-outline: 0 0 0 2px var(--color-outline);
 
   --border-dark-only: 2px solid hsl(205deg 21.5% 15.5%);
   --scroll-gutter: hsl(205deg 21.5% 15.5%);

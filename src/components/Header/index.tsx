@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { SectionContainer } from '@/components/SectionContainer';
 import { getHslaColor, getHslString } from '@/lib/styles/colors';
 
-import { useCommandPaletteContext } from '../CommandPalette/hooks/useCommandPaletteContext';
 import { ThemePicker } from '../Theme/ThemePicker';
 
 import { navLinks } from './constants';

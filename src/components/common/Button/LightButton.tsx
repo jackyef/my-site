@@ -19,7 +19,7 @@ export const LightButton = forwardRef<HTMLButtonElement, Props>(
 
       background: ${getHslaColor(variant, 0.1)};
       border-color: ${getHslaColor(variant)};
-      border-radius: 0.5rem;
+      border-radius: 4rem;
 
       &:hover,
       &:focus {

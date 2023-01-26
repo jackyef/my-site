@@ -28,8 +28,8 @@ export const LandingHero = () => {
 
   const baseCtaButton = css`
     display: inline-block;
-    padding: 0.8rem 1.3rem;
-    border-radius: 0.75rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 4rem;
 
     transition: background-position var(--transition-faster);
     background-size: 200%;

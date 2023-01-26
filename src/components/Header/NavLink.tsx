@@ -33,7 +33,7 @@ export const NavLink = ({ children, href, ...props }: Props) => {
   return (
     <InternalLink
       href={href || '#'}
-      className="rounded-md p-2 relative"
+      className="rounded-full p-2 relative"
       isNotFancy
       {...props}
     >

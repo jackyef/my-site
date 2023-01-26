@@ -5,7 +5,7 @@ export const CommandBarToggle = () => {
 
   return (
     <button
-      className="font-medium text-theme-text hover:text-theme-text rounded-md p-2"
+      className="font-medium text-theme-text hover:text-theme-text rounded-full p-2"
       onClick={() => {
         setIsOpen((prev) => !prev);
       }}
