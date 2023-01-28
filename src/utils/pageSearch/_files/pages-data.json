@@ -30,6 +30,11 @@
     "link": "/posts/transitioning-between-2-different-elements-with-flip"
   },
   {
+    "title": "Web security implications of 3rd party resources 🕵️‍♂️",
+    "description": "Understand what you are opening your site up to when using 3rd party resources.",
+    "link": "/posts/web-security-implications-of-3rd-party-resources"
+  },
+  {
     "title": "Writing Your Own CSS-in-JS Library",
     "description": "Learn how to create a simple, minimal CSS-in-JS library with vendor prefixing + server rendering support!",
     "link": "/posts/writing-your-own-css-in-js-library"

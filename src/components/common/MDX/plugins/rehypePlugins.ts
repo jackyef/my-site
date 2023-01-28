@@ -42,6 +42,9 @@ export const rehypePlugins = [
       customizeTOC: (toc) => {
         toc.properties['aria-label'] = 'Table of content';
 
+        toc.children[0].properties.className +=
+          ' bg-surface-3 shadow-surface-3';
+
         return toc;
       },
       cssClasses: {

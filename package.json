@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development next dev",
+    "dev": "cross-env NODE_ENV=development next-remote-watch ./src/pages/posts",
     "build": "cross-env NODE_ENV=production next build && npm run build:sitemap-rss",
     "build:index": "node ./scripts/generate-post-search-index.js",
     "build:sitemap-rss": "node ./scripts/generate-sitemap-and-rss.js",
@@ -41,6 +41,7 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "globby": "^11.0.1",
     "hastscript": "^6.0.0",
+    "next-remote-watch": "^2.0.0",
     "postcss": "^8.4.12",
     "postcss-preset-env": "^7.0.1",
     "prettier": "^2.2.1",

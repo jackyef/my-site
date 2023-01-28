@@ -32,7 +32,7 @@ export const ExternalLink: React.FC<Props> = ({
         href={href}
         onClick={onClick}
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         {children}
       </a>
