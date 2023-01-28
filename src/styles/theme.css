@@ -337,6 +337,7 @@ h6:hover .hash-link {
   overflow-y: auto;
   border-radius: 1rem;
   padding: 0.5rem;
+  font-size: 0.88rem;
 }
 
 button:focus,

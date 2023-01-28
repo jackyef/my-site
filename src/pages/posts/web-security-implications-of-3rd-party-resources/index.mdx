@@ -13,9 +13,10 @@ tags: ['tech']
 {/* !start-of-preview */}
 
 As a web developer, using 3rd party resources is extremely common. We use 3rd
-party JavaScripts, either via `npm`, bundled into our code, or via `<script>`
-tag (e.g.: Google Analytics, etc). Embedding 3rd party images/media is also
-pretty common. Even linking to a 3rd party sites can have security implications!
+party JavaScripts all the time, either via `npm`, bundled into our code, or via
+`<script>` tag (e.g.: Google Analytics, etc). Embedding 3rd party images/media
+is also pretty common. Even linking to a 3rd party sites can have security
+implications!
 
 Let's go over some of the more common attack vectors when using 3rd party
 resources, what problems they may cause, and how to mitigate them.
@@ -182,9 +183,9 @@ SDK, libraries from `cdnjs` and `unpkg`, and so on!
 
 Once a 3rd party script is running on an origin, it can practically do
 everything we have mentioned so far. It is similar to the case with linking
-where the opened page gains access to `window.opener`, but this time it is the
-3rd party script that gains access to the full `window` object. There are many
-possibilities, including but not limited to:
+where the opened page gains access to `window.opener`, but this time it is more
+dangerous! The 3rd party script has access to the full `window` object. This
+opens up many possibilities, including but not limited to:
 
 - stealing unsecured cookies (`document.cookie`, `fetch()`)
 - accessing localStorage (`document.localStorage`)
@@ -255,7 +256,7 @@ An XSS that happens when a user managed to inject something like
 
 Fortunately, once we have a CSP header with `script-src`, inline scripts are
 automatically blocked. Though if we want to keep using inline scripts while
-blocking the stored XSS scripts, we can do that by using a `nonce`.
+still blocking the stored XSS scripts, we can do that by using a `nonce`.
 
 ```
 Content-Security-Policy: script-src 'nonce-SomeRandomlyGeneratedUnguessableString';
