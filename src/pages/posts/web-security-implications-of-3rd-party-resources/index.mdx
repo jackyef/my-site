@@ -212,12 +212,17 @@ whatever they want on the site. A few things to do to make sure your cookies are
 safe when an attacker is able to run a script on your site:
 
 - Use `HttpOnly` flag
-  - This prevents the cookie to be included in the returned value of
+
+  This prevents the cookie to be included in the returned value of
     `document.cookie`
+
 - Use `Secure` flag
-  - This prevents the cookie from being sent over HTTP.
+
+  This prevents the cookie from being sent over HTTP.
+
 - Do not use `SameSite=None` flag (unless you know what you're doing)
-  - [`SameSite=None`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite#none)
+
+  [`SameSite=None`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite#none)
     will mark a cookie to be included in requests to 3rd party origins.
 
 ### Content-Security-Policy (CSP)
@@ -285,9 +290,9 @@ allows user to write their own scripts?
 
 In those cases, we can do the followings:
 
-- running the code in
+- run the code in
   [a sandboxed `<iframe>`](https://web.dev/sandboxed-iframes/)
-- running the code in a separate origin. For instance, CodePen runs on
+- run the code in a separate origin. For instance, CodePen runs on
   [https://codepen.io/](https://codepen.io/), but users' code runs on a separate
   origin like [https://cdpn.io/](https://cdpn.io/). This automatically comes
   with a lot of security benefits as most browsers do not share resources
