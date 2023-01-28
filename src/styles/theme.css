@@ -332,6 +332,11 @@ h6:hover .hash-link {
 
 .toc-level-1 {
   margin-top: 1.25rem;
+  display: block;
+  max-height: 66vh;
+  overflow-y: auto;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 
 button:focus,
