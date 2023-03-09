@@ -48,6 +48,25 @@ export const LandingHero = () => {
       ${getHslaColor('secondary', 0.4)},
       ${getHslaColor('primary', 0.3)}
     );
+    padding: 3px;
+
+    &:hover {
+      background-image: linear-gradient(
+        70deg,
+        ${getHslaColor('secondary', 0.4)},
+        ${getHslaColor('primary', 0.4)},
+        ${getHslaColor('secondary', 0.3)}
+      );
+    }
+
+    & > span {
+      display: inline-block;
+      background: white;
+      border-radius: 4rem;
+      background: hsla(${getHslString('bg')} / 0.85);
+      backdrop-filter: contrast(105%) saturate(120%) blur(8px);
+      padding: 0.75rem 1.55rem;
+    }
   `;
 
   return (
@@ -108,7 +127,7 @@ export const LandingHero = () => {
             }}
             isNotFancy
           >
-            More about me &rarr;
+            <span>More about me &rarr;</span>
           </InternalLink>
         </div>
       </div>
