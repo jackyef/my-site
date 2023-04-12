@@ -36,7 +36,7 @@ export const ProfileCard = ({
           width="60px"
           height="60px"
           alt="profile picture"
-          src="https://pbs.twimg.com/profile_images/1484537475293118467/0tnyk6wK_400x400.jpg"
+          src="https://avatars.githubusercontent.com/u/7252454?v=4"
         />,
       )}
       <div className="leading-5">

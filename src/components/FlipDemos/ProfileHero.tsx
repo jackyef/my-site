@@ -78,7 +78,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
               width="120px"
               height="120px"
               alt="profile picture"
-              src="https://pbs.twimg.com/profile_images/1484537475293118467/0tnyk6wK_400x400.jpg"
+              src="https://avatars.githubusercontent.com/u/7252454?v=4"
             />,
           )}
           <div className="leading-5">
