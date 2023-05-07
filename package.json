@@ -55,6 +55,7 @@
     "xml-formatter": "^2.3.0"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.6.1",
     "@codesandbox/sandpack-react": "^2.6.3",
     "@feedback-fish/react": "^1.2.1",
     "@heroicons/react": "^2.0.17",

@@ -14,11 +14,14 @@ import {
   useState,
 } from 'react';
 import clsx from 'clsx';
+import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 
 import { theme } from './theme';
 import { PlaygroundHeader } from './PlaygroundHeader';
 import { defaultIndexSnippet, defaultSnippet } from './snippets';
 import { StatePersistor } from './StatePersistor';
+
+const keymap = [...completionKeymap];
 
 type PlaygroundLayout = 'horizontal' | 'vertical';
 type CodePlaygroundContextType = {
@@ -126,6 +129,8 @@ export const CodePlayground = ({ initialCode }: Props) => {
                 [fullHeightCss]: isFullscreen,
                 [heightCss]: !isFullscreen,
               })}
+              extensions={[autocompletion()]}
+              extensionsKeymap={keymap}
               showLineNumbers
               showInlineErrors
             />
