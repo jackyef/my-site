@@ -122,10 +122,10 @@ module.exports = {
         'surface-0': 'inset 3px 5px 2px -1px var(--shadow-color)',
         'surface-1': 'none',
         // 'surface-2': '0 5px 2px -1px var(--shadow-color)',
-        'surface-2': '3px 6.6px 2.6px -1.3px var(--shadow-color)',
-        'surface-3': '6px 10px 4px -2px var(--shadow-color)',
-        'surface-4': '8px 13.3px 5.3px -2.7px var(--shadow-color)',
-        'surface-5': '12px 20px 8px -4px var(--shadow-color)',
+        'surface-2': '3px 6.6px 3px -1.3px var(--shadow-color)',
+        'surface-3': '6px 10px 5px -2px var(--shadow-color)',
+        'surface-4': '8px 13px 8px -2.7px var(--shadow-color)',
+        'surface-5': '12px 18px 13px -4px var(--shadow-color)',
       },
       borderColor: {
         surface: {
