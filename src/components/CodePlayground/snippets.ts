@@ -1,7 +1,8 @@
 export const defaultSnippet = `
 // Write React code here
 // framer-motion and tailwindcss are available
-// The following snippets are from https://buildui.com/series/framer-motion-recipes/multistep-wizard
+// The following snippets are from 
+// https://buildui.com/series/framer-motion-recipes/multistep-wizard
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
