@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
-import StopIcon from '@heroicons/react/solid/StopIcon';
-import PlayIcon from '@heroicons/react/solid/PlayIcon';
+import { PlayIcon, StopIcon } from '@heroicons/react/24/solid';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';

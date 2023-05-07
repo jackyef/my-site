@@ -11,6 +11,8 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
 export const LightButton = forwardRef<HTMLButtonElement, Props>(
   ({ variant = 'primary', className, ...props }, ref) => {
     const base = css`
+      display: inline-flex;
+      align-items: center;
       color: ${getHslaColor(variant, 1, { l: -12 })};
 
       [data-theme='dark'] & {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import XIcon from '@heroicons/react/solid/XIcon';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { css } from 'goober';
 
@@ -116,7 +116,7 @@ export const ThemePicker = () => {
                   aria-label="Close"
                   className="absolute top-8 right-4 p-2 rounded-lg"
                 >
-                  <XIcon width={32} height={32} />
+                  <XMarkIcon width={32} height={32} />
                 </button>
               </Dialog.Close>
             </div>
