@@ -13,22 +13,31 @@ import {
   useContext,
   useState,
 } from 'react';
+import clsx from 'clsx';
 
 import { theme } from './theme';
 import { PlaygroundHeader } from './PlaygroundHeader';
+import { defaultIndexSnippet, defaultSnippet } from './snippets';
 
+type PlaygroundLayout = 'horizontal' | 'vertical';
 type CodePlaygroundContextType = {
   isShowingFileExplorer: boolean;
   setIsShowingFileExplorer: Dispatch<SetStateAction<boolean>>;
+  currentLayout: PlaygroundLayout;
+  toggleLayout: () => void;
 };
 
 const CodePlaygroundContext = createContext<CodePlaygroundContextType>({
   isShowingFileExplorer: false,
   setIsShowingFileExplorer: () => {},
+  currentLayout: 'horizontal',
+  toggleLayout: () => {},
 });
 
 export const useCodePlaygroundContext = () => useContext(CodePlaygroundContext);
 export const CodePlayground = () => {
+  const [editorAndPreviewLayout, setEditorAndPreviewLayout] =
+    useState<PlaygroundLayout>('horizontal');
   const [isShowingFileExplorer, setIsShowingFileExplorer] = useState(false);
   const heightCss = css`
     height: 60vh !important;
@@ -36,13 +45,30 @@ export const CodePlayground = () => {
 
   return (
     <CodePlaygroundContext.Provider
-      value={{ isShowingFileExplorer, setIsShowingFileExplorer }}
+      value={{
+        isShowingFileExplorer,
+        setIsShowingFileExplorer,
+        currentLayout: editorAndPreviewLayout,
+        toggleLayout: () =>
+          setEditorAndPreviewLayout((prev) =>
+            prev === 'horizontal' ? 'vertical' : 'horizontal',
+          ),
+      }}
     >
-      <div className="isolate shadow-surface-2 rounded-lg xl:-mx-36">
+      <div className="isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]">
         <SandpackProvider
           template="react"
           theme={theme}
+          files={{
+            'App.tsx': defaultSnippet,
+            'index.js': {
+              readOnly: true,
+              code: defaultIndexSnippet,
+            },
+          }}
           options={{
+            activeFile: 'App.tsx',
+            visibleFiles: ['App.tsx'],
             externalResources: ['https://cdn.tailwindcss.com'],
           }}
           customSetup={{
@@ -53,9 +79,15 @@ export const CodePlayground = () => {
         >
           <PlaygroundHeader />
           <SandpackLayout
-            className={css`
-              border-radius: 0 0 0.5rem 0.5rem !important;
-            `}
+            className={clsx(
+              css`
+                border-radius: 0 0 0.5rem 0.5rem !important;
+              `,
+              {
+                block: editorAndPreviewLayout === 'vertical',
+                flex: editorAndPreviewLayout === 'horizontal',
+              },
+            )}
           >
             {isShowingFileExplorer && <SandpackFileExplorer />}
             <SandpackCodeEditor

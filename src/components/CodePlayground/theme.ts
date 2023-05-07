@@ -1,4 +1,4 @@
-import type { SandpackTheme } from '@codesandbox/sandpack-react/types';
+import type { SandpackTheme } from '@codesandbox/sandpack-react';
 
 export const theme: SandpackTheme = {
   colors: {
