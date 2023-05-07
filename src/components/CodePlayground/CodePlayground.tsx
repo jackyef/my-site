@@ -18,6 +18,7 @@ import clsx from 'clsx';
 import { theme } from './theme';
 import { PlaygroundHeader } from './PlaygroundHeader';
 import { defaultIndexSnippet, defaultSnippet } from './snippets';
+import { StatePersistor } from './StatePersistor';
 
 type PlaygroundLayout = 'horizontal' | 'vertical';
 type CodePlaygroundContextType = {
@@ -35,7 +36,12 @@ const CodePlaygroundContext = createContext<CodePlaygroundContextType>({
 });
 
 export const useCodePlaygroundContext = () => useContext(CodePlaygroundContext);
-export const CodePlayground = () => {
+
+type Props = {
+  initialCode?: string;
+};
+
+export const CodePlayground = ({ initialCode }: Props) => {
   const [editorAndPreviewLayout, setEditorAndPreviewLayout] =
     useState<PlaygroundLayout>('horizontal');
   const [isShowingFileExplorer, setIsShowingFileExplorer] = useState(false);
@@ -60,7 +66,7 @@ export const CodePlayground = () => {
           template="react"
           theme={theme}
           files={{
-            'App.tsx': defaultSnippet,
+            'App.tsx': initialCode ?? defaultSnippet,
             'index.js': {
               readOnly: true,
               code: defaultIndexSnippet,
@@ -101,6 +107,8 @@ export const CodePlayground = () => {
               showOpenInCodeSandbox={false}
             />
           </SandpackLayout>
+
+          <StatePersistor />
         </SandpackProvider>
       </div>
     </CodePlaygroundContext.Provider>

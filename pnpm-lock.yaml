@@ -47,6 +47,7 @@ specifiers:
   goober: 2.0.41
   hastscript: ^6.0.0
   lucide-react: ^0.214.0
+  lz-string: ^1.5.0
   match-sorter: ^6.3.1
   metadata-scraper: ^0.2.57
   next: ^13.0.1
@@ -89,6 +90,7 @@ dependencies:
   framer-motion: 10.12.8_biqbaboplfbrettd7655fr4n2y
   goober: 2.0.41_csstype@2.6.2
   lucide-react: 0.214.0_react@18.2.0
+  lz-string: 1.5.0
   match-sorter: 6.3.1
   metadata-scraper: 0.2.57
   next: 13.0.1_biqbaboplfbrettd7655fr4n2y

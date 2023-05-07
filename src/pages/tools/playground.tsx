@@ -1,4 +1,6 @@
 import tinytime from 'tinytime';
+import * as LZString from 'lz-string';
+import { useEffect, useState } from 'react';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { PageTitle } from '@/components/Typography/PageTitle';
@@ -20,6 +22,24 @@ export const meta = {
 const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
 const PlaygroundPage = () => {
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [initialCode, setInitialCode] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const compressedCodeFromHash =
+      typeof window !== 'undefined'
+        ? window.location.hash.replace('#code=', '')
+        : '';
+
+    setInitialCode(
+      compressedCodeFromHash
+        ? LZString.decompressFromEncodedURIComponent(compressedCodeFromHash)
+        : undefined,
+    );
+
+    setIsInitialized(true);
+  }, []);
+
   return (
     <>
       <PageMetaTags
@@ -29,9 +49,10 @@ const PlaygroundPage = () => {
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
       <PageTitle>{meta.title}</PageTitle>
+
       <HorizontalDivider />
 
-      <CodePlayground />
+      {isInitialized && <CodePlayground initialCode={initialCode} />}
     </>
   );
 };
