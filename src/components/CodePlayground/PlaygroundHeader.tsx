@@ -1,24 +1,31 @@
 import {
   FileTabs,
-  useSandpackNavigation,
   UnstyledOpenInCodeSandboxButton,
 } from '@codesandbox/sandpack-react';
 import {
-  ArrowPathIcon,
   ArrowTopRightOnSquareIcon,
   DocumentMagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { css } from 'goober';
-import { RowsIcon, ColumnsIcon } from 'lucide-react';
+import {
+  RowsIcon,
+  ColumnsIcon,
+  MaximizeIcon,
+  MinimizeIcon,
+} from 'lucide-react';
 
 import { useCodePlaygroundContext } from './CodePlayground';
 import { theme } from './theme';
 
 export const PlaygroundHeader = () => {
-  const { setIsShowingFileExplorer, currentLayout, toggleLayout } =
-    useCodePlaygroundContext();
-  const { refresh } = useSandpackNavigation();
+  const {
+    setIsShowingFileExplorer,
+    currentLayout,
+    toggleLayout,
+    isFullscreen,
+    toggleFullscreen,
+  } = useCodePlaygroundContext();
   const bgCss = css`
     background-color: rgb(22, 28, 34) !important;
   `;
@@ -45,6 +52,11 @@ export const PlaygroundHeader = () => {
           border-radius: 0.5rem 0.5rem 0 0 !important;
           overflow: clip;
         `,
+        {
+          [css`
+            border-radius: 0 !important;
+          `]: isFullscreen,
+        },
       )}
     >
       <div className={clsx('flex flex-1 items-center pl-4')}>
@@ -60,25 +72,32 @@ export const PlaygroundHeader = () => {
 
       {/* Actions */}
       <div className="flex flex-1 justify-end items-center gap-4 pr-4">
-        <button
-          className={clsx(interactableCss, 'hidden min-[770px]:inline-block')}
-          onClick={toggleLayout}
-        >
-          Switch to {currentLayout === 'horizontal' ? 'vertical' : 'horizontal'}
-          {currentLayout === 'horizontal' ? (
-            <RowsIcon {...iconProps} />
-          ) : (
-            <ColumnsIcon {...iconProps} />
-          )}
-        </button>
+        {!isFullscreen && (
+          <button
+            className={clsx(interactableCss, 'hidden min-[770px]:inline-block')}
+            onClick={toggleLayout}
+          >
+            Switch to{' '}
+            {currentLayout === 'horizontal' ? 'vertical' : 'horizontal'}
+            {currentLayout === 'horizontal' ? (
+              <RowsIcon {...iconProps} />
+            ) : (
+              <ColumnsIcon {...iconProps} />
+            )}
+          </button>
+        )}
         <UnstyledOpenInCodeSandboxButton className={interactableCss}>
           Fork
           <ArrowTopRightOnSquareIcon {...iconProps} />
         </UnstyledOpenInCodeSandboxButton>
 
-        <button className={interactableCss} onClick={() => refresh()}>
-          Reload
-          <ArrowPathIcon {...iconProps} />
+        <button className={interactableCss} onClick={toggleFullscreen}>
+          {isFullscreen ? 'Minimize' : 'Fullscreen'}
+          {isFullscreen ? (
+            <MinimizeIcon {...iconProps} />
+          ) : (
+            <MaximizeIcon {...iconProps} />
+          )}
         </button>
       </div>
     </div>

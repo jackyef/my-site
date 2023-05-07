@@ -26,6 +26,8 @@ type CodePlaygroundContextType = {
   setIsShowingFileExplorer: Dispatch<SetStateAction<boolean>>;
   currentLayout: PlaygroundLayout;
   toggleLayout: () => void;
+  isFullscreen: boolean;
+  toggleFullscreen: () => void;
 };
 
 const CodePlaygroundContext = createContext<CodePlaygroundContextType>({
@@ -33,6 +35,8 @@ const CodePlaygroundContext = createContext<CodePlaygroundContextType>({
   setIsShowingFileExplorer: () => {},
   currentLayout: 'horizontal',
   toggleLayout: () => {},
+  isFullscreen: false,
+  toggleFullscreen: () => {},
 });
 
 export const useCodePlaygroundContext = () => useContext(CodePlaygroundContext);
@@ -45,8 +49,12 @@ export const CodePlayground = ({ initialCode }: Props) => {
   const [editorAndPreviewLayout, setEditorAndPreviewLayout] =
     useState<PlaygroundLayout>('horizontal');
   const [isShowingFileExplorer, setIsShowingFileExplorer] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const heightCss = css`
     height: 60vh !important;
+  `;
+  const fullHeightCss = css`
+    height: 100vh !important;
   `;
 
   return (
@@ -59,9 +67,26 @@ export const CodePlayground = ({ initialCode }: Props) => {
           setEditorAndPreviewLayout((prev) =>
             prev === 'horizontal' ? 'vertical' : 'horizontal',
           ),
+        isFullscreen,
+        toggleFullscreen: () => {
+          setIsFullscreen((prev) => !prev);
+          if (!isFullscreen) {
+            setEditorAndPreviewLayout('horizontal');
+          }
+        },
       }}
     >
-      <div className="isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]">
+      <div
+        className={clsx('isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]', {
+          [css`
+            inset: 0;
+            position: fixed;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            z-index: 10;
+          `]: isFullscreen,
+        })}
+      >
         <SandpackProvider
           template="react"
           theme={theme}
@@ -97,12 +122,18 @@ export const CodePlayground = ({ initialCode }: Props) => {
           >
             {isShowingFileExplorer && <SandpackFileExplorer />}
             <SandpackCodeEditor
-              className={heightCss}
+              className={clsx({
+                [fullHeightCss]: isFullscreen,
+                [heightCss]: !isFullscreen,
+              })}
               showLineNumbers
               showInlineErrors
             />
             <SandpackPreview
-              className={heightCss}
+              className={clsx({
+                [fullHeightCss]: isFullscreen,
+                [heightCss]: !isFullscreen,
+              })}
               showNavigator={false}
               showOpenInCodeSandbox={false}
             />
