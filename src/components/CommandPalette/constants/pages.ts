@@ -34,6 +34,11 @@ export const PAGES: readonly PageData[] = [
 
   // Tools
   {
+    title: 'Tools ▶️ Code playground',
+    description: `A playground for testing code snippets with framer-motion and tailwind css`,
+    link: '/tools/playground',
+  },
+  {
     title: 'Tools ▶️ Claymorphism',
     description: `Simple tool for generating for claymorphism-style CSS`,
     link: '/tools/claymorphism',
