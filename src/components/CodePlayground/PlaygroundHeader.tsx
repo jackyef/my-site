@@ -91,7 +91,10 @@ export const PlaygroundHeader = () => {
           <ArrowTopRightOnSquareIcon {...iconProps} />
         </UnstyledOpenInCodeSandboxButton>
 
-        <button className={interactableCss} onClick={toggleFullscreen}>
+        <button
+          className={clsx(interactableCss, 'hidden min-[770px]:inline-block')}
+          onClick={toggleFullscreen}
+        >
           {isFullscreen ? 'Minimize' : 'Fullscreen'}
           {isFullscreen ? (
             <MinimizeIcon {...iconProps} />
