@@ -16,6 +16,10 @@ import {
 import clsx from 'clsx';
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 
+import { useKeyDown } from '@/hooks/useKeyDown';
+
+import { getPlatformMetaKey } from '@/utils/keyboard';
+
 import { theme } from './theme';
 import { PlaygroundHeader } from './PlaygroundHeader';
 import { defaultIndexSnippet, defaultSnippet } from './snippets';
@@ -59,6 +63,12 @@ export const CodePlayground = ({ initialCode }: Props) => {
   const fullHeightCss = css`
     height: 100vh !important;
   `;
+
+  useKeyDown('Escape', () => setIsFullscreen(false));
+  useKeyDown('f', () => setIsFullscreen(true), {
+    ctrlKey: getPlatformMetaKey() === 'Ctrl',
+    metaKey: getPlatformMetaKey() === 'Cmd',
+  });
 
   return (
     <CodePlaygroundContext.Provider
@@ -131,6 +141,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
               })}
               extensions={[autocompletion()]}
               extensionsKeymap={keymap}
+              showTabs={false}
               showLineNumbers
               showInlineErrors
             />
