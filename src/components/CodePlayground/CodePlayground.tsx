@@ -90,15 +90,23 @@ export const CodePlayground = ({ initialCode }: Props) => {
       }}
     >
       <div
-        className={clsx('isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]', {
-          [css`
-            inset: 0;
-            position: fixed;
-            margin: 0 !important;
-            border-radius: 0 !important;
-            z-index: 10;
-          `]: isFullscreen,
-        })}
+        className={clsx(
+          'isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]',
+          css`
+            & .cm-tooltip {
+              background: ${theme.colors.surface3};
+            }
+          `,
+          {
+            [css`
+              inset: 0;
+              position: fixed;
+              margin: 0 !important;
+              border-radius: 0 !important;
+              z-index: 10;
+            `]: isFullscreen,
+          },
+        )}
       >
         <SandpackProvider
           template="react"
