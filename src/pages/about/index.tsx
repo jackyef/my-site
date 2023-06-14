@@ -12,6 +12,7 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
+import { HistoryCalendar } from '@/components/HistoryCalendar';
 
 const TechnologyAnchors = () => {
   return (
@@ -66,6 +67,10 @@ export default function About() {
         well, but I am open to remote roles across the globe.
       </Paragraph>
       <HorizontalDivider />
+
+      <div className="my-12">
+        <HistoryCalendar />
+      </div>
 
       <SectionTitle>Recent Projects 🧰</SectionTitle>
       <ProjectsList />

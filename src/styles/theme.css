@@ -72,6 +72,7 @@
   --scroll-gutter: hsl(0deg 0% 91.8%);
 
   --filter-invert: '';
+  --filter-brightness: '';
 
   --hide-in-light-mode: 0;
   --hide-in-dark-mode: 1;
@@ -132,6 +133,7 @@
   --scroll-gutter: hsl(205deg 21.5% 15.5%);
 
   --filter-invert: invert(1);
+  --filter-brightness: brightness(0.85);
 
   --hide-in-light-mode: 1;
   --hide-in-dark-mode: 0;
@@ -196,6 +198,7 @@
   --scroll-gutter: hsl(0deg 0% 91.8%);
 
   --filter-invert: '';
+  --filter-brightness: '';
 
   --hide-in-light-mode: 0;
   --hide-in-dark-mode: 1;
@@ -256,6 +259,7 @@
   --scroll-gutter: hsl(205deg 21.5% 15.5%);
 
   --filter-invert: invert(1);
+  --filter-brightness: brightness(0.85);
 
   --hide-in-light-mode: 1;
   --hide-in-dark-mode: 0;
