@@ -8,13 +8,17 @@ import { TimelineContext } from './hooks';
 
 type Props = {
   timelineBeginning: Date;
+  activeEventIndex?: number;
   sizePerBlock?: string;
+  isScrollTriggerEnabled?: boolean;
   children: React.ReactNode;
 };
 
 export const Timeline = ({
   children,
+  activeEventIndex,
   timelineBeginning,
+  isScrollTriggerEnabled = false,
   sizePerBlock = '3.5rem',
 }: Props) => {
   const totalMonths = getMonthDifference(timelineBeginning, TODAY);
@@ -27,14 +31,20 @@ export const Timeline = ({
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <TimelineContext.Provider value={{ containerRef: ref }}>
+    <TimelineContext.Provider
+      value={{
+        containerRef: ref,
+        activeEventIndex,
+        totalMonths,
+        isScrollTriggerEnabled,
+      }}
+    >
       <div
         ref={ref}
         className={clsx(
           'flex flex-1 flex-col overflow-auto relative',
           css`
             scroll-behavior: smooth;
-            scroll-snap-type: y proximity;
           `,
         )}
       >

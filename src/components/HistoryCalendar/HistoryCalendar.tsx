@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { formatDate, TODAY } from '@/lib/datetime';
+
+import { debounce } from '@/utils/debounce';
 
 import { Timeline, TimelineEvent } from '../Timeline';
 
@@ -12,6 +14,7 @@ import { AsideContainer } from './AsideContainer';
 
 export const HistoryCalendar = () => {
   const prevActiveIndex = useRef<number | null>(null);
+  const [isScrollTriggerEnabled, setIsScrollTriggerEnabled] = useState(true);
   const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
   const activeEvent = timelineEvents[activeEventIndex];
   const uniqueId = `jobHistoryCalendar`;
@@ -20,6 +23,13 @@ export const HistoryCalendar = () => {
     (prevActiveIndex?.current ?? 0) > activeEventIndex ? 'left' : 'right';
 
   prevActiveIndex.current = activeEventIndex;
+
+  const handleActiveIndexChange = useCallback(
+    debounce((index: number) => {
+      setActiveEventIndex(index);
+    }, 50),
+    [setActiveEventIndex],
+  );
 
   const handleEventClick = (index: number) => {
     (
@@ -44,18 +54,21 @@ export const HistoryCalendar = () => {
         <Timeline
           // Start our story from 2017
           timelineBeginning={new Date('2017-01-01')}
+          activeEventIndex={activeEventIndex}
+          isScrollTriggerEnabled={isScrollTriggerEnabled}
         >
           {timelineEvents.map((event, index) => {
             return (
               <TimelineEvent
                 key={event.title}
                 id={`${uniqueId}-${index}`}
+                index={index}
                 title={event.title}
                 description={event.description}
                 from={event.from}
                 to={event.to}
                 variant={event.variant}
-                onClick={() => setActiveEventIndex(index)}
+                onClick={() => handleActiveIndexChange(index)}
                 isActive={activeEvent === event}
               />
             );
@@ -77,9 +90,13 @@ export const HistoryCalendar = () => {
                   // - Next means going to the present
                   // - Prev means going to the past
                   onNextClick={() => {
+                    // Stop scroll triggered event once user
+                    // started navigating manually
+                    setIsScrollTriggerEnabled(false);
                     handleEventClick(activeEventIndex - 1);
                   }}
                   onPrevClick={() => {
+                    setIsScrollTriggerEnabled(false);
                     handleEventClick(activeEventIndex + 1);
                   }}
                   hasPrev={activeEventIndex < timelineEvents.length - 1}

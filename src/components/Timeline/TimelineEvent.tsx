@@ -1,8 +1,11 @@
 import clsx from 'clsx';
 import { css } from 'goober';
-import { useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 
 import { getMonthDifference, TODAY } from '@/lib/datetime';
+
+import { isInViewport } from '@/utils/dom/isInViewport';
 
 import { useTimelineContext } from './hooks';
 
@@ -25,12 +28,14 @@ export type BaseEvent = {
 
 export type Props = BaseEvent & {
   id: string;
+  index: number;
   isActive?: boolean;
   onClick?: () => void;
 };
 
 export const TimelineEvent = ({
   id,
+  index,
   isActive = false,
   from,
   to,
@@ -39,10 +44,44 @@ export const TimelineEvent = ({
   variant,
   onClick,
 }: Props) => {
-  const { containerRef } = useTimelineContext();
+  const {
+    containerRef,
+    totalMonths: totalTimelineMonths,
+    activeEventIndex,
+    isScrollTriggerEnabled,
+  } = useTimelineContext();
   const ref = useRef<HTMLLIElement>(null);
   const startingPosition = getMonthDifference(to, TODAY);
   const totalMonths = getMonthDifference(from, to) + 1;
+  const prevScrollYProgress = useRef(0);
+
+  const shouldBeActiveAt = startingPosition / totalTimelineMonths;
+  const { scrollYProgress } = useScroll({
+    container: containerRef as MutableRefObject<HTMLDivElement>,
+    layoutEffect: false,
+  });
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (
+      isScrollTriggerEnabled &&
+      latest >= shouldBeActiveAt &&
+      typeof onClick === 'function'
+    ) {
+      const scrollDirection =
+        latest > prevScrollYProgress.current ? 'down' : 'up';
+
+      if (
+        (scrollDirection === 'down' && index > Number(activeEventIndex)) ||
+        (scrollDirection === 'up' && index < Number(activeEventIndex))
+      ) {
+        if (isInViewport(ref.current as HTMLElement)) {
+          onClick?.();
+        }
+      }
+    }
+
+    prevScrollYProgress.current = latest;
+  });
 
   const handleClick = () => {
     if (ref.current && containerRef?.current) {
@@ -65,7 +104,6 @@ export const TimelineEvent = ({
         css`
           scroll-margin-top: 3.5rem;
           scroll-padding-top: 3.5rem;
-          scroll-snap-align: start;
           filter: var(--filter-brightness);
         `,
       )}
@@ -108,7 +146,7 @@ export const TimelineEvent = ({
           },
         )}
       >
-        <div
+        <motion.div
           className={clsx('sticky top-4 group flex flex-col', 'block', {
             'text-slate-700': variant === 'slate',
             'text-violet-700': variant === 'violet',
@@ -123,7 +161,7 @@ export const TimelineEvent = ({
         >
           <span className={clsx('font-semibold block')}>{title}</span>
           <span className={clsx('block')}>{description}</span>
-        </div>
+        </motion.div>
       </button>
     </li>
   );
