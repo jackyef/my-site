@@ -143,8 +143,15 @@ export const timelineEvents = [
           During these early days, we focused on onboarding new members who
           previously worked full-stack but wanted to specialize in the web
           frontend. We hosted a series of workshops and sharing sessions, while
-          also improving the developer tools and infrastructure to make
-          developers&apos; life easier.
+          also improving the developer tools, build pipelines and infrastructure
+          to make developers&apos; life easier.
+        </p>
+
+        <p>
+          For the most part, my responsibility shifted from building features to
+          building tools and infrastructure. You could say I moved from
+          frontend-product to frontend-infra. I had been handling frontend-infra
+          for a while now at this point, but this move made it official.
         </p>
 
         <ExternalMediaList>
