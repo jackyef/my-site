@@ -1,4 +1,7 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
+import clsx from 'clsx';
+import { ExternalLinkIcon } from 'lucide-react';
+import { css } from 'goober';
 
 import { TECHNOLOGIES } from '@/constants/technologies';
 import { TODAY } from '@/lib/datetime';
@@ -32,6 +35,50 @@ const TechnologyAnchors = () => {
 
 const Ul = ({ children }: { children: React.ReactNode }) => {
   return <ul className="list-disc pl-4">{children}</ul>;
+};
+
+type ExternalMediaProps = {
+  href: string;
+  imgSrc: string;
+  title: string;
+};
+
+const ExternalMediaList = ({ children }: { children: React.ReactNode }) => {
+  return <div className="pt-4 space-x-2">{children}</div>;
+};
+
+const ExternalMedia = ({ href, imgSrc, title }: ExternalMediaProps) => {
+  return (
+    <a
+      className="inline-block relative overflow-hidden rounded-lg isolate w-24 aspect-video"
+      href={href}
+      title={title}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div
+        className={clsx(
+          'absolute inset-0 rounded-lg opacity-0 hover:opacity-100 transition-opacity',
+          'bg-gradient-to-t from-black/50',
+          'flex items-center justify-center text-white',
+          'hover:duration-200 duration-300 z-20',
+          css`
+            &:hover + img {
+              transform: scale(1.2);
+              transition-duration: 200ms;
+            }
+          `,
+        )}
+      >
+        <ExternalLinkIcon />
+      </div>
+      <img
+        className="z-10 block rounded-lg w-full h-full object-cover transition-transform duration-500"
+        src={imgSrc}
+        alt={title}
+      />
+    </a>
+  );
 };
 
 export type JobHistoryEvent = BaseEvent & {
@@ -129,6 +176,19 @@ export const timelineEvents = [
           at Tokopedia START Summit 2020 and Google&apos;s web.dev ID partners
           forum.
         </p>
+
+        <ExternalMediaList>
+          <ExternalMedia
+            title="Getting Content Painted under 2 seconds on the Mobile Web"
+            href="https://medium.com/tokopedia-engineering/getting-content-painted-under-2-seconds-on-the-mobile-web-7b3bbaca32cb?source=---------2----------------------------"
+            imgSrc="https://miro.medium.com/max/600/1*dt64F0e6meLcS7WOKS7lsA.jpeg?q=75"
+          />
+          <ExternalMedia
+            title="The Case for pnpm Over npm or Yarn"
+            href="https://medium.com/better-programming/the-case-for-pnpm-over-npm-or-yarn-2b221607119?source=---------4----------------------------"
+            imgSrc="https://miro.medium.com/max/600/1*_ZwobpKb_RVWMkt38Dl3bg.png?q=75"
+          />
+        </ExternalMediaList>
       </>
     ),
   },
@@ -159,6 +219,14 @@ export const timelineEvents = [
           also improving the developer tools and infrastructure to make
           developers&apos; life easier.
         </p>
+
+        <ExternalMediaList>
+          <ExternalMedia
+            title="Building 60 FPS QR Scanner for the Mobile Web"
+            href="https://medium.com/tokopedia-engineering/building-60-fps-qr-scanner-for-the-mobile-web-eb0deddce099?source=---------5----------------------------"
+            imgSrc="https://miro.medium.com/max/600/1*o-1FRXCv8hwsN5IMYRxo3Q.jpeg?q=75"
+          />
+        </ExternalMediaList>
       </>
     ),
   },
@@ -195,6 +263,14 @@ export const timelineEvents = [
           </li>
           <li>Take part in discussions on design and planning decisions</li>
         </Ul>
+
+        <ExternalMediaList>
+          <ExternalMedia
+            title="Achieving 90+ Mobile Web Performance at Tokopedia"
+            href="https://medium.com/tokopedia-engineering/achieving-90-mobile-web-performance-at-tokopedia-23f557d98d5?source=---------7------------------"
+            imgSrc="https://miro.medium.com/max/600/1*iutJ4V6Jl9CmLMy5zFcoAA.jpeg?q=75"
+          />
+        </ExternalMediaList>
       </>
     ),
   },
