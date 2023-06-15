@@ -1,85 +1,12 @@
-import { Fragment } from 'react';
-import clsx from 'clsx';
-import { ExternalLinkIcon } from 'lucide-react';
-import { css } from 'goober';
-
-import { TECHNOLOGIES } from '@/constants/technologies';
 import { TODAY } from '@/lib/datetime';
 
 import type { BaseEvent } from '../Timeline/TimelineEvent';
-import { ExternalLink } from '../Typography/ExternalLink';
+import { TechnologyAnchors } from '../TechnologyAnchors';
+
+import { ExternalMedia, ExternalMediaList } from './components/ExternalMedia';
+import { UnorderedList } from './components/UnorderedList';
 
 export const TIMELINE_START = new Date('2017-01-01');
-
-const TechnologyAnchors = () => {
-  return (
-    <>
-      {TECHNOLOGIES.map(({ name, href }, index) => {
-        const isLastItem = index === TECHNOLOGIES.length - 1;
-        const prefix = isLastItem ? 'and ' : '';
-        const suffix = isLastItem ? '' : ', ';
-
-        return (
-          <Fragment key={name}>
-            {prefix}
-            <ExternalLink key={name} href={href} shouldShowPreviewOnHover>
-              {name}
-            </ExternalLink>
-            {suffix}
-          </Fragment>
-        );
-      })}
-    </>
-  );
-};
-
-const Ul = ({ children }: { children: React.ReactNode }) => {
-  return <ul className="list-disc pl-4">{children}</ul>;
-};
-
-type ExternalMediaProps = {
-  href: string;
-  imgSrc: string;
-  title: string;
-};
-
-const ExternalMediaList = ({ children }: { children: React.ReactNode }) => {
-  return <div className="pt-4 space-x-2">{children}</div>;
-};
-
-const ExternalMedia = ({ href, imgSrc, title }: ExternalMediaProps) => {
-  return (
-    <a
-      className="inline-block relative overflow-hidden rounded-lg isolate w-24 aspect-video"
-      href={href}
-      title={title}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div
-        className={clsx(
-          'absolute inset-0 rounded-lg opacity-0 hover:opacity-100 transition-opacity',
-          'bg-gradient-to-t from-black/50',
-          'flex items-center justify-center text-white',
-          'hover:duration-200 duration-300 z-20',
-          css`
-            &:hover + img {
-              transform: scale(1.2);
-              transition-duration: 200ms;
-            }
-          `,
-        )}
-      >
-        <ExternalLinkIcon />
-      </div>
-      <img
-        className="z-10 block rounded-lg w-full h-full object-cover transition-transform duration-500"
-        src={imgSrc}
-        alt={title}
-      />
-    </a>
-  );
-};
 
 export type JobHistoryEvent = BaseEvent & {
   details?: React.ReactNode;
@@ -148,7 +75,7 @@ export const timelineEvents = [
           improvements along with the team.
         </p>
         <p>Some projects that I worked on:</p>
-        <ul className="list-disc pl-4 space-y-2">
+        <UnorderedList>
           <li>
             Migrated our frontend monorepo from Yarn workspace to pnpm. Reduced
             the amount of errors caused by faulty dependency resolutions.
@@ -167,7 +94,7 @@ export const timelineEvents = [
             Improved the build time of staging builds by 90% to enable faster
             development workflows
           </li>
-        </ul>
+        </UnorderedList>
 
         <p>
           I also had more responsibilities to give talks and share knowledge,
@@ -197,7 +124,7 @@ export const timelineEvents = [
     to: new Date('2019-12-31'),
     title: 'Senior Software Engineer - Web Platform',
     description: 'Tokopedia',
-    variant: 'green',
+    variant: 'fuchsia',
     details: (
       <>
         <p>
@@ -235,7 +162,7 @@ export const timelineEvents = [
     to: new Date('2019-06-30'),
     title: 'Senior Software Engineer - Mobile Web',
     description: 'Tokopedia',
-    variant: 'green',
+    variant: 'fuchsia',
     details: (
       <>
         <p>I got promoted! 🎉</p>
@@ -252,7 +179,7 @@ export const timelineEvents = [
         </p>
 
         <p>Some notable differences:</p>
-        <Ul>
+        <UnorderedList>
           <li>
             Now working on the web platform as a whole instead of just the
             mobile web platform
@@ -262,7 +189,7 @@ export const timelineEvents = [
             engineers work more effectively{' '}
           </li>
           <li>Take part in discussions on design and planning decisions</li>
-        </Ul>
+        </UnorderedList>
 
         <ExternalMediaList>
           <ExternalMedia
@@ -279,7 +206,7 @@ export const timelineEvents = [
     to: new Date('2018-12-31'),
     title: 'Software Engineer - Mobile Web',
     description: 'Tokopedia',
-    variant: 'green',
+    variant: 'teal',
     details: (
       <>
         <p>
@@ -304,7 +231,7 @@ export const timelineEvents = [
           During this period, I helped implementing some products and features
           to the mobile web, including:
         </p>
-        <Ul>
+        <UnorderedList>
           <li>TopChat, a chat platform</li>
           <li>TokoPoints, a loyalty points program</li>
           <li>
@@ -314,7 +241,7 @@ export const timelineEvents = [
             Researching possible improvements in general as we are looking to
             solidify our web platform infrastructure
           </li>
-        </Ul>
+        </UnorderedList>
         <p>
           As time went on, I became more and more comfortable with my work. By
           the end of this period I started to be hold my own and also help other

@@ -11,7 +11,16 @@ export type BaseEvent = {
   to: Date;
   title: string;
   description: string;
-  variant: 'amber' | 'green' | 'blue' | 'slate' | 'violet' | 'red';
+  variant:
+    | 'amber'
+    | 'green'
+    | 'blue'
+    | 'slate'
+    | 'violet'
+    | 'red'
+    | 'fuchsia'
+    | 'sky'
+    | 'teal';
 };
 
 export type Props = BaseEvent & {
@@ -80,6 +89,10 @@ export const TimelineEvent = ({
             'bg-blue-50 hover:bg-blue-100': !isActive && variant === 'blue',
             'bg-green-50 hover:bg-green-100': !isActive && variant === 'green',
             'bg-amber-50 hover:bg-amber-100': !isActive && variant === 'amber',
+            'bg-fuchsia-50 hover:bg-fuchsia-100':
+              !isActive && variant === 'fuchsia',
+            'bg-sky-50 hover:bg-sky-100': !isActive && variant === 'sky',
+            'bg-teal-50 hover:bg-teal-100': !isActive && variant === 'teal',
           },
           {
             'left-4': isActive,
@@ -89,6 +102,9 @@ export const TimelineEvent = ({
             'bg-blue-100': isActive && variant === 'blue',
             'bg-green-100': isActive && variant === 'green',
             'bg-amber-100': isActive && variant === 'amber',
+            'bg-fuchsia-100': isActive && variant === 'fuchsia',
+            'bg-sky-100': isActive && variant === 'sky',
+            'bg-teal-100': isActive && variant === 'teal',
           },
         )}
       >
@@ -100,6 +116,9 @@ export const TimelineEvent = ({
             'text-blue-700': variant === 'blue',
             'text-green-700': variant === 'green',
             'text-amber-700': variant === 'amber',
+            'text-fuchsia-700': variant === 'fuchsia',
+            'text-sky-700': variant === 'sky',
+            'text-teal-700': variant === 'teal',
           })}
         >
           <span className={clsx('font-semibold block')}>{title}</span>
