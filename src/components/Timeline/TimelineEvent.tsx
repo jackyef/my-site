@@ -70,7 +70,7 @@ export const TimelineEvent = ({
           'text-xs leading-5 bg-opacity-90',
           css`
             transition: background-color 0.2s ease-in-out,
-              left 0.2s ease-in 0.3s;
+              left 0.2s ease-in 0.25s;
           `,
           {
             'bg-slate-50 hover:bg-slate-100': !isActive && variant === 'slate',

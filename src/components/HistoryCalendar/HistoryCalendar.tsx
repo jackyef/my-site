@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { formatDate, TODAY } from '@/lib/datetime';
 
@@ -10,9 +11,15 @@ import { AsideHeading } from './AsideHeading';
 import { AsideContainer } from './AsideContainer';
 
 export const HistoryCalendar = () => {
+  const prevActiveIndex = useRef<number | null>(null);
   const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
   const activeEvent = timelineEvents[activeEventIndex];
   const uniqueId = `jobHistoryCalendar`;
+
+  const changeDirection =
+    (prevActiveIndex?.current ?? 0) > activeEventIndex ? 'left' : 'right';
+
+  prevActiveIndex.current = activeEventIndex;
 
   const handleEventClick = (index: number) => {
     (
@@ -56,7 +63,7 @@ export const HistoryCalendar = () => {
         </Timeline>
 
         {/* Expanded */}
-        <div className="block w-full flex-1 border-l border-surface-1  md:block overflow-y-scroll">
+        <div className="block w-full flex-1 border-l border-surface-1  md:block overflow-x-hidden overflow-y-scroll">
           <AsideContainer>
             {!activeEvent ? (
               <AsideEmptyState />
@@ -64,21 +71,41 @@ export const HistoryCalendar = () => {
               <>
                 <AsideHeading
                   event={activeEvent}
+                  // Prev and Next is actually a bit confusing here,
+                  // as we are moving from present to past
+                  // We want to keep the concept as follow:
+                  // - Next means going to the present
+                  // - Prev means going to the past
                   onNextClick={() => {
-                    handleEventClick(activeEventIndex + 1);
-                  }}
-                  onPrevClick={() => {
                     handleEventClick(activeEventIndex - 1);
                   }}
-                  hasNext={activeEventIndex < timelineEvents.length - 1}
-                  hasPrev={activeEventIndex > 0 && timelineEvents.length > 1}
+                  onPrevClick={() => {
+                    handleEventClick(activeEventIndex + 1);
+                  }}
+                  hasPrev={activeEventIndex < timelineEvents.length - 1}
+                  hasNext={activeEventIndex > 0 && timelineEvents.length > 1}
                 />
 
-                <div className="px-8 text-sm space-y-2">
-                  {activeEvent.details || (
-                    <p>This event has no details in it 😢</p>
-                  )}
-                </div>
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={activeEventIndex}
+                    initial={{
+                      opacity: 0,
+                      x: changeDirection === 'right' ? '-5%' : '5%',
+                    }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{
+                      opacity: 0,
+                      x: changeDirection === 'right' ? '5%' : '-5%',
+                    }}
+                    transition={{ duration: 0.1 }}
+                    className="px-8 text-sm space-y-2"
+                  >
+                    {activeEvent.details || (
+                      <p>This event period has no details in it 😢</p>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </>
             )}
           </AsideContainer>
