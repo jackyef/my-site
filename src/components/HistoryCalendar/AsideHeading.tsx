@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon, CalendarRangeIcon } from 'lucide-react';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import clsx from 'clsx';
 
 import { formatMonth, TODAY } from '@/lib/datetime';

@@ -67,7 +67,11 @@ export const TimelineEvent = ({
         onClick={handleClick}
         className={clsx(
           'absolute flex justify-start items-start text-left inset-1 rounded-lg p-2',
-          'text-xs leading-5 bg-opacity-90 transition-all',
+          'text-xs leading-5 bg-opacity-90',
+          css`
+            transition: background-color 0.2s ease-in-out,
+              left 0.2s ease-in 0.3s;
+          `,
           {
             'bg-slate-50 hover:bg-slate-100': !isActive && variant === 'slate',
             'bg-violet-50 hover:bg-violet-100':

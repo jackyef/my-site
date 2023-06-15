@@ -21,7 +21,7 @@ export const HistoryCalendar = () => {
   };
 
   return (
-    <section className="flex h-[560px] flex-col">
+    <section className="flex h-[70dvh] md:h-[560px] flex-col">
       <header className="flex flex-none items-center justify-between border-b border-surface-3 px-6 py-4">
         <div>
           <h1 className="text-base font-semibold leading-6 text-theme-heading">
@@ -33,7 +33,7 @@ export const HistoryCalendar = () => {
         </div>
       </header>
 
-      <div className="isolate flex flex-auto overflow-hidden bg-surface-5 shadow-surface-5 rounded-2xl">
+      <div className="isolate flex flex-auto flex-col md:flex-row overflow-hidden bg-surface-5 shadow-surface-5 rounded-2xl">
         <Timeline
           // Start our story from 2017
           timelineBeginning={new Date('2017-01-01')}
@@ -56,7 +56,7 @@ export const HistoryCalendar = () => {
         </Timeline>
 
         {/* Expanded */}
-        <div className="hidden w-1/2 max-w-md flex-none border-l border-surface-1  md:block overflow-y-scroll">
+        <div className="block w-full flex-1 border-l border-surface-1  md:block overflow-y-scroll">
           <AsideContainer>
             {!activeEvent ? (
               <AsideEmptyState />

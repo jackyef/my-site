@@ -31,7 +31,7 @@ export const Timeline = ({
       <div
         ref={ref}
         className={clsx(
-          'flex flex-auto flex-col overflow-auto relative',
+          'flex flex-1 flex-col overflow-auto relative',
           css`
             scroll-behavior: smooth;
             scroll-snap-type: y proximity;
