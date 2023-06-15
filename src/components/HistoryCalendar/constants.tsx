@@ -128,10 +128,10 @@ export const timelineEvents = [
     details: (
       <>
         <p>
-          As of this day, I am no longer part of the Mobile Web team, but rather
-          the Web Platform team. This was not a promotion, rather a lateral move
-          as a result of the team growing and organizational change that
-          happened during this period.
+          As of this day, I was no longer part of the Mobile Web team, but
+          rather the Web Platform team. This was not a promotion, rather a
+          lateral move as a result of the team growing and organizational change
+          that happened during this period.
         </p>
         <p>
           The Mobile Web team grew into the Web Platform team, receiving more

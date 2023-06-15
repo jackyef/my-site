@@ -29,7 +29,7 @@ export const AsideHeading = ({
   return (
     <h2
       className={clsx(
-        'flex items-center space-between',
+        'flex items-center space-between text-center',
         'sticky top-0 px-8 pt-6 bg-surface-4 pb-4 border-b-2',
         'border-surface-0 text-md font-semibold leading-6 mb-4',
         'z-10',

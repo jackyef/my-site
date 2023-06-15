@@ -11,6 +11,7 @@ import { timelineEvents } from './constants';
 import { AsideEmptyState } from './AsideEmptyState';
 import { AsideHeading } from './AsideHeading';
 import { AsideContainer } from './AsideContainer';
+import { Alert } from './components/Alert';
 
 export const HistoryCalendar = () => {
   const prevActiveIndex = useRef<number | null>(null);
@@ -38,7 +39,7 @@ export const HistoryCalendar = () => {
   };
 
   return (
-    <section className="flex h-[70dvh] md:h-[560px] flex-col">
+    <section className="flex h-[80vh] md:h-[560px] flex-col">
       <header className="flex flex-none items-center justify-between border-b border-surface-3 px-6 py-4">
         <div>
           <h1 className="text-base font-semibold leading-6 text-theme-heading">
@@ -118,6 +119,13 @@ export const HistoryCalendar = () => {
                     transition={{ duration: 0.1 }}
                     className="px-8 text-sm space-y-2"
                   >
+                    <div className="mb-4">
+                      <Alert
+                        variant={activeEvent.variant}
+                        title={activeEvent.title}
+                        description={activeEvent.description}
+                      />
+                    </div>
                     {activeEvent.details || (
                       <p>This event period has no details in it 😢</p>
                     )}

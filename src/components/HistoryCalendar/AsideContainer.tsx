@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { CSSProperties } from 'react';
 
 import { JobHistoryEvent } from './constants';
 
@@ -9,6 +10,7 @@ type Props = {
 export const AsideContainer = ({ variant, children }: Props) => {
   return (
     <div
+      style={{ textWrap: 'balance' } as CSSProperties}
       className={clsx(
         'pb-10 min-h-full',
         'transition-colors duration-700 isolate',
