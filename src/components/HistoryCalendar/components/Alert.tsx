@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { css } from 'goober';
 
 import { BaseEvent } from '@/components/Timeline/TimelineEvent';
 
@@ -7,17 +8,23 @@ type Props = Pick<BaseEvent, 'title' | 'description' | 'variant'>;
 export const Alert = ({ title, description, variant }: Props) => {
   return (
     <div
-      className={clsx('rounded-md p-2 md:p-4', {
-        'bg-slate-50': variant === 'slate',
-        'bg-violet-50': variant === 'violet',
-        'bg-red-50': variant === 'red',
-        'bg-blue-50': variant === 'blue',
-        'bg-green-50': variant === 'green',
-        'bg-amber-50': variant === 'amber',
-        'bg-fuchsia-50': variant === 'fuchsia',
-        'bg-sky-50': variant === 'sky',
-        'bg-teal-50': variant === 'teal',
-      })}
+      className={clsx(
+        'rounded-md p-2 md:p-4',
+        css`
+          filter: var(--filter-brightness);
+        `,
+        {
+          'bg-slate-50': variant === 'slate',
+          'bg-violet-50': variant === 'violet',
+          'bg-red-50': variant === 'red',
+          'bg-blue-50': variant === 'blue',
+          'bg-green-50': variant === 'green',
+          'bg-amber-50': variant === 'amber',
+          'bg-fuchsia-50': variant === 'fuchsia',
+          'bg-sky-50': variant === 'sky',
+          'bg-teal-50': variant === 'teal',
+        },
+      )}
     >
       <div className="flex flex-col">
         <h3
