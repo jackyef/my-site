@@ -51,7 +51,9 @@ export const timelineEvents = [
       <>
         <p>
           I resigned from Tokopedia. It was a scary leap-of-faith, but I am glad
-          I made it!
+          I made it! I learned a lot during my time there. A lot of things
+          happened as we started as a ~15 people team, and when I left, it was
+          ~80.
         </p>
         <p>
           I gave myself a one-month gap so I could prepare myself and get some
@@ -72,7 +74,9 @@ export const timelineEvents = [
         <p>
           I still worked in the core team, and had more responsibilities
           including but not limited to, planning and implementing various tech
-          improvements along with the team.
+          improvements along with the team. DX were becoming even more important
+          as we need to accomodate ~80 developers working a monorepo housing 20+
+          services.
         </p>
         <p>Some projects that I worked on:</p>
         <UnorderedList>
