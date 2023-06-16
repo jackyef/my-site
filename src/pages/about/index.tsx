@@ -1,8 +1,5 @@
-import { Fragment } from 'react';
-
 import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { TECHNOLOGIES } from '@/constants/technologies';
 import { HorizontalDivider } from '@/components/Divider';
 import GitHubList from '@/components/GitHub/List';
 import MediumList from '@/components/Medium/List';
@@ -12,28 +9,8 @@ import { PageTitle } from '@/components/Typography/PageTitle';
 import { Paragraph } from '@/components/Typography/Paragraph';
 import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
-
-const TechnologyAnchors = () => {
-  return (
-    <>
-      {TECHNOLOGIES.map(({ name, href }, index) => {
-        const isLastItem = index === TECHNOLOGIES.length - 1;
-        const prefix = isLastItem ? 'and ' : '';
-        const suffix = isLastItem ? '' : ', ';
-
-        return (
-          <Fragment key={name}>
-            {prefix}
-            <ExternalLink key={name} href={href} shouldShowPreviewOnHover>
-              {name}
-            </ExternalLink>
-            {suffix}
-          </Fragment>
-        );
-      })}
-    </>
-  );
-};
+import { HistoryCalendar } from '@/components/HistoryCalendar';
+import { TechnologyAnchors } from '@/components/TechnologyAnchors';
 
 export default function About() {
   return (
@@ -66,6 +43,10 @@ export default function About() {
         well, but I am open to remote roles across the globe.
       </Paragraph>
       <HorizontalDivider />
+
+      <div className="my-12">
+        <HistoryCalendar />
+      </div>
 
       <SectionTitle>Recent Projects 🧰</SectionTitle>
       <ProjectsList />

@@ -1,6 +1,6 @@
-import { Lora, Plus_Jakarta_Sans } from '@next/font/google';
+import { Lora, Inter } from '@next/font/google';
 
-export const mainFont = Plus_Jakarta_Sans({
+export const mainFont = Inter({
   variable: '--main-font',
   display: 'swap',
   subsets: ['latin'],

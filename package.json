@@ -58,6 +58,7 @@
     "@codemirror/autocomplete": "^6.6.1",
     "@codesandbox/sandpack-react": "^2.6.3",
     "@feedback-fish/react": "^1.2.1",
+    "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.17",
     "@next/bundle-analyzer": "^13.0.1",
     "@next/font": "^13.0.1",
