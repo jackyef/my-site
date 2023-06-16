@@ -9,7 +9,7 @@ export const Alert = ({ title, description, variant }: Props) => {
   return (
     <div
       className={clsx(
-        'rounded-md p-2 md:p-4',
+        'rounded-md p-2 md:p-4 bg-opacity-90',
         css`
           filter: var(--filter-brightness);
         `,

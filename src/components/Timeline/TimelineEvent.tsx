@@ -31,6 +31,7 @@ export type Props = BaseEvent & {
   index: number;
   isActive?: boolean;
   onClick?: () => void;
+  onScrollTrigger?: () => void;
 };
 
 export const TimelineEvent = ({
@@ -43,6 +44,7 @@ export const TimelineEvent = ({
   description,
   variant,
   onClick,
+  onScrollTrigger,
 }: Props) => {
   const {
     containerRef,
@@ -65,7 +67,7 @@ export const TimelineEvent = ({
     if (
       isScrollTriggerEnabled &&
       latest >= shouldBeActiveAt &&
-      typeof onClick === 'function'
+      typeof onScrollTrigger === 'function'
     ) {
       const scrollDirection =
         latest > prevScrollYProgress.current ? 'down' : 'up';
@@ -75,7 +77,7 @@ export const TimelineEvent = ({
         (scrollDirection === 'up' && index < Number(activeEventIndex))
       ) {
         if (isInViewport(ref.current as HTMLElement)) {
-          onClick?.();
+          onScrollTrigger();
         }
       }
     }

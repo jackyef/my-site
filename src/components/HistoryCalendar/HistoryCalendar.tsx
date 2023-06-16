@@ -1,5 +1,6 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import clsx from 'clsx';
 
 import { formatDate, TODAY } from '@/lib/datetime';
 
@@ -15,6 +16,7 @@ import { Alert } from './components/Alert';
 
 export const HistoryCalendar = () => {
   const prevActiveIndex = useRef<number | null>(null);
+  const detailsContainerRef = useRef<HTMLDivElement>(null);
   const [isScrollTriggerEnabled, setIsScrollTriggerEnabled] = useState(true);
   const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
   const activeEvent = timelineEvents[activeEventIndex];
@@ -37,6 +39,15 @@ export const HistoryCalendar = () => {
       document.querySelector(`#${uniqueId}-${index}`) as HTMLButtonElement
     )?.click();
   };
+
+  useEffect(() => {
+    if (detailsContainerRef.current) {
+      detailsContainerRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [activeEventIndex]);
 
   return (
     <section className="flex h-[80vh] md:h-[560px] flex-col">
@@ -69,7 +80,15 @@ export const HistoryCalendar = () => {
                 from={event.from}
                 to={event.to}
                 variant={event.variant}
-                onClick={() => handleActiveIndexChange(index)}
+                onScrollTrigger={() => {
+                  handleActiveIndexChange(index);
+                }}
+                onClick={() => {
+                  // Stop scroll triggered event once user
+                  // started navigating manually
+                  setIsScrollTriggerEnabled(false);
+                  setActiveEventIndex(index);
+                }}
                 isActive={activeEvent === event}
               />
             );
@@ -77,7 +96,13 @@ export const HistoryCalendar = () => {
         </Timeline>
 
         {/* Expanded */}
-        <div className="block w-full flex-1 border-l border-surface-1  md:block overflow-x-hidden overflow-y-scroll">
+        <div
+          ref={detailsContainerRef}
+          className={clsx(
+            'block w-full flex-1 border-l border-surface-1  md:block',
+            'overflow-x-hidden overflow-y-scroll',
+          )}
+        >
           <AsideContainer>
             {!activeEvent ? (
               <AsideEmptyState />
@@ -116,7 +141,10 @@ export const HistoryCalendar = () => {
                       opacity: 0,
                       x: changeDirection === 'right' ? '5%' : '-5%',
                     }}
-                    transition={{ duration: 0.1 }}
+                    transition={{
+                      x: { duration: 0.3 },
+                      opacity: { duration: 0.2 },
+                    }}
                     className="px-8 text-sm space-y-2"
                   >
                     <div className="mb-4">

@@ -260,8 +260,8 @@ export const timelineEvents = [
   {
     from: new Date('2017-09-01'),
     to: new Date('2017-10-31'),
-    title: 'Self study and preparation 📝',
-    description: 'Accepted at Tokopedia, started preparing for the first day',
+    title: 'Self-study and preparation 📝',
+    description: 'Signed an offer from Tokopedia, started preparation',
     variant: 'red',
     details: (
       <>
