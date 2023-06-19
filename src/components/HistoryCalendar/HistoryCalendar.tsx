@@ -7,6 +7,7 @@ import { formatDate, TODAY } from '@/lib/datetime';
 import { debounce } from '@/utils/debounce';
 
 import { Timeline, TimelineEvent } from '../Timeline';
+import { SkipSSR } from '../SkipSSR';
 
 import { timelineEvents } from './constants';
 import { AsideEmptyState } from './AsideEmptyState';
@@ -57,7 +58,10 @@ export const HistoryCalendar = () => {
             Professional history
           </h1>
           <p className="mt-1 text-sm text-theme-subtitle">
-            Today is {formatDate(TODAY)}
+            Today is{' '}
+            <time dateTime={TODAY.toDateString()}>
+              <SkipSSR>{formatDate(TODAY)}</SkipSSR>
+            </time>
           </p>
         </div>
       </header>
