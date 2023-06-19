@@ -75,8 +75,8 @@ export const timelineEvents = [
           I still worked in the core team, and had more responsibilities
           including but not limited to, planning and implementing various tech
           improvements along with the team. DX were becoming even more important
-          as we need to accomodate ~80 developers working a monorepo housing 20+
-          services.
+          as we need to accommodate ~80 developers working a monorepo housing
+          20+ services.
         </p>
         <p>Some projects that I worked on:</p>
         <UnorderedList>
