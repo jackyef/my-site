@@ -3,7 +3,7 @@
 import rehypePrism from '@mapbox/rehype-prism';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-import rehypeToc from '@jsdevtools/rehype-toc';
+// import rehypeToc from '@jsdevtools/rehype-toc';
 import visit from 'unist-util-visit';
 import hast from 'hastscript';
 
@@ -35,24 +35,24 @@ export const tokenClassNames = {
 
 export const rehypePlugins = [
   rehypeSlug,
-  [
-    rehypeToc,
-    {
-      headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
-      customizeTOC: (toc) => {
-        toc.properties['aria-label'] = 'Table of content';
+  // [
+  //   rehypeToc,
+  //   {
+  //     headings: ['h1', 'h2', 'h3'], // Include only h1-h3 in the TOC
+  //     customizeTOC: (toc) => {
+  //       toc.properties['aria-label'] = 'Table of content';
 
-        toc.children[0].properties.className +=
-          ' bg-surface-3 shadow-surface-3';
+  //       toc.children[0].properties.className +=
+  //         ' bg-surface-3 shadow-surface-3';
 
-        return toc;
-      },
-      cssClasses: {
-        toc: 'page-outline hidden 2xl:block', // Change the CSS class for the TOC
-        link: 'page-link', // Change the CSS class for links in the TOC
-      },
-    },
-  ],
+  //       return toc;
+  //     },
+  //     cssClasses: {
+  //       toc: 'page-outline hidden 2xl:block', // Change the CSS class for the TOC
+  //       link: 'page-link', // Change the CSS class for links in the TOC
+  //     },
+  //   },
+  // ],
   [
     rehypeAutolinkHeadings,
     {
@@ -89,6 +89,4 @@ export const rehypePlugins = [
   },
 ];
 
-export const rehypePluginsForPreview = rehypePlugins.filter(
-  (v) => v[0] !== rehypeToc,
-); // do not generate ToC for post previews
+export const rehypePluginsForPreview = rehypePlugins;
