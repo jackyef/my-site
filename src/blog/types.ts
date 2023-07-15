@@ -19,8 +19,14 @@ export interface PostMeta {
   tags: string[];
 }
 
+export type PostHeading = {
+  level: number; // We only want to create TOC item for h2 and h3
+  content: string;
+};
+
 export type Post = {
   link: string;
   metadata: PostMeta;
+  headings: PostHeading[];
   mdxSource: MDXRemoteSerializeResult;
 };

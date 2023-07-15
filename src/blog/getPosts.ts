@@ -8,7 +8,7 @@ import {
   rehypePluginsForPreview,
 } from '@/components/common/MDX/plugins/rehypePlugins';
 
-import { PostMeta, Post } from './types';
+import type { PostMeta, Post, PostHeading } from './types';
 
 type Opts = {
   limit?: number;
@@ -85,6 +85,28 @@ export const getMDXContent = (filePath: string, onlyPreview?: boolean) => {
     : source.slice(0, source.indexOf('{/* !end-of-preview */}'));
 };
 
+type MatchedHeading = {
+  groups: {
+    flag: string;
+    content: string;
+  };
+};
+
+const getHeadingsFromMDXContent = (mdxContent: string): PostHeading[] => {
+  return Array.from(mdxContent.matchAll(/(?<flag>#{1,6})\s+(?<content>.+)/g))
+    .map((match) => {
+      const {
+        groups: { flag, content },
+      } = match as unknown as MatchedHeading;
+
+      return {
+        level: flag.length,
+        content,
+      };
+    })
+    .filter(({ level }) => level === 2 || level === 3);
+};
+
 export const getPostFromMDXContent = async (
   mdxContent: string,
   link: string,
@@ -110,6 +132,7 @@ export const getPostFromMDXContent = async (
       title: frontmatter.title,
       readingTime: frontmatter.readingTime,
     },
+    headings: getHeadingsFromMDXContent(mdxContent),
     mdxSource,
   };
 };
