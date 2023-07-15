@@ -15,6 +15,7 @@ import type { Props as ProfileCardToHeroProps } from '@/components/FlipDemos/Pro
 import type { Props as AudioPlayerProps } from '@/components/Audio/AudioPlayer';
 import type { Props as GaplessAudioPlayerProps } from '@/components/Audio/GaplessAudioPlayer';
 import { H1, H2, H3, H4, H5 } from '@/components/Typography/Heading';
+import { withTocHighlighter } from '@/components/Blog/Post/hocs/withTocHighlighter';
 
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
@@ -26,8 +27,8 @@ const mdxComponents = {
   pre: Pre,
   'pre.code': PreCode,
   h1: H1,
-  h2: H2,
-  h3: H3,
+  h2: withTocHighlighter(H2),
+  h3: withTocHighlighter(H3),
   h4: H4,
   h5: H5,
   Image,

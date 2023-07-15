@@ -1,6 +1,7 @@
-type Props = React.HTMLAttributes<HTMLHeadingElement> & {
-  children?: React.ReactNode;
-};
+type Props = JSX.IntrinsicAttributes &
+  React.HTMLAttributes<HTMLHeadingElement> & {
+    children?: React.ReactNode;
+  };
 
 export const H1 = ({ children, ...rest }: Props) => {
   return (

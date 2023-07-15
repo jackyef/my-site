@@ -1,9 +1,9 @@
-import React, { useId } from 'react';
+import React, { useId, useMemo } from 'react';
 import clsx from 'clsx';
 import { css } from 'goober';
 
 import type { PostHeading } from '@/blog/types';
-import { cleanHeadingContent, sluggify } from '@/lib/blog';
+import { cleanHeadingContent, slugify } from '@/lib/blog';
 import { getHslaColor } from '@/lib/styles/colors';
 
 type Props = {
@@ -13,37 +13,40 @@ type Props = {
 export const TableOfContents = ({ headings }: Props) => {
   const labelId = useId();
 
-  const constructTableOfContents = () => {
+  const content = useMemo(() => {
     let lastHeadingLevel: number;
     const rootList: Array<React.ReactNode | React.ReactNode[]> = [];
     let currentList: Array<React.ReactNode | React.ReactNode> = rootList;
 
     headings.forEach((heading) => {
-      const slug = sluggify(heading.content);
+      const slug = slugify(heading.content);
       const listItem = (
         <li
           key={slug}
           className={clsx('pb-2 transition-colors', {
             'pl-2 border-l-4': heading.level === 3,
             [css`
-              border-color: ${getHslaColor('text', 0.1)};
+              border-color: ${getHslaColor('primary', 0.1)};
 
+              &:has(a.active),
               &:hover,
               &:focus-within {
-                border-color: ${getHslaColor('text', 0.4)};
+                border-color: ${getHslaColor('primary', 0.4)};
               }
             `]: heading.level === 3,
           })}
         >
           <a
+            data-tocItem // Used by withTocHighlighter
             href={`#${slug}`}
             className={clsx(
               'text-sm text-theme-subtitle',
-              'hover:text-theme-heading focus:text-theme-heading',
               'transition-colors',
               css`
+                &.active,
+                &:hover,
                 &:focus {
-                  box-shadow: none !important;
+                  color: ${getHslaColor('primary')};
                 }
               `,
             )}
@@ -86,7 +89,7 @@ export const TableOfContents = ({ headings }: Props) => {
         }
       }),
     );
-  };
+  }, [headings]);
 
   return (
     <nav aria-labelledby={labelId}>
@@ -94,7 +97,7 @@ export const TableOfContents = ({ headings }: Props) => {
         In this post
       </div>
 
-      {constructTableOfContents()}
+      {content}
     </nav>
   );
 };
