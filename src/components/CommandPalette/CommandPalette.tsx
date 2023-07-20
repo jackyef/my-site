@@ -109,7 +109,7 @@ export default () => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
       <Dialog.Overlay>
-        <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn" />
+        <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn z-10" />
       </Dialog.Overlay>
       <Dialog.Content asChild>
         <div
@@ -124,6 +124,7 @@ export default () => {
             'transition-colors',
             'duration-500',
             'border-dark-only',
+            'z-20',
           )}
           style={{
             position: 'fixed',
