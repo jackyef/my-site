@@ -32,7 +32,6 @@ export const ChessComStats = () => {
       {/* Background image */}
       <img
         src="/assets/chesscom/chesscom.png"
-        loading="lazy"
         className={clsx(
           'absolute z-[-1] object-contain h-full',
           'right-[-80px] bottom-[-60px]',
