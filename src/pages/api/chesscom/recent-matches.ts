@@ -10,7 +10,7 @@ const userId = '288942993';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
-      const targetUrl = `https://www.chess.com/callback/user/games?locale=en_US&userId=${userId}`;
+      const targetUrl = `https://www.chess.com/callback/user/games?locale=en_US&gameType=chess&gameTimeClass=rapid&userId=${userId}`;
       const response = await fetch(targetUrl);
 
       if (!response.ok) {

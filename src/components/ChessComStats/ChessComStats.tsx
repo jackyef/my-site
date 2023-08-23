@@ -4,17 +4,16 @@ import { formatNumber } from '@/lib/number';
 
 import { useStats } from './hooks/useStats';
 import { useMatchesSummary } from './hooks/useMatchesSummary';
+import { Record } from './Record';
 
 // This is my chess.com information
 // If you are copying this, remember to change this.
-const username = 'PixelParser';
+export const username = 'PixelParser';
 const userId = '288942993';
 
 export const ChessComStats = () => {
   const { stats, matches } = useStats({ username, userId });
   const matchesSummary = useMatchesSummary({ matches, username });
-
-  console.log({ stats, matches });
 
   // TODO: loading state
   if (!stats || !matchesSummary) return null;
@@ -24,35 +23,64 @@ export const ChessComStats = () => {
   return (
     <div
       className={clsx(
-        'rounded-lg bg-theme-background text-theme-text p-4 my-4',
-        'flex flex-col',
+        'rounded-2xl text-theme-text p-6 my-4',
+        'flex flex-col gap-4 relative overflow-clip',
+        'isolate pr-[80px]',
+        'bg-surface-3 shadow-surface-3 border-2 border-surface-5',
       )}
     >
-      <div>
-        Stats for {username}
-        <div className={clsx('text-2xl font-bold')}>Rating {elo}</div>
-      </div>
+      {/* Background image */}
+      <img
+        src="/assets/chesscom/chesscom.png"
+        loading="lazy"
+        className={clsx(
+          'absolute z-[-1] object-contain h-full',
+          'right-[-80px] bottom-[-60px]',
+          'opacity-70',
+        )}
+      />
+      <dl>
+        <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+          Rating (rapid)
+        </dt>
+        <dd className={clsx('text-4xl font-bold')}>{elo}</dd>
+      </dl>
 
-      <div>
-        <div>Records</div>
-        <div>
-          <div>
-            Wins: {stats.chess_rapid.record.win} Losses:{' '}
-            {stats.chess_rapid.record.loss} Draws:{' '}
-            {stats.chess_rapid.record.draw}
-          </div>
-        </div>
-      </div>
+      <Record
+        title="All-time"
+        label="All-time records"
+        counts={{
+          win: stats.chess_rapid.record.win,
+          draw: stats.chess_rapid.record.draw,
+          loss: stats.chess_rapid.record.loss,
+        }}
+      />
 
-      <div>
-        Current streak: {matchesSummary.streakCount} {matchesSummary.lastResult}
-        <div>
-          <div>Last {matchesSummary.totalMatches}</div>
-          <div>{matchesSummary.wins} wins</div>
-          <div>{matchesSummary.draws} draws</div>
-          <div>{matchesSummary.losses} losses</div>
-        </div>
-      </div>
+      <Record
+        title={`Last ${matchesSummary.totalMatches}`}
+        label={`Records in last ${matchesSummary.totalMatches} matches`}
+        counts={{
+          win: matchesSummary.wins,
+          draw: matchesSummary.draws,
+          loss: matchesSummary.losses,
+        }}
+      />
+
+      {matchesSummary.streakCount > 1 && (
+        <dl>
+          <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+            Current streak
+          </dt>
+          <dd className="text-lg">
+            {matchesSummary.streakCount} {matchesSummary.lastResult}{' '}
+            <>
+              {Array.from({
+                length: Math.ceil(matchesSummary.streakCount / 3),
+              }).fill(matchesSummary.lastResult === 'wins' ? '🔥' : '🥶')}
+            </>
+          </dd>
+        </dl>
+      )}
     </div>
   );
 };
