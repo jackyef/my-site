@@ -11,6 +11,7 @@ import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { HistoryCalendar } from '@/components/HistoryCalendar';
 import { TechnologyAnchors } from '@/components/TechnologyAnchors';
+import { ChessComStats } from '@/components/ChessComStats';
 
 export default function About() {
   return (
@@ -25,6 +26,8 @@ export default function About() {
         feeling when I discover the reasons why some things are made the way
         they are.
       </Paragraph>
+
+      <ChessComStats />
 
       <Paragraph>
         Most of my experience are with React and front-end development. I work
