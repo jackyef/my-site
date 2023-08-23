@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 interface Props {
   className?: string;
   children?: React.ReactNode;
@@ -5,7 +7,7 @@ interface Props {
 
 export const Paragraph: React.FC<Props> = ({ children, className = '' }) => {
   return (
-    <p className={`text-md text-theme-text md:text-lg my-6 ${className}`}>
+    <p className={clsx(`text-md text-theme-text md:text-lg my-6`, className)}>
       {children}
     </p>
   );

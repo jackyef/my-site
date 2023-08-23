@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
@@ -11,6 +13,8 @@ import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { HistoryCalendar } from '@/components/HistoryCalendar';
 import { TechnologyAnchors } from '@/components/TechnologyAnchors';
+import { ChessComStats } from '@/components/ChessComStats';
+import { username } from '@/components/ChessComStats/ChessComStats';
 
 export default function About() {
   return (
@@ -53,6 +57,7 @@ export default function About() {
       <HorizontalDivider />
 
       <SectionTitle>Professional summary 💼</SectionTitle>
+
       <Paragraph>
         I am currently working at{' '}
         <ExternalLink href="https://www.stickermule.com">
@@ -81,35 +86,64 @@ export default function About() {
         engineers, product owners and designers to ship features and products in
         a timely manner.
       </Paragraph>
+
       <HorizontalDivider />
 
       <SectionTitle>I write, kinda ✍️</SectionTitle>
-      <Paragraph>
-        I have always been a curious person. I love to learn things and
-        understand how they work. Sometimes if I find the discovery interesting,
-        I try to write an article about them to share them!
-      </Paragraph>
-      <Paragraph>
-        I had mostly been writing on{' '}
-        <ExternalLink href="https://medium.com/@jackyef">Medium</ExternalLink>,
-        but I have been trying to start writing on my own blog. If you are
-        reading this right now, hopefully I have already published some writings
-        on this site by then!
-      </Paragraph>
-      <Paragraph>Here are some of my writings on Medium.</Paragraph>
-      <MediumList />
+
+      <div
+        className={clsx(
+          'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
+        )}
+      >
+        <div className="flex-1 lg:max-w-[47%]">
+          <Paragraph>
+            I have always been a curious person. I love to learn things and
+            understand how they work. Sometimes if I find the discovery
+            interesting, I try to write an article about them to share them!
+          </Paragraph>
+          <Paragraph>
+            I had mostly been writing on{' '}
+            <ExternalLink href="https://medium.com/@jackyef">
+              Medium
+            </ExternalLink>
+            , but I have been trying to start writing on my own blog. If you are
+            reading this right now, hopefully I have already published some
+            writings on this site by then!
+          </Paragraph>
+          <Paragraph className="mb-0">
+            Here are some of my writings on Medium.
+          </Paragraph>
+        </div>
+        <div className="flex-1 lg:max-w-[47%]">
+          <MediumList />
+        </div>
+      </div>
       <HorizontalDivider />
 
       <SectionTitle>I build stuff 🛠️</SectionTitle>
-      <Paragraph>
-        Sometimes, I feel motivated to build stuff. Some are just for fun and
-        learning, some are actually kind of helpful. A lot are abandoned because
-        I got sidetracked (don’t we all? 😅). I published some of them in the
-        open on{' '}
-        <ExternalLink href="https://github.com/jackyef">GitHub</ExternalLink>. I
-        also contribute to open source libraries when I could.
-      </Paragraph>
-      <GitHubList />
+
+      <div
+        className={clsx(
+          'flex flex-col lg:flex-row-reverse justify-between gap-0 lg:gap-16',
+        )}
+      >
+        <div className="flex-1 lg:max-w-[47%]">
+          <Paragraph className="mb-0">
+            Sometimes, I feel motivated to build stuff. Some are just for fun
+            and learning, some are actually kind of helpful. A lot are abandoned
+            because I got sidetracked (don’t we all? 😅). I published some of
+            them in the open on{' '}
+            <ExternalLink href="https://github.com/jackyef">
+              GitHub
+            </ExternalLink>
+            . I also contribute to open source libraries when I could.
+          </Paragraph>
+        </div>
+        <div className="flex-1 lg:max-w-[47%]">
+          <GitHubList />
+        </div>
+      </div>
       <HorizontalDivider />
 
       <SectionTitle>I speak too, sometimes 🎤</SectionTitle>
@@ -133,6 +167,29 @@ export default function About() {
         more talks about the web. Who knows, I might add a <Code>/talk</Code>{' '}
         page on this site with the materials if it turns out to be a good idea!
       </Paragraph>
+      <HorizontalDivider />
+      <div
+        className={clsx(
+          'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
+        )}
+      >
+        <div className="flex-1 lg:max-w-[47%]">
+          <Paragraph className="lg:mt-20">
+            Whoa, you scrolled this far! As a reward, here&apos;s a fun fact. I
+            recently picked up chess and found them to be pretty fun (on good
+            days 😂).
+          </Paragraph>
+          <Paragraph className="mb-0">
+            My alias is{' '}
+            <ExternalLink href="https://chess.com/member/pixelparser">
+              {username} on Chess.com
+            </ExternalLink>
+          </Paragraph>
+        </div>
+        <div className="flex-1 lg:max-w-[47%]">
+          <ChessComStats />
+        </div>
+      </div>
       <HorizontalDivider />
     </>
   );
