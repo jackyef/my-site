@@ -19,9 +19,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       const data = (await response.json()) as RawMatchData;
 
-      // set cache-control header for 3 hour
+      // set cache-control header for 10 minutes
       if (process.env.NODE_ENV === 'production') {
-        res.setHeader('Cache-Control', 'public, max-age=32400');
+        res.setHeader('Cache-Control', 'public, max-age=1800');
       }
 
       return res.status(200).json(data);
