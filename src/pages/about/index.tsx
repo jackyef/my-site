@@ -13,8 +13,9 @@ import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { HistoryCalendar } from '@/components/HistoryCalendar';
 import { TechnologyAnchors } from '@/components/TechnologyAnchors';
-import { ChessComStats } from '@/components/ChessComStats';
 import { username } from '@/components/ChessComStats/ChessComStats';
+import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+import { LazyChessComStats } from '@/components/ChessComStats/LazyChessComStats';
 
 export default function About() {
   return (
@@ -186,8 +187,14 @@ export default function About() {
             </ExternalLink>
           </Paragraph>
         </div>
-        <div className="flex-1 lg:max-w-[47%]">
-          <ChessComStats />
+        <div className="flex-1 lg:max-w-[47%] min-h-[351px]">
+          <IOWrapper>
+            {(show) => {
+              if (!show) return null;
+
+              return <LazyChessComStats />;
+            }}
+          </IOWrapper>
         </div>
       </div>
       <HorizontalDivider />
