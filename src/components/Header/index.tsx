@@ -29,6 +29,7 @@ export default function Header() {
     );
     --blur: 15px;
     backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     pointer-events: none;
     z-index: -1;
   `;
