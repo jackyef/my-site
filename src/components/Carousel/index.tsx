@@ -19,7 +19,7 @@ const Carousel = ({ children }: Props) => {
   const handlePrev = React.useCallback(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
-        left: -window.innerWidth * 0.3,
+        left: -window.innerWidth * 0.2,
         behavior: 'smooth',
       });
     }
@@ -28,7 +28,7 @@ const Carousel = ({ children }: Props) => {
   const handleNext = React.useCallback(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
-        left: window.innerWidth * 0.3,
+        left: window.innerWidth * 0.2,
         behavior: 'smooth',
       });
     }
