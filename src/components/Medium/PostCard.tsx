@@ -32,18 +32,19 @@ const MediumPostCard = ({
   const stepBackAnimation = keyframes`
     from {
       transform: scale(1);
-      opacity: 1;
+      filter: brightness(100%);
     }
     
     to {
       transform: scale(${1 - (factor / totalItems) * 0.3});
+      filter: brightness(calc(100% - calc(${factor - 1} * 5%)));
     }
   `;
 
   const stickyCardStackCss = css`
     position: sticky;
     left: ${index * 10}px;
-    transform-origin: 0% 50%;
+    transform-origin: 0% 75%;
     animation-timeline: --${scrollTimelineName};
     animation-name: ${stepBackAnimation};
     animation-duration: 1ms; /* Firefox requires this to apply the animation */

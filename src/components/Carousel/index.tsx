@@ -22,7 +22,8 @@ const Carousel = ({ children, scrollTimelineName }: Props) => {
 
   const handlePrev = React.useCallback(() => {
     if (carouselRef.current) {
-      const child = carouselRef.current.children[0];
+      const child =
+        carouselRef.current.children[carouselRef.current.children.length - 1];
       const childWidth = child.clientWidth;
       carouselRef.current.scrollBy({
         left: -childWidth,
@@ -33,7 +34,8 @@ const Carousel = ({ children, scrollTimelineName }: Props) => {
 
   const handleNext = React.useCallback(() => {
     if (carouselRef.current) {
-      const child = carouselRef.current.children[0];
+      const child =
+        carouselRef.current.children[carouselRef.current.children.length - 1];
       const childWidth = child.clientWidth;
 
       carouselRef.current.scrollBy({
