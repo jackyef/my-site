@@ -7,7 +7,7 @@ import { projects } from './projects';
 
 const ProjectsList = () => {
   return (
-    <Carousel scrollTimelineName="projectCarousel">
+    <Carousel>
       {projects.map((p, i) => (
         <ProjectCard
           key={p.name}
@@ -17,7 +17,6 @@ const ProjectsList = () => {
           url={p.url}
           index={i}
           totalItems={projects.length}
-          scrollTimelineName="projectCarousel"
         />
       ))}
     </Carousel>

@@ -6,7 +6,7 @@ import { Project } from './projects';
 type Props = Project & {
   index: number;
   totalItems: number;
-  scrollTimelineName: string;
+  scrollTimelineName?: string;
 };
 
 export const ProjectCard = ({
