@@ -22,8 +22,10 @@ const Carousel = ({ children, scrollTimelineName }: Props) => {
 
   const handlePrev = React.useCallback(() => {
     if (carouselRef.current) {
+      const child = carouselRef.current.children[0];
+      const childWidth = child.clientWidth;
       carouselRef.current.scrollBy({
-        left: -carouselRef.current.clientWidth,
+        left: -childWidth,
         behavior: 'smooth',
       });
     }
@@ -31,8 +33,11 @@ const Carousel = ({ children, scrollTimelineName }: Props) => {
 
   const handleNext = React.useCallback(() => {
     if (carouselRef.current) {
+      const child = carouselRef.current.children[0];
+      const childWidth = child.clientWidth;
+
       carouselRef.current.scrollBy({
-        left: carouselRef.current.clientWidth,
+        left: childWidth,
         behavior: 'smooth',
       });
     }
@@ -91,9 +96,6 @@ const Carousel = ({ children, scrollTimelineName }: Props) => {
         onScroll={handleScroll}
         className={cn(
           'first:ml-4 overflow-x-scroll align-top whitespace-nowrap py-4',
-          // Position sticky on children only works if the parent container (that has overflow)
-          // has a width defined
-          'w-full md:w-[min(48vw, 25rem)]',
           // Position sticky doesn't work well with scroll snap
           // When a `scrollTimelineName` is provided, we want to use sticky
           scrollTimelineName
