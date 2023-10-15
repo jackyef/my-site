@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import { css, keyframes } from 'goober';
+
+import { cn } from '@/lib/classNames';
 
 import { ExternalLink } from '../Typography/ExternalLink';
 
@@ -10,6 +13,9 @@ interface Props {
   coverImage: string;
   url: string;
   isFirst?: boolean;
+  index: number;
+  totalItems: number;
+  scrollTimelineName: string;
 }
 
 const MediumPostCard = ({
@@ -18,11 +24,41 @@ const MediumPostCard = ({
   coverImage,
   url,
   isFirst,
+  index,
+  totalItems,
+  scrollTimelineName,
 }: Props) => {
+  const factor = totalItems - index;
+  const stepBackAnimation = keyframes`
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    to {
+      transform: scale(${1 - (factor / totalItems) * 0.3});
+    }
+  `;
+
+  const stickyCardStackCss = css`
+    position: sticky;
+    left: ${index * 10}px;
+    transform-origin: 0% 50%;
+    animation-timeline: --${scrollTimelineName};
+    animation-name: ${stepBackAnimation};
+    animation-duration: 1ms; /* Firefox requires this to apply the animation */
+    animation-direction: normal;
+  `;
+
   return (
     <>
       <div
-        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-surface-2 whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm scroll-snap-align-start zoom-on-hover-container"
+        className={cn(
+          stickyCardStackCss,
+          'inline-block rounded-md mx-2 mt-4 mb-0 shadow-surface-2',
+          'whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start',
+          'max-w-sm scroll-snap-align-start zoom-on-hover-container',
+        )}
         style={{
           width: `calc(100% - 1rem * 2)`,
           scrollMargin: isFirst ? `0px 1rem` : undefined,

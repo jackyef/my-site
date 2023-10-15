@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { css } from 'goober';
+
+import { cn } from '@/lib/classNames';
 
 const baseButtonClasses =
   'opacity-0 md:opacity-100 flex items-center content-center absolute bg-surface-3 w-12 h-12 rounded-full border-none shadow-surface-2 z-10 items-center justify-center font-bold text-md';
@@ -9,9 +12,10 @@ const baseButtonStyles = {
 
 interface Props {
   children?: React.ReactNode;
+  scrollTimelineName?: string;
 }
 
-const Carousel = ({ children }: Props) => {
+const Carousel = ({ children, scrollTimelineName }: Props) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const prevRef = React.useRef<HTMLButtonElement>(null);
   const nextRef = React.useRef<HTMLButtonElement>(null);
@@ -19,7 +23,7 @@ const Carousel = ({ children }: Props) => {
   const handlePrev = React.useCallback(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
-        left: -window.innerWidth * 0.2,
+        left: -carouselRef.current.clientWidth,
         behavior: 'smooth',
       });
     }
@@ -28,7 +32,7 @@ const Carousel = ({ children }: Props) => {
   const handleNext = React.useCallback(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
-        left: window.innerWidth * 0.2,
+        left: carouselRef.current.clientWidth,
         behavior: 'smooth',
       });
     }
@@ -85,7 +89,20 @@ const Carousel = ({ children }: Props) => {
       <div
         ref={carouselRef}
         onScroll={handleScroll}
-        className="first:ml-4 overflow-x-scroll align-top whitespace-nowrap py-4 scroll-snap-xm"
+        className={cn(
+          'first:ml-4 overflow-x-scroll align-top whitespace-nowrap py-4',
+          // Position sticky on children only works if the parent container (that has overflow)
+          // has a width defined
+          'w-full md:w-[min(48vw, 25rem)]',
+          // Position sticky doesn't work well with scroll snap
+          // When a `scrollTimelineName` is provided, we want to use sticky
+          scrollTimelineName
+            ? css`
+                scroll-timeline-name: --${scrollTimelineName};
+                scroll-timeline-axis: x;
+              `
+            : 'scroll-snap-xm',
+        )}
       >
         {children}
       </div>
