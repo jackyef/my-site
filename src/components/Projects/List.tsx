@@ -15,7 +15,8 @@ const ProjectsList = () => {
           coverImage={p.coverImage}
           repo={p.repo}
           url={p.url}
-          isFirst={i === 0}
+          index={i}
+          totalItems={projects.length}
         />
       ))}
     </Carousel>

@@ -7,7 +7,7 @@ import stories from './medium-stories.json';
 
 const MediumList = () => {
   return (
-    <Carousel>
+    <Carousel scrollTimelineName="mediumCarousel">
       {stories.map((s, i) => (
         <MediumPostCard
           key={s.title}
@@ -15,7 +15,9 @@ const MediumList = () => {
           coverImage={s.coverImage}
           url={s.url}
           timeToRead={s.timeToRead}
-          isFirst={i === 0}
+          index={i}
+          totalItems={stories.length}
+          scrollTimelineName="mediumCarousel"
         />
       ))}
     </Carousel>

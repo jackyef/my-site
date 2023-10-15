@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { ExternalLink } from '../Typography/ExternalLink';
+import { CarouselCardItem } from '../Carousel/CarouselCardItem';
 
 import MediumLogo from './assets/medium.svg';
 
@@ -9,7 +10,9 @@ interface Props {
   timeToRead: string;
   coverImage: string;
   url: string;
-  isFirst?: boolean;
+  index: number;
+  totalItems: number;
+  scrollTimelineName?: string;
 }
 
 const MediumPostCard = ({
@@ -17,16 +20,16 @@ const MediumPostCard = ({
   timeToRead,
   coverImage,
   url,
-  isFirst,
+  index,
+  totalItems,
+  scrollTimelineName,
 }: Props) => {
   return (
     <>
-      <div
-        className="inline-block relative rounded-md mx-2 mt-4 mb-0 shadow-surface-2 whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start max-w-sm scroll-snap-align-start zoom-on-hover-container"
-        style={{
-          width: `calc(100% - 1rem * 2)`,
-          scrollMargin: isFirst ? `0px 1rem` : undefined,
-        }}
+      <CarouselCardItem
+        index={index}
+        totalItems={totalItems}
+        scrollTimelineName={scrollTimelineName}
       >
         {/* The cover images are hosted on Medium */}
         <img
@@ -56,7 +59,7 @@ const MediumPostCard = ({
             &nbsp;&middot; {timeToRead}
           </span>
         </div>
-      </div>
+      </CarouselCardItem>
     </>
   );
 };
