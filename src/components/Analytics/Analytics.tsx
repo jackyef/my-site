@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 
 import { isProd } from '@/utils/constants';
 
@@ -23,6 +24,9 @@ export const Analytics = () => {
           }}
         ></script>
       </Head>
+
+      {/* TODO: Trying this out for now. Might remove later */}
+      <VercelAnalytics />
     </>
   ) : null;
 };
