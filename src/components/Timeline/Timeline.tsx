@@ -63,7 +63,7 @@ export const Timeline = ({
                 `,
               )}
             >
-              <div className="row-end-1 h-7"></div>
+              <div className="row-end-1 h-14"></div>
               {dates.map((date, index) => {
                 return (
                   <div key={index}>
@@ -71,7 +71,7 @@ export const Timeline = ({
                       className={clsx(
                         'sticky left-0 w-[80px] -ml-[80px] px-2',
                         'text-right text-xs leading-5 text-theme-text',
-                        'transform -translate-y-[50%]',
+                        'transform -translate-y-[200%]',
                       )}
                     >
                       {formatMonth(
@@ -90,7 +90,7 @@ export const Timeline = ({
                 'col-start-1 col-end-2 row-start-1 grid grid-cols-1',
                 css`
                   grid-template-rows:
-                    calc(${sizePerBlock} / 2) repeat(
+                    ${sizePerBlock} repeat(
                       ${totalMonths},
                       minmax(${sizePerBlock}, 1fr)
                     )

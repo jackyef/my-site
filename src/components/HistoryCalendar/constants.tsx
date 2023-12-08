@@ -2,6 +2,7 @@ import { TODAY } from '@/lib/datetime';
 
 import type { BaseEvent } from '../Timeline/TimelineEvent';
 import { TechnologyAnchors } from '../TechnologyAnchors';
+import { ExternalLink } from '../Typography/ExternalLink';
 
 import { ExternalMedia, ExternalMediaList } from './components/ExternalMedia';
 import { UnorderedList } from './components/UnorderedList';
@@ -14,8 +15,43 @@ export type JobHistoryEvent = BaseEvent & {
 
 export const timelineEvents = [
   {
-    from: new Date('2020-12-05'),
+    from: new Date('2023-12-01'),
     to: TODAY,
+    title: 'Team Lead',
+    description: 'Sticker Mule',
+    variant: 'sky',
+    details: (
+      <>
+        <p>
+          And{' '}
+          <ExternalLink
+            href="https://charity.wtf/2017/05/11/the-engineer-manager-pendulum/"
+            shouldShowPreviewOnHover
+          >
+            the pendulum
+          </ExternalLink>{' '}
+          swings once again. After 3 years of enjoying my time in a pure IC
+          role, I am now back in a role with a more concrete expectation of
+          leading in some capacities, be it tech, project, or team.
+        </p>
+
+        <p>
+          However, my role does not involve too much of the bureaucratic people
+          management stuff, rather the emphasis is more on the technical side of
+          things. I am responsible for the technical direction of the team,
+          project planning, code reviews, and overall contributing by helping
+          others.
+        </p>
+
+        <br />
+
+        <p>Still in the same team with the same awesome people! 💪</p>
+      </>
+    ),
+  },
+  {
+    from: new Date('2020-12-05'),
+    to: new Date('2023-11-30'),
     title: 'Senior Software Engineer',
     description: 'Sticker Mule',
     variant: 'amber',

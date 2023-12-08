@@ -158,8 +158,8 @@ export const HistoryCalendar = () => {
                         description={activeEvent.description}
                       />
                     </div>
-                    {activeEvent.details || (
-                      <p>This event period has no details in it 😢</p>
+                    {activeEvent?.details || (
+                      <p>Not much too say yet, stay tuned! 👀</p>
                     )}
                   </motion.div>
                 </AnimatePresence>
