@@ -86,7 +86,9 @@ export default function Post({ post }: Props) {
             <div
               className={clsx(
                 'w-full',
-                '2xl:pl-8 2xl:ml-8 2xl:border-l',
+                {
+                  '2xl:pl-8 2xl:ml-8 2xl:border-l': isBlogPost,
+                },
                 css`
                   border-color: ${getHslaColor('text', 0.1)};
                 `,

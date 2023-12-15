@@ -26,7 +26,7 @@ export const TableOfContentItem = ({ slug, content, level }: Props) => {
       })}
     >
       <a
-        data-tocItem // Used by withTocHighlighter
+        data-tocitem // Used by withTocHighlighter
         href={`#${slug}`}
         className={clsx(
           'text-sm text-theme-subtitle inline-block',

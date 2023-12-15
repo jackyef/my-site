@@ -49,6 +49,10 @@ const FOOTER_LINKS: FooterSection[] = [
         href: '/about',
       },
       {
+        label: 'Readme',
+        href: '/about/readme',
+      },
+      {
         label: 'Tokens',
         href: '/about/tokens',
       },
