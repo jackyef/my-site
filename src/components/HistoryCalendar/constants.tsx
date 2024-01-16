@@ -17,7 +17,7 @@ export const timelineEvents = [
   {
     from: new Date('2023-12-01'),
     to: TODAY,
-    title: 'Team Lead',
+    title: 'Tech Lead',
     description: 'Sticker Mule',
     variant: 'sky',
     details: (
