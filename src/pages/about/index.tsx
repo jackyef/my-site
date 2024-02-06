@@ -169,7 +169,13 @@ export default function About() {
         page on this site with the materials if it turns out to be a good idea!
       </Paragraph>
       <HorizontalDivider />
-      <div
+
+      {/*
+       * Hide this because I got banned :(
+       * Waiting for my second account to be given before showing again.
+       * https://twitter.com/jackyef__/status/1754720666413338706
+       */}
+      {/* <div
         className={clsx(
           'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
         )}
@@ -197,7 +203,7 @@ export default function About() {
           </IOWrapper>
         </div>
       </div>
-      <HorizontalDivider />
+      <HorizontalDivider /> */}
     </>
   );
 }
