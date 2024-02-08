@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css, keyframes } from 'goober';
 
 import { getHslString } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 export const HeroBackground = () => {
   const fly = keyframes`
@@ -94,10 +95,10 @@ export const HeroBackground = () => {
   return (
     <div className={wrapper}>
       <div className={left}>
-        <div className={clsx(base, one)}></div>
-        <div className={clsx(base, two)}></div>
+        <div className={cn(base, one)}></div>
+        <div className={cn(base, two)}></div>
         {/* Turning this off for now, looks pretty nice */}
-        {/* <div className={clsx(base, three)}></div> */}
+        {/* <div className={cn(base, three)}></div> */}
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { lineColorOpacity } from './styles';
 
@@ -12,7 +13,7 @@ type Props = {
 export const TreeList = ({ children }: Props) => {
   return (
     <ul
-      className={clsx(
+      className={cn(
         'relative',
         css`
           & > li:last-child > .__tree-vertical-line {
@@ -22,7 +23,7 @@ export const TreeList = ({ children }: Props) => {
       )}
     >
       <div
-        className={clsx(
+        className={cn(
           'mt-4 ml-1 md:ml-8 w-[2px] h-8',
           'absolute',
           css`

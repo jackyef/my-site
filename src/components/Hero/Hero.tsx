@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { FC } from 'react';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { HeroBackground } from './HeroBackground';
 
@@ -34,7 +35,7 @@ export const Hero: FC<Props> = ({ hidden }) => {
           z-index: -1;
         `}
       >
-        <div className={clsx(containerClass)}>
+        <div className={cn(containerClass)}>
           <HeroBackground />
         </div>
       </div>

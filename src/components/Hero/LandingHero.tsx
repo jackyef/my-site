@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { useRouter } from 'next/router';
 
 import { getHslaColor, getHslString } from '@/lib/styles/colors';
 
+import { cn } from '@/utils/styles/classNames';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
 import { ExternalLink } from '../Typography/ExternalLink';
@@ -72,7 +72,7 @@ export const LandingHero = () => {
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           container,
           'p-4',
           'pb-8',
@@ -114,9 +114,9 @@ export const LandingHero = () => {
           If you are on the platform, let&rsquo;s connect!
         </Paragraph>
 
-        <div className={clsx('mt-8', 'sm:mt-12', 'flex')}>
+        <div className={cn('mt-8', 'sm:mt-12', 'flex')}>
           <InternalLink
-            className={clsx(baseCtaButton, ctaButton)}
+            className={cn(baseCtaButton, ctaButton)}
             href="/about"
             onClick={() => {
               sendEventTracker({

@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   children?: React.ReactNode;
@@ -11,7 +11,7 @@ interface Props {
  */
 export const EmojiSpan = ({ children }: Props) => {
   return (
-    <span aria-hidden className={clsx('font-normal')}>
+    <span aria-hidden className={cn('font-normal')}>
       {children}
     </span>
   );

@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
+import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
@@ -114,7 +114,7 @@ export default () => {
       <Dialog.Content asChild>
         <div
           onKeyDown={handleKeyDown}
-          className={clsx(
+          className={cn(
             'p-4',
             'bg-surface-1',
             'text-theme-text',

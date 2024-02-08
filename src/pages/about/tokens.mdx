@@ -41,7 +41,7 @@ specific component.
 
 As an example, consider the following buttons and the css used to build it.
 
-<div className={clsx('flex flex-wrap space-x-4')}>
+<div className={cn('flex flex-wrap space-x-4')}>
   <LightButton variant="primary">primary</LightButton>
   <LightButton variant="secondary">secondary</LightButton>
 </div>
@@ -70,7 +70,7 @@ export const LightButton = ({
   `;
 
   return (
-    <button className={clsx(base, 'px-4', 'py-2', className)} {...props} />
+    <button className={cn(base, 'px-4', 'py-2', className)} {...props} />
   );
 };
 ```

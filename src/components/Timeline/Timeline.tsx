@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { formatMonth, getMonthDifference, TODAY } from '@/lib/datetime';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { TimelineContext } from './hooks';
 
@@ -41,7 +42,7 @@ export const Timeline = ({
     >
       <div
         ref={ref}
-        className={clsx(
+        className={cn(
           'flex flex-1 flex-col overflow-auto relative',
           css`
             scroll-behavior: smooth;
@@ -53,7 +54,7 @@ export const Timeline = ({
           <div className="grid flex-auto grid-cols-1 grid-rows-1">
             {/* Horizontal lines */}
             <div
-              className={clsx(
+              className={cn(
                 'col-start-1 col-end-2 row-start-1 grid divide-y divide-slate-500',
                 css`
                   grid-template-rows: repeat(
@@ -68,7 +69,7 @@ export const Timeline = ({
                 return (
                   <div key={index}>
                     <div
-                      className={clsx(
+                      className={cn(
                         'sticky left-0 w-[80px] -ml-[80px] px-2',
                         'text-right text-xs leading-5 text-theme-text',
                         'transform -translate-y-[200%]',
@@ -86,7 +87,7 @@ export const Timeline = ({
 
             {/* Events */}
             <ol
-              className={clsx(
+              className={cn(
                 'col-start-1 col-end-2 row-start-1 grid grid-cols-1',
                 css`
                   grid-template-rows:

@@ -1,6 +1,6 @@
 import { css, keyframes } from 'goober';
 
-import { cn } from '@/lib/classNames';
+import { cn } from '@/utils/styles/classNames';
 
 type Props = {
   children?: React.ReactNode;

@@ -1,10 +1,10 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { MutableRefObject, useRef } from 'react';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 
 import { getMonthDifference, TODAY } from '@/lib/datetime';
 
+import { cn } from '@/utils/styles/classNames';
 import { isInViewport } from '@/utils/dom/isInViewport';
 
 import { useTimelineContext } from './hooks';
@@ -101,7 +101,7 @@ export const TimelineEvent = ({
   return (
     <li
       ref={ref}
-      className={clsx(
+      className={cn(
         'relative mt-px flex',
         css`
           scroll-margin-top: 3.5rem;
@@ -114,7 +114,7 @@ export const TimelineEvent = ({
       <button
         id={id}
         onClick={handleClick}
-        className={clsx(
+        className={cn(
           'absolute flex justify-start items-start text-left inset-1 rounded-lg p-2',
           'text-xs leading-5 bg-opacity-90',
           css`
@@ -149,7 +149,7 @@ export const TimelineEvent = ({
         )}
       >
         <motion.div
-          className={clsx('sticky top-4 group flex flex-col', 'block', {
+          className={cn('sticky top-4 group flex flex-col', 'block', {
             'text-slate-700': variant === 'slate',
             'text-violet-700': variant === 'violet',
             'text-red-700': variant === 'red',
@@ -161,8 +161,8 @@ export const TimelineEvent = ({
             'text-teal-700': variant === 'teal',
           })}
         >
-          <span className={clsx('font-semibold block')}>{title}</span>
-          <span className={clsx('block')}>{description}</span>
+          <span className={cn('font-semibold block')}>{title}</span>
+          <span className={cn('block')}>{description}</span>
         </motion.div>
       </button>
     </li>

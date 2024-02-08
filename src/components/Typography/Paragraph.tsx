@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   className?: string;
@@ -7,7 +7,7 @@ interface Props {
 
 export const Paragraph: React.FC<Props> = ({ children, className = '' }) => {
   return (
-    <p className={clsx(`text-md text-theme-text md:text-lg my-6`, className)}>
+    <p className={cn(`text-md text-theme-text md:text-lg my-6`, className)}>
       {children}
     </p>
   );

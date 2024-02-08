@@ -1,8 +1,9 @@
 import React, { useId, useMemo } from 'react';
-import clsx from 'clsx';
 
 import type { PostHeading } from '@/blog/types';
 import { cleanHeadingContent, slugify } from '@/lib/blog';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { TableOfContentItem } from './TableOfContentItem';
 
@@ -47,7 +48,7 @@ export const TableOfContents = ({ headings }: Props) => {
 
     const renderList = (array: Array<React.ReactNode>) => {
       return (
-        <ol key={listKey++} className={clsx('mb-4')}>
+        <ol key={listKey++} className={cn('mb-4')}>
           {array.map((listItem) => listItem)}
         </ol>
       );
@@ -67,7 +68,7 @@ export const TableOfContents = ({ headings }: Props) => {
   return (
     <nav aria-labelledby={labelId}>
       <div
-        className={clsx(
+        className={cn(
           'font-bold text-theme-heading opacity-70 mb-4 uppercase tracking-wider',
         )}
         id={labelId}

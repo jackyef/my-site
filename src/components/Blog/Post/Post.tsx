@@ -2,7 +2,6 @@ import { useLayoutEffect, useEffect, Suspense } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
@@ -14,6 +13,7 @@ import { MDXProvider } from '@/components/common/MDX';
 import { Post as PostType } from '@/blog/types';
 import { getHslaColor } from '@/lib/styles/colors';
 
+import { cn } from '@/utils/styles/classNames';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
 import { PostHeader } from './PostHeader';
@@ -72,7 +72,7 @@ export default function Post({ post }: Props) {
 
         <div className="pb-16 xl:pb-20">
           <div
-            className={clsx('flex items-start relative', {
+            className={cn('flex items-start relative', {
               '2xl:w-[140%] 2xl:ml-[-20%]': isBlogPost,
             })}
           >
@@ -84,7 +84,7 @@ export default function Post({ post }: Props) {
             )}
 
             <div
-              className={clsx(
+              className={cn(
                 'w-full',
                 {
                   '2xl:pl-8 2xl:ml-8 2xl:border-l': isBlogPost,

@@ -1,6 +1,6 @@
-import clsx from 'clsx';
-
 import { Flip } from '@/lib/flip/react';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { invert } from './invert';
 
@@ -29,7 +29,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           'shadow-surface-2 bg-surface-2',
           'rounded-lg',
           'max-w-full',
@@ -51,7 +51,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
           }}
         >
           <button
-            className={clsx(
+            className={cn(
               'text-white',
               'inline-block',
               'w-12',
@@ -67,7 +67,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
         <div className="p-6">
           {renderWithWrapper(
             <img
-              className={clsx(
+              className={cn(
                 'w-[120px]',
                 'h-[120px]',
                 'rounded-full',

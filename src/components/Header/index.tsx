@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { Flipper } from 'react-flip-toolkit';
 import { useRouter } from 'next/router';
 
 import { SectionContainer } from '@/components/SectionContainer';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { ThemePicker } from '../Theme/ThemePicker';
 
@@ -36,12 +37,12 @@ export default function Header() {
 
   return (
     <header
-      className={clsx('py-4', 'sticky', 'top-0', 'w-full', 'isolate', 'z-10')}
+      className={cn('py-4', 'sticky', 'top-0', 'w-full', 'isolate', 'z-10')}
     >
       <div className={backdropClass} />
       <Flipper flipKey={router.pathname}>
         <SectionContainer>
-          <nav className={clsx('flex', 'justify-between', 'items-center')}>
+          <nav className={cn('flex', 'justify-between', 'items-center')}>
             <div className="flex space-x-2">
               {navLinks.map((navLink) => (
                 <NavLink key={navLink.href} {...navLink} />

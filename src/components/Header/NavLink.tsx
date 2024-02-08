@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { InternalLink } from '../Typography/InternalLink';
 
@@ -13,7 +14,7 @@ const ActiveNavIndicator = () => {
   return (
     <Flipped flipId="activeNavIndicator" spring="noWobble" translate scale>
       <div
-        className={clsx(
+        className={cn(
           'absolute bottom-0 h-[4px] left-2 right-2',
           'rounded-full',
           css`

@@ -1,8 +1,9 @@
 import { css } from 'goober';
-import clsx from 'clsx';
 import React from 'react';
 
 import { getHslaColor, getHslString } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   isEnabled: boolean;
 }
@@ -38,5 +39,5 @@ export const Button = ({ isEnabled, ...props }: Props) => {
     }
   `;
 
-  return <button {...props} className={clsx(bgColor, button)} />;
+  return <button {...props} className={cn(bgColor, button)} />;
 };

@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { useState } from 'react';
 import copy from 'clipboard-copy';
 
 import { toast } from '@/lib/toast';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { useClayCss } from './useClayCss';
 
@@ -60,7 +61,7 @@ export const ClaymorphismTools = () => {
       }
     >
       <div
-        className={clsx(
+        className={cn(
           clayClass,
           containerClass,
           'bg-surface-3',
@@ -70,7 +71,7 @@ export const ClaymorphismTools = () => {
           'space-y-4',
         )}
       >
-        <div className={clsx('flex', 'flex-col', 'space-y-1')}>
+        <div className={cn('flex', 'flex-col', 'space-y-1')}>
           <label htmlFor="shadowColor">Base shadow color</label>
           <input
             name="shadowColor"
@@ -86,7 +87,7 @@ export const ClaymorphismTools = () => {
           />
         </div>
 
-        <div className={clsx('flex', 'flex-col', 'space-y-1')}>
+        <div className={cn('flex', 'flex-col', 'space-y-1')}>
           <label htmlFor="lightSource">
             Light source ({Math.round(radianToDegree(lightAngle))} degree)
           </label>
@@ -101,7 +102,7 @@ export const ClaymorphismTools = () => {
           />
         </div>
 
-        <div className={clsx('flex', 'flex-col', 'space-y-1')}>
+        <div className={cn('flex', 'flex-col', 'space-y-1')}>
           <label htmlFor="elevation">Elevation ({elevation})</label>
           <input
             name="elevation"
@@ -116,7 +117,7 @@ export const ClaymorphismTools = () => {
       </div>
 
       <div
-        className={clsx(
+        className={cn(
           clayClass,
           'p-8',
           'mt-16',

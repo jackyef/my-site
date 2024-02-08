@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import clsx from 'clsx';
 
 import { formatDate, TODAY } from '@/lib/datetime';
 
+import { cn } from '@/utils/styles/classNames';
 import { debounce } from '@/utils/debounce';
 
 import { Timeline, TimelineEvent } from '../Timeline';
@@ -102,7 +102,7 @@ export const HistoryCalendar = () => {
         {/* Expanded */}
         <div
           ref={detailsContainerRef}
-          className={clsx(
+          className={cn(
             'block w-full flex-1 border-l border-surface-1  md:block',
             'overflow-x-hidden overflow-y-scroll',
           )}

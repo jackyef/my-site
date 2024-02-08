@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { Language } from './useSpeechRecognition';
 
@@ -67,14 +68,14 @@ export const LanguageSwitcher = ({
   `;
 
   return (
-    <div className={clsx('flex', 'justify-center', 'mt-12', 'mb-24')}>
+    <div className={cn('flex', 'justify-center', 'mt-12', 'mb-24')}>
       <button
         aria-label={
           activeLanguage === 'en-US'
             ? 'Currently selected language is English (as spoken in the US)'
             : 'Switch language to English (as spoken in the US)'
         }
-        className={clsx(baseButton, {
+        className={cn(baseButton, {
           [activeButton]: activeLanguage === 'en-US',
         })}
         onClick={activeLanguage === 'en-US' ? undefined : onToggle}
@@ -88,7 +89,7 @@ export const LanguageSwitcher = ({
             ? 'Currently selected language is Indonesian'
             : 'Switch language to Indonesian'
         }
-        className={clsx(baseButton, {
+        className={cn(baseButton, {
           [activeButton]: activeLanguage === 'id-ID',
         })}
         onClick={activeLanguage === 'id-ID' ? undefined : onToggle}

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
 
+import { cn } from '@/utils/styles/classNames';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
 import { SectionTitle } from '../Typography/SectionTitle';
@@ -16,7 +16,7 @@ const ThemeColors = ({ theme }: { theme: Theme }) => {
   return (
     <div className="flex -space-x-2" data-theme={theme}>
       <div
-        className={clsx(
+        className={cn(
           'rounded-full border-2 border-slate-800/50 w-8 h-8',
           css`
             background: ${getHslaColor('primary')};
@@ -24,7 +24,7 @@ const ThemeColors = ({ theme }: { theme: Theme }) => {
         )}
       />
       <div
-        className={clsx(
+        className={cn(
           'rounded-full border-2 border-slate-800/50 w-8 h-8',
           css`
             background: ${getHslaColor('secondary')};
@@ -32,7 +32,7 @@ const ThemeColors = ({ theme }: { theme: Theme }) => {
         )}
       />
       <div
-        className={clsx(
+        className={cn(
           'rounded-full border-2 border-slate-800/50 w-8 h-8',
           css`
             background: ${getHslaColor('tertiary')};
@@ -40,7 +40,7 @@ const ThemeColors = ({ theme }: { theme: Theme }) => {
         )}
       />
       <div
-        className={clsx(
+        className={cn(
           'rounded-full border-2 border-slate-800/50 w-8 h-8',
           css`
             background: ${getHslaColor('bg')};
@@ -48,7 +48,7 @@ const ThemeColors = ({ theme }: { theme: Theme }) => {
         )}
       />
       <div
-        className={clsx(
+        className={cn(
           'rounded-full border-2 border-slate-800/50 w-8 h-8',
           css`
             background: ${getHslaColor('text')};
@@ -87,7 +87,7 @@ export const ThemePicker = () => {
         </Dialog.Overlay>
         <Dialog.Content asChild>
           <div
-            className={clsx(
+            className={cn(
               'p-8',
               'bg-surface-1',
               'text-theme-text',
@@ -122,7 +122,7 @@ export const ThemePicker = () => {
             </div>
             <SectionTitle>Pick a theme</SectionTitle>
             <div
-              className={clsx(
+              className={cn(
                 'grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4',
                 'mt-4',
               )}
@@ -131,7 +131,7 @@ export const ThemePicker = () => {
                 return (
                   <button
                     key={t}
-                    className={clsx(
+                    className={cn(
                       'py-8 px-4',
                       'flex-1 flex flex-col items-center justify-center space-y-4',
                       'rounded-lg',

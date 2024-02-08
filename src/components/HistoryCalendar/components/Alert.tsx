@@ -1,14 +1,15 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { BaseEvent } from '@/components/Timeline/TimelineEvent';
+
+import { cn } from '@/utils/styles/classNames';
 
 type Props = Pick<BaseEvent, 'title' | 'description' | 'variant'>;
 
 export const Alert = ({ title, description, variant }: Props) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'rounded-md p-2 md:p-4 bg-opacity-90',
         css`
           filter: var(--filter-brightness);
@@ -28,7 +29,7 @@ export const Alert = ({ title, description, variant }: Props) => {
     >
       <div className="flex flex-col">
         <h3
-          className={clsx('text-sm font-bold', {
+          className={cn('text-sm font-bold', {
             'text-slate-800': variant === 'slate',
             'text-violet-800': variant === 'violet',
             'text-red-800': variant === 'red',
@@ -43,7 +44,7 @@ export const Alert = ({ title, description, variant }: Props) => {
           {title}
         </h3>
         <div
-          className={clsx('text-sm', {
+          className={cn('text-sm', {
             'text-slate-700': variant === 'slate',
             'text-violet-700': variant === 'violet',
             'text-red-700': variant === 'red',

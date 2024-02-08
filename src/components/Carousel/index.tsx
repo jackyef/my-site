@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { css } from 'goober';
 
-import { cn } from '@/lib/classNames';
+import { cn } from '@/utils/styles/classNames';
 
 const baseButtonClasses =
   'opacity-0 md:opacity-100 flex items-center content-center absolute bg-surface-3 w-12 h-12 rounded-full border-none shadow-surface-2 z-10 items-center justify-center font-bold text-md';

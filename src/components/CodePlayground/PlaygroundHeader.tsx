@@ -6,7 +6,6 @@ import {
   ArrowTopRightOnSquareIcon,
   DocumentMagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
 import { css } from 'goober';
 import {
   RowsIcon,
@@ -14,6 +13,8 @@ import {
   MaximizeIcon,
   MinimizeIcon,
 } from 'lucide-react';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { useCodePlaygroundContext } from './CodePlayground';
 import { theme } from './theme';
@@ -45,7 +46,7 @@ export const PlaygroundHeader = () => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex w-full space-between',
         bgCss,
         css`
@@ -59,7 +60,7 @@ export const PlaygroundHeader = () => {
         },
       )}
     >
-      <div className={clsx('flex flex-1 items-center pl-4')}>
+      <div className={cn('flex flex-1 items-center pl-4')}>
         <button
           className={interactableCss}
           aria-label="Toggle file explorer inline-flex items-baseline"
@@ -74,7 +75,7 @@ export const PlaygroundHeader = () => {
       <div className="flex flex-1 justify-end items-center gap-4 pr-4">
         {!isFullscreen && (
           <button
-            className={clsx(interactableCss, 'hidden min-[770px]:inline-block')}
+            className={cn(interactableCss, 'hidden min-[770px]:inline-block')}
             onClick={toggleLayout}
           >
             Switch to{' '}
@@ -92,7 +93,7 @@ export const PlaygroundHeader = () => {
         </UnstyledOpenInCodeSandboxButton>
 
         <button
-          className={clsx(interactableCss, 'hidden min-[770px]:inline-block')}
+          className={cn(interactableCss, 'hidden min-[770px]:inline-block')}
           onClick={toggleFullscreen}
         >
           {isFullscreen ? 'Minimize' : 'Fullscreen'}

@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   hasError: boolean;
@@ -17,7 +18,7 @@ export const Container = ({ children, hasError }: Props) => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'lg:mx-8',
         'mt-8',
         'mb-16',

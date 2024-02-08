@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { useState } from 'react';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { Container } from './Container';
 import { InfoBanner } from './InfoBanner';
@@ -45,7 +46,7 @@ export const WebSpeechAPIDemo = () => {
       <Container hasError={hasError}>
         {!hasError && (
           <>
-            <div className={clsx('flex', 'justify-center', '-mt-20', 'mb-12')}>
+            <div className={cn('flex', 'justify-center', '-mt-20', 'mb-12')}>
               <ToggleButton
                 isEnabled={isListening}
                 onToggle={toggleListeningState}
@@ -53,7 +54,7 @@ export const WebSpeechAPIDemo = () => {
             </div>
 
             <div
-              className={clsx(
+              className={cn(
                 'flex',
                 'justify-center',
                 'text-2xl',
@@ -70,7 +71,7 @@ export const WebSpeechAPIDemo = () => {
 
             {hasOutput && (
               <button
-                className={clsx(
+                className={cn(
                   'mt-8',
                   'mx-auto',
                   'block',
@@ -87,7 +88,7 @@ export const WebSpeechAPIDemo = () => {
         )}
 
         {hasError && (
-          <div className={clsx('flex', 'flex-col', 'space-y-4')}>
+          <div className={cn('flex', 'flex-col', 'space-y-4')}>
             <span>Error:</span>
             <span>{errorMessage}</span>
           </div>

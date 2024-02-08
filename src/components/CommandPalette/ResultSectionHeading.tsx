@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ interface Props {
 export const ResultSectionHeading = ({ children }: Props) => {
   return (
     <h3
-      className={clsx(
+      className={cn(
         'px-6',
         'text-sm',
         'uppercase',

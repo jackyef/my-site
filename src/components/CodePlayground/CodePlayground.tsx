@@ -13,11 +13,11 @@ import {
   useContext,
   useState,
 } from 'react';
-import clsx from 'clsx';
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 
 import { useKeyDown } from '@/hooks/useKeyDown';
 
+import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { theme } from './theme';
@@ -90,7 +90,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
       }}
     >
       <div
-        className={clsx(
+        className={cn(
           'isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]',
           css`
             & .cm-tooltip {
@@ -131,7 +131,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
         >
           <PlaygroundHeader />
           <SandpackLayout
-            className={clsx(
+            className={cn(
               css`
                 border-radius: 0 0 0.5rem 0.5rem !important;
               `,
@@ -143,7 +143,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
           >
             {isShowingFileExplorer && <SandpackFileExplorer />}
             <SandpackCodeEditor
-              className={clsx({
+              className={cn({
                 [fullHeightCss]: isFullscreen,
                 [heightCss]: !isFullscreen,
               })}
@@ -154,7 +154,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
               showInlineErrors
             />
             <SandpackPreview
-              className={clsx({
+              className={cn({
                 [fullHeightCss]: isFullscreen,
                 [heightCss]: !isFullscreen,
               })}
