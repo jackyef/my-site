@@ -19,6 +19,8 @@ import { withTocHighlighter } from '@/components/Blog/Post/hocs/withTocHighlight
 import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
+import { Mark } from '../Mark';
+
 import { Pre, PreCode } from './components/Pre';
 import { Anchor } from './components/Anchor';
 
@@ -33,6 +35,7 @@ const mdxComponents = {
   h5: H5,
   Image,
   HorizontalDivider,
+  Mark,
   Flipped,
   MetaKey: () => {
     return <FunctionRenderer renderer={getPlatformMetaKey} />;

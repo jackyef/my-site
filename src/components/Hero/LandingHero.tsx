@@ -9,6 +9,7 @@ import { sendEventTracker } from '@/utils/analytics/tracker';
 import { ExternalLink } from '../Typography/ExternalLink';
 import { InternalLink } from '../Typography/InternalLink';
 import { Paragraph } from '../Typography/Paragraph';
+import { Mark } from '../common/Mark';
 
 export const LandingHero = () => {
   const router = useRouter();
@@ -90,9 +91,11 @@ export const LandingHero = () => {
         </h1>
         <Paragraph>
           I am a software engineer working with JavaScript and on
-          all-things-web. In general, I love balancing between infrastructure
-          and product side of the frontend work. I am currently based in
-          Jakarta, Indonesia (🇮🇩).
+          all-things-web. In general, I love{' '}
+          <Mark>
+            balancing between infrastructure and product side of the frontend
+          </Mark>{' '}
+          work. I am currently based in Jakarta, Indonesia (🇮🇩).
         </Paragraph>
 
         <Paragraph>
