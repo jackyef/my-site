@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import ProjectsList from '@/components/Projects/List';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
@@ -13,9 +11,11 @@ import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { HistoryCalendar } from '@/components/HistoryCalendar';
 import { TechnologyAnchors } from '@/components/TechnologyAnchors';
-import { username } from '@/components/ChessComStats/ChessComStats';
-import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
-import { LazyChessComStats } from '@/components/ChessComStats/LazyChessComStats';
+// import { username } from '@/components/ChessComStats/ChessComStats';
+// import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+// import { LazyChessComStats } from '@/components/ChessComStats/LazyChessComStats';
+
+import { cn } from '@/utils/styles/classNames';
 
 export default function About() {
   return (
@@ -93,7 +93,7 @@ export default function About() {
       <SectionTitle>I write, kinda ✍️</SectionTitle>
 
       <div
-        className={clsx(
+        className={cn(
           'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
         )}
       >
@@ -125,7 +125,7 @@ export default function About() {
       <SectionTitle>I build stuff 🛠️</SectionTitle>
 
       <div
-        className={clsx(
+        className={cn(
           'flex flex-col lg:flex-row-reverse justify-between gap-0 lg:gap-16',
         )}
       >
@@ -176,7 +176,7 @@ export default function About() {
        * https://twitter.com/jackyef__/status/1754720666413338706
        */}
       {/* <div
-        className={clsx(
+        className={cn(
           'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
         )}
       >

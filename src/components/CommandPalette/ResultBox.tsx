@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   children?: React.ReactNode;
@@ -8,7 +8,7 @@ export const ResultBox = ({ children }: Props) => {
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           'my-4',
           'h-[2px]',
           'w-full',
@@ -20,7 +20,7 @@ export const ResultBox = ({ children }: Props) => {
       <div
         role="listbox"
         aria-label="available actions or results"
-        className={clsx(
+        className={cn(
           'mt-4',
           'flex',
           '-mx-4',

@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 const INDETERMINATE_BAR_WIDTH = 30;
 
@@ -44,7 +45,7 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
             : `${INDETERMINATE_BAR_WIDTH}%`,
           willChange: 'width, transform',
         }}
-        className={clsx(
+        className={cn(
           `progressBar shadow-none flex flex-col`,
           `text-center whitespace-nowrap text-white`,
           `justify-center`,

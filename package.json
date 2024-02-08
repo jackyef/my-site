@@ -86,7 +86,7 @@
     "react-flip-toolkit": "^7.0.13",
     "react-hot-toast": "^2.1.1",
     "react-query": "^3.33.3",
-    "tailwind-merge": "^1.14.0",
+    "tailwind-merge": "^2.2.1",
     "tinytime": "^0.2.6"
   },
   "dependenciesComments": {

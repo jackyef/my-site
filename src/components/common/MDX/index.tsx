@@ -1,7 +1,6 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Image from 'next/image';
 import { Flipped } from 'react-flip-toolkit';
-import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 
 import { Panel } from '@/components/common/Panel';
@@ -17,6 +16,7 @@ import type { Props as GaplessAudioPlayerProps } from '@/components/Audio/Gaples
 import { H1, H2, H3, H4, H5 } from '@/components/Typography/Heading';
 import { withTocHighlighter } from '@/components/Blog/Post/hocs/withTocHighlighter';
 
+import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { Pre, PreCode } from './components/Pre';
@@ -77,7 +77,7 @@ export const MDXProvider = ({ mdxSource }: Props) => {
     <MDXRemote
       {...mdxSource}
       scope={{
-        clsx,
+        cn,
       }}
       // @ts-ignore
       components={mdxComponents}

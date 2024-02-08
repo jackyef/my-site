@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import Link from 'next/link';
 
 import { IOLazyFeedbackFish } from '@/components/FeedbackFish/Lazy';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { SectionContainer } from '../SectionContainer';
 import { LightButton } from '../common/Button/LightButton';
@@ -93,7 +94,7 @@ const FOOTER_LINKS: FooterSection[] = [
 export const Footer = () => {
   return (
     <footer
-      className={clsx(
+      className={cn(
         'text-sm',
         'py-16',
         'mt-20',
@@ -104,7 +105,7 @@ export const Footer = () => {
     >
       <SectionContainer>
         <div
-          className={clsx(
+          className={cn(
             'flex',
             'flex-col',
             'justify-between',
@@ -114,7 +115,7 @@ export const Footer = () => {
           )}
         >
           <div
-            className={clsx(
+            className={cn(
               'flex',
               'flex-col',
               'sm:flex-row',
@@ -127,10 +128,10 @@ export const Footer = () => {
               return (
                 <div
                   key={section.sectionTitle}
-                  className={clsx('flex', 'flex-col', 'space-y-4')}
+                  className={cn('flex', 'flex-col', 'space-y-4')}
                 >
                   <h3
-                    className={clsx(
+                    className={cn(
                       'text-2xl',
                       'font-heading',
                       'text-theme-heading',
@@ -139,7 +140,7 @@ export const Footer = () => {
                     {section.sectionTitle}
                   </h3>
                   <ul
-                    className={clsx(
+                    className={cn(
                       'text-theme-subtitle',
                       'flex',
                       'flex-col',

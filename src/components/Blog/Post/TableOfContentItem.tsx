@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 type Props = {
   slug: string;
@@ -12,7 +13,7 @@ export const TableOfContentItem = ({ slug, content, level }: Props) => {
   return (
     <li
       key={slug}
-      className={clsx('pb-2 transition-colors', {
+      className={cn('pb-2 transition-colors', {
         'pl-2 border-l-4': level === 3,
         [css`
           border-color: ${getHslaColor('outline', 0.1)};
@@ -28,7 +29,7 @@ export const TableOfContentItem = ({ slug, content, level }: Props) => {
       <a
         data-tocitem // Used by withTocHighlighter
         href={`#${slug}`}
-        className={clsx(
+        className={cn(
           'text-sm text-theme-subtitle inline-block',
           'transition-all duration-500',
           css`

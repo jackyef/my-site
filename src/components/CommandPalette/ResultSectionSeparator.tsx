@@ -1,10 +1,10 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 export const ResultSectionSeparator = () => {
   return (
     <div className="last:hidden">
       <div
-        className={clsx(
+        className={cn(
           'my-2',
           'mx-6',
           'h-[2px]',

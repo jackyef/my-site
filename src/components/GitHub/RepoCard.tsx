@@ -1,5 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { Tag } from '../common/Tag';
 import { ExternalLink } from '../Typography/ExternalLink';
@@ -24,7 +25,7 @@ const GitHubRepoCard = ({
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           'inline-block',
           'relative',
           'rounded-md',

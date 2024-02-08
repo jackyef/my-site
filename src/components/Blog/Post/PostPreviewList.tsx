@@ -1,7 +1,6 @@
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { InternalLink } from '@/components/Typography/InternalLink';
@@ -11,6 +10,7 @@ import { MDXProvider } from '@/components/common/MDX';
 import { getHslaColor } from '@/lib/styles/colors';
 import { Post } from '@/blog/types';
 
+import { cn } from '@/utils/styles/classNames';
 import { sendEventTracker } from '@/utils/analytics/tracker';
 
 import { TreeList, TreeListItem } from './TreeList';
@@ -39,13 +39,13 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                       translate
                     >
                       <h2
-                        className={clsx(
+                        className={cn(
                           'text-xl md:text-2xl font-heading leading-8 font-bold',
                         )}
                       >
                         <InternalLink
                           href={link}
-                          className={clsx(
+                          className={cn(
                             'font-bold',
                             css`
                               & {

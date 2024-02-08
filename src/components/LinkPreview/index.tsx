@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { css, keyframes } from 'goober';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { HorizontalDivider } from '../Divider';
 
@@ -51,7 +52,7 @@ export const LinkPreview = ({ href }: Props) => {
 
   return (
     <span
-      className={clsx(
+      className={cn(
         container,
         'bg-surface-3 shadow-surface-3',
         'flex flex-col space-y-2',
@@ -64,7 +65,7 @@ export const LinkPreview = ({ href }: Props) => {
           <HorizontalDivider />
         </>
       )}
-      <span className={clsx('text-base font-bold')}>{data.title}</span>
+      <span className={cn('text-base font-bold')}>{data.title}</span>
       <span>{data.description}</span>
     </span>
   );

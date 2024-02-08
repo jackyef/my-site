@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import Link from 'next/link';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { useAnchorClassName } from './hooks/useAnchorClassName';
 
@@ -24,7 +25,7 @@ export const InternalLink: React.FC<Props> = ({
   return (
     <Link
       href={href}
-      className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
+      className={cn('not-prose', { [baseClass]: !isNotFancy }, className)}
       onClick={onClick}
       {...rest}
     >

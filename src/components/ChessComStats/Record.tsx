@@ -1,8 +1,9 @@
 import { css } from 'goober';
-import clsx from 'clsx';
 import { MinusSquareIcon, PlusSquareIcon, SquareEqualIcon } from 'lucide-react';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 type Props = {
   title: string;
@@ -36,19 +37,19 @@ export const Record = ({
         {title}
       </dt>
       <dd className="flex gap-2 text-lg font-bold">
-        <div className={clsx('flex gap-1 items-center', greenText)}>
+        <div className={cn('flex gap-1 items-center', greenText)}>
           <span className="text-light">
             <PlusSquareIcon size={16} />
           </span>
           {win}
         </div>
-        <div className={clsx('flex gap-1 items-center text-theme-subtitle')}>
+        <div className={cn('flex gap-1 items-center text-theme-subtitle')}>
           <span className="text-light">
             <SquareEqualIcon size={16} />
           </span>
           {draw}
         </div>
-        <div className={clsx('flex gap-1 items-center', redText)}>
+        <div className={cn('flex gap-1 items-center', redText)}>
           <span className="text-light">
             <MinusSquareIcon size={16} />
           </span>

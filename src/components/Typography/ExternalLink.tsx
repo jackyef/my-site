@@ -1,5 +1,6 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { LinkPreview } from '../LinkPreview';
 
@@ -28,7 +29,7 @@ export const ExternalLink: React.FC<Props> = ({
   if (!shouldShowPreviewOnHover) {
     return (
       <a
-        className={clsx('not-prose', { [baseClass]: !isNotFancy }, className)}
+        className={cn('not-prose', { [baseClass]: !isNotFancy }, className)}
         href={href}
         onClick={onClick}
         target="_blank"
@@ -44,7 +45,7 @@ export const ExternalLink: React.FC<Props> = ({
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <a
-            className={clsx({ [baseClass]: !isNotFancy }, className)}
+            className={cn({ [baseClass]: !isNotFancy }, className)}
             href={href}
             onClick={onClick}
             target="_blank"

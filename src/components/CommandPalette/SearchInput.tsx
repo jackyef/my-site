@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/styles/classNames';
 
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
   hasResults?: boolean;
@@ -7,7 +7,7 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
 export const SearchInput = ({ hasResults = false, ...props }: Props) => {
   return (
     <input
-      className={clsx(
+      className={cn(
         'focusable-cmd-item', // Used to set focus
 
         {

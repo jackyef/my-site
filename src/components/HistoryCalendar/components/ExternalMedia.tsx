@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 import { ExternalLinkIcon } from 'lucide-react';
+
+import { cn } from '@/utils/styles/classNames';
 
 type ExternalMediaProps = {
   href: string;
@@ -31,7 +32,7 @@ export const ExternalMedia = ({ href, imgSrc, title }: ExternalMediaProps) => {
       rel="noopener noreferrer"
     >
       <div
-        className={clsx(
+        className={cn(
           'absolute inset-0 rounded-lg opacity-0 hover:opacity-100 transition-opacity',
           'bg-gradient-to-t from-black/50',
           'flex items-center justify-center text-white',

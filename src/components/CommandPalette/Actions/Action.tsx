@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef } from 'react';
 
 import { ThemeContext } from '@/components/Theme/ThemeProvider';
 
+import { cn } from '@/utils/styles/classNames';
 import { publicUrl } from '@/utils/constants';
 
 import { HighlightedQuery } from './HighlightedQuery';
@@ -95,7 +95,7 @@ export const Action = ({
         scrollMarginTop: '3rem',
         scrollMarginBottom: '3rem',
       }}
-      className={clsx(
+      className={cn(
         'focusable-cmd-item', // Used to set focus
 
         'rounded-sm',
@@ -115,7 +115,7 @@ export const Action = ({
         'focus:duration-100',
       )}
     >
-      <div className={clsx('flex', 'justify-between')}>
+      <div className={cn('flex', 'justify-between')}>
         <h4 className="font-medium">
           <HighlightedQuery
             query={query}
@@ -125,7 +125,7 @@ export const Action = ({
         <span aria-hidden>{icon}</span>
       </div>
       {description && (
-        <p className={clsx('text-sm', 'text-theme-subtitle', 'mt-2', 'pr-4')}>
+        <p className={cn('text-sm', 'text-theme-subtitle', 'mt-2', 'pr-4')}>
           <HighlightedQuery
             query={description}
             userSubmittedQuery={userSubmittedQuery}

@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { css } from 'goober';
+
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   children?: React.ReactNode;
@@ -36,7 +37,7 @@ export const Tag: React.FC<Props> = ({ children, variant }) => {
 
   return (
     // Using 'em' here because we want to padding to grow relative to the font size
-    <span className={clsx('inline-block py-[0.25em] px-[0.5em]', variantCss)}>
+    <span className={cn('inline-block py-[0.25em] px-[0.5em]', variantCss)}>
       {children}
     </span>
   );

@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 interface Props {
   text: string;
@@ -10,7 +11,7 @@ interface Props {
 
 export const TwitterShare: React.FC<Props> = ({ text, children }) => (
   <a
-    className={clsx(
+    className={cn(
       'hover:underline',
       css`
         color: ${getHslaColor('primary', 1, { l: -12 })};

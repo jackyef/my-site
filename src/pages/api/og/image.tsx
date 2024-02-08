@@ -1,6 +1,7 @@
 import { ImageResponse } from '@vercel/og';
-import clsx from 'clsx';
 import { NextRequest } from 'next/server';
+
+import { cn } from '@/utils/styles/classNames';
 
 export const config = {
   runtime: 'experimental-edge',
@@ -45,7 +46,7 @@ export default async function (req: NextRequest) {
   return new ImageResponse(
     (
       <div
-        tw={clsx('bg-slate-50', 'flex flex-col justify-center')}
+        tw={cn('bg-slate-50', 'flex flex-col justify-center')}
         style={{
           width: '100%',
           height: '100%',

@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import { css } from 'goober';
 
 import { getHslaColor } from '@/lib/styles/colors';
+
+import { cn } from '@/utils/styles/classNames';
 
 export const InfoBanner = () => {
   const container = css`
@@ -17,7 +18,7 @@ export const InfoBanner = () => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         container,
         'lg:mx-8',
         'my-8',
@@ -39,7 +40,7 @@ export const InfoBanner = () => {
           href="https://www.google.com/intl/en/chrome/demos/speech.html"
           rel="noreferrer"
           target="_blank"
-          className={clsx('underline', 'hover:no-underline')}
+          className={cn('underline', 'hover:no-underline')}
         >
           Google&apos;s own hosted demo
         </a>

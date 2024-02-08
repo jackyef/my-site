@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { animate, motion } from 'framer-motion';
 import { BarChart2Icon } from 'lucide-react';
 import { useRef } from 'react';
 
 import { formatNumber } from '@/lib/number';
+
+import { cn } from '@/utils/styles/classNames';
 
 import { useStats } from './hooks/useStats';
 import { useMatchesSummary } from './hooks/useMatchesSummary';
@@ -26,7 +27,7 @@ export const ChessComStats = () => {
 
   return (
     <motion.div
-      className={clsx(
+      className={cn(
         'rounded-2xl text-theme-text p-6 my-4',
         'flex flex-col gap-4 relative overflow-clip',
         'isolate pr-[80px]',
@@ -38,7 +39,7 @@ export const ChessComStats = () => {
       {/* Background image */}
       <motion.img
         src="/assets/chesscom/chesscom.png"
-        className={clsx(
+        className={cn(
           'absolute z-[-1] object-contain h-full',
           'right-[-80px] bottom-[-60px]',
           'opacity-70',
@@ -67,7 +68,7 @@ export const ChessComStats = () => {
         <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
           Rating (rapid)
         </dt>
-        <dd className={clsx('text-4xl font-bold flex gap-1 items-center')}>
+        <dd className={cn('text-4xl font-bold flex gap-1 items-center')}>
           <motion.span ref={ratingRef}>0</motion.span>{' '}
           <BarChart2Icon size={32} />
         </dd>
