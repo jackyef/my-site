@@ -347,8 +347,7 @@ h6:hover .hash-link {
 button:focus,
 input:focus,
 a:focus {
-  outline: none !important;
-  box-shadow: var(--focus-outline) !important;
+  outline: solid var(--color-outline);
 }
 
 /* make scrollbar more bearable to look at */

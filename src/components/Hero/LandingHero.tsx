@@ -43,6 +43,7 @@ export const LandingHero = () => {
   `;
 
   const ctaButton = css`
+    position: relative;
     background-image: linear-gradient(
       70deg,
       ${getHslaColor('primary', 0.4)},
@@ -50,6 +51,9 @@ export const LandingHero = () => {
       ${getHslaColor('primary', 0.3)}
     );
     padding: 3px;
+    transition: 0.15s;
+    isolation: isolate;
+    outline: none !important;
 
     &:hover {
       background-image: linear-gradient(
@@ -62,11 +66,49 @@ export const LandingHero = () => {
 
     & > span {
       display: inline-block;
+      border-radius: 4rem;
+      padding: 0.75rem 1.55rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    & > span::before {
+      content: ' ';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
       background: white;
       border-radius: 4rem;
       background: hsla(${getHslString('bg')} / 0.85);
       backdrop-filter: contrast(105%) saturate(120%) blur(8px);
       padding: 0.75rem 1.55rem;
+      transition: 0.7s;
+      transform-origin: 50% 50%;
+    }
+
+    &:hover {
+      transform: scale(1.02);
+      transition: 0.3s;
+      box-shadow: 0 8px 6px -8px ${getHslaColor('subtitle', 0.5)};
+    }
+
+    &:hover > span::before {
+      transition: 0.4s;
+      box-shadow: inset 0 0 10px -2px ${getHslaColor('bg', 0.5, { l: 12 })};
+      transform: scaleX(1.05) scaleY(1.2);
+    }
+
+    &:active {
+      transform: scale(1);
+      transition: 0.1s;
+      box-shadow: none;
+      text-shadow: 1px 1px 1px ${getHslaColor('subtitle', 0.3)};
+    }
+
+    &:active > span::before {
+      box-shadow: inset 0 0 10px -2px ${getHslaColor('subtitle', 0.2, { l: -12 })};
+      transform: scaleX(0.98) scaleY(0.93);
+      transition: 0.1s;
     }
   `;
 
