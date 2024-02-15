@@ -13,7 +13,7 @@ import { Record } from './Record';
 // This is my chess.com information
 // If you are copying this, remember to change this.
 export const username = 'PixelParser';
-const userId = '288942993';
+const userId = '344047395'; // '288942993'; old banned account
 
 export const ChessComStats = () => {
   const ratingRef = useRef<HTMLSpanElement>(null);
@@ -24,6 +24,8 @@ export const ChessComStats = () => {
   if (!stats || !matchesSummary) return null;
 
   const rating = stats.chess_rapid.last.rating;
+
+  console.log({ matchesSummary });
 
   return (
     <motion.div

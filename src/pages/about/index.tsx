@@ -11,9 +11,9 @@ import { SectionTitle } from '@/components/Typography/SectionTitle';
 import { EmojiSpan } from '@/components/Typography/EmojiSpan';
 import { HistoryCalendar } from '@/components/HistoryCalendar';
 import { TechnologyAnchors } from '@/components/TechnologyAnchors';
-// import { username } from '@/components/ChessComStats/ChessComStats';
-// import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
-// import { LazyChessComStats } from '@/components/ChessComStats/LazyChessComStats';
+import { username } from '@/components/ChessComStats/ChessComStats';
+import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
+import { LazyChessComStats } from '@/components/ChessComStats/LazyChessComStats';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -170,12 +170,7 @@ export default function About() {
       </Paragraph>
       <HorizontalDivider />
 
-      {/*
-       * Hide this because I got banned :(
-       * Waiting for my second account to be given before showing again.
-       * https://twitter.com/jackyef__/status/1754720666413338706
-       */}
-      {/* <div
+      <div
         className={cn(
           'flex flex-col lg:flex-row justify-between gap-0 lg:gap-16',
         )}
@@ -203,7 +198,7 @@ export default function About() {
           </IOWrapper>
         </div>
       </div>
-      <HorizontalDivider /> */}
+      <HorizontalDivider />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { RawMatchData } from 'types/chesscom';
 
 // This is my chess.com information
 // If you are copying this, remember to change this.
-const userId = '288942993';
+const userId = '344047395'; // '288942993'; old banned account
 
 // The purpose of the API is to bypass chess.com CORS
 export default async (req: NextApiRequest, res: NextApiResponse) => {
