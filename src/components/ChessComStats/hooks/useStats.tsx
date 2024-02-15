@@ -1,8 +1,13 @@
 import { useQueries } from 'react-query';
 
-import { RawMatchData, RawProfileStats } from 'types/chesscom';
+import { RawAllTimeStats, RawMatchData, RawProfileStats } from 'types/chesscom';
 
+// @ts-expect-error
+// eslint-disable-next-line
 const fetchStats = async (username: string) => {
+  // This endpoint is the documented API, but it returns different numbers
+  // compared to what is displayed in the profile page
+  // https://www.chess.com/stats/live/rapid/pixelparser/0
   const response = await fetch(
     `https://api.chess.com/pub/player/${username}/stats`,
   );
@@ -14,6 +19,18 @@ const fetchStats = async (username: string) => {
   const data = await response.json();
 
   return data as RawProfileStats;
+};
+
+const fetchAllTimeStats = async () => {
+  const response = await fetch(`/api/chesscom/all-time-stats`);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const data = await response.json();
+
+  return data as RawAllTimeStats;
 };
 
 const fetchMatchData = async () => {
@@ -29,16 +46,20 @@ const fetchMatchData = async () => {
 };
 
 type Params = {
-  username: string;
   userId: string;
 };
 
-export const useStats = ({ username, userId }: Params) => {
+export const useStats = ({ userId }: Params) => {
   const [stats, matches] = useQueries([
+    // {
+    //   queryKey: ['stats', username],
+    //   staleTime: 1000 * 60 * 10,
+    //   queryFn: () => fetchStats(username),
+    // },
     {
-      queryKey: ['stats', username],
+      queryKey: ['allTimeStats', userId],
       staleTime: 1000 * 60 * 10,
-      queryFn: () => fetchStats(username),
+      queryFn: () => fetchAllTimeStats(),
     },
     {
       queryKey: ['matches', userId], // Recent matches, max 20
@@ -48,7 +69,7 @@ export const useStats = ({ username, userId }: Params) => {
   ]);
 
   return {
-    stats: stats.data,
+    stats: stats.data?.stats,
     matches: matches.data,
   };
 };

@@ -4,8 +4,86 @@ type CategoryStats = {
   record: { win: number; loss: number; draw: number };
 };
 
+interface History {
+  timestamp: number;
+  rating: number;
+  day_close_rating: number;
+  day: number;
+}
+
+interface ResultTypeCount {
+  win: Win;
+  loss: Loss;
+  draw: Draw;
+}
+
+interface Win {
+  resigned: number;
+  checkmated: number;
+  timeout: number;
+  abandoned: number;
+}
+
+interface Loss {
+  resigned: number;
+  timeout: number;
+  checkmated: number;
+}
+
+interface Draw {
+  repetition: number;
+  insufficient: number;
+  '50move': number;
+  stalemate: number;
+}
+
+interface BestWinGame {
+  id: number;
+  player: string;
+  rating: number;
+}
+
+interface Stats {
+  rating_delta: number;
+  history: History[];
+  count: number;
+  rated_count: number;
+  opponent_rating_avg: number;
+  opponent_rating_win_avg: number;
+  opponent_rating_draw_avg: number;
+  opponent_rating_loss_avg: number;
+  white_win_count: number;
+  white_draw_count: number;
+  white_loss_count: number;
+  black_win_count: number;
+  black_draw_count: number;
+  black_loss_count: number;
+  rating_last: number;
+  rating_first: number;
+  rating_max: number;
+  rating_max_timestamp: number;
+  moves_count: number;
+  streak_last: number;
+  streak_max: number;
+  streak_max_timestamp: number;
+  opponent_rating_max: number;
+  opponent_rating_max_timestamp: number;
+  opponent_rating_max_uuid: string;
+  result_type_count: ResultTypeCount;
+  best_win_game: BestWinGame;
+  accuracy_count: number;
+  accuracy_avg: number;
+  starting_day: number;
+}
+
 export type RawProfileStats = {
   chess_rapid: CategoryStats;
+};
+
+export type RawAllTimeStats = {
+  stats: Stats;
+  progress: number;
+  shouldShowGlobalRankAndPercentile: boolean;
 };
 
 export type RawMatchData = {

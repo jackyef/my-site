@@ -17,15 +17,13 @@ const userId = '344047395'; // '288942993'; old banned account
 
 export const ChessComStats = () => {
   const ratingRef = useRef<HTMLSpanElement>(null);
-  const { stats, matches } = useStats({ username, userId });
+  const { stats, matches } = useStats({ userId });
   const matchesSummary = useMatchesSummary({ matches, username });
 
   // TODO: loading state
   if (!stats || !matchesSummary) return null;
 
-  const rating = stats.chess_rapid.last.rating;
-
-  console.log({ matchesSummary });
+  const rating = stats.rating_last;
 
   return (
     <motion.div
@@ -84,9 +82,9 @@ export const ChessComStats = () => {
           title="All-time"
           label="All-time records"
           counts={{
-            win: stats.chess_rapid.record.win,
-            draw: stats.chess_rapid.record.draw,
-            loss: stats.chess_rapid.record.loss,
+            win: stats.white_win_count + stats.black_win_count,
+            draw: stats.white_draw_count + stats.black_draw_count,
+            loss: stats.white_loss_count + stats.black_loss_count,
           }}
         />
       </motion.div>
