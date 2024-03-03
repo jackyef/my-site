@@ -1,5 +1,6 @@
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
-const { RelativeCiAgentWebpackPlugin } = require('@relative-ci/agent');
+const filterWebpackStats =
+  require('@bundle-stats/plugin-webpack-filter').default;
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -14,24 +15,23 @@ const conf = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
-  webpack: function (config, options) {
+  webpack: (config, options) => {
     const { dev, isServer } = options;
 
+    // Output webpack stats JSON file only for
+    // client-side/production build
     if (!dev && !isServer) {
       config.plugins.push(
-        new RelativeCiAgentWebpackPlugin({
-          stats: { excludeAssets: [/stats.json/] },
-        }),
-      );
-      config.plugins.push(
         new StatsWriterPlugin({
-          filename: 'stats.json',
+          filename: '../webpack-stats.json',
           stats: {
-            context: './', // optional, will improve readability of the paths
             assets: true,
-            entrypoints: true,
             chunks: true,
             modules: true,
+          },
+          transform: (webpackStats) => {
+            const filteredSource = filterWebpackStats(webpackStats);
+            return JSON.stringify(filteredSource);
           },
         }),
       );
