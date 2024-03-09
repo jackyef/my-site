@@ -1,6 +1,12 @@
 import { VolumeIcon, Volume1Icon, Volume2Icon } from 'lucide-react';
 import { css } from 'goober';
-import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useAnimate, motion } from 'framer-motion';
 
 import { getHslaColor } from '@/lib/styles/colors';
@@ -116,79 +122,120 @@ export const BallisticSlider = ({
     }
   };
 
+  const handlePointerMove = useCallback(
+    (x: number, y: number) => {
+      if (state !== 'dragging') return;
+
+      const c = containerRef.current;
+      const b = buttonRef.current;
+      const p = projectilePathRef.current;
+
+      if (!c || !b || !p) return;
+
+      // Assume the container has a height of y and width of x
+      // The max distance for the projectile will be x
+      // minus some margins
+      const maxDistance = c.clientWidth - 32;
+
+      // We use the following formula as the premise.
+      // v = sqrt(2 * g * x)
+      // Assume g = 4, doesn't really matter since we are not simulating earth gravity;
+      // just a random number to simulate gravity acceleration (or rather, deceleration in this case)
+      const g = 4;
+      // We add a factor of 1.02, so the max distance can be reached even if
+      // the angle isn't exactly 45 degrees, to improve usability
+      const initialVelocity = Math.sqrt(1.02 * g * maxDistance);
+
+      // Next, we can calculate the firing angle based on mouse position and the button position
+      const buttonOriginX = b.offsetLeft + b.offsetWidth / 2;
+      const buttonOriginY = height / 2;
+      const angleDegree =
+        Math.atan2(y - buttonOriginY, x - buttonOriginX) * -(180 / Math.PI);
+      const vy = initialVelocity * Math.sin(angleDegree * (Math.PI / 180));
+      const timeInAir = angleDegree < 0 ? 0 : (2 * vy) / 4;
+
+      const projectedDistance = clamp(
+        0,
+        initialVelocity * Math.cos(angleDegree * (Math.PI / 180)) * timeInAir,
+        maxDistance,
+      );
+
+      const sliderValue = (projectedDistance / maxDistance) * 100;
+
+      // These are for the debugger UIs
+      c.style.setProperty('--button-x', `${buttonOriginX}px`);
+      c.style.setProperty('--button-y', `${buttonOriginY}px`);
+      c.style.setProperty('--mouse-x', `${x}px`);
+      c.style.setProperty('--mouse-y', `${y}px`);
+      c.style.setProperty('--angle-degree', `'${angleDegree.toFixed(0)}°'`);
+      c.style.setProperty('--projected-distance', `${projectedDistance}px`);
+      c.style.setProperty('--slider-value', `'${sliderValue.toFixed(0)}%'`);
+
+      const paths = calculateProjectilePath(
+        initialVelocity,
+        angleDegree,
+        g,
+        timeInAir,
+      );
+
+      valueRef.current = Math.round(sliderValue);
+      maxDistanceRef.current = Math.round(maxDistance);
+      pathRef.current = paths;
+
+      p.setAttribute(
+        'd',
+        [
+          `M 0 ${height / 2}`,
+          paths.map((p) => `L ${p.x} ${height / 2 - p.y}`).join(' '),
+          `${projectedDistance} ${height / 2}`,
+        ].join(' '),
+      );
+    },
+    [height, state],
+  );
+
   const handleMouseMove: MouseEventHandler = (e) => {
     if (state !== 'dragging') return;
 
     const c = containerRef.current;
-    const b = buttonRef.current;
-    const p = projectilePathRef.current;
 
-    if (!c || !b || !p) return;
+    if (!c) return;
 
     const containerRect = c.getBoundingClientRect();
     const mouseX = e.clientX - containerRect.left;
     const mouseY = e.clientY - containerRect.top;
 
-    // Assume the container has a height of y and width of x
-    // The max distance for the projectile will be x
-    // minus some margins
-    const maxDistance = c.clientWidth - 32;
-
-    // We use the following formula as the premise.
-    // v = sqrt(2 * g * x)
-    // Assume g = 4, doesn't really matter since we are not simulating earth gravity;
-    // just a random number to simulate gravity acceleration (or rather, deceleration in this case)
-    const g = 4;
-    // We add a factor of 1.02, so the max distance can be reached even if
-    // the angle isn't exactly 45 degrees, to improve usability
-    const initialVelocity = Math.sqrt(1.02 * g * maxDistance);
-
-    // Next, we can calculate the firing angle based on mouse position and the button position
-    const buttonOriginX = b.offsetLeft + b.offsetWidth / 2;
-    const buttonOriginY = height / 2;
-    const angleDegree =
-      Math.atan2(mouseY - buttonOriginY, mouseX - buttonOriginX) *
-      -(180 / Math.PI);
-    const vy = initialVelocity * Math.sin(angleDegree * (Math.PI / 180));
-    const timeInAir = angleDegree < 0 ? 0 : (2 * vy) / 4;
-
-    const projectedDistance = clamp(
-      0,
-      initialVelocity * Math.cos(angleDegree * (Math.PI / 180)) * timeInAir,
-      maxDistance,
-    );
-
-    const sliderValue = (projectedDistance / maxDistance) * 100;
-
-    // These are for the debugger UIs
-    c.style.setProperty('--button-x', `${buttonOriginX}px`);
-    c.style.setProperty('--button-y', `${buttonOriginY}px`);
-    c.style.setProperty('--mouse-x', `${mouseX}px`);
-    c.style.setProperty('--mouse-y', `${mouseY}px`);
-    c.style.setProperty('--angle-degree', `'${angleDegree.toFixed(0)}°'`);
-    c.style.setProperty('--projected-distance', `${projectedDistance}px`);
-    c.style.setProperty('--slider-value', `'${sliderValue.toFixed(0)}%'`);
-
-    const paths = calculateProjectilePath(
-      initialVelocity,
-      angleDegree,
-      g,
-      timeInAir,
-    );
-
-    valueRef.current = Math.round(sliderValue);
-    maxDistanceRef.current = Math.round(maxDistance);
-    pathRef.current = paths;
-
-    p.setAttribute(
-      'd',
-      [
-        `M 0 ${height / 2}`,
-        paths.map((p) => `L ${p.x} ${height / 2 - p.y}`).join(' '),
-        `${projectedDistance} ${height / 2}`,
-      ].join(' '),
-    );
+    handlePointerMove(mouseX, mouseY);
   };
+
+  // Touch events have to be handled differently.
+  // We need to prevent touchmove causing scrolling by doing e.preventDefault().
+  // This requires the eventListener to be non-passive.
+  // React automatically sets passive to true, when passing onTouchMove prop,
+  // so we have to bypass it and addEventListener to the DOM node directly.
+  useEffect(() => {
+    const c = containerRef.current;
+    if (!c) return;
+    if (state !== 'dragging') return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+
+      const containerRect = c.getBoundingClientRect();
+      const touch = e.touches[0] || e.changedTouches[0];
+
+      const mouseX = touch.pageX - containerRect.left;
+      const mouseY = touch.pageY - containerRect.top;
+
+      handlePointerMove(mouseX, mouseY);
+    };
+
+    c.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      c.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [state, handlePointerMove]);
 
   const showDebugger = debug && state !== 'idle';
 
@@ -196,6 +243,7 @@ export const BallisticSlider = ({
     <div
       ref={containerRef}
       onMouseUpCapture={startFiring}
+      onTouchEndCapture={startFiring}
       onMouseMove={handleMouseMove}
       className={cn(
         css`
@@ -214,6 +262,7 @@ export const BallisticSlider = ({
         draggable={false}
         ref={buttonRef}
         onMouseDown={startDragging}
+        onTouchStart={startDragging}
       >
         <motion.div
           initial="idle"
