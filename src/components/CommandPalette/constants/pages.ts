@@ -49,6 +49,20 @@ export const PAGES: readonly PageData[] = [
     link: '/tools/speech-to-text',
     hiddenSearchTerm: 'voice',
   },
+
+  // Absurd UI components
+  {
+    title: 'Absurd UI components',
+    description:
+      'A collection of absurd UI components that are not practical but fun to play with.',
+    link: '/absurd-ui',
+  },
+
+  {
+    title: 'Absurd UI ▶️ Ballistic Slider',
+    description: 'A slider with some ballistic physics baked in..',
+    link: '/absurd-ui/ballistic-slider',
+  },
 ];
 
 export const filterPages = (query: string): PageData[] => {
