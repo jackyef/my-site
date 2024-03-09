@@ -12,7 +12,7 @@ import { cn } from '@/utils/styles/classNames';
 
 export const meta = {
   title: 'Absurd UI – Ballistic Slider',
-  description: 'A slider with some ballistic physics baked in!',
+  description: 'A slider with some ballistic physics baked in.',
   image: createOgImageUrl({
     title: 'Absurd UI – Ballistic Slider',
   }),
