@@ -22,7 +22,7 @@ export const TrackDebugger = () => {
           width: 8,
           height: 8,
           borderRadius: 8,
-          transform: 'translateY(-50%)',
+          transform: 'translateY(-50%) translateX(-50%)',
           background: 'rgba(255,0,0,0.3)',
           position: 'absolute',
           top: '50%',

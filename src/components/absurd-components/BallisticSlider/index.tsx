@@ -10,42 +10,17 @@ import { clamp } from '@/utils/math';
 
 import { Debugger } from './Debugger';
 import { TrackDebugger } from './TrackDebugger';
-
-const calculateProjectilePath = (
-  initialVelocity: number,
-  angleDegree: number,
-  g: number,
-  totalTime: number,
-) => {
-  const intervals = totalTime / (totalTime / 32); // Ensure we have at least 32 points
-  const thetaRad = (angleDegree * Math.PI) / 180; // Convert angle to radians
-  const v0x = initialVelocity * Math.cos(thetaRad);
-  const v0y = initialVelocity * Math.sin(thetaRad);
-  const dt = totalTime / intervals;
-  const path = [];
-
-  for (let t = 0; t <= totalTime; t += dt) {
-    const x = v0x * t;
-    const y = v0y * t - 0.5 * g * t ** 2;
-    if (y < 0) break; // Stop if projectile has "landed"
-    path.push({ x, y });
-  }
-
-  // Add the final point
-  path.push({ x: v0x * totalTime, y: 0 });
-
-  return path;
-};
+import { calculateProjectilePath } from './helpers';
 
 type Props = {
   label?: string;
-  initialValue?: number;
   height?: number;
   debug?: boolean;
+  onValueChange?: (value: number) => void;
 };
 
 type SliderState = 'idle' | 'dragging' | 'firing';
-type Node = { x: number; y: number };
+type Coordinate = { x: number; y: number };
 
 const PROJECTILE_SIZE = 12;
 
@@ -53,22 +28,20 @@ export const BallisticSlider = ({
   label = 'Adjust value',
   height = 100,
   debug = false,
-  initialValue = 0,
+  onValueChange,
 }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
   const projectilePathRef = useRef<SVGPathElement>(null);
-  const degreeRef = useRef<number>(0);
   const valueRef = useRef<number>(0);
   const maxDistanceRef = useRef<number>(0);
-  const pathRef = useRef<Node[]>([]);
+  const pathRef = useRef<Coordinate[]>([]);
+
   const [state, setState] = useState<SliderState>('idle');
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(0);
   const [scope, animate] = useAnimate();
 
   const handleValueChange = async (newValue: number) => {
-    setValue(newValue);
     const paths = pathRef.current;
 
     if (!paths) return;
@@ -105,25 +78,9 @@ export const BallisticSlider = ({
     );
 
     setState('idle');
+    setValue(newValue);
+    onValueChange?.(newValue);
   };
-
-  useEffect(() => {
-    // Animate the projectile back to the button when dragging.
-    // This illustrates the loading of the "catapult"
-    if (state === 'dragging') {
-      const yOffset = PROJECTILE_SIZE / 2;
-      const xOffset = PROJECTILE_SIZE / 2;
-      const distance = (value / 100) * maxDistanceRef.current;
-
-      // Set a straight path to starting position
-      scope.current.style['offset-path'] = `path("${[
-        `M ${xOffset},${yOffset}`,
-        `${xOffset + distance},${yOffset}`,
-      ].join(' ')}")`;
-
-      animate(scope.current, { offsetDistance: '0%' }, { ease: 'easeInOut' });
-    }
-  }, [state, animate, scope, value]);
 
   const Icon = (() => {
     if (state !== 'idle') return VolumeIcon;
@@ -142,6 +99,20 @@ export const BallisticSlider = ({
   const startDragging = () => {
     if (state === 'idle') {
       setState('dragging');
+
+      const yOffset = PROJECTILE_SIZE / 2;
+      const xOffset = PROJECTILE_SIZE / 2;
+      const distance = (value / 100) * maxDistanceRef.current;
+
+      // Set a straight path to starting position
+      scope.current.style['offset-path'] = `path("${[
+        `M ${xOffset},${yOffset}`,
+        `${xOffset + distance},${yOffset}`,
+      ].join(' ')}")`;
+
+      // You read that right. We intentionally ask framer-motion to animate to
+      // -0%; Using 0%, it won't work for some reason. 🤷‍♂️
+      animate(scope.current, { offsetDistance: '-0%' }, { ease: 'easeInOut' });
     }
   };
 
@@ -150,10 +121,9 @@ export const BallisticSlider = ({
 
     const c = containerRef.current;
     const b = buttonRef.current;
-    const t = trackRef.current;
     const p = projectilePathRef.current;
 
-    if (!c || !b || !t || !p) return;
+    if (!c || !b || !p) return;
 
     const containerRect = c.getBoundingClientRect();
     const mouseX = e.clientX - containerRect.left;
@@ -170,7 +140,7 @@ export const BallisticSlider = ({
     // just a random number to simulate gravity acceleration (or rather, deceleration in this case)
     const g = 4;
     // We add a factor of 1.02, so the max distance can be reached even if
-    // the angle isn't exactly 45 degrees
+    // the angle isn't exactly 45 degrees, to improve usability
     const initialVelocity = Math.sqrt(1.02 * g * maxDistance);
 
     // Next, we can calculate the firing angle based on mouse position and the button position
@@ -208,7 +178,6 @@ export const BallisticSlider = ({
 
     valueRef.current = Math.round(sliderValue);
     maxDistanceRef.current = Math.round(maxDistance);
-    degreeRef.current = angleDegree;
     pathRef.current = paths;
 
     p.setAttribute(
@@ -233,7 +202,7 @@ export const BallisticSlider = ({
           height: ${height}px;
         `,
         'flex items-center justify-start',
-        'relative',
+        'relative overflow-y-visible',
       )}
     >
       <button
@@ -259,13 +228,10 @@ export const BallisticSlider = ({
         </motion.div>
       </button>
 
-      <div
-        ref={trackRef}
-        className={cn('ml-1 w-full flex-1 flex h-full relative')}
-      >
+      <div className={cn('ml-1 w-full flex-1 flex h-full relative')}>
         <div
           className={cn(
-            'pointer-events-none w-[100%] h-[2px]',
+            'pointer-events-none w-[100%] h-[2px] rounded-full',
             'absolute top-[50%] left-0 z-[-2] translate-y-[-1px]',
             css`
               background-color: ${getHslaColor('primary', 0.3)};
@@ -275,7 +241,7 @@ export const BallisticSlider = ({
         <div
           ref={scope}
           className={cn(
-            'absolute rounded-full z-[-1]',
+            'absolute rounded-full',
             'self-center',
             css`
               width: ${PROJECTILE_SIZE}px;
@@ -286,20 +252,18 @@ export const BallisticSlider = ({
           )}
         />
 
-        {showDebugger && (
-          <>
-            <svg className="w-full h-full">
-              <path
-                ref={projectilePathRef}
-                strokeWidth={2}
-                strokeDasharray={4}
-                stroke={getHslaColor('secondary', 0.7)}
-                fill="transparent"
-              />
-            </svg>
-            <TrackDebugger />
-          </>
+        {state !== 'idle' && (
+          <svg className="w-full h-full overflow-visible">
+            <path
+              ref={projectilePathRef}
+              strokeWidth={2}
+              strokeDasharray={4}
+              stroke={getHslaColor('secondary', 0.7)}
+              fill="transparent"
+            />
+          </svg>
         )}
+        {showDebugger && <TrackDebugger />}
       </div>
 
       {showDebugger && <Debugger />}
