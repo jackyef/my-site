@@ -56,13 +56,13 @@ export const rehypePlugins = [
   [
     rehypeAutolinkHeadings,
     {
-      behavior: 'append',
+      behavior: 'prepend',
       properties: {
         ariaHidden: true,
         tabIndex: -1,
         class: 'hash-link',
       },
-      content: hast('span', '🔗'),
+      content: hast('span', '#'),
     },
   ],
   rehypePrism,

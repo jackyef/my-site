@@ -284,14 +284,6 @@ body {
   }
 }
 
-/* heading anchor tags */
-.hash-link {
-  line-height: 1;
-  margin-left: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
 h1,
 h2,
 h3,
@@ -299,6 +291,31 @@ h4,
 h5,
 h6 {
   scroll-margin-block-start: 6rem;
+  transition: margin-inline-start 0.2s;
+  margin-inline-start: 0;
+  position: relative;
+}
+
+.hash-link {
+  position: absolute;
+  left: -3rem;
+  top: 50%;
+  display: inline-block;
+  line-height: 1.5;
+  transition: opacity 0.15s, transform 0.1s;
+  opacity: 0;
+  width: 3rem;
+  text-align: center;
+  box-shadow: none;
+  transform: translateX(2rem) translateY(-50%);
+}
+
+.hash-link:focus,
+.hash-link:hover,
+.hash-link:active {
+  box-shadow: none;
+  text-decoration: underline;
+  color: var(--color-outline);
 }
 
 h1:hover .hash-link,
@@ -308,6 +325,16 @@ h4:hover .hash-link,
 h5:hover .hash-link,
 h6:hover .hash-link {
   opacity: 1;
+  transform: translateX(0) translateY(-50%);
+}
+
+h1:has(> a.hash-link):hover,
+h2:has(> a.hash-link):hover,
+h3:has(> a.hash-link):hover,
+h4:has(> a.hash-link):hover,
+h5:has(> a.hash-link):hover,
+h6:has(> a.hash-link):hover {
+  margin-inline-start: 3rem;
 }
 
 /* For table of content */
