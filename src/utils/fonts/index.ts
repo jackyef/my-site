@@ -1,6 +1,6 @@
-import { Lora, Inter } from '@next/font/google';
+import { Lora, Work_Sans } from '@next/font/google';
 
-export const mainFont = Inter({
+export const mainFont = Work_Sans({
   variable: '--main-font',
   display: 'swap',
   subsets: ['latin'],
