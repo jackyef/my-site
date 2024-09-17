@@ -291,8 +291,8 @@ export const timelineEvents = [
         </UnorderedList>
         <p>
           As time went on, I became more and more comfortable with my work. By
-          the end of this period I started to be hold my own and also help other
-          with their works.
+          the end of this period I started to be able to hold my own and also
+          help other with their works.
         </p>
       </>
     ),
