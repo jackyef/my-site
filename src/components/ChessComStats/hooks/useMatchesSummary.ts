@@ -6,7 +6,7 @@ type Params = {
 };
 
 export const useMatchesSummary = ({ matches, username }: Params) => {
-  if (!matches) {
+  if (!matches || matches.length === 0) {
     return null;
   }
 

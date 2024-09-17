@@ -1,6 +1,10 @@
 import { useQueries } from 'react-query';
 
-import { RawAllTimeStats, RawMatchData, RawProfileStats } from 'types/chesscom';
+import {
+  RawAllTimeStats,
+  RawProfileStats,
+  RawRecentMatchesResponse,
+} from 'types/chesscom';
 
 // @ts-expect-error
 // eslint-disable-next-line
@@ -42,7 +46,7 @@ const fetchMatchData = async () => {
 
   const data = await response.json();
 
-  return data as Array<RawMatchData>;
+  return data as RawRecentMatchesResponse;
 };
 
 type Params = {
@@ -70,6 +74,6 @@ export const useStats = ({ userId }: Params) => {
 
   return {
     stats: stats.data?.stats,
-    matches: matches.data,
+    matches: matches.data?.games,
   };
 };

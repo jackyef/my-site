@@ -113,6 +113,11 @@ export type RawMatchData = {
   user2Accuracy: number | null;
 };
 
+export type RawRecentMatchesResponse = {
+  games: RawMatchData[];
+  totalGames: number;
+};
+
 export type GameType = {
   name: Name;
   code: Code;

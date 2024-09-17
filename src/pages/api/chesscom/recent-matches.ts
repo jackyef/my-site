@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { RawMatchData } from 'types/chesscom';
+import { RawRecentMatchesResponse } from 'types/chesscom';
 
 import { chessComUserId } from '@/utils/constants';
 
@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         throw new Error(response.statusText);
       }
 
-      const data = (await response.json()) as RawMatchData;
+      const data = (await response.json()) as RawRecentMatchesResponse;
 
       // set cache-control header for 10 minutes
       if (process.env.NODE_ENV === 'production') {
