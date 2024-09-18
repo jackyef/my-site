@@ -178,8 +178,8 @@ export default function About() {
         <div className="flex-1 lg:max-w-[47%]">
           <Paragraph className="lg:mt-20">
             Whoa, you scrolled this far! As a reward, here&apos;s a fun fact. I
-            recently picked up chess and found them to be pretty fun (on good
-            days 😂).
+            started playing chess in 2023 and found them to be pretty fun (on
+            good days 😂).
           </Paragraph>
           <Paragraph className="mb-0">
             My alias is{' '}
