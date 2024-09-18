@@ -3,14 +3,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { RawRecentMatchesResponse } from 'types/chesscom';
 
 import { chessComUserId } from '@/utils/constants';
+import { isValidTimeControl } from '@/utils/chessCom';
 
 const userId = chessComUserId;
 
 // The purpose of the API is to bypass chess.com CORS
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'GET') {
+  const timeControl = String(req.query.timeControl) ?? 'rapid';
+
+  if (req.method === 'GET' && isValidTimeControl(timeControl)) {
     try {
-      const targetUrl = `https://www.chess.com/callback/user/games?locale=en_US&gameType=chess&gameTimeClass=rapid&userId=${userId}`;
+      const targetUrl = `https://www.chess.com/callback/user/games?locale=en_US&gameType=chess&gameTimeClass=${timeControl}&userId=${userId}`;
       const response = await fetch(targetUrl);
 
       if (!response.ok) {

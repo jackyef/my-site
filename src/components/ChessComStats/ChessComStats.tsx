@@ -1,23 +1,37 @@
 import { animate, motion } from 'framer-motion';
 import { BarChart2Icon } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { formatNumber } from '@/lib/number';
+import { ChessComTimeControl } from 'types/chesscom';
 
 import { cn } from '@/utils/styles/classNames';
 
 import { useStats } from './hooks/useStats';
 import { useMatchesSummary } from './hooks/useMatchesSummary';
 import { Record } from './Record';
+import { ChessComTimeControlIcon } from './ChessComTimeCategoryIcon';
+import { TimeControlPicker } from './TimeControlPicker';
 
 // This is my chess.com information
 // If you are copying this, remember to change this.
 export const username = 'PixelParser';
 const userId = '344047395'; // '288942993'; old banned account
 
+const timeControlEmoji: Record<ChessComTimeControl, string> = {
+  rapid: '🏃',
+  blitz: '⚡',
+  bullet: '',
+};
+
 export const ChessComStats = () => {
   const ratingRef = useRef<HTMLSpanElement>(null);
-  const { stats, matches } = useStats({ userId });
+  const [activeTimeControl, setActiveTimeControl] =
+    useState<ChessComTimeControl>('rapid');
+  const { stats, matches } = useStats({
+    userId,
+    timeControl: activeTimeControl,
+  });
   const matchesSummary = useMatchesSummary({ matches, username });
 
   // TODO: loading state
@@ -27,6 +41,7 @@ export const ChessComStats = () => {
 
   return (
     <motion.div
+      key={activeTimeControl}
       className={cn(
         'rounded-2xl text-theme-text p-6 my-4',
         'flex flex-col gap-4 relative overflow-clip',
@@ -35,6 +50,7 @@ export const ChessComStats = () => {
       )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      layout
     >
       {/* Background image */}
       <motion.img
@@ -47,6 +63,12 @@ export const ChessComStats = () => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 0.7, x: 0, transition: { delay: 0.2 } }}
       />
+
+      <TimeControlPicker
+        value={activeTimeControl}
+        onChange={setActiveTimeControl}
+      />
+
       <motion.dl
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.4 } }}
@@ -66,7 +88,7 @@ export const ChessComStats = () => {
         }}
       >
         <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
-          Rating (rapid)
+          Rating ({activeTimeControl})
         </dt>
         <dd className={cn('text-4xl font-bold flex gap-1 items-center')}>
           <motion.span ref={ratingRef}>0</motion.span>{' '}
@@ -104,7 +126,8 @@ export const ChessComStats = () => {
         />
       </motion.div>
 
-      <motion.div
+      {/* TODO: Hidden for now. Figure out a way to incorporate this nicely */}
+      {/* <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.6 } }}
       >
@@ -112,26 +135,24 @@ export const ChessComStats = () => {
           Avg. accuracy
           <p className="text-lg">{matchesSummary.avgAccuracy}</p>
         </p>
-      </motion.div>
+      </motion.div> */}
 
-      {matchesSummary.streakCount > 1 && (
-        <motion.dl
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 0.7 } }}
-        >
-          <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
-            Current streak
-          </dt>
-          <dd className="text-lg">
-            {matchesSummary.streakCount} {matchesSummary.lastResult}{' '}
-            <>
-              {Array.from({
-                length: Math.ceil(matchesSummary.streakCount / 3),
-              }).fill(matchesSummary.lastResult === 'wins' ? '🔥' : '🥶')}
-            </>
-          </dd>
-        </motion.dl>
-      )}
+      <motion.dl
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0, transition: { delay: 0.7 } }}
+      >
+        <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+          Current streak
+        </dt>
+        <dd className="text-lg">
+          {matchesSummary.streakCount} {matchesSummary.lastResult}{' '}
+          <>
+            {Array.from({
+              length: Math.ceil(matchesSummary.streakCount / 3),
+            }).fill(matchesSummary.lastResult === 'wins' ? '🔥' : '🥶')}
+          </>
+        </dd>
+      </motion.dl>
     </motion.div>
   );
 };

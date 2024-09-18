@@ -145,3 +145,5 @@ export type User = {
   membershipLevel: number;
   flairCode: string;
 };
+
+export type ChessComTimeControl = 'rapid' | 'blitz' | 'bullet';

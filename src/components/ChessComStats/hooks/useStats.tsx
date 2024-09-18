@@ -1,6 +1,7 @@
 import { useQueries } from 'react-query';
 
 import {
+  ChessComTimeControl,
   RawAllTimeStats,
   RawProfileStats,
   RawRecentMatchesResponse,
@@ -25,8 +26,10 @@ const fetchStats = async (username: string) => {
   return data as RawProfileStats;
 };
 
-const fetchAllTimeStats = async () => {
-  const response = await fetch(`/api/chesscom/all-time-stats`);
+const fetchAllTimeStats = async (timeControl: ChessComTimeControl) => {
+  const response = await fetch(
+    `/api/chesscom/all-time-stats?timeControl=${timeControl}`,
+  );
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -37,8 +40,10 @@ const fetchAllTimeStats = async () => {
   return data as RawAllTimeStats;
 };
 
-const fetchMatchData = async () => {
-  const response = await fetch(`/api/chesscom/recent-matches`);
+const fetchMatchData = async (timeControl: ChessComTimeControl) => {
+  const response = await fetch(
+    `/api/chesscom/recent-matches?timeControl=${timeControl}`,
+  );
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -51,9 +56,10 @@ const fetchMatchData = async () => {
 
 type Params = {
   userId: string;
+  timeControl?: ChessComTimeControl;
 };
 
-export const useStats = ({ userId }: Params) => {
+export const useStats = ({ userId, timeControl = 'rapid' }: Params) => {
   const [stats, matches] = useQueries([
     // {
     //   queryKey: ['stats', username],
@@ -61,14 +67,14 @@ export const useStats = ({ userId }: Params) => {
     //   queryFn: () => fetchStats(username),
     // },
     {
-      queryKey: ['allTimeStats', userId],
+      queryKey: ['allTimeStats', userId, timeControl],
       staleTime: 1000 * 60 * 10,
-      queryFn: () => fetchAllTimeStats(),
+      queryFn: () => fetchAllTimeStats(timeControl),
     },
     {
-      queryKey: ['matches', userId], // Recent matches, max 20
+      queryKey: ['matches', userId, timeControl], // Recent matches, max 20
       staleTime: 1000 * 60 * 10,
-      queryFn: () => fetchMatchData(),
+      queryFn: () => fetchMatchData(timeControl),
     },
   ]);
 

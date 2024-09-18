@@ -3,16 +3,19 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { RawAllTimeStats } from 'types/chesscom';
 
 import { chessComUsername } from '@/utils/constants';
+import { isValidTimeControl } from '@/utils/chessCom';
 
 // The purpose of the API is to bypass chess.com CORS
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'GET') {
+  const timeControl = String(req.query.timeControl) ?? 'rapid';
+
+  if (req.method === 'GET' && isValidTimeControl(timeControl)) {
     try {
-      const targetUrl = `https://www.chess.com/callback/stats/live/rapid/${chessComUsername}/0`;
+      const targetUrl = `https://www.chess.com/callback/stats/live/${timeControl}/${chessComUsername}/0`;
       const response = await fetch(targetUrl, {
         headers: {
           Accept: 'application/json',
-          referer: `https://www.chess.com/stats/live/rapid/${chessComUsername}/0`,
+          referer: `https://www.chess.com/stats/live/${timeControl}/${chessComUsername}/0`,
           'user-agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
         },
