@@ -10,19 +10,12 @@ import { cn } from '@/utils/styles/classNames';
 import { useStats } from './hooks/useStats';
 import { useMatchesSummary } from './hooks/useMatchesSummary';
 import { Record } from './Record';
-import { ChessComTimeControlIcon } from './ChessComTimeCategoryIcon';
 import { TimeControlPicker } from './TimeControlPicker';
 
 // This is my chess.com information
 // If you are copying this, remember to change this.
 export const username = 'PixelParser';
 const userId = '344047395'; // '288942993'; old banned account
-
-const timeControlEmoji: Record<ChessComTimeControl, string> = {
-  rapid: '🏃',
-  blitz: '⚡',
-  bullet: '',
-};
 
 export const ChessComStats = () => {
   const ratingRef = useRef<HTMLSpanElement>(null);
