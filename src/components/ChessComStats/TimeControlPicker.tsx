@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { css } from 'goober';
 
 import { ChessComTimeControl } from 'types/chesscom';
