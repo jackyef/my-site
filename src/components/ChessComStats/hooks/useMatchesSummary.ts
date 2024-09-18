@@ -56,11 +56,18 @@ export const useMatchesSummary = ({ matches, username }: Params) => {
     return acc;
   }, 0);
   const totalDraws = matches.length - totalWins - totalLosses;
+  const avgAccuracy = (
+    matches.reduce((acc, match) => {
+      const user = match.user1.username === username ? 'user1' : 'user2';
+      return acc + (match[`${user}Accuracy`] ?? 0);
+    }, 0) / matches.filter((match) => match.user1Accuracy !== null).length
+  ).toFixed(1);
 
   return {
     streakCount,
     lastResult: resultString,
     totalMatches: matches.length,
+    avgAccuracy,
     wins: totalWins,
     losses: totalLosses,
     draws: totalDraws,

@@ -104,6 +104,16 @@ export const ChessComStats = () => {
         />
       </motion.div>
 
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0, transition: { delay: 0.6 } }}
+      >
+        <p className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+          Avg. accuracy
+          <p className="text-lg">{matchesSummary.avgAccuracy}</p>
+        </p>
+      </motion.div>
+
       {matchesSummary.streakCount > 1 && (
         <motion.dl
           initial={{ opacity: 0, x: 20 }}
