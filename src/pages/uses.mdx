@@ -1,7 +1,7 @@
 ---
 title: Uses
 description: List of things that I use daily.
-date: '2023-04-15T03:36:40.989Z'
+date: '2024-11-17T03:36:40.989Z'
 ogImage:
    title: Things I use 👨‍💻🧰
    description: List of things that I use daily.
@@ -24,9 +24,12 @@ the future OR upgrade in the future.
 
 1. Windows 10 PC
 
-   - CPU: Intel i5-12400
-   - Memory: 64 GB DDR4
-   - SSD: Samsung EVO 970 Plus
+   - CPU: Intel i5-14600K
+   - Memory: 128 GB DDR4
+   - SSD:
+     - 1TB Samsung EVO 870 (Boot drive)
+     - 2TB Samsung EVO 970 Plus (Work stuff, WSL2, Docker, etc.)
+     - 4TB Samsung EVO 870 (Games and other stuff)
 
    This PC started off as my gaming PC to unwind after work. In mid 2022, I
    decided to upgrade it and run Ubuntu in WSL2 on it. My development workflow
@@ -36,22 +39,20 @@ the future OR upgrade in the future.
    about setting it up in
    [`wsl2-as-devbox`](https://github.com/jackyef/wsl2-as-devbox).
 
-2. MacBook Pro 2020 - i7 32GB/1TB
+2. MacBook Pro 2024 - M4 Pro 24GB/1TB
 
-   This is the MacBook that I used daily before setting up my PC with WSL. 
-   It is plenty fast for web development, until you need to run Docker on it. 
-   I spent the extra money to get 32GB/1TB for future-proofing. 
-   Now that I have Docker running on my PC, I might just get a less powerful laptop
-   next time I replace my laptop. I don't use it much nowadays, mostly only on 
-   days that I work outside home.
+   I finally upgraded from my 2017 MacBook Pro! I got the 24GB eventhough it is less than the previous 32GB MBP.
+   I think this is fine because I am using my Windows PC as the devbox anyway.
+   I got the nano-texture display and it has been an absolute joy to use this machine when I am on-the-go!
+   Harsh lighting conditions are no longer a problem.
 
 ### Displays 📺
 
-I am using a
-[27-inch LG](https://www.lg.com/id/monitor/lg-27gp850-b)
-as my primary display and a
+I am using a [AORUS FO27Q3](https://www.gigabyte.com/Monitor/AORUS-FO27Q3) as my primary display. OLED isn't the best for productivity,
+but I gave into the temptation because I love good blacks when gaming. I have a
 [21-inch Acer](https://www.acer.com/ac/en/HK/content/model/UM.WE1CF.001) as a
-secondary. 
+secondary. I also have a [27-inch LG](https://www.lg.com/id/monitor/lg-27gp850-b) which is currently used as a 
+substitute, but I may be replacing the 21-inch Acer with this soon. 
 
 I used to use a Dell monitor with USB-C connection and it was great! 
 Though now that I don't use my MacBook that much, I replaced it with a monitor
@@ -75,24 +76,26 @@ have to the default `.zshrc`:
 # Allows for aliases like: dce, dcup, dcdn, dclf, etc.
 plugins=(git docker-compose)
 
-# Aliasing gpuo because I find myself doing this quite often.
+# Some aliases for less keystrokes
 alias gpuo="git push -u origin"
+alias gpuo="git push -u origin"
+alias dclfs="docker-compose logs -f --since 0m"
+alias dcrr="docker-compose run --rm"
+
+# Clean up branches excluding the provided args
+# e.g.: `gbclean develop` will delete all branches except `master` and `develop`
+gbclean() {
+  exclude_branches="master"
+  if [[ -n $1 ]]; then
+    exclude_branches="$exclude_branches|$1"
+  fi
+  gb | cut -c 3- | grep -vE "$exclude_branches" | xargs git branch -D
+}
+
 
 # Customizing prompt so I know I am currently in an SSH session in my WSL2 instance
 # I only do this on my WSL2 instance
 PROMPT="%{$fg[grey]%}[%D{%f/%m/%y} %D{%L:%M:%S}] %{$fg[green]%}%n@%{$fg[cyan]%}%m%{$reset_color%} ${PROMPT}"
-
-# Adding paths to the binaries I use
-
-# nvm (should be added automatically by nvm on install)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# go
-export PATH=$PATH:/usr/local/go/bin
-# yarn
-export PATH="$PATH:$(yarn global bin)"
 ```
 
 ### Code editor
