@@ -29,7 +29,11 @@ export const formatDate = (
 
 const monthFormatter: Map<string, Intl.DateTimeFormat> = new Map();
 
-const getMonthFormatter = (languageKey: string, withYear: boolean, monthFormat: Intl.DateTimeFormatOptions['month']) => {
+const getMonthFormatter = (
+  languageKey: string,
+  withYear: boolean,
+  monthFormat: Intl.DateTimeFormatOptions['month'],
+) => {
   const cacheKey = `${languageKey}${withYear}${monthFormat}`;
   if (monthFormatter.get(cacheKey)) return monthFormatter.get(cacheKey);
 
@@ -73,8 +77,8 @@ export const getTimeDifference = (a: Date, b: Date) => {
   }
 
   const years = Math.floor(monthDiff / 12);
-  const months = monthDiff % 12 + 1;
-  
+  const months = (monthDiff % 12) + 1;
+
   if (months === 12) {
     return `${years + 1}y`;
   }

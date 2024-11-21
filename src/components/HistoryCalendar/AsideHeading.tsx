@@ -22,10 +22,17 @@ export const AsideHeading = ({
   onPrevClick,
 }: Props) => {
   const from =
-    event.from === TIMELINE_START ? '2013' : formatMonth(event.from, true, 'en-US', 'short');
-  const to = event.to === TODAY ? 'Present' : formatMonth(event.to, true, 'en-US', 'short');
+    event.from === TIMELINE_START
+      ? '2013'
+      : formatMonth(event.from, true, 'en-US', 'short');
+  const to =
+    event.to === TODAY
+      ? 'Present'
+      : formatMonth(event.to, true, 'en-US', 'short');
 
-  const headingText = `${from === to ? from : `${from} – ${to}`} (${getTimeDifference(event.from, event.to)})`;
+  const headingText = `${
+    from === to ? from : `${from} – ${to}`
+  } (${getTimeDifference(event.from, event.to)})`;
 
   return (
     <h2
