@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
-import { formatMonth, TODAY } from '@/lib/datetime';
+import { formatMonth, getTimeDifference, TODAY } from '@/lib/datetime';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -22,10 +22,10 @@ export const AsideHeading = ({
   onPrevClick,
 }: Props) => {
   const from =
-    event.from === TIMELINE_START ? '2013' : formatMonth(event.from, true);
-  const to = event.to === TODAY ? 'Present' : formatMonth(event.to, true);
+    event.from === TIMELINE_START ? '2013' : formatMonth(event.from, true, 'en-US', 'short');
+  const to = event.to === TODAY ? 'Present' : formatMonth(event.to, true, 'en-US', 'short');
 
-  const headingText = from === to ? from : `${from} – ${to}`;
+  const headingText = `${from === to ? from : `${from} – ${to}`} (${getTimeDifference(event.from, event.to)})`;
 
   return (
     <h2

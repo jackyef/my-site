@@ -177,7 +177,7 @@ export const timelineEvents = [
           The Mobile Web team grew into the Web Platform team, receiving more
           responsibility and ownership over the web platform frontend as a whole
           at Tokopedia. The frontend tech-stack was not at all unified, and
-          unifying them was one of the Wen Platform team&apos;s main goals.
+          unifying them was one of the Web Platform team&apos;s main goals.
         </p>
         <p>
           During these early days, we focused on onboarding new members who
@@ -335,7 +335,7 @@ export const timelineEvents = [
     ),
   },
   {
-    from: TIMELINE_START,
+    from: new Date('2013-06-01'),
     to: new Date('2017-05-31'),
     title: '🎓 College Student and 🤓 Part-Time English Teacher',
     description: 'Doing what I can to survive',

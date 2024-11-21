@@ -29,14 +29,14 @@ export const formatDate = (
 
 const monthFormatter: Map<string, Intl.DateTimeFormat> = new Map();
 
-const getMonthFormatter = (languageKey: string, withYear: boolean) => {
-  const cacheKey = `${languageKey}${withYear}`;
+const getMonthFormatter = (languageKey: string, withYear: boolean, monthFormat: Intl.DateTimeFormatOptions['month']) => {
+  const cacheKey = `${languageKey}${withYear}${monthFormat}`;
   if (monthFormatter.get(cacheKey)) return monthFormatter.get(cacheKey);
 
   monthFormatter.set(
     cacheKey,
     new Intl.DateTimeFormat(languageKey, {
-      month: 'long',
+      month: monthFormat,
       year: withYear ? 'numeric' : undefined,
     }),
   );
@@ -48,10 +48,36 @@ export const formatMonth = (
   date: Date,
   withYear = false,
   languageKey: LocaleTag = 'en-US',
-) => getMonthFormatter(languageKey, withYear)?.format(date);
+  monthFormat: Intl.DateTimeFormatOptions['month'] = 'long',
+) => getMonthFormatter(languageKey, withYear, monthFormat)?.format(date);
 
 export const getMonthDifference = (a: Date, b: Date) => {
   return (
     (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth())
   );
+};
+
+export const getTimeDifference = (a: Date, b: Date) => {
+  const monthDiff = getMonthDifference(a, b);
+
+  if (monthDiff < 1) {
+    return `1m`;
+  }
+
+  if (monthDiff < 11) {
+    return `${monthDiff + 1}m`;
+  }
+
+  if (monthDiff === 11) {
+    return `1y`;
+  }
+
+  const years = Math.floor(monthDiff / 12);
+  const months = monthDiff % 12 + 1;
+  
+  if (months === 12) {
+    return `${years + 1}y`;
+  }
+
+  return `${years}y ${months}m`;
 };
