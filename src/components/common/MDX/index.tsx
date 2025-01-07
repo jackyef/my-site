@@ -1,5 +1,5 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 import { Flipped } from 'react-flip-toolkit';
 import dynamic from 'next/dynamic';
 
@@ -20,6 +20,7 @@ import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { Mark } from '../Mark';
+import { Table } from '../Table';
 
 import { Pre, PreCode } from './components/Pre';
 import { Anchor } from './components/Anchor';
@@ -34,6 +35,19 @@ const mdxComponents = {
   h4: H4,
   h5: H5,
   Image,
+  ClickableImage: (props: ImageProps) => {
+    return (
+      <a
+        href={props.src as string}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn('relative block w-full h-96 not-prose')}
+      >
+        <Image {...props} className={cn('object-contain')} />
+      </a>
+    );
+  },
+  Table,
   HorizontalDivider,
   Mark,
   Flipped,
