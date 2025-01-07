@@ -234,6 +234,8 @@ stream.on('data', (chunk) => {
 })
 ```
 
+[Code at this point](https://github.com/jackyef/nodejs/blob/117350d9912e69023d02fa11ef4f0f2bd05f8f08/src/main/nodejs/baseline-improving/index.js)
+
 After this improvement, the whole process now finishes in `2m35.389s`; a ~2.2x speedup from the baseline implementation. Pretty good start!
 Let's look at the flamegraph again to see if there are other parts that we can improve.
 
@@ -298,6 +300,8 @@ And we can replace the `Number()` conversion with this function:
 ```js
 const temp = specificNumberConversion(tempBuffer, tempBufferIndex - 1);
 ```
+
+[Code at this point](https://github.com/jackyef/nodejs/blob/01be6cd3c2332cd5917de55558926464635c322d/src/main/nodejs/baseline-improving/index.js)
 
 With this improvement, I was getting `1m44.210s`, a pretty sizable improvement! We are now at ~3.3x speedup from the baseline implementation.
 There are probably some other places for minor improvements, but I think this is a good place to start parallelizing the work to 
@@ -453,6 +457,8 @@ stream.on('end', () => {
 });
 ```
 
+[Code at this point](https://github.com/jackyef/nodejs/blob/62b91be36e72038c1735637b0b66fb46dcfc1cb7/src/main/nodejs/baseline-improving/index.js)
+
 That's it! With this implementation, I was able to finish the challenge in `0m11.210s`, a ~30x speedup from the baseline implementation.
 The M4 Pro I am using has 14 cores, but the performance increment we are getting from our previous implementation is not ~14x, but ~9x instead.
 This is likely due to the fact that not all the cores are equal (10 of them are high-performance cores and 4 of them are high-efficiency cores).
@@ -472,22 +478,22 @@ Some other factors are also probably in play, like the overhead of spawning work
   </Table.THead>
   <Table.TBody>
     <Table.Tr>
-      <Table.Td>Baseline</Table.Td>
+      <Table.Td>[Baseline](https://github.com/jackyef/nodejs/blob/403cd7889e0fd4bcbf60305365b83395f48673b1/src/main/nodejs/baseline-improving/index.js)</Table.Td>
       <Table.Td>5m41s</Table.Td>
       <Table.Td>1x</Table.Td>
     </Table.Tr>
     <Table.Tr>
-      <Table.Td>Work with bytes, not strings</Table.Td>
+      <Table.Td>[Work with bytes, not strings](https://github.com/jackyef/nodejs/blob/117350d9912e69023d02fa11ef4f0f2bd05f8f08/src/main/nodejs/baseline-improving/index.js)</Table.Td>
       <Table.Td>2m35s</Table.Td>
       <Table.Td>2.2x</Table.Td>
     </Table.Tr>
     <Table.Tr>
-      <Table.Td>Specialized number conversion</Table.Td>
+      <Table.Td>[Specialized number conversion](https://github.com/jackyef/nodejs/blob/01be6cd3c2332cd5917de55558926464635c322d/src/main/nodejs/baseline-improving/index.js)</Table.Td>
       <Table.Td>1m44s</Table.Td>
       <Table.Td>3.3x</Table.Td>
     </Table.Tr>
     <Table.Tr>
-      <Table.Td>Parallelization, 14 cores (10P/4E)</Table.Td>
+      <Table.Td>[Parallelization, 14 cores (10P/4E)](https://github.com/jackyef/nodejs/blob/62b91be36e72038c1735637b0b66fb46dcfc1cb7/src/main/nodejs/baseline-improving/index.js)</Table.Td>
       <Table.Td>11s</Table.Td>
       <Table.Td>30x</Table.Td>
     </Table.Tr>
