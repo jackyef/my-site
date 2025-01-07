@@ -197,6 +197,9 @@ module.exports = {
             },
             code: {
               color: theme('colors.theme.text'),
+              backgroundColor: theme('colors.theme.info'),
+              padding: theme('padding.1'),
+              borderRadius: theme('borderRadius.md'),
             },
             li: {
               '&::marker': {
