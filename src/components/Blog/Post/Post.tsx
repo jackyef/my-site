@@ -6,12 +6,11 @@ import { css } from 'goober';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { HorizontalDivider } from '@/components/Divider';
-import { LazyWebmentionWidget } from '@/components/Webmention/LazyWebmentionWidget';
-import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 import { useShouldAnimateNavigation } from '@/contexts/navigation';
 import { MDXProvider } from '@/components/common/MDX';
 import { Post as PostType } from '@/blog/types';
 import { getHslaColor } from '@/lib/styles/colors';
+import { TwitterShare } from '@/components/Social/TwitterShare';
 
 import { cn } from '@/utils/styles/classNames';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
@@ -103,19 +102,9 @@ export default function Post({ post }: Props) {
           <HorizontalDivider />
 
           {isBlogPost && (
-            <IOWrapper>
-              {(show) =>
-                show ? (
-                  <Suspense
-                    fallback={
-                      <h3 className="text-lg font-bold mb-2">Webmentions</h3>
-                    }
-                  >
-                    <LazyWebmentionWidget url={fullUrl} meta={meta} />
-                  </Suspense>
-                ) : null
-              }
-            </IOWrapper>
+            <TwitterShare text={`${meta.title} ${fullUrl} via @jackyef__`}>
+              Share on Twitter
+            </TwitterShare>
           )}
         </div>
       </article>
