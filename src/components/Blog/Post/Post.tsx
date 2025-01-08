@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, Suspense } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { spring } from 'react-flip-toolkit';
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
