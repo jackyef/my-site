@@ -31,7 +31,18 @@ export const ThemeProvider = ({ children }: Props) => {
   );
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    if (!document.startViewTransition) {
+      // Non-supporting browsers
+      document.documentElement.setAttribute('data-theme', theme);
+    } else {
+      const transition = document.startViewTransition(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      });
+      transition.finished.then(() => {
+        // Do something after the transition is finished if needed
+      });
+    }
+
     localStorage.setItem('theme', theme);
   }, [theme]);
 

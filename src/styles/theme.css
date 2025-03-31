@@ -404,3 +404,31 @@ a:focus {
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 }
+
+/* theme transitions */
+::view-transition-old(root) { 
+  animation: none
+}
+
+::view-transition-new(root) {
+  animation: 0.7s cubic-bezier(0.25, 1, 0.3, 1) viewTransitionAnimation;
+  clip-path: inset(0, 100%, 0, 0);
+}
+
+@keyframes viewTransitionAnimation { 
+  0% {
+    clip-path: inset(0 50% 100% 0);
+  }
+
+  30% {
+    clip-path: inset(0 50% 50% 0);
+  }
+
+  60% {
+    clip-path: inset(0 0 50% 0);
+  }
+
+  100% { 
+    clip-path: inset(0 0 0 0);
+  }
+}
