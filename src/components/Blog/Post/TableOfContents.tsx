@@ -66,7 +66,10 @@ export const TableOfContents = ({ headings }: Props) => {
   }, [headings]);
 
   return (
-    <nav aria-labelledby={labelId}>
+    <nav
+      aria-labelledby={labelId}
+      className={cn('max-h-[80vh] overflow-y-auto')}
+    >
       <div
         className={cn(
           'font-bold text-theme-heading opacity-70 mb-4 uppercase tracking-wider',
