@@ -68,7 +68,7 @@ export const TableOfContents = ({ headings }: Props) => {
   return (
     <nav
       aria-labelledby={labelId}
-      className={cn('max-h-[80vh] overflow-y-auto')}
+      className={cn('max-h-[80vh] overflow-y-auto overflow-x-clip')}
     >
       <div
         className={cn(
