@@ -14,32 +14,34 @@ export type JobHistoryEvent = BaseEvent & {
 };
 
 export const timelineEvents = [
-  {
-    from: new Date('2025-10-01'),
-    to: TODAY,
-    title: 'Senior Software Engineer',
-    description: 'Sticker Mule',
-    variant: 'amber',
-    details: (
-      <>
-        <p>
-          After having a taste of a Tech Lead role for almost 2 years, I am now
-          back to being an individual contributor (IC) again! It has been a nice
-          experience, but I missed being an IC, so I took the opportunity to
-          step down amidst a reorg.
-        </p>
+  TODAY >= new Date('2025-10-01')
+    ? {
+        from: new Date('2025-10-01'),
+        to: TODAY,
+        title: 'Senior Software Engineer',
+        description: 'Sticker Mule',
+        variant: 'amber',
+        details: (
+          <>
+            <p>
+              After having a taste of a Tech Lead role for almost 2 years, I am
+              now back to being an individual contributor (IC) again! It has
+              been a nice experience, but I missed being an IC, so I took the
+              opportunity to step down amidst a reorg.
+            </p>
 
-        <p>
-          One of the first projects I would be involved in will be a
-          cross-company design system update; hopefully I would learn much and
-          thus have things to share in coming days!
-        </p>
-      </>
-    ),
-  },
+            <p>
+              One of the first projects I would be involved in will be a
+              cross-company design system update; hopefully I would learn much
+              and thus have things to share in coming days!
+            </p>
+          </>
+        ),
+      }
+    : null,
   {
     from: new Date('2023-12-01'),
-    to: new Date('2025-00-30'),
+    to: new Date('2025-09-30'),
     title: 'Tech Lead',
     description: 'Sticker Mule',
     variant: 'sky',
@@ -374,4 +376,4 @@ export const timelineEvents = [
       </>
     ),
   },
-] as const;
+].filter(Boolean);
