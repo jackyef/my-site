@@ -376,4 +376,4 @@ export const timelineEvents = [
       </>
     ),
   },
-].filter(Boolean);
+].filter(Boolean) as JobHistoryEvent[];
