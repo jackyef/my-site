@@ -2,9 +2,6 @@
   "name": "my-site-2",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "pnpm": "10"
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development next-remote-watch ./src/pages/posts",
     "build": "cross-env NODE_ENV=production next build && npm run build:sitemap-rss",
