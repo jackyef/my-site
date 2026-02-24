@@ -61,13 +61,11 @@ const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
 
 interface Options {
   onNavigate?: () => void;
-  onSelect?: () => void;
   onBack?: () => void;
 }
 
 export const useControllerNavigation = ({
   onNavigate,
-  onSelect,
   onBack,
 }: Options = {}) => {
   const { pop } = useBigPictureContext();
@@ -92,7 +90,9 @@ export const useControllerNavigation = ({
           moveFocus('down');
           break;
         case BUTTON.A:
-          onSelect?.();
+          // Don't call onSelect here — the synthetic .click() below fires a
+          // click event that the shell's document listener will catch instead,
+          // avoiding double-playing when using a gamepad.
           (document.activeElement as HTMLElement)?.click();
           break;
         case BUTTON.B:
@@ -102,7 +102,7 @@ export const useControllerNavigation = ({
           break;
       }
     },
-    [pop, onNavigate, onSelect, onBack],
+    [pop, onNavigate, onBack],
   );
 
   const handleAxisChange = useCallback(

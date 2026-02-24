@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { FocusCard } from './FocusCard';
 
 interface Props {
@@ -22,29 +24,47 @@ export const SectionTile = ({
       row="sections"
       onClick={onClick}
       prefersReducedMotion={prefersReducedMotion}
-      className="flex flex-col gap-3 p-6 w-full h-full min-h-[180px]"
-      style={
-        {
-          '--accent': accentColor,
-        } as React.CSSProperties
-      }
+      className="flex flex-col p-8 w-full h-full gap-6"
+      style={{ '--accent': accentColor } as React.CSSProperties}
     >
+      {/* Accent glow backdrop */}
       <div
-        className="text-4xl w-14 h-14 flex items-center justify-center rounded-xl"
-        style={{ background: `${accentColor}20` }}
+        className="pointer-events-none absolute inset-0 rounded-2xl"
+        style={{
+          background: `radial-gradient(ellipse at top left, ${accentColor}18, transparent 55%)`,
+        }}
+      />
+
+      {/* Icon */}
+      <div
+        className="text-6xl w-20 h-20 flex items-center justify-center rounded-2xl shrink-0 relative"
+        style={{ background: `${accentColor}18` }}
       >
         {icon}
       </div>
-      <div className="flex-1">
-        <h3 className="text-white font-bold text-xl mb-1">{title}</h3>
-        <p className="text-white/50 text-sm leading-relaxed">{description}</p>
+
+      {/* Text */}
+      <div className="flex-1 flex flex-col gap-3 relative">
+        <h3 className="text-white font-bold text-2xl leading-tight">{title}</h3>
+        <p className="text-white/50 text-base leading-relaxed">{description}</p>
       </div>
+
+      {/* Footer hint */}
       <div
-        className="text-xs font-semibold uppercase tracking-wider"
+        className="relative text-xs font-bold uppercase tracking-widest flex items-center gap-2 shrink-0"
         style={{ color: accentColor }}
       >
-        Press ⊕ to enter →
+        <span>⊕</span>
+        <span>Enter</span>
       </div>
+
+      {/* Bottom accent line */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-2xl"
+        style={{
+          background: `linear-gradient(90deg, ${accentColor}70, transparent)`,
+        }}
+      />
     </FocusCard>
   );
 };

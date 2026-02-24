@@ -104,7 +104,25 @@ export const BigPictureShell = ({ onNavigate, onSelect, onBack }: Props) => {
   const { currentScreen } = useBigPictureContext();
   const prefersReducedMotion = useReduceMotion();
 
-  useControllerNavigation({ onNavigate, onSelect, onBack });
+  useControllerNavigation({ onNavigate, onBack });
+
+  // Single source of truth for click sounds — covers mouse, keyboard Enter,
+  // and gamepad A (which calls .click() on the focused element).
+  // TopBar buttons have data-bp-row="topbar" → back sound; all others → select.
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const focusable = target.closest<HTMLElement>('.bp-focusable');
+      if (!focusable) return;
+      if (focusable.dataset.bpRow === 'topbar') {
+        onBack();
+      } else {
+        onSelect();
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [onSelect, onBack]);
 
   // Focus first focusable element when screen changes
   useEffect(() => {

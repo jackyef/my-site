@@ -62,14 +62,17 @@ export const AboutScreen = () => {
         <h2 className="text-lg font-semibold text-white/70 uppercase tracking-wider mb-3 text-sm">
           Links
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div
+          className="flex flex-row gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: 'none' }}
+        >
           {LINKS.map(({ label, href, icon }) => (
             <FocusCard
               key={label}
               row="links"
               prefersReducedMotion={prefersReducedMotion}
               onClick={() => window.open(href, '_blank')}
-              className="flex items-center gap-3 px-4 py-4"
+              className="flex items-center gap-3 px-5 py-4 shrink-0"
             >
               <span className="text-xl">{icon}</span>
               <span className="text-white/80 text-sm font-medium">{label}</span>
