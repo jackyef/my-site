@@ -11,9 +11,14 @@ import { NextRouter } from 'next/router';
 export const QUERIES = [
   'Toggle dark/light theme',
   'Share this article',
+  'Enter Big Picture mode',
 ] as const;
 
-export const ACTIONS = ['TOGGLE_DARK_LIGHT_THEME', 'SHARE_ARTICLE'] as const;
+export const ACTIONS = [
+  'TOGGLE_DARK_LIGHT_THEME',
+  'SHARE_ARTICLE',
+  'ENTER_BIG_PICTURE',
+] as const;
 
 export const DEFAULT_QUERIES = [...QUERIES];
 
@@ -23,6 +28,7 @@ export type Query = typeof QUERIES[number];
 export const QUERIES_ACTIONS_MAP: Record<Query, Action> = {
   'Toggle dark/light theme': 'TOGGLE_DARK_LIGHT_THEME',
   'Share this article': 'SHARE_ARTICLE',
+  'Enter Big Picture mode': 'ENTER_BIG_PICTURE',
 };
 
 export const filterValidQueries = (
