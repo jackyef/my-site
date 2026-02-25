@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import hotToast from 'react-hot-toast';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+import { BUTTON } from './constants';
 
 /**
  * Tiny component dynamically imported in _app.tsx.
@@ -9,16 +12,60 @@ import Link from 'next/link';
  */
 export const GamepadToast = () => {
   const shownRef = useRef(false);
+  const routerRef = useRef<ReturnType<typeof useRouter> | null>(null);
+  const router = useRouter();
+  routerRef.current = router;
 
   useEffect(() => {
+    let rafId: number | null = null;
+    let prevStartPressed = false;
+
+    const stopPolling = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    const startPolling = (toastId: string) => {
+      const poll = () => {
+        const gamepads = navigator.getGamepads();
+        const gamepad = Array.from(gamepads).find(Boolean);
+
+        if (gamepad) {
+          const isPressed = gamepad.buttons[BUTTON.START]?.pressed ?? false;
+
+          if (isPressed && !prevStartPressed) {
+            hotToast.dismiss(toastId);
+            routerRef.current?.push('/absurd-ui/big-picture');
+            stopPolling();
+            return;
+          }
+
+          prevStartPressed = isPressed;
+        }
+
+        rafId = requestAnimationFrame(poll);
+      };
+
+      rafId = requestAnimationFrame(poll);
+    };
+
     const handleConnected = () => {
       if (shownRef.current) return;
       shownRef.current = true;
 
-      hotToast(
+      const toastId = hotToast(
         (t) => (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span>🎮 Controller detected!</span>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '12px',
+            }}
+          >
+            <div>🎮 Controller detected!</div>
             <Link
               href="/absurd-ui/big-picture"
               onClick={() => hotToast.dismiss(t.id)}
@@ -33,7 +80,7 @@ export const GamepadToast = () => {
                 whiteSpace: 'nowrap',
               }}
             >
-              Enter Big Picture →
+              Press start to enter big picture mode
             </Link>
           </div>
         ),
@@ -47,11 +94,15 @@ export const GamepadToast = () => {
           className: 'bg-surface-3 shadow-surface-3',
         },
       );
+
+      startPolling(toastId);
     };
 
     window.addEventListener('gamepadconnected', handleConnected);
-    return () =>
+    return () => {
       window.removeEventListener('gamepadconnected', handleConnected);
+      stopPolling();
+    };
   }, []);
 
   return null;
