@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { CSSProperties, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { useReduceMotion } from '@/hooks/useReduceMotion';
@@ -165,7 +165,22 @@ export const BigPictureShell = ({ onNavigate, onSelect, onBack }: Props) => {
       >
         <TopBar />
 
-        <div className="flex-1 overflow-hidden px-6 py-6">
+        <div
+          data-theme="dark"
+          style={
+            {
+              '--color-bg':
+                'hsla(var(--h-bg) var(--s-bg) var(--l-bg) / var(--bg-opacity))',
+              '--color-heading':
+                'hsla(var(--h-heading) var(--s-heading) var(--l-heading) / var(--bg-opacity))',
+              '--color-text':
+                'hsla(var(--h-text) var(--s-text) var(--l-text) / var(--bg-opacity))',
+              '--color-subtitle':
+                'hsla(var(--h-subtitle) var(--s-subtitle) var(--l-subtitle) / var(--bg-opacity))',
+            } as CSSProperties
+          }
+          className="flex-1 overflow-hidden"
+        >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={screenKey}

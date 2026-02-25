@@ -44,7 +44,7 @@ export const HomeScreen = () => {
   const prefersReducedMotion = useReduceMotion();
 
   return (
-    <div className="flex flex-col gap-6 flex-1 overflow-hidden">
+    <div className="flex flex-col gap-6 p-6 flex-1 overflow-hidden">
       <div className="shrink-0">
         <h1 className="text-4xl font-bold text-white mb-2">Welcome</h1>
         <p className="text-lg text-white/50">Select a section to explore</p>

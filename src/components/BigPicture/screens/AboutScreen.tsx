@@ -1,6 +1,7 @@
 import { useReduceMotion } from '@/hooks/useReduceMotion';
 
 import { FocusCard } from '../components/FocusCard';
+import { timelineEvents } from '@/components/HistoryCalendar/constants';
 
 const LINKS = [
   { label: 'Twitter / X', href: 'https://twitter.com/jackyef__', icon: '🐦' },
@@ -8,17 +9,17 @@ const LINKS = [
   { label: 'LinkedIn', href: 'https://linkedin.com/in/jackyef', icon: '💼' },
 ];
 
-const ROLES = [
-  { period: 'Now', company: 'Sticker Mule', role: 'Software Engineer' },
-  { period: 'Before', company: 'Tokopedia', role: 'Frontend Engineer' },
-];
+const ROLES = timelineEvents.map((e, index) => {
+  const period = index === 0 ? 'Now' : e.from.getFullYear().toString();
+  return { period, company: e.title, role: e.description };
+});
 
 export const AboutScreen = () => {
   const prefersReducedMotion = useReduceMotion();
 
   return (
     <div
-      className="flex flex-col gap-6 flex-1 overflow-y-auto"
+      className="flex flex-col gap-6 p-6 flex-1 overflow-y-auto"
       data-bp-scrollable
     >
       <div>
@@ -39,7 +40,7 @@ export const AboutScreen = () => {
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold text-white/70 uppercase tracking-wider mb-3 text-sm">
+        <h2 className="font-semibold text-white/70 uppercase tracking-wider mb-3 text-sm">
           Experience
         </h2>
         <div className="flex flex-col gap-2">

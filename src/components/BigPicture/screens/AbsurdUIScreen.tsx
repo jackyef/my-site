@@ -17,7 +17,7 @@ export const AbsurdUIScreen = () => {
 
   return (
     <div
-      className="flex flex-col gap-6 flex-1 overflow-y-auto"
+      className="flex flex-col gap-6 p-6 flex-1 overflow-y-auto"
       data-bp-scrollable
     >
       <div>

@@ -24,6 +24,8 @@ export const BigPicturePage = () => {
 
   return (
     <div
+      // Only dark theme is supported within Big Picture.
+      data-theme="dark"
       style={{
         position: 'fixed',
         inset: 0,

@@ -28,7 +28,7 @@ export const PostReaderScreen = ({ slug }: Props) => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4 flex-1">
+      <div className="flex flex-col gap-4 p-6 flex-1">
         <div className="animate-pulse">
           <div className="h-8 bg-white/10 rounded w-2/3 mb-3" />
           <div className="h-4 bg-white/5 rounded w-1/3 mb-8" />
@@ -56,7 +56,7 @@ export const PostReaderScreen = ({ slug }: Props) => {
   const { metadata, mdxSource } = data;
 
   return (
-    <div className="flex flex-col gap-4 flex-1 overflow-hidden">
+    <div className="flex flex-col gap-4 p-6 flex-1 overflow-hidden">
       <div className="shrink-0">
         <h1 className="text-2xl lg:text-3xl font-bold text-white leading-tight mb-2">
           {metadata.title}
