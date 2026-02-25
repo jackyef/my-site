@@ -35,7 +35,7 @@ export const FocusCard = ({
         'relative text-left overflow-hidden',
         'rounded-2xl border border-white/10',
         'bg-white/5 backdrop-blur-sm',
-        'outline-none',
+        '!outline-none',
         'focus:border-white/50 focus:bg-white/10',
         'focus:shadow-[0_0_0_3px_rgba(255,255,255,0.18),0_0_32px_rgba(255,255,255,0.06)]',
         className,
