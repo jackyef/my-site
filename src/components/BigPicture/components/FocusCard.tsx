@@ -36,7 +36,8 @@ export const FocusCard = ({
         'rounded-2xl border border-white/10',
         'bg-white/5 backdrop-blur-sm',
         'outline-none',
-        'focus:border-white/30 focus:bg-white/8',
+        'focus:border-white/50 focus:bg-white/10',
+        'focus:shadow-[0_0_0_3px_rgba(255,255,255,0.18),0_0_32px_rgba(255,255,255,0.06)]',
         className,
       )}
       data-bp-row={row}
@@ -53,10 +54,10 @@ export const FocusCard = ({
       }
       onMouseEnter={() => !prefersReducedMotion && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileFocus={prefersReducedMotion ? undefined : { scale: 1.03 }}
-      whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+      whileFocus={prefersReducedMotion ? undefined : { scale: 1.05 }}
+      whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
       whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
-      transition={{ type: 'spring', duration: 0.3, bounce: 0.12 }}
+      transition={{ type: 'spring', duration: 0.35, bounce: 0.15 }}
       style={style}
     >
       {/* Mouse-tracking spotlight — uses motion values, no re-renders */}

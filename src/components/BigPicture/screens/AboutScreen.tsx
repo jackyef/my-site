@@ -22,17 +22,17 @@ export const AboutScreen = () => {
       data-bp-scrollable
     >
       <div>
-        <h1 className="text-3xl font-bold text-white mb-1">About</h1>
-        <p className="text-white/50">Hey, I&apos;m Jacky.</p>
+        <h1 className="text-4xl font-bold text-white mb-2">About</h1>
+        <p className="text-lg text-white/50">Hey, I&apos;m Jacky.</p>
       </div>
 
       <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-        <p className="text-white/80 leading-relaxed text-base">
+        <p className="text-white/80 leading-relaxed text-lg">
           I&apos;m a software engineer with a focus on the web. I care deeply
           about performance, developer experience, and building things that are
           both functional and delightful to use.
         </p>
-        <p className="text-white/60 leading-relaxed text-base mt-3">
+        <p className="text-white/60 leading-relaxed text-lg mt-3">
           When I&apos;m not writing code, I&apos;m probably playing chess,
           listening to music, or overthinking UI interactions.
         </p>
@@ -63,7 +63,7 @@ export const AboutScreen = () => {
           Links
         </h2>
         <div
-          className="flex flex-row gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+          className="flex flex-row gap-3 overflow-x-auto py-3 px-2 scroll-smooth [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: 'none' }}
         >
           {LINKS.map(({ label, href, icon }) => (

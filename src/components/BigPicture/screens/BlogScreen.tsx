@@ -54,17 +54,17 @@ export const BlogScreen = () => {
     return (
       <div className="flex flex-col gap-6 flex-1 overflow-hidden">
         <div className="shrink-0">
-          <h1 className="text-3xl font-bold text-white mb-1">Blog</h1>
-          <p className="text-white/50">Loading posts…</p>
+          <h1 className="text-4xl font-bold text-white mb-2">Blog</h1>
+          <p className="text-lg text-white/50">Loading posts…</p>
         </div>
         <div
-          className="flex flex-row gap-5 flex-1 min-h-0 overflow-x-auto py-2 [&::-webkit-scrollbar]:hidden"
+          className="flex flex-row gap-5 flex-1 min-h-0 overflow-x-auto py-5 px-3 scroll-smooth [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: 'none' }}
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/10 bg-white/5 animate-pulse w-[260px] flex-shrink-0 h-full"
+              className="rounded-2xl border border-white/10 bg-white/5 animate-pulse w-[300px] flex-shrink-0 h-full"
             />
           ))}
         </div>
@@ -88,12 +88,12 @@ export const BlogScreen = () => {
   return (
     <div className="flex flex-col gap-6 flex-1 overflow-hidden">
       <div className="shrink-0">
-        <h1 className="text-3xl font-bold text-white mb-1">Blog</h1>
-        <p className="text-white/50">{posts.length} articles</p>
+        <h1 className="text-4xl font-bold text-white mb-2">Blog</h1>
+        <p className="text-lg text-white/50">{posts.length} articles</p>
       </div>
 
       <motion.div
-        className="flex flex-row gap-5 flex-1 min-h-0 overflow-x-auto py-2 [&::-webkit-scrollbar]:hidden"
+        className="flex flex-row gap-5 flex-1 min-h-0 overflow-x-auto py-5 px-3 scroll-smooth [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: 'none' }}
         variants={prefersReducedMotion ? undefined : rowVariants}
         initial={prefersReducedMotion ? undefined : 'hidden'}
@@ -103,7 +103,7 @@ export const BlogScreen = () => {
           <motion.div
             key={post.slug}
             variants={prefersReducedMotion ? undefined : itemVariants}
-            className="h-full w-[260px] flex-shrink-0"
+            className="h-full w-[300px] flex-shrink-0"
           >
             <PostCard
               title={post.title}

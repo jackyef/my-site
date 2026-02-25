@@ -45,8 +45,8 @@ export const SectionTile = ({
 
       {/* Text */}
       <div className="flex-1 flex flex-col gap-3 relative">
-        <h3 className="text-white font-bold text-2xl leading-tight">{title}</h3>
-        <p className="text-white/50 text-base leading-relaxed">{description}</p>
+        <h3 className="text-white font-bold text-3xl leading-tight">{title}</h3>
+        <p className="text-white/50 text-lg leading-relaxed">{description}</p>
       </div>
 
       {/* Footer hint */}

@@ -65,10 +65,10 @@ const TopBar = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        <span className="text-white/80 text-sm font-semibold tracking-wide">
+        <span className="text-white/80 text-base font-semibold tracking-wide">
           jackyef.com
         </span>
-        <span className="text-white/20 text-xs">Big Picture</span>
+        <span className="text-white/20 text-sm">Big Picture</span>
       </div>
 
       <div className="w-24 flex justify-end">

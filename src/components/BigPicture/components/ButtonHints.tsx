@@ -20,9 +20,9 @@ export const ButtonHints = ({ hints = DEFAULT_HINTS }: Props) => {
     <div
       className={cn(
         'flex items-center gap-6',
-        'px-6 py-3',
+        'px-6 py-4',
         'border-t border-white/10',
-        'text-sm text-white/50',
+        'text-base text-white/50',
         'select-none',
       )}
     >

@@ -13,6 +13,13 @@ const getFocusableElements = () => {
 
 const getRow = (el: HTMLElement) => el.dataset.bpRow ?? '';
 
+// Focuses an element without the browser's instant scroll-jump, then
+// smoothly scrolls the element into view via the scroll container.
+const focusAndScroll = (el: HTMLElement) => {
+  el.focus({ preventScroll: true });
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+};
+
 const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
   const elements = getFocusableElements();
   const focused = document.activeElement as HTMLElement | null;
@@ -20,7 +27,7 @@ const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
   if (elements.length === 0) return;
 
   if (!focused || !elements.includes(focused)) {
-    elements[0]?.focus();
+    elements[0]?.focus({ preventScroll: true });
     return;
   }
 
@@ -32,17 +39,21 @@ const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
     const rowIndex = sameRow.indexOf(focused);
 
     if (direction === 'left' && rowIndex > 0) {
-      sameRow[rowIndex - 1]?.focus();
+      const target = sameRow[rowIndex - 1];
+      if (target) focusAndScroll(target);
     } else if (direction === 'right' && rowIndex < sameRow.length - 1) {
-      sameRow[rowIndex + 1]?.focus();
+      const target = sameRow[rowIndex + 1];
+      if (target) focusAndScroll(target);
     }
   } else {
     const rows = [...new Set(elements.map(getRow))].filter(Boolean);
     if (rows.length === 0) {
       if (direction === 'up' && currentIndex > 0) {
-        elements[currentIndex - 1]?.focus();
+        const target = elements[currentIndex - 1];
+        if (target) focusAndScroll(target);
       } else if (direction === 'down' && currentIndex < elements.length - 1) {
-        elements[currentIndex + 1]?.focus();
+        const target = elements[currentIndex + 1];
+        if (target) focusAndScroll(target);
       }
       return;
     }
@@ -55,7 +66,8 @@ const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
 
     const targetRow = rows[targetRowIndex];
     const targetRowElements = elements.filter((el) => getRow(el) === targetRow);
-    targetRowElements[0]?.focus();
+    const target = targetRowElements[0];
+    if (target) focusAndScroll(target);
   }
 };
 
