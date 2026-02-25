@@ -49,6 +49,30 @@ export default function AbsurdUiPage() {
             </InternalLink>
           </div>
         </GlassPane>
+
+        <GlassPane className="p-8 flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-4 flex-1 justify-center">
+            <div
+              style={{
+                fontSize: '4.5rem',
+                lineHeight: 1,
+                filter:
+                  'drop-shadow(0 0 16px rgba(99,102,241,0.5)) drop-shadow(0 0 32px rgba(99,102,241,0.2))',
+              }}
+            >
+              🎮
+            </div>
+            <p className="text-sm text-theme-subtitle text-center max-w-xs leading-relaxed">
+              A Steam Big Picture–inspired full-screen experience. Navigate with
+              a game controller, keyboard, or mouse.
+            </p>
+          </div>
+          <div>
+            <InternalLink href="/absurd-ui/big-picture">
+              Big Picture Mode
+            </InternalLink>
+          </div>
+        </GlassPane>
       </div>
     </>
   );

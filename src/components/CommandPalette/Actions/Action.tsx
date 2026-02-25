@@ -35,7 +35,12 @@ export const Action = ({
 
   const isThemeToggleAction = query === 'Toggle dark/light theme';
   const isShareArticleAction = query === 'Share this article';
-  const icon = isThemeToggleAction ? getToggleThemeIcon() : '↗️';
+  const isBigPictureAction = query === 'Enter Big Picture mode';
+  const icon = isThemeToggleAction
+    ? getToggleThemeIcon()
+    : isBigPictureAction
+    ? '🎮'
+    : '↗️';
 
   const handleClick = () => {
     if (isThemeToggleAction) {
@@ -47,6 +52,8 @@ export const Action = ({
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
         '_blank',
       );
+    } else if (isBigPictureAction) {
+      router.push('/absurd-ui/big-picture');
     } else if (type === 'navigation') {
       router.push({
         pathname: href,

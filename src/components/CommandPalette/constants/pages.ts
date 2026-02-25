@@ -63,6 +63,14 @@ export const PAGES: readonly PageData[] = [
     description: 'A slider with some ballistic physics baked in..',
     link: '/absurd-ui/ballistic-slider',
   },
+
+  {
+    title: 'Absurd UI ▶️ Big Picture Mode',
+    description:
+      'A game controller–navigable full-screen experience. Connect a gamepad or use arrow keys.',
+    link: '/absurd-ui/big-picture',
+    hiddenSearchTerm: 'gamepad controller',
+  },
 ];
 
 export const filterPages = (query: string): PageData[] => {
