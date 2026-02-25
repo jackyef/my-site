@@ -1,7 +1,8 @@
+import { timelineEvents } from '@/components/HistoryCalendar/constants';
+
 import { useReduceMotion } from '@/hooks/useReduceMotion';
 
 import { FocusCard } from '../components/FocusCard';
-import { timelineEvents } from '@/components/HistoryCalendar/constants';
 
 const LINKS = [
   { label: 'Twitter / X', href: 'https://twitter.com/jackyef__', icon: '🐦' },
@@ -44,9 +45,10 @@ export const AboutScreen = () => {
           Experience
         </h2>
         <div className="flex flex-col gap-2">
-          {ROLES.map(({ period, company, role }) => (
+          {ROLES.map(({ period, company, role }, index) => (
             <div
-              key={company}
+              // Using index as key is fine here since this list is static and never changes order.
+              key={index}
               className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4"
             >
               <div>

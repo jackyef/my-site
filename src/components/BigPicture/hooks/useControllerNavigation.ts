@@ -17,7 +17,11 @@ const getRow = (el: HTMLElement) => el.dataset.bpRow ?? '';
 // smoothly scrolls the element into view via the scroll container.
 const focusAndScroll = (el: HTMLElement) => {
   el.focus({ preventScroll: true });
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest',
+    inline: 'nearest',
+  });
 };
 
 const moveFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
