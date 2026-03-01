@@ -1,15 +1,9 @@
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, Dispatch, SetStateAction, useState } from 'react';
 
 import { canUseDOM } from '@/utils/constants';
 
+// Legacy theme types — kept for backwards compatibility with existing components
 export const THEMES = ['default', 'dark', 'cobalt', 'purple-and-gold'] as const;
-
 export type Theme = typeof THEMES[number];
 
 export const ThemeContext = createContext<
@@ -20,43 +14,17 @@ interface Props {
   children?: React.ReactNode;
 }
 
-/**
- * @TODO: Support multiple theme, not just light and dark mode.
- */
 export const ThemeProvider = ({ children }: Props) => {
-  const [theme, setTheme] = useState<string>(
+  const [theme, setTheme] = useState<Theme>(
     canUseDOM
-      ? getComputedStyle(document.body).getPropertyValue('--theme')
-      : '',
+      ? (getComputedStyle(document.body)
+          .getPropertyValue('--theme')
+          .trim() as Theme)
+      : 'default',
   );
 
-  useEffect(() => {
-    if (!document.startViewTransition) {
-      // Non-supporting browsers
-      document.documentElement.setAttribute('data-theme', theme);
-    } else {
-      const transition = document.startViewTransition(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-      });
-      transition.finished.then(() => {
-        // Do something after the transition is finished if needed
-      });
-    }
-
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
-    // a binding to handle user changing their preferred scheme without reloading page
-    window.__themeBinding = (newTheme: Theme) => {
-      setTheme(newTheme);
-    };
-  }, []);
-
   return (
-    <ThemeContext.Provider
-      value={[theme as Theme, setTheme as Dispatch<SetStateAction<Theme>>]}
-    >
+    <ThemeContext.Provider value={[theme, setTheme]}>
       {children}
     </ThemeContext.Provider>
   );

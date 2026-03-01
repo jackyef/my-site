@@ -7,7 +7,7 @@ export const Error404View = () => {
   return (
     <>
       <PageMetaTags title="404: Not found" />
-      <main className="my-32">
+      <main className="page-pad">
         <PageTitle>
           Whoops, there doesn&apos;t seem to be anything here! 4️⃣0️⃣4️⃣
         </PageTitle>

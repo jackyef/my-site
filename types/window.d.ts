@@ -1,4 +1,4 @@
-import type { Theme } from '@/components/Theme/ThemeProvider';
+import type { Theme } from '@/hooks/useTheme';
 
 declare global {
   interface Window {

@@ -1,0 +1,501 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ═══════════════════════════════════════
+   THEME — font & screen tokens for Tailwind
+═══════════════════════════════════════ */
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Backward compat: old Tailwind font-heading utility */
+  --font-heading: var(--font-fraunces), Georgia, serif;
+
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Backward compat: old Tailwind text-theme-* / bg-theme-* utilities */
+  --color-theme-text: var(--color-ink-2);
+  --color-theme-heading: var(--color-ink);
+  --color-theme-subtitle: var(--color-ink-3);
+  --color-theme-background: var(--color-bg);
+  --color-theme-info: var(--color-bg-active);
+
+  /* Code syntax highlighting (for MDX/Prism token classes) */
+  --color-code-green: #b5f4a5;
+  --color-code-yellow: #ffe484;
+  --color-code-purple: #d9a9ff;
+  --color-code-red: #ff8383;
+  --color-code-blue: #93ddfd;
+  --color-code-white: #fff;
+  --color-code-teal: #7fdbca;
+}
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — CSS variables
+═══════════════════════════════════════ */
+
+:root,
+[data-theme="light"] {
+  --color-bg: #f6f4ef;
+  --color-bg-panel: #ffffff;
+  --color-bg-sidebar: #f0ede6;
+  --color-bg-hover: #e8e4db;
+  --color-bg-active: #e0f0ee;
+  --color-border: #e0dcd4;
+  --color-border-hi: #ccc8be;
+  --color-ink: #18181a;
+  --color-ink-2: #38383c;
+  --color-ink-3: #6b6b72;
+  --color-ink-4: #a0a0a8;
+  --color-accent: #2c6464;
+  --color-accent-2: #1a4040;
+  --color-accent-l: #c2dede;
+  --color-accent-xl: #eaf3f3;
+  --color-accent-text: #2c6464;
+  --grid-primary: rgba(44, 100, 100, 0.06);
+  --grid-faint: rgba(44, 100, 100, 0.025);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  /* ── Legacy compat: HSL tokens for old goober components ── */
+  --bg-opacity: 1;
+  --h-primary: 180deg; --s-primary: 38%; --l-primary: 29%;
+  --h-secondary: 252deg; --s-secondary: 40%; --l-secondary: 65%;
+  --h-tertiary: 45deg; --s-tertiary: 70%; --l-tertiary: 65%;
+  --h-bg: 43deg; --s-bg: 20%; --l-bg: 95%;
+  --h-heading: 240deg; --s-heading: 4%; --l-heading: 10%;
+  --h-text: 240deg; --s-text: 3%; --l-text: 23%;
+  --h-subtitle: 240deg; --s-subtitle: 3%; --l-subtitle: 43%;
+  --h-outline: 180deg; --s-outline: 38%; --l-outline: 29%;
+  --h-info: 180deg; --s-info: 30%; --l-info: 95%;
+  --h-warning: 45deg; --s-warning: 91%; --l-warning: 49%;
+  --color-outline: hsla(180deg 38% 29% / 0.7);
+  --color-info: var(--color-bg-active);
+  --color-scrollbar: #cacaca;
+  --scroll-gutter: hsl(0deg 0% 92%);
+  --focus-outline: 0 0 0 2px var(--color-outline);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition-default: 0.5s;
+  --transition-faster: 0.25s;
+  /* Direct aliases */
+  --color-heading: var(--color-ink);
+  --color-text: var(--color-ink-2);
+  --color-subtitle: var(--color-ink-3);
+  --color-primary: var(--color-accent);
+  --color-secondary: var(--color-accent-2);
+  --heading-font: var(--font-fraunces);
+  --main-font: var(--font-inter);
+}
+
+[data-theme="dim"] {
+  --color-bg: #1e1f24;
+  --color-bg-panel: #25262d;
+  --color-bg-sidebar: #1a1b20;
+  --color-bg-hover: #2e3038;
+  --color-bg-active: #1e3535;
+  --color-border: #2e3038;
+  --color-border-hi: #3a3d48;
+  --color-ink: #e8e6e0;
+  --color-ink-2: #c0bdb6;
+  --color-ink-3: #7a7880;
+  --color-ink-4: #4e4d56;
+  --color-accent: #4a9696;
+  --color-accent-2: #6ab8b8;
+  --color-accent-l: #1e4040;
+  --color-accent-xl: #162e2e;
+  --color-accent-text: #6ab8b8;
+  --grid-primary: rgba(74, 150, 150, 0.07);
+  --grid-faint: rgba(74, 150, 150, 0.028);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  /* ── Legacy compat: HSL tokens for old goober components ── */
+  --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
+  --h-secondary: 180deg; --s-secondary: 34%; --l-secondary: 60%;
+  --h-tertiary: 45deg; --s-tertiary: 50%; --l-tertiary: 60%;
+  --h-bg: 225deg; --s-bg: 13%; --l-bg: 13%;
+  --h-heading: 40deg; --s-heading: 9%; --l-heading: 90%;
+  --h-text: 40deg; --s-text: 6%; --l-text: 75%;
+  --h-subtitle: 240deg; --s-subtitle: 3%; --l-subtitle: 55%;
+  --h-outline: 180deg; --s-outline: 34%; --l-outline: 44%;
+  --h-info: 180deg; --s-info: 20%; --l-info: 20%;
+  --color-outline: hsla(180deg 34% 44% / 1);
+  --color-info: var(--color-bg-active);
+  --color-scrollbar: rgba(55, 65, 81, 1);
+  --scroll-gutter: hsl(225deg 13% 15%);
+  --focus-outline: 0 0 0 2px var(--color-outline);
+  --color-heading: var(--color-ink);
+  --color-text: var(--color-ink-2);
+  --color-subtitle: var(--color-ink-3);
+  --color-primary: var(--color-accent);
+  --color-secondary: var(--color-accent-2);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f0f11;
+  --color-bg-panel: #161618;
+  --color-bg-sidebar: #0c0c0e;
+  --color-bg-hover: #1e1e22;
+  --color-bg-active: #162424;
+  --color-border: #222226;
+  --color-border-hi: #2e2e34;
+  --color-ink: #f0eee8;
+  --color-ink-2: #b8b6b0;
+  --color-ink-3: #68686e;
+  --color-ink-4: #3e3e44;
+  --color-accent: #4a9696;
+  --color-accent-2: #7ac4c4;
+  --color-accent-l: #1a3636;
+  --color-accent-xl: #111e1e;
+  --color-accent-text: #7ac4c4;
+  --grid-primary: rgba(74, 150, 150, 0.08);
+  --grid-faint: rgba(74, 150, 150, 0.03);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* ── Legacy compat: HSL tokens for old goober components ── */
+  --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
+  --h-secondary: 180deg; --s-secondary: 34%; --l-secondary: 60%;
+  --h-tertiary: 45deg; --s-tertiary: 50%; --l-tertiary: 60%;
+  --h-bg: 240deg; --s-bg: 10%; --l-bg: 7%;
+  --h-heading: 40deg; --s-heading: 12%; --l-heading: 93%;
+  --h-text: 40deg; --s-text: 5%; --l-text: 70%;
+  --h-subtitle: 240deg; --s-subtitle: 3%; --l-subtitle: 43%;
+  --h-outline: 180deg; --s-outline: 34%; --l-outline: 44%;
+  --h-info: 180deg; --s-info: 20%; --l-info: 15%;
+  --color-outline: hsla(180deg 34% 44% / 1);
+  --color-info: var(--color-bg-active);
+  --color-scrollbar: rgba(55, 65, 81, 1);
+  --scroll-gutter: hsl(240deg 10% 9%);
+  --focus-outline: 0 0 0 2px var(--color-outline);
+  --color-heading: var(--color-ink);
+  --color-text: var(--color-ink-2);
+  --color-subtitle: var(--color-ink-3);
+  --color-primary: var(--color-accent);
+  --color-secondary: var(--color-accent-2);
+}
+
+/* ═══════════════════════════════════════
+   BASE
+═══════════════════════════════════════ */
+
+html,
+body {
+  height: 100%;
+}
+
+/* Override @theme font vars — pin directly to Next.js font CSS vars */
+:root {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════
+   THEME TRANSITIONS
+═══════════════════════════════════════ */
+
+body,
+.sidebar,
+.content-area,
+.widget-card,
+.nav-btn,
+.chip {
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+/* ═══════════════════════════════════════
+   BLUEPRINT BACKGROUND
+═══════════════════════════════════════ */
+
+.blueprint-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-primary) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-primary) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-faint) 1px, transparent 1px);
+  background-size:
+    96px 96px,
+    96px 96px,
+    32px 32px,
+    32px 32px;
+  background-position:
+    20px 24px,
+    20px 24px,
+    20px 24px,
+    20px 24px;
+}
+
+@media (min-width: 768px) {
+  .blueprint-bg {
+    background-position:
+      52px 40px,
+      52px 40px,
+      52px 40px,
+      52px 40px;
+  }
+}
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY — headings
+═══════════════════════════════════════ */
+
+.hero-h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 50px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+/* ── em inside headings ── */
+.hero-h1 em,
+.page-title em,
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--color-accent-text);
+}
+
+/* ═══════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--color-border-hi);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE PAGE PADDING
+═══════════════════════════════════════ */
+
+/* Use on page content wrappers: mobile-friendly padding that expands on md+ */
+.page-pad {
+  padding: 24px 20px;
+  max-width: 880px;
+}
+
+@media (min-width: 768px) {
+  .page-pad {
+    padding: 40px 52px;
+  }
+}
+
+/* Hero + WidgetGrid responsive layout */
+.hero-pad {
+  padding: 32px 20px 28px;
+  max-width: 900px;
+}
+
+@media (min-width: 768px) {
+  .hero-pad {
+    padding: 64px 52px 48px;
+  }
+}
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0 20px 32px;
+  max-width: 960px;
+}
+
+@media (min-width: 768px) {
+  .widget-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 52px 52px;
+  }
+}
+
+/* Widget full-span: span 2 on mobile 2-col, span 3 on desktop 3-col */
+.widget-full {
+  grid-column: span 2;
+}
+
+@media (min-width: 768px) {
+  .widget-full {
+    grid-column: span 3;
+  }
+}
+
+/* Widget mobile full-width: span 2 on mobile, span 1 on desktop */
+.widget-mobile-full {
+  grid-column: span 2;
+}
+
+@media (min-width: 768px) {
+  .widget-mobile-full {
+    grid-column: span 1;
+  }
+}
+
+/* Latest writings section on homepage */
+.latest-pad {
+  padding: 0 20px 32px;
+  max-width: 960px;
+}
+
+@media (min-width: 768px) {
+  .latest-pad {
+    padding: 0 52px 52px;
+  }
+}
+
+/* ═══════════════════════════════════════
+   STATUS DOT ANIMATION
+═══════════════════════════════════════ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ═══════════════════════════════════════
+   BLOG / MDX PROSE OVERRIDES
+═══════════════════════════════════════ */
+
+.prose {
+  --tw-prose-body: var(--color-ink-2);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-accent-text);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-ink-3);
+  --tw-prose-bullets: var(--color-ink-3);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-ink-2);
+  --tw-prose-quote-borders: var(--color-accent-l);
+  --tw-prose-captions: var(--color-ink-3);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-pre-code: var(--color-ink);
+  --tw-prose-pre-bg: var(--color-bg-panel);
+  --tw-prose-th-borders: var(--color-border-hi);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+/* MDX article details/summary */
+#restOfArticle details {
+  display: block;
+  background: var(--color-bg-active);
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  padding: 1rem 1.25rem;
+}
+
+#restOfArticle summary {
+  display: block;
+  cursor: pointer;
+}
+
+#restOfArticle summary p:first-child {
+  margin-top: 0;
+}
+
+#restOfArticle summary::marker,
+#restOfArticle summary::-webkit-details-marker {
+  content: '';
+  display: none;
+}
+
+#restOfArticle summary::after {
+  margin-top: 1rem;
+  display: block;
+  text-decoration: underline;
+  content: 'Read more 👇';
+}
+
+#restOfArticle p > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ═══════════════════════════════════════
+   COMMAND PALETTE
+═══════════════════════════════════════ */
+
+/* Ensure CMD palette items have nice rounding on last item */
+.focusable-cmd-item:nth-last-child(2) {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* View transitions */
+::view-transition-old(root) {
+  animation: 0.22s ease both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.22s ease both fade-in;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   NO ANIMATION UTILITY
+═══════════════════════════════════════ */
+
+.no-animation * {
+  transition-property: none !important;
+  transform: none !important;
+  animation: none !important;
+}

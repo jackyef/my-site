@@ -12,10 +12,10 @@ export const ResultBox = ({ children }: Props) => {
           'my-4',
           'h-[2px]',
           'w-full',
-          'bg-surface-3',
           'transition-colors',
           'duration-500',
         )}
+        style={{ background: 'var(--color-border)' }}
       />
       <div
         role="listbox"

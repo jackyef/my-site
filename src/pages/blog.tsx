@@ -1,34 +1,11 @@
-import { useRouter } from 'next/router';
-import { Flipped } from 'react-flip-toolkit';
 import { Fragment } from 'react';
+import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next/types';
 
-import { getPosts } from '@/blog/getPosts';
-import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
-import { EmojiSpan } from '@/components/Typography/EmojiSpan';
-import { Tag } from '@/components/common/Tag';
 import { Post } from '@/blog/types';
-
-import { PageTitle } from '../components/Typography/PageTitle';
-
-const Tags = ({ tags = [] }: { tags: string[] }) => {
-  if (tags.length === 0) return null;
-
-  return (
-    <div className="inline-flex space-x-4 items-center">
-      <span>in</span>
-      {tags.map((tag, i) => {
-        return (
-          <Fragment key={i}>
-            <Tag variant="secondary">{tag}</Tag>
-            {i !== tags.length - 1 ? ',' : ''}
-          </Fragment>
-        );
-      })}
-    </div>
-  );
-};
+import { getPosts } from '@/blog/getPosts';
+import { PostRow } from '@/components/Blog/PostRow';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
   posts: Post[];
@@ -47,15 +24,54 @@ export default function BlogPage({ posts }: Props) {
 
   return (
     <>
-      <PageMetaTags />
-      <Flipped flipId="latest-writing-heading" spring="noWobble" translate>
-        {(flippedProps: any) => (
-          <PageTitle {...flippedProps}>
-            Latest writings <Tags tags={tags} /> <EmojiSpan>✍️</EmojiSpan>
-          </PageTitle>
+      <PageMetaTags title="Blog" />
+
+      <div className="page-pad">
+        <p className="eyebrow" style={{ marginBottom: 10 }}>
+          Writing
+        </p>
+        <h1 className="page-title" style={{ marginBottom: 32 }}>
+          {tags.length > 0 ? (
+            <>
+              Posts tagged{' '}
+              <em>
+                {tags.map((t, i) => (
+                  <Fragment key={t}>
+                    {t}
+                    {i < tags.length - 1 ? ', ' : ''}
+                  </Fragment>
+                ))}
+              </em>
+            </>
+          ) : (
+            <>
+              All <em>posts.</em>
+            </>
+          )}
+        </h1>
+
+        {tags.length > 0 && (
+          <div style={{ marginBottom: 16 }}>
+            <a
+              href="/blog"
+              style={{
+                fontSize: 13,
+                color: 'var(--color-accent-text)',
+                textDecoration: 'none',
+              }}
+              className="hover:underline"
+            >
+              ← Clear filter
+            </a>
+          </div>
         )}
-      </Flipped>
-      <PostPreviewList posts={filteredPosts} />
+
+        <div>
+          {filteredPosts.map((post) => (
+            <PostRow key={post.link} post={post} />
+          ))}
+        </div>
+      </div>
     </>
   );
 }

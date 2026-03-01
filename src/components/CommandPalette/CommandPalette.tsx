@@ -109,30 +109,32 @@ export default () => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
       <Dialog.Overlay>
-        <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn z-10" />
+        <div
+          className="backdrop-blur fixed inset-0 animate-fadeIn"
+          style={{ background: 'rgba(0, 0, 0, 0.3)', zIndex: 1000 }}
+        />
       </Dialog.Overlay>
       <Dialog.Content asChild>
         <div
           onKeyDown={handleKeyDown}
           className={cn(
             'p-4',
-            'bg-surface-1',
-            'text-theme-text',
             'rounded-3xl',
-            'top',
             'animate-fadeIn',
             'transition-colors',
             'duration-500',
-            'border-dark-only',
-            'z-20',
           )}
           style={{
             position: 'fixed',
-            top: '30%',
+            top: '12vh',
             left: '50%',
             transform: 'translate(-50%)',
             width: '90vw',
             maxWidth: '44rem',
+            background: 'var(--color-bg-panel)',
+            color: 'var(--color-ink-2)',
+            border: '1px solid var(--color-border)',
+            zIndex: 1001,
           }}
         >
           <SearchInput

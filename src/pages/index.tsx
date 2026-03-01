@@ -1,57 +1,57 @@
-import { Flipped } from 'react-flip-toolkit';
+import Link from 'next/link';
 import { GetStaticProps } from 'next/types';
-import { useRouter } from 'next/router';
 
-import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { PostPreviewList } from '@/components/Blog/Post/PostPreviewList';
-import { SectionTitle } from '@/components/Typography/SectionTitle';
-import { LandingHero } from '@/components/Hero';
 import { Post } from '@/blog/types';
 import { getPosts } from '@/blog/getPosts';
-import { Panel } from '@/components/common/Panel';
-import { Paragraph } from '@/components/Typography/Paragraph';
+import { PostRow } from '@/components/Blog/PostRow';
+import { HeroSection } from '@/components/home/HeroSection';
+import { WidgetGrid } from '@/components/home/WidgetGrid';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
   posts: Post[];
 };
 
 export default function Home({ posts }: Props) {
-  const router = useRouter();
-  const wasRedirected = router.query.status === 'redirected';
-
   return (
     <>
       <PageMetaTags />
 
-      <section aria-label="hero section">
-        {wasRedirected && (
-          <Panel title="⚠ Notice" type="info">
-            <Paragraph>
-              Looks like you were redirected here!{' '}
-              <a
-                className="underline"
-                href="#"
-                onClick={() => window.history.back()}
-              >
-                Click here to go back.
-              </a>
-            </Paragraph>
-          </Panel>
-        )}
-        <LandingHero />
-      </section>
+      <div style={{ flex: 1 }}>
+        <HeroSection />
+        <WidgetGrid />
 
-      <div className="my-16" />
+        {/* Recent posts */}
+        <div className="latest-pad">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              marginBottom: 12,
+            }}
+          >
+            <p className="eyebrow">Latest writings</p>
+            <Link
+              href="/blog"
+              style={{
+                fontSize: 13,
+                color: 'var(--color-accent-text)',
+                textDecoration: 'none',
+              }}
+              className="hover:underline"
+            >
+              All posts →
+            </Link>
+          </div>
 
-      <section aria-label="latest writings">
-        <Flipped flipId="latest-writing-heading" spring="noWobble" translate>
-          {(flippedProps: any) => (
-            <SectionTitle {...flippedProps}>Latest writings ✍️</SectionTitle>
-          )}
-        </Flipped>
-
-        <PostPreviewList posts={posts} />
-      </section>
+          <div>
+            {posts.map((post) => (
+              <PostRow key={post.link} post={post} />
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -59,7 +59,7 @@ export default function Home({ posts }: Props) {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      posts: await getPosts({ limit: 3, onlyPreview: true }),
+      posts: await getPosts({ limit: 5, onlyPreview: true }),
     },
   };
 };

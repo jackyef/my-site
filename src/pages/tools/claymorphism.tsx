@@ -23,7 +23,7 @@ const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
 const ClaymorphismToolsPage = () => {
   return (
-    <>
+    <div className="page-pad">
       <PageMetaTags
         title={meta.title}
         description={meta.description}
@@ -46,7 +46,7 @@ const ClaymorphismToolsPage = () => {
           Claymorphism in User Interfaces – Michal Malewicz
         </ExternalLink>
       </Paragraph>
-    </>
+    </div>
   );
 };
 

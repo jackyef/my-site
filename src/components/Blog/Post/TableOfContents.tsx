@@ -1,85 +1,88 @@
-import React, { useId, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { useId } from 'react';
 
 import type { PostHeading } from '@/blog/types';
 import { cleanHeadingContent, slugify } from '@/lib/blog';
 
-import { cn } from '@/utils/styles/classNames';
-
-import { TableOfContentItem } from './TableOfContentItem';
-
 type Props = {
   headings: PostHeading[];
+  activeSlug: string | null;
 };
 
-export const TableOfContents = ({ headings }: Props) => {
+export const TableOfContents = ({ headings, activeSlug }: Props) => {
   const labelId = useId();
-
-  const content = useMemo(() => {
-    let lastHeadingLevel: number;
-    const rootList: Array<React.ReactNode | React.ReactNode[]> = [];
-    let currentList: Array<React.ReactNode | React.ReactNode> = rootList;
-
-    headings.forEach((heading) => {
-      const slug = slugify(heading.content);
-      const listItem = (
-        <TableOfContentItem
-          key={slug}
-          slug={slug}
-          content={cleanHeadingContent(heading.content)}
-          level={heading.level}
-        />
-      );
-
-      // This snippet only works because we only handle h2 and h3
-      if (!lastHeadingLevel || heading.level === lastHeadingLevel) {
-        currentList.push(listItem);
-      } else if (heading.level > lastHeadingLevel) {
-        const newList = [listItem];
-        currentList.push(newList);
-        currentList = newList;
-      } else {
-        rootList.push(listItem);
-        currentList = rootList;
-      }
-      lastHeadingLevel = heading.level;
-    });
-
-    let listKey = 1;
-
-    const renderList = (array: Array<React.ReactNode>) => {
-      return (
-        <ol key={listKey++} className={cn('mb-4')}>
-          {array.map((listItem) => listItem)}
-        </ol>
-      );
-    };
-
-    return renderList(
-      rootList.map((listOrItem) => {
-        if (Array.isArray(listOrItem)) {
-          return renderList(listOrItem);
-        } else {
-          return listOrItem;
-        }
-      }),
-    );
-  }, [headings]);
+  const indicatorId = useId();
 
   return (
-    <nav
-      aria-labelledby={labelId}
-      className={cn('max-h-[80vh] overflow-y-auto overflow-x-clip')}
-    >
+    <nav aria-labelledby={labelId}>
       <div
-        className={cn(
-          'font-bold text-theme-heading opacity-70 mb-4 uppercase tracking-wider',
-        )}
         id={labelId}
+        style={{
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'var(--color-ink-4)',
+          marginBottom: 12,
+        }}
       >
-        In this post
+        On this page
       </div>
 
-      {content}
+      <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {headings.map((heading) => {
+          const slug = slugify(heading.content);
+          const isActive = activeSlug === slug;
+
+          return (
+            <li
+              key={slug}
+              style={{
+                position: 'relative',
+                paddingLeft: heading.level === 3 ? 20 : 10,
+              }}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId={indicatorId}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 2,
+                    bottom: 2,
+                    width: 2,
+                    background: 'var(--color-accent)',
+                    borderRadius: 2,
+                  }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <a
+                href={`#${slug}`}
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent('blog:heading-active', {
+                      detail: { slug },
+                    }),
+                  );
+                }}
+                style={{
+                  display: 'block',
+                  padding: '4px 0',
+                  fontSize: heading.level === 3 ? 12 : 13,
+                  fontWeight: isActive ? 500 : 400,
+                  color: isActive ? 'var(--color-ink-2)' : 'var(--color-ink-4)',
+                  textDecoration: 'none',
+                  transition: 'color 0.15s',
+                  lineHeight: 1.4,
+                }}
+              >
+                {cleanHeadingContent(heading.content)}
+              </a>
+            </li>
+          );
+        })}
+      </ol>
     </nav>
   );
 };

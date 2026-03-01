@@ -41,7 +41,7 @@ const PlaygroundPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="page-pad">
       <PageMetaTags
         title={meta.title}
         description={meta.description}
@@ -53,7 +53,7 @@ const PlaygroundPage = () => {
       <HorizontalDivider />
 
       {isInitialized && <CodePlayground initialCode={initialCode} />}
-    </>
+    </div>
   );
 };
 
