@@ -5,33 +5,16 @@ import { ChessComTimeControl } from 'types/chesscom';
 import { ChessComTimeControlIcon } from '@/components/ChessComStats/ChessComTimeCategoryIcon';
 import { useMatchesSummary } from '@/components/ChessComStats/hooks/useMatchesSummary';
 import { useStats } from '@/components/ChessComStats/hooks/useStats';
+import { Card } from '@/components/common/Card';
+import { Chip } from '@/components/common/Chip';
+import { SectionLabel } from '@/components/common/SectionLabel';
+import {
+  SegmentedControl,
+  SegmentOption,
+} from '@/components/common/SegmentedControl';
+import { StatusDot } from '@/components/common/StatusDot';
 
-interface ChipProps {
-  children: React.ReactNode;
-  highlight?: boolean;
-}
-
-function Chip({ children, highlight }: ChipProps) {
-  return (
-    <span
-      style={{
-        fontSize: 12,
-        fontWeight: 500,
-        padding: '3px 9px',
-        borderRadius: 100,
-        background: highlight ? 'var(--color-accent-xl)' : 'var(--color-bg)',
-        color: highlight ? 'var(--color-accent-text)' : 'var(--color-ink-2)',
-        border: `1px solid ${
-          highlight ? 'var(--color-accent-l)' : 'var(--color-border)'
-        }`,
-        lineHeight: 1,
-        display: 'inline-block',
-      }}
-    >
-      {children}
-    </span>
-  );
-}
+import { cn } from '@/utils/styles/classNames';
 
 interface WidgetProps {
   label: string;
@@ -41,69 +24,23 @@ interface WidgetProps {
 }
 
 function Widget({ label, children, span = 1, mobileFullWidth }: WidgetProps) {
-  const classNames = [
-    'widget-card',
+  const gridClass = cn(
     span === 3 ? 'widget-full' : '',
     mobileFullWidth ? 'widget-mobile-full' : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+    span === 2 && !mobileFullWidth ? 'col-span-2' : '',
+  );
 
   return (
-    <div
-      className={classNames}
-      style={{
-        gridColumn: span !== 3 && !mobileFullWidth ? `span ${span}` : undefined,
-        padding: '14px 16px',
-        borderRadius: 10,
-        background: 'var(--color-bg-panel)',
-        border: '1px solid var(--color-border)',
-        boxShadow: 'var(--shadow-sm)',
-        transition:
-          'transform 0.2s, box-shadow 0.2s, background-color 0.22s, border-color 0.22s',
-        cursor: 'default',
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform =
-          'translateY(-1px)';
-        (e.currentTarget as HTMLDivElement).style.boxShadow =
-          'var(--shadow-md)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform = '';
-        (e.currentTarget as HTMLDivElement).style.boxShadow =
-          'var(--shadow-sm)';
-      }}
-    >
-      <div
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: 'var(--color-ink-4)',
-          marginBottom: 8,
-        }}
-      >
-        {label}
-      </div>
+    <Card hover className={cn('px-[16px] py-[14px] cursor-default', gridClass)}>
+      <SectionLabel className="mb-2">{label}</SectionLabel>
       {children}
-    </div>
+    </Card>
   );
 }
 
 function WidgetValue({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      style={{
-        fontFamily: 'var(--font-serif)',
-        fontSize: 20,
-        fontWeight: 600,
-        color: 'var(--color-ink)',
-        lineHeight: 1.2,
-        marginBottom: 3,
-      }}
-    >
+    <div className="font-serif text-[20px] font-semibold text-[var(--color-ink)] leading-[1.2] mb-[3px]">
       {children}
     </div>
   );
@@ -111,13 +48,13 @@ function WidgetValue({ children }: { children: React.ReactNode }) {
 
 function WidgetSub({
   children,
-  style,
+  className,
 }: {
   children: React.ReactNode;
-  style?: React.CSSProperties;
+  className?: string;
 }) {
   return (
-    <div style={{ fontSize: 13, color: 'var(--color-ink-3)', ...style }}>
+    <div className={cn('text-[13px] text-[var(--color-ink-3)]', className)}>
       {children}
     </div>
   );
@@ -126,6 +63,14 @@ function WidgetSub({
 const CHESS_USER_ID = '344047395';
 const CHESS_USERNAME = 'PixelParser';
 const TIME_CONTROLS: ChessComTimeControl[] = ['rapid', 'blitz', 'bullet'];
+
+const TC_OPTIONS: SegmentOption<ChessComTimeControl>[] = TIME_CONTROLS.map(
+  (control) => ({
+    value: control,
+    icon: <ChessComTimeControlIcon timeControl={control} />,
+    title: control,
+  }),
+);
 
 function WLD({
   w,
@@ -139,28 +84,13 @@ function WLD({
   label: string;
 }) {
   return (
-    <div style={{ marginBottom: 6 }}>
-      <div
-        style={{
-          fontSize: 11,
-          color: 'var(--color-ink-4)',
-          marginBottom: 3,
-          textTransform: 'uppercase',
-          letterSpacing: '0.06em',
-        }}
-      >
+    <div className="mb-[6px]">
+      <div className="text-[11px] text-[var(--color-ink-4)] mb-[3px] uppercase tracking-[0.06em]">
         {label}
       </div>
-      <div
-        style={{
-          display: 'flex',
-          gap: 10,
-          fontSize: 13,
-          fontWeight: 600,
-        }}
-      >
-        <span style={{ color: '#4caf84' }}>W {w}</span>
-        <span style={{ color: 'var(--color-ink-3)' }}>D {d}</span>
+      <div className="flex gap-[10px] text-[13px] font-semibold">
+        <span style={{ color: 'var(--color-success)' }}>W {w}</span>
+        <span className="text-[var(--color-ink-3)]">D {d}</span>
         <span style={{ color: '#e05a5a' }}>L {l}</span>
       </div>
     </div>
@@ -217,81 +147,27 @@ function ChessWidget() {
 
   return (
     <Widget label="Chess.com" span={3}>
-      <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
+      <div className="flex gap-8 flex-wrap">
         {/* Left: identity + time picker + rating */}
-        <div style={{ minWidth: 140 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              marginBottom: 12,
-            }}
-          >
+        <div className="min-w-[140px]">
+          <div className="flex items-center gap-[10px] mb-3">
             <a
               href="https://chess.com/member/pixelparser"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'var(--color-accent-text)',
-                fontFamily: 'var(--font-serif)',
-                fontSize: 15,
-                fontWeight: 600,
-                textDecoration: 'none',
-              }}
+              className="text-[var(--color-accent-text)] font-serif text-[15px] font-semibold no-underline"
             >
               PixelParser ↗
             </a>
-            {/* Time control picker */}
-            <div
-              style={{
-                display: 'flex',
-                borderRadius: 8,
-                border: '1px solid var(--color-border)',
-                overflow: 'hidden',
-              }}
-            >
-              {TIME_CONTROLS.map((control) => (
-                <button
-                  key={control}
-                  onClick={() => setTc(control)}
-                  title={control}
-                  aria-label={`Switch to ${control}`}
-                  aria-pressed={tc === control}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '5px 9px',
-                    background:
-                      tc === control ? 'var(--color-bg-active)' : 'transparent',
-                    color:
-                      tc === control
-                        ? 'var(--color-accent-text)'
-                        : 'var(--color-ink-4)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background 0.13s, color 0.13s',
-                    fontFamily: 'inherit',
-                  }}
-                >
-                  <ChessComTimeControlIcon timeControl={control} />
-                </button>
-              ))}
-            </div>
+            <SegmentedControl
+              options={TC_OPTIONS}
+              value={tc}
+              onChange={setTc}
+            />
           </div>
 
           {/* Animated rating */}
-          <div
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 36,
-              fontWeight: 700,
-              color: 'var(--color-ink)',
-              lineHeight: 1,
-              marginBottom: 2,
-            }}
-          >
+          <div className="font-serif text-[36px] font-bold text-[var(--color-ink)] leading-none mb-[2px]">
             <span ref={ratingRef}>—</span>
           </div>
           <WidgetSub>
@@ -302,13 +178,7 @@ function ChessWidget() {
 
         {/* Right: records + streak */}
         {stats && (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
+          <div className="flex flex-col justify-center">
             <WLD
               label="All-time"
               w={allTimeWins}
@@ -324,7 +194,7 @@ function ChessWidget() {
               />
             )}
             {matchesSummary && (
-              <WidgetSub style={{ marginTop: 4 }}>
+              <WidgetSub className="mt-1">
                 {matchesSummary.streakCount} {matchesSummary.lastResult} in a
                 row {streakEmojis}
               </WidgetSub>
@@ -342,31 +212,9 @@ export function WidgetGrid() {
       {/* Currently */}
       <Widget label="Currently" span={2}>
         <WidgetValue>Tech Lead at Sticker Mule</WidgetValue>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            marginTop: 6,
-          }}
-        >
-          <span
-            style={{
-              width: 7,
-              height: 7,
-              borderRadius: '50%',
-              background: '#4caf84',
-              animation: 'pulse 2.5s ease-in-out infinite',
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontSize: 14,
-              color: 'var(--color-ink-2)',
-              fontWeight: 500,
-            }}
-          >
+        <div className="flex items-center gap-2 mt-[6px]">
+          <StatusDot />
+          <span className="text-[14px] text-[var(--color-ink-2)] font-medium">
             Open to interesting remote opportunities
           </span>
         </div>
@@ -374,18 +222,11 @@ export function WidgetGrid() {
 
       {/* Based in */}
       <Widget label="Based in" mobileFullWidth>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            marginTop: 4,
-          }}
-        >
-          <span style={{ fontSize: 28 }}>🇮🇩</span>
+        <div className="flex items-center gap-[10px] mt-1">
+          <span className="text-[28px]">🇮🇩</span>
           <div>
             <WidgetValue>
-              <span style={{ fontSize: 17 }}>Jakarta</span>
+              <span className="text-[17px]">Jakarta</span>
             </WidgetValue>
             <WidgetSub>Indonesia · UTC+7</WidgetSub>
           </div>
@@ -394,14 +235,7 @@ export function WidgetGrid() {
 
       {/* Day-to-day stack */}
       <Widget label="Day-to-day stack" span={3}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 5,
-            marginTop: 8,
-          }}
-        >
+        <div className="flex flex-wrap gap-[5px] mt-2">
           {[
             { name: 'React', hi: true },
             { name: 'TypeScript', hi: true },
@@ -415,7 +249,7 @@ export function WidgetGrid() {
             { name: 'Web Perf', hi: true },
             { name: 'Frontend Infra', hi: true },
           ].map(({ name, hi }) => (
-            <Chip key={name} highlight={hi}>
+            <Chip key={name} variant={hi ? 'highlight' : 'muted'} size="sm">
               {name}
             </Chip>
           ))}

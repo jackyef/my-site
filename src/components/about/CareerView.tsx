@@ -1,6 +1,9 @@
 import { useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { Card } from '@/components/common/Card';
+import { Chip } from '@/components/common/Chip';
+import { PageHeader } from '@/components/common/PageHeader';
 import { timelineEvents } from '@/components/HistoryCalendar/constants';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
@@ -71,12 +74,14 @@ export function CareerView() {
 
   return (
     <div className="page-pad">
-      <p className="eyebrow" style={{ marginBottom: 10 }}>
-        Career
-      </p>
-      <h1 className="page-title" style={{ marginBottom: 32 }}>
-        Work <em>history.</em>
-      </h1>
+      <PageHeader
+        eyebrow="Career"
+        title={
+          <>
+            Work <em>history.</em>
+          </>
+        }
+      />
 
       {/* Gantt Chart */}
       <div ref={scrollRef} style={{ overflowX: 'auto', marginBottom: 20 }}>
@@ -213,92 +218,55 @@ export function CareerView() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 6 }}
           transition={{ duration: 0.16 }}
-          style={{
-            padding: '16px 20px',
-            background: 'var(--color-bg-panel)',
-            border: '1px solid var(--color-border)',
-            borderRadius: 10,
-            maxHeight: 420,
-            overflowY: 'auto',
-          }}
         >
-          {/* Period + current badge */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              marginBottom: 4,
-            }}
-          >
-            <span style={{ fontSize: 12, color: 'var(--color-ink-4)' }}>
-              {periodLabel(selectedItem.from, selectedItem.to, isCurrent)}
-            </span>
-            {isCurrent && (
-              <span
-                style={{
-                  fontSize: 10,
-                  padding: '1px 6px',
-                  borderRadius: 100,
-                  background: 'var(--color-accent-xl)',
-                  color: 'var(--color-accent-text)',
-                  border: '1px solid var(--color-accent-l)',
-                  fontWeight: 600,
-                }}
-              >
-                Current
+          <Card padding="md" className="max-h-[420px] overflow-y-auto">
+            {/* Period + current badge */}
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[12px] text-[var(--color-ink-4)]">
+                {periodLabel(selectedItem.from, selectedItem.to, isCurrent)}
               </span>
-            )}
-          </div>
+              {isCurrent && (
+                <Chip variant="highlight" size="xs">
+                  Current
+                </Chip>
+              )}
+            </div>
 
-          {/* Title */}
-          <div
-            style={{
-              fontSize: 16,
-              fontWeight: 700,
-              color: 'var(--color-ink)',
-              marginBottom: 2,
-            }}
-          >
-            {selectedItem.title}
-          </div>
+            {/* Title */}
+            <div className="text-[16px] font-bold text-[var(--color-ink)] mb-[2px]">
+              {selectedItem.title}
+            </div>
 
-          {/* Org */}
-          <div
-            style={{
-              fontSize: 13,
-              color: dotColor,
-              fontWeight: 500,
-              marginBottom: selectedItem.details ? 12 : 0,
-            }}
-          >
-            {orgUrl ? (
-              <a
-                href={orgUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'inherit', textDecoration: 'none' }}
-                className="hover:underline"
-              >
-                {selectedItem.description} ↗
-              </a>
-            ) : (
-              selectedItem.description
-            )}
-          </div>
-
-          {/* Details */}
-          {selectedItem.details && (
+            {/* Org */}
             <div
+              className="text-[13px] font-medium"
               style={{
-                fontSize: 14,
-                lineHeight: 1.75,
-                color: 'var(--color-ink-3)',
+                color: dotColor,
+                marginBottom: selectedItem.details ? 12 : 0,
               }}
             >
-              {selectedItem.details}
+              {orgUrl ? (
+                <a
+                  href={orgUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'inherit', textDecoration: 'none' }}
+                  className="hover:underline"
+                >
+                  {selectedItem.description} ↗
+                </a>
+              ) : (
+                selectedItem.description
+              )}
             </div>
-          )}
+
+            {/* Details */}
+            {selectedItem.details && (
+              <div className="text-[14px] leading-[1.75] text-[var(--color-ink-3)]">
+                {selectedItem.details}
+              </div>
+            )}
+          </Card>
         </motion.div>
       </AnimatePresence>
     </div>

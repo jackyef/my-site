@@ -1,22 +1,23 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   CircleDot,
-  FlaskConical,
   Home,
   Menu,
   Moon,
-  Palette,
   PenLine,
   Sun,
   User,
-  Wrench,
   X,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import { SegmentedControl } from '@/components/common/SegmentedControl';
+
 import { Theme, useTheme } from '@/hooks/useTheme';
+
+import { cn } from '@/utils/styles/classNames';
 
 const NAV_LINKS = [
   {
@@ -34,11 +35,6 @@ const NAV_LINKS = [
     href: '/blog',
     label: 'Blog',
     icon: <PenLine size={16} aria-hidden="true" />,
-  },
-  {
-    href: '/uses',
-    label: 'Uses',
-    icon: <Wrench size={16} aria-hidden="true" />,
   },
 ];
 
@@ -82,13 +78,7 @@ export function MobileNav() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             onClick={() => setOpen(false)}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(0, 0, 0, 0.4)',
-              backdropFilter: 'blur(2px)',
-              zIndex: 48,
-            }}
+            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[48]"
           />
         )}
       </AnimatePresence>
@@ -102,22 +92,11 @@ export function MobileNav() {
             animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-            style={{
-              position: 'fixed',
-              bottom: 88,
-              right: 20,
-              background: 'var(--color-bg-panel)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 16,
-              boxShadow: 'var(--shadow-lg)',
-              zIndex: 49,
-              minWidth: 200,
-              overflow: 'hidden',
-              transformOrigin: 'bottom right',
-            }}
+            className="fixed bottom-[88px] right-5 bg-[var(--color-bg-panel)] border border-[var(--color-border)] rounded-[16px] shadow-[var(--shadow-lg)] z-[49] min-w-[200px] overflow-hidden"
+            style={{ transformOrigin: 'bottom right' }}
           >
             {/* Nav links */}
-            <div style={{ paddingTop: 6, paddingBottom: 6 }}>
+            <div className="py-[6px]">
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href, link.exact);
                 return (
@@ -125,21 +104,12 @@ export function MobileNav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                      padding: '10px 18px',
-                      fontSize: 14,
-                      fontWeight: active ? 600 : 400,
-                      color: active
-                        ? 'var(--color-accent-text)'
-                        : 'var(--color-ink-2)',
-                      textDecoration: 'none',
-                      background: active
-                        ? 'var(--color-bg-active)'
-                        : 'transparent',
-                    }}
+                    className={cn(
+                      'flex items-center gap-3 px-[18px] py-[10px] text-[14px] no-underline',
+                      active
+                        ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
+                        : 'font-normal text-[var(--color-ink-2)] bg-transparent',
+                    )}
                   >
                     {link.icon}
                     {link.label}
@@ -148,76 +118,16 @@ export function MobileNav() {
               })}
             </div>
 
-            {/* Tools section */}
-            <div style={{ height: 1, background: 'var(--color-border)' }} />
-            <div
-              style={{
-                padding: '4px 18px 2px',
-                fontSize: 10,
-                fontWeight: 600,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--color-ink-4)',
-              }}
-            >
-              Tools
-            </div>
-
-            {/* Separator */}
-            <div style={{ height: 1, background: 'var(--color-border)' }} />
-
             {/* Theme row */}
-            <div
-              style={{
-                padding: '10px 18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 12,
-              }}
-            >
-              <span style={{ fontSize: 13, color: 'var(--color-ink-3)' }}>
+            <div className="px-[18px] py-[10px] flex items-center justify-between gap-3">
+              <span className="text-[13px] text-[var(--color-ink-3)]">
                 Theme
               </span>
-              <div
-                style={{
-                  display: 'flex',
-                  borderRadius: 8,
-                  border: '1px solid var(--color-border)',
-                  overflow: 'hidden',
-                  background: 'var(--color-bg)',
-                }}
-              >
-                {THEME_OPTS.map(({ value, icon, label }) => (
-                  <button
-                    key={value}
-                    onClick={() => setTheme(value)}
-                    title={label}
-                    aria-label={`Switch to ${label} theme`}
-                    aria-pressed={theme === value}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '5px 10px',
-                      color:
-                        theme === value
-                          ? 'var(--color-accent-text)'
-                          : 'var(--color-ink-4)',
-                      background:
-                        theme === value
-                          ? 'var(--color-bg-active)'
-                          : 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontFamily: 'inherit',
-                      transition: 'background 0.13s, color 0.13s',
-                    }}
-                  >
-                    {icon}
-                  </button>
-                ))}
-              </div>
+              <SegmentedControl
+                options={THEME_OPTS}
+                value={theme}
+                onChange={setTheme}
+              />
             </div>
           </motion.div>
         )}
@@ -229,24 +139,7 @@ export function MobileNav() {
         title={open ? 'Close menu' : 'Open menu'}
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         whileTap={{ scale: 0.92 }}
-        style={{
-          position: 'fixed',
-          bottom: 24,
-          right: 20,
-          zIndex: 50,
-          width: 52,
-          height: 52,
-          borderRadius: '50%',
-          background: 'var(--color-accent)',
-          color: '#fff',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: 'var(--shadow-md)',
-          fontFamily: 'inherit',
-        }}
+        className="fixed bottom-6 right-5 z-50 w-[52px] h-[52px] rounded-full bg-[var(--color-accent)] text-white border-none cursor-pointer flex items-center justify-center shadow-[var(--shadow-md)] font-[inherit]"
       >
         <AnimatePresence mode="wait" initial={false}>
           {open ? (

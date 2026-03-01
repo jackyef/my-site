@@ -3,11 +3,11 @@ import Link from 'next/link';
 import {
   Home,
   User,
-  BookOpen,
   PenLine,
   Wrench,
   FlaskConical,
   Palette,
+  WandSparkles
 } from 'lucide-react';
 
 interface NavItem {
@@ -28,11 +28,6 @@ const PAGE_LINKS: NavItem[] = [
     href: '/about',
     label: 'About',
     icon: <User size={16} aria-hidden="true" />,
-  },
-  {
-    href: '/about/readme',
-    label: 'README',
-    icon: <BookOpen size={16} aria-hidden="true" />,
   },
   {
     href: '/blog',
@@ -56,6 +51,11 @@ const TOOL_LINKS: NavItem[] = [
     href: '/tools/claymorphism',
     label: 'Claymorphism',
     icon: <Palette size={16} aria-hidden="true" />,
+  },
+  {
+    href: '/absurd-ui',
+    label: 'Absurd UI',
+    icon: <WandSparkles size={16} aria-hidden="true" />,
   },
 ];
 
@@ -151,7 +151,7 @@ export function SidebarNav() {
         <NavButton key={item.href} item={item} isActive={isActive(item)} />
       ))}
 
-      <SectionLabel>Tools</SectionLabel>
+      <SectionLabel>Misc</SectionLabel>
       {TOOL_LINKS.map((item) => (
         <NavButton key={item.href} item={item} isActive={isActive(item)} />
       ))}

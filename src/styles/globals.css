@@ -63,6 +63,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --color-success: #4caf84;
 
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --bg-opacity: 1;
@@ -116,6 +117,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+  --color-success: #4caf84;
 
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
@@ -161,6 +163,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --color-success: #4caf84;
 
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
@@ -222,7 +225,8 @@ body,
 .content-area,
 .widget-card,
 .nav-btn,
-.chip {
+.chip,
+.card {
   transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
 }
 
@@ -394,12 +398,34 @@ h2 em {
 }
 
 /* ═══════════════════════════════════════
+   INTERACTIVE CARD LIFT
+═══════════════════════════════════════ */
+
+/* Replaces all onMouseEnter/Leave style mutations */
+.card-hover {
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.22s, border-color 0.22s, color 0.22s;
+}
+.card-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ═══════════════════════════════════════
    STATUS DOT ANIMATION
 ═══════════════════════════════════════ */
 
+/* Legacy — kept for backward compat until StatusDot is adopted everywhere */
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.15); }
+}
+.animate-status-pulse {
+  animation: status-pulse 2.5s ease-in-out infinite;
 }
 
 /* ═══════════════════════════════════════

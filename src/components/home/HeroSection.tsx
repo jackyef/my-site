@@ -1,35 +1,18 @@
 import Link from 'next/link';
 
+import { StatusDot } from '@/components/common/StatusDot';
+
 export function HeroSection() {
   return (
     <div className="hero-pad">
       {/* Badge */}
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          fontSize: 13,
-          fontWeight: 500,
-          color: 'var(--color-ink-2)',
-          marginBottom: 18,
-        }}
-      >
-        <span
-          style={{
-            width: 7,
-            height: 7,
-            borderRadius: '50%',
-            background: '#4caf84',
-            animation: 'pulse 2.5s ease-in-out infinite',
-            flexShrink: 0,
-          }}
-        />
+      <div className="inline-flex items-center gap-2 text-[13px] font-medium text-[var(--color-ink-2)] mb-[18px]">
+        <StatusDot />
         Jakarta · Open to remote
       </div>
 
       {/* Heading */}
-      <h1 className="hero-h1" style={{ marginBottom: 12 }}>
+      <h1 className="hero-h1 mb-3">
         Jacky
         <br />
         <em>Efendi.</em>
@@ -37,28 +20,14 @@ export function HeroSection() {
 
       {/* Role */}
       <p
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 'clamp(18px, 2.5vw, 24px)',
-          fontWeight: 300,
-          color: 'var(--color-ink-2)',
-          marginBottom: 18,
-          letterSpacing: '-0.01em',
-        }}
+        className="font-serif font-light text-[var(--color-ink-2)] mb-[18px] tracking-[-0.01em]"
+        style={{ fontSize: 'clamp(18px, 2.5vw, 24px)' }}
       >
         Product Engineer, Frontend &amp; beyond.
       </p>
 
       {/* Description */}
-      <p
-        style={{
-          fontSize: 15,
-          lineHeight: 1.75,
-          color: 'var(--color-ink-3)',
-          marginBottom: 32,
-          maxWidth: 540,
-        }}
-      >
+      <p className="text-[15px] leading-[1.75] text-[var(--color-ink-3)] mb-8 max-w-[540px]">
         I build for the web — from performance infrastructure and design systems
         to the product interfaces people actually use. Deep enough in the
         frontend to care about every detail, fluent enough across the stack to
@@ -66,41 +35,16 @@ export function HeroSection() {
       </p>
 
       {/* CTAs */}
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+      <div className="flex gap-[10px] flex-wrap">
         <Link
           href="/about"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            padding: '9px 20px',
-            borderRadius: 8,
-            background: 'var(--color-accent)',
-            color: '#fff',
-            fontSize: 14,
-            fontWeight: 600,
-            textDecoration: 'none',
-            transition: 'filter 0.18s, transform 0.18s',
-          }}
-          className="hover:[filter:brightness(1.1)] hover:[-translate-y-px]"
+          className="inline-flex items-center px-5 py-[9px] rounded-lg bg-[var(--color-accent)] text-white text-[14px] font-semibold no-underline transition-[filter,transform] duration-[180ms] hover:[filter:brightness(1.1)] hover:[-translate-y-px]"
         >
           Read about me →
         </Link>
         <Link
           href="/about/readme"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            padding: '9px 20px',
-            borderRadius: 8,
-            background: 'transparent',
-            color: 'var(--color-ink-2)',
-            fontSize: 14,
-            fontWeight: 500,
-            border: '1px solid var(--color-border-hi)',
-            textDecoration: 'none',
-            transition: 'background 0.18s, border-color 0.18s',
-          }}
-          className="hover:bg-[var(--color-bg-hover)]"
+          className="inline-flex items-center px-5 py-[9px] rounded-lg bg-transparent text-[var(--color-ink-2)] text-[14px] font-medium border border-[var(--color-border-hi)] no-underline transition-[background,border-color] duration-[180ms] hover:bg-[var(--color-bg-hover)]"
         >
           My README
         </Link>

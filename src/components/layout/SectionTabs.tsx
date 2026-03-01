@@ -19,7 +19,7 @@ export function SectionTabs({
 }: SectionTabsProps) {
   return (
     <div
-      className="px-5 md:px-[52px]"
+      className="px-5 md:px-13 overflow-y-hidden"
       style={{
         display: 'flex',
         alignItems: 'center',

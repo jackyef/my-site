@@ -1,39 +1,25 @@
 import { ExternalLink } from '@/components/Typography/ExternalLink';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export function BioView() {
   return (
     <div className="page-pad">
-      <p className="eyebrow" style={{ marginBottom: 10 }}>
-        About
-      </p>
-      <h1 className="page-title" style={{ marginBottom: 12 }}>
-        I build for <em>the web.</em>
-      </h1>
-      <p
-        style={{
-          fontSize: 16,
-          lineHeight: 1.75,
-          color: 'var(--color-ink-2)',
-          marginBottom: 18,
-          fontWeight: 300,
-        }}
-      >
+      <PageHeader
+        eyebrow="About"
+        title={
+          <>
+            I build for <em>the web.</em>
+          </>
+        }
+        titleSpacing="mb-3"
+      />
+      <p className="text-[16px] leading-[1.75] text-[var(--color-ink-2)] mb-[18px] font-light">
         Curious by nature, obsessed with craft. I work across the full frontend
         spectrum — from performance tooling and build infrastructure to the
         design systems and product features that millions of people use.
       </p>
 
-      <div
-        style={{
-          fontSize: 15,
-          lineHeight: 1.75,
-          color: 'var(--color-ink-3)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-          maxWidth: 600,
-        }}
-      >
+      <div className="text-[15px] leading-[1.75] text-[var(--color-ink-3)] flex flex-col gap-4 max-w-[600px]">
         <p>
           I am a software engineer working on all-things-web. I am a curious
           person and I love to learn how things work. It gives me a satisfying

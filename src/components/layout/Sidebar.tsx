@@ -10,42 +10,14 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 
 function LogoMark() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-      <div
-        style={{
-          width: 26,
-          height: 26,
-          borderRadius: 7,
-          background: 'var(--color-accent)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <span
-          style={{
-            color: '#fff',
-            fontSize: 13,
-            fontWeight: 700,
-            fontFamily: 'var(--font-serif)',
-            lineHeight: 1,
-          }}
-        >
+    <div className="flex items-center gap-[9px]">
+      <div className="w-[26px] h-[26px] rounded-[7px] bg-[var(--color-accent)] flex items-center justify-center shrink-0">
+        <span className="text-white text-[13px] font-bold font-serif leading-none">
           J
         </span>
       </div>
       {/* Hide domain text on narrow (icon-strip) sidebar */}
-      <span
-        className="hidden lg:inline"
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 15,
-          fontWeight: 600,
-          color: 'var(--color-ink)',
-          letterSpacing: '-0.01em',
-        }}
-      >
+      <span className="hidden lg:inline font-serif text-[15px] font-semibold text-[var(--color-ink)] tracking-[-0.01em]">
         jackyef.com
       </span>
     </div>
@@ -57,66 +29,19 @@ export function Sidebar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <aside
-      className="sidebar md:w-[60px] lg:w-[220px]"
-      style={{
-        flexShrink: 0,
-        height: '100vh',
-        position: 'sticky',
-        top: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'var(--color-bg-sidebar)',
-        borderRight: '1px solid var(--color-border)',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        transition:
-          'background-color 0.22s ease, border-color 0.22s ease, width 0.2s ease',
-      }}
-    >
+    <aside className="sidebar shrink-0 h-screen sticky top-0 flex flex-col bg-[var(--color-bg-sidebar)] border-r border-[var(--color-border)] overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
       {/* Top: Logo + CMD trigger */}
-      <div
-        style={{
-          padding: '18px 16px 12px',
-          borderBottom: '1px solid var(--color-border)',
-        }}
-      >
+      <div className="px-4 pt-[18px] pb-3 border-b border-[var(--color-border)]">
         <LogoMark />
 
         {/* CMD trigger — hidden on icon-strip sidebar */}
         <button
           onClick={() => setIsOpen(true)}
-          className="hidden lg:flex hover:border-[var(--color-accent-l)] hover:text-[var(--color-ink-3)]"
-          style={{
-            marginTop: 10,
-            width: '100%',
-            alignItems: 'center',
-            gap: 6,
-            padding: '6px 10px',
-            borderRadius: 8,
-            border: '1px solid var(--color-border)',
-            background: 'var(--color-bg-panel)',
-            color: 'var(--color-ink-4)',
-            fontSize: 13,
-            cursor: 'pointer',
-            fontFamily: 'inherit',
-            transition: 'border-color 0.15s, color 0.15s',
-            textAlign: 'left',
-          }}
+          className="hidden lg:flex mt-[10px] w-full items-center gap-[6px] px-[10px] py-[6px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-panel)] text-[var(--color-ink-4)] text-[13px] cursor-pointer font-[inherit] text-left transition-[border-color,color] duration-[150ms] hover:border-[var(--color-accent-l)] hover:text-[var(--color-ink-3)]"
         >
           <Search size={13} aria-hidden="true" />
-          <span style={{ flex: 1 }}>Quick actions…</span>
-          <span
-            style={{
-              marginLeft: 'auto',
-              fontSize: 10,
-              background: 'var(--color-bg)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 4,
-              padding: '1px 5px',
-              color: 'var(--color-ink-4)',
-            }}
-          >
+          <span className="flex-1">Quick actions…</span>
+          <span className="ml-auto text-[10px] bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[4px] px-[5px] py-[1px] text-[var(--color-ink-4)]">
             ⌘K
           </span>
         </button>
@@ -126,22 +51,7 @@ export function Sidebar() {
           onClick={() => setIsOpen(true)}
           title="Quick actions (⌘K)"
           aria-label="Quick actions"
-          className="lg:hidden hover:bg-[var(--color-bg-hover)]"
-          style={{
-            marginTop: 10,
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '6px',
-            borderRadius: 8,
-            border: '1px solid var(--color-border)',
-            background: 'var(--color-bg-panel)',
-            color: 'var(--color-ink-4)',
-            cursor: 'pointer',
-            fontFamily: 'inherit',
-            transition: 'background 0.13s',
-          }}
+          className="flex lg:hidden mt-[10px] w-full items-center justify-center p-[6px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-panel)] text-[var(--color-ink-4)] cursor-pointer font-[inherit] transition-[background] duration-[130ms] hover:bg-[var(--color-bg-hover)]"
         >
           <Search size={14} aria-hidden="true" />
         </button>
@@ -151,15 +61,7 @@ export function Sidebar() {
       <SidebarNav />
 
       {/* Bottom: Theme + Social */}
-      <div
-        style={{
-          padding: '12px 8px',
-          borderTop: '1px solid var(--color-border)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 8,
-        }}
-      >
+      <div className="px-2 py-3 border-t border-[var(--color-border)] flex flex-col gap-2">
         {/* Compact (icon-strip md–lg) */}
         <div className="md:block lg:hidden">
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />

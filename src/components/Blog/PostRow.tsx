@@ -3,7 +3,7 @@ import tinytime from 'tinytime';
 
 import { Post } from '@/blog/types';
 
-const dateTemplate = tinytime('{MM}/{DD}/{YYYY}');
+const dateTemplate = tinytime('{DD} {MM} {YYYY}');
 
 interface PostRowProps {
   post: Post;
