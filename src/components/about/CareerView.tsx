@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { timelineEvents } from '@/components/HistoryCalendar/constants';
@@ -22,9 +22,8 @@ const ORG_URLS: Record<string, string> = {
 };
 
 const CHART_START = 2013;
-const CHART_END = 2027;
-// Every 2 years to avoid crowding on the 14-year span
-const YEAR_LABELS = [2013, 2015, 2017, 2019, 2021, 2023, 2025];
+// 200px per year → ~3.5 years visible in a ~700px container
+const YEAR_PX = 200;
 
 // Oldest first so bars flow left → right
 const CHART_ITEMS = [...timelineEvents].reverse();
@@ -33,18 +32,18 @@ function dateToYear(d: Date): number {
   return d.getFullYear() + d.getMonth() / 12;
 }
 
-function toPercent(year: number): number {
-  return ((year - CHART_START) / (CHART_END - CHART_START)) * 100;
+function yearToPx(year: number): number {
+  return (year - CHART_START) * YEAR_PX;
 }
 
-function shortOrg(description: string): string {
-  const known: Record<string, string> = {
-    'Sticker Mule': 'Sticker Mule',
-    Tokopedia: 'Tokopedia',
-    Unemployed: 'Unemployed',
-  };
-  return known[description] ?? description.split(',')[0].slice(0, 10);
-}
+// Chart ends exactly at today — right edge of the last bar = right edge of the chart
+const TODAY_PX = yearToPx(dateToYear(TODAY));
+const CHART_WIDTH = TODAY_PX + 1; // +1 so the today line isn't clipped
+
+const YEAR_LABELS = Array.from(
+  { length: Math.floor(dateToYear(TODAY)) - CHART_START + 1 },
+  (_, i) => CHART_START + i,
+);
 
 function periodLabel(from: Date, to: Date, isCurrent: boolean): string {
   const fromStr = formatMonth(from, true, 'en-US', 'short') ?? '';
@@ -56,8 +55,13 @@ function periodLabel(from: Date, to: Date, isCurrent: boolean): string {
 }
 
 export function CareerView() {
-  // Default to the most recent (current) role
   const [selected, setSelected] = useState<number>(CHART_ITEMS.length - 1);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const barRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const handleBarClick = useCallback((i: number) => {
+    setSelected(i);
+  }, []);
 
   const selectedItem = CHART_ITEMS[selected];
   const isCurrent = selectedItem.to >= TODAY;
@@ -75,17 +79,23 @@ export function CareerView() {
       </h1>
 
       {/* Gantt Chart */}
-      <div style={{ overflowX: 'auto', marginBottom: 20 }}>
-        <div style={{ minWidth: 600, paddingBottom: 4 }}>
+      <div ref={scrollRef} style={{ overflowX: 'auto', marginBottom: 20 }}>
+        <div style={{ paddingBottom: 4 }}>
           {/* Year axis labels */}
-          <div style={{ display: 'flex', paddingLeft: 92, marginBottom: 6 }}>
-            <div style={{ flex: 1, position: 'relative', height: 18 }}>
+          <div style={{ marginBottom: 6 }}>
+            <div
+              style={{
+                width: CHART_WIDTH,
+                position: 'relative',
+                height: 18,
+              }}
+            >
               {YEAR_LABELS.map((y) => (
                 <div
                   key={y}
                   style={{
                     position: 'absolute',
-                    left: `${toPercent(y)}%`,
+                    left: yearToPx(y),
                     transform: 'translateX(-50%)',
                     fontSize: 11,
                     color: 'var(--color-ink-4)',
@@ -102,53 +112,32 @@ export function CareerView() {
           {/* Bar rows */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
             {CHART_ITEMS.map((item, i) => {
-              const start = dateToYear(item.from);
-              const rawEnd = item.to >= TODAY ? TODAY : item.to;
-              const end = dateToYear(rawEnd);
-              const left = toPercent(start);
-              const width = Math.max(toPercent(end) - left, 1.5);
+              const startPx = yearToPx(dateToYear(item.from));
+              const endDate = item.to >= TODAY ? TODAY : item.to;
+              const endPx = yearToPx(dateToYear(endDate));
+              const widthPx = Math.max(endPx - startPx, 8);
               const isSelected = selected === i;
               const barColor =
                 VARIANT_COLORS[item.variant] ?? 'var(--color-accent)';
 
               return (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    height: 32,
-                  }}
-                >
-                  {/* Org label */}
+                <div key={i} style={{ height: 32 }}>
+                  {/* Bar area */}
                   <div
                     style={{
-                      width: 84,
+                      width: CHART_WIDTH,
                       flexShrink: 0,
-                      fontSize: 10,
-                      fontWeight: 600,
-                      color: 'var(--color-ink-4)',
-                      textAlign: 'right',
-                      letterSpacing: '0.04em',
-                      lineHeight: 1.25,
-                      textTransform: 'uppercase',
-                      wordBreak: 'break-word',
+                      position: 'relative',
+                      height: '100%',
                     }}
                   >
-                    {shortOrg(item.description)}
-                  </div>
-
-                  {/* Bar area with year grid lines */}
-                  <div
-                    style={{ flex: 1, position: 'relative', height: '100%' }}
-                  >
+                    {/* Year grid lines */}
                     {YEAR_LABELS.map((y) => (
                       <div
                         key={y}
                         style={{
                           position: 'absolute',
-                          left: `${toPercent(y)}%`,
+                          left: yearToPx(y),
                           top: 0,
                           bottom: 0,
                           width: 1,
@@ -157,13 +146,31 @@ export function CareerView() {
                       />
                     ))}
 
-                    <button
-                      onClick={() => setSelected(i)}
-                      title={`${item.title} @ ${shortOrg(item.description)}`}
+                    {/* Today line */}
+                    <div
                       style={{
                         position: 'absolute',
-                        left: `${left}%`,
-                        width: `${width}%`,
+                        left: yearToPx(dateToYear(TODAY)),
+                        top: 0,
+                        bottom: 0,
+                        width: 1.5,
+                        background: 'var(--color-accent)',
+                        opacity: 0.5,
+                      }}
+                    />
+
+                    {/* Bar */}
+                    <button
+                      ref={(btn) => {
+                        barRefs.current[i] = btn;
+                      }}
+                      data-index={i}
+                      onClick={() => handleBarClick(i)}
+                      title={`${item.title} @ ${item.description}`}
+                      style={{
+                        position: 'absolute',
+                        left: startPx,
+                        width: widthPx,
                         top: 3,
                         bottom: 3,
                         borderRadius: 5,

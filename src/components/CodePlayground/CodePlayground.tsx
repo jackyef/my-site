@@ -91,7 +91,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
     >
       <div
         className={cn(
-          'isolate shadow-surface-2 rounded-lg lg:-mx-[7vw]',
+          'isolate shadow-surface-2 rounded-lg',
           css`
             & .cm-tooltip {
               background: ${theme.colors.surface3};
@@ -136,8 +136,8 @@ export const CodePlayground = ({ initialCode }: Props) => {
                 border-radius: 0 0 0.5rem 0.5rem !important;
               `,
               {
-                block: editorAndPreviewLayout === 'vertical',
-                flex: editorAndPreviewLayout === 'horizontal',
+                'block!': editorAndPreviewLayout === 'vertical',
+                'flex!': editorAndPreviewLayout === 'horizontal',
               },
             )}
           >

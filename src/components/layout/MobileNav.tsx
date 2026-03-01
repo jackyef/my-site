@@ -42,19 +42,6 @@ const NAV_LINKS = [
   },
 ];
 
-const TOOL_LINKS = [
-  {
-    href: '/tools/playground',
-    label: 'Playground',
-    icon: <FlaskConical size={16} aria-hidden="true" />,
-  },
-  {
-    href: '/tools/claymorphism',
-    label: 'Claymorphism',
-    icon: <Palette size={16} aria-hidden="true" />,
-  },
-];
-
 const THEME_OPTS: { value: Theme; icon: React.ReactNode; label: string }[] = [
   {
     value: 'light',
@@ -174,36 +161,6 @@ export function MobileNav() {
               }}
             >
               Tools
-            </div>
-            <div style={{ paddingBottom: 4 }}>
-              {TOOL_LINKS.map((link) => {
-                const active = isActive(link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                      padding: '10px 18px',
-                      fontSize: 14,
-                      fontWeight: active ? 600 : 400,
-                      color: active
-                        ? 'var(--color-accent-text)'
-                        : 'var(--color-ink-2)',
-                      textDecoration: 'none',
-                      background: active
-                        ? 'var(--color-bg-active)'
-                        : 'transparent',
-                    }}
-                  >
-                    {link.icon}
-                    {link.label}
-                  </Link>
-                );
-              })}
             </div>
 
             {/* Separator */}
