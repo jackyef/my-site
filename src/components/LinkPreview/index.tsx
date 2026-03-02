@@ -2,8 +2,6 @@ import { css, keyframes } from 'goober';
 
 import { cn } from '@/utils/styles/classNames';
 
-import { HorizontalDivider } from '../Divider';
-
 import { useUrlMetadata } from './useUrlMetadata';
 
 interface Props {
@@ -60,10 +58,7 @@ export const LinkPreview = ({ href }: Props) => {
       )}
     >
       {Boolean(data.image) && (
-        <>
-          <img src={data.image} className="mb-2" height={150} />
-          <HorizontalDivider />
-        </>
+        <img src={data.image} className="mb-2" height={150} />
       )}
       <span className={cn('text-base font-bold')}>{data.title}</span>
       <span>{data.description}</span>

@@ -137,6 +137,7 @@ export default () => {
           <SearchInput
             placeholder={getPlaceholderText()}
             value={query}
+            autoFocus
             onChange={handleChangeQuery}
             hasResults={hasResults}
           />

@@ -76,11 +76,12 @@ export function CareerView() {
     scrollRef.current?.scrollTo({
       left: Math.max(
         0,
-        (barRefs.current[selected]?.offsetLeft ?? 0) - scrollRef.current.clientWidth / 2,
+        (barRefs.current[selected]?.offsetLeft ?? 0) -
+          scrollRef.current.clientWidth / 2,
       ),
       behavior: 'smooth',
     });
-  }, [])
+  }, []);
 
   return (
     <div className="page-pad">

@@ -17,7 +17,7 @@ export function PostRow({ post }: PostRowProps) {
   return (
     <Link
       href={link}
-      className="flex items-baseline gap-3 py-[10px] border-b border-[var(--color-border)] no-underline transition-[background] duration-[120ms] hover:bg-[var(--color-bg-hover)] group"
+      className="flex items-baseline gap-3 py-[10px] no-underline transition-[background] duration-[120ms] hover:bg-[var(--color-bg-hover)] group"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2">

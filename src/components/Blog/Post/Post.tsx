@@ -2,7 +2,6 @@ import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { HorizontalDivider } from '@/components/Divider';
 import { MDXProvider } from '@/components/common/MDX';
 import { Post as PostType } from '@/blog/types';
 import { TwitterShare } from '@/components/Social/TwitterShare';
@@ -45,8 +44,6 @@ export default function Post({ post }: Props) {
             <div className="prose max-w-none pb-8">
               <MDXProvider mdxSource={post.mdxSource} />
             </div>
-
-            <HorizontalDivider />
 
             {isBlogPost && (
               <TwitterShare text={`${meta.title} ${fullUrl} via @jackyef__`}>

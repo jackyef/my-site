@@ -20,7 +20,7 @@ export function SectionTabs({
   onTabChange,
 }: SectionTabsProps) {
   return (
-    <div className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color,border-color] duration-[220ms] ease-out">
+    <div className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] bg-[var(--color-bg)] overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out">
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         return (
