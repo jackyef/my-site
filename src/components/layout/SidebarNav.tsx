@@ -51,7 +51,7 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
     <Link
       href={item.href}
       className={cn(
-        'flex items-center gap-[9px] w-full px-[10px] py-[7px] rounded-lg text-[13px] no-underline shrink-0 relative transition-[background,color] duration-[130ms]',
+        'flex items-center gap-[9px] w-full px-[10px] py-3 lg:py-[7px] rounded-lg text-[13px] no-underline shrink-0 relative transition-[background,color] duration-[130ms]',
         'md:justify-center lg:justify-start',
         isActive
           ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'

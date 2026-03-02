@@ -72,15 +72,32 @@ export function CareerView() {
     VARIANT_COLORS[selectedItem.variant] ?? 'var(--color-accent)';
   const orgUrl = ORG_URLS[selectedItem.description];
 
+  // Scroll the chart to the selected bar once it's near the viewport center
   useEffect(() => {
-    scrollRef.current?.scrollTo({
-      left: Math.max(
-        0,
-        (barRefs.current[selected]?.offsetLeft ?? 0) -
-          scrollRef.current.clientWidth / 2,
-      ),
-      behavior: 'smooth',
-    });
+    const chart = scrollRef.current;
+    if (!chart) return;
+
+    let done = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (done || !entry.isIntersecting) return;
+        done = true;
+        observer.disconnect();
+
+        chart.scrollTo({
+          left: Math.max(
+            0,
+            (barRefs.current[selected]?.offsetLeft ?? 0) -
+              chart.clientWidth / 2,
+          ),
+          behavior: 'smooth',
+        });
+      },
+      { rootMargin: '-30% 0px -30% 0px', threshold: 0 },
+    );
+
+    observer.observe(chart);
+    return () => observer.disconnect();
   }, []);
 
   return (
