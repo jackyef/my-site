@@ -26,7 +26,7 @@ export default function Home({ posts, blogStats }: Props) {
         <div className="latest-pad">
           <div className="flex items-baseline justify-between mb-3">
             <p className="eyebrow">Latest writings</p>
-            <TextLink href="/blog">All posts →</TextLink>
+            <TextLink className="text-[13px]" href="/blog">All posts →</TextLink>
           </div>
 
           <div>
