@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react';
-import { PlayIcon, StopIcon } from '@heroicons/react/24/solid';
-import { css } from 'goober';
-
-import { getHslaColor } from '@/lib/styles/colors';
+import { Play, Square } from 'lucide-react';
 
 import { Button } from './Button';
 
@@ -95,21 +92,19 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
           record();
         }}
       >
-        {isEnabled ? <StopIcon height="72px" /> : <PlayIcon height="72px" />}
+        {isEnabled ? (
+          <Square size={72} fill="white" stroke="none" />
+        ) : (
+          <Play size={72} fill="white" stroke="none" />
+        )}
 
         {/* Ripple effect as the microphone pick up sounds */}
         {isEnabled && (
           <span
-            className={css`
-              display: block;
-              position: absolute;
-              inset: 0;
-              border-radius: 50%;
-              border: 2px solid;
-              border-color: ${getHslaColor('secondary', 0.6)};
-              transform: scale(${getRippleScale(volume / 100)});
-              transition: transform 50ms;
-            `}
+            className="block absolute inset-0 rounded-full border-2 border-(--color-danger) transition-transform duration-[50ms]"
+            style={{
+              transform: `scale(${getRippleScale(volume / 100)})`,
+            }}
           />
         )}
       </Button>

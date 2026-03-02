@@ -7,6 +7,7 @@ import {
   FlaskConical,
   Palette,
   WandSparkles,
+  Mic,
 } from 'lucide-react';
 
 import { SectionLabel } from '@/components/common/SectionLabel';
@@ -38,6 +39,11 @@ const TOOL_LINKS: NavItem[] = [
     href: '/tools/claymorphism',
     label: 'Claymorphism',
     icon: <Palette {...ICON_PROPS} />,
+  },
+  {
+    href: '/tools/speech-to-text',
+    label: 'Speech-to-text',
+    icon: <Mic {...ICON_PROPS} />,
   },
   {
     href: '/absurd-ui',

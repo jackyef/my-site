@@ -58,7 +58,7 @@ export const WebSpeechAPIDemo = () => {
                 'flex',
                 'justify-center',
                 'text-2xl',
-                'text-theme-subtitle',
+                'text-(--color-ink-3)',
                 'mb-16',
                 'text-center',
               )}
@@ -66,18 +66,12 @@ export const WebSpeechAPIDemo = () => {
               {getMessage()}
             </div>
 
-            <span dangerouslySetInnerHTML={{ __html: output }} />
-            <span className="opacity-50">{interimOutput}</span>
+            <span className="text-(--color-ink-2)" dangerouslySetInnerHTML={{ __html: output }} />
+            <span className="text-(--color-ink-4)">{interimOutput}</span>
 
             {hasOutput && (
               <button
-                className={cn(
-                  'mt-8',
-                  'mx-auto',
-                  'block',
-                  'text-theme-subtitle',
-                  'underline',
-                )}
+                className="mt-8 mx-auto block text-(--color-ink-3) underline"
                 onClick={clear}
                 type="button"
               >

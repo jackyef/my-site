@@ -1,43 +1,28 @@
-import { css } from 'goober';
 import React from 'react';
 
-import { getHslaColor, getHslString } from '@/lib/styles/colors';
-
 import { cn } from '@/utils/styles/classNames';
+
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   isEnabled: boolean;
 }
-export const Button = ({ isEnabled, ...props }: Props) => {
-  const bgColor = css`
-    --button-hsl: ${getHslString(isEnabled ? 'secondary' : 'primary')};
-  `;
 
-  const button = css`
-    display: inline-block;
-    position: relative;
-    padding: 0.5rem;
-    border-radius: 50%;
-    border: 2px solid;
-    border-color: hsla(var(--button-hsl) / 0.6);
-    background-color: hsla(var(--button-hsl) / 0.8);
+export const Button = ({ isEnabled, className, style, ...props }: Props) => {
+  const color = isEnabled ? 'var(--color-danger)' : 'var(--color-accent)';
 
-    transition: var(--transition-faster);
-
-    &:hover,
-    &:focus {
-      background-color: hsla(var(--button-hsl) / 0.1);
-      transform: scale(1.2);
-
-      & > svg {
-        transition: var(--transition-faster);
-        fill: ${getHslaColor('text')};
-      }
-    }
-
-    & > svg {
-      fill: ${getHslaColor('text', 0.9)};
-    }
-  `;
-
-  return <button {...props} className={cn(bgColor, button)} />;
+  return (
+    <button
+      {...props}
+      className={cn(
+        'inline-block relative rounded-full p-2 border-2 transition-all duration-150',
+        'hover:scale-[1.2] focus:scale-[1.2]',
+        '[&>svg]:transition-colors [&>svg]:duration-150',
+        className,
+      )}
+      style={{
+        borderColor: color,
+        backgroundColor: color,
+        ...style,
+      }}
+    />
+  );
 };
