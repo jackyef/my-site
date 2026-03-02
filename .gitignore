@@ -19,6 +19,7 @@ node_modules
 .DS_Store
 *.pem
 .secret
+.playwright-mcp
 
 # debug
 npm-debug.log*

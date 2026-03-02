@@ -2,6 +2,7 @@ import Link from 'next/link';
 import tinytime from 'tinytime';
 
 import { Post } from '@/blog/types';
+import { Chip } from '@/components/common/Chip';
 
 const dateTemplate = tinytime('{DD} {MM} {YYYY}');
 
@@ -16,63 +17,24 @@ export function PostRow({ post }: PostRowProps) {
   return (
     <Link
       href={link}
-      style={{
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: 12,
-        padding: '10px 0',
-        borderBottom: '1px solid var(--color-border)',
-        textDecoration: 'none',
-        transition: 'background 0.12s',
-      }}
-      className="hover:bg-[var(--color-bg-hover)] group"
+      className="flex items-baseline gap-3 py-[10px] border-b border-[var(--color-border)] no-underline transition-[background] duration-[120ms] hover:bg-[var(--color-bg-hover)] group"
     >
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 8,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 14,
-              fontWeight: 500,
-              color: 'var(--color-ink)',
-              lineHeight: 1.5,
-              flex: 1,
-            }}
-            className="group-hover:text-[var(--color-accent-text)]"
-          >
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline gap-2">
+          <span className="text-[14px] font-medium text-[var(--color-ink)] leading-[1.5] flex-1 group-hover:text-[var(--color-accent-text)]">
             {metadata.title}
           </span>
           {firstTag && (
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 500,
-                padding: '2px 7px',
-                borderRadius: 100,
-                background: 'var(--color-accent-xl)',
-                color: 'var(--color-accent-text)',
-                border: '1px solid var(--color-accent-l)',
-                lineHeight: 1,
-                flexShrink: 0,
-                whiteSpace: 'nowrap',
-              }}
+            <Chip
+              variant="highlight"
+              size="xs"
+              className="shrink-0 whitespace-nowrap"
             >
               {firstTag}
-            </span>
+            </Chip>
           )}
         </div>
-        <div
-          style={{
-            fontSize: 12,
-            color: 'var(--color-ink-4)',
-            marginTop: 2,
-          }}
-        >
+        <div className="text-[12px] text-[var(--color-ink-4)] mt-[2px]">
           {dateTemplate.render(new Date(metadata.date))} ·{' '}
           {metadata.readingTime}
         </div>

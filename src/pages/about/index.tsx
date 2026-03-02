@@ -50,14 +50,14 @@ export default function About() {
     <>
       <PageMetaTags title="About" />
 
-      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <div className="flex flex-col flex-1">
         <SectionTabs
           tabs={TABS}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />
 
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div className="flex-1 overflow-y-auto">
           {activeTab === 'bio' && <BioView />}
           {activeTab === 'career' && <CareerView />}
           {activeTab === 'projects' && <ProjectsView />}

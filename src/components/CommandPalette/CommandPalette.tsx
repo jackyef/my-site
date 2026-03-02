@@ -1,6 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useCallback, useEffect, useState } from 'react';
 
+import { Surface } from '@/components/common/Surface';
+
 import { cn } from '@/utils/styles/classNames';
 import { getPlatformMetaKey } from '@/utils/keyboard';
 
@@ -115,25 +117,20 @@ export default () => {
         />
       </Dialog.Overlay>
       <Dialog.Content asChild>
-        <div
+        <Surface
+          elevation="lg"
+          rounded="xl"
           onKeyDown={handleKeyDown}
           className={cn(
             'p-4',
-            'rounded-3xl',
             'animate-fadeIn',
             'transition-colors',
             'duration-500',
+            'text-[var(--color-ink-2)]',
+            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[44rem]',
           )}
           style={{
-            position: 'fixed',
             top: '12vh',
-            left: '50%',
-            transform: 'translate(-50%)',
-            width: '90vw',
-            maxWidth: '44rem',
-            background: 'var(--color-bg-panel)',
-            color: 'var(--color-ink-2)',
-            border: '1px solid var(--color-border)',
             zIndex: 1001,
           }}
         >
@@ -180,7 +177,7 @@ export default () => {
               />
             </ResultBox>
           )}
-        </div>
+        </Surface>
       </Dialog.Content>
     </Dialog.Root>
   );

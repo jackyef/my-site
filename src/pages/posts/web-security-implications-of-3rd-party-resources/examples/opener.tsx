@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { H2 } from '@/components/Typography/Heading';
-import { Paragraph } from '@/components/Typography/Paragraph';
 
 const OpenerPage = () => {
   const [hasRedirected, setHasRedirected] = useState(false);
@@ -20,14 +19,16 @@ const OpenerPage = () => {
       </H2>
 
       {hasRedirected ? (
-        <Paragraph>
+        <p className="text-md md:text-lg my-6">
           Go back to previous tab, it should be redirected now!
           <br />
           <br />
           You can now close this tab.
-        </Paragraph>
+        </p>
       ) : (
-        <Paragraph>Trying to redirect the opener page...</Paragraph>
+        <p className="text-md md:text-lg my-6">
+          Trying to redirect the opener page...
+        </p>
       )}
     </>
   );

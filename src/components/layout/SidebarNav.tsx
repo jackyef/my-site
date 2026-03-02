@@ -4,11 +4,14 @@ import {
   Home,
   User,
   PenLine,
-  Wrench,
   FlaskConical,
   Palette,
-  WandSparkles
+  WandSparkles,
 } from 'lucide-react';
+
+import { SectionLabel } from '@/components/common/SectionLabel';
+
+import { cn } from '@/utils/styles/classNames';
 
 interface NavItem {
   href: string;
@@ -33,12 +36,7 @@ const PAGE_LINKS: NavItem[] = [
     href: '/blog',
     label: 'Blog',
     icon: <PenLine size={16} aria-hidden="true" />,
-  },
-  {
-    href: '/uses',
-    label: 'Uses',
-    icon: <Wrench size={16} aria-hidden="true" />,
-  },
+  }
 ];
 
 const TOOL_LINKS: NavItem[] = [
@@ -64,72 +62,21 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
     <Link
       href={item.href}
       title={item.label}
-      className={[
-        // On icon-strip (md–lg): center icon; on full sidebar (lg+): left-align
+      className={cn(
+        'flex items-center gap-[9px] w-full px-[10px] py-[7px] rounded-lg text-[13px] no-underline shrink-0 relative transition-[background,color] duration-[130ms]',
         'md:justify-center lg:justify-start',
-        !isActive
-          ? 'hover:bg-[var(--color-bg-hover)] hover:!text-[var(--color-ink)]'
-          : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 9,
-        width: '100%',
-        padding: '7px 10px',
-        borderRadius: 8,
-        fontSize: 13,
-        fontWeight: isActive ? 600 : 500,
-        color: isActive ? 'var(--color-accent-text)' : 'var(--color-ink-3)',
-        background: isActive ? 'var(--color-bg-active)' : 'transparent',
-        transition: 'background 0.13s, color 0.13s',
-        position: 'relative',
-        textDecoration: 'none',
-        flexShrink: 0,
-      }}
+        isActive
+          ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
+          : 'font-medium text-[var(--color-ink-3)] bg-transparent hover:bg-[var(--color-bg-hover)] hover:!text-[var(--color-ink)]',
+      )}
     >
       {isActive && (
-        <span
-          className="hidden lg:block"
-          style={{
-            position: 'absolute',
-            left: -8,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: 3,
-            height: 16,
-            background: 'var(--color-accent)',
-            borderRadius: '0 3px 3px 0',
-          }}
-        />
+        <span className="hidden lg:block absolute -left-2 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-[var(--color-accent)] rounded-r-[3px]" />
       )}
-      <span style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
-        {item.icon}
-      </span>
+      <span className="shrink-0 flex items-center">{item.icon}</span>
       {/* Label hidden on icon-strip sidebar */}
       <span className="hidden lg:block">{item.label}</span>
     </Link>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    /* Label hidden on icon-strip sidebar */
-    <div
-      className="hidden lg:block"
-      style={{
-        fontSize: 10,
-        fontWeight: 600,
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        color: 'var(--color-ink-4)',
-        padding: '10px 8px 5px',
-      }}
-    >
-      {children}
-    </div>
   );
 }
 
@@ -145,13 +92,17 @@ export function SidebarNav() {
   };
 
   return (
-    <nav style={{ flex: 1, overflowY: 'auto', padding: '10px 8px' }}>
-      <SectionLabel>Pages</SectionLabel>
+    <nav className="flex-1 overflow-y-auto p-[10px_8px]">
+      <SectionLabel className="hidden lg:block px-2 pt-[10px] pb-[5px]">
+        Pages
+      </SectionLabel>
       {PAGE_LINKS.map((item) => (
         <NavButton key={item.href} item={item} isActive={isActive(item)} />
       ))}
 
-      <SectionLabel>Misc</SectionLabel>
+      <SectionLabel className="hidden lg:block px-2 pt-[10px] pb-[5px]">
+        Misc
+      </SectionLabel>
       {TOOL_LINKS.map((item) => (
         <NavButton key={item.href} item={item} isActive={isActive(item)} />
       ))}

@@ -1,3 +1,5 @@
+import { Surface } from '@/components/common/Surface';
+
 import { cn } from '@/utils/styles/classNames';
 
 interface CardProps {
@@ -19,18 +21,20 @@ export function Card({
   className,
   hover,
   padding = 'none',
-  as: As = 'div',
+  as,
 }: CardProps) {
   return (
-    <As
+    <Surface
+      as={as}
+      rounded="lg"
       className={cn(
-        'card rounded-[10px] bg-[var(--color-bg-panel)] border border-[var(--color-border)] shadow-[var(--shadow-sm)]',
+        'card',
         hover && 'card-hover',
         paddingMap[padding],
         className,
       )}
     >
       {children}
-    </As>
+    </Surface>
   );
 }

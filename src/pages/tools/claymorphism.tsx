@@ -1,12 +1,11 @@
 import tinytime from 'tinytime';
 
+import { Heading } from '@/components/common/Heading';
+import { PageHeader } from '@/components/common/PageHeader';
+import { Text } from '@/components/common/Text';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { PageTitle } from '@/components/Typography/PageTitle';
 import { ClaymorphismTools } from '@/components/tools/Claymorphism';
-import { HorizontalDivider } from '@/components/Divider';
-import { Paragraph } from '@/components/Typography/Paragraph';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
-import { SectionTitle } from '@/components/Typography/SectionTitle';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
@@ -31,21 +30,18 @@ const ClaymorphismToolsPage = () => {
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
 
-      <PageTitle>{meta.title}</PageTitle>
-
-      <HorizontalDivider />
+      <PageHeader eyebrow="Tools" title={meta.title} />
 
       <ClaymorphismTools />
 
-      <HorizontalDivider />
-
-      <SectionTitle>References</SectionTitle>
-
-      <Paragraph>
+      <Heading level={4} className="mt-8 mb-4">
+        References
+      </Heading>
+      <Text color="ink-2" className="md:text-lg">
         <ExternalLink href="https://uxdesign.cc/claymorphism-in-user-interfaces-1757fabaa377">
           Claymorphism in User Interfaces – Michal Malewicz
         </ExternalLink>
-      </Paragraph>
+      </Text>
     </div>
   );
 };

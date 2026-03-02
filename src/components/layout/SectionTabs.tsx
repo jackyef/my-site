@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { cn } from '@/utils/styles/classNames';
+
 export interface Tab {
   id: string;
   label: string;
@@ -18,67 +20,21 @@ export function SectionTabs({
   onTabChange,
 }: SectionTabsProps) {
   return (
-    <div
-      className="px-5 md:px-13 overflow-y-hidden"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 2,
-        borderBottom: '1px solid var(--color-border)',
-        background: 'var(--color-bg)',
-        overflowX: 'auto',
-        flexShrink: 0,
-        position: 'sticky',
-        top: 0,
-        zIndex: 10,
-        transition: 'background-color 0.22s ease, border-color 0.22s ease',
-      }}
-    >
+    <div className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] border-b border-[var(--color-border)] bg-[var(--color-bg)] overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color,border-color] duration-[220ms] ease-out">
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         return (
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            style={
-              {
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
-                padding: '13px 12px 11px',
-                // Use outline to fake the bottom border so we can also set border:none
-                // This avoids the duplicate property issue
-                borderBottom: `2px solid ${
-                  isActive ? 'var(--color-accent)' : 'transparent'
-                }`,
-                marginBottom: -1,
-                fontSize: 13,
-                fontWeight: isActive ? 600 : 500,
-                color: isActive
-                  ? 'var(--color-accent-text)'
-                  : 'var(--color-ink-3)',
-                transition: 'border-color 0.15s, color 0.15s',
-                cursor: 'pointer',
-                backgroundColor: 'transparent',
-                borderTop: 'none',
-                borderLeft: 'none',
-                borderRight: 'none',
-                fontFamily: 'inherit',
-                whiteSpace: 'nowrap',
-                position: 'relative',
-              } as React.CSSProperties
-            }
-            className={!isActive ? 'hover:text-[var(--color-ink)]' : ''}
+            className={cn(
+              'flex items-center gap-[5px] px-3 pt-[13px] pb-[11px] -mb-px text-[13px] whitespace-nowrap relative cursor-pointer bg-transparent border-x-0 border-t-0 border-b-2 font-[inherit] transition-[border-color,color] duration-150',
+              isActive
+                ? 'font-semibold text-[var(--color-accent-text)] border-b-[var(--color-accent)]'
+                : 'font-medium text-[var(--color-ink-3)] border-b-transparent hover:text-[var(--color-ink)]',
+            )}
           >
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexShrink: 0,
-              }}
-            >
-              {tab.icon}
-            </span>
+            <span className="shrink-0 flex items-center">{tab.icon}</span>
             {tab.label}
           </button>
         );

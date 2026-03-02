@@ -111,6 +111,36 @@ Sidebar-responsive patterns:
 
 ---
 
+## Typography Primitives
+
+- Use `<Heading level={N}>` (`@/components/common/Heading`) for all headings — not raw `<h1>` with manual font/color classes.
+- Use `<Text>` (`@/components/common/Text`) for body copy — not raw `<p>` with ad-hoc `text-[var(--color-ink-2)]` strings.
+- Use `<Surface>` (`@/components/common/Surface`) for elevated panels — not ad-hoc `bg-[var(--color-bg-panel)] border shadow-lg` combos.
+- Legacy `Typography/Heading.tsx` H1–H5 now wrap the new `<Heading>` component internally.
+
+---
+
+## Legacy Components (`src/components/Typography/`)
+
+The following legacy Typography components have been **removed** — use the replacements below:
+
+| Removed | Replacement |
+|---|---|
+| `PageTitle` | `<PageHeader>` from `@/components/common/PageHeader` (or inline `<h1 className="page-title">` when spread props are needed) |
+| `Paragraph` | Plain `<p>` with Tailwind classes |
+| `SectionTitle` | Inline `<h2>` with Tailwind classes |
+
+These legacy components **remain** but are not recommended for new code:
+
+| Component | Status | Reason |
+|---|---|---|
+| `HorizontalDivider` | Keep | Still used in Blog/Post.tsx, MDX, LinkPreview |
+| `ExternalLink` | Keep | Used across many files + MDX pipeline |
+| `InternalLink` | Keep | Used across many files + MDX pipeline |
+| `LightButton` | Keep | Used in MDX components + live pages (goober-based, migrate later) |
+
+---
+
 ## Import Order (enforced by ESLint)
 
 Groups must be separated by blank lines:

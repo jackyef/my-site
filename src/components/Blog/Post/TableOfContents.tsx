@@ -4,6 +4,8 @@ import { useId } from 'react';
 import type { PostHeading } from '@/blog/types';
 import { cleanHeadingContent, slugify } from '@/lib/blog';
 
+import { cn } from '@/utils/styles/classNames';
+
 type Props = {
   headings: PostHeading[];
   activeSlug: string | null;
@@ -17,19 +19,12 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
     <nav aria-labelledby={labelId}>
       <div
         id={labelId}
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: 'var(--color-ink-4)',
-          marginBottom: 12,
-        }}
+        className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[var(--color-ink-4)] mb-3"
       >
         On this page
       </div>
 
-      <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      <ol className="list-none p-0 m-0">
         {headings.map((heading) => {
           const slug = slugify(heading.content);
           const isActive = activeSlug === slug;
@@ -37,23 +32,15 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
           return (
             <li
               key={slug}
-              style={{
-                position: 'relative',
-                paddingLeft: heading.level === 3 ? 20 : 10,
-              }}
+              className={cn(
+                'relative',
+                heading.level === 3 ? 'pl-5' : 'pl-[10px]',
+              )}
             >
               {isActive && (
                 <motion.div
                   layoutId={indicatorId}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 2,
-                    bottom: 2,
-                    width: 2,
-                    background: 'var(--color-accent)',
-                    borderRadius: 2,
-                  }}
+                  className="absolute left-0 top-[2px] bottom-[2px] w-[2px] rounded-sm bg-[var(--color-accent)]"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
@@ -66,16 +53,13 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                     }),
                   );
                 }}
-                style={{
-                  display: 'block',
-                  padding: '4px 0',
-                  fontSize: heading.level === 3 ? 12 : 13,
-                  fontWeight: isActive ? 500 : 400,
-                  color: isActive ? 'var(--color-ink-2)' : 'var(--color-ink-4)',
-                  textDecoration: 'none',
-                  transition: 'color 0.15s',
-                  lineHeight: 1.4,
-                }}
+                className={cn(
+                  'block py-1 no-underline transition-colors duration-150 leading-[1.4]',
+                  heading.level === 3 ? 'text-[12px]' : 'text-[13px]',
+                  isActive
+                    ? 'font-medium text-[var(--color-ink-2)]'
+                    : 'font-normal text-[var(--color-ink-4)]',
+                )}
               >
                 {cleanHeadingContent(heading.content)}
               </a>

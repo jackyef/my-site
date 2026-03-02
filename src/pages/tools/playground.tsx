@@ -2,10 +2,9 @@ import tinytime from 'tinytime';
 import * as LZString from 'lz-string';
 import { useEffect, useState } from 'react';
 
-import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { PageTitle } from '@/components/Typography/PageTitle';
-import { HorizontalDivider } from '@/components/Divider';
 import { CodePlayground } from '@/components/CodePlayground/CodePlayground';
+import { PageHeader } from '@/components/common/PageHeader';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
@@ -48,9 +47,7 @@ const PlaygroundPage = () => {
         image={meta.image}
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
-      <PageTitle>{meta.title}</PageTitle>
-
-      <HorizontalDivider />
+      <PageHeader eyebrow="Tools" title={meta.title} />
 
       {isInitialized && <CodePlayground initialCode={initialCode} />}
     </div>

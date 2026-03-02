@@ -58,15 +58,7 @@ export default function Post({ post }: Props) {
       </main>
 
       {isBlogPost && post.headings.length > 0 && (
-        <aside
-          className="hidden min-[1400px]:block w-52 shrink-0 pt-8 pl-4"
-          style={{
-            position: 'sticky',
-            top: '2rem',
-            maxHeight: 'calc(100vh - 4rem)',
-            overflowY: 'auto',
-          }}
-        >
+        <aside className="hidden min-[1400px]:block w-52 shrink-0 pt-8 pl-4 sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
           <TableOfContents headings={post.headings} activeSlug={activeSlug} />
         </aside>
       )}

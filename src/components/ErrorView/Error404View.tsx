@@ -1,20 +1,21 @@
-import { PageMetaTags } from '../Seo/PageMetaTags';
+import { Heading } from '@/components/common/Heading';
+import { PageHeader } from '@/components/common/PageHeader';
+
 import { InternalLink } from '../Typography/InternalLink';
-import { PageTitle } from '../Typography/PageTitle';
-import { SectionTitle } from '../Typography/SectionTitle';
+import { PageMetaTags } from '../Seo/PageMetaTags';
 
 export const Error404View = () => {
   return (
     <>
       <PageMetaTags title="404: Not found" />
       <main className="page-pad">
-        <PageTitle>
-          Whoops, there doesn&apos;t seem to be anything here! 4️⃣0️⃣4️⃣
-        </PageTitle>
-        <div className="mt-12" />
-        <SectionTitle>
+        <PageHeader
+          title="Whoops, there doesn't seem to be anything here!"
+          titleSpacing="mb-12"
+        />
+        <Heading level={2}>
           <InternalLink href="/">&larr; Go back home</InternalLink>
-        </SectionTitle>
+        </Heading>
       </main>
     </>
   );

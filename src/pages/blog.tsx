@@ -5,6 +5,8 @@ import { GetStaticProps } from 'next/types';
 import { Post } from '@/blog/types';
 import { getPosts } from '@/blog/getPosts';
 import { PostRow } from '@/components/Blog/PostRow';
+import { PageHeader } from '@/components/common/PageHeader';
+import { TextLink } from '@/components/common/TextLink';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
@@ -22,47 +24,35 @@ export default function BlogPage({ posts }: Props) {
         })
       : posts;
 
+  const title =
+    tags.length > 0 ? (
+      <>
+        Posts tagged{' '}
+        <em>
+          {tags.map((t, i) => (
+            <Fragment key={t}>
+              {t}
+              {i < tags.length - 1 ? ', ' : ''}
+            </Fragment>
+          ))}
+        </em>
+      </>
+    ) : (
+      <>
+        All <em>posts.</em>
+      </>
+    );
+
   return (
     <>
       <PageMetaTags title="Blog" />
 
       <div className="page-pad">
-        <p className="eyebrow" style={{ marginBottom: 10 }}>
-          Writing
-        </p>
-        <h1 className="page-title" style={{ marginBottom: 32 }}>
-          {tags.length > 0 ? (
-            <>
-              Posts tagged{' '}
-              <em>
-                {tags.map((t, i) => (
-                  <Fragment key={t}>
-                    {t}
-                    {i < tags.length - 1 ? ', ' : ''}
-                  </Fragment>
-                ))}
-              </em>
-            </>
-          ) : (
-            <>
-              All <em>posts.</em>
-            </>
-          )}
-        </h1>
+        <PageHeader eyebrow="Writing" title={title} />
 
         {tags.length > 0 && (
-          <div style={{ marginBottom: 16 }}>
-            <a
-              href="/blog"
-              style={{
-                fontSize: 13,
-                color: 'var(--color-accent-text)',
-                textDecoration: 'none',
-              }}
-              className="hover:underline"
-            >
-              ← Clear filter
-            </a>
+          <div className="mb-4">
+            <TextLink href="/blog">← Clear filter</TextLink>
           </div>
         )}
 

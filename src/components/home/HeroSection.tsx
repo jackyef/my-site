@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { Button } from '@/components/common/Button';
+import { Heading } from '@/components/common/Heading';
 import { StatusDot } from '@/components/common/StatusDot';
 
 export function HeroSection() {
@@ -12,11 +14,11 @@ export function HeroSection() {
       </div>
 
       {/* Heading */}
-      <h1 className="hero-h1 mb-3">
+      <Heading level="hero" className="mb-3">
         Jacky
         <br />
         <em>Efendi.</em>
-      </h1>
+      </Heading>
 
       {/* Role */}
       <p
@@ -36,18 +38,12 @@ export function HeroSection() {
 
       {/* CTAs */}
       <div className="flex gap-[10px] flex-wrap">
-        <Link
-          href="/about"
-          className="inline-flex items-center px-5 py-[9px] rounded-lg bg-[var(--color-accent)] text-white text-[14px] font-semibold no-underline transition-[filter,transform] duration-[180ms] hover:[filter:brightness(1.1)] hover:[-translate-y-px]"
-        >
+        <Button as={Link} href="/about">
           Read about me →
-        </Link>
-        <Link
-          href="/about/readme"
-          className="inline-flex items-center px-5 py-[9px] rounded-lg bg-transparent text-[var(--color-ink-2)] text-[14px] font-medium border border-[var(--color-border-hi)] no-underline transition-[background,border-color] duration-[180ms] hover:bg-[var(--color-bg-hover)]"
-        >
+        </Button>
+        <Button as={Link} href="/about/readme" variant="secondary">
           My README
-        </Link>
+        </Button>
       </div>
     </div>
   );

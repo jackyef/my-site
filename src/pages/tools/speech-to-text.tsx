@@ -1,9 +1,8 @@
 import tinytime from 'tinytime';
 
-import { HorizontalDivider } from '@/components/Divider';
+import { PageHeader } from '@/components/common/PageHeader';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { WebSpeechAPIDemo } from '@/components/tools/WebSpeechAPIDemo';
-import { PageTitle } from '@/components/Typography/PageTitle';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
@@ -21,7 +20,7 @@ const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
 const SpeechToolsPage = () => {
   return (
-    <>
+    <div className="page-pad">
       <PageMetaTags
         title={meta.title}
         description={meta.description}
@@ -29,12 +28,10 @@ const SpeechToolsPage = () => {
         publishDate={postDateTemplate.render(new Date(meta.date))}
       />
 
-      <PageTitle>{meta.title}</PageTitle>
-
-      <HorizontalDivider />
+      <PageHeader eyebrow="Tools" title={meta.title} />
 
       <WebSpeechAPIDemo />
-    </>
+    </div>
   );
 };
 

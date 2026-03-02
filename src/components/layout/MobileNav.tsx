@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { SegmentedControl } from '@/components/common/SegmentedControl';
+import { Surface } from '@/components/common/Surface';
 
 import { Theme, useTheme } from '@/hooks/useTheme';
 
@@ -92,43 +93,45 @@ export function MobileNav() {
             animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-            className="fixed bottom-[88px] right-5 bg-[var(--color-bg-panel)] border border-[var(--color-border)] rounded-[16px] shadow-[var(--shadow-lg)] z-[49] min-w-[200px] overflow-hidden"
+            className="fixed bottom-[88px] right-5 z-49 min-w-50"
             style={{ transformOrigin: 'bottom right' }}
           >
-            {/* Nav links */}
-            <div className="py-[6px]">
-              {NAV_LINKS.map((link) => {
-                const active = isActive(link.href, link.exact);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      'flex items-center gap-3 px-[18px] py-[10px] text-[14px] no-underline',
-                      active
-                        ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
-                        : 'font-normal text-[var(--color-ink-2)] bg-transparent',
-                    )}
-                  >
-                    {link.icon}
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
+            <Surface elevation="lg" rounded="xl" className="overflow-hidden">
+              {/* Nav links */}
+              <div className="py-[6px]">
+                {NAV_LINKS.map((link) => {
+                  const active = isActive(link.href, link.exact);
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-[18px] py-[10px] text-[14px] no-underline',
+                        active
+                          ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
+                          : 'font-normal text-[var(--color-ink-2)] bg-transparent',
+                      )}
+                    >
+                      {link.icon}
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
 
-            {/* Theme row */}
-            <div className="px-[18px] py-[10px] flex items-center justify-between gap-3">
-              <span className="text-[13px] text-[var(--color-ink-3)]">
-                Theme
-              </span>
-              <SegmentedControl
-                options={THEME_OPTS}
-                value={theme}
-                onChange={setTheme}
-              />
-            </div>
+              {/* Theme row */}
+              <div className="px-[18px] py-[10px] flex items-center justify-between gap-3">
+                <span className="text-[13px] text-[var(--color-ink-3)]">
+                  Theme
+                </span>
+                <SegmentedControl
+                  options={THEME_OPTS}
+                  value={theme}
+                  onChange={setTheme}
+                />
+              </div>
+            </Surface>
           </motion.div>
         )}
       </AnimatePresence>

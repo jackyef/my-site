@@ -5,11 +5,105 @@ where noted). Import from their directory: `@/components/common/Card`.
 
 ---
 
+## Text
+
+**File:** `src/components/common/Text/index.tsx`
+
+Polymorphic body-text primitive. Provides consistent typography variants and theme-aware colors.
+Default element: `<p>`. Override with `as` prop.
+
+```tsx
+interface TextProps extends React.HTMLAttributes<HTMLElement> {
+  variant?: 'lead' | 'body' | 'body-sm' | 'caption' | 'caption-sm';
+  color?: 'ink' | 'ink-2' | 'ink-3' | 'ink-4' | 'accent';
+  as?: React.ElementType;   // default 'p'
+  className?: string;
+  children: React.ReactNode;
+}
+```
+
+| Variant | Classes |
+|---|---|
+| `lead` | `text-lg md:text-xl leading-relaxed` |
+| `body` (default) | `text-base leading-relaxed` |
+| `body-sm` | `text-sm leading-relaxed` |
+| `caption` | `text-[13px] leading-normal` |
+| `caption-sm` | `text-[11px] leading-normal` |
+
+| Color | CSS var |
+|---|---|
+| `ink` (default) | `--color-ink` |
+| `ink-2` | `--color-ink-2` |
+| `ink-3` | `--color-ink-3` |
+| `ink-4` | `--color-ink-4` |
+| `accent` | `--color-accent-text` |
+
+---
+
+## Heading
+
+**File:** `src/components/common/Heading/index.tsx`
+
+Polymorphic heading primitive. Maps semantic levels to responsive typography + Fraunces font.
+Spreads `...rest` — critical for MDX `withTocHighlighter` HOC, `react-flip-toolkit` Flipped,
+and any component that passes `id`, `data-*`, or event handlers.
+
+```tsx
+interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  level: 'hero' | 'page' | 1 | 2 | 3 | 4;
+  as?: React.ElementType;
+  className?: string;
+  children: React.ReactNode;
+}
+```
+
+| Level | Styling | Default `as` |
+|---|---|---|
+| `'hero'` | `.hero-h1` (globals.css) | `h1` |
+| `'page'` | `.page-title` (globals.css) | `h1` |
+| `1` | `text-3xl md:text-5xl font-bold font-serif` | `h1` |
+| `2` | `text-2xl md:text-3xl font-bold font-serif` | `h2` |
+| `3` | `text-xl md:text-2xl font-bold font-serif` | `h3` |
+| `4` | `text-lg md:text-xl font-bold font-serif` | `h4` |
+
+Legacy `Typography/Heading.tsx` H1–H5 now wrap this component internally.
+
+---
+
+## Surface
+
+**File:** `src/components/common/Surface/index.tsx`
+
+Visual container primitive providing panel background, elevation shadow, rounded corners,
+and optional border. Used as the base for Card, dialogs, and floating panels.
+
+```tsx
+interface SurfaceProps extends React.HTMLAttributes<HTMLElement> {
+  elevation?: 'none' | 'sm' | 'md' | 'lg';
+  rounded?: 'sm' | 'md' | 'lg' | 'xl';
+  border?: boolean;          // default true
+  as?: React.ElementType;    // default 'div'
+  className?: string;
+  children: React.ReactNode;
+}
+```
+
+| Elevation | Shadow |
+|---|---|
+| `none` | (no shadow) |
+| `sm` (default) | `--shadow-sm` |
+| `md` | `--shadow-md` |
+| `lg` | `--shadow-lg` |
+
+All surfaces get `bg-[var(--color-bg-panel)]`. Border adds `border border-[var(--color-border)]`.
+
+---
+
 ## Card
 
 **File:** `src/components/common/Card/index.tsx`
 
-The canonical panel container. Provides rounded border, panel background, and drop shadow.
+Panel container built on top of **Surface**. Provides hover lift and padding presets.
 Use `hover` for interactive cards (replaces `onMouseEnter/Leave` style mutations).
 
 ```tsx
@@ -18,9 +112,11 @@ interface CardProps {
   className?: string;
   hover?: boolean;          // adds .card-hover (CSS transition lift on :hover)
   padding?: 'none' | 'sm' | 'md';  // none | px-[14px] py-[12px] | px-[20px] py-[16px]
-  as?: React.ElementType;   // default 'div'
+  as?: React.ElementType;   // default 'div' (via Surface)
 }
 ```
+
+Internally composes `<Surface rounded="lg">` — inherits panel bg, border, and shadow.
 
 **Replaces:** OpenSourceView repo cards, ProjectsView project cards, CareerView detail panel,
 WidgetGrid widget cards.
@@ -119,6 +215,56 @@ interface SegmentedControlProps<T extends string> {
 
 **Replaces:** the button-group in ThemeSwitcher (non-compact) and the time-control picker
 in ChessWidget.
+
+---
+
+## Button
+
+**File:** `src/components/common/Button/index.tsx`
+
+Polymorphic button with three visual variants. Use `as` prop to render as `Link`, `a`, etc.
+
+```tsx
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md';
+  as?: React.ElementType;   // default 'button' — pass Link, 'a', etc.
+  className?: string;
+}
+```
+
+| Variant | Look |
+|---|---|
+| `primary` | Accent bg, white text, brightness hover, slight lift |
+| `secondary` | Transparent bg, high-contrast border, hover fill |
+| `ghost` | Transparent, muted text, hover fill |
+
+| Size | Font | Padding |
+|---|---|---|
+| `sm` | 13px | 12px 6px |
+| `md` | 14px | 20px 9px |
+
+**Replaces:** long Tailwind CTA strings in HeroSection.
+
+---
+
+## TextLink
+
+**File:** `src/components/common/TextLink/index.tsx`
+
+Accent-colored navigation link. Wraps `next/link`.
+
+```tsx
+interface TextLinkProps {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+}
+```
+
+Style: `text-[13px] text-[var(--color-accent-text)] no-underline hover:underline`.
+
+**Replaces:** inline-styled accent links in index.tsx ("All posts →") and blog.tsx ("← Clear filter").
 
 ---
 

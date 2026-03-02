@@ -1,3 +1,5 @@
+import { Heading } from '@/components/common/Heading';
+
 type Props = JSX.IntrinsicAttributes &
   React.HTMLAttributes<HTMLHeadingElement> & {
     children?: React.ReactNode;
@@ -5,55 +7,40 @@ type Props = JSX.IntrinsicAttributes &
 
 export const H1 = ({ children, ...rest }: Props) => {
   return (
-    <h1
-      className="text-3xl md:text-5xl font-bold font-heading text-theme-heading"
-      {...rest}
-    >
+    <Heading level={1} {...rest}>
       {children}
-    </h1>
+    </Heading>
   );
 };
 
 export const H2 = ({ children, ...rest }: Props) => {
   return (
-    <h2
-      className="text-2xl md:text-3xl font-bold font-heading text-theme-heading"
-      {...rest}
-    >
+    <Heading level={2} {...rest}>
       {children}
-    </h2>
+    </Heading>
   );
 };
 
 export const H3 = ({ children, ...rest }: Props) => {
   return (
-    <h3
-      className="text-xl md:text-2xl font-bold font-heading text-theme-heading"
-      {...rest}
-    >
+    <Heading level={3} {...rest}>
       {children}
-    </h3>
+    </Heading>
   );
 };
 
 export const H4 = ({ children, ...rest }: Props) => {
   return (
-    <h4
-      className="text-lg md:text-xl font-bold font-heading text-theme-heading"
-      {...rest}
-    >
+    <Heading level={4} {...rest}>
       {children}
-    </h4>
+    </Heading>
   );
 };
 
 export const H5 = ({ children, ...rest }: Props) => {
   return (
-    <h5
-      className="text-lg md:text-xl font-italic font-heading text-theme-heading"
-      {...rest}
-    >
+    <Heading level={4} as="h5" className="italic" {...rest}>
       {children}
-    </h5>
+    </Heading>
   );
 };

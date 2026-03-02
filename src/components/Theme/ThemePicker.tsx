@@ -3,12 +3,12 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { css } from 'goober';
 
+import { Heading } from '@/components/common/Heading';
+import { Surface } from '@/components/common/Surface';
 import { getHslaColor } from '@/lib/styles/colors';
 
 import { cn } from '@/utils/styles/classNames';
 import { sendEventTracker } from '@/utils/analytics/tracker';
-
-import { SectionTitle } from '../Typography/SectionTitle';
 
 import { ThemeContext, THEMES, Theme } from './ThemeProvider';
 
@@ -86,29 +86,22 @@ export const ThemePicker = () => {
           <div className="backdrop-blur fixed inset-0 bg-black bg-opacity-30 animate-fadeIn" />
         </Dialog.Overlay>
         <Dialog.Content asChild>
-          <div
+          <Surface
+            elevation="lg"
+            rounded="lg"
             className={cn(
               'p-8',
-              'bg-surface-1',
-              'text-theme-text',
-              'rounded-lg',
+              'text-[var(--color-ink)]',
               'top-[10%]',
               'xs:top-[20%]',
               'md:top-[30%]',
               'animate-fadeIn',
               'transition-colors',
               'duration-500',
-              'border-dark-only',
               'max-h-[70%]',
               'overflow-y-auto',
+              'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[52rem]',
             )}
-            style={{
-              position: 'fixed',
-              left: '50%',
-              transform: 'translate(-50%)',
-              width: '90vw',
-              maxWidth: '52rem',
-            }}
           >
             <div className="flex justify-end mb-2">
               <Dialog.Close asChild>
@@ -120,7 +113,7 @@ export const ThemePicker = () => {
                 </button>
               </Dialog.Close>
             </div>
-            <SectionTitle>Pick a theme</SectionTitle>
+            <Heading level={2}>Pick a theme</Heading>
             <div
               className={cn(
                 'grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4',
@@ -159,7 +152,7 @@ export const ThemePicker = () => {
                 );
               })}
             </div>
-          </div>
+          </Surface>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

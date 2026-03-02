@@ -2,9 +2,10 @@ import tinytime from 'tinytime';
 import { Flipped } from 'react-flip-toolkit';
 import { useRouter } from 'next/router';
 
-import { PageTitle } from '@/components/Typography/PageTitle';
 import { PostMeta } from '@/blog/types';
+import { Heading } from '@/components/common/Heading';
 import { Tag } from '@/components/common/Tag';
+import { Text } from '@/components/common/Text';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { SkipSSR } from '@/components/SkipSSR';
 
@@ -27,14 +28,21 @@ export const PostHeader = ({ meta }: Props) => {
           <div>
             <Flipped flipId={meta.title} spring="noWobble" translate>
               {(flippedProps: any) => (
-                <PageTitle {...flippedProps}>{meta.title}</PageTitle>
+                <Heading level={1} {...flippedProps}>
+                  {meta.title}
+                </Heading>
               )}
             </Flipped>
           </div>
           {isBlogPost && (
             <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
               <dl className="mt-1">
-                <div className="flex flex-row flex-wrap space-x-1 text-sm leading-6 text-theme-subtitle items-center">
+                <Text
+                  as="div"
+                  variant="body-sm"
+                  color="ink-3"
+                  className="flex flex-row flex-wrap space-x-1 leading-6 items-center"
+                >
                   <dt>Published on</dt>
                   <dd>
                     <time className="block md:hidden" dateTime={meta.date}>
@@ -50,7 +58,7 @@ export const PostHeader = ({ meta }: Props) => {
                   </dd>
                   <div className="mx-1">&middot;</div>
                   <dt className="sr-only">Time to read</dt>
-                  <dd className="leading-6">{meta.readingTime} ☕</dd>
+                  <dd className="leading-6">{meta.readingTime}</dd>
                   <div className="mr-2" />
                   <dt className="sr-only">Post category</dt>
                   <dd className="flex space-x-2">
@@ -66,14 +74,14 @@ export const PostHeader = ({ meta }: Props) => {
                       </Tag>
                     ))}
                   </dd>
-                </div>
+                </Text>
               </dl>
             </Flipped>
           )}
         </div>
       </header>
 
-      <hr className="mx-6 xl:mx-8 border-gray-400 border-opacity-50 my-6" />
+      <hr className="mx-6 xl:mx-8 border-[var(--color-border)] my-6" />
     </>
   );
 };
