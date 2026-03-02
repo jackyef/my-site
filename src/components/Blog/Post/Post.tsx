@@ -29,7 +29,7 @@ export default function Post({ post }: Props) {
 
   return (
     <div className="flex items-start">
-      <main className="px-5 md:px-[52px] py-8 min-w-0 flex-1 max-w-[880px]">
+      <main className="page-pad py-8 min-w-0 flex-1 max-w-[880px]">
         <article>
           <PageMetaTags
             title={meta.title}
@@ -47,7 +47,7 @@ export default function Post({ post }: Props) {
 
             {isBlogPost && (
               <TwitterShare text={`${meta.title} ${fullUrl} via @jackyef__`}>
-                Share on Twitter
+                Share on Twitter →
               </TwitterShare>
             )}
           </div>

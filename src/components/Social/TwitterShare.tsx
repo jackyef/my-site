@@ -1,9 +1,3 @@
-import { css } from 'goober';
-
-import { getHslaColor } from '@/lib/styles/colors';
-
-import { cn } from '@/utils/styles/classNames';
-
 interface Props {
   text: string;
   children?: React.ReactNode;
@@ -11,12 +5,7 @@ interface Props {
 
 export const TwitterShare: React.FC<Props> = ({ text, children }) => (
   <a
-    className={cn(
-      'hover:underline',
-      css`
-        color: ${getHslaColor('primary', 1, { l: -12 })};
-      `,
-    )}
+    className="text-(--color-accent-text) hover:underline text-[14px] font-medium"
     target="_blank"
     rel="noreferrer"
     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`}
