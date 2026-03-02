@@ -27,7 +27,11 @@ Table.Th = (props: PropsWithChildren<'th'>) => {
 
 Table.Td = (props: PropsWithChildren<'td'>) => {
   return (
-    <td className={cn('relative py-4 pl-4 pr-3 text-sm text-(--color-ink-2) sm:pl-6')}>
+    <td
+      className={cn(
+        'relative py-4 pl-4 pr-3 text-sm text-(--color-ink-2) sm:pl-6',
+      )}
+    >
       {props.children}
     </td>
   );

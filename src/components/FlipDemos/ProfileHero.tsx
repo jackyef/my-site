@@ -82,7 +82,9 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
             />,
           )}
           <div className="leading-5 text-(--color-ink-2)">
-            <div className="font-semibold text-lg text-(--color-ink)">Jacky Efendi</div>
+            <div className="font-semibold text-lg text-(--color-ink)">
+              Jacky Efendi
+            </div>
             <div className="text-(--color-ink-3) mb-4 mt-1">@jackyef__</div>
             <div>
               Code web-related stuff. I sometimes tweet about tech and career,

@@ -40,7 +40,10 @@ export const ProfileCard = ({
         />,
       )}
       <div className="leading-5 text-(--color-ink-2)">
-        <a className="font-semibold cursor-pointer text-(--color-ink)" onClick={onLinkClick}>
+        <a
+          className="font-semibold cursor-pointer text-(--color-ink)"
+          onClick={onLinkClick}
+        >
           Jacky Efendi
         </a>
         <div className="text-(--color-ink-3) mt-1 mb-2">@jackyef__</div>

@@ -9,7 +9,10 @@ export const PlayerTitle = ({ title, subtitle }: Props) => {
       {title}
 
       {Boolean(subtitle) && (
-        <span className="italic text-sm font-light text-(--color-ink-3)"> {subtitle}</span>
+        <span className="italic text-sm font-light text-(--color-ink-3)">
+          {' '}
+          {subtitle}
+        </span>
       )}
     </h5>
   );
