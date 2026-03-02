@@ -8,7 +8,7 @@ export const ResultSectionSeparator = () => {
           'my-2',
           'mx-6',
           'h-[2px]',
-          'bg-surface-3',
+          'bg-(--color-border)',
           'transition-colors',
           'duration-500',
         )}

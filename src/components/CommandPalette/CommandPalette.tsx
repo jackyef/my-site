@@ -8,7 +8,6 @@ import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
-import { useOnboardingToast } from './hooks/useOnboardingToast';
 import { usePostSearch } from './hooks/usePostSearch';
 import { useStaticResult } from './hooks/useStaticResult';
 import { ResultBox } from './ResultBox';
@@ -21,7 +20,6 @@ export default () => {
   const { actionQueries, externalLinkResult, pageSearchResult } =
     useStaticResult({ query });
   const { data: postSearchResult } = usePostSearch(query);
-  const { onFirstTimeOpen, hasOpenedBefore } = useOnboardingToast();
 
   const closeCommandPalette = useCallback(() => {
     setIsOpen(false);
@@ -39,8 +37,6 @@ export default () => {
       ) {
         event.preventDefault();
         setIsOpen((prev) => !prev);
-
-        onFirstTimeOpen();
       }
     };
 
@@ -49,7 +45,7 @@ export default () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onFirstTimeOpen, setIsOpen]);
+  }, [setIsOpen]);
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const activeElement = document.activeElement;
@@ -91,14 +87,9 @@ export default () => {
   };
 
   const getPlaceholderText = () => {
-    const defaultMessage = `Try typing "dark theme" or "tools"!`;
+    const defaultMessage = `Try typing "theme" or "tools"!`;
 
-    if (!hasOpenedBefore) {
-      return defaultMessage;
-    } else {
-      const shortcutMessage = `Press ${getPlatformMetaKey()} + K anytime to access this command palette.`;
-      return Math.random() > 0.5 ? defaultMessage : shortcutMessage;
-    }
+    return defaultMessage;
   };
 
   const hasActions = actionQueries.length > 0;
