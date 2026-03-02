@@ -154,7 +154,9 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
             >
-              <span className="text-(--color-ink-4) transform -translate-y-0.5">{icon}</span>
+              <span className="text-(--color-ink-4) transform -translate-y-0.5">
+                {icon}
+              </span>
               <span>{label}</span>
             </a>
           </li>

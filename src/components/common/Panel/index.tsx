@@ -42,11 +42,7 @@ export const Panel: React.FC<Props> = ({
 
   return (
     <div
-      className={cn(
-        'rounded-lg my-8 px-5 pt-4 pb-1 border-l-4',
-        border,
-        bg,
-      )}
+      className={cn('rounded-lg my-8 px-5 pt-4 pb-1 border-l-4', border, bg)}
     >
       <div className="font-bold text-xl mb-2 text-(--color-ink)">{title}</div>
       {children}

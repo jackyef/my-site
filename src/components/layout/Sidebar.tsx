@@ -5,7 +5,6 @@ import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useC
 import { useTheme } from '@/hooks/useTheme';
 
 import { SidebarNav } from './SidebarNav';
-import { SocialLinks } from './SocialLinks';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 function LogoMark() {

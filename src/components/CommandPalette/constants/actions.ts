@@ -15,7 +15,12 @@ export const QUERIES = [
   'Share this article',
 ] as const;
 
-export const ACTIONS = ['ENABLE_DARK_THEME', 'ENABLE_DIM_THEME', 'ENABLE_LIGHT_THEME', 'SHARE_ARTICLE'] as const;
+export const ACTIONS = [
+  'ENABLE_DARK_THEME',
+  'ENABLE_DIM_THEME',
+  'ENABLE_LIGHT_THEME',
+  'SHARE_ARTICLE',
+] as const;
 
 export const DEFAULT_QUERIES = [...QUERIES];
 

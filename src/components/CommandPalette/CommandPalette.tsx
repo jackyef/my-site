@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { Surface } from '@/components/common/Surface';
 
 import { cn } from '@/utils/styles/classNames';
-import { getPlatformMetaKey } from '@/utils/keyboard';
 
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';

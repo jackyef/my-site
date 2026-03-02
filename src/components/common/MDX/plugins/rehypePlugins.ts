@@ -68,7 +68,7 @@ export const rehypePlugins = [
   rehypePrism,
   () => {
     return (tree) => {
-      visit(tree, 'element', (node, index, parent) => {
+      visit(tree, 'element', (node, _index, _parent) => {
         const [token, type] = node.properties.className || [];
 
         if (token === 'token') {

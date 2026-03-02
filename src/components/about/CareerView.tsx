@@ -98,6 +98,8 @@ export function CareerView() {
 
     observer.observe(chart);
     return () => observer.disconnect();
+    // We only want to trigger this once, so we are not listening for `selected`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

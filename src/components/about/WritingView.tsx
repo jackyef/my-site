@@ -38,10 +38,7 @@ export function WritingView() {
             rel="noopener noreferrer"
             className="no-underline"
           >
-            <Card
-              hover
-              className="flex items-start gap-4 px-4.5 py-4"
-            >
+            <Card hover className="flex items-start gap-4 px-4.5 py-4">
               <div className="flex-1 min-w-0">
                 <div className="text-[14px] font-semibold text-(--color-ink) mb-1 leading-snug">
                   {story.title}
