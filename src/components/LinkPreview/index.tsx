@@ -1,7 +1,3 @@
-import { css, keyframes } from 'goober';
-
-import { cn } from '@/utils/styles/classNames';
-
 import { useUrlMetadata } from './useUrlMetadata';
 
 interface Props {
@@ -13,55 +9,24 @@ export const LinkPreview = ({ href }: Props) => {
 
   if (!data || isLoading || isError) return null;
 
-  const anim = keyframes`
-    from {
-      opacity: 0;
-      transform: scale(0.5);
-      pointer-events: none;
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-    }
-  `;
-
-  const container = css`
-    width: 300px;
-    max-width: 100%;
-    margin: 0 auto;
-    border-radius: 16px;
-    padding: 12px;
-    transform-origin: var(--radix-tooltip-content-transform-origin);
-    opacity: 0;
-    transform: scale(0.5);
-    pointer-events: none;
-    animation: ${anim} 0.3s;
-    animation-fill-mode: both;
-
-    & > img {
-      border-radius: 8px;
-      height: 150px;
-      object-fit: contain;
-      width: 100%;
-    }
-  `;
-
   return (
     <span
-      className={cn(
-        container,
-        'bg-surface-3 shadow-surface-3',
-        'flex flex-col space-y-2',
-        'text-sm font-normal',
-      )}
+      className="flex flex-col gap-2 w-[300px] max-w-full mx-auto rounded-2xl p-3 bg-(--color-bg-panel) shadow-md text-sm font-normal animate-[pop-in_0.3s_both]"
+      style={{
+        transformOrigin: 'var(--radix-tooltip-content-transform-origin)',
+      }}
     >
       {Boolean(data.image) && (
-        <img src={data.image} className="mb-2" height={150} />
+        <img
+          src={data.image}
+          className="rounded-lg h-[150px] object-contain w-full mb-0.5"
+          height={150}
+        />
       )}
-      <span className={cn('text-base font-bold')}>{data.title}</span>
-      <span>{data.description}</span>
+      <span className="text-[14px] font-bold text-(--color-ink)">
+        {data.title}
+      </span>
+      <span className="text-(--color-ink-3)">{data.description}</span>
     </span>
   );
 };

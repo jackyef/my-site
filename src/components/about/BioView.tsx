@@ -29,17 +29,17 @@ export function BioView() {
           I am curious by nature and love to learn how things work. Since the
           start of my career, I have always learned by questioning the way
           things work. I built{' '}
-          <TextLink href="https://github.com/jackyef/simple-module-bundler">
+          <ExternalLink href="https://github.com/jackyef/simple-module-bundler">
             an overly-simplified module bundler
-          </TextLink>
+          </ExternalLink>
           ,{' '}
-          <TextLink href="https://github.com/jackyef/react-isomorphic-data">
+          <ExternalLink href="https://github.com/jackyef/react-isomorphic-data">
             SSR-supporting data-fetching library for React
-          </TextLink>
+          </ExternalLink>
           , and{' '}
-          <TextLink href="https://github.com/jackyef/basic-css-in-js">
+          <ExternalLink href="https://github.com/jackyef/basic-css-in-js">
             basic CSS-in-JS library
-          </TextLink>
+          </ExternalLink>
           , just to understand the fundamentals of the web platform. I also
           wrote about some of my learnings on Medium in the past. See{' '}
           <TextLink href="#past-writings">past writings</TextLink>.
