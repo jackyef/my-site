@@ -5,7 +5,7 @@ import { SegmentedControl } from '@/components/common/SegmentedControl';
 import { Theme } from '@/hooks/useTheme';
 
 interface ThemeSwitcherProps {
-  theme: Theme;
+  theme: Theme | null;
   onThemeChange: (t: Theme) => void;
   compact?: boolean;
 }
@@ -40,18 +40,20 @@ export function ThemeSwitcher({
   compact,
 }: ThemeSwitcherProps) {
   if (compact) {
-    const currentOption =
-      THEME_OPTIONS.find((o) => o.value === theme) ?? THEME_OPTIONS[0];
+    const currentOption = theme
+      ? THEME_OPTIONS.find((o) => o.value === theme) ?? THEME_OPTIONS[0]
+      : THEME_OPTIONS[0];
     const cycleTheme = () => {
+      const current = theme ?? 'light';
       const next =
-        THEME_ORDER[(THEME_ORDER.indexOf(theme) + 1) % THEME_ORDER.length];
+        THEME_ORDER[(THEME_ORDER.indexOf(current) + 1) % THEME_ORDER.length];
       onThemeChange(next);
     };
     return (
       <button
         onClick={cycleTheme}
         title="Cycle theme"
-        aria-label={`Current theme: ${theme}. Click to cycle.`}
+        aria-label={theme ? `Current theme: ${theme}. Click to cycle.` : 'Cycle theme'}
         className="w-full flex items-center justify-center p-[7px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-active)] text-[var(--color-accent-text)] cursor-pointer font-[inherit] transition-[background,color] duration-[130ms]"
       >
         {currentOption.icon}

@@ -20,40 +20,29 @@ interface NavItem {
   exact?: boolean;
 }
 
+const ICON_PROPS = { size: 16, strokeWidth: 1.5, 'aria-hidden': true } as const;
+
 const PAGE_LINKS: NavItem[] = [
-  {
-    href: '/',
-    label: 'Home',
-    icon: <Home size={16} aria-hidden="true" />,
-    exact: true,
-  },
-  {
-    href: '/about',
-    label: 'About',
-    icon: <User size={16} aria-hidden="true" />,
-  },
-  {
-    href: '/blog',
-    label: 'Blog',
-    icon: <PenLine size={16} aria-hidden="true" />,
-  },
+  { href: '/', label: 'Home', icon: <Home {...ICON_PROPS} />, exact: true },
+  { href: '/about', label: 'About', icon: <User {...ICON_PROPS} /> },
+  { href: '/blog', label: 'Blog', icon: <PenLine {...ICON_PROPS} /> },
 ];
 
 const TOOL_LINKS: NavItem[] = [
   {
     href: '/tools/playground',
     label: 'Playground',
-    icon: <FlaskConical size={16} aria-hidden="true" />,
+    icon: <FlaskConical {...ICON_PROPS} />,
   },
   {
     href: '/tools/claymorphism',
     label: 'Claymorphism',
-    icon: <Palette size={16} aria-hidden="true" />,
+    icon: <Palette {...ICON_PROPS} />,
   },
   {
     href: '/absurd-ui',
     label: 'Absurd UI',
-    icon: <WandSparkles size={16} aria-hidden="true" />,
+    icon: <WandSparkles {...ICON_PROPS} />,
   },
 ];
 
@@ -61,19 +50,22 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
   return (
     <Link
       href={item.href}
-      title={item.label}
       className={cn(
         'flex items-center gap-[9px] w-full px-[10px] py-[7px] rounded-lg text-[13px] no-underline shrink-0 relative transition-[background,color] duration-[130ms]',
         'md:justify-center lg:justify-start',
         isActive
-          ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
-          : 'font-medium text-[var(--color-ink-3)] bg-transparent hover:bg-[var(--color-bg-hover)] hover:!text-[var(--color-ink)]',
+          ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'
+          : 'font-medium text-(--color-ink-3) bg-transparent hover:bg-(--color-bg-hover) hover:!text-(--color-ink-2)',
       )}
     >
       {isActive && (
-        <span className="hidden lg:block absolute -left-2 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-[var(--color-accent)] rounded-r-[3px]" />
+        <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-(--color-accent-2) rounded-r-[3px]" />
       )}
-      <span className="shrink-0 flex items-center">{item.icon}</span>
+      <span
+        className={cn('shrink-0 flex items-center', !isActive && 'opacity-70')}
+      >
+        {item.icon}
+      </span>
       {/* Label hidden on icon-strip sidebar */}
       <span className="hidden lg:block">{item.label}</span>
     </Link>

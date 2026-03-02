@@ -37,11 +37,11 @@ export function Sidebar() {
         {/* CMD trigger — hidden on icon-strip sidebar */}
         <button
           onClick={() => setIsOpen(true)}
-          className="hidden lg:flex mt-[10px] w-full items-center gap-[6px] px-[10px] py-[6px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-panel)] text-[var(--color-ink-4)] text-[13px] cursor-pointer font-[inherit] text-left transition-[border-color,color] duration-[150ms] hover:border-[var(--color-accent-l)] hover:text-[var(--color-ink-3)]"
+          className="hidden lg:flex mt-[10px] w-full items-center gap-[6px] px-[10px] py-[6px] rounded-lg border border-(--color-border) bg-(--color-bg) text-(--color-ink-4) text-[13px] cursor-pointer font-[inherit] text-left transition-[border-color,color] duration-[150ms] hover:border-(--color-accent-l) hover:text-(--color-ink-3)"
         >
           <Search size={13} aria-hidden="true" />
           <span className="flex-1">Quick actions…</span>
-          <span className="ml-auto text-[10px] bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[4px] px-[5px] py-[1px] text-[var(--color-ink-4)]">
+          <span className="ml-auto text-[10px] border border-(--color-border) rounded-[4px] px-[5px] py-[1px] text-(--color-ink-4)">
             ⌘K
           </span>
         </button>
@@ -51,7 +51,7 @@ export function Sidebar() {
           onClick={() => setIsOpen(true)}
           title="Quick actions (⌘K)"
           aria-label="Quick actions"
-          className="flex lg:hidden mt-[10px] w-full items-center justify-center p-[6px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-panel)] text-[var(--color-ink-4)] cursor-pointer font-[inherit] transition-[background] duration-[130ms] hover:bg-[var(--color-bg-hover)]"
+          className="flex lg:hidden mt-[10px] w-full items-center justify-center p-[6px] rounded-lg border border-(--color-border) bg-(--color-bg) text-(--color-ink-4) cursor-pointer font-[inherit] transition-[background,border-color] duration-[130ms] hover:bg-(--color-bg-hover) hover:border-(--color-accent-l)"
         >
           <Search size={14} aria-hidden="true" />
         </button>

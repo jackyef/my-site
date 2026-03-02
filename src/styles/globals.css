@@ -58,6 +58,7 @@
   --color-accent-l: #c2dede;
   --color-accent-xl: #eaf3f3;
   --color-accent-text: #2c6464;
+  --color-on-accent: #ffffff;
   --grid-primary: rgba(44, 100, 100, 0.06);
   --grid-faint: rgba(44, 100, 100, 0.025);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -112,6 +113,8 @@
   --color-accent-l: #1e4040;
   --color-accent-xl: #162e2e;
   --color-accent-text: #6ab8b8;
+  --color-on-accent: #ffffff;
+
   --grid-primary: rgba(74, 150, 150, 0.07);
   --grid-faint: rgba(74, 150, 150, 0.028);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
@@ -158,6 +161,8 @@
   --color-accent-l: #1a3636;
   --color-accent-xl: #111e1e;
   --color-accent-text: #7ac4c4;
+  --color-on-accent: #ffffff;
+
   --grid-primary: rgba(74, 150, 150, 0.08);
   --grid-faint: rgba(74, 150, 150, 0.03);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -209,11 +214,6 @@ body {
   font-size: 15px;
   line-height: 1.6;
   transition: background-color 0.22s ease, color 0.22s ease;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }
 
 /* ═══════════════════════════════════════

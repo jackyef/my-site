@@ -26,7 +26,7 @@ export function Card({
   return (
     <Surface
       as={as}
-      rounded="lg"
+      rounded="xl"
       className={cn(
         'card',
         hover && 'card-hover',

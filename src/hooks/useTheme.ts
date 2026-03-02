@@ -1,28 +1,48 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 
 export type Theme = 'light' | 'dim' | 'dark';
 
 const THEMES: Theme[] = ['light', 'dim', 'dark'];
 const STORAGE_KEY = 'theme';
 
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
-  const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-  if (stored && THEMES.includes(stored)) return stored;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+function getThemeFromDOM(): Theme {
+  const attr = document.documentElement.getAttribute(
+    'data-theme',
+  ) as Theme | null;
+  if (attr && THEMES.includes(attr)) return attr;
+  return 'light';
+}
+
+function subscribe(callback: () => void) {
+  // Watch for data-theme changes on <html>
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+  return () => observer.disconnect();
+}
+
+function getSnapshot(): Theme {
+  return getThemeFromDOM();
+}
+
+function getServerSnapshot(): Theme {
+  return 'light';
 }
 
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>('light');
+  const resolvedTheme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setThemeState(getInitialTheme());
+    setMounted(true);
   }, []);
 
+  // Return null before mount to avoid hydration mismatch
+  const theme = mounted ? resolvedTheme : null;
+
   const setTheme = useCallback((t: Theme) => {
-    setThemeState(t);
     localStorage.setItem(STORAGE_KEY, t);
 
     const apply = () => {
@@ -41,9 +61,9 @@ export function useTheme() {
     (
       window as Window & { __themeBinding?: (t: Theme) => void }
     ).__themeBinding = (t: Theme) => {
-      setThemeState(t);
+      setTheme(t);
     };
-  }, []);
+  }, [setTheme]);
 
-  return { theme, setTheme, themes: THEMES };
+  return { theme, setTheme, themes: THEMES, mounted };
 }

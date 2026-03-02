@@ -14,7 +14,7 @@ export function SectionLabel({
   return (
     <As
       className={cn(
-        'text-[11px] font-semibold tracking-[0.08em] uppercase text-[var(--color-ink-4)]',
+        'text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4)',
         className,
       )}
     >

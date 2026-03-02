@@ -10,9 +10,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantMap = {
   primary:
-    'bg-[var(--color-accent)] text-white font-semibold no-underline hover:[filter:brightness(1.1)] hover:-translate-y-px',
+    'bg-(--color-accent) text-(--color-on-accent) font-semibold no-underline hover:[filter:brightness(1.1)] hover:-translate-y-px',
   secondary:
-    'bg-transparent text-[var(--color-ink-2)] font-medium border border-[var(--color-border-hi)] no-underline hover:bg-[var(--color-bg-hover)]',
+    'bg-transparent text-(--color-ink-2) font-medium border-[1.5px] border-(--color-border-hi) no-underline hover:border-(--color-accent) hover:text-(--color-accent-text)',
   ghost:
     'bg-transparent text-[var(--color-ink-3)] font-medium no-underline hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-ink-2)]',
 };
@@ -33,7 +33,7 @@ export function Button({
   return (
     <As
       className={cn(
-        'inline-flex items-center rounded-lg transition-[filter,transform,background,border-color] duration-[180ms]',
+        'inline-flex items-center rounded-full transition-[filter,transform,background,border-color,color] duration-[180ms]',
         variantMap[variant],
         sizeMap[size],
         className,

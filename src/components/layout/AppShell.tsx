@@ -26,7 +26,7 @@ export function AppShell({ children }: AppShellProps) {
     >
       {/* Sidebar — hidden on mobile (<768px) */}
       <div className="hidden md:flex" style={{ flexShrink: 0 }}>
-        {mounted && <Sidebar />}
+        <Sidebar />
       </div>
 
       {/* Content area */}

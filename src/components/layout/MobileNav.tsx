@@ -122,9 +122,6 @@ export function MobileNav() {
 
               {/* Theme row */}
               <div className="px-[18px] py-[10px] flex items-center justify-between gap-3">
-                <span className="text-[13px] text-[var(--color-ink-3)]">
-                  Theme
-                </span>
                 <SegmentedControl
                   options={THEME_OPTS}
                   value={theme}
