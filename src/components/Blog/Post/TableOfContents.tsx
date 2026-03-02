@@ -16,7 +16,7 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
   const indicatorId = useId();
 
   return (
-    <nav aria-labelledby={labelId}>
+    <nav aria-labelledby={labelId} className="overflow-x-clip">
       <div
         id={labelId}
         className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[var(--color-ink-4)] mb-3"
@@ -54,11 +54,11 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                   );
                 }}
                 className={cn(
-                  'block py-1 no-underline transition-colors duration-150 leading-[1.4]',
+                  'block py-1 no-underline transition-[colors, transform] duration-150 leading-[1.4]',
                   heading.level === 3 ? 'text-[12px]' : 'text-[13px]',
                   'hover:text-(--color-ink-3)',
                   isActive
-                    ? 'font-medium text-(--color-ink-2)'
+                    ? 'font-bold text-(--color-ink-2) transform translate-x-0.5'
                     : 'font-normal text-(--color-ink-4)',
                 )}
               >
