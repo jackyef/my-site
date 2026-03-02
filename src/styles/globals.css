@@ -488,6 +488,44 @@ h2 em {
   --tw-prose-td-borders: var(--color-border);
 }
 
+/* ── Hash-link anchors on headings ── */
+
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-block-start: 6rem;
+  transition: margin-inline-start 0.2s;
+  margin-inline-start: 0;
+  position: relative;
+}
+
+.prose .hash-link {
+  position: absolute;
+  left: -2.5rem;
+  top: 50%;
+  display: inline-block;
+  transition: opacity 0.15s, transform 0.1s;
+  opacity: 0;
+  width: 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-ink-4);
+  box-shadow: none;
+  transform: translateX(1.5rem) translateY(-50%);
+}
+
+.prose .hash-link:hover,
+.prose .hash-link:focus {
+  color: var(--color-accent-text);
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6):hover > .hash-link {
+  opacity: 1;
+  transform: translateX(0) translateY(-50%);
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6):has(> a.hash-link):hover {
+  margin-inline-start: 2.5rem;
+}
+
 /* MDX article details/summary */
 #restOfArticle details {
   display: block;

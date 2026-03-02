@@ -4,14 +4,27 @@ import { GetStaticProps } from 'next/types';
 
 import { getPost } from '@/blog/getPosts';
 import { Post as PostType } from '@/blog/types';
-import Post from '@/components/Blog/Post/Post';
+import { MDXProvider } from '@/components/common/MDX';
+import { PageHeader } from '@/components/common/PageHeader';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
   post: PostType;
 };
 
 const ReadmePage = ({ post }: Props) => {
-  return <Post post={post} />;
+  const { metadata: meta } = post;
+
+  return (
+    <div className="page-pad">
+      <PageMetaTags title={meta.title} description={meta.description} />
+      <PageHeader eyebrow="About" title="README" titleSpacing="mb-6" />
+
+      <div className="prose max-w-none">
+        <MDXProvider mdxSource={post.mdxSource} />
+      </div>
+    </div>
+  );
 };
 
 export default ReadmePage;

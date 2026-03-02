@@ -7,7 +7,9 @@ export const Anchor: FunctionComponent<HTMLProps<HTMLAnchorElement>> = ({
   href = '',
   ...props
 }) => {
-  if (href.startsWith('http')) {
+  if (href.startsWith('#')) {
+    return <a href={href} {...props} />;
+  } else if (href.startsWith('http')) {
     return <ExternalLink href={href} {...props} />;
   } else {
     return <InternalLink href={href} {...props} />;
