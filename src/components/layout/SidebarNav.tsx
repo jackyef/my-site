@@ -36,7 +36,7 @@ const PAGE_LINKS: NavItem[] = [
     href: '/blog',
     label: 'Blog',
     icon: <PenLine size={16} aria-hidden="true" />,
-  }
+  },
 ];
 
 const TOOL_LINKS: NavItem[] = [

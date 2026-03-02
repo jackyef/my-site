@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Card } from '@/components/common/Card';
@@ -71,6 +71,16 @@ export function CareerView() {
   const dotColor =
     VARIANT_COLORS[selectedItem.variant] ?? 'var(--color-accent)';
   const orgUrl = ORG_URLS[selectedItem.description];
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      left: Math.max(
+        0,
+        (barRefs.current[selected]?.offsetLeft ?? 0) - scrollRef.current.clientWidth / 2,
+      ),
+      behavior: 'smooth',
+    });
+  }, [])
 
   return (
     <div className="page-pad">

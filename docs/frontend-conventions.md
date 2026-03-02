@@ -65,10 +65,10 @@ Key tokens:
 | `--color-bg-active` | Active / selected fill |
 | `--color-border` | Default border |
 | `--color-border-hi` | High-contrast border |
-| `--color-ink` | Primary text |
-| `--color-ink-2` | Secondary text |
-| `--color-ink-3` | Tertiary text |
-| `--color-ink-4` | Placeholder / muted text |
+| `--color-ink` | Primary text / headings (~12-14:1 contrast) |
+| `--color-ink-2` | Body text (~8-11:1 contrast) |
+| `--color-ink-3` | Secondary / meta text (≥4.5:1, WCAG AA) |
+| `--color-ink-4` | Decorative / placeholder (~2.2-2.5:1) |
 | `--color-accent` | Teal accent (bg) |
 | `--color-accent-text` | Teal accent (text/icons) |
 | `--color-accent-l`, `--color-accent-xl` | Tinted accent fills |

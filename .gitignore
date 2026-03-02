@@ -20,6 +20,7 @@ node_modules
 *.pem
 .secret
 .playwright-mcp
+tsconfig.tsbuildinfo
 
 # debug
 npm-debug.log*
