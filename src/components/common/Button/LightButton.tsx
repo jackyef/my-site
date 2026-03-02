@@ -1,7 +1,4 @@
-import { css } from 'goober';
 import { forwardRef, HTMLAttributes } from 'react';
-
-import { getHslaColor } from '@/lib/styles/colors';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -9,31 +6,24 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
 }
 
+const VARIANT_CLASSES = {
+  primary:
+    'text-(--color-accent-text) bg-(--color-accent-xl) border-(--color-accent) hover:bg-(--color-accent-l)',
+  secondary:
+    'text-(--color-danger) bg-(--color-danger-bg) border-(--color-danger) hover:opacity-80',
+} as const;
+
+/** @deprecated */
 export const LightButton = forwardRef<HTMLButtonElement, Props>(
   ({ variant = 'primary', className, ...props }, ref) => {
-    const base = css`
-      display: inline-flex;
-      align-items: center;
-      color: ${getHslaColor(variant, 1, { l: -12 })};
-
-      [data-theme='dark'] & {
-        color: ${getHslaColor(variant)};
-      }
-
-      background: ${getHslaColor(variant, 0.1)};
-      border-color: ${getHslaColor(variant)};
-      border-radius: 4rem;
-
-      &:hover,
-      &:focus {
-        background: ${getHslaColor(variant, 0.08)};
-      }
-    `;
-
     return (
       <button
         ref={ref}
-        className={cn(base, 'px-4', 'py-2', className)}
+        className={cn(
+          'inline-flex items-center px-4 py-2 rounded-full border transition-colors duration-150',
+          VARIANT_CLASSES[variant],
+          className,
+        )}
         {...props}
       />
     );
