@@ -1,5 +1,10 @@
 [
   {
+    "title": "1-billion row challenge with Node.js",
+    "description": "5 minutes to 11 seconds with Node.js is possible?",
+    "link": "/posts/1brc-nodejs-learnings"
+  },
+  {
     "title": "6 Things I Learned during my Remote Job Search",
     "description": "I recently landed my first remote job as a software engineer! Here are some of the stuff that I learned during the process.",
     "link": "/posts/6-things-i-learned-during-my-remote-job-search"
