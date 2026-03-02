@@ -56,9 +56,10 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                 className={cn(
                   'block py-1 no-underline transition-colors duration-150 leading-[1.4]',
                   heading.level === 3 ? 'text-[12px]' : 'text-[13px]',
+                  'hover:text-(--color-ink-3)',
                   isActive
-                    ? 'font-medium text-[var(--color-ink-2)]'
-                    : 'font-normal text-[var(--color-ink-4)]',
+                    ? 'font-medium text-(--color-ink-2)'
+                    : 'font-normal text-(--color-ink-4)',
                 )}
               >
                 {cleanHeadingContent(heading.content)}

@@ -7,6 +7,7 @@ interface Props {
   variant: 'primary' | 'secondary';
 }
 
+/** @deprecated Use Chip instead. */
 export const Tag: React.FC<Props> = ({ children, variant }) => {
   const variantCss = css`
     --text-lightness: calc(var(--l-${variant}) - 12%);

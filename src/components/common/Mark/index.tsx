@@ -1,5 +1,3 @@
-import { getHslaColor } from '@/lib/styles/colors';
-
 export const Mark = ({
   children,
   ...props
@@ -26,7 +24,7 @@ export const Mark = ({
         mark span {
           background: linear-gradient(
               120deg,
-              ${getHslaColor('secondary', 0.3)} 50%,
+              var(--color-accent-l) 50%,
               transparent 50%
             )
             110% 0 / 220% 100% no-repeat;
