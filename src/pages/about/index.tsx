@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CalendarDays, MessageCircle, Rocket } from 'lucide-react';
+import { CalendarDays, MessageCircle, PenLine, Rocket } from 'lucide-react';
 
 import { BioView } from '@/components/about/BioView';
 import { CareerView } from '@/components/about/CareerView';
 import { ProjectsView } from '@/components/about/ProjectsView';
+import { WritingView } from '@/components/about/WritingView';
 import { SectionTabs, Tab } from '@/components/layout/SectionTabs';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
@@ -22,6 +23,11 @@ const TABS: Tab[] = [
     id: 'projects',
     label: 'Projects',
     icon: <Rocket size={14} aria-hidden="true" />,
+  },
+  {
+    id: 'past-writings',
+    label: 'Writing',
+    icon: <PenLine size={14} aria-hidden="true" />,
   },
 ];
 
@@ -95,6 +101,9 @@ export default function About() {
           </section>
           <section id="projects" className="scroll-mt-12">
             <ProjectsView />
+          </section>
+          <section id="past-writings" className="scroll-mt-12">
+            <WritingView />
           </section>
         </div>
       </div>

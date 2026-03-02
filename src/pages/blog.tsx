@@ -52,7 +52,9 @@ export default function BlogPage({ posts }: Props) {
 
         {tags.length > 0 && (
           <div className="mb-4">
-            <TextLink className="text-[13px]" href="/blog">← Clear filter</TextLink>
+            <TextLink className="text-[13px]" href="/blog">
+              ← Clear filter
+            </TextLink>
           </div>
         )}
 

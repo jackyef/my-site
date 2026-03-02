@@ -1,5 +1,4 @@
 import { VolumeIcon, Volume1Icon, Volume2Icon } from 'lucide-react';
-import { css } from 'goober';
 import {
   MouseEventHandler,
   useCallback,
@@ -9,9 +8,6 @@ import {
 } from 'react';
 import { useAnimate, motion } from 'framer-motion';
 
-import { getHslaColor } from '@/lib/styles/colors';
-
-import { cn } from '@/utils/styles/classNames';
 import { clamp } from '@/utils/math';
 
 import { Debugger } from './Debugger';
@@ -245,16 +241,11 @@ export const BallisticSlider = ({
       onMouseUpCapture={startFiring}
       onTouchEndCapture={startFiring}
       onMouseMove={handleMouseMove}
-      className={cn(
-        css`
-          height: ${height}px;
-        `,
-        'flex items-center justify-start',
-        'relative overflow-y-visible',
-      )}
+      style={{ height }}
+      className="flex items-center justify-start relative overflow-y-visible"
     >
       <button
-        className="relative isolate flex outline-none focus:outline-none"
+        className="relative isolate flex outline-none focus:outline-none text-(--color-ink)"
         aria-label={label}
         aria-valuemin={0}
         aria-valuenow={value}
@@ -277,28 +268,16 @@ export const BallisticSlider = ({
         </motion.div>
       </button>
 
-      <div className={cn('ml-1 w-full flex-1 flex h-full relative')}>
-        <div
-          className={cn(
-            'pointer-events-none w-[100%] h-[2px] rounded-full',
-            'absolute top-[50%] left-0 z-[-2] translate-y-[-1px]',
-            css`
-              background-color: ${getHslaColor('primary', 0.3)};
-            `,
-          )}
-        />
+      <div className="ml-1 w-full flex-1 flex h-full relative">
+        <div className="pointer-events-none w-full h-0.5 rounded-full absolute top-1/2 left-0 -translate-y-px bg-(--color-accent) opacity-30" />
         <div
           ref={scope}
-          className={cn(
-            'absolute rounded-full',
-            'self-center',
-            css`
-              width: ${PROJECTILE_SIZE}px;
-              height: ${PROJECTILE_SIZE}px;
-              background-color: ${getHslaColor('primary')};
-              left: 0;
-            `,
-          )}
+          className="absolute rounded-full self-center bg-(--color-accent)"
+          style={{
+            width: PROJECTILE_SIZE,
+            height: PROJECTILE_SIZE,
+            left: 0,
+          }}
         />
 
         {state !== 'idle' && (
@@ -307,7 +286,7 @@ export const BallisticSlider = ({
               ref={projectilePathRef}
               strokeWidth={2}
               strokeDasharray={4}
-              stroke={getHslaColor('secondary', 0.7)}
+              stroke="var(--color-ink-4)"
               fill="transparent"
             />
           </svg>

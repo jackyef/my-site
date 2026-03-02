@@ -1,7 +1,7 @@
-import { Fraunces, Inter } from '@next/font/google';
+import { Epilogue, Fraunces } from '@next/font/google';
 
 // Fraunces is a variable font with opsz axis support
-export const fraunces = Fraunces({
+const fraunces = Fraunces({
   subsets: ['latin'],
   axes: ['opsz'],
   style: ['normal', 'italic'],
@@ -9,12 +9,12 @@ export const fraunces = Fraunces({
   display: 'swap',
 });
 
-export const inter = Inter({
+const sans = Epilogue({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
-  variable: '--font-inter',
+  variable: '--font-epilogue',
   display: 'swap',
 });
 
-export const fontsClasses = `${fraunces.variable} ${inter.variable}`;
+export const fontsClasses = `${fraunces.variable} ${sans.variable}`;
 export const initFonts = () => fontsClasses;

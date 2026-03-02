@@ -32,7 +32,11 @@ function getServerSnapshot(): Theme {
 }
 
 export function useTheme() {
-  const resolvedTheme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const resolvedTheme = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

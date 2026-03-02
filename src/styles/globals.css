@@ -5,7 +5,7 @@
    THEME — font & screen tokens for Tailwind
 ═══════════════════════════════════════ */
 @theme {
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-epilogue), system-ui, sans-serif;
   --font-serif: var(--font-fraunces), Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
@@ -236,12 +236,6 @@
 html,
 body {
   height: 100%;
-}
-
-/* Override @theme font vars — pin directly to Next.js font CSS vars */
-:root {
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
 }
 
 body {

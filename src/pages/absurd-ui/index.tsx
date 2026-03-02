@@ -1,6 +1,6 @@
 import { BallisticSlider } from '@/components/absurd-components/BallisticSlider';
-import { GlassPane } from '@/components/common/GlassPane';
 import { PageHeader } from '@/components/common/PageHeader';
+import { Surface } from '@/components/common/Surface';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { InternalLink } from '@/components/Typography/InternalLink';
 
@@ -34,7 +34,7 @@ export default function AbsurdUiPage() {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GlassPane className="p-8 flex flex-col items-center">
+        <Surface elevation="sm" className="p-8 flex flex-col items-center">
           <div className="w-96 max-w-full">
             <BallisticSlider height={200} />
           </div>
@@ -43,7 +43,7 @@ export default function AbsurdUiPage() {
               Ballistic Slider
             </InternalLink>
           </div>
-        </GlassPane>
+        </Surface>
       </div>
     </div>
   );

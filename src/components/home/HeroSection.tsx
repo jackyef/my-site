@@ -6,7 +6,6 @@ import { Heading } from '@/components/common/Heading';
 export function HeroSection() {
   return (
     <div className="hero-pad">
-
       {/* Heading */}
       <Heading level="hero" className="mt-6 mb-3">
         Jacky <em>Efendi</em>
@@ -22,8 +21,9 @@ export function HeroSection() {
 
       {/* Description */}
       <p className="text-[15px] leading-[1.75] text-(--color-ink-3) mb-4 max-w-[540px]">
-        I build for the web — from performance, infrastructure and design systems
-        to the product interfaces users actually use. Frontend-focused, adaptable across the stack when needed.
+        I build for the web — from performance, infrastructure and design
+        systems to the product interfaces users actually use. Frontend-focused,
+        adaptable across the stack when needed.
       </p>
 
       <p className="text-[15px] leading-[1.75] text-(--color-ink-3) mb-8 max-w-[540px]">

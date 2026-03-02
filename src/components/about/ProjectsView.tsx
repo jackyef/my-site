@@ -3,7 +3,6 @@ import { ArrowUpRight, Github } from 'lucide-react';
 import { Card } from '@/components/common/Card';
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';
-import { SectionLabel } from '@/components/common/SectionLabel';
 import RepoList from '@/components/GitHub/repo-list.json';
 import { projects } from '@/components/Projects/projects';
 

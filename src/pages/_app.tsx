@@ -10,7 +10,7 @@ import { CommandPaletteProvider } from '@/components/CommandPalette/CommandPalet
 import { AppShell } from '@/components/layout/AppShell';
 
 import { isProd } from '@/utils/constants';
-import { fraunces, inter } from '@/utils/fonts';
+import { fontsClasses } from '@/utils/fonts';
 import '@/styles/globals.css';
 
 const queryClient = new QueryClient();
@@ -19,8 +19,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     // Font variable classes here ensure Next.js injects the @font-face CSS.
     // The same classes are applied to <html> in _document.tsx so --font-fraunces
-    // and --font-inter are defined at :root for use in CSS vars.
-    <div className={`${fraunces.variable} ${inter.variable}`}>
+    // and --font-plus-jakarta-sans are defined at :root for use in CSS vars.
+    <div className={fontsClasses}>
       <Toaster />
       <CommandPaletteProvider>
         {/* @ts-expect-error React 18 children prop */}

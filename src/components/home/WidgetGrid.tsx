@@ -153,7 +153,7 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
             >
-              <span className="text-(--color-ink-4)">{icon}</span>
+              <span className="text-(--color-ink-4) transform -translate-y-0.5">{icon}</span>
               <span>{label}</span>
             </a>
           </li>
@@ -206,15 +206,7 @@ function ChessBoardDeco() {
   );
 }
 
-function WLDBar({
-  w,
-  d,
-  l,
-}: {
-  w: number;
-  d: number;
-  l: number;
-}) {
+function WLDBar({ w, d, l }: { w: number; d: number; l: number }) {
   const total = w + d + l;
 
   return (
@@ -227,10 +219,7 @@ function WLDBar({
               style={{ flex: w }}
             />
             <div className="bg-(--color-ink-4) mx-[1px]" style={{ flex: d }} />
-            <div
-              className="bg-[#e05a5a] rounded-r-full"
-              style={{ flex: l }}
-            />
+            <div className="bg-[#e05a5a] rounded-r-full" style={{ flex: l }} />
           </>
         ) : (
           <div className="bg-(--color-border) w-full rounded-full" />
@@ -243,9 +232,7 @@ function WLDBar({
         <span className="text-(--color-ink-4)">
           {total > 0 ? `${d}D` : '\u00A0'}
         </span>
-        <span className="text-[#e05a5a]">
-          {total > 0 ? `${l}L` : '\u00A0'}
-        </span>
+        <span className="text-[#e05a5a]">{total > 0 ? `${l}L` : '\u00A0'}</span>
       </div>
     </div>
   );
@@ -263,9 +250,7 @@ function ChessWidget() {
     username: CHESS_USERNAME,
   });
 
-  const allTimeWins = stats
-    ? stats.white_win_count + stats.black_win_count
-    : 0;
+  const allTimeWins = stats ? stats.white_win_count + stats.black_win_count : 0;
   const allTimeDraws = stats
     ? stats.white_draw_count + stats.black_draw_count
     : 0;
@@ -277,11 +262,17 @@ function ChessWidget() {
     matchesSummary?.lastResult === 'wins'
       ? '🔥'
       : matchesSummary?.lastResult === 'losses'
-        ? '🥶'
-        : '↔️';
+      ? '🥶'
+      : '↔️';
 
   const streakLabel = matchesSummary
-    ? `${matchesSummary.lastResult === 'wins' ? 'win' : matchesSummary.lastResult === 'losses' ? 'loss' : 'draw'} streak`
+    ? `${
+        matchesSummary.lastResult === 'wins'
+          ? 'win'
+          : matchesSummary.lastResult === 'losses'
+          ? 'loss'
+          : 'draw'
+      } streak`
     : '';
 
   return (

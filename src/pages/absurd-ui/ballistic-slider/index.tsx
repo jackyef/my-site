@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import { BallisticSlider } from '@/components/absurd-components/BallisticSlider';
 import { Button } from '@/components/common/Button';
-import { GlassPane } from '@/components/common/GlassPane';
 import { PageHeader } from '@/components/common/PageHeader';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { Text } from '@/components/common/Text';
 import { InternalLink } from '@/components/Typography/InternalLink';
+import { Surface } from '@/components/common/Surface';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
@@ -37,7 +37,10 @@ export default function BallisticSliderPage() {
         <InternalLink href="/absurd-ui">View all experiments</InternalLink>.
       </Text>
 
-      <GlassPane className="p-8 flex flex-col w-[412px] max-w-full items-center">
+      <Surface
+        elevation="sm"
+        className="p-8 flex flex-col w-[412px] max-w-full items-center"
+      >
         <div className="w-full pt-4">
           <BallisticSlider height={200} debug={debug} />
         </div>
@@ -48,7 +51,7 @@ export default function BallisticSliderPage() {
         >
           Debug mode: {String(debug)}
         </Button>
-      </GlassPane>
+      </Surface>
     </div>
   );
 }

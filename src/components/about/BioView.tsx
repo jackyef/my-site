@@ -1,6 +1,7 @@
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
+
 import { TextLink } from '../common/TextLink';
 
 export function BioView() {
@@ -17,10 +18,10 @@ export function BioView() {
       />
 
       <div className="flex flex-col gap-4 max-w-[720px]">
-        <Text color="ink-2" className="font-light leading-[1.75]">
-          I build for the web. Primarily frontend-focused, but can manage
-          my way around the stack if the need arises. Most of my career has been
-          an act of balancing between the product and infrastructure part of the
+        <Text color="ink-2" className="leading-[1.75]">
+          I build for the web. Primarily frontend-focused, but can manage my way
+          around the stack if the need arises. Most of my career has been an act
+          of balancing between the product and infrastructure part of the
           frontend work.
         </Text>
 
@@ -39,13 +40,16 @@ export function BioView() {
           <TextLink href="https://github.com/jackyef/basic-css-in-js">
             basic CSS-in-JS library
           </TextLink>
-          , just to understand the fundamentals of the web platform.
+          , just to understand the fundamentals of the web platform. I also
+          wrote about some of my learnings on Medium in the past. See{' '}
+          <TextLink href="#past-writings">past writings</TextLink>.
         </Text>
         <Text color="ink-2" className="leading-[1.75]">
-          I worked with developer toolings within JS monorepos. Speeding up
+          I worked on developer experience within JS monorepos. Speeding up
           local development, CI pipelines, webpack builds, establishing
           conventions and optimizing web pages. Other than that, I also have
-          worked on the server-side with Node.js and PostgreSQL.
+          worked on the server-side with Node.js, GraphQL, Apollo and
+          PostgreSQL.
         </Text>
         <Text color="ink-2" className="leading-[1.75]">
           I am currently based in Jakarta, Indonesia and working here as well,
