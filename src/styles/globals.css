@@ -26,14 +26,15 @@
   --color-theme-background: var(--color-bg);
   --color-theme-info: var(--color-bg-active);
 
-  /* Code syntax highlighting (for MDX/Prism token classes) */
-  --color-code-green: #b5f4a5;
-  --color-code-yellow: #ffe484;
-  --color-code-purple: #d9a9ff;
-  --color-code-red: #ff8383;
-  --color-code-blue: #93ddfd;
-  --color-code-white: #fff;
-  --color-code-teal: #7fdbca;
+  /* Code syntax highlighting (for MDX/Prism token classes) — resolved per theme */
+  --color-code-green: var(--code-green);
+  --color-code-yellow: var(--code-yellow);
+  --color-code-purple: var(--code-purple);
+  --color-code-red: var(--code-red);
+  --color-code-blue: var(--code-blue);
+  --color-code-white: var(--code-base);
+  --color-code-teal: var(--code-teal);
+  --color-code-comment: var(--code-comment);
 }
 
 /* ═══════════════════════════════════════
@@ -65,6 +66,18 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
   --color-success: #4caf84;
+
+  /* ── Code block ── */
+  --code-bg: #f4f2ed;
+  --code-text: #3a3a40;
+  --code-green: #116329;
+  --code-yellow: #953800;
+  --code-purple: #8250df;
+  --code-red: #cf222e;
+  --code-blue: #0550ae;
+  --code-base: #3a3a40;
+  --code-teal: #0a7175;
+  --code-comment: #6e7781;
 
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --bg-opacity: 1;
@@ -122,6 +135,18 @@
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
   --color-success: #4caf84;
 
+  /* ── Code block ── */
+  --code-bg: #1a1b22;
+  --code-text: #d4d4d8;
+  --code-green: #b5f4a5;
+  --code-yellow: #ffe484;
+  --code-purple: #d9a9ff;
+  --code-red: #ff8383;
+  --code-blue: #93ddfd;
+  --code-base: #e4e4e8;
+  --code-teal: #7fdbca;
+  --code-comment: #6b7280;
+
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
   --h-secondary: 180deg; --s-secondary: 34%; --l-secondary: 60%;
@@ -169,6 +194,18 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
   --color-success: #4caf84;
+
+  /* ── Code block ── */
+  --code-bg: #111113;
+  --code-text: #d4d4d8;
+  --code-green: #b5f4a5;
+  --code-yellow: #ffe484;
+  --code-purple: #d9a9ff;
+  --code-red: #ff8383;
+  --code-blue: #93ddfd;
+  --code-base: #e4e4e8;
+  --code-teal: #7fdbca;
+  --code-comment: #6b7280;
 
   /* ── Legacy compat: HSL tokens for old goober components ── */
   --h-primary: 180deg; --s-primary: 34%; --l-primary: 44%;
@@ -226,7 +263,8 @@ body,
 .widget-card,
 .nav-btn,
 .chip,
-.card {
+.card,
+pre {
   transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
 }
 
