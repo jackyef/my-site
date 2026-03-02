@@ -62,9 +62,10 @@ function WidgetSub({
 }
 
 const NOW_ITEMS = [
-  { emoji: '📖', text: 'Reading "Designing Data-Intensive Applications"' },
-  { emoji: '🎮', text: 'Playing Balatro & chess' },
-  { emoji: '🏋️', text: 'Getting back into lifting' },
+  { emoji: '♟️', text: 'Chasing 2,000 rating' },
+  { emoji: '🦵', text: 'Recovering from knee injury' },
+  { emoji: '🏀', text: 'Working on jump shots and getting crafty' },
+  { emoji: '💭', text: 'Contemplating getting a Steam Deck' },
   { emoji: '🧪', text: 'Experimenting with AI-assisted workflows' },
 ];
 
