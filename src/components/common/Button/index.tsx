@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantMap = {
   primary:
-    'bg-(--color-accent) text-(--color-on-accent) font-semibold no-underline hover:[filter:brightness(1.1)] hover:-translate-y-px',
+    'bg-(--color-accent) text-(--color-on-accent) no-underline hover:[filter:brightness(1.1)] hover:-translate-y-px',
   secondary:
     'bg-transparent text-(--color-ink-2) font-medium border-[1.5px] border-(--color-border-hi) no-underline hover:border-(--color-accent) hover:text-(--color-accent-text)',
   ghost:

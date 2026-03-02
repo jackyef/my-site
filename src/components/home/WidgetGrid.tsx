@@ -6,7 +6,6 @@ import { ChessComTimeControlIcon } from '@/components/ChessComStats/ChessComTime
 import { useMatchesSummary } from '@/components/ChessComStats/hooks/useMatchesSummary';
 import { useStats } from '@/components/ChessComStats/hooks/useStats';
 import { Card } from '@/components/common/Card';
-import { Chip } from '@/components/common/Chip';
 import { SectionLabel } from '@/components/common/SectionLabel';
 import {
   SegmentedControl,
@@ -54,7 +53,7 @@ function WidgetSub({
   className?: string;
 }) {
   return (
-    <div className={cn('text-[13px] text-[var(--color-ink-3)]', className)}>
+    <div className={cn('text-[13px] text-(--color-ink-3)', className)}>
       {children}
     </div>
   );
@@ -72,33 +71,84 @@ const TC_OPTIONS: SegmentOption<ChessComTimeControl>[] = TIME_CONTROLS.map(
   }),
 );
 
-function WLD({
+function ChessBoardDeco() {
+  const cells = [];
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      if ((row + col) % 2 === 0) {
+        cells.push(
+          <rect
+            key={`${row}-${col}`}
+            x={col * 14}
+            y={row * 14}
+            width={14}
+            height={14}
+            rx={2}
+          />,
+        );
+      }
+    }
+  }
+  return (
+    <svg
+      width="70"
+      height="70"
+      viewBox="0 0 70 70"
+      fill="currentColor"
+      className="text-(--color-ink)"
+    >
+      {cells}
+    </svg>
+  );
+}
+
+function WLDBar({
   w,
   d,
   l,
-  label,
 }: {
   w: number;
   d: number;
   l: number;
-  label: string;
 }) {
+  const total = w + d + l;
+
   return (
-    <div className="mb-[6px]">
-      <div className="text-[11px] text-[var(--color-ink-4)] mb-[3px] uppercase tracking-[0.06em]">
-        {label}
+    <div className="mt-3">
+      <div className="flex rounded-full overflow-hidden h-[6px] mb-[6px]">
+        {total > 0 ? (
+          <>
+            <div
+              className="bg-[var(--color-success)] rounded-l-full"
+              style={{ flex: w }}
+            />
+            <div className="bg-(--color-ink-4) mx-[1px]" style={{ flex: d }} />
+            <div
+              className="bg-[#e05a5a] rounded-r-full"
+              style={{ flex: l }}
+            />
+          </>
+        ) : (
+          <div className="bg-(--color-border) w-full rounded-full" />
+        )}
       </div>
-      <div className="flex gap-[10px] text-[13px] font-semibold">
-        <span style={{ color: 'var(--color-success)' }}>W {w}</span>
-        <span className="text-[var(--color-ink-3)]">D {d}</span>
-        <span style={{ color: '#e05a5a' }}>L {l}</span>
+      <div className="flex justify-between text-[12px] font-medium">
+        <span className="text-[var(--color-success)]">
+          {total > 0 ? `${w}W` : '\u00A0'}
+        </span>
+        <span className="text-(--color-ink-4)">
+          {total > 0 ? `${d}D` : '\u00A0'}
+        </span>
+        <span className="text-[#e05a5a]">
+          {total > 0 ? `${l}L` : '\u00A0'}
+        </span>
       </div>
     </div>
   );
 }
 
 function ChessWidget() {
-  const [tc, setTc] = useState<ChessComTimeControl>('rapid');
+  const [tc, setTc] = useState<ChessComTimeControl>('bullet');
   const ratingRef = useRef<HTMLSpanElement>(null);
 
   const { stats, matches } = useStats({
@@ -110,9 +160,20 @@ function ChessWidget() {
     username: CHESS_USERNAME,
   });
 
+  // Rating animation + loading scramble
   useEffect(() => {
-    if (!stats || !ratingRef.current) return;
+    if (!ratingRef.current) return;
     const node = ratingRef.current;
+
+    if (!stats) {
+      // Loading: scramble random digits
+      const interval = setInterval(() => {
+        node.textContent = String(Math.floor(Math.random() * 2000) + 500);
+      }, 80);
+      return () => clearInterval(interval);
+    }
+
+    // Data loaded: animate counter to actual value
     const controls = animate(0, stats.rating_last, {
       duration: 1,
       ease: [0.25, 0.1, 0.25, 1],
@@ -123,7 +184,9 @@ function ChessWidget() {
     return () => controls.stop();
   }, [stats?.rating_last, tc]);
 
-  const allTimeWins = stats ? stats.white_win_count + stats.black_win_count : 0;
+  const allTimeWins = stats
+    ? stats.white_win_count + stats.black_win_count
+    : 0;
   const allTimeDraws = stats
     ? stats.white_draw_count + stats.black_draw_count
     : 0;
@@ -135,72 +198,87 @@ function ChessWidget() {
     matchesSummary?.lastResult === 'wins'
       ? '🔥'
       : matchesSummary?.lastResult === 'losses'
-      ? '🥶'
-      : '↔️';
-  const streakEmojis = matchesSummary
-    ? Array.from({
-        length: Math.min(Math.ceil(matchesSummary.streakCount / 3), 3),
-      })
-        .fill(streakEmoji)
-        .join('')
+        ? '🥶'
+        : '↔️';
+
+  const streakLabel = matchesSummary
+    ? `${matchesSummary.lastResult === 'wins' ? 'win' : matchesSummary.lastResult === 'losses' ? 'loss' : 'draw'} streak`
     : '';
 
   return (
-    <Widget label="Chess.com" span={3}>
-      <div className="flex gap-8 flex-wrap">
-        {/* Left: identity + time picker + rating */}
-        <div className="min-w-[140px]">
-          <div className="flex items-center gap-[10px] mb-3">
-            <a
-              href="https://chess.com/member/pixelparser"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--color-accent-text)] font-serif text-[15px] font-semibold no-underline"
-            >
-              PixelParser ↗
-            </a>
-            <SegmentedControl
-              options={TC_OPTIONS}
-              value={tc}
-              onChange={setTc}
-            />
-          </div>
-
-          {/* Animated rating */}
-          <div className="font-serif text-[36px] font-bold text-[var(--color-ink)] leading-none mb-[2px]">
-            <span ref={ratingRef}>—</span>
-          </div>
-          <WidgetSub>
-            {tc} rating
-            {stats ? ` · ${stats.rating_max} peak` : ''}
-          </WidgetSub>
+    <Widget label="Chess.com" span={2}>
+      <div className="relative min-h-[180px]">
+        {/* Decorative chess board pattern */}
+        <div
+          className="absolute top-[-4px] right-0 opacity-[0.05] pointer-events-none"
+          aria-hidden="true"
+        >
+          <ChessBoardDeco />
         </div>
 
-        {/* Right: records + streak */}
-        {stats && (
-          <div className="flex flex-col justify-center">
-            <WLD
-              label="All-time"
-              w={allTimeWins}
-              d={allTimeDraws}
-              l={allTimeLosses}
-            />
-            {matchesSummary && (
-              <WLD
-                label={`Last ${matchesSummary.totalMatches}`}
-                w={matchesSummary.wins}
-                d={matchesSummary.draws}
-                l={matchesSummary.losses}
-              />
+        {/* Time control picker */}
+        <SegmentedControl
+          options={TC_OPTIONS}
+          value={tc}
+          onChange={setTc}
+          className="w-fit"
+        />
+
+        {/* Rating hero */}
+        <div className="mt-4">
+          <div
+            className={cn(
+              'font-serif text-[42px] font-bold text-(--color-ink) leading-none transition-opacity duration-300',
+              stats ? 'opacity-100' : 'opacity-30',
             )}
-            {matchesSummary && (
-              <WidgetSub className="mt-1">
-                {matchesSummary.streakCount} {matchesSummary.lastResult} in a
-                row {streakEmojis}
-              </WidgetSub>
-            )}
+          >
+            <span ref={ratingRef} className="tabular-nums">
+              —
+            </span>
           </div>
-        )}
+          <div className="text-[13px] text-(--color-ink-3) mt-1">
+            {stats ? `Peak ${stats.rating_max}` : '\u00A0'}
+          </div>
+        </div>
+
+        {/* Username */}
+        <a
+          href="https://chess.com/member/pixelparser"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-(--color-accent-text) font-serif text-[14px] font-semibold no-underline inline-block mt-0.5"
+        >
+          PixelParser ↗
+        </a>
+
+        {/* WLD proportional bar */}
+        <div
+          className={cn(
+            'transition-opacity duration-300',
+            stats ? 'opacity-100' : 'opacity-0',
+          )}
+        >
+          <WLDBar w={allTimeWins} d={allTimeDraws} l={allTimeLosses} />
+        </div>
+
+        {/* Recent + Streak */}
+        <div
+          className={cn(
+            'flex items-center justify-between mt-2 text-[12px] text-(--color-ink-3) transition-opacity duration-300',
+            stats ? 'opacity-100' : 'opacity-0',
+          )}
+        >
+          <span>
+            {matchesSummary
+              ? `Last ${matchesSummary.totalMatches}: ${matchesSummary.wins}W ${matchesSummary.draws}D ${matchesSummary.losses}L`
+              : '\u00A0'}
+          </span>
+          <span>
+            {matchesSummary
+              ? `${streakEmoji} ${matchesSummary.streakCount} ${streakLabel}`
+              : ''}
+          </span>
+        </div>
       </div>
     </Widget>
   );
@@ -211,18 +289,18 @@ export function WidgetGrid() {
     <div className="widget-grid">
       {/* Currently */}
       <Widget label="Currently" span={2}>
-        <WidgetValue>Tech Lead at Sticker Mule</WidgetValue>
-        <div className="flex items-center gap-2 mt-[6px]">
+        <WidgetValue>Senior Software Engineer at Sticker Mule</WidgetValue>
+        <div className="flex items-center gap-2 mt-1.5">
           <StatusDot />
-          <span className="text-[14px] text-[var(--color-ink-2)] font-medium">
-            Open to interesting remote opportunities
+          <span className="text-[14px] text-(--color-ink-2)">
+            Migrating 7 years old design system...
           </span>
         </div>
       </Widget>
 
       {/* Based in */}
       <Widget label="Based in" mobileFullWidth>
-        <div className="flex items-center gap-[10px] mt-1">
+        <div className="flex items-center gap-2.5 mt-1">
           <span className="text-[28px]">🇮🇩</span>
           <div>
             <WidgetValue>
@@ -233,43 +311,14 @@ export function WidgetGrid() {
         </div>
       </Widget>
 
-      {/* Day-to-day stack */}
-      <Widget label="Day-to-day stack" span={3}>
-        <div className="flex flex-wrap gap-[5px] mt-2">
-          {[
-            { name: 'React', hi: true },
-            { name: 'TypeScript', hi: true },
-            { name: 'Next.js', hi: true },
-            { name: 'Node.js', hi: false },
-            { name: 'GraphQL', hi: false },
-            { name: 'Apollo', hi: false },
-            { name: 'Docker', hi: false },
-            { name: 'WebAssembly', hi: false },
-            { name: 'Rust', hi: false },
-            { name: 'Web Perf', hi: true },
-            { name: 'Frontend Infra', hi: true },
-          ].map(({ name, hi }) => (
-            <Chip key={name} variant={hi ? 'highlight' : 'muted'} size="sm">
-              {name}
-            </Chip>
-          ))}
-        </div>
-      </Widget>
+      {/* Chess.com */}
+      <ChessWidget />
 
       {/* Experience */}
       <Widget label="Experience">
-        <WidgetValue>7+ years</WidgetValue>
+        <WidgetValue>{new Date().getFullYear() - 2017 - 1}+ years</WidgetValue>
         <WidgetSub>Tokopedia → Sticker Mule</WidgetSub>
       </Widget>
-
-      {/* Talks given */}
-      <Widget label="Talks given">
-        <WidgetValue>5+</WidgetValue>
-        <WidgetSub>Conferences & meetups</WidgetSub>
-      </Widget>
-
-      {/* Chess.com */}
-      <ChessWidget />
     </div>
   );
 }
