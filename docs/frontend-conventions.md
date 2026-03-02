@@ -9,15 +9,31 @@ This document describes the styling conventions and patterns for this codebase.
 ### 1. Tailwind utilities — first choice
 
 Use Tailwind for all static layout, spacing, typography, and color. Use `cn()` for
-conditional class merging. Reference CSS vars with arbitrary values:
-`text-[var(--color-ink-2)]` or the Tailwind v4 shorthand `text-(--color-ink-2)`.
+conditional class merging.
+
+**CSS variable references** — use the Tailwind v4 shorthand (parentheses, no `var()`):
 
 ```tsx
+// GOOD — canonical Tailwind v4 syntax
 <div className={cn(
-  'text-[var(--color-ink)] font-semibold rounded-lg px-4 py-2',
-  isActive && 'bg-[var(--color-bg-active)]',
+  'text-(--color-ink) font-semibold rounded-lg px-4 py-2',
+  isActive && 'bg-(--color-bg-active)',
 )} />
+
+// BAD — legacy arbitrary-value syntax (triggers suggestCanonicalClasses warning)
+<div className="text-[var(--color-ink)] bg-[var(--color-bg-active)]" />
 ```
+
+Quick reference for the shorthand:
+| Legacy | Canonical v4 |
+|---|---|
+| `text-[var(--color-ink-2)]` | `text-(--color-ink-2)` |
+| `bg-[var(--color-bg-panel)]` | `bg-(--color-bg-panel)` |
+| `border-[var(--color-border)]` | `border-(--color-border)` |
+| `shadow-[var(--shadow-md)]` | `shadow-(--shadow-md)` |
+
+For ambiguous utilities where Tailwind can't infer the CSS property, hint the type:
+`text-(color:--my-var)` (color) vs `text-(length:--my-var)` (font-size).
 
 ### 2. CSS utility classes in `globals.css`
 
@@ -114,9 +130,22 @@ Sidebar-responsive patterns:
 ## Typography Primitives
 
 - Use `<Heading level={N}>` (`@/components/common/Heading`) for all headings — not raw `<h1>` with manual font/color classes.
-- Use `<Text>` (`@/components/common/Text`) for body copy — not raw `<p>` with ad-hoc `text-[var(--color-ink-2)]` strings.
-- Use `<Surface>` (`@/components/common/Surface`) for elevated panels — not ad-hoc `bg-[var(--color-bg-panel)] border shadow-lg` combos.
+- Use `<Text>` (`@/components/common/Text`) for body copy — not raw `<p>` with ad-hoc `text-(--color-ink-2)` strings.
+- Use `<Surface>` (`@/components/common/Surface`) for elevated panels — not ad-hoc `bg-(--color-bg-panel) border shadow-lg` combos.
 - Legacy `Typography/Heading.tsx` H1–H5 now wrap the new `<Heading>` component internally.
+
+---
+
+## Borders & Dividers
+
+The content area uses a blueprint grid background (`.blueprint-bg`). Avoid adding visible
+`border-b` / `<hr>` / `<HorizontalDivider>` lines within the content area — they clash
+with the background grid lines. Use spacing (`gap`, `py`, `my`) to separate items instead.
+
+Borders are fine inside:
+- **Sidebar** — has its own solid `--color-bg-sidebar` background
+- **Elevated panels** (`<Surface>`, `<Card>`, dialogs) — solid `--color-bg-panel` background
+- **Interactive controls** (buttons, chips, inputs) — element boundaries, not section dividers
 
 ---
 
@@ -126,7 +155,7 @@ The following legacy Typography components have been **removed** — use the rep
 
 | Removed | Replacement |
 |---|---|
-| `PageTitle` | `<PageHeader>` from `@/components/common/PageHeader` (or inline `<h1 className="page-title">` when spread props are needed) |
+| `PageTitle` | `<PageHeader>` from `@/components/common/PageHeader` |
 | `Paragraph` | Plain `<p>` with Tailwind classes |
 | `SectionTitle` | Inline `<h2>` with Tailwind classes |
 
@@ -134,7 +163,7 @@ These legacy components **remain** but are not recommended for new code:
 
 | Component | Status | Reason |
 |---|---|---|
-| `HorizontalDivider` | Keep | Still used in Blog/Post.tsx, MDX, LinkPreview |
+| `HorizontalDivider` | Keep (limited) | Only used in MDX blog content; removed from layout code |
 | `ExternalLink` | Keep | Used across many files + MDX pipeline |
 | `InternalLink` | Keep | Used across many files + MDX pipeline |
 | `LightButton` | Keep | Used in MDX components + live pages (goober-based, migrate later) |
