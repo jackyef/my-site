@@ -1,13 +1,10 @@
 import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 import { Flipped } from 'react-flip-toolkit';
-import { css } from 'goober';
-
 import { InternalLink } from '@/components/Typography/InternalLink';
-import { Tag } from '@/components/common/Tag';
+import { Chip } from '@/components/common/Chip';
 import { SkipSSR } from '@/components/SkipSSR';
 import { MDXProvider } from '@/components/common/MDX';
-import { getHslaColor } from '@/lib/styles/colors';
 import { Post } from '@/blog/types';
 
 import { cn } from '@/utils/styles/classNames';
@@ -45,14 +42,7 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                       >
                         <InternalLink
                           href={link}
-                          className={cn(
-                            'font-bold',
-                            css`
-                              & {
-                                color: ${getHslaColor('heading')} !important;
-                              }
-                            `,
-                          )}
+                          className="font-bold text-(--color-ink)!"
                           onClick={() => {
                             sendEventTracker({
                               name: 'click',
@@ -93,7 +83,7 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                           <dt className="sr-only">Post category</dt>
                           <dd className="flex space-x-2 text-xs">
                             {metadata.tags.map((tag) => (
-                              <Tag key={tag} variant="secondary">
+                              <Chip key={tag} size="xs" variant="muted">
                                 <InternalLink
                                   className="hover:underline"
                                   href={`/blog?tags=${tag}`}
@@ -101,7 +91,7 @@ export const PostPreviewList = ({ posts = [] }: Props) => {
                                 >
                                   {tag}
                                 </InternalLink>
-                              </Tag>
+                              </Chip>
                             ))}
                           </dd>
                         </dl>

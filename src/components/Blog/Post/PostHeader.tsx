@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { PostMeta } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
-import { Tag } from '@/components/common/Tag';
+import { Chip } from '@/components/common/Chip';
 import { Text } from '@/components/common/Text';
 import { InternalLink } from '@/components/Typography/InternalLink';
 import { SkipSSR } from '@/components/SkipSSR';
@@ -63,7 +63,7 @@ export const PostHeader = ({ meta }: Props) => {
                   <dt className="sr-only">Post category</dt>
                   <dd className="flex space-x-2">
                     {meta.tags.map((tag) => (
-                      <Tag key={tag} variant="secondary">
+                      <Chip key={tag} size="xs" variant="highlight">
                         <InternalLink
                           className="hover:underline"
                           href={`/blog?tags=${tag}`}
@@ -71,7 +71,7 @@ export const PostHeader = ({ meta }: Props) => {
                         >
                           {tag}
                         </InternalLink>
-                      </Tag>
+                      </Chip>
                     ))}
                   </dd>
                 </Text>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cn } from '@/utils/styles/classNames';
 
-import { Tag } from '../common/Tag';
+import { Chip } from '../common/Chip';
 import { ExternalLink } from '../Typography/ExternalLink';
 
 interface Props {
@@ -56,9 +56,9 @@ const GitHubRepoCard = ({
         {tags.length ? (
           <div className="px-4 py-2 flex space-x-2 text-xs">
             {tags.map((tag) => (
-              <Tag key={tag} variant="primary">
+              <Chip key={tag} size="xs" variant="highlight">
                 {tag}
-              </Tag>
+              </Chip>
             ))}
           </div>
         ) : null}

@@ -623,6 +623,24 @@ h2 em {
 }
 
 /* ═══════════════════════════════════════
+   FANCY LINK — underline fill on hover
+═══════════════════════════════════════ */
+
+.fancy-link {
+  color: var(--color-accent-text);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.25s, box-shadow 0.25s;
+  box-shadow: inset 0 0 transparent, inset 0 -0.1em var(--color-accent);
+}
+
+.fancy-link:hover,
+.fancy-link:focus {
+  color: var(--color-ink-2);
+  box-shadow: inset 0 0 transparent, inset 0 -1.1em var(--color-accent-l);
+}
+
+/* ═══════════════════════════════════════
    NO ANIMATION UTILITY
 ═══════════════════════════════════════ */
 
