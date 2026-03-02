@@ -423,6 +423,16 @@ h2 em {
   }
 }
 
+/* Widget offset-right: span 2 on mobile, start col 2 on desktop */
+.widget-offset-right {
+  grid-column: span 2;
+}
+@media (min-width: 768px) {
+  .widget-offset-right {
+    grid-column: 2 / -1;
+  }
+}
+
 /* Latest writings section on homepage */
 .latest-pad {
   padding: 0 20px 32px;

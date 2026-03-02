@@ -1,10 +1,11 @@
-import { animate } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 
 import { ChessComTimeControl } from 'types/chesscom';
 import { ChessComTimeControlIcon } from '@/components/ChessComStats/ChessComTimeCategoryIcon';
 import { useMatchesSummary } from '@/components/ChessComStats/hooks/useMatchesSummary';
 import { useStats } from '@/components/ChessComStats/hooks/useStats';
+import { AnimatedNumber } from '@/components/common/AnimatedNumber';
 import { Card } from '@/components/common/Card';
 import { SectionLabel } from '@/components/common/SectionLabel';
 import {
@@ -12,6 +13,7 @@ import {
   SegmentOption,
 } from '@/components/common/SegmentedControl';
 import { StatusDot } from '@/components/common/StatusDot';
+import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -56,6 +58,108 @@ function WidgetSub({
     <div className={cn('text-[13px] text-(--color-ink-3)', className)}>
       {children}
     </div>
+  );
+}
+
+const NOW_ITEMS = [
+  { emoji: '📖', text: 'Reading "Designing Data-Intensive Applications"' },
+  { emoji: '🎮', text: 'Playing Balatro & chess' },
+  { emoji: '🏋️', text: 'Getting back into lifting' },
+  { emoji: '🧪', text: 'Experimenting with AI-assisted workflows' },
+];
+
+function NowWidget() {
+  return (
+    <Widget label="Now" span={2}>
+      <ul className="space-y-2 mt-1">
+        {NOW_ITEMS.map((item) => (
+          <li
+            key={item.text}
+            className="flex items-start gap-2 text-[14px] text-(--color-ink-2)"
+          >
+            <span className="text-[16px] leading-[1.4] shrink-0">
+              {item.emoji}
+            </span>
+            <span>{item.text}</span>
+          </li>
+        ))}
+      </ul>
+    </Widget>
+  );
+}
+
+function ChessWidgetSkeleton() {
+  return (
+    <Card hover className="px-[16px] py-[14px] cursor-default">
+      <SectionLabel className="mb-2">Chess.com</SectionLabel>
+      <div className="min-h-[180px] flex items-center justify-center">
+        <span className="text-[13px] text-(--color-ink-4)">Loading…</span>
+      </div>
+    </Card>
+  );
+}
+
+export type BlogStats = {
+  postCount: number;
+};
+
+const SOCIALS = [
+  {
+    href: 'https://twitter.com/jackyef__',
+    label: 'Twitter',
+    icon: <Twitter size={14} aria-hidden="true" />,
+  },
+  {
+    href: 'https://github.com/jackyef',
+    label: 'GitHub',
+    icon: <Github size={14} aria-hidden="true" />,
+  },
+  {
+    href: 'https://linkedin.com/in/jackyef',
+    label: 'LinkedIn',
+    icon: <Linkedin size={14} aria-hidden="true" />,
+  },
+];
+
+function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
+  return (
+    <Card
+      hover
+      className="px-[16px] py-[14px] cursor-default widget-mobile-full md:row-span-2 self-start"
+    >
+      <SectionLabel className="mb-3">Writing</SectionLabel>
+      <div className="font-serif text-[56px] font-bold text-(--color-ink) leading-none">
+        {blogStats.postCount}
+      </div>
+      <div className="text-[13px] text-(--color-ink-3) mt-1">
+        posts on the blog
+      </div>
+      <a
+        href="/blog"
+        className="inline-block mt-2 text-[13px] text-(--color-accent-text) no-underline hover:underline"
+      >
+        Read the blog →
+      </a>
+
+      <hr className="border-[var(--color-border)] my-4" />
+
+      <SectionLabel className="mb-2.5">Connect</SectionLabel>
+      <ul className="space-y-2.5">
+        {SOCIALS.map(({ href, label, icon }) => (
+          <li key={href}>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
+            >
+              <span className="text-(--color-ink-4)">{icon}</span>
+              <span>{label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Card>
   );
 }
 
@@ -149,7 +253,6 @@ function WLDBar({
 
 function ChessWidget() {
   const [tc, setTc] = useState<ChessComTimeControl>('bullet');
-  const ratingRef = useRef<HTMLSpanElement>(null);
 
   const { stats, matches } = useStats({
     userId: CHESS_USER_ID,
@@ -159,30 +262,6 @@ function ChessWidget() {
     matches,
     username: CHESS_USERNAME,
   });
-
-  // Rating animation + loading scramble
-  useEffect(() => {
-    if (!ratingRef.current) return;
-    const node = ratingRef.current;
-
-    if (!stats) {
-      // Loading: scramble random digits
-      const interval = setInterval(() => {
-        node.textContent = String(Math.floor(Math.random() * 2000) + 500);
-      }, 80);
-      return () => clearInterval(interval);
-    }
-
-    // Data loaded: animate counter to actual value
-    const controls = animate(0, stats.rating_last, {
-      duration: 1,
-      ease: [0.25, 0.1, 0.25, 1],
-      onUpdate: (v) => {
-        node.textContent = String(Math.round(v));
-      },
-    });
-    return () => controls.stop();
-  }, [stats?.rating_last, tc]);
 
   const allTimeWins = stats
     ? stats.white_win_count + stats.black_win_count
@@ -206,7 +285,7 @@ function ChessWidget() {
     : '';
 
   return (
-    <Widget label="Chess.com" span={2}>
+    <Widget label="Chess.com">
       <div className="relative min-h-[180px]">
         {/* Decorative chess board pattern */}
         <div
@@ -232,9 +311,7 @@ function ChessWidget() {
               stats ? 'opacity-100' : 'opacity-30',
             )}
           >
-            <span ref={ratingRef} className="tabular-nums">
-              —
-            </span>
+            <AnimatedNumber value={stats?.rating_last} />
           </div>
           <div className="text-[13px] text-(--color-ink-3) mt-1">
             {stats ? `Peak ${stats.rating_max}` : '\u00A0'}
@@ -284,10 +361,10 @@ function ChessWidget() {
   );
 }
 
-export function WidgetGrid() {
+export function WidgetGrid({ blogStats }: { blogStats: BlogStats }) {
   return (
     <div className="widget-grid">
-      {/* Currently */}
+      {/* Row 1: Currently (col 1-2) + Based in (col 3) */}
       <Widget label="Currently" span={2}>
         <WidgetValue>Senior Software Engineer at Sticker Mule</WidgetValue>
         <div className="flex items-center gap-2 mt-1.5">
@@ -298,7 +375,6 @@ export function WidgetGrid() {
         </div>
       </Widget>
 
-      {/* Based in */}
       <Widget label="Based in" mobileFullWidth>
         <div className="flex items-center gap-2.5 mt-1">
           <span className="text-[28px]">🇮🇩</span>
@@ -311,14 +387,15 @@ export function WidgetGrid() {
         </div>
       </Widget>
 
-      {/* Chess.com */}
-      <ChessWidget />
+      {/* Row 2-3: Now + Chess (col 1-2), About (col 3, row-span-2) */}
+      <NowWidget />
+      <AboutWidget blogStats={blogStats} />
 
-      {/* Experience */}
-      <Widget label="Experience">
-        <WidgetValue>{new Date().getFullYear() - 2017 - 1}+ years</WidgetValue>
-        <WidgetSub>Tokopedia → Sticker Mule</WidgetSub>
-      </Widget>
+      <div className="col-span-2">
+        <IOWrapper>
+          {(show) => (show ? <ChessWidget /> : <ChessWidgetSkeleton />)}
+        </IOWrapper>
+      </div>
     </div>
   );
 }

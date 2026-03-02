@@ -70,10 +70,6 @@ export function Sidebar() {
         <div className="hidden lg:block">
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
         </div>
-        {/* Social links hidden on icon-strip sidebar */}
-        <div className="hidden lg:block">
-          <SocialLinks />
-        </div>
       </div>
     </aside>
   );

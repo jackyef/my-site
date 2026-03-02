@@ -5,21 +5,22 @@ import { getPosts } from '@/blog/getPosts';
 import { PostRow } from '@/components/Blog/PostRow';
 import { TextLink } from '@/components/common/TextLink';
 import { HeroSection } from '@/components/home/HeroSection';
-import { WidgetGrid } from '@/components/home/WidgetGrid';
+import { BlogStats, WidgetGrid } from '@/components/home/WidgetGrid';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
   posts: Post[];
+  blogStats: BlogStats;
 };
 
-export default function Home({ posts }: Props) {
+export default function Home({ posts, blogStats }: Props) {
   return (
     <>
       <PageMetaTags />
 
       <div className="flex-1">
         <HeroSection />
-        <WidgetGrid />
+        <WidgetGrid blogStats={blogStats} />
 
         {/* Recent posts */}
         <div className="latest-pad">
@@ -40,9 +41,14 @@ export default function Home({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  const allPosts = await getPosts({ onlyPreview: true });
+
   return {
     props: {
-      posts: await getPosts({ limit: 5, onlyPreview: true }),
+      posts: allPosts.slice(0, 5),
+      blogStats: {
+        postCount: allPosts.length,
+      },
     },
   };
 };
