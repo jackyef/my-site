@@ -116,11 +116,9 @@ for this process so each iteration loop is faster.
 This is the flamegraph generated from the baseline implementation, notice that we are ticking all the boxes at the bottom of the page, so
 we can see the CPU time spent even in Node.js internals and V8 as well.
 
-<ClickableImage 
-  src={`/assets/blog/1brc-nodejs-learnings/fg-1.png`}
-  alt="Flamegraph for baseline implementation"
-  fill
-/>
+<a href="/assets/blog/1brc-nodejs-learnings/fg-1.png" target="_blank" rel="noopener noreferrer" className="block w-full not-prose">
+  <img loading="lazy" src="/assets/blog/1brc-nodejs-learnings/fg-1.png" alt="Flamegraph for baseline implementation" className="object-contain" />
+</a>
 
 Now that we know how to profile the implementation, we can start working on improving it. There are a lot of things going on in the flamegraph,
 but we can usually focus on one thing at a time, do another profiling, and repeat the process. In the flamegraph above, we can see that there is this 
@@ -239,11 +237,9 @@ stream.on('data', (chunk) => {
 After this improvement, the whole process now finishes in `2m35.389s`; a ~2.2x speedup from the baseline implementation. Pretty good start!
 Let's look at the flamegraph again to see if there are other parts that we can improve.
 
-<ClickableImage 
-  src={`/assets/blog/1brc-nodejs-learnings/fg-2.png`}
-  alt="Flamegraph for baseline implementation"
-  fill
-/>
+<a href="/assets/blog/1brc-nodejs-learnings/fg-2.png" target="_blank" rel="noopener noreferrer" className="block w-full not-prose">
+  <img loading="lazy" src="/assets/blog/1brc-nodejs-learnings/fg-2.png" alt="Flamegraph for baseline implementation" className="object-contain" />
+</a>
 
 Hmm, this is tricky. There isn't any particular block on the top stack that is very wide. At the 2nd-level though, we see there is 
 one long block of `index.js:24:19`. In this case, this is the callback function we are passing to `stream.on('data', (chunk) => {})`.

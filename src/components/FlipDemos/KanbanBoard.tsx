@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Flip } from '@/lib/flip/react';
-import { getHslaColor } from '@/lib/styles/colors';
 
 type Task = {
   id: string;
@@ -13,19 +12,16 @@ interface TaskItemProps extends Task {
   variant: 'to-do' | 'done';
 }
 
-const TaskItem = ({ id, title, onClick, variant }: TaskItemProps) => {
-  const bgStyle = {
-    backgroundColor:
-      variant === 'to-do'
-        ? getHslaColor('primary', 0.7)
-        : getHslaColor('secondary', 0.7),
-  };
+const VARIANT_CLASS = {
+  'to-do': 'bg-(--color-accent-xl) text-(--color-ink)',
+  done: 'bg-(--color-success-bg) text-(--color-ink)',
+} as const;
 
+const TaskItem = ({ id, title, onClick, variant }: TaskItemProps) => {
   return (
     <Flip id={id}>
       <button
-        className="py-2 px-4 rounded-lg text-left"
-        style={bgStyle}
+        className={`py-2 px-4 rounded-lg text-left ${VARIANT_CLASS[variant]}`}
         onClick={onClick}
         type="button"
       >
@@ -81,7 +77,7 @@ export const KanbanBoard = () => {
   };
 
   return (
-    <div className="border-2 border-surface-3 p-4 rounded-md">
+    <div className="border-2 border-(--color-border) p-4 rounded-md text-(--color-ink-2)">
       <div className="flex space-x-2 min-h-[300px] mb-4">
         <TaskColumn title="To-do" count={todos.length}>
           {todos.map((task) => (
@@ -112,10 +108,7 @@ export const KanbanBoard = () => {
       </div>
 
       <button
-        className="py-2 px-4 text-base rounded-lg"
-        style={{
-          background: getHslaColor('tertiary', 0.5),
-        }}
+        className="py-2 px-4 text-base rounded-lg bg-(--color-bg-hover) text-(--color-ink)"
         onClick={handleShuffle}
       >
         Shuffle tasks!

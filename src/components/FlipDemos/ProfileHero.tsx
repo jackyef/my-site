@@ -30,7 +30,7 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
     <>
       <div
         className={cn(
-          'shadow-surface-2 bg-surface-2',
+          'shadow-md bg-(--color-bg-panel)',
           'rounded-lg',
           'max-w-full',
           'w-[720px]',
@@ -81,9 +81,9 @@ export const ProfileHero = ({ flipId, onBack, invertOnly = false }: Props) => {
               src="https://avatars.githubusercontent.com/u/7252454?v=4"
             />,
           )}
-          <div className="leading-5">
-            <div className="font-semibold text-lg">Jacky Efendi</div>
-            <div className="opacity-70 mb-4 mt-1">@jackyef__</div>
+          <div className="leading-5 text-(--color-ink-2)">
+            <div className="font-semibold text-lg text-(--color-ink)">Jacky Efendi</div>
+            <div className="text-(--color-ink-3) mb-4 mt-1">@jackyef__</div>
             <div>
               Code web-related stuff. I sometimes tweet about tech and career,
               other times about all random thoughts in adulting life.

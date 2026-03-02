@@ -622,6 +622,12 @@ h2 em {
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes progress-shuffle {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(233.33%); }
+  100% { transform: translateX(0); }
+}
+
 /* ═══════════════════════════════════════
    FANCY LINK — underline fill on hover
 ═══════════════════════════════════════ */

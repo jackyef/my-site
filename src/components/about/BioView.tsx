@@ -47,7 +47,7 @@ export function BioView() {
         <Text color="ink-2" className="leading-[1.75]">
           I worked on developer experience within JS monorepos. Speeding up
           local development, CI pipelines, webpack builds, establishing
-          conventions and optimizing web pages. Other than that, I also have
+          conventions and optimizing web pages. I also have
           worked on the server-side with Node.js, GraphQL, Apollo and
           PostgreSQL.
         </Text>

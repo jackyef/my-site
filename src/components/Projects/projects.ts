@@ -19,6 +19,12 @@ export const projects: Project[] = [
     coverImage: 'https://kotla.vercel.app/og.png',
   },
   {
+    name: 'Tranquil',
+    url: 'https://tranquil.vercel.app',
+    repo: 'https://github.com/jackyef/tranquil',
+    coverImage: 'https://tranquil.vercel.app/og.png',
+  },
+  {
     name: 'Indonesian remote-friendly companies 🇮🇩',
     url: 'https://id-wfa-companies.vercel.app',
     repo: 'https://github.com/jackyef/id-wfa',

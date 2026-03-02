@@ -14,7 +14,7 @@ export const PlayPauseButton = ({
   return (
     <button
       aria-label={isPlaying ? 'Pause' : 'Play'}
-      className="px-2"
+      className="px-2 text-(--color-ink)"
       disabled={isDisabled}
       onClick={() => {
         if (isPlaying) {

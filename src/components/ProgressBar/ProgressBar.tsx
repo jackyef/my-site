@@ -1,7 +1,3 @@
-import { css } from 'goober';
-
-import { getHslaColor } from '@/lib/styles/colors';
-
 import { cn } from '@/utils/styles/classNames';
 
 const INDETERMINATE_BAR_WIDTH = 30;
@@ -29,7 +25,7 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
 
   return (
     <div
-      className="overflow-hidden h-2 text-xs flex w-full rounded bg-surface-1"
+      className="overflow-hidden h-2 text-xs flex w-full rounded bg-(--color-bg-hover)"
       role="progressbar"
       style={{
         // We are not transforming this element,
@@ -46,42 +42,13 @@ export const ProgressBar = ({ value = 0, indeterminate = false }: Props) => {
           willChange: 'width, transform',
         }}
         className={cn(
-          `progressBar shadow-none flex flex-col`,
-          `text-center whitespace-nowrap text-white`,
-          `justify-center`,
-          indeterminate,
-          css`
-            background: ${getHslaColor('primary')};
-          `,
+          'shadow-none flex flex-col',
+          'text-center whitespace-nowrap text-white',
+          'justify-center',
+          'bg-(--color-accent)',
+          indeterminate && 'animate-[progress-shuffle_3s_both_infinite]',
         )}
       />
-      <style jsx>{`
-        @keyframes shuffling {
-          0% {
-            transform: translateX(0);
-          }
-          50% {
-            /**
-              * %-value in transforms refers to the element's own width/height,
-              * instead of the parent element's like top/left does.
-              *
-              * Since we define the bar's width ourselves, we can calculate
-              * how much we need to translate it to reach the end of the bar container.
-              */
-            transform: translateX(
-              ${(100 / INDETERMINATE_BAR_WIDTH - 1) * 100}%
-            );
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-
-        .progressBar.indeterminate {
-          animation: shuffling infinite 3s;
-          animation-fill-mode: both;
-        }
-      `}</style>
     </div>
   );
 };
