@@ -94,7 +94,9 @@ function BouncingDuck() {
   const squeakTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    return () => clearTimeout(squeakTimeoutRef.current);
+    return () => {
+      if (squeakTimeoutRef.current) clearTimeout(squeakTimeoutRef.current);
+    };
   }, []);
 
   const handleClick = useCallback(() => {
@@ -106,7 +108,10 @@ function BouncingDuck() {
     vxRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vxRef.current));
     vyRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vyRef.current));
 
-    clearTimeout(squeakTimeoutRef.current);
+    if (squeakTimeoutRef.current) {
+      clearTimeout(squeakTimeoutRef.current);
+    }
+
     setSqueaking(true);
     squeakTimeoutRef.current = setTimeout(() => setSqueaking(false), 300);
   }, []);
