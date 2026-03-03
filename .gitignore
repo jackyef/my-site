@@ -21,6 +21,7 @@ node_modules
 .secret
 .playwright-mcp
 tsconfig.tsbuildinfo
+tmp/
 
 # debug
 npm-debug.log*
