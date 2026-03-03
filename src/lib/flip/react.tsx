@@ -41,9 +41,11 @@ export const useFlip = ({ id, animateFunction }: Params) => {
     }
 
     if (prevRect && node) {
-      animateFunction
-        ? animateFunction(node, newRect, prevRect)
-        : animate(node, newRect, prevRect);
+      if (animateFunction) {
+        animateFunction(node, newRect, prevRect);
+      } else {
+        animate(node, newRect, prevRect);
+      }
     }
   });
 
