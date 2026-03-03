@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /** Deterministic hash → float in [min, max] for a given index + seed. */
-function seededValue(index: number, seed: number, min: number, max: number): number {
+function seededValue(
+  index: number,
+  seed: number,
+  min: number,
+  max: number,
+): number {
   let h = index * 2654435761 + seed;
   h = ((h >> 16) ^ h) * 0x45d9f3b;
-  h = ((h >> 16) ^ h);
+  h = (h >> 16) ^ h;
   const t = (h & 0xffff) / 0xffff;
   return +(min + t * (max - min)).toFixed(1);
 }

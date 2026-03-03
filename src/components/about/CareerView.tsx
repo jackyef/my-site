@@ -52,7 +52,7 @@ function periodLabel(from: Date, to: Date, isCurrent: boolean): string {
   const fromStr = formatMonth(from, true, 'en-US', 'short') ?? '';
   const toStr = isCurrent
     ? 'Present'
-    : formatMonth(to, true, 'en-US', 'short') ?? '';
+    : (formatMonth(to, true, 'en-US', 'short') ?? '');
   const duration = getTimeDifference(from, isCurrent ? TODAY : to);
   return `${fromStr} – ${toStr} · ${duration}`;
 }

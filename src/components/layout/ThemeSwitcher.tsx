@@ -41,7 +41,7 @@ export function ThemeSwitcher({
 }: ThemeSwitcherProps) {
   if (compact) {
     const currentOption = theme
-      ? THEME_OPTIONS.find((o) => o.value === theme) ?? THEME_OPTIONS[0]
+      ? (THEME_OPTIONS.find((o) => o.value === theme) ?? THEME_OPTIONS[0])
       : THEME_OPTIONS[0];
     const cycleTheme = () => {
       const current = theme ?? 'light';

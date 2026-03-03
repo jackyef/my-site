@@ -7,18 +7,16 @@ export const Debugger = () => {
     <>
       {/* Button point */}
       <div
-        className={cn(
-          css`
-            &::before {
-              display: block;
-              position: absolute;
-              content: var(--angle-degree);
-              font-size: 0.7rem;
-              top: -16px;
-              left: 40px;
-            }
-          `,
-        )}
+        className={cn(css`
+          &::before {
+            display: block;
+            position: absolute;
+            content: var(--angle-degree);
+            font-size: 0.7rem;
+            top: -16px;
+            left: 40px;
+          }
+        `)}
         style={{
           width: 8,
           height: 8,

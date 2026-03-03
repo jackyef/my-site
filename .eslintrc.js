@@ -36,6 +36,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
+    'react/no-unknown-property': ['error', { ignore: ['jsx'] }],
 
     // import rules
     'import/prefer-default-export': 'off',

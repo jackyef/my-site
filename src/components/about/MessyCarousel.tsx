@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { useMessyStack } from './useMessyStack';
-
 import { cn } from '@/utils/styles/classNames';
+
+import { useMessyStack } from './useMessyStack';
 
 interface MessyCarouselProps {
   children: React.ReactNode;

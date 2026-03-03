@@ -41,9 +41,7 @@ export const Panel: React.FC<Props> = ({
   const { border, bg } = STYLES[type];
 
   return (
-    <div
-      className={cn('rounded-lg my-8 px-5 py-4 border-l-4', border, bg)}
-    >
+    <div className={cn('rounded-lg my-8 px-5 py-4 border-l-4', border, bg)}>
       <div className="font-bold text-xl mb-2 text-(--color-ink)">{title}</div>
       {children}
     </div>

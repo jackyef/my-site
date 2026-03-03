@@ -47,7 +47,9 @@ function Swatch({
         )}
         style={{ backgroundColor: `var(${color})` }}
       />
-      <span className="text-[11px] text-(--color-ink-3) font-mono">{label}</span>
+      <span className="text-[11px] text-(--color-ink-3) font-mono">
+        {label}
+      </span>
     </div>
   );
 }

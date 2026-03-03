@@ -24,8 +24,8 @@ export const ACTIONS = [
 
 export const DEFAULT_QUERIES = [...QUERIES];
 
-export type Action = typeof ACTIONS[number];
-export type Query = typeof QUERIES[number];
+export type Action = (typeof ACTIONS)[number];
+export type Query = (typeof QUERIES)[number];
 
 export const QUERIES_ACTIONS_MAP: Record<Query, Action> = {
   'Enable dark theme': 'ENABLE_DARK_THEME',

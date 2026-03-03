@@ -1,6 +1,9 @@
 import { ArrowUpRight, Github } from 'lucide-react';
 
-import { MessyCarousel, MessyCarouselItem } from '@/components/about/MessyCarousel';
+import {
+  MessyCarousel,
+  MessyCarouselItem,
+} from '@/components/about/MessyCarousel';
 import { Card } from '@/components/common/Card';
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';

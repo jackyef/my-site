@@ -265,16 +265,16 @@ function ChessWidget() {
     matchesSummary?.lastResult === 'wins'
       ? '🔥'
       : matchesSummary?.lastResult === 'losses'
-      ? '🥶'
-      : '↔️';
+        ? '🥶'
+        : '↔️';
 
   const streakLabel = matchesSummary
     ? `${
         matchesSummary.lastResult === 'wins'
           ? 'win'
           : matchesSummary.lastResult === 'losses'
-          ? 'loss'
-          : 'draw'
+            ? 'loss'
+            : 'draw'
       } streak`
     : '';
 

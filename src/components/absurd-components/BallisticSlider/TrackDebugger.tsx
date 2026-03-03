@@ -6,18 +6,16 @@ export const TrackDebugger = () => {
   return (
     <>
       <div
-        className={cn(
-          css`
-            &::before {
-              display: block;
-              position: absolute;
-              content: var(--slider-value);
-              font-size: 0.7rem;
-              top: 50%;
-              left: -2ch;
-            }
-          `,
-        )}
+        className={cn(css`
+          &::before {
+            display: block;
+            position: absolute;
+            content: var(--slider-value);
+            font-size: 0.7rem;
+            top: 50%;
+            left: -2ch;
+          }
+        `)}
         style={{
           width: 8,
           height: 8,

@@ -66,7 +66,10 @@ export const WebSpeechAPIDemo = () => {
               {getMessage()}
             </div>
 
-            <span className="text-(--color-ink-2)" dangerouslySetInnerHTML={{ __html: output }} />
+            <span
+              className="text-(--color-ink-2)"
+              dangerouslySetInnerHTML={{ __html: output }}
+            />
             <span className="text-(--color-ink-4)">{interimOutput}</span>
 
             {hasOutput && (

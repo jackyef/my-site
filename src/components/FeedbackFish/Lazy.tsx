@@ -9,7 +9,6 @@ export const LazyFeedbackFish = dynamic<FeedbackFishProps>(
   () => import(/* webpackChunkName: "feedbackfish-widget" */ './index'),
   {
     ssr: false,
-
   },
 );
 

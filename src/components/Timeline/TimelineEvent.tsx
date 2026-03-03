@@ -117,7 +117,8 @@ export const TimelineEvent = ({
           'absolute flex justify-start items-start text-left inset-1 rounded-lg p-2',
           'text-xs leading-5 bg-opacity-90',
           css`
-            transition: background-color 0.2s ease-in-out,
+            transition:
+              background-color 0.2s ease-in-out,
               left 0.2s ease-in 0.25s;
           `,
           {

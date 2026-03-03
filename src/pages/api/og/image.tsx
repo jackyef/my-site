@@ -43,7 +43,7 @@ const themes = {
   },
 } as const;
 
-type Theme = typeof themes[keyof typeof themes];
+type Theme = (typeof themes)[keyof typeof themes];
 
 // ── Font cache ──
 type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -209,64 +209,76 @@ export default async function handler(req: NextRequest) {
   const [line1, line2] = splitTitle(title);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: 1200,
+        height: 630,
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: t.bg,
+        position: 'relative',
+      }}
+    >
+      {gridLines(t)}
       <div
         style={{
-          width: 1200,
-          height: 630,
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: t.bg,
           position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '0 96px',
+          width: '100%',
+          zIndex: 1,
         }}
       >
-        {gridLines(t)}
+        {/* Eyebrow */}
         <div
           style={{
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '0 96px',
-            width: '100%',
-            zIndex: 1,
+            fontFamily: 'Epilogue',
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: '1.32px',
+            textTransform: 'uppercase',
+            color: t.accent,
+            marginBottom: 20,
           }}
         >
-          {/* Eyebrow */}
+          Blog
+        </div>
+        {/* Title block */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            paddingLeft: 22,
+            marginLeft: -22,
+            marginBottom: 26,
+          }}
+        >
           <div
             style={{
-              fontFamily: 'Epilogue',
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: '1.32px',
-              textTransform: 'uppercase',
-              color: t.accent,
-              marginBottom: 20,
+              position: 'absolute',
+              left: 0,
+              top: 8,
+              bottom: 8,
+              width: 3,
+              backgroundColor: t.accentBar,
+              borderRadius: 2,
+            }}
+          />
+          <div
+            style={{
+              fontFamily: 'Fraunces',
+              fontSize: 76,
+              fontWeight: 700,
+              lineHeight: 1.02,
+              letterSpacing: '-2.28px',
+              color: t.ink,
             }}
           >
-            Blog
+            {line1}
           </div>
-          {/* Title block */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              position: 'relative',
-              paddingLeft: 22,
-              marginLeft: -22,
-              marginBottom: 26,
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 8,
-                bottom: 8,
-                width: 3,
-                backgroundColor: t.accentBar,
-                borderRadius: 2,
-              }}
-            />
+          {line2 ? (
             <div
               style={{
                 fontFamily: 'Fraunces',
@@ -277,60 +289,44 @@ export default async function handler(req: NextRequest) {
                 color: t.ink,
               }}
             >
-              {line1}
-            </div>
-            {line2 ? (
-              <div
-                style={{
-                  fontFamily: 'Fraunces',
-                  fontSize: 76,
-                  fontWeight: 700,
-                  lineHeight: 1.02,
-                  letterSpacing: '-2.28px',
-                  color: t.ink,
-                }}
-              >
-                {line2}
-              </div>
-            ) : null}
-          </div>
-          {/* Description */}
-          {description ? (
-            <div
-              style={{
-                fontFamily: 'Epilogue',
-                fontSize: 18,
-                fontWeight: 400,
-                lineHeight: 1.6,
-                color: t.ink3,
-                maxWidth: 680,
-                marginBottom: 44,
-              }}
-            >
-              {description}
+              {line2}
             </div>
           ) : null}
-          {/* Domain stamp */}
+        </div>
+        {/* Description */}
+        {description ? (
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
               fontFamily: 'Epilogue',
-              fontSize: 13,
-              fontWeight: 500,
-              color: t.ink4,
-              letterSpacing: '0.26px',
+              fontSize: 18,
+              fontWeight: 400,
+              lineHeight: 1.6,
+              color: t.ink3,
+              maxWidth: 680,
+              marginBottom: 44,
             }}
           >
-            <div
-              style={{ width: 24, height: 1, backgroundColor: t.borderHi }}
-            />
-            jackyef.com
+            {description}
           </div>
+        ) : null}
+        {/* Domain stamp */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontFamily: 'Epilogue',
+            fontSize: 13,
+            fontWeight: 500,
+            color: t.ink4,
+            letterSpacing: '0.26px',
+          }}
+        >
+          <div style={{ width: 24, height: 1, backgroundColor: t.borderHi }} />
+          jackyef.com
         </div>
       </div>
-    ),
+    </div>,
     { width: 1200, height: 630, fonts },
   );
 }

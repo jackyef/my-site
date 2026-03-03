@@ -93,16 +93,36 @@ export default function About() {
         />
 
         <div ref={scrollRef} className="flex-1">
-          <section id="bio" role="tabpanel" aria-labelledby="tab-bio" className="scroll-mt-24">
+          <section
+            id="bio"
+            role="tabpanel"
+            aria-labelledby="tab-bio"
+            className="scroll-mt-24"
+          >
             <BioView />
           </section>
-          <section id="career" role="tabpanel" aria-labelledby="tab-career" className="scroll-mt-12">
+          <section
+            id="career"
+            role="tabpanel"
+            aria-labelledby="tab-career"
+            className="scroll-mt-12"
+          >
             <CareerView />
           </section>
-          <section id="projects" role="tabpanel" aria-labelledby="tab-projects" className="scroll-mt-12">
+          <section
+            id="projects"
+            role="tabpanel"
+            aria-labelledby="tab-projects"
+            className="scroll-mt-12"
+          >
             <ProjectsView />
           </section>
-          <section id="past-writings" role="tabpanel" aria-labelledby="tab-past-writings" className="scroll-mt-12">
+          <section
+            id="past-writings"
+            role="tabpanel"
+            aria-labelledby="tab-past-writings"
+            className="scroll-mt-12"
+          >
             <WritingView />
           </section>
         </div>

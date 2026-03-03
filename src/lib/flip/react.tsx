@@ -1,4 +1,10 @@
-import { type JSX, cloneElement, useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  type JSX,
+  cloneElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 
 import { getInfo, storeInfo, animate } from './core';
 

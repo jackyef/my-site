@@ -1,6 +1,9 @@
 import { ArrowUpRight } from 'lucide-react';
 
-import { MessyCarousel, MessyCarouselItem } from '@/components/about/MessyCarousel';
+import {
+  MessyCarousel,
+  MessyCarouselItem,
+} from '@/components/about/MessyCarousel';
 import { Card } from '@/components/common/Card';
 import { PageHeader } from '@/components/common/PageHeader';
 import MediumStories from '@/components/Medium/medium-stories.json';
@@ -41,7 +44,10 @@ export function WritingView() {
             rel="noopener noreferrer"
             className="w-[280px] no-underline"
           >
-            <Card hover className="overflow-hidden h-full flex flex-col relative">
+            <Card
+              hover
+              className="overflow-hidden h-full flex flex-col relative"
+            >
               <div className="h-[140px] bg-(--color-bg-hover) overflow-hidden">
                 <img
                   src={story.coverImage}

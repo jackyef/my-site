@@ -8,12 +8,10 @@ interface ChipProps {
 }
 
 const variantMap = {
-  default:
-    'bg-(--color-bg-panel) text-(--color-ink-2) border-(--color-border)',
+  default: 'bg-(--color-bg-panel) text-(--color-ink-2) border-(--color-border)',
   highlight:
     'bg-(--color-accent-xl) text-(--color-accent-text) border-(--color-accent-l)',
-  muted:
-    'bg-(--color-bg) text-(--color-ink-3) border-(--color-border)',
+  muted: 'bg-(--color-bg) text-(--color-ink-3) border-(--color-border)',
 };
 
 const sizeMap = {

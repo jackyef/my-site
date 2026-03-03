@@ -29,5 +29,5 @@ export const SUPPORTED_CURRENCIES = [
   'TWD',
 ] as const;
 
-export type LocaleTag = typeof SUPPORTED_LOCALES[number];
-export type CurrencyCode = typeof SUPPORTED_CURRENCIES[number];
+export type LocaleTag = (typeof SUPPORTED_LOCALES)[number];
+export type CurrencyCode = (typeof SUPPORTED_CURRENCIES)[number];
