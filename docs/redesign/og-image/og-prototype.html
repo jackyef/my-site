@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Image Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Epilogue:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px;
+  gap: 32px;
+  font-family: 'Epilogue', sans-serif;
+}
+
+.label {
+  color: #555;
+  font-size: 11px;
+  font-family: monospace;
+  letter-spacing: 0.08em;
+  width: 1200px;
+}
+
+/* ── OG frame ── */
+.og {
+  width: 1200px;
+  height: 630px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Blueprint grid */
+.og::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #f6f4ef;
+  background-image:
+    linear-gradient(to right,  rgba(44,100,100,0.12)  1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44,100,100,0.12)  1px, transparent 1px),
+    linear-gradient(to right,  rgba(44,100,100,0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44,100,100,0.045) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+  background-position: 0 0, 0 0, 37px 19px, 37px 19px;
+}
+
+.post-block {
+  position: relative;
+  z-index: 1;
+  padding: 0 96px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2c6464;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.title-wrapper {
+  position: relative;
+  padding-left: 22px;
+  margin-left: -22px;
+  margin-bottom: 26px;
+}
+.title-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: #c2dede;
+  border-radius: 2px;
+}
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 76px;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #18181a;
+}
+
+/* Description */
+.description {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #6b6b72;
+  max-width: 680px;
+  margin-bottom: 44px;
+}
+
+/* Domain stamp */
+.domain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #a0a0a8;
+  letter-spacing: 0.02em;
+}
+.domain-line {
+  width: 24px;
+  height: 1px;
+  background: #ccc8be;
+  flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="label">LIGHT · 1200 × 630</div>
+
+<div class="og">
+  <div class="post-block">
+    <div class="eyebrow">Blog</div>
+    <div class="title-wrapper">
+      <div class="title">1-Billion Row Challenge<br>with Node.js</div>
+    </div>
+    <div class="description">
+      Processing a 12 GB file with 1 billion rows in Node.js — building
+      from a baseline implementation toward a ~30× speedup.
+    </div>
+    <div class="domain">
+      <div class="domain-line"></div>
+      jackyef.com
+    </div>
+  </div>
+</div>
+
+<div class="label">DIM · 1200 × 630</div>
+
+<div class="og" style="background:#1e1f24;">
+  <div style="position:absolute;inset:0;
+    background-color:#1e1f24;
+    background-image:
+      linear-gradient(to right,  rgba(74,150,150,0.13) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(74,150,150,0.13) 1px, transparent 1px),
+      linear-gradient(to right,  rgba(74,150,150,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(74,150,150,0.05) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+    background-position: 0 0, 0 0, 37px 19px, 37px 19px;">
+  </div>
+  <div class="post-block">
+    <div class="eyebrow" style="color:#6ab8b8;">Blog</div>
+    <div class="title-wrapper">
+      <div style="position:absolute;left:0;top:8px;bottom:8px;width:3px;background:#1e4040;border-radius:2px;"></div>
+      <div class="title" style="color:#e8e6e0;">1-Billion Row Challenge<br>with Node.js</div>
+    </div>
+    <div class="description" style="color:#7a7880;">
+      Processing a 12 GB file with 1 billion rows in Node.js — building
+      from a baseline implementation toward a ~30× speedup.
+    </div>
+    <div class="domain" style="color:#4e4d56;">
+      <div class="domain-line" style="background:#3a3d48;"></div>
+      jackyef.com
+    </div>
+  </div>
+</div>
+
+<div class="label">DARK · 1200 × 630</div>
+
+<div class="og" style="background:#0f0f11;">
+  <div style="position:absolute;inset:0;
+    background-color:#0f0f11;
+    background-image:
+      linear-gradient(to right,  rgba(74,150,150,0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(74,150,150,0.14) 1px, transparent 1px),
+      linear-gradient(to right,  rgba(74,150,150,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(74,150,150,0.05) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+    background-position: 0 0, 0 0, 37px 19px, 37px 19px;">
+  </div>
+  <div class="post-block">
+    <div class="eyebrow" style="color:#7ac4c4;">Blog</div>
+    <div class="title-wrapper">
+      <div style="position:absolute;left:0;top:8px;bottom:8px;width:3px;background:#1a3636;border-radius:2px;"></div>
+      <div class="title" style="color:#f0eee8;">1-Billion Row Challenge<br>with Node.js</div>
+    </div>
+    <div class="description" style="color:#68686e;">
+      Processing a 12 GB file with 1 billion rows in Node.js — building
+      from a baseline implementation toward a ~30× speedup.
+    </div>
+    <div class="domain" style="color:#3e3e44;">
+      <div class="domain-line" style="background:#2e2e34;"></div>
+      jackyef.com
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
