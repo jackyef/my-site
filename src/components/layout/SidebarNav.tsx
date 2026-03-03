@@ -83,6 +83,9 @@ export function SidebarNav() {
 
   const isActive = (item: NavItem) => {
     if (item.exact) return router.pathname === item.href;
+
+    if (router.pathname.startsWith('/posts/') && item.href === '/blog') return true; // Special case for blog overview page
+
     return (
       router.pathname === item.href ||
       router.pathname.startsWith(item.href + '/')
