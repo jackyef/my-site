@@ -1,5 +1,6 @@
 import { ArrowUpRight, Github } from 'lucide-react';
 
+import { MessyCarousel, MessyCarouselItem } from '@/components/about/MessyCarousel';
 import { Card } from '@/components/common/Card';
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -18,54 +19,52 @@ export function ProjectsView() {
         }
       />
 
-      <div className="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]">
-        {projects.map((project) => (
-          <Card key={project.name} hover className="overflow-hidden">
-            {/* Cover image */}
-            <div className="h-[120px] bg-[var(--color-bg-hover)] overflow-hidden">
-              <img
-                src={project.coverImage}
-                alt={project.name}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="px-[14px] py-[12px]">
-              <div className="text-[14px] font-semibold text-[var(--color-ink)] mb-[10px]">
-                {project.name}
+      <MessyCarousel>
+        {projects.map((project, i) => (
+          <MessyCarouselItem key={project.name} index={i} className="w-[260px]">
+            <Card hover className="overflow-hidden h-full">
+              <div className="h-[140px] bg-(--color-bg-hover) overflow-hidden">
+                <img
+                  src={project.coverImage}
+                  alt={project.name}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="flex gap-2">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[12px] text-[var(--color-accent-text)] no-underline font-medium hover:underline"
-                >
-                  <ArrowUpRight size={12} aria-hidden="true" />
-                  Visit
-                </a>
-                {project.repo && (
+
+              <div className="px-[14px] py-[12px] flex flex-col flex-1">
+                <div className="text-[14px] font-semibold text-(--color-ink) mb-[10px] leading-snug">
+                  {project.name}
+                </div>
+                <div className="flex gap-2 mt-auto">
                   <a
-                    href={project.repo}
+                    href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[12px] text-[var(--color-ink-4)] no-underline font-medium hover:text-[var(--color-ink)]"
+                    className="inline-flex items-center gap-1 text-[12px] text-(--color-accent-text) no-underline font-medium hover:underline"
                   >
-                    <Github size={12} aria-hidden="true" />
-                    Source
+                    <ArrowUpRight size={12} aria-hidden="true" />
+                    Visit
                   </a>
-                )}
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-ink)"
+                    >
+                      <Github size={12} aria-hidden="true" />
+                      Source
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </MessyCarouselItem>
         ))}
-      </div>
+      </MessyCarousel>
 
       {/* OSS */}
-      <div className="mb-4" />
-
       <div className="flex flex-col gap-3">
         {RepoList.map((repo) => (
           <Card

@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 
+import { MessyCarousel, MessyCarouselItem } from '@/components/about/MessyCarousel';
 import { Card } from '@/components/common/Card';
 import { PageHeader } from '@/components/common/PageHeader';
 import MediumStories from '@/components/Medium/medium-stories.json';
@@ -29,42 +30,49 @@ export function WritingView() {
         }
       />
 
-      <div className="flex flex-col gap-3">
-        {MediumStories.map((story) => (
-          <a
+      <MessyCarousel>
+        {MediumStories.map((story, i) => (
+          <MessyCarouselItem
             key={story.url}
+            index={i}
+            as="a"
             href={story.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="no-underline"
+            className="w-[280px] no-underline"
           >
-            <Card hover className="flex items-start gap-4 px-4.5 py-4">
-              <div className="flex-1 min-w-0">
-                <div className="text-[14px] font-semibold text-(--color-ink) mb-1 leading-snug">
+            <Card hover className="overflow-hidden h-full flex flex-col relative">
+              <div className="h-[140px] bg-(--color-bg-hover) overflow-hidden">
+                <img
+                  src={story.coverImage}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="px-[14px] py-[12px] flex flex-col flex-1">
+                <div className="text-[14px] font-semibold text-(--color-ink) mb-2 leading-snug line-clamp-2">
                   {story.title}
                 </div>
-                <div className="flex items-center gap-1.5 text-[12px] text-(--color-ink-4)">
+
+                <div className="flex items-center justify-between gap-1.5 text-[12px] text-(--color-ink-4) mt-auto">
                   <span>{getPublication(story.url)}</span>
-                  <span aria-hidden="true">&middot;</span>
                   <span>{story.timeToRead}</span>
-                  {story.claps && (
-                    <>
-                      <span aria-hidden="true">&middot;</span>
-                      <span>{story.claps} claps</span>
-                    </>
-                  )}
                 </div>
               </div>
 
-              <ArrowUpRight
-                size={14}
-                aria-hidden="true"
-                className="text-(--color-ink-4) shrink-0 mt-0.5"
-              />
+              <div className="absolute top-2 right-2 bg-(--color-bg-panel)/80 backdrop-blur-sm rounded-full p-1">
+                <ArrowUpRight
+                  size={12}
+                  aria-hidden="true"
+                  className="text-(--color-ink-3)"
+                />
+              </div>
             </Card>
-          </a>
+          </MessyCarouselItem>
         ))}
-      </div>
+      </MessyCarousel>
     </div>
   );
 }
