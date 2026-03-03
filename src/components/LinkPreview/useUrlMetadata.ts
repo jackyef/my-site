@@ -1,18 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-
-type UrlMetadata = {
-  title: string;
-  description: string;
-  language: string;
-  type: string;
-  url: string;
-  provider: string;
-  author: string;
-  published: string;
-  twitter: string;
-  image: string;
-  icon: string;
-};
+import type { MetaData } from 'metadata-scraper/lib/types';
 
 export const useUrlMetadata = (url: string) => {
   const apiUrl = `/api/og?url=${encodeURIComponent(url)}`;
@@ -25,7 +12,7 @@ export const useUrlMetadata = (url: string) => {
         throw new Error(`Failed to fetch metadata: ${res.status}`);
       }
       const json = await res.json();
-      return json.metadata as UrlMetadata;
+      return json.metadata as MetaData;
     },
     staleTime: Infinity, // Never stale, so always get data from cache
   });
