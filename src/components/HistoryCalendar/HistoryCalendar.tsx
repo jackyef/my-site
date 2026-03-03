@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { formatDate, TODAY } from '@/lib/datetime';
@@ -28,11 +28,12 @@ export const HistoryCalendar = () => {
 
   prevActiveIndex.current = activeEventIndex;
 
-  const handleActiveIndexChange = useCallback(
-    debounce((index: number) => {
-      setActiveEventIndex(index);
-    }, 50),
-    [setActiveEventIndex],
+  const handleActiveIndexChange = useMemo(
+    () =>
+      debounce((index: number) => {
+        setActiveEventIndex(index);
+      }, 50),
+    [],
   );
 
   const handleEventClick = (index: number) => {

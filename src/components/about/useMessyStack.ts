@@ -82,7 +82,7 @@ export function useMessyStack(
 
     // Scroll a bit initially to make it apparent that the carousel can be scrolled.
     containerRef.current.scrollBy({ left: 40 });
-  }, []);
+  }, [containerRef]);
 
   const scrollLeft = useCallback(() => {
     containerRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
