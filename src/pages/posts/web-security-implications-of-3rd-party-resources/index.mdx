@@ -87,15 +87,13 @@ if (window.opener) {
 
 Try clicking on the button below to see an example.
 
-<LightButton
+<Button
   onClick={() =>
     window.open(
       '/posts/web-security-implications-of-3rd-party-resources/examples/opener',
     )
   }
->
-  {`Open a page in new tab `}
-</LightButton>
+>Open a page in new tab</Button>
 
 Fortunately, browsers automatically set `window.opener` to `null` if the target
 page is hosted on a different origin, so this attack vector is not that

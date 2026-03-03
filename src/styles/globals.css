@@ -99,7 +99,6 @@
   --h-info: 180deg; --s-info: 30%; --l-info: 95%;
   --h-warning: 45deg; --s-warning: 91%; --l-warning: 49%;
   --color-outline: hsla(180deg 38% 29% / 0.7);
-  --color-info: var(--color-bg-active);
   --color-scrollbar: #cacaca;
   --scroll-gutter: hsl(0deg 0% 92%);
   --focus-outline: 0 0 0 2px var(--color-outline);
@@ -172,7 +171,6 @@
   --h-outline: 180deg; --s-outline: 34%; --l-outline: 44%;
   --h-info: 180deg; --s-info: 20%; --l-info: 20%;
   --color-outline: hsla(180deg 34% 44% / 1);
-  --color-info: var(--color-bg-active);
   --color-scrollbar: rgba(55, 65, 81, 1);
   --scroll-gutter: hsl(225deg 13% 15%);
   --focus-outline: 0 0 0 2px var(--color-outline);
@@ -239,7 +237,6 @@
   --h-outline: 180deg; --s-outline: 34%; --l-outline: 44%;
   --h-info: 180deg; --s-info: 20%; --l-info: 15%;
   --color-outline: hsla(180deg 34% 44% / 1);
-  --color-info: var(--color-bg-active);
   --color-scrollbar: rgba(55, 65, 81, 1);
   --scroll-gutter: hsl(240deg 10% 9%);
   --focus-outline: 0 0 0 2px var(--color-outline);
