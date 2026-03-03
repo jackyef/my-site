@@ -19,7 +19,7 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
     <nav aria-labelledby={labelId} className="overflow-x-clip">
       <div
         id={labelId}
-        className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[var(--color-ink-4)] mb-3"
+        className="text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4) mb-3"
       >
         On this page
       </div>
@@ -40,7 +40,7 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
               {isActive && (
                 <motion.div
                   layoutId={indicatorId}
-                  className="absolute left-0 top-[2px] bottom-[2px] w-[2px] rounded-sm bg-[var(--color-accent)]"
+                  className="absolute left-0 top-[2px] bottom-[2px] w-[2px] rounded-sm bg-(--color-accent)"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}

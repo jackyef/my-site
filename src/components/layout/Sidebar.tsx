@@ -10,13 +10,13 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 function LogoMark() {
   return (
     <div className="flex items-center gap-[9px]">
-      <div className="w-[26px] h-[26px] rounded-[7px] bg-[var(--color-accent)] flex items-center justify-center shrink-0">
+      <div className="w-[26px] h-[26px] rounded-[7px] bg-(--color-accent) flex items-center justify-center shrink-0">
         <span className="text-white text-[13px] font-bold font-serif leading-none">
           J
         </span>
       </div>
       {/* Hide domain text on narrow (icon-strip) sidebar */}
-      <span className="hidden lg:inline font-serif text-[15px] font-semibold text-[var(--color-ink)] tracking-[-0.01em]">
+      <span className="hidden lg:inline font-serif text-[15px] font-semibold text-(--color-ink) tracking-[-0.01em]">
         jackyef.com
       </span>
     </div>
@@ -28,9 +28,9 @@ export function Sidebar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <aside className="sidebar shrink-0 h-screen sticky top-0 flex flex-col bg-[var(--color-bg-sidebar)] border-r border-[var(--color-border)] overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
+    <aside className="sidebar shrink-0 h-screen sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
       {/* Top: Logo + CMD trigger */}
-      <div className="px-4 pt-[18px] pb-3 border-b border-[var(--color-border)]">
+      <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border)">
         <LogoMark />
 
         {/* CMD trigger — hidden on icon-strip sidebar */}
@@ -60,7 +60,7 @@ export function Sidebar() {
       <SidebarNav />
 
       {/* Bottom: Theme + Social */}
-      <div className="px-2 py-3 border-t border-[var(--color-border)] flex flex-col gap-2">
+      <div className="px-2 py-3 border-t border-(--color-border) flex flex-col gap-2">
         {/* Compact (icon-strip md–lg) */}
         <div className="md:block lg:hidden">
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />

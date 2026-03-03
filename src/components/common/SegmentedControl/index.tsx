@@ -25,7 +25,7 @@ export function SegmentedControl<T extends string>({
   return (
     <div
       className={cn(
-        'flex rounded-[8px] border border-[var(--color-border)] overflow-hidden bg-[var(--color-bg)]',
+        'flex rounded-[8px] border border-(--color-border) overflow-hidden bg-(--color-bg)',
         className,
       )}
     >
@@ -39,8 +39,8 @@ export function SegmentedControl<T extends string>({
           className={cn(
             'flex-1 flex items-center justify-center gap-1 px-[9px] py-[5px] text-[11px] font-medium cursor-pointer border-none font-[inherit] transition-[background,color] duration-[130ms]',
             value === opt.value
-              ? 'bg-[var(--color-bg-active)] text-[var(--color-accent-text)]'
-              : 'bg-transparent text-[var(--color-ink-4)]',
+              ? 'bg-(--color-bg-active) text-(--color-accent-text)'
+              : 'bg-transparent text-(--color-ink-4)',
           )}
         >
           {opt.icon}

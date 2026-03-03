@@ -9,11 +9,11 @@ interface ChipProps {
 
 const variantMap = {
   default:
-    'bg-[var(--color-bg-panel)] text-[var(--color-ink-2)] border-[var(--color-border)]',
+    'bg-(--color-bg-panel) text-(--color-ink-2) border-(--color-border)',
   highlight:
-    'bg-[var(--color-accent-xl)] text-[var(--color-accent-text)] border-[var(--color-accent-l)]',
+    'bg-(--color-accent-xl) text-(--color-accent-text) border-(--color-accent-l)',
   muted:
-    'bg-[var(--color-bg)] text-[var(--color-ink-3)] border-[var(--color-border)]',
+    'bg-(--color-bg) text-(--color-ink-3) border-(--color-border)',
 };
 
 const sizeMap = {

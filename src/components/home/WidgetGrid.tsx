@@ -41,7 +41,7 @@ function Widget({ label, children, span = 1, mobileFullWidth }: WidgetProps) {
 
 function WidgetValue({ children }: { children: React.ReactNode }) {
   return (
-    <div className="font-serif text-[20px] font-semibold text-[var(--color-ink)] leading-[1.2] mb-[3px]">
+    <div className="font-serif text-[20px] font-semibold text-(--color-ink) leading-[1.2] mb-[3px]">
       {children}
     </div>
   );
@@ -142,7 +142,7 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
         Read the blog →
       </a>
 
-      <hr className="border-[var(--color-border)] my-4" />
+      <hr className="border-(--color-border) my-4" />
 
       <SectionLabel className="mb-2.5">Connect</SectionLabel>
       <ul className="space-y-2.5">
@@ -218,7 +218,7 @@ function WLDBar({ w, d, l }: { w: number; d: number; l: number }) {
         {total > 0 ? (
           <>
             <div
-              className="bg-[var(--color-success)] rounded-l-full"
+              className="bg-(--color-success) rounded-l-full"
               style={{ flex: w }}
             />
             <div className="bg-(--color-ink-4) mx-[1px]" style={{ flex: d }} />
@@ -229,7 +229,7 @@ function WLDBar({ w, d, l }: { w: number; d: number; l: number }) {
         )}
       </div>
       <div className="flex justify-between text-[12px] font-medium">
-        <span className="text-[var(--color-success)]">
+        <span className="text-(--color-success)">
           {total > 0 ? `${w}W` : '\u00A0'}
         </span>
         <span className="text-(--color-ink-4)">

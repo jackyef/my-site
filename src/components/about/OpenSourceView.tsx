@@ -25,10 +25,10 @@ export function OpenSourceView() {
             className="flex items-start justify-between gap-4 px-[18px] py-4"
           >
             <div className="flex-1">
-              <div className="text-[14px] font-semibold text-[var(--color-ink)] mb-1 font-mono">
+              <div className="text-[14px] font-semibold text-(--color-ink) mb-1 font-mono">
                 {repo.title}
               </div>
-              <div className="text-[13px] text-[var(--color-ink-3)] leading-[1.5] mb-[10px]">
+              <div className="text-[13px] text-(--color-ink-3) leading-[1.5] mb-[10px]">
                 {repo.description}
               </div>
               <div className="flex flex-wrap gap-[5px]">
@@ -45,7 +45,7 @@ export function OpenSourceView() {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[12px] text-[var(--color-ink-4)] no-underline font-medium hover:text-[var(--color-accent-text)]"
+                className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-accent-text)"
                 title="View on GitHub"
               >
                 <Github size={14} aria-hidden="true" />

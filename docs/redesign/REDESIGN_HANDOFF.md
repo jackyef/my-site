@@ -405,39 +405,6 @@ No gratuitous animations. If it doesn't help the user orient themselves, remove 
 
 ---
 
-## 14. Code quality standards for this repo going forward
-
-Since this is also a cleanup pass, establish these patterns:
-
-### Component conventions
-- Every component file exports one default export (the component) and optionally named type exports
-- Props interfaces named `[ComponentName]Props`
-- No inline `style={{}}` objects — use Tailwind classes exclusively. The only exception is for dynamic values that can't be expressed as classes (e.g. `style={{ width: `${percent}%` }}`)
-
-### File naming
-- Components: `PascalCase.tsx`
-- Hooks: `camelCase.ts` prefixed with `use`
-- Utilities: `camelCase.ts`
-- Page files follow Next.js conventions
-
-### Path aliases
-Ensure `tsconfig.json` has:
-```json
-{
-  "paths": {
-    "@/*": ["./src/*"]
-  }
-}
-```
-Use `@/components/...`, `@/hooks/...`, `@/lib/...` everywhere. No relative `../../` imports.
-
-### Avoid
-- Any component file over ~200 lines — split it
-- Prop drilling more than 2 levels — use context or composition
-- Hardcoded color values anywhere in components — always use CSS variables via Tailwind tokens
-
----
-
 ## 15. Implementation order (recommended)
 
 Work in this order to avoid large rework:

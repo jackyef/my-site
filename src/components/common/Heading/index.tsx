@@ -12,10 +12,10 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 const levelStyles: Record<string, string> = {
   hero: 'hero-h1',
   page: 'page-title',
-  '1': 'text-3xl md:text-5xl font-bold font-serif text-[var(--color-ink)]',
-  '2': 'text-2xl md:text-3xl font-bold font-serif text-[var(--color-ink)]',
-  '3': 'text-xl md:text-2xl font-bold font-serif text-[var(--color-ink)]',
-  '4': 'text-lg md:text-xl font-bold font-serif text-[var(--color-ink)]',
+  '1': 'text-3xl md:text-5xl font-bold font-serif text-(--color-ink)',
+  '2': 'text-2xl md:text-3xl font-bold font-serif text-(--color-ink)',
+  '3': 'text-xl md:text-2xl font-bold font-serif text-(--color-ink)',
+  '4': 'text-lg md:text-xl font-bold font-serif text-(--color-ink)',
 };
 
 const defaultElement: Record<string, string> = {

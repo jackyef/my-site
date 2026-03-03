@@ -11,9 +11,9 @@ interface SurfaceProps extends React.HTMLAttributes<HTMLElement> {
 
 const elevationMap = {
   none: '',
-  sm: 'shadow-[var(--shadow-sm)]',
-  md: 'shadow-[var(--shadow-md)]',
-  lg: 'shadow-[var(--shadow-lg)]',
+  sm: 'shadow-(--shadow-sm)',
+  md: 'shadow-(--shadow-md)',
+  lg: 'shadow-(--shadow-lg)',
 };
 
 const roundedMap = {
@@ -35,10 +35,10 @@ export function Surface({
   return (
     <As
       className={cn(
-        'bg-[var(--color-bg-panel)]',
+        'bg-(--color-bg-panel)',
         elevationMap[elevation],
         roundedMap[rounded],
-        border && 'border border-[var(--color-border)]',
+        border && 'border border-(--color-border)',
         className,
       )}
       {...rest}

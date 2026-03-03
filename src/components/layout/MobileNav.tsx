@@ -109,8 +109,8 @@ export function MobileNav() {
                       className={cn(
                         'flex items-center gap-3 px-[18px] py-[10px] text-[14px] no-underline',
                         active
-                          ? 'font-semibold text-[var(--color-accent-text)] bg-[var(--color-bg-active)]'
-                          : 'font-normal text-[var(--color-ink-2)] bg-transparent',
+                          ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'
+                          : 'font-normal text-(--color-ink-2) bg-transparent',
                       )}
                     >
                       {link.icon}
@@ -139,7 +139,7 @@ export function MobileNav() {
         title={open ? 'Close menu' : 'Open menu'}
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-6 right-5 z-50 w-[52px] h-[52px] rounded-full bg-[var(--color-accent)] text-white border-none cursor-pointer flex items-center justify-center shadow-[var(--shadow-md)] font-[inherit]"
+        className="fixed bottom-6 right-5 z-50 w-[52px] h-[52px] rounded-full bg-(--color-accent) text-white border-none cursor-pointer flex items-center justify-center shadow-(--shadow-md) font-[inherit]"
       >
         <AnimatePresence mode="wait" initial={false}>
           {open ? (

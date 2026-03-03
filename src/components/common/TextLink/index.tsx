@@ -13,7 +13,7 @@ export function TextLink({ children, href, className }: TextLinkProps) {
     <Link
       href={href}
       className={cn(
-        'text-[var(--color-accent-text)] no-underline hover:underline',
+        'text-(--color-accent-text) no-underline hover:underline',
         className,
       )}
     >

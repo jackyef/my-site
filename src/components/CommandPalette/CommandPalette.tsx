@@ -116,7 +116,7 @@ export default () => {
             'animate-fadeIn',
             'transition-colors',
             'duration-500',
-            'text-[var(--color-ink-2)]',
+            'text-(--color-ink-2)',
             'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[44rem]',
           )}
           style={{

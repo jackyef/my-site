@@ -26,7 +26,7 @@ export default function AbsurdUiPage() {
       />
       <PageHeader eyebrow="Experiments" title={meta.title} />
 
-      <p className="text-md text-[var(--color-ink-2)] md:text-lg mb-6">
+      <p className="text-md text-(--color-ink-2) md:text-lg mb-6">
         This is a collection of absurd UI components that are not practical but
         fun to play with. They are built to be interactive and fun to play with.
         They are not meant to be used in production. They are made for fun brain

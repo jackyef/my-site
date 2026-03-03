@@ -252,7 +252,7 @@ export function CareerView() {
           <Card padding="md" className="max-h-[420px] overflow-y-auto">
             {/* Period + current badge */}
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[12px] text-[var(--color-ink-4)]">
+              <span className="text-[12px] text-(--color-ink-4)">
                 {periodLabel(selectedItem.from, selectedItem.to, isCurrent)}
               </span>
               {isCurrent && (
@@ -263,7 +263,7 @@ export function CareerView() {
             </div>
 
             {/* Title */}
-            <div className="text-[16px] font-bold text-[var(--color-ink)] mb-[2px]">
+            <div className="text-[16px] font-bold text-(--color-ink) mb-[2px]">
               {selectedItem.title}
             </div>
 
@@ -292,7 +292,7 @@ export function CareerView() {
 
             {/* Details */}
             {selectedItem.details && (
-              <div className="text-[14px] leading-[1.75] text-[var(--color-ink-3)]">
+              <div className="text-[14px] leading-[1.75] text-(--color-ink-3)">
                 {selectedItem.details}
               </div>
             )}

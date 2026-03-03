@@ -56,7 +56,7 @@ export function ThemeSwitcher({
         aria-label={
           theme ? `Current theme: ${theme}. Click to cycle.` : 'Cycle theme'
         }
-        className="w-full flex items-center justify-center p-[7px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-active)] text-[var(--color-accent-text)] cursor-pointer font-[inherit] transition-[background,color] duration-[130ms]"
+        className="w-full flex items-center justify-center p-[7px] rounded-lg border border-(--color-border) bg-(--color-bg-active) text-(--color-accent-text) cursor-pointer font-[inherit] transition-[background,color] duration-[130ms]"
       >
         {currentOption.icon}
       </button>

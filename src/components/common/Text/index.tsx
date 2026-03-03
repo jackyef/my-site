@@ -20,11 +20,11 @@ const variantMap: Record<TextVariant, string> = {
 };
 
 const colorMap: Record<TextColor, string> = {
-  ink: 'text-[var(--color-ink)]',
-  'ink-2': 'text-[var(--color-ink-2)]',
-  'ink-3': 'text-[var(--color-ink-3)]',
-  'ink-4': 'text-[var(--color-ink-4)]',
-  accent: 'text-[var(--color-accent-text)]',
+  ink: 'text-(--color-ink)',
+  'ink-2': 'text-(--color-ink-2)',
+  'ink-3': 'text-(--color-ink-3)',
+  'ink-4': 'text-(--color-ink-4)',
+  accent: 'text-(--color-accent-text)',
 };
 
 /** Default color per variant — matches the design system's text hierarchy */

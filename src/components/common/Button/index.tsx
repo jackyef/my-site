@@ -14,7 +14,7 @@ const variantMap = {
   secondary:
     'bg-transparent text-(--color-ink-2) font-medium border-[1.5px] border-(--color-border-hi) no-underline hover:border-(--color-accent) hover:text-(--color-accent-text)',
   ghost:
-    'bg-transparent text-[var(--color-ink-3)] font-medium no-underline hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-ink-2)]',
+    'bg-transparent text-(--color-ink-3) font-medium no-underline hover:bg-(--color-bg-hover) hover:text-(--color-ink-2)',
 };
 
 const sizeMap = {
