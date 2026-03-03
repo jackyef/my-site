@@ -11,6 +11,7 @@ export function ContentArea({ children }: ContentAreaProps) {
       style={{
         flex: 1,
         overflowY: 'auto',
+        scrollbarWidth: 'thin',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
