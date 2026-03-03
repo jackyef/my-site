@@ -1,7 +1,7 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 
 interface ContentAreaProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function ContentArea({ children }: ContentAreaProps) {

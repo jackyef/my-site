@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { AppType } from 'next/dist/shared/lib/utils';
+import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Analytics } from '@/components/Analytics/Analytics';
 import { CommonMetaTags } from '@/components/Seo/CommonMetaTags';
@@ -15,7 +14,7 @@ import '@/styles/globals.css';
 
 const queryClient = new QueryClient();
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     // Font variable classes here ensure Next.js injects the @font-face CSS.
     // The same classes are applied to <html> in _document.tsx so --font-fraunces
@@ -23,7 +22,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <div className={fontsClasses}>
       <Toaster />
       <CommandPaletteProvider>
-        {/* @ts-expect-error React 18 children prop */}
         <QueryClientProvider client={queryClient}>
           <CommonMetaTags />
           <AppShell>

@@ -1,4 +1,4 @@
-import { useQueries } from 'react-query';
+import { useQueries } from '@tanstack/react-query';
 
 import {
   ChessComTimeControl,
@@ -60,23 +60,20 @@ type Params = {
 };
 
 export const useStats = ({ userId, timeControl = 'rapid' }: Params) => {
-  const [stats, matches] = useQueries([
-    // {
-    //   queryKey: ['stats', username],
-    //   staleTime: 1000 * 60 * 10,
-    //   queryFn: () => fetchStats(username),
-    // },
-    {
-      queryKey: ['allTimeStats', userId, timeControl],
-      staleTime: 1000 * 60 * 10,
-      queryFn: () => fetchAllTimeStats(timeControl),
-    },
-    {
-      queryKey: ['matches', userId, timeControl], // Recent matches, max 20
-      staleTime: 1000 * 60 * 10,
-      queryFn: () => fetchMatchData(timeControl),
-    },
-  ]);
+  const [stats, matches] = useQueries({
+    queries: [
+      {
+        queryKey: ['allTimeStats', userId, timeControl],
+        staleTime: 1000 * 60 * 10,
+        queryFn: () => fetchAllTimeStats(timeControl),
+      },
+      {
+        queryKey: ['matches', userId, timeControl], // Recent matches, max 20
+        staleTime: 1000 * 60 * 10,
+        queryFn: () => fetchMatchData(timeControl),
+      },
+    ],
+  });
 
   return {
     stats: stats.data?.stats,

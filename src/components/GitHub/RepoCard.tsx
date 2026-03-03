@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { cn } from '@/utils/styles/classNames';
 
 import { Chip } from '../common/Chip';

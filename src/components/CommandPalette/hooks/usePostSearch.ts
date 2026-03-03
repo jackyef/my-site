@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { PageData } from '../../../../types/types';
 
@@ -7,9 +7,9 @@ const endpoint = '/api/search';
 export const usePostSearch = (query: string) => {
   const finalUrl = `${endpoint}?q=${query}`;
 
-  const { isLoading, isError, data, error, refetch } = useQuery<PageData[]>(
-    finalUrl,
-    () => {
+  const { isPending, isError, data, error, refetch } = useQuery<PageData[]>({
+    queryKey: [finalUrl],
+    queryFn: () => {
       return fetch(finalUrl)
         .then((res) => {
           if (!res.ok) {
@@ -23,16 +23,14 @@ export const usePostSearch = (query: string) => {
           throw new Error('Network error');
         });
     },
-    {
-      enabled: Boolean(query),
-      staleTime: Infinity,
-      keepPreviousData: true,
-      retry: false,
-    },
-  );
+    enabled: Boolean(query),
+    staleTime: Infinity,
+    placeholderData: keepPreviousData,
+    retry: false,
+  });
 
   return {
-    isLoading,
+    isLoading: isPending,
     isError,
     data: query && !isError ? data || [] : [],
     error,

@@ -1,4 +1,4 @@
-import { animate, motion } from 'framer-motion';
+import { animate, motion } from 'motion/react';
 import { BarChart2Icon } from 'lucide-react';
 import { useRef, useState } from 'react';
 

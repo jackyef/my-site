@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Carousel from '../Carousel';
 
 import MediumPostCard from './PostCard';

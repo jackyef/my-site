@@ -1,3 +1,5 @@
+import { type JSX } from 'react';
+
 import { Flip } from '@/lib/flip/react';
 
 export type Props = {

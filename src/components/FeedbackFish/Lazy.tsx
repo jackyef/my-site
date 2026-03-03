@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { type JSX, Suspense } from 'react';
 
 import { IOWrapper } from '../IntersectionObserver/Wrapper';
 
@@ -9,7 +9,7 @@ export const LazyFeedbackFish = dynamic<FeedbackFishProps>(
   () => import(/* webpackChunkName: "feedbackfish-widget" */ './index'),
   {
     ssr: false,
-    suspense: false,
+
   },
 );
 

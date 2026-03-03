@@ -16,9 +16,9 @@ const useIntersect = <T>({
   onIntersect,
   onlyOnce = false,
   optionsData = initialOptions,
-}: Params): RefObject<T> | null | undefined => {
+}: Params): RefObject<T | null> => {
   const intersected = useRef(false);
-  const targetRef = useRef<T>(null);
+  const targetRef = useRef<T | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const options = optionsData || initialOptions;

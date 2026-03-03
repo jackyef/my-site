@@ -1,3 +1,5 @@
+import { type JSX } from 'react';
+
 import { Heading } from '@/components/common/Heading';
 
 type Props = JSX.IntrinsicAttributes &

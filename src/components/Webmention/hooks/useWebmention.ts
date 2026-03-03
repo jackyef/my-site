@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 interface Author {
   type: string;
@@ -12,9 +12,9 @@ const endpoint = 'https://webmention.io/api/mentions.jf2?per-page=1000';
 export const useWebmention = (url: string) => {
   const finalUrl = `${endpoint}&target=${url}`;
 
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    finalUrl,
-    () => {
+  const { isPending, isError, data, error, refetch } = useQuery({
+    queryKey: [finalUrl],
+    queryFn: () => {
       return fetch(finalUrl)
         .then((res) => res.json())
         .then((data) => {
@@ -51,13 +51,11 @@ export const useWebmention = (url: string) => {
           };
         });
     },
-    {
-      staleTime: Infinity,
-    },
-  );
+    staleTime: Infinity,
+  });
 
   return {
-    isLoading,
+    isLoading: isPending,
     isError,
     data,
     error,

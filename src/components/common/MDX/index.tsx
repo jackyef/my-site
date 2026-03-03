@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { Panel } from '@/components/common/Panel';
 import { HorizontalDivider } from '@/components/Divider';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
-import { LightButton } from '@/components/common/Button/LightButton';
+import { Button } from '@/components/common/Button';
 import { Surfaces, Colors } from '@/components/DesignDemo';
 import type { Props as ProfileCardProps } from '@/components/FlipDemos/ProfileCard';
 import type { Props as ProfileHeroProps } from '@/components/FlipDemos/ProfileHero';
@@ -55,7 +55,7 @@ const mdxComponents = {
 
   /* Needed for some posts */
   Panel,
-  LightButton,
+  Button,
   Surfaces,
   Colors,
 

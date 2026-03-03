@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useId } from 'react';
 
 import type { PostHeading } from '@/blog/types';

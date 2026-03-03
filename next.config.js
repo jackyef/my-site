@@ -11,6 +11,7 @@ const { flowRight } = require('./utils/flow.js');
  * @type {import('next').NextConfig}
  */
 const conf = {
+  turbopack: {},
   pageExtensions: ['ts', 'tsx'],
   images: {
     formats: ['image/avif', 'image/webp'],

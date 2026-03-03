@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { type JSX } from 'react';
+import { motion } from 'motion/react';
 
 const getTargetSlug = (element: Element) => {
   const headingElement = element.querySelector(`[id]`);

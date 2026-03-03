@@ -1,8 +1,8 @@
-import React from 'react';
+import { type HTMLAttributes } from 'react';
 
 import { cn } from '@/utils/styles/classNames';
 
-interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   isEnabled: boolean;
 }
 

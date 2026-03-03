@@ -7,6 +7,5 @@ export const LazyChessComStats = dynamic(
     ),
   {
     ssr: false,
-    suspense: false,
   },
 );

@@ -18,7 +18,7 @@ type Params = {
 export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
   const [volume, setVolume] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const recorderRef = useRef<MediaRecorder | null>();
+  const recorderRef = useRef<MediaRecorder | null>(null);
 
   const analyze = (stream: MediaStream) => {
     const context = new AudioContext();

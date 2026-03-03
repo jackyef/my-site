@@ -1,11 +1,11 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 
 import { cn } from '@/utils/styles/classNames';
 
 export interface Tab {
   id: string;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }
 
 interface SectionTabsProps {

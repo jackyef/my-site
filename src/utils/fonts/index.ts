@@ -1,4 +1,4 @@
-import { Epilogue, Fraunces } from '@next/font/google';
+import { Epilogue, Fraunces } from 'next/font/google';
 
 // Fraunces is a variable font with opsz axis support
 const fraunces = Fraunces({

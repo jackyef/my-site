@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useAnimate, motion } from 'framer-motion';
+import { useAnimate, motion } from 'motion/react';
 
 import { clamp } from '@/utils/math';
 
