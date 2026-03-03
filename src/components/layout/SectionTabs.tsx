@@ -20,12 +20,20 @@ export function SectionTabs({
   onTabChange,
 }: SectionTabsProps) {
   return (
-    <div className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] bg-(--color-bg) overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out">
+    <div
+      role="tablist"
+      className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] bg-(--color-bg) overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out"
+    >
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         return (
           <button
             key={tab.id}
+            type="button"
+            role="tab"
+            id={`tab-${tab.id}`}
+            aria-selected={isActive}
+            aria-controls={tab.id}
             onClick={() => onTabChange(tab.id)}
             className={cn(
               'flex items-center gap-[5px] px-3 pt-[13px] pb-[11px] -mb-px text-[13px] whitespace-nowrap relative cursor-pointer bg-transparent border-x-0 border-t-0 border-b-2 font-[inherit] transition-[border-color,color] duration-150',
