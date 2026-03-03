@@ -19,6 +19,7 @@ export const LinkPreview = ({ href }: Props) => {
       {Boolean(data.image) && (
         <img
           src={data.image}
+          alt={data.title || data.siteName || ''}
           className="rounded-lg h-[150px] object-contain w-full mb-0.5"
           height={150}
         />

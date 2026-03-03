@@ -199,6 +199,9 @@ export function CareerView() {
                       ref={(btn) => {
                         barRefs.current[i] = btn;
                       }}
+                      id={`career-bar-${i}`}
+                      aria-pressed={isSelected}
+                      aria-controls="career-detail"
                       data-index={i}
                       onClick={() => handleBarClick(i)}
                       title={`${item.title} @ ${item.description}`}
@@ -244,6 +247,10 @@ export function CareerView() {
       <AnimatePresence mode="wait">
         <motion.div
           key={selected}
+          id="career-detail"
+          role="region"
+          aria-labelledby={`career-bar-${selected}`}
+          aria-live="polite"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 6 }}
