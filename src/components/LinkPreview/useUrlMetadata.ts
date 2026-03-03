@@ -19,12 +19,13 @@ export const useUrlMetadata = (url: string) => {
 
   return useQuery({
     queryKey: [apiUrl],
-    queryFn: () => {
-      return fetch(apiUrl)
-        .then((res) => res.json())
-        .then((json) => {
-          return json.metadata as UrlMetadata;
-        });
+    queryFn: async () => {
+      const res = await fetch(apiUrl);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch metadata: ${res.status}`);
+      }
+      const json = await res.json();
+      return json.metadata as UrlMetadata;
     },
     staleTime: Infinity, // Never stale, so always get data from cache
   });

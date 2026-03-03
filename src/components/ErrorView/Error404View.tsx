@@ -91,6 +91,12 @@ function BouncingDuck() {
     return () => cancelAnimationFrame(rafRef.current);
   }, [x, y, rotate]);
 
+  const squeakTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(squeakTimeoutRef.current);
+  }, []);
+
   const handleClick = useCallback(() => {
     // "Squeak" — reverse direction + speed boost
     vxRef.current *= -1.3;
@@ -100,8 +106,9 @@ function BouncingDuck() {
     vxRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vxRef.current));
     vyRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vyRef.current));
 
+    clearTimeout(squeakTimeoutRef.current);
     setSqueaking(true);
-    setTimeout(() => setSqueaking(false), 300);
+    squeakTimeoutRef.current = setTimeout(() => setSqueaking(false), 300);
   }, []);
 
   return (

@@ -68,13 +68,20 @@ async function getFonts(): Promise<FontData[]> {
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15';
 
   async function fetchFont(cssUrl: string): Promise<ArrayBuffer> {
-    const css = await fetch(cssUrl, {
+    const cssRes = await fetch(cssUrl, {
       headers: { 'User-Agent': ua },
-    }).then((r) => r.text());
+    });
+    if (!cssRes.ok)
+      throw new Error(`Font CSS fetch failed: ${cssRes.status} ${cssUrl}`);
+    const css = await cssRes.text();
 
     const url = extractLatinWoffUrl(css);
     if (!url) throw new Error(`Font URL not found in CSS: ${cssUrl}`);
-    return fetch(url).then((r) => r.arrayBuffer());
+
+    const fontRes = await fetch(url);
+    if (!fontRes.ok)
+      throw new Error(`Font file fetch failed: ${fontRes.status} ${url}`);
+    return fontRes.arrayBuffer();
   }
 
   const [fraunces700, epilogue400, epilogue500, epilogue600] =

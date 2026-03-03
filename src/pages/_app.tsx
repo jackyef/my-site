@@ -17,8 +17,6 @@ const queryClient = new QueryClient();
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     // Font variable classes here ensure Next.js injects the @font-face CSS.
-    // The same classes are applied to <html> in _document.tsx so --font-fraunces
-    // and --font-plus-jakarta-sans are defined at :root for use in CSS vars.
     <div className={fontsClasses}>
       <Toaster />
       <CommandPaletteProvider>
