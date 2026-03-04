@@ -46,8 +46,8 @@ function BouncingDuck() {
   const duckSize = 56;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const vxRef = useRef(1.5);
-  const vyRef = useRef(1.2);
+  const vxRef = useRef(90);  // px per second
+  const vyRef = useRef(72);  // px per second
   const rotateRef = useRef(0);
   const rotate = useMotionValue(0);
   const [squeaking, setSqueaking] = useState(false);
@@ -62,21 +62,23 @@ function BouncingDuck() {
     x.set(Math.random() * (bounds.width - duckSize));
     y.set(Math.random() * (bounds.height - duckSize));
 
-    let lastTime = 0;
-    const targetMs = 1000 / 60; // normalise to 60fps
+    let lastTime = -1;
 
     function tick(now: number) {
-      if (!lastTime) lastTime = now;
-      const delta = Math.min(now - lastTime, 50); // cap to avoid jumps after tab switch
+      if (lastTime < 0) {
+        lastTime = now;
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+      const delta = Math.min(now - lastTime, 50) / 1000; // seconds, capped
       lastTime = now;
-      const scale = delta / targetMs;
 
       const b = container!.getBoundingClientRect();
       const maxX = b.width - duckSize;
       const maxY = b.height - duckSize;
 
-      let nx = x.get() + vxRef.current * scale;
-      let ny = y.get() + vyRef.current * scale;
+      let nx = x.get() + vxRef.current * delta;
+      let ny = y.get() + vyRef.current * delta;
 
       if (nx <= 0 || nx >= maxX) {
         vxRef.current *= -1;
@@ -87,7 +89,7 @@ function BouncingDuck() {
         ny = Math.max(0, Math.min(ny, maxY));
       }
 
-      rotateRef.current += vxRef.current * 0.5 * scale;
+      rotateRef.current += vxRef.current * 0.5 * delta;
       rotate.set(rotateRef.current);
       x.set(nx);
       y.set(ny);
@@ -112,7 +114,7 @@ function BouncingDuck() {
     vxRef.current *= -1.3;
     vyRef.current *= -1.3;
     // Clamp speed so it doesn't go crazy
-    const maxSpeed = 4;
+    const maxSpeed = 240;
     vxRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vxRef.current));
     vyRef.current = Math.max(-maxSpeed, Math.min(maxSpeed, vyRef.current));
 
