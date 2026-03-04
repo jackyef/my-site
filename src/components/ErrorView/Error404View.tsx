@@ -62,13 +62,21 @@ function BouncingDuck() {
     x.set(Math.random() * (bounds.width - duckSize));
     y.set(Math.random() * (bounds.height - duckSize));
 
-    function tick() {
+    let lastTime = 0;
+    const targetMs = 1000 / 60; // normalise to 60fps
+
+    function tick(now: number) {
+      if (!lastTime) lastTime = now;
+      const delta = Math.min(now - lastTime, 50); // cap to avoid jumps after tab switch
+      lastTime = now;
+      const scale = delta / targetMs;
+
       const b = container!.getBoundingClientRect();
       const maxX = b.width - duckSize;
       const maxY = b.height - duckSize;
 
-      let nx = x.get() + vxRef.current;
-      let ny = y.get() + vyRef.current;
+      let nx = x.get() + vxRef.current * scale;
+      let ny = y.get() + vyRef.current * scale;
 
       if (nx <= 0 || nx >= maxX) {
         vxRef.current *= -1;
@@ -79,7 +87,7 @@ function BouncingDuck() {
         ny = Math.max(0, Math.min(ny, maxY));
       }
 
-      rotateRef.current += vxRef.current * 0.5;
+      rotateRef.current += vxRef.current * 0.5 * scale;
       rotate.set(rotateRef.current);
       x.set(nx);
       y.set(ny);
