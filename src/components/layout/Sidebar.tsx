@@ -4,6 +4,7 @@ import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useC
 
 import { useTheme } from '@/hooks/useTheme';
 
+import { PwaInstallButton } from './PwaInstallButton';
 import { SidebarNav } from './SidebarNav';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
@@ -61,6 +62,7 @@ export function Sidebar() {
 
       {/* Bottom: Theme + Social */}
       <div className="px-2 py-3 border-t border-(--color-border) flex flex-col gap-2">
+        <PwaInstallButton variant="sidebar" />
         {/* Compact (icon-strip md–lg) */}
         <div className="md:block lg:hidden">
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />

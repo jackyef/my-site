@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { MobileNav } from './MobileNav';
 import { ContentArea } from './ContentArea';
+import { PwaInstallButton } from './PwaInstallButton';
 import { Sidebar } from './Sidebar';
 
 interface AppShellProps {
@@ -33,7 +34,14 @@ export function AppShell({ children }: AppShellProps) {
       <ContentArea>{children}</ContentArea>
 
       {/* Mobile FAB nav — mobile only */}
-      <div className="md:hidden">{mounted && <MobileNav />}</div>
+      <div className="md:hidden">
+        {mounted && (
+          <>
+            <PwaInstallButton variant="mobile" />
+            <MobileNav />
+          </>
+        )}
+      </div>
     </div>
   );
 }
