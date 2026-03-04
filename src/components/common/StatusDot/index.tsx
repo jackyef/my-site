@@ -15,7 +15,7 @@ export function StatusDot({
     <span
       className={cn(
         'w-[7px] h-[7px] rounded-full shrink-0 inline-block',
-        pulse && 'animate-status-pulse',
+        pulse && 'animate-pulse',
         className,
       )}
       style={{ background: color }}

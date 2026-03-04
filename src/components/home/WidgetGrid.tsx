@@ -13,6 +13,7 @@ import {
   SegmentOption,
 } from '@/components/common/SegmentedControl';
 import { StatusDot } from '@/components/common/StatusDot';
+import { TypewriterText } from '@/components/common/TypewriterText';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 
 import { cn } from '@/utils/styles/classNames';
@@ -361,10 +362,10 @@ export function WidgetGrid({ blogStats }: { blogStats: BlogStats }) {
       {/* Row 1: Currently (col 1-2) + Based in (col 3) */}
       <Widget label="Currently" span={2}>
         <WidgetValue>Senior Software Engineer at Sticker Mule</WidgetValue>
-        <div className="flex items-center gap-2 mt-1.5">
-          <StatusDot />
+        <div className="flex items-center gap-1 mt-1.5">
+          <StatusDot className="-translate-0.5" pulse />
           <span className="text-[14px] text-(--color-ink-2)">
-            Migrating 7 years old design system...
+            <TypewriterText text="Migrating 7-year-old design system..." />
           </span>
         </div>
       </Widget>
