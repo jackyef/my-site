@@ -619,9 +619,9 @@ h2 em {
 ═══════════════════════════════════════ */
 
 /* Ensure CMD palette items have nice rounding on last item */
-.focusable-cmd-item:nth-last-child(2) {
-  border-bottom-right-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+[role="listbox"] .focusable-cmd-item:last-of-type {
+  border-bottom-right-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
 }
 
 /* View transitions */

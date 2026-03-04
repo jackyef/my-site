@@ -1,4 +1,4 @@
-import { cn } from '@/utils/styles/classNames';
+import { SectionLabel } from '@/components/common/SectionLabel';
 
 interface Props {
   children?: React.ReactNode;
@@ -6,16 +6,8 @@ interface Props {
 
 export const ResultSectionHeading = ({ children }: Props) => {
   return (
-    <h3
-      className={cn(
-        'px-6',
-        'text-sm',
-        'uppercase',
-        'tracking-wider',
-        'font-semibold',
-      )}
-    >
+    <SectionLabel className="px-3 pt-2 pb-1" as="h3">
       {children}
-    </h3>
+    </SectionLabel>
   );
 };

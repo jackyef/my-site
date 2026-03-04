@@ -109,15 +109,15 @@ export default () => {
       <Dialog.Content asChild>
         <Surface
           elevation="lg"
-          rounded="xl"
+          rounded="lg"
           onKeyDown={handleKeyDown}
           className={cn(
-            'p-4',
+            'p-1.5',
             'animate-fadeIn',
             'transition-colors',
             'duration-500',
             'text-(--color-ink-2)',
-            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[44rem]',
+            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[32rem]',
           )}
           style={{
             top: '12vh',

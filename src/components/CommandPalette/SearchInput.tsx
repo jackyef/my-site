@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react';
+
 import { cn } from '@/utils/styles/classNames';
 
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
@@ -6,27 +8,26 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
 
 export const SearchInput = ({ hasResults = false, ...props }: Props) => {
   return (
-    <input
-      className={cn(
-        'focusable-cmd-item', // Used to set focus
-
-        {
-          'rounded-lg': !hasResults,
-          'rounded-t-lg': hasResults,
-          'rounded-b-sm': hasResults,
-        },
-
-        'py-2',
-        'px-4',
-        'text-md',
-        'md:text-lg',
-        'bg-transparent',
-        'outline-none',
-        'w-full',
-        'round',
-      )}
-      type="text"
-      {...props}
-    />
+    <div className="relative flex items-center">
+      <Search
+        size={16}
+        className="absolute left-3 text-(--color-ink-4)"
+        aria-hidden="true"
+      />
+      <input
+        className={cn(
+          'focusable-cmd-item',
+          'pl-9 pr-3 py-2.5',
+          'text-sm',
+          'bg-transparent',
+          'outline-none',
+          'w-full',
+          'placeholder:text-(--color-ink-4)',
+          'text-(--color-ink)',
+        )}
+        type="text"
+        {...props}
+      />
+    </div>
   );
 };

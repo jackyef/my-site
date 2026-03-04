@@ -108,40 +108,36 @@ export const Action = ({
       role="listitem"
       onClick={handleClick}
       style={{
-        scrollMarginTop: '3rem',
-        scrollMarginBottom: '3rem',
+        scrollMarginTop: '2rem',
+        scrollMarginBottom: '2rem',
       }}
       className={cn(
-        'focusable-cmd-item', // Used to set focus
-
-        'rounded-sm',
-        'last-of-type:rounded-b-lg', // TODO: Change this with last-of-type when we upgrade tailwind
-
-        'mx-4',
-        'px-4',
-        'py-2',
+        'focusable-cmd-item',
+        'rounded-md',
+        'mx-1.5',
+        'px-3',
+        'py-1.5',
         'text-left',
+        'text-sm',
         'hover:bg-(--color-bg-hover)',
         'focus:bg-(--color-bg-hover)',
-        'bg-(--color-bg-panel)',
         'text-(--color-ink-2)',
         'transition-colors',
-        'duration-500',
-        'hover:duration-100',
-        'focus:duration-100',
+        'duration-150',
+        'outline-none',
       )}
     >
-      <div className={cn('flex', 'justify-between')}>
-        <h4 className="font-medium">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-medium text-(--color-ink) truncate">
           <HighlightedQuery
             query={query}
             userSubmittedQuery={userSubmittedQuery}
           />
-        </h4>
-        <span className="text-(--color-ink-4)">{icon}</span>
+        </span>
+        <span className="text-(--color-ink-4) shrink-0">{icon}</span>
       </div>
       {description && (
-        <p className={cn('text-sm', 'text-(--color-ink-3)', 'mt-2', 'pr-4')}>
+        <p className="text-xs text-(--color-ink-3) mt-0.5 truncate">
           <HighlightedQuery
             query={description}
             userSubmittedQuery={userSubmittedQuery}
