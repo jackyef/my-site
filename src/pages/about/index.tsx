@@ -101,7 +101,7 @@ export default function About({ featuredWritings }: Props) {
           onTabChange={handleTabClick}
         />
 
-        <div ref={scrollRef} className="flex-1">
+        <div ref={scrollRef} className="flex-1 isolate">
           <section
             id="bio"
             role="tabpanel"
