@@ -1,12 +1,38 @@
-import { type ReactNode } from 'react';
+import { useRef, useEffect, type ReactNode } from 'react';
+import { useRouter } from 'next/router';
 
 interface ContentAreaProps {
   children: ReactNode;
 }
 
 export function ContentArea({ children }: ContentAreaProps) {
+  const ref = useRef<HTMLElement>(null);
+  const router = useRouter();
+  const isPop = useRef(false);
+
+  useEffect(() => {
+    router.beforePopState(() => {
+      isPop.current = true;
+      return true;
+    });
+  }, [router]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isPop.current) {
+        isPop.current = false;
+        return;
+      }
+      ref.current?.scrollTo(0, 0);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => router.events.off('routeChangeComplete', handleRouteChange);
+  }, [router]);
+
   return (
     <main
+      ref={ref}
       className="blueprint-bg content-area pb-16 md:pb-0 scroll-smooth"
       style={{
         flex: 1,
