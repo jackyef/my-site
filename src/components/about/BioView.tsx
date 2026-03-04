@@ -18,49 +18,42 @@ export function BioView() {
       />
 
       <div className="flex flex-col gap-4 max-w-[720px]">
-        <Text color="ink-2" className="leading-[1.75]">
-          I build for the web. Primarily frontend-focused, but can manage my way
-          around the stack if the need arises. Most of my career has been an act
-          of balancing between the product and infrastructure part of the
-          frontend work.
+        <Text color="ink-3" className="leading-[1.75]">
+          Frontend is where I go deepest, but I&apos;ve spent enough time in the
+          surrounding infrastructure to understand how the whole thing fits
+          together. Most of my career has been an act of balancing between the
+          product and infrastructure part of the frontend work.
         </Text>
 
-        <Text color="ink-2" className="leading-[1.75]">
-          I am curious by nature and love to learn how things work. Since the
-          start of my career, I have always learned by questioning the way
-          things work. I built{' '}
+        <Text color="ink-3" className="leading-[1.75]">
+          I am curious by nature and love to learn how things work. When I want
+          to understand how something works, I build a stripped-down version of
+          it. I&apos; built{' '}
           <ExternalLink href="https://github.com/jackyef/simple-module-bundler">
             an overly-simplified module bundler
           </ExternalLink>
           ,{' '}
           <ExternalLink href="https://github.com/jackyef/react-isomorphic-data">
-            SSR-supporting data-fetching library for React
+            an SSR-supporting data-fetching library for React
           </ExternalLink>
           , and{' '}
           <ExternalLink href="https://github.com/jackyef/basic-css-in-js">
-            basic CSS-in-JS library
+            a basic CSS-in-JS library
           </ExternalLink>
-          , just to understand the fundamentals of the web platform. I also
-          wrote about some of my learnings on Medium in the past. See{' '}
-          <TextLink href="#past-writings">past writings</TextLink>.
+          , just to understand the fundamentals of the web platform. Some of
+          those works became writing: getting Tokopedia&apos;s mobile web loaded
+          under 2 seconds, building a 60fps QR scanner with WebAssembly, making
+          the case for pnpm before it was cool. See{' '}
+          <TextLink href="#past-writings">past writings &rarr;</TextLink>.
         </Text>
-        <Text color="ink-2" className="leading-[1.75]">
-          I worked on developer experience within JS monorepos. Speeding up
-          local development, CI pipelines, webpack builds, establishing
-          conventions and optimizing web pages. I also have worked on the
-          server-side with Node.js, GraphQL, Apollo and PostgreSQL.
+        <Text color="ink-3" className="leading-[1.75]">
+          I&apos;ve worked on developer experience within JS monorepos. Speeding
+          up local development, CI pipelines, webpack builds, establishing
+          conventions and optimizing web pages. On the server side, I&apos;ve
+          worked with Node.js, GraphQL, Apollo, and PostgreSQL
         </Text>
-        <Text color="ink-2" className="leading-[1.75]">
-          I am currently based in Jakarta, Indonesia and working here as well,
-          but I am open to remote roles across the globe.
-        </Text>
-        <Text color="ink-2" className="leading-[1.75]">
-          I started playing chess on{' '}
-          <ExternalLink href="https://chess.com/member/pixelparser">
-            Chess.com (PixelParser)
-          </ExternalLink>{' '}
-          in 2023 and found it quite enjoyable! (When I am not on losing streak,
-          that is)
+        <Text color="ink-3" className="leading-[1.75]">
+          Based in Jakarta, working remotely, open to teams anywhere.
         </Text>
       </div>
     </div>
