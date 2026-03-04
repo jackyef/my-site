@@ -68,7 +68,10 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
         <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-(--color-accent-2) rounded-r-[3px]" />
       )}
       <span
-        className={cn('shrink-0 flex items-center', !isActive && 'opacity-90')}
+        className={cn(
+          'shrink-0 flex items-center -translate-y-px',
+          !isActive && 'opacity-90',
+        )}
       >
         {item.icon}
       </span>
