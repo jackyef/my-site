@@ -2,27 +2,28 @@ import { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next/types';
 
-import { Post } from '@/blog/types';
+import { WritingItem } from '@/blog/types';
 import { getPosts } from '@/blog/getPosts';
+import { mergeWritings } from '@/blog/writings';
 import { PostRow } from '@/components/Blog/PostRow';
 import { PageHeader } from '@/components/common/PageHeader';
 import { TextLink } from '@/components/common/TextLink';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 
 type Props = {
-  posts: Post[];
+  writings: WritingItem[];
 };
 
-export default function BlogPage({ posts }: Props) {
+export default function BlogPage({ writings }: Props) {
   const router = useRouter();
   const tags = router.query.tags ? String(router.query.tags).split(',') : [];
 
-  const filteredPosts =
+  const filteredWritings =
     tags.length > 0
-      ? posts.filter((post) => {
-          return tags.some((tag) => post.metadata.tags.includes(tag));
+      ? writings.filter((item) => {
+          return tags.some((tag) => item.tags.includes(tag));
         })
-      : posts;
+      : writings;
 
   const title =
     tags.length > 0 ? (
@@ -39,7 +40,7 @@ export default function BlogPage({ posts }: Props) {
       </>
     ) : (
       <>
-        All <em>posts.</em>
+        All <em>writings.</em>
       </>
     );
 
@@ -59,8 +60,8 @@ export default function BlogPage({ posts }: Props) {
         )}
 
         <div>
-          {filteredPosts.map((post) => (
-            <PostRow key={post.link} post={post} />
+          {filteredWritings.map((item) => (
+            <PostRow key={item.link} item={item} />
           ))}
         </div>
       </div>
@@ -69,9 +70,11 @@ export default function BlogPage({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  const posts = await getPosts({ limit: 0, onlyPreview: true });
+
   return {
     props: {
-      posts: await getPosts({ limit: 0, onlyPreview: true }),
+      writings: mergeWritings(posts),
     },
   };
 };

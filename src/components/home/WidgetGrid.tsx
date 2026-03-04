@@ -133,7 +133,7 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
         {blogStats.postCount}
       </div>
       <div className="text-[13px] text-(--color-ink-3) mt-1">
-        posts on the blog
+        writings total
       </div>
       <a
         href="/blog"

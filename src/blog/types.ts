@@ -30,3 +30,13 @@ export type Post = {
   headings: PostHeading[];
   mdxSource: MDXRemoteSerializeResult;
 };
+
+export type WritingItem = {
+  title: string;
+  date: string;
+  readingTime: string;
+  link: string;
+  tags: string[];
+  isExternal: boolean;
+  publication?: string;
+};

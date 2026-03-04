@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CalendarDays, MessageCircle, PenLine, Rocket } from 'lucide-react';
+import type { GetStaticProps } from 'next/types';
 
+import type { WritingItem } from '@/blog/types';
+import { getPosts } from '@/blog/getPosts';
+import { getFeaturedWritings } from '@/blog/featured';
+import { mergeWritings } from '@/blog/writings';
 import { BioView } from '@/components/about/BioView';
 import { CareerView } from '@/components/about/CareerView';
 import { ProjectsView } from '@/components/about/ProjectsView';
@@ -31,7 +36,11 @@ const TABS: Tab[] = [
   },
 ];
 
-export default function About() {
+type Props = {
+  featuredWritings: WritingItem[];
+};
+
+export default function About({ featuredWritings }: Props) {
   const [activeTab, setActiveTab] = useState('bio');
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
@@ -123,10 +132,21 @@ export default function About() {
             aria-labelledby="tab-past-writings"
             className="scroll-mt-12"
           >
-            <WritingView />
+            <WritingView featuredWritings={featuredWritings} />
           </section>
         </div>
       </div>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const allPosts = await getPosts({ onlyPreview: true });
+  const allWritings = mergeWritings(allPosts);
+
+  return {
+    props: {
+      featuredWritings: getFeaturedWritings(allWritings),
+    },
+  };
+};
