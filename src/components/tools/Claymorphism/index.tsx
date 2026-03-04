@@ -126,6 +126,7 @@ export const ClaymorphismTools = () => {
           'flex-col',
           'space-y-4',
           'bg-gray-800',
+          'overflow-hidden',
         )}
       >
         <pre

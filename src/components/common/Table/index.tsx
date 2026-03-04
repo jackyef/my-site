@@ -4,7 +4,7 @@ import { cn } from '@/utils/styles/classNames';
 
 export const Table = (props: PropsWithChildren<'table'>) => {
   return (
-    <div className="-mx-4 mt-10 bg-(--color-bg-panel) border border-(--color-border) sm:mx-0 rounded-lg not-prose">
+    <div className="mt-10 bg-(--color-bg-panel) border border-(--color-border) rounded-lg not-prose overflow-x-auto">
       <table className="min-w-full">{props.children}</table>
     </div>
   );

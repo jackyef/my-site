@@ -91,7 +91,7 @@ export const CodePlayground = ({ initialCode }: Props) => {
     >
       <div
         className={cn(
-          'isolate shadow-surface-2 rounded-lg',
+          'isolate shadow-surface-2 rounded-lg overflow-hidden',
           css`
             & .cm-tooltip {
               background: ${theme.colors.surface3};

@@ -93,8 +93,8 @@ export function MobileNav() {
             animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-            className="fixed bottom-[88px] right-5 z-49 min-w-50"
-            style={{ transformOrigin: 'bottom right' }}
+            className="fixed right-5 z-49 min-w-50"
+            style={{ bottom: 'calc(88px + env(safe-area-inset-bottom, 0px))', transformOrigin: 'bottom right' }}
           >
             <Surface elevation="lg" rounded="xl" className="overflow-hidden">
               {/* Nav links */}
@@ -139,7 +139,8 @@ export function MobileNav() {
         title={open ? 'Close menu' : 'Open menu'}
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-6 right-5 z-50 w-[52px] h-[52px] rounded-full bg-(--color-accent) text-white border-none cursor-pointer flex items-center justify-center shadow-(--shadow-md) font-[inherit]"
+        className="fixed right-5 z-50 w-[52px] h-[52px] rounded-full bg-(--color-accent) text-white border-none cursor-pointer flex items-center justify-center shadow-(--shadow-md) font-[inherit]"
+        style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
       >
         <AnimatePresence mode="wait" initial={false}>
           {open ? (

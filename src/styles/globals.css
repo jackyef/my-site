@@ -393,7 +393,8 @@ h2 em {
 /* Use on page content wrappers: mobile-friendly padding that expands on md+ */
 .page-pad {
   padding: 24px 20px;
-  max-width: 880px;
+  width: 880px;
+  max-width: 100%;
   margin-inline: auto;
 }
 

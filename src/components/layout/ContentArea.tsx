@@ -34,11 +34,12 @@ export function ContentArea({ children }: ContentAreaProps) {
     <main
       id="main-content"
       ref={ref}
-      className="blueprint-bg content-area pb-16 md:pb-0 scroll-smooth"
+      className="blueprint-bg content-area pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0 scroll-smooth"
       style={{
         flex: 1,
+        minWidth: 0,
         overflowY: 'auto',
-        minHeight: '100vh',
+        minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
       }}
