@@ -22,7 +22,6 @@ export default function Home({ featuredWritings, blogStats }: Props) {
 
       <div className="flex-1">
         <HeroSection />
-        <WidgetGrid blogStats={blogStats} />
 
         {/* Featured writings */}
         <div className="latest-pad">
@@ -39,6 +38,8 @@ export default function Home({ featuredWritings, blogStats }: Props) {
             ))}
           </div>
         </div>
+
+        <WidgetGrid blogStats={blogStats} />
       </div>
     </>
   );

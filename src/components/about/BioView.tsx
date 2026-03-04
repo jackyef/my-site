@@ -43,8 +43,7 @@ export function BioView() {
           , just to understand the fundamentals of the web platform. Some of
           those works became writing: getting Tokopedia&apos;s mobile web loaded
           under 2 seconds, building a 60fps QR scanner with WebAssembly, making
-          the case for pnpm before it was cool. See{' '}
-          <TextLink href="#past-writings">past writings &rarr;</TextLink>.
+          the case for pnpm before it was cool.
         </Text>
         <Text color="ink-3" className="leading-[1.75]">
           I&apos;ve worked on developer experience within JS monorepos. Speeding
@@ -53,7 +52,7 @@ export function BioView() {
           worked with Node.js, GraphQL, Apollo, and PostgreSQL
         </Text>
         <Text color="ink-3" className="leading-[1.75]">
-          Based in Jakarta, working remotely, open to teams anywhere.
+          Based in Jakarta (UTC+7), working remotely, open to teams anywhere.
         </Text>
       </div>
     </div>

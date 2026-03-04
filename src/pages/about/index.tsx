@@ -30,7 +30,7 @@ const TABS: Tab[] = [
     icon: <Rocket size={14} aria-hidden="true" />,
   },
   {
-    id: 'past-writings',
+    id: 'writings',
     label: 'Writing',
     icon: <PenLine size={14} aria-hidden="true" />,
   },
@@ -127,9 +127,9 @@ export default function About({ featuredWritings }: Props) {
             <ProjectsView />
           </section>
           <section
-            id="past-writings"
+            id="writings"
             role="tabpanel"
-            aria-labelledby="tab-past-writings"
+            aria-labelledby="tab-writings"
             className="scroll-mt-12"
           >
             <WritingView featuredWritings={featuredWritings} />
