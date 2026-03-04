@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, useSpring, useMotionValue } from 'motion/react';
+import { motion, useMotionValue } from 'motion/react';
 import Link from 'next/link';
 
 import { cn } from '@/utils/styles/classNames';
@@ -159,13 +159,9 @@ function DraggableDigit({
   children: React.ReactNode;
   delay?: number;
 }) {
-  const x = useSpring(0, { stiffness: 300, damping: 15, mass: 1 });
-  const y = useSpring(0, { stiffness: 300, damping: 15, mass: 1 });
-
   return (
     <motion.span
       className="inline-block cursor-grab select-none active:cursor-grabbing"
-      style={{ x, y }}
       initial={{ y: -80, opacity: 0, scale: 0.5 }}
       animate={{
         y: 0,
@@ -182,16 +178,9 @@ function DraggableDigit({
       whileHover={{ scale: 1.1, rotate: Math.random() > 0.5 ? 5 : -5 }}
       whileTap={{ scale: 0.9 }}
       drag
-      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      dragSnapToOrigin
       dragElastic={1}
-      onDrag={(_, info) => {
-        x.set(info.offset.x);
-        y.set(info.offset.y);
-      }}
-      onDragEnd={() => {
-        x.set(0);
-        y.set(0);
-      }}
+      dragTransition={{ bounceStiffness: 300, bounceDamping: 15 }}
     >
       {children}
     </motion.span>
