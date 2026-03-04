@@ -355,6 +355,13 @@ h2 em {
    SCROLLBAR
 ═══════════════════════════════════════ */
 
+/* Standard scrollbar (Firefox + future browsers) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-hi) var(--scroll-gutter);
+}
+
+/* Webkit scrollbar (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -367,7 +374,7 @@ h2 em {
 
 ::-webkit-scrollbar-track {
   border-radius: 3px;
-  background-color: transparent;
+  background-color: var(--scroll-gutter);
 }
 
 /* ═══════════════════════════════════════
@@ -378,6 +385,7 @@ h2 em {
 .page-pad {
   padding: 24px 20px;
   max-width: 880px;
+  margin-inline: auto;
 }
 
 @media (min-width: 768px) {
@@ -390,6 +398,7 @@ h2 em {
 .hero-pad {
   padding: 32px 20px 28px;
   max-width: 900px;
+  margin-inline: auto;
 }
 
 @media (min-width: 768px) {
@@ -404,6 +413,7 @@ h2 em {
   gap: 10px;
   padding: 0 20px 32px;
   max-width: 960px;
+  margin-inline: auto;
 }
 
 @media (min-width: 768px) {
@@ -449,6 +459,7 @@ h2 em {
 .latest-pad {
   padding: 0 20px 32px;
   max-width: 960px;
+  margin-inline: auto;
 }
 
 @media (min-width: 768px) {

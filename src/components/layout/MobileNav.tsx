@@ -98,7 +98,7 @@ export function MobileNav() {
           >
             <Surface elevation="lg" rounded="xl" className="overflow-hidden">
               {/* Nav links */}
-              <div className="py-[6px]">
+              <div>
                 {NAV_LINKS.map((link) => {
                   const active = isActive(link.href, link.exact);
                   return (
@@ -107,7 +107,7 @@ export function MobileNav() {
                       href={link.href}
                       onClick={() => setOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-[18px] py-[10px] text-[14px] no-underline',
+                        'flex items-center gap-3 px-5 py-3 text-[14px] no-underline',
                         active
                           ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'
                           : 'font-normal text-(--color-ink-2) bg-transparent',
@@ -121,7 +121,7 @@ export function MobileNav() {
               </div>
 
               {/* Theme row */}
-              <div className="px-[18px] py-[10px] flex items-center justify-between gap-3">
+              <div className="px-4 py-3 flex items-center justify-between gap-3">
                 <SegmentedControl
                   options={THEME_OPTS}
                   value={theme}

@@ -28,7 +28,7 @@ export default function Post({ post }: Props) {
   const { metadata: meta } = post;
 
   return (
-    <div className="flex items-start">
+    <div className="flex items-start max-w-[1100px] mx-auto">
       <main className="page-pad py-8 min-w-0 flex-1 max-w-[880px]">
         <article>
           <PageMetaTags

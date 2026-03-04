@@ -20,10 +20,11 @@ export function SectionTabs({
   onTabChange,
 }: SectionTabsProps) {
   return (
-    <div
-      role="tablist"
-      className="px-5 md:px-13 overflow-y-hidden flex items-center gap-[2px] bg-(--color-bg) overflow-x-auto shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out"
-    >
+    <div className="bg-(--color-bg) shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out">
+      <div
+        role="tablist"
+        className="max-w-[880px] mx-auto px-5 md:px-13 overflow-y-hidden overflow-x-auto flex items-center gap-[2px]"
+      >
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         return (
@@ -47,6 +48,7 @@ export function SectionTabs({
           </button>
         );
       })}
+      </div>
     </div>
   );
 }
