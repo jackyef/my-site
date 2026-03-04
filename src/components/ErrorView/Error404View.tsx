@@ -46,8 +46,8 @@ function BouncingDuck() {
   const duckSize = 56;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const vxRef = useRef(90);  // px per second
-  const vyRef = useRef(72);  // px per second
+  const vxRef = useRef(90); // px per second
+  const vyRef = useRef(72); // px per second
   const rotateRef = useRef(0);
   const rotate = useMotionValue(0);
   const [squeaking, setSqueaking] = useState(false);

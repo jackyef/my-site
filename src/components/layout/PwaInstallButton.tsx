@@ -28,7 +28,7 @@ export function PwaInstallButton({ variant }: PwaInstallButtonProps) {
             <Download size={15} aria-hidden="true" className="shrink-0" />
             <span className="hidden lg:block">Install PWA</span>
             {/* Spacer div to achieve better visual balance. */}
-            <div className="invisible h-px w-2" /> 
+            <div className="invisible h-px w-2" />
           </motion.button>
         )}
       </AnimatePresence>

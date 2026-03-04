@@ -94,7 +94,10 @@ export function MobileNav() {
             exit={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
             className="fixed right-5 z-49 min-w-50"
-            style={{ bottom: 'calc(88px + env(safe-area-inset-bottom, 0px))', transformOrigin: 'bottom right' }}
+            style={{
+              bottom: 'calc(88px + env(safe-area-inset-bottom, 0px))',
+              transformOrigin: 'bottom right',
+            }}
           >
             <Surface elevation="lg" rounded="xl" className="overflow-hidden">
               {/* Nav links */}

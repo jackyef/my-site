@@ -29,9 +29,9 @@ export function HeroSection() {
 
       <p className="text-[15px] leading-[1.75] text-(--color-ink-3) mb-8 max-w-[540px]">
         Eight years in, five fully remote across teams in Europe, the Americas,
-        and Asia. I&apos;ve come to believe async work runs on a few things: writings
-        that leave little room for guessing, questions asked early but not
-        treated as blockers, a bias toward making progress with what you
+        and Asia. I&apos;ve come to believe async work runs on a few things:
+        writings that leave little room for guessing, questions asked early but
+        not treated as blockers, a bias toward making progress with what you
         have and trust that everyone is doing the same.
       </p>
 
