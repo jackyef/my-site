@@ -2,8 +2,6 @@ import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 
-import { TextLink } from '../common/TextLink';
-
 export function BioView() {
   return (
     <div className="page-pad">

@@ -6,7 +6,10 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'search'> & {
   hasResults?: boolean;
 };
 
-export const SearchInput = ({ hasResults = false, ...props }: Props) => {
+export const SearchInput = ({
+  hasResults: _hasResults = false,
+  ...props
+}: Props) => {
   return (
     <div className="relative flex items-center">
       <Search

@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Surface } from '@/components/common/Surface';
@@ -117,13 +118,19 @@ export default () => {
             'transition-colors',
             'duration-500',
             'text-(--color-ink-2)',
-            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-[32rem]',
+            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-lg',
           )}
           style={{
             top: '12vh',
             zIndex: 1001,
           }}
         >
+          <VisuallyHidden.Root>
+            <Dialog.Title>Command palette</Dialog.Title>
+            <Dialog.Description>
+              Search for actions, pages, and posts
+            </Dialog.Description>
+          </VisuallyHidden.Root>
           <SearchInput
             placeholder={getPlaceholderText()}
             value={query}
