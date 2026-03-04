@@ -20,7 +20,7 @@ export function AppShell({ children }: AppShellProps) {
     <div
       style={{
         display: 'flex',
-        height: '100vh',
+        height: '100dvh',
         overflow: 'hidden',
         background: 'var(--color-bg)',
       }}

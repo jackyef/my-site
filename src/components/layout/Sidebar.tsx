@@ -29,7 +29,7 @@ export function Sidebar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <aside className="sidebar shrink-0 h-screen sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
+    <aside className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
       {/* Top: Logo + CMD trigger */}
       <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border)">
         <LogoMark />
