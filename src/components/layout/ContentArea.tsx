@@ -32,6 +32,7 @@ export function ContentArea({ children }: ContentAreaProps) {
 
   return (
     <main
+      id="main-content"
       ref={ref}
       className="blueprint-bg content-area pb-16 md:pb-0 scroll-smooth"
       style={{

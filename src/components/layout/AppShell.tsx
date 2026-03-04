@@ -25,6 +25,13 @@ export function AppShell({ children }: AppShellProps) {
         background: 'var(--color-bg)',
       }}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-(--color-bg-panel) focus:border focus:border-(--color-border) focus:text-(--color-accent-text) focus:text-sm focus:font-medium focus:shadow-md"
+      >
+        Skip to main content
+      </a>
+
       {/* Sidebar — hidden on mobile (<768px) */}
       <div className="hidden md:flex" style={{ flexShrink: 0 }}>
         <Sidebar />
