@@ -55,15 +55,15 @@ export const timelineEvents = [
           >
             the pendulum
           </ExternalLink>{' '}
-          swings once again. After 3 years of enjoying my time in a pure IC
-          role, I am now back in a role with a more concrete expectation of
+          swung once again. After 3 years of enjoying my time in a pure IC
+          role, I was then back in a role with a more concrete expectation of
           leading in some capacities, be it tech, project, or team.
         </p>
 
         <p>
-          However, my role does not involve too much of the bureaucratic people
-          management stuff, rather the emphasis is more on the technical side of
-          things. I am responsible for the technical direction of the team,
+          However, my role did not involve too much of the bureaucratic people
+          management stuff, rather the emphasis was more on the technical side of
+          things. I was responsible for the technical direction of the team,
           project planning, code reviews, and overall contributing by helping
           others.
         </p>
@@ -83,20 +83,20 @@ export const timelineEvents = [
     details: (
       <>
         <p>
-          I am currently working at the Platform UX team at Sticker Mule. Our
-          primary responsibility revolves around maintaining shared libraries
+          I worked at the Platform UX team at Sticker Mule. Our
+          primary responsibility revolved around maintaining shared libraries
           used to build various products and infrastructure in our monorepo.
         </p>
         <p>
-          We are also responsible for the main e-commerce platform, which
-          includes everything from products, catalogs, all the way to checkout!
+          We were also responsible for the main e-commerce platform, which
+          included everything from products, catalogs, all the way to checkout!
         </p>
         <p>
-          Due to the team scattered around the globe, our collaboration style is
+          Due to the team scattered around the globe, our collaboration style was
           very much asynchronous.
         </p>
         <p>
-          If you are looking for specifics, I play around with{' '}
+          If you are looking for specifics, I played around with{' '}
           <TechnologyAnchors /> on a daily basis.
         </p>
       </>

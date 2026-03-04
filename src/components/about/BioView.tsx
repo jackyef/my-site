@@ -26,7 +26,7 @@ export function BioView() {
         <Text color="ink-3" className="leading-[1.75]">
           I am curious by nature and love to learn how things work. When I want
           to understand how something works, I build a stripped-down version of
-          it. I&apos; built{' '}
+          it. I&apos;ve built{' '}
           <ExternalLink href="https://github.com/jackyef/simple-module-bundler">
             an overly-simplified module bundler
           </ExternalLink>
@@ -39,9 +39,19 @@ export function BioView() {
             a basic CSS-in-JS library
           </ExternalLink>
           , just to understand the fundamentals of the web platform. Some of
-          those works became writing: getting Tokopedia&apos;s mobile web loaded
-          under 2 seconds, building a 60fps QR scanner with WebAssembly, making
-          the case for pnpm before it was cool.
+          those works became writing:{' '}
+          <ExternalLink href="https://medium.com/tokopedia-engineering/getting-content-painted-under-2-seconds-on-the-mobile-web-7b3bbaca32cb?source=---------2----------------------------">
+            getting Tokopedia&apos;s mobile web loaded under 2 seconds
+          </ExternalLink>
+          ,{' '}
+          <ExternalLink href="https://medium.com/tokopedia-engineering/building-60-fps-qr-scanner-for-the-mobile-web-eb0deddce099?source=---------5----------------------------">
+            building a 60fps QR scanner with WebAssembly
+          </ExternalLink>
+          ,{' '}
+          <ExternalLink href="https://medium.com/better-programming/the-case-for-pnpm-over-npm-or-yarn-2b221607119?source=---------4----------------------------">
+            making the case for pnpm before it was cool
+          </ExternalLink>
+          .
         </Text>
         <Text color="ink-3" className="leading-[1.75]">
           I&apos;ve worked on developer experience within JS monorepos. Speeding
