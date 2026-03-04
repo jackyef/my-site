@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 import { publicUrl } from '@/utils/constants';
 
-const defaultTitle = 'Jacky Efendi | Software Engineer, JavaScript, Web';
+const defaultTitle = 'Jacky Efendi | Software Engineer';
 const defaultDescription =
-  'Personal site of Jacky Efendi. I work with JavaScript and all things web. 🌐';
+  'Product engineer building for the web — performance, design systems, developer tooling, and the interfaces people actually use.';
 
-const defaultOgImageTitle = `Hi, I am Jacky!`;
+const defaultOgImageTitle = `Jacky Efendi — Product Engineer`;
 const defaultOgImage = createOgImageUrl({ title: defaultOgImageTitle });
 
 interface Props {
