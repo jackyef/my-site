@@ -25,7 +25,7 @@ export function ProjectsView() {
       <MessyCarousel>
         {projects.map((project, i) => (
           <MessyCarouselItem key={project.name} index={i} className="w-[260px]">
-            <Card hover className="overflow-hidden h-full">
+            <Card hover className="overflow-hidden">
               <div className="h-[140px] bg-(--color-bg-hover) overflow-hidden">
                 <img
                   src={project.coverImage}
@@ -36,8 +36,11 @@ export function ProjectsView() {
               </div>
 
               <div className="px-[14px] py-[12px] flex flex-col flex-1">
-                <div className="text-[14px] font-semibold text-(--color-ink) mb-[10px] leading-snug">
+                <div className="text-[14px] font-semibold text-(--color-ink) mb-1 leading-snug">
                   {project.name}
+                </div>
+                <div className="text-[12px] text-(--color-ink-3) leading-[1.4] mb-[10px]">
+                  {project.description}
                 </div>
                 <div className="flex gap-2 mt-auto">
                   <a

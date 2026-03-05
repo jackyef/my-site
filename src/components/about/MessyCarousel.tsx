@@ -21,7 +21,7 @@ const ITEM_CLASS = cn(
 
 const BUTTON_BASE = cn(
   'hidden md:flex',
-  'absolute top-1/2 -translate-y-1/2 z-30',
+  'absolute top-1/3 -translate-y-1/2 z-30',
   'items-center justify-center',
   'size-9 rounded-full',
   'bg-(--color-bg-panel)/80 backdrop-blur-sm',
