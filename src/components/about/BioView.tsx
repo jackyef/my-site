@@ -60,7 +60,8 @@ export function BioView() {
           worked with Node.js, GraphQL, Apollo, and PostgreSQL
         </Text>
         <Text color="ink-3" className="leading-[1.75]">
-          Based in Jakarta (UTC+7), working remotely, open to teams anywhere.
+          Based in Jakarta (UTC+7), working remotely. Always 
+          happy to chat about potential opportunities.
         </Text>
       </div>
     </div>
