@@ -1,6 +1,7 @@
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
+import { SOCIALS } from '@/constants/socials';
 
 export function BioView() {
   return (
@@ -57,11 +58,23 @@ export function BioView() {
           I&apos;ve worked on developer experience within JS monorepos. Speeding
           up local development, CI pipelines, webpack builds, establishing
           conventions and optimizing web pages. On the server side, I&apos;ve
-          worked with Node.js, GraphQL, Apollo, and PostgreSQL
+          worked with Node.js, GraphQL, Apollo, and PostgreSQL.
         </Text>
         <Text color="ink-3" className="leading-[1.75]">
-          Based in Jakarta (UTC+7), working remotely. Always 
-          happy to chat about potential opportunities.
+          Based in Jakarta (UTC+7), working remotely. Always happy to chat about
+          potential opportunities — find me on{' '}
+          <ExternalLink
+            href={SOCIALS.find((s) => s.label === 'Twitter')?.href || '#'}
+          >
+            X/Twitter
+          </ExternalLink>{' '}
+          or{' '}
+          <ExternalLink
+            href={SOCIALS.find((s) => s.label === 'LinkedIn')?.href || '#'}
+          >
+            LinkedIn
+          </ExternalLink>
+          .
         </Text>
       </div>
     </div>

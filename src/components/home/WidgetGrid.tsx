@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Github, Linkedin, Twitter } from 'lucide-react';
 
 import { ChessComTimeControl } from 'types/chesscom';
 import { ChessComTimeControlIcon } from '@/components/ChessComStats/ChessComTimeCategoryIcon';
@@ -16,6 +15,7 @@ import { StatusDot } from '@/components/common/StatusDot';
 import { TypewriterText } from '@/components/common/TypewriterText';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
 
+import { SOCIALS } from '@/constants/socials';
 import { cn } from '@/utils/styles/classNames';
 
 interface WidgetProps {
@@ -104,24 +104,6 @@ function ChessWidgetSkeleton() {
 export type BlogStats = {
   postCount: number;
 };
-
-const SOCIALS = [
-  {
-    href: 'https://twitter.com/jackyef__',
-    label: 'Twitter',
-    icon: <Twitter size={14} aria-hidden="true" />,
-  },
-  {
-    href: 'https://github.com/jackyef',
-    label: 'GitHub',
-    icon: <Github size={14} aria-hidden="true" />,
-  },
-  {
-    href: 'https://linkedin.com/in/jackyef',
-    label: 'LinkedIn',
-    icon: <Linkedin size={14} aria-hidden="true" />,
-  },
-];
 
 function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
   return (
