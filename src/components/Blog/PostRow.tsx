@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import tinytime from 'tinytime';
 import { ArrowUpRight } from 'lucide-react';
 
 import { WritingItem } from '@/blog/types';
 import { Chip } from '@/components/common/Chip';
 
-const dateTemplate = tinytime('{DD} {MM} {YYYY}');
+import { formatPostDate } from '@/lib/datetime';
 
 interface PostRowProps {
   item: WritingItem;
@@ -51,7 +50,7 @@ export function PostRow({ item }: PostRowProps) {
           )}
         </div>
         <div className="text-[12px] text-(--color-ink-4) mt-[2px]">
-          {dateTemplate.render(new Date(date))} · {readingTime}
+          {formatPostDate(date)} · {readingTime}
         </div>
       </div>
     </>

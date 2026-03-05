@@ -1,4 +1,3 @@
-import tinytime from 'tinytime';
 import { Flipped } from 'react-flip-toolkit';
 import { useRouter } from 'next/router';
 
@@ -6,9 +5,8 @@ import { PostMeta } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 import { Chip } from '@/components/common/Chip';
 import { InternalLink } from '@/components/Typography/InternalLink';
-import { SkipSSR } from '@/components/SkipSSR';
 
-const postDateTemplate = tinytime('{MMMM} {DD}, {YYYY}');
+import { formatPostDate } from '@/lib/datetime';
 
 interface Props {
   meta: Exclude<PostMeta, 'ogImage'>;
@@ -24,9 +22,7 @@ export const PostHeader = ({ meta }: Props) => {
         <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             <span className="eyebrow">
-              <SkipSSR fallback={meta.date}>
-                {postDateTemplate.render(new Date(meta.date))}
-              </SkipSSR>
+              {formatPostDate(meta.date, true)}
             </span>
             <span className="text-(--color-ink-4) text-[11px]">&middot;</span>
             <span className="text-[12px] text-(--color-ink-3) font-medium">

@@ -1,10 +1,9 @@
-import tinytime from 'tinytime';
-
 import { PageHeader } from '@/components/common/PageHeader';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { WebSpeechAPIDemo } from '@/components/tools/WebSpeechAPIDemo';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { formatPostDate } from '@/lib/datetime';
 
 export const meta = {
   title: 'Speech-to-text with Web Speech API',
@@ -16,8 +15,6 @@ export const meta = {
   date: '2022-04-13T06:43:37.680Z',
 };
 
-const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
-
 const SpeechToolsPage = () => {
   return (
     <div className="page-pad">
@@ -25,7 +22,7 @@ const SpeechToolsPage = () => {
         title={meta.title}
         description={meta.description}
         image={meta.image}
-        publishDate={postDateTemplate.render(new Date(meta.date))}
+        publishDate={formatPostDate(meta.date)}
       />
 
       <PageHeader eyebrow="Tools" title={meta.title} />

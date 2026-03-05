@@ -1,4 +1,3 @@
-import tinytime from 'tinytime';
 import { useRouter } from 'next/router';
 
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
@@ -9,11 +8,10 @@ import { TwitterShare } from '@/components/Social/TwitterShare';
 import { useActiveHeading } from '@/hooks/useActiveHeading';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { formatPostDate } from '@/lib/datetime';
 
 import { PostHeader } from './PostHeader';
 import { TableOfContents } from './TableOfContents';
-
-const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
 
 interface Props {
   post: PostType;
@@ -36,7 +34,7 @@ export default function Post({ post }: Props) {
             description={meta.description}
             image={createOgImageUrl(meta.ogImage)}
             readingTime={meta.readingTime}
-            publishDate={postDateTemplate.render(new Date(meta.date))}
+            publishDate={formatPostDate(meta.date)}
           />
           <PostHeader meta={meta} />
 

@@ -1,5 +1,3 @@
-import tinytime from 'tinytime';
-
 import { Heading } from '@/components/common/Heading';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
@@ -8,6 +6,7 @@ import { ClaymorphismTools } from '@/components/tools/Claymorphism';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { formatPostDate } from '@/lib/datetime';
 
 export const meta = {
   title: 'Claymorphism-style CSS generator',
@@ -18,8 +17,6 @@ export const meta = {
   date: '2021-12-22T09:45:30.326Z',
 };
 
-const postDateTemplate = tinytime('{MM} {DD}, {YYYY}');
-
 const ClaymorphismToolsPage = () => {
   return (
     <div className="page-pad">
@@ -27,7 +24,7 @@ const ClaymorphismToolsPage = () => {
         title={meta.title}
         description={meta.description}
         image={meta.image}
-        publishDate={postDateTemplate.render(new Date(meta.date))}
+        publishDate={formatPostDate(meta.date)}
       />
 
       <PageHeader eyebrow="Tools" title={meta.title} />
