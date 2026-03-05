@@ -8,6 +8,7 @@ const R = 12;
 const STROKE = 1.2;
 const CTA_TEXT = 'More about me';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const BORDER_DRAW_DUR = 850; // mask pathLength duration in ms
 
 /**
  * Builds an SVG rounded-rect path. Both r=2 and r=12 share identical command
@@ -39,7 +40,6 @@ function rrect(w: number, h: number, r: number) {
 //   6  done — interactive
 // ────────────────────────────────────────────
 
-
 export function HeroCTA() {
   const maskId = useId();
   const [scope, animate] = useAnimate<HTMLDivElement>();
@@ -54,7 +54,8 @@ export function HeroCTA() {
     const ro = new ResizeObserver(([e]) => {
       const w = Math.round(e.contentRect.width);
       const h = Math.round(e.contentRect.height);
-      if (w > 0 && h > 0) setDims((prev) => (prev.w === w && prev.h === h ? prev : { w, h }));
+      if (w > 0 && h > 0)
+        setDims((prev) => (prev.w === w && prev.h === h ? prev : { w, h }));
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -76,8 +77,6 @@ export function HeroCTA() {
         timers.push(id);
       });
 
-    const DRAW_DUR = 850; // mask pathLength duration in ms
-
     (async () => {
       // Phase 0: dashed border draws in (declarative pathLength on mask path)
 
@@ -87,19 +86,23 @@ export function HeroCTA() {
       setPhase(1);
 
       // Wait for draw to finish (remaining time + buffer for typewriter)
-      await wait(DRAW_DUR - 380 + 100);
+      await wait(BORDER_DRAW_DUR - 380 + 100);
       if (cancelled) return;
 
       // Phase 2: draw + text done, brief pause
       setPhase(2);
-      await wait(320);
+      await wait(500);
       if (cancelled) return;
 
       // Phase 3: materialize — raise from paper + solidify + enlarge
       setPhase(3);
       const el = scope.current;
       if (!el || cancelled) return;
-      await animate(el, { scale: 1.05 }, { duration: 0.45, ease: [0.22, 1, 0.36, 1] });
+      await animate(
+        el,
+        { scale: 1.05 },
+        { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+      );
       if (cancelled) return;
 
       // Phase 4: round the rough edges
@@ -190,7 +193,10 @@ export function HeroCTA() {
                 strokeWidth={STROKE + 8}
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 0.85, ease: 'easeOut' }}
+                transition={{
+                  duration: BORDER_DRAW_DUR / 1000,
+                  ease: 'easeOut',
+                }}
               />
             </mask>
           </defs>
@@ -272,14 +278,19 @@ export function HeroCTA() {
 
         {/* arrow — appears after typewriter finishes */}
         <motion.span
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0, x: -4 }}
           animate={{
             opacity: phase >= 2 ? 1 : 0,
-            x: hovered && done ? 4 : 0,
+            x: phase >= 2 ? (hovered && done ? 4 : 0) : -4,
           }}
           transition={{
-            opacity: { duration: 0.15 },
-            x: { type: 'spring', stiffness: 300, damping: 20 },
+            opacity: { duration: 0.08, delay: phase >= 2 && !done ? 0.1 : 0 },
+            x:
+              phase < 2
+                ? { duration: 0 }
+                : done
+                ? { type: 'spring', stiffness: 300, damping: 20 }
+                : { duration: 0.12, delay: 0.08, ease: 'easeOut' },
           }}
         >
           &rarr;
