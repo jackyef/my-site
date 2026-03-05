@@ -104,9 +104,6 @@ importers:
       tailwind-merge:
         specifier: ^2.2.1
         version: 2.2.1
-      tinytime:
-        specifier: ^0.2.6
-        version: 0.2.6
     devDependencies:
       '@builder.io/partytown':
         specifier: ^0.6.2
@@ -3447,9 +3444,6 @@ packages:
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
-
-  tinytime@0.2.6:
-    resolution: {integrity: sha512-FdiVbzssIGxpi9tuDWcMnDb4dUeoYIA4rpsdx1wVzvCaGMk5pt4WyFg2G+MFZ08HGyWB/CM/ajQfLKp6CYiD3w==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -7067,8 +7061,6 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
-
-  tinytime@0.2.6: {}
 
   to-regex-range@5.0.1:
     dependencies:

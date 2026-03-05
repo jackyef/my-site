@@ -84,8 +84,7 @@
     "react-dom": "^19.0.0",
     "react-flip-toolkit": "^7.0.13",
     "react-hot-toast": "^2.5.0",
-    "tailwind-merge": "^2.2.1",
-    "tinytime": "^0.2.6"
+    "tailwind-merge": "^2.2.1"
   },
   "dependenciesComments": {
     "goober": "goober is used by react-hot-toast and in parts of the web where using Tailwind require too much customization"
