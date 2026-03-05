@@ -1,7 +1,6 @@
-import Link from 'next/link';
-
-import { Button } from '@/components/common/Button';
 import { Heading } from '@/components/common/Heading';
+
+import { HeroCTA } from './HeroCTA';
 
 export function HeroSection() {
   return (
@@ -37,9 +36,7 @@ export function HeroSection() {
 
       {/* CTAs */}
       <div className="flex gap-2.5 flex-wrap">
-        <Button as={Link} href="/about">
-          More about me →
-        </Button>
+        <HeroCTA />
       </div>
     </div>
   );
