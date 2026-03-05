@@ -51,6 +51,7 @@ function BouncingDuck() {
   const rotateRef = useRef(0);
   const rotate = useMotionValue(0);
   const [squeaking, setSqueaking] = useState(false);
+  const [ready, setReady] = useState(false);
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function BouncingDuck() {
     // Start at a random position
     x.set(Math.random() * (bounds.width - duckSize));
     y.set(Math.random() * (bounds.height - duckSize));
+    setReady(true);
 
     let lastTime = -1;
 
@@ -127,7 +129,7 @@ function BouncingDuck() {
   }, []);
 
   return (
-    <div ref={containerRef} className="pointer-events-none absolute inset-0">
+    <div ref={containerRef} className={cn("pointer-events-none absolute inset-0", !ready && "invisible")}>
       <motion.div
         className="pointer-events-auto absolute cursor-pointer select-none"
         style={{ x, y, rotate, width: duckSize, height: duckSize }}
