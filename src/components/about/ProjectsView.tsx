@@ -8,7 +8,7 @@ import { Card } from '@/components/common/Card';
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';
 import RepoList from '@/components/GitHub/repo-list.json';
-import { projects } from '@/components/Projects/projects';
+import { projects } from '@/constants/projects';
 
 export function ProjectsView() {
   return (
