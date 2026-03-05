@@ -4,11 +4,33 @@ import { motion, useAnimate } from 'motion/react';
 
 import { TypewriterText } from '@/components/common/TypewriterText';
 
+import { useTheme } from '@/hooks/useTheme';
+
 const R = 12;
 const STROKE = 1.2;
 const CTA_TEXT = 'More about me';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const BORDER_DRAW_DUR = 850; // mask pathLength duration in ms
+
+const SHADOW_NONE = '0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)';
+
+const SHADOWS = {
+  light: {
+    peak: '0 6px 24px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.05)',
+    rest: '0 1px 4px rgba(0,0,0,0.06), 0 0.5px 2px rgba(0,0,0,0.03)',
+    hover: '0 2px 10px rgba(44,100,100,0.12), 0 1px 3px rgba(44,100,100,0.06)',
+  },
+  dim: {
+    peak: '0 0 32px rgba(74,150,150,0.28), 0 0 10px rgba(74,150,150,0.15)',
+    rest: '0 0 6px rgba(74,150,150,0.12), 0 0 2px rgba(74,150,150,0.08)',
+    hover: '0 0 18px rgba(74,150,150,0.2), 0 0 5px rgba(74,150,150,0.12)',
+  },
+  dark: {
+    peak: '0 0 36px rgba(74,150,150,0.32), 0 0 12px rgba(74,150,150,0.18)',
+    rest: '0 0 8px rgba(74,150,150,0.14), 0 0 3px rgba(74,150,150,0.08)',
+    hover: '0 0 22px rgba(74,150,150,0.24), 0 0 6px rgba(74,150,150,0.14)',
+  },
+} as const;
 
 /**
  * Builds an SVG rounded-rect path. Both r=2 and r=12 share identical command
@@ -35,9 +57,8 @@ function rrect(w: number, h: number, r: number) {
 //   1  typewriter text entering (when border is at ~50%)
 //   2  draw + text done (pause)
 //   3  materialize  (raise, solidify, enlarge)
-//   4  round corners
-//   5  pop — finalization
-//   6  done — interactive
+//   4  drop — spring settle + corners round on impact
+//   5  done — interactive
 // ────────────────────────────────────────────
 
 export function HeroCTA() {
@@ -46,6 +67,8 @@ export function HeroCTA() {
   const [dims, setDims] = useState({ w: 0, h: 0 });
   const [hovered, setHovered] = useState(false);
   const [phase, setPhase] = useState(0);
+  const { theme } = useTheme();
+  const s = SHADOWS[theme ?? 'light'];
 
   /* ── measure ── */
   useEffect(() => {
@@ -91,36 +114,37 @@ export function HeroCTA() {
 
       // Phase 2: draw + text done, brief pause
       setPhase(2);
-      await wait(500);
+      await wait(800);
       if (cancelled) return;
 
       // Phase 3: materialize — raise from paper + solidify + enlarge
       setPhase(3);
       const el = scope.current;
       if (!el || cancelled) return;
+
+      // Start the slow raise (1.5s total)
       await animate(
         el,
-        { scale: 1.05 },
-        { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+        { scale: 1.08 },
+        { duration: 1.5, ease: [0.4, 0, 0.4, 1] },
       );
       if (cancelled) return;
 
-      // Phase 4: round the rough edges
-      setPhase(4);
-      await wait(800);
+      // Brief pause at peak elevation
+      await wait(200);
       if (cancelled) return;
 
-      // Phase 5: pop!
-      setPhase(5);
+      // Phase 4: drop — spring settle + corners round on impact
+      setPhase(4);
       if (!scope.current || cancelled) return;
       await animate(
         scope.current,
-        { scale: [1.05, 1.1, 1] },
-        { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
+        { scale: 1 },
+        { type: 'spring', stiffness: 500, damping: 10, mass: 0.7 },
       );
       if (cancelled) return;
 
-      setPhase(6);
+      setPhase(5);
     })();
 
     return () => {
@@ -130,8 +154,8 @@ export function HeroCTA() {
   }, [hasSize, animate, scope]);
 
   const raised = phase >= 3;
-  const rounded = phase >= 4;
-  const done = phase >= 6;
+  const dropped = phase >= 4;
+  const done = phase >= 5;
 
   return (
     <div
@@ -146,16 +170,22 @@ export function HeroCTA() {
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         animate={{
-          borderRadius: rounded ? R : 2,
-          boxShadow: raised
-            ? hovered && done
-              ? '0 8px 28px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07)'
-              : '0 4px 20px rgba(0,0,0,0.09), 0 1px 5px rgba(0,0,0,0.05)'
-            : '0 0 0 0 transparent',
+          borderRadius: dropped ? R : 2,
+          boxShadow: hovered && done
+            ? s.hover
+            : dropped
+              ? s.rest
+              : raised
+                ? s.peak
+                : SHADOW_NONE,
         }}
         transition={{
-          borderRadius: { duration: 0.4, ease: EASE },
-          boxShadow: { duration: done ? 0.2 : 0.4 },
+          borderRadius: dropped
+            ? { type: 'spring', stiffness: 500, damping: 10, mass: 0.7 }
+            : { duration: 0 },
+          boxShadow: dropped
+            ? { type: 'spring', stiffness: 500, damping: 10, mass: 0.7 }
+            : { duration: done ? 0.2 : 2, ease: EASE },
         }}
       />
 
@@ -165,12 +195,14 @@ export function HeroCTA() {
         className="absolute inset-0 bg-(--color-bg) pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{
-          borderRadius: rounded ? R : 2,
+          borderRadius: dropped ? R : 2,
           opacity: raised ? 1 : 0,
         }}
         transition={{
-          borderRadius: { duration: 0.4, ease: EASE },
-          opacity: { duration: 0.35 },
+          borderRadius: dropped
+            ? { type: 'spring', stiffness: 500, damping: 10, mass: 0.7 }
+            : { duration: 0 },
+          opacity: { duration: 1.5, ease: EASE },
         }}
       />
 
@@ -210,38 +242,44 @@ export function HeroCTA() {
             strokeDasharray="6 4"
             mask={`url(#${maskId})`}
             animate={{ opacity: raised ? 0 : 1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.5 }}
           />
 
-          {/* 2. Solid border — materializes, then morphs to rounded */}
+          {/* 2. Solid border — materializes, then morphs on drop */}
           <motion.path
             fill="none"
             stroke="var(--color-accent)"
             strokeWidth={STROKE}
             initial={{ d: flatPath, opacity: 0 }}
             animate={{
-              d: rounded ? roundPath : flatPath,
+              d: dropped ? roundPath : flatPath,
               opacity: raised ? 1 : 0,
             }}
             transition={{
-              d: { duration: 0.4, ease: EASE },
-              opacity: { duration: 0.2 },
+              d: dropped
+                ? { type: 'spring', stiffness: 500, damping: 10, mass: 0.7 }
+                : { duration: 0 },
+              opacity: { duration: 0.5 },
             }}
           />
         </svg>
       )}
 
-      {/* ── pop ring ── */}
+      {/* ── impact ring ── */}
       <motion.span
         aria-hidden
-        className="absolute -inset-1 pointer-events-none border-[1.5px] border-(--color-accent)"
-        style={{ borderRadius: R + 2 }}
+        className="absolute -inset-1.5 pointer-events-none border-[1.5px] border-(--color-accent)"
+        style={{ borderRadius: R + 4 }}
         initial={{ opacity: 0, scale: 1 }}
         animate={{
-          opacity: phase === 5 ? [0, 0.35, 0] : 0,
-          scale: phase === 5 ? [1, 1.06] : 1,
+          opacity: phase === 4 ? [0, 0.5, 0.3, 0] : 0,
+          scale: phase === 4 ? [0.97, 1.1, 1.04, 1] : 1,
         }}
-        transition={{ duration: 0.45 }}
+        transition={{
+          duration: 0.6,
+          ease: [0.34, 1.56, 0.64, 1],
+          delay: phase === 4 ? 0.05 : 0,
+        }}
       />
 
       {/* ── hover tint ── */}
