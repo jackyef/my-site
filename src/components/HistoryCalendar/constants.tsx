@@ -31,8 +31,7 @@ export const timelineEvents = [
             </p>
 
             <p>
-              One of the first projects I would be involved in will be a
-              cross-company design system update; hopefully I would learn much
+              One of the first projects I would be involved in will be design system migration; hopefully I would learn much
               and thus have things to share in coming days!
             </p>
           </>
