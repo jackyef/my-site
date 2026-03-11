@@ -10,11 +10,12 @@ const FEATURED_TITLES = [
 
 export function getFeaturedWritings(allWritings: WritingItem[]): WritingItem[] {
   const featured: WritingItem[] = []
-  featured.unshift(allWritings.shift() as WritingItem); // Always include the most recent writing as the first item
+  featured.unshift(allWritings[0] as WritingItem); // Always include the most recent writing as the first item
 
   featured[0].isLatest = true; // Mark the most recent writing as the latest
 
-  FEATURED_TITLES.forEach((title) => {
+  FEATURED_TITLES.forEach((title, index) => {
+    if (index === 0) return; // Skip the most recent writing since it's already included
     const writing = allWritings.find((w) => w.title.startsWith(title));
 
     if (writing) {
