@@ -9,7 +9,18 @@ const FEATURED_TITLES = [
 ];
 
 export function getFeaturedWritings(allWritings: WritingItem[]): WritingItem[] {
-  return FEATURED_TITLES.map((title) =>
-    allWritings.find((w) => w.title.startsWith(title)),
-  ).filter((w): w is WritingItem => w != null);
+  const featured: WritingItem[] = []
+  featured.unshift(allWritings.shift() as WritingItem); // Always include the most recent writing as the first item
+
+  featured[0].isLatest = true; // Mark the most recent writing as the latest
+
+  FEATURED_TITLES.forEach((title) => {
+    const writing = allWritings.find((w) => w.title.startsWith(title));
+
+    if (writing) {
+      featured.push(writing);
+    }
+  })
+
+  return featured;
 }

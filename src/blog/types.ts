@@ -38,5 +38,6 @@ export type WritingItem = {
   link: string;
   tags: string[];
   isExternal: boolean;
+  isLatest?: boolean;
   publication?: string;
 };

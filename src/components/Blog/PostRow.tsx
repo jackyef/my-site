@@ -11,7 +11,7 @@ interface PostRowProps {
 }
 
 export function PostRow({ item }: PostRowProps) {
-  const { link, title, tags, date, readingTime, isExternal, publication } =
+  const { link, title, tags, date, readingTime, isExternal, publication, isLatest } =
     item;
   const firstTag = tags[0];
 
@@ -29,6 +29,15 @@ export function PostRow({ item }: PostRowProps) {
               />
             )}
           </span>
+          {isLatest && (
+            <Chip
+              variant="highlight"
+              size="xs"
+              className="shrink-0 whitespace-nowrap"
+            >
+              latest
+            </Chip>
+          )}
           {publication ? (
             <Chip
               variant="muted"
