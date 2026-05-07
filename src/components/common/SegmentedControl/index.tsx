@@ -44,7 +44,9 @@ export function SegmentedControl<T extends string>({
           )}
         >
           {opt.icon}
-          {opt.label && <span className={labelClassName}>{opt.label}</span>}
+          {opt.label && (
+            <span className={cn('leading-0', labelClassName)}>{opt.label}</span>
+          )}
         </button>
       ))}
     </div>
