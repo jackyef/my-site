@@ -1,0 +1,10 @@
+[mcp_servers.context-mode]
+command = "npx"
+args = [
+    "-y",
+    "context-mode",
+]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
