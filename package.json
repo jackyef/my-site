@@ -62,6 +62,7 @@
     "@feedback-fish/react": "^1.2.1",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.0.17",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@next/bundle-analyzer": "^16.1.0",
     "@radix-ui/react-dialog": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.0",
@@ -88,7 +89,8 @@
     "react-dom": "^19.0.0",
     "react-flip-toolkit": "^7.0.13",
     "react-hot-toast": "^2.5.0",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "zod": "^4.4.3"
   },
   "dependenciesComments": {
     "goober": "goober is used by react-hot-toast and in parts of the web where using Tailwind require too much customization"
