@@ -14,9 +14,16 @@ import {
 import { StatusDot } from '@/components/common/StatusDot';
 import { TypewriterText } from '@/components/common/TypewriterText';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
-
+import { Depth } from '@/components/three-d/Tilt3D';
 import { SOCIALS } from '@/constants/socials';
+
 import { cn } from '@/utils/styles/classNames';
+
+/**
+ * Height each widget's content floats above its card face. Accents nest a
+ * second <Depth> inside this one, so their offsets compose on top of it.
+ */
+const CONTENT_DEPTH = 16;
 
 interface WidgetProps {
   label: string;
@@ -33,9 +40,16 @@ function Widget({ label, children, span = 1, mobileFullWidth }: WidgetProps) {
   );
 
   return (
-    <Card hover className={cn('px-[16px] py-[14px] cursor-default', gridClass)}>
-      <SectionLabel className="mb-2">{label}</SectionLabel>
-      {children}
+    <Card
+      tilt
+      hover
+      tiltClassName={gridClass}
+      className="px-[16px] py-[14px] cursor-default"
+    >
+      <Depth z={CONTENT_DEPTH}>
+        <SectionLabel className="mb-2">{label}</SectionLabel>
+        {children}
+      </Depth>
     </Card>
   );
 }
@@ -92,11 +106,13 @@ function NowWidget() {
 
 function ChessWidgetSkeleton() {
   return (
-    <Card hover className="px-[16px] py-[14px] cursor-default">
-      <SectionLabel className="mb-2">Chess.com</SectionLabel>
-      <div className="min-h-[180px] flex items-center justify-center">
-        <span className="text-[13px] text-(--color-ink-4)">Loading…</span>
-      </div>
+    <Card tilt hover className="px-[16px] py-[14px] cursor-default">
+      <Depth z={CONTENT_DEPTH}>
+        <SectionLabel className="mb-2">Chess.com</SectionLabel>
+        <div className="min-h-[180px] flex items-center justify-center">
+          <span className="text-[13px] text-(--color-ink-4)">Loading…</span>
+        </div>
+      </Depth>
     </Card>
   );
 }
@@ -108,43 +124,51 @@ export type BlogStats = {
 function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
   return (
     <Card
+      tilt
       hover
-      className="px-[16px] py-[14px] cursor-default widget-mobile-full md:row-span-2 self-start"
+      tiltClassName="widget-mobile-full md:row-span-2 self-start"
+      className="px-[16px] py-[14px] cursor-default"
     >
-      <SectionLabel className="mb-3">Writing</SectionLabel>
-      <div className="font-serif text-[56px] font-bold text-(--color-ink) leading-none">
-        {blogStats.postCount}
-      </div>
-      <div className="text-[13px] text-(--color-ink-3) mt-1">
-        writings total
-      </div>
-      <a
-        href="/blog"
-        className="inline-block mt-2 text-[13px] text-(--color-accent-text) no-underline hover:underline"
-      >
-        Read the blog →
-      </a>
+      <Depth z={CONTENT_DEPTH}>
+        <SectionLabel className="mb-3">Writing</SectionLabel>
+        {/* The count is the loudest thing on this card, so it sits highest */}
+        <Depth
+          z={14}
+          className="font-serif text-[56px] font-bold text-(--color-ink) leading-none"
+        >
+          {blogStats.postCount}
+        </Depth>
+        <div className="text-[13px] text-(--color-ink-3) mt-1">
+          writings total
+        </div>
+        <a
+          href="/blog"
+          className="inline-block mt-2 text-[13px] text-(--color-accent-text) no-underline hover:underline"
+        >
+          Read the blog →
+        </a>
 
-      <hr className="border-(--color-border) my-4" />
+        <hr className="border-(--color-border) my-4" />
 
-      <SectionLabel className="mb-2.5">Connect</SectionLabel>
-      <ul className="space-y-2.5">
-        {SOCIALS.map(({ href, label, icon }) => (
-          <li key={href}>
-            <a
-              href={href}
-              target={'_blank'}
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
-            >
-              <span className="text-(--color-ink-4) transform -translate-y-0.5">
-                {icon}
-              </span>
-              <span>{label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+        <SectionLabel className="mb-2.5">Connect</SectionLabel>
+        <ul className="space-y-2.5">
+          {SOCIALS.map(({ href, label, icon }) => (
+            <li key={href}>
+              <a
+                href={href}
+                target={'_blank'}
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
+              >
+                <span className="text-(--color-ink-4) transform -translate-y-0.5">
+                  {icon}
+                </span>
+                <span>{label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Depth>
     </Card>
   );
 }
@@ -264,13 +288,15 @@ function ChessWidget() {
   return (
     <Widget label="Chess.com">
       <div className="relative min-h-[180px]">
-        {/* Decorative chess board pattern */}
-        <div
+        {/* Decorative chess board pattern — set back behind the content so it
+            reads as printed on the card face */}
+        <Depth
+          z={-CONTENT_DEPTH}
           className="absolute top-[-4px] right-0 opacity-[0.05] pointer-events-none"
           aria-hidden="true"
         >
           <ChessBoardDeco />
-        </div>
+        </Depth>
 
         {/* Time control picker */}
         <SegmentedControl
@@ -282,14 +308,15 @@ function ChessWidget() {
 
         {/* Rating hero */}
         <div className="mt-4">
-          <div
+          <Depth
+            z={14}
             className={cn(
               'font-serif text-[42px] font-bold text-(--color-ink) leading-none transition-opacity duration-300',
               stats ? 'opacity-100' : 'opacity-30',
             )}
           >
             <AnimatedNumber value={stats?.rating_last} />
-          </div>
+          </Depth>
           <div className="text-[13px] text-(--color-ink-3) mt-1">
             {stats ? `Peak ${stats.rating_max}` : '\u00A0'}
           </div>
@@ -354,7 +381,9 @@ export function WidgetGrid({ blogStats }: { blogStats: BlogStats }) {
 
       <Widget label="Based in" mobileFullWidth>
         <div className="flex items-center gap-2.5 mt-1">
-          <span className="text-[28px]">🇮🇩</span>
+          <Depth z={12} className="text-[28px]">
+            🇮🇩
+          </Depth>
           <div>
             <WidgetValue>
               <span className="text-[17px]">Jakarta</span>

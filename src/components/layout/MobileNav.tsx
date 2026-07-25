@@ -89,14 +89,23 @@ export function MobileNav() {
         {open && (
           <motion.div
             key="mobile-nav-card"
-            initial={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, rotate: -3, y: 16 }}
+            // Hinges up off the FAB rather than just scaling in: the panel
+            // starts lying flat against the page and swings upright.
+            initial={{
+              opacity: 0,
+              scale: 0.94,
+              rotate: -2,
+              rotateX: -52,
+              y: 20,
+            }}
+            animate={{ opacity: 1, scale: 1, rotate: 0, rotateX: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, rotate: -2, rotateX: -52, y: 20 }}
             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
             className="fixed right-5 z-49 min-w-50"
             style={{
               bottom: 'calc(88px + env(safe-area-inset-bottom, 0px))',
               transformOrigin: 'bottom right',
+              transformPerspective: 1000,
             }}
           >
             <Surface elevation="lg" rounded="xl" className="overflow-hidden">

@@ -2,6 +2,9 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useMotionValue } from 'motion/react';
 import Link from 'next/link';
 
+import { ExtrudedText } from '@/components/three-d/ExtrudedText';
+import { Tilt3D } from '@/components/three-d/Tilt3D';
+
 import { cn } from '@/utils/styles/classNames';
 
 import { PageMetaTags } from '../Seo/PageMetaTags';
@@ -144,7 +147,13 @@ function BouncingDuck() {
   }, []);
 
   return (
-    <div ref={containerRef} className={cn("pointer-events-none absolute inset-0", !ready && "invisible")}>
+    <div
+      ref={containerRef}
+      className={cn(
+        'pointer-events-none absolute inset-0',
+        !ready && 'invisible',
+      )}
+    >
       <motion.div
         className="pointer-events-auto absolute cursor-pointer select-none"
         style={{ x, y, rotate, width: duckSize, height: duckSize }}
@@ -172,16 +181,21 @@ function BouncingDuck() {
 function DraggableDigit({
   children,
   delay = 0,
+  spin = 1,
 }: {
   children: React.ReactNode;
   delay?: number;
+  /** Direction the glyph swings on hover, so neighbours don't move in lockstep. */
+  spin?: 1 | -1;
 }) {
   return (
     <motion.span
-      className="inline-block cursor-grab select-none active:cursor-grabbing"
-      initial={{ y: -80, opacity: 0, scale: 0.5 }}
+      className="inline-block cursor-grab select-none active:cursor-grabbing preserve-3d"
+      // Drops in from well behind the page, then settles onto the plane.
+      initial={{ y: -80, z: -340, opacity: 0, scale: 0.5 }}
       animate={{
         y: 0,
+        z: 0,
         opacity: 1,
         scale: 1,
         transition: {
@@ -192,14 +206,14 @@ function DraggableDigit({
           delay,
         },
       }}
-      whileHover={{ scale: 1.1, rotate: Math.random() > 0.5 ? 5 : -5 }}
+      whileHover={{ z: 46, rotateY: 14 * spin }}
       whileTap={{ scale: 0.9 }}
       drag
       dragSnapToOrigin
       dragElastic={1}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 15 }}
     >
-      {children}
+      <ExtrudedText>{children}</ExtrudedText>
     </motion.span>
   );
 }
@@ -215,8 +229,12 @@ export const Error404View = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center">
-          {/* Draggable 404 */}
-          <div
+          {/* Draggable 404 — extruded, and the whole block turns with the
+              pointer so you can look around the sides of the type */}
+          <Tilt3D
+            max={13}
+            perspective={1100}
+            lift={0}
             className={cn(
               'flex items-baseline gap-2 md:gap-4 mb-6',
               'font-[family-name:var(--font-fraunces)] font-bold',
@@ -224,10 +242,14 @@ export const Error404View = () => {
               'text-(--color-accent)',
             )}
           >
-            <DraggableDigit delay={0}>4</DraggableDigit>
+            <DraggableDigit delay={0} spin={-1}>
+              4
+            </DraggableDigit>
             <DraggableDigit delay={0.1}>0</DraggableDigit>
-            <DraggableDigit delay={0.2}>4</DraggableDigit>
-          </div>
+            <DraggableDigit delay={0.2} spin={-1}>
+              4
+            </DraggableDigit>
+          </Tilt3D>
 
           {/* Copy */}
           <motion.p

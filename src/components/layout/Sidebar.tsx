@@ -1,6 +1,7 @@
 import { Search } from 'lucide-react';
 
 import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useCommandPaletteContext';
+import { Cube3D } from '@/components/three-d/Cube3D';
 
 import { useTheme } from '@/hooks/useTheme';
 
@@ -8,13 +9,34 @@ import { PwaInstallButton } from './PwaInstallButton';
 import { SidebarNav } from './SidebarNav';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
+const LOGO_SIZE = 26;
+
 function LogoMark() {
   return (
-    <div className="flex items-center gap-[9px]">
-      <div className="w-[26px] h-[26px] rounded-[7px] bg-(--color-accent) flex items-center justify-center shrink-0">
-        <span className="text-white text-[13px] font-bold font-serif leading-none">
-          J
-        </span>
+    <div className="group flex items-center gap-[9px]">
+      {/* Monogram as a real solid — resting slightly turned so the depth
+          reads, and rolling onto its next face on hover. */}
+      <div
+        className="shrink-0 logo-scene"
+        style={{ width: LOGO_SIZE, height: LOGO_SIZE }}
+      >
+        <Cube3D
+          size={LOGO_SIZE}
+          className="logo-cube"
+          faceClassName="rounded-[6px] bg-(--color-accent) text-white text-[13px] font-bold font-serif leading-none"
+          // Side and top faces sit in shade. Without that falloff a solid this
+          // small just reads as a flat tile with a rendering seam.
+          faceClassNames={{
+            right: 'logo-face-side',
+            left: 'logo-face-side',
+            top: 'logo-face-top',
+            bottom: 'logo-face-top',
+          }}
+          faces={{
+            front: <span className="logo-glyph logo-glyph-front">J</span>,
+            right: <span className="logo-glyph logo-glyph-side">E</span>,
+          }}
+        />
       </div>
       {/* Hide domain text on narrow (icon-strip) sidebar */}
       <span className="hidden lg:inline font-serif text-[15px] font-semibold text-(--color-ink) tracking-[-0.01em]">
@@ -29,7 +51,10 @@ export function Sidebar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <aside aria-label="Main navigation" className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
+    <aside
+      aria-label="Main navigation"
+      className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]"
+    >
       {/* Top: Logo + CMD trigger */}
       <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border)">
         <LogoMark />
