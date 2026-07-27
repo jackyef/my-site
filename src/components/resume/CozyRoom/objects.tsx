@@ -1,9 +1,16 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
-import { Group, Mesh } from 'three';
+import {
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  PointLight,
+} from 'three';
 
-import { MATERIALS, ScenePalette } from './palette';
+import { useLivePalette } from './livePalette';
+import { MATERIALS } from './palette';
 import type { SectionId } from './hotspots';
 
 // `id` collides with our SectionId prop (three.js types it as a number),
@@ -152,25 +159,26 @@ export function RoomShell() {
       </mesh>
 
       {/* Back wall */}
-      <mesh position={[0, 1.7, -4.26]} receiveShadow>
+      <mesh position={[0, 1.7, -4.26]} castShadow receiveShadow>
         <boxGeometry args={[8.64, 3.4, 0.12]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
 
-      {/* Left wall, in segments around the window opening */}
-      <mesh position={[-4.26, 1.7, -3.26]} receiveShadow>
+      {/* Left wall, in segments around the window opening — these cast
+          shadow so sunlight genuinely pools in through the window */}
+      <mesh position={[-4.26, 1.7, -3.26]} castShadow receiveShadow>
         <boxGeometry args={[0.12, 3.4, 2.12]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-4.26, 1.7, 1.66]} receiveShadow>
+      <mesh position={[-4.26, 1.7, 1.66]} castShadow receiveShadow>
         <boxGeometry args={[0.12, 3.4, 5.32]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-4.26, 3.15, -1.6]} receiveShadow>
+      <mesh position={[-4.26, 3.15, -1.6]} castShadow receiveShadow>
         <boxGeometry args={[0.12, 0.5, 1.2]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-4.26, 0.75, -1.6]} receiveShadow>
+      <mesh position={[-4.26, 0.75, -1.6]} castShadow receiveShadow>
         <boxGeometry args={[0.12, 1.5, 1.2]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
@@ -253,7 +261,12 @@ export function Chair() {
 
 const CODE_BAR_COUNT = 9;
 
-export function Monitor({ palette }: { palette: ScenePalette }) {
+export function Monitor() {
+  const live = useLivePalette();
+  const screenRef = useRef<MeshStandardMaterial>(null);
+  const barsRef = useRef<Group>(null);
+  const glowRef = useRef<PointLight>(null);
+
   const bars = useMemo(
     () =>
       Array.from({ length: CODE_BAR_COUNT }, (_, i) => ({
@@ -263,6 +276,18 @@ export function Monitor({ palette }: { palette: ScenePalette }) {
       })),
     [],
   );
+
+  useFrame(() => {
+    const intensity = live.current.screenIntensity;
+    if (screenRef.current) screenRef.current.emissiveIntensity = intensity;
+    if (glowRef.current) glowRef.current.intensity = intensity * 1.6;
+    barsRef.current?.children.forEach((child) => {
+      const material = (child as Mesh).material;
+      if (!Array.isArray(material) && 'opacity' in material) {
+        material.opacity = 0.45 + intensity * 0.3;
+      }
+    });
+  });
 
   return (
     <group position={[1.0, 1.06, -3.6]}>
@@ -283,37 +308,37 @@ export function Monitor({ palette }: { palette: ScenePalette }) {
       <mesh position={[0, 0.62, 0.032]}>
         <planeGeometry args={[1.05, 0.58]} />
         <meshStandardMaterial
+          ref={screenRef}
           color="#0d1a26"
           emissive="#14283d"
-          emissiveIntensity={palette.screenIntensity}
+          emissiveIntensity={0.75}
           roughness={0.3}
         />
       </mesh>
 
       {/* Lines of "code" */}
-      {bars.map((bar, i) => (
-        <mesh
-          key={i}
-          position={[
-            -0.44 + bar.indent + bar.width / 2,
-            0.84 - i * 0.052,
-            0.036,
-          ]}
-        >
-          <planeGeometry args={[bar.width, 0.022]} />
-          <meshBasicMaterial
-            color={bar.color}
-            transparent
-            opacity={0.45 + palette.screenIntensity * 0.3}
-          />
-        </mesh>
-      ))}
+      <group ref={barsRef}>
+        {bars.map((bar, i) => (
+          <mesh
+            key={i}
+            position={[
+              -0.44 + bar.indent + bar.width / 2,
+              0.84 - i * 0.052,
+              0.036,
+            ]}
+          >
+            <planeGeometry args={[bar.width, 0.022]} />
+            <meshBasicMaterial color={bar.color} transparent opacity={0.65} />
+          </mesh>
+        ))}
+      </group>
 
       {/* Screen glow */}
       <pointLight
+        ref={glowRef}
         position={[0, 0.62, 0.6]}
         color="#7fd1c0"
-        intensity={palette.screenIntensity * 1.6}
+        intensity={1.2}
         distance={2.2}
       />
     </group>
@@ -423,7 +448,17 @@ export function Mug({ reduceMotion }: { reduceMotion: boolean }) {
   );
 }
 
-export function DeskLamp({ palette }: { palette: ScenePalette }) {
+export function DeskLamp() {
+  const live = useLivePalette();
+  const shadeRef = useRef<MeshStandardMaterial>(null);
+  const lightRef = useRef<PointLight>(null);
+
+  useFrame(() => {
+    const intensity = live.current.lampIntensity;
+    if (shadeRef.current) shadeRef.current.emissiveIntensity = intensity * 0.04;
+    if (lightRef.current) lightRef.current.intensity = intensity;
+  });
+
   return (
     <group position={[2.1, 1.06, -3.6]}>
       <mesh position={[0, 0.02, 0]} castShadow>
@@ -437,16 +472,18 @@ export function DeskLamp({ palette }: { palette: ScenePalette }) {
       <mesh position={[-0.2, 0.44, 0]} rotation={[0, 0, 2.2]} castShadow>
         <coneGeometry args={[0.09, 0.14, 20, 1, true]} />
         <meshStandardMaterial
+          ref={shadeRef}
           color={MATERIALS.lampShade}
           emissive={MATERIALS.lampShade}
-          emissiveIntensity={palette.lampIntensity * 0.04}
+          emissiveIntensity={0.5}
           roughness={0.6}
         />
       </mesh>
       <pointLight
+        ref={lightRef}
         position={[-0.28, 0.38, 0]}
         color="#ffc37a"
-        intensity={palette.lampIntensity}
+        intensity={10}
         distance={5}
         castShadow
         shadow-mapSize={[512, 512]}
@@ -551,20 +588,42 @@ export function Corkboard() {
   );
 }
 
-export function WallWindow({ palette }: { palette: ScenePalette }) {
+export function WallWindow() {
+  const live = useLivePalette();
+  const skyRef = useRef<MeshBasicMaterial>(null);
+  const discRef = useRef<Mesh>(null);
+  const discMaterialRef = useRef<MeshBasicMaterial>(null);
+  const glowRef = useRef<PointLight>(null);
+
+  useFrame(() => {
+    const palette = live.current;
+    skyRef.current?.color.copy(palette.sky);
+    discMaterialRef.current?.color.copy(palette.discColor);
+    const disc = discRef.current;
+    if (disc) {
+      disc.position.x = palette.discX;
+      disc.position.y = palette.discY;
+      disc.scale.setScalar(palette.discScale);
+    }
+    const glow = glowRef.current;
+    if (glow) {
+      glow.color.copy(palette.windowGlowColor);
+      glow.intensity = palette.windowGlowIntensity;
+    }
+  });
+
   return (
     <group position={[-4.17, 2.2, -1.6]} rotation={[0, Math.PI / 2, 0]}>
       {/* Sky seen through the glass */}
       <mesh>
         <planeGeometry args={[1.2, 1.4]} />
-        <meshBasicMaterial color={palette.sky} />
+        <meshBasicMaterial ref={skyRef} color={MATERIALS.paper} />
       </mesh>
-      {palette.moonVisible && (
-        <mesh position={[0.3, 0.38, 0.005]}>
-          <circleGeometry args={[0.13, 24]} />
-          <meshBasicMaterial color="#f4f0dc" />
-        </mesh>
-      )}
+      {/* The sun (or moon) — slides across the pane as the theme shifts */}
+      <mesh ref={discRef} position={[-0.3, 0.45, 0.005]}>
+        <circleGeometry args={[0.13, 24]} />
+        <meshBasicMaterial ref={discMaterialRef} color="#fff3c4" />
+      </mesh>
 
       {/* Frame + cross bars */}
       <mesh position={[0, 0.72, 0.02]}>
@@ -621,9 +680,10 @@ export function WallWindow({ palette }: { palette: ScenePalette }) {
 
       {/* Light spilling in from outside */}
       <pointLight
+        ref={glowRef}
         position={[0, 0, 1.2]}
-        color={palette.windowGlowColor}
-        intensity={palette.windowGlowIntensity}
+        color="#dff2ff"
+        intensity={6}
         distance={7}
       />
     </group>
@@ -748,7 +808,26 @@ const BULBS_PER_STRAND = 8;
  * Fairy lights sagging along the top of the back wall — they really come
  * alive at night.
  */
-export function StringLights({ palette }: { palette: ScenePalette }) {
+export function StringLights() {
+  const live = useLivePalette();
+  const lightRef = useRef<PointLight>(null);
+  const bulbMaterial = useMemo(
+    () =>
+      new MeshStandardMaterial({
+        color: '#ffe4b8',
+        emissive: '#ffc37a',
+        emissiveIntensity: 0.5,
+        roughness: 0.6,
+      }),
+    [],
+  );
+
+  useFrame(() => {
+    const intensity = live.current.fairyIntensity;
+    bulbMaterial.emissiveIntensity = intensity;
+    if (lightRef.current) lightRef.current.intensity = intensity * 1.6;
+  });
+
   const strands: Array<[number, number]> = [
     [-3.9, -0.1],
     [0.1, 3.9],
@@ -763,23 +842,18 @@ export function StringLights({ palette }: { palette: ScenePalette }) {
             const x = from + (to - from) * t;
             const y = 3.18 - Math.sin(Math.PI * t) * 0.24;
             return (
-              <mesh key={i} position={[x, y, -4.14]}>
+              <mesh key={i} position={[x, y, -4.14]} material={bulbMaterial}>
                 <sphereGeometry args={[0.035, 10, 10]} />
-                <meshStandardMaterial
-                  color="#ffe4b8"
-                  emissive="#ffc37a"
-                  emissiveIntensity={palette.fairyIntensity}
-                  roughness={0.6}
-                />
               </mesh>
             );
           })}
         </group>
       ))}
       <pointLight
+        ref={lightRef}
         position={[0, 3.0, -3.8]}
         color="#ffc37a"
-        intensity={palette.fairyIntensity * 1.6}
+        intensity={0.8}
         distance={4}
       />
     </group>

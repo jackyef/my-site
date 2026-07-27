@@ -1,6 +1,9 @@
+import { useMemo, useRef } from 'react';
 import { Html } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import { XIcon } from 'lucide-react';
 import { motion } from 'motion/react';
+import { AmbientLight, DirectionalLight, Object3D } from 'three';
 
 import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
@@ -8,6 +11,7 @@ import { Heading } from '@/components/common/Heading';
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
 
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
+import { useLivePalette } from './livePalette';
 import {
   Bookshelf,
   Chair,
@@ -35,10 +39,7 @@ import {
   WallClock,
   WallWindow,
 } from './objects';
-import type { ScenePalette } from './palette';
-
 type RoomProps = {
-  palette: ScenePalette;
   reduceMotion: boolean;
   view: ViewId;
   hovered: SectionId | null;
@@ -62,42 +63,103 @@ function ScenePanel({
   const placement = PANEL_PLACEMENTS[section];
 
   return (
-    <group position={placement.position} rotation={placement.rotation}>
-      <Html transform scale={placement.scale} zIndexRange={[40, 0]}>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-          className="flex w-[340px] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg)"
-          onClick={(event) => event.stopPropagation()}
-          onPointerDown={(event) => event.stopPropagation()}
-          onPointerUp={(event) => event.stopPropagation()}
-          onWheel={(event) => event.stopPropagation()}
+    <group position={placement.position}>
+      <Html center zIndexRange={[40, 0]}>
+        {/* Single-element 3D tilt — browsers hit-test this correctly,
+            unlike nested matrix3d chains */}
+        <div
+          style={{
+            transform: `perspective(1100px) rotateY(${placement.tilt}deg)`,
+          }}
         >
-          <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
-            <Heading level={3} as="h2">
-              {SECTION_TITLES[section]}
-            </Heading>
-            <button
-              type="button"
-              aria-label="Close panel"
-              onClick={onClose}
-              className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-colors hover:bg-(--color-bg-hover) hover:text-(--color-ink)"
-            >
-              <XIcon size={18} aria-hidden="true" />
-            </button>
-          </div>
-          <div className="max-h-[380px] flex-1 overflow-y-auto px-5 pt-1 pb-5">
-            <ResumeSectionContent section={section} writings={writings} />
-          </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+            className="flex w-[360px] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg)"
+            onClick={(event) => event.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
+            onPointerUp={(event) => event.stopPropagation()}
+            onWheel={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
+              <Heading level={3} as="h2">
+                {SECTION_TITLES[section]}
+              </Heading>
+              <button
+                type="button"
+                aria-label="Close panel"
+                onClick={onClose}
+                className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-colors hover:bg-(--color-bg-hover) hover:text-(--color-ink)"
+              >
+                <XIcon size={18} aria-hidden="true" />
+              </button>
+            </div>
+            <div className="max-h-[380px] flex-1 overflow-y-auto px-5 pt-1 pb-5">
+              <ResumeSectionContent section={section} writings={writings} />
+            </div>
+          </motion.div>
+        </div>
       </Html>
     </group>
   );
 }
 
+/**
+ * Ambient + sun/moon lighting, eased toward the active theme every frame.
+ * The directional light tracks the palette's sun position outside the
+ * window and aims into the room, so shadows genuinely follow the light.
+ */
+function Lighting() {
+  const live = useLivePalette();
+  const ambientRef = useRef<AmbientLight>(null);
+  const sunRef = useRef<DirectionalLight>(null);
+  const sunTarget = useMemo(() => {
+    const target = new Object3D();
+    target.position.set(1.5, 0.2, 0.5);
+    return target;
+  }, []);
+
+  useFrame(() => {
+    const palette = live.current;
+    const ambient = ambientRef.current;
+    if (ambient) {
+      ambient.color.copy(palette.ambientColor);
+      ambient.intensity = palette.ambientIntensity;
+    }
+    const sun = sunRef.current;
+    if (sun) {
+      sun.color.copy(palette.sunColor);
+      sun.intensity = palette.sunIntensity;
+      sun.position.copy(palette.sunPosition);
+    }
+  });
+
+  return (
+    <>
+      <ambientLight ref={ambientRef} intensity={1} />
+      <directionalLight
+        ref={sunRef}
+        position={[-9, 9, -0.6]}
+        target={sunTarget}
+        intensity={3}
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-left={-8}
+        shadow-camera-right={8}
+        shadow-camera-top={8}
+        shadow-camera-bottom={-8}
+        shadow-camera-near={1}
+        shadow-camera-far={40}
+        shadow-bias={-0.00005}
+        shadow-normalBias={0.06}
+      />
+      <primitive object={sunTarget} />
+    </>
+  );
+}
+
 export function Room({
-  palette,
   reduceMotion,
   view,
   hovered,
@@ -123,22 +185,7 @@ export function Room({
 
   return (
     <>
-      <ambientLight
-        color={palette.ambientColor}
-        intensity={palette.ambientIntensity}
-      />
-      <directionalLight
-        position={[-8, 7, -0.5]}
-        color={palette.sunColor}
-        intensity={palette.sunIntensity}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-camera-left={-9}
-        shadow-camera-right={9}
-        shadow-camera-top={9}
-        shadow-camera-bottom={-9}
-        shadow-bias={-0.0004}
-      />
+      <Lighting />
 
       <RoomShell />
       <IntroPop delay={0.1} reduceMotion={reduceMotion}>
@@ -151,7 +198,7 @@ export function Room({
         <Chair />
       </IntroPop>
       <IntroPop delay={0.3} reduceMotion={reduceMotion}>
-        <WallWindow palette={palette} />
+        <WallWindow />
       </IntroPop>
       <IntroPop delay={0.55} reduceMotion={reduceMotion}>
         <Keyboard />
@@ -166,7 +213,7 @@ export function Room({
         <Mug reduceMotion={reduceMotion} />
       </IntroPop>
       <IntroPop delay={0.65} reduceMotion={reduceMotion}>
-        <DeskLamp palette={palette} />
+        <DeskLamp />
       </IntroPop>
       <IntroPop delay={0.6} reduceMotion={reduceMotion}>
         <Plant />
@@ -181,7 +228,7 @@ export function Room({
         <WallClock />
       </IntroPop>
       <IntroPop delay={0.68} reduceMotion={reduceMotion}>
-        <StringLights palette={palette} />
+        <StringLights />
       </IntroPop>
       <IntroPop delay={0.66} reduceMotion={reduceMotion}>
         <FloorBooks />
@@ -191,7 +238,7 @@ export function Room({
       </IntroPop>
 
       <HotspotGroup {...hotspotProps('projects', 0.5, [1.0, 1.6, -3.6])}>
-        <Monitor palette={palette} />
+        <Monitor />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('career', 0.55, [2.95, 2.2, -4.14])}>
         <Corkboard />

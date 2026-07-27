@@ -148,7 +148,7 @@ export default function Resume({ featuredWritings }: Props) {
           </div>
 
           {/* Full-bleed so the room gets all the space it deserves */}
-          <div className="relative mt-4 h-[70vh] min-h-[460px] w-full md:h-[76vh]">
+          <div className="relative mt-4 h-[74vh] min-h-[500px] w-full md:h-[80vh]">
             {webglOk && (
               <CozyRoomScene
                 view={view}

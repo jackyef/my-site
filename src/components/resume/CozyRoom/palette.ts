@@ -46,55 +46,62 @@ export type ScenePalette = {
   ambientIntensity: number;
   sunColor: string;
   sunIntensity: number;
+  // Where the sun/moon sits in the world, outside the window — the
+  // directional light follows it, so shadows genuinely come from it
+  sunPosition: [number, number, number];
+  // The visible sun/moon disc in the window pane (window-local x/y)
+  sunDisc: { x: number; y: number; scale: number; color: string };
   windowGlowColor: string;
   windowGlowIntensity: number;
   lampIntensity: number;
   screenIntensity: number;
   fairyIntensity: number;
-  moonVisible: boolean;
 };
 
 export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
-  // Soft afternoon light
+  // Soft afternoon light — sun high in the sky
   light: {
     sky: '#bfe3f7',
     ambientColor: '#fff4e0',
-    ambientIntensity: 0.85,
+    ambientIntensity: 1.0,
     sunColor: '#fff1cf',
-    sunIntensity: 2.6,
+    sunIntensity: 3.4,
+    sunPosition: [-9, 9, -0.6],
+    sunDisc: { x: -0.3, y: 0.45, scale: 0.7, color: '#fff3c4' },
     windowGlowColor: '#dff2ff',
     windowGlowIntensity: 6,
     lampIntensity: 4,
     screenIntensity: 0.75,
     fairyIntensity: 0.15,
-    moonVisible: false,
   },
-  // Golden-hour dusk
+  // Golden-hour dusk — sun low, long warm shadows
   dim: {
     sky: '#f5a86f',
     ambientColor: '#ffd9b0',
-    ambientIntensity: 0.5,
+    ambientIntensity: 0.62,
     sunColor: '#ffb066',
-    sunIntensity: 1.8,
+    sunIntensity: 2.4,
+    sunPosition: [-10, 3.0, -2.6],
+    sunDisc: { x: 0.12, y: -0.28, scale: 1.5, color: '#ff9d54' },
     windowGlowColor: '#ffc48a',
     windowGlowIntensity: 9,
     lampIntensity: 14,
     screenIntensity: 1.1,
     fairyIntensity: 1.0,
-    moonVisible: false,
   },
-  // Quiet night, lamp and monitor take over
+  // Quiet night — moonlight, lamp and monitor take over
   dark: {
     sky: '#16213e',
     ambientColor: '#8899cc',
-    ambientIntensity: 0.32,
+    ambientIntensity: 0.4,
     sunColor: '#9db4ff',
-    sunIntensity: 0.7,
+    sunIntensity: 1.0,
+    sunPosition: [-9, 6.5, 0.3],
+    sunDisc: { x: 0.3, y: 0.38, scale: 1.0, color: '#f4f0dc' },
     windowGlowColor: '#a9c0ff',
     windowGlowIntensity: 4,
     lampIntensity: 22,
     screenIntensity: 1.6,
     fairyIntensity: 1.6,
-    moonVisible: true,
   },
 };

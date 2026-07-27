@@ -43,8 +43,7 @@ export function AboutSection() {
 
       <Text variant="caption" className="pt-1">
         The longer version lives on the{' '}
-        <TextLink href="/about">about page</TextLink>, and there is even a{' '}
-        <TextLink href="/about/readme">user guide to working with me</TextLink>.
+        <TextLink href="/about">about page</TextLink>.
       </Text>
     </div>
   );

@@ -9,7 +9,7 @@ type CameraView = {
 
 // Desktop views frame the object together with its in-scene panel
 export const CAMERA_VIEWS: Record<ViewId, CameraView> = {
-  overview: { position: [6.7, 4.6, 8.2], target: [0.3, 1.1, 0] },
+  overview: { position: [7.0, 5.0, 8.6], target: [0.3, 0.85, 0] },
   projects: { position: [1.7, 2.0, -0.2], target: [1.75, 1.68, -3.5] },
   career: { position: [2.2, 2.25, -1.0], target: [2.2, 2.12, -4.1] },
   writing: { position: [-0.3, 1.8, 0.75], target: [-3.75, 1.5, 0.75] },
@@ -30,33 +30,20 @@ export const CAMERA_VIEWS_MOBILE: Record<ViewId, CameraView> = {
 // Where the camera starts before the intro swoop
 export const INTRO_CAMERA_POSITION: [number, number, number] = [15, 11, 18];
 
-// Where the in-scene content panel sits for each section (desktop).
-// `scale` compensates for how close each view's camera gets to the panel.
+// Where the in-scene content panel anchors for each section (desktop).
+// The panel is a screen-space card anchored at `position`, tilted by
+// `tilt` degrees via a single-element CSS perspective transform. (A full
+// drei `Html transform` matrix chain paints correctly but Chromium
+// hit-tests it offset, which made links hover in the wrong place.)
 export const PANEL_PLACEMENTS: Record<
   SectionId,
-  {
-    position: [number, number, number];
-    rotation: [number, number, number];
-    scale: number;
-  }
+  { position: [number, number, number]; tilt: number }
 > = {
-  projects: {
-    position: [2.85, 1.6, -3.2],
-    rotation: [0, -0.4, 0],
-    scale: 0.125,
-  },
-  career: { position: [1.15, 2.1, -3.95], rotation: [0, 0.18, 0], scale: 0.15 },
-  writing: {
-    position: [-3.65, 1.62, -0.5],
-    rotation: [0, 1.35, 0],
-    scale: 0.14,
-  },
-  about: { position: [3.1, 1.15, 1.6], rotation: [0, -0.35, 0], scale: 0.115 },
-  contact: {
-    position: [-1.6, 1.85, -3.35],
-    rotation: [0, 0.35, 0],
-    scale: 0.14,
-  },
+  projects: { position: [2.75, 1.7, -3.1], tilt: -12 },
+  career: { position: [1.2, 2.1, -3.9], tilt: 10 },
+  writing: { position: [-3.5, 1.65, -0.45], tilt: 12 },
+  about: { position: [3.1, 1.4, 1.8], tilt: -12 },
+  contact: { position: [-1.6, 1.9, -3.3], tilt: 10 },
 };
 
 export type Hotspot = {

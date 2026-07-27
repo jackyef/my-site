@@ -7,8 +7,8 @@ import type { Theme } from '@/hooks/useTheme';
 
 import { CameraRig } from './CameraRig';
 import { INTRO_CAMERA_POSITION, SectionId, ViewId } from './hotspots';
+import { PaletteProvider } from './livePalette';
 import { Room } from './Room';
-import { SCENE_PALETTES } from './palette';
 
 type CozyRoomSceneProps = {
   view: ViewId;
@@ -32,7 +32,6 @@ export function CozyRoomScene({
   onClose,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
-  const palette = SCENE_PALETTES[theme ?? 'light'];
 
   return (
     <Canvas
@@ -47,18 +46,19 @@ export function CozyRoomScene({
         if (view !== 'overview') onClose();
       }}
     >
-      <CameraRig view={view} reduceMotion={reduceMotion} desktop={desktop} />
-      <Room
-        palette={palette}
-        reduceMotion={reduceMotion}
-        view={view}
-        hovered={hovered}
-        panel3d={desktop}
-        writings={writings}
-        onHover={setHovered}
-        onSelect={onSelect}
-        onClose={onClose}
-      />
+      <PaletteProvider theme={theme} reduceMotion={reduceMotion}>
+        <CameraRig view={view} reduceMotion={reduceMotion} desktop={desktop} />
+        <Room
+          reduceMotion={reduceMotion}
+          view={view}
+          hovered={hovered}
+          panel3d={desktop}
+          writings={writings}
+          onHover={setHovered}
+          onSelect={onSelect}
+          onClose={onClose}
+        />
+      </PaletteProvider>
     </Canvas>
   );
 }
