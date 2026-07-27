@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Vector3 } from 'three';
+import { TOUCH, Vector3 } from 'three';
 
 import {
   CAMERA_VIEWS,
@@ -83,9 +83,10 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
     const resting = view === 'overview' && tween.t >= 1;
 
     if (controls) {
-      // On touch layouts orbit stays off so one-finger drags scroll the
-      // page; the slow auto-rotate still gives the room life.
-      controls.enabled = resting && desktop;
+      // Orbit is live at the overview on all layouts. On touch, the
+      // single-finger gesture is disabled below so it scrolls the page —
+      // two fingers rotate/zoom the room instead.
+      controls.enabled = resting;
       controls.autoRotate = resting && !hasInteracted && !reduceMotion;
     }
 
@@ -130,6 +131,13 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
       minAzimuthAngle={-0.35}
       maxAzimuthAngle={1.75}
       autoRotateSpeed={0.4}
+      touches={{
+        // One finger is reserved for page scrolling on touch layouts
+        // (NONE isn't in the TOUCH enum, so an out-of-range value acts
+        // as "ignore"); two fingers rotate and pinch-zoom the room.
+        ONE: desktop ? TOUCH.ROTATE : (-1 as TOUCH),
+        TWO: TOUCH.DOLLY_ROTATE,
+      }}
       onStart={() => setHasInteracted(true)}
     />
   );
