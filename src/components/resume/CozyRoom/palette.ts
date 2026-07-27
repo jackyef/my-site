@@ -26,11 +26,12 @@ export const MATERIALS = {
   leaf: '#5c8a4e',
   leafDark: '#48713d',
   pot: '#b35d3f',
-  dog: '#c89e6a',
-  dogDark: '#a87f52',
-  dogNose: '#38302c',
-  bed: '#8a6a4f',
-  bedCushion: '#d9c2a3',
+  // The avatar
+  skin: '#e2ab84',
+  hair: '#26221f',
+  hoodie: '#3b4a63',
+  shorts: '#565660',
+  sock: '#e8e6e0',
   clockFace: '#f7f2e7',
   // The standing desk: light ash top on a white frame
   deskTop: '#d8d1c2',

@@ -95,3 +95,12 @@ export const SKILLS = [
   'Developer tooling',
   'Monorepos',
 ];
+
+// Displayed on the little side table in the 3D room. Swap these freely —
+// each item is just an emoji and a short label.
+export const CARE_ITEMS = [
+  { emoji: '♟️', label: 'Chess' },
+  { emoji: '🏀', label: 'Basketball' },
+  { emoji: '🎮', label: 'Games' },
+  { emoji: '☕', label: 'Coffee' },
+];

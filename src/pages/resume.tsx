@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   CalendarDaysIcon,
-  DogIcon,
+  GlassesIcon,
   LibraryIcon,
   MailIcon,
   MonitorIcon,
@@ -37,7 +37,7 @@ const CozyRoomScene = dynamic(() => import('@/components/resume/CozyRoom'), {
 });
 
 const HOTSPOT_BUTTONS: Array<{ id: SectionId; icon: React.ReactNode }> = [
-  { id: 'about', icon: <DogIcon size={14} aria-hidden="true" /> },
+  { id: 'about', icon: <GlassesIcon size={14} aria-hidden="true" /> },
   { id: 'career', icon: <CalendarDaysIcon size={14} aria-hidden="true" /> },
   { id: 'projects', icon: <MonitorIcon size={14} aria-hidden="true" /> },
   { id: 'writing', icon: <LibraryIcon size={14} aria-hidden="true" /> },
@@ -152,8 +152,8 @@ export default function Resume({ featuredWritings }: Props) {
             <Text variant="body-sm" className="hidden max-w-xl md:block">
               Welcome to my corner of the internet — literally. This room is my
               resume: drag to look around, and click on things to explore. The
-              monitor, the corkboard, the bookshelf, the envelopes… and yes, the
-              dog.
+              monitors, the corkboard, the bookshelf, the envelopes… and yes,
+              that's me on the rug.
             </Text>
           </div>
 

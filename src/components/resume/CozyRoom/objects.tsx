@@ -1662,121 +1662,279 @@ export function FloorCushion() {
   );
 }
 
-type DogProps = {
+type AvatarProps = {
   hovered: boolean;
   reduceMotion: boolean;
 };
 
 /**
- * A golden pup lying in its bed on the rug. Breathes, and wags its tail
- * faster when you pay attention to it.
+ * A tiny low-poly me, sitting cross-legged on the rug: glasses, hoodie,
+ * shorts, watch. Breathes idly, and waves when you pay attention.
  */
-export function Dog({ hovered, reduceMotion }: DogProps) {
-  const bodyRef = useRef<Mesh>(null);
-  const tailRef = useRef<Group>(null);
+export function Avatar({ hovered, reduceMotion }: AvatarProps) {
+  const torsoRef = useRef<Group>(null);
+  const headRef = useRef<Group>(null);
+  const armRef = useRef<Group>(null);
+  const raise = useRef(0);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const t = state.clock.getElapsedTime();
-    const body = bodyRef.current;
-    if (body && !reduceMotion) {
-      body.scale.y = 0.6 + Math.sin(t * 1.5) * 0.018;
+    const dt = Math.min(delta, 0.066);
+    if (!reduceMotion) {
+      if (torsoRef.current) {
+        torsoRef.current.scale.y = 1 + Math.sin(t * 1.6) * 0.015;
+      }
+      if (headRef.current) {
+        headRef.current.rotation.z = Math.sin(t * 0.8) * 0.045;
+      }
     }
-    const tail = tailRef.current;
-    if (tail) {
-      const speed = hovered ? 9 : 2.4;
-      const amplitude = hovered ? 0.55 : 0.22;
-      tail.rotation.y = reduceMotion ? 0 : Math.sin(t * speed) * amplitude;
+    // The right arm lifts and waves on hover
+    raise.current = expDamp(
+      raise.current,
+      hovered && !reduceMotion ? 1 : 0,
+      9,
+      dt,
+    );
+    const arm = armRef.current;
+    if (arm) {
+      const wave = raise.current * Math.sin(t * 7) * 0.35;
+      arm.rotation.z = -0.35 - raise.current * 1.75 + wave * 0.4;
+      arm.rotation.x = raise.current * 0.25;
     }
   });
 
   return (
-    <group>
-      {/* Bed */}
-      <group position={[1.8, 0, 1.2]}>
-        <mesh position={[0, 0.04, 0]} castShadow receiveShadow>
-          <cylinderGeometry args={[0.58, 0.62, 0.08, 28]} />
-          <meshStandardMaterial color={MATERIALS.bed} roughness={0.95} />
-        </mesh>
-        <mesh position={[0, 0.11, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.52, 0.11, 12, 28]} />
-          <meshStandardMaterial color={MATERIALS.bed} roughness={0.95} />
-        </mesh>
-        <mesh position={[0, 0.085, 0]} receiveShadow>
-          <cylinderGeometry args={[0.45, 0.45, 0.05, 28]} />
-          <meshStandardMaterial color={MATERIALS.bedCushion} roughness={1} />
-        </mesh>
-      </group>
+    <group position={[1.8, 0, 1.2]} rotation={[0, 0.55, 0]}>
+      {/* Floor cushion he sits on */}
+      <mesh position={[0, 0.05, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.42, 0.46, 0.1, 22]} />
+        <meshStandardMaterial color={MATERIALS.rugInner} roughness={1} />
+      </mesh>
 
-      {/* The pup, facing out toward the visitor */}
-      <group position={[1.78, 0.11, 1.22]} rotation={[0, -1.2, 0]}>
-        <mesh
-          ref={bodyRef}
-          position={[0, 0.18, 0]}
-          scale={[1.15, 0.6, 0.78]}
-          castShadow
-        >
-          <sphereGeometry args={[0.3, 20, 20]} />
-          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+      {/* Crossed legs — shins in front, white socks at the ends */}
+      <mesh position={[0.09, 0.16, 0.2]} rotation={[0, 0.35, 1.35]} castShadow>
+        <cylinderGeometry args={[0.05, 0.055, 0.34, 10]} />
+        <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+      </mesh>
+      <mesh
+        position={[-0.09, 0.15, 0.24]}
+        rotation={[0, -0.35, -1.35]}
+        castShadow
+      >
+        <cylinderGeometry args={[0.05, 0.055, 0.34, 10]} />
+        <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+      </mesh>
+      <mesh position={[-0.24, 0.16, 0.16]} castShadow>
+        <sphereGeometry args={[0.065, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.24, 0.17, 0.2]} castShadow>
+        <sphereGeometry args={[0.065, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
+      </mesh>
+      {/* Shorts + thighs */}
+      <mesh position={[0, 0.26, 0.02]} castShadow>
+        <boxGeometry args={[0.36, 0.18, 0.3]} />
+        <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.14, 0.24, 0.16]} rotation={[1.2, 0, 0.3]} castShadow>
+        <cylinderGeometry args={[0.07, 0.075, 0.2, 10]} />
+        <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
+      </mesh>
+      <mesh position={[-0.14, 0.24, 0.16]} rotation={[1.2, 0, -0.3]} castShadow>
+        <cylinderGeometry args={[0.07, 0.075, 0.2, 10]} />
+        <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
+      </mesh>
+
+      {/* Hoodie torso */}
+      <group ref={torsoRef}>
+        <mesh position={[0, 0.55, 0]} castShadow>
+          <boxGeometry args={[0.4, 0.44, 0.28]} />
+          <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
         </mesh>
-        {/* Front legs stretched forward */}
-        <mesh position={[0.4, 0.06, 0.1]} castShadow>
-          <boxGeometry args={[0.3, 0.09, 0.09]} />
-          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        {/* Hood bunched behind the neck */}
+        <mesh position={[0, 0.74, -0.12]} scale={[1, 0.6, 0.8]} castShadow>
+          <sphereGeometry args={[0.14, 12, 12]} />
+          <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
         </mesh>
-        <mesh position={[0.4, 0.06, -0.1]} castShadow>
-          <boxGeometry args={[0.3, 0.09, 0.09]} />
-          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        {/* Kangaroo pocket + drawstrings */}
+        <mesh position={[0, 0.42, 0.145]}>
+          <boxGeometry args={[0.24, 0.14, 0.01]} />
+          <meshStandardMaterial color="#33415a" roughness={0.9} />
         </mesh>
-        {/* Head, held up and looking around */}
-        <mesh position={[0.36, 0.42, 0]} castShadow>
-          <sphereGeometry args={[0.18, 18, 18]} />
-          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        <mesh position={[-0.05, 0.68, 0.15]} rotation={[0.1, 0, 0.05]}>
+          <cylinderGeometry args={[0.008, 0.008, 0.12, 6]} />
+          <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
         </mesh>
-        {/* Snout + nose */}
-        <mesh position={[0.5, 0.37, 0]} scale={[1.3, 0.8, 0.9]} castShadow>
-          <sphereGeometry args={[0.085, 14, 14]} />
-          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
+        <mesh position={[0.05, 0.68, 0.15]} rotation={[0.1, 0, -0.05]}>
+          <cylinderGeometry args={[0.008, 0.008, 0.12, 6]} />
+          <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
         </mesh>
-        <mesh position={[0.6, 0.38, 0]}>
-          <sphereGeometry args={[0.035, 10, 10]} />
-          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.6} />
-        </mesh>
-        {/* Eyes */}
-        <mesh position={[0.47, 0.48, 0.075]}>
-          <sphereGeometry args={[0.024, 8, 8]} />
-          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.4} />
-        </mesh>
-        <mesh position={[0.47, 0.48, -0.075]}>
-          <sphereGeometry args={[0.024, 8, 8]} />
-          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.4} />
-        </mesh>
-        {/* Floppy ears */}
-        <mesh
-          position={[0.3, 0.5, 0.14]}
-          scale={[0.5, 1.1, 0.7]}
-          rotation={[0.25, 0, -0.15]}
-          castShadow
-        >
-          <sphereGeometry args={[0.09, 12, 12]} />
-          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
-        </mesh>
-        <mesh
-          position={[0.3, 0.5, -0.14]}
-          scale={[0.5, 1.1, 0.7]}
-          rotation={[-0.25, 0, -0.15]}
-          castShadow
-        >
-          <sphereGeometry args={[0.09, 12, 12]} />
-          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
-        </mesh>
-        {/* Wagging tail */}
-        <group ref={tailRef} position={[-0.32, 0.22, 0]}>
-          <mesh position={[-0.13, 0.09, 0]} rotation={[0, 0, -0.85]} castShadow>
-            <cylinderGeometry args={[0.03, 0.045, 0.34, 10]} />
-            <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+
+        {/* Left arm resting on a knee, wearing the watch */}
+        <group position={[-0.22, 0.66, 0]} rotation={[0.5, 0, 0.5]}>
+          <mesh position={[0, -0.14, 0]} castShadow>
+            <cylinderGeometry args={[0.055, 0.05, 0.3, 10]} />
+            <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
+          </mesh>
+          {/* Watch on the wrist */}
+          <mesh position={[0, -0.3, 0]} castShadow>
+            <cylinderGeometry args={[0.045, 0.045, 0.035, 12]} />
+            <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+          </mesh>
+          <mesh position={[0, -0.3, 0.045]} rotation={[Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[0.024, 12]} />
+            <meshStandardMaterial
+              color="#cfd6dd"
+              roughness={0.3}
+              metalness={0.2}
+            />
+          </mesh>
+          <mesh position={[0, -0.38, 0]} castShadow>
+            <sphereGeometry args={[0.05, 10, 10]} />
+            <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+          </mesh>
+        </group>
+
+        {/* Right arm — waves hello on hover */}
+        <group ref={armRef} position={[0.22, 0.66, 0]} rotation={[0, 0, -0.35]}>
+          <mesh position={[0, -0.14, 0]} castShadow>
+            <cylinderGeometry args={[0.055, 0.05, 0.3, 10]} />
+            <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
+          </mesh>
+          <mesh position={[0, -0.34, 0]} castShadow>
+            <sphereGeometry args={[0.05, 10, 10]} />
+            <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
         </group>
       </group>
+
+      {/* Head */}
+      <group ref={headRef} position={[0, 0.95, 0]}>
+        <mesh castShadow>
+          <sphereGeometry args={[0.17, 18, 18]} />
+          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        </mesh>
+        {/* Ears */}
+        <mesh position={[-0.165, -0.01, 0]}>
+          <sphereGeometry args={[0.035, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        </mesh>
+        <mesh position={[0.165, -0.01, 0]}>
+          <sphereGeometry args={[0.035, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        </mesh>
+        {/* Short dark hair — cap + fringe */}
+        <mesh position={[0, 0.05, -0.02]} scale={[1.04, 0.9, 1.04]} castShadow>
+          <sphereGeometry
+            args={[0.17, 18, 18, 0, Math.PI * 2, 0, Math.PI * 0.52]}
+          />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        <mesh position={[0, 0.115, 0.115]} rotation={[0.5, 0, 0]}>
+          <boxGeometry args={[0.24, 0.05, 0.1]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        {/* Glasses — round frames, bridge, temples */}
+        <mesh position={[-0.068, 0.015, 0.16]}>
+          <torusGeometry args={[0.048, 0.009, 8, 20]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
+        </mesh>
+        <mesh position={[0.068, 0.015, 0.16]}>
+          <torusGeometry args={[0.048, 0.009, 8, 20]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.02, 0.165]}>
+          <boxGeometry args={[0.045, 0.012, 0.012]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
+        </mesh>
+        <mesh position={[-0.14, 0.02, 0.08]} rotation={[0, 0.5, 0]}>
+          <boxGeometry args={[0.012, 0.01, 0.16]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
+        </mesh>
+        <mesh position={[0.14, 0.02, 0.08]} rotation={[0, -0.5, 0]}>
+          <boxGeometry args={[0.012, 0.01, 0.16]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
+        </mesh>
+        {/* Eyes behind the lenses + an easy smile */}
+        <mesh position={[-0.068, 0.012, 0.158]}>
+          <sphereGeometry args={[0.016, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.4} />
+        </mesh>
+        <mesh position={[0.068, 0.012, 0.158]}>
+          <sphereGeometry args={[0.016, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, -0.065, 0.15]} rotation={[0.35, 0, Math.PI]}>
+          <torusGeometry args={[0.038, 0.007, 6, 12, Math.PI * 0.75]} />
+          <meshStandardMaterial color="#8a5c48" roughness={0.7} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+/**
+ * A little side table showing the things I care about. The items come
+ * from CARE_ITEMS in resume/data.ts — swap them freely.
+ */
+export function CareTable({
+  items,
+}: {
+  items: Array<{ emoji: string; label: string }>;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <group
+      position={[3.45, 0, 2.25]}
+      onPointerOver={(event) => {
+        event.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={() => setHovered(false)}
+    >
+      {hovered && (
+        <Html center position={[0, 1.15, 0]} zIndexRange={[40, 0]}>
+          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 py-1 text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
+            Things I care about
+          </div>
+        </Html>
+      )}
+      {/* Round pedestal table */}
+      <mesh position={[0, 0.6, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.5, 0.5, 0.05, 24]} />
+        <meshStandardMaterial color={MATERIALS.wood} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.3, 0]} castShadow>
+        <cylinderGeometry args={[0.055, 0.065, 0.55, 12]} />
+        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.025, 0]} castShadow>
+        <cylinderGeometry args={[0.24, 0.28, 0.05, 16]} />
+        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+      </mesh>
+      {/* The items, arranged in a circle on the tabletop */}
+      {items.map((item, i) => {
+        const angle = (i / items.length) * Math.PI * 2 + 0.6;
+        return (
+          <group
+            key={item.label}
+            position={[Math.cos(angle) * 0.3, 0.68, Math.sin(angle) * 0.3]}
+          >
+            <Html center distanceFactor={6.5} zIndexRange={[30, 0]}>
+              <div className="pointer-events-none flex flex-col items-center gap-0.5">
+                <span className="text-[17px] leading-none drop-shadow-sm">
+                  {item.emoji}
+                </span>
+                <span className="rounded-full bg-(--color-bg-panel) px-1.5 py-0.5 text-[8px] leading-none font-medium text-(--color-ink-3) shadow-(--shadow-sm)">
+                  {item.label}
+                </span>
+              </div>
+            </Html>
+          </group>
+        );
+      })}
     </group>
   );
 }

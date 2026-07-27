@@ -9,18 +9,20 @@ import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
+import { CARE_ITEMS } from '../data';
 
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
 import { useLivePalette } from './livePalette';
 import {
+  Avatar,
   Bookshelf,
+  CareTable,
   Chair,
   Corkboard,
   CornerShelf,
   Desk,
   DeskFan,
   DeskLamp,
-  Dog,
   DustMotes,
   Envelopes,
   FloorBooks,
@@ -264,6 +266,9 @@ export function Room({
       <IntroPop delay={0.5} reduceMotion={reduceMotion}>
         <FloorCushion />
       </IntroPop>
+      <IntroPop delay={0.56} reduceMotion={reduceMotion}>
+        <CareTable items={CARE_ITEMS} />
+      </IntroPop>
 
       <HotspotGroup {...hotspotProps('projects', 0.34, [1.3, 1.55, -3.55])}>
         <Monitor reduceMotion={reduceMotion} />
@@ -277,8 +282,8 @@ export function Room({
           reduceMotion={reduceMotion}
         />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.35, 1.2])}>
-        <Dog hovered={hovered === 'about'} reduceMotion={reduceMotion} />
+      <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.5, 1.2])}>
+        <Avatar hovered={hovered === 'about'} reduceMotion={reduceMotion} />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('contact', 0.48, [-0.38, 1.15, -2.32])}>
         <Envelopes />
