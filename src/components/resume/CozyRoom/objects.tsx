@@ -1824,36 +1824,63 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
           <sphereGeometry args={[0.035, 8, 8]} />
           <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
         </mesh>
-        {/* Short textured hair — sits high, forehead open */}
+        {/* Side-part hair: cap tilted with the sweep */}
         <mesh
-          position={[0, 0.075, -0.025]}
-          scale={[1.03, 0.8, 1.02]}
+          position={[0.012, 0.07, -0.025]}
+          rotation={[0, 0, -0.1]}
+          scale={[1.03, 0.82, 1.02]}
           castShadow
         >
           <sphereGeometry
-            args={[0.165, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.42]}
+            args={[0.165, 18, 18, 0, Math.PI * 2, 0, Math.PI * 0.46]}
           />
           <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
         </mesh>
-        {/* Messy tufts on top */}
-        {[
-          { p: [-0.07, 0.155, 0.045], r: [0.15, 0.3, 0.35] },
-          { p: [0.015, 0.175, 0.055], r: [0.2, -0.2, -0.15] },
-          { p: [0.08, 0.15, 0.03], r: [0.1, 0.5, 0.4] },
-          { p: [-0.025, 0.175, -0.045], r: [-0.2, 0.15, 0.2] },
-          { p: [0.06, 0.16, -0.07], r: [-0.3, -0.4, -0.3] },
-          { p: [-0.09, 0.135, -0.05], r: [0.25, 0.6, 0.3] },
-        ].map((tuft, i) => (
-          <mesh
-            key={i}
-            position={tuft.p as [number, number, number]}
-            rotation={tuft.r as [number, number, number]}
-            castShadow
-          >
-            <boxGeometry args={[0.065, 0.04, 0.06]} />
-            <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
-          </mesh>
-        ))}
+        {/* The part — a thin line of scalp, off-center, front to crown */}
+        <mesh position={[-0.058, 0.175, 0.03]} rotation={[0.42, 0, -0.1]}>
+          <boxGeometry args={[0.013, 0.03, 0.15]} />
+          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        </mesh>
+        {/* Fringe swept diagonally across the forehead — rises from the
+            part, dips toward the far temple */}
+        <mesh
+          position={[0.02, 0.12, 0.105]}
+          rotation={[0.5, 0.1, -0.22]}
+          castShadow
+        >
+          <boxGeometry args={[0.19, 0.05, 0.09]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        <mesh
+          position={[0.115, 0.085, 0.09]}
+          rotation={[0.55, 0.25, -0.45]}
+          castShadow
+        >
+          <boxGeometry args={[0.1, 0.045, 0.085]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        <mesh position={[0.152, 0.055, 0.075]} castShadow>
+          <sphereGeometry args={[0.03, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        {/* Volume swelling on the sweep side of the part */}
+        <mesh
+          position={[0.055, 0.16, 0.02]}
+          rotation={[0.1, 0, -0.3]}
+          castShadow
+        >
+          <boxGeometry args={[0.13, 0.05, 0.16]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
+        {/* A modest rise on the near side of the part */}
+        <mesh
+          position={[-0.095, 0.145, 0.03]}
+          rotation={[0.15, 0, 0.2]}
+          castShadow
+        >
+          <boxGeometry args={[0.055, 0.04, 0.13]} />
+          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
+        </mesh>
         {/* Trimmed sides above the ears */}
         <mesh position={[-0.15, 0.045, -0.01]} rotation={[0, 0, 0.2]}>
           <boxGeometry args={[0.03, 0.07, 0.11]} />
