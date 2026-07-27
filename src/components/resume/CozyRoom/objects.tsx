@@ -1727,6 +1727,44 @@ function TaperedPatch({
   );
 }
 
+/**
+ * A capsule limb stretched between two joint points — placement by
+ * endpoints instead of hand-tuned angles.
+ */
+function Limb({
+  from,
+  to,
+  radius,
+  color,
+}: {
+  from: [number, number, number];
+  to: [number, number, number];
+  radius: number;
+  color: string;
+}) {
+  const { position, quaternion, length } = useMemo(() => {
+    const a = new Vector3(...from);
+    const b = new Vector3(...to);
+    const dir = b.clone().sub(a);
+    return {
+      position: a.clone().add(b).multiplyScalar(0.5),
+      quaternion: new Quaternion().setFromUnitVectors(
+        new Vector3(0, 1, 0),
+        dir.clone().normalize(),
+      ),
+      length: dir.length(),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <mesh position={position} quaternion={quaternion} castShadow>
+      <capsuleGeometry args={[radius, length, 4, 10]} />
+      <meshStandardMaterial color={color} roughness={0.9} />
+    </mesh>
+  );
+}
+
 function TaperedCap() {
   const geometry = useMemo(() => {
     const radius = 0.165;
@@ -1797,9 +1835,9 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
     );
     const arm = armRef.current;
     if (arm) {
-      const wave = raise.current * Math.sin(t * 7) * 0.35;
-      arm.rotation.z = -0.5 - raise.current * 1.6 + wave * 0.4;
-      arm.rotation.x = raise.current * 0.25;
+      const wave = raise.current * Math.sin(t * 7) * 0.4;
+      arm.rotation.z = -raise.current * 1.9 + wave;
+      arm.rotation.x = -raise.current * 0.55;
     }
   });
 
@@ -1811,36 +1849,53 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         <meshStandardMaterial color={MATERIALS.rugInner} roughness={1} />
       </mesh>
 
-      {/* Stubby legs straight out front, Animal Crossing style */}
-      <mesh
-        position={[-0.09, 0.17, 0.16]}
-        rotation={[1.35, 0, 0.08]}
-        castShadow
-      >
-        <capsuleGeometry args={[0.055, 0.13, 4, 10]} />
-        <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
-      </mesh>
-      <mesh
-        position={[0.09, 0.17, 0.16]}
-        rotation={[1.35, 0, -0.08]}
-        castShadow
-      >
-        <capsuleGeometry args={[0.055, 0.13, 4, 10]} />
-        <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
-      </mesh>
-      {/* Little sock feet */}
-      <mesh position={[-0.1, 0.14, 0.3]} scale={[1, 0.85, 1.2]} castShadow>
-        <sphereGeometry args={[0.062, 12, 12]} />
-        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
-      </mesh>
-      <mesh position={[0.1, 0.14, 0.3]} scale={[1, 0.85, 1.2]} castShadow>
-        <sphereGeometry args={[0.062, 12, 12]} />
-        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
-      </mesh>
-      {/* Rounded shorts */}
+      {/* Rounded shorts over the hips */}
       <mesh position={[0, 0.24, 0.02]} scale={[1, 0.6, 0.9]} castShadow>
         <sphereGeometry args={[0.19, 16, 16]} />
         <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
+      </mesh>
+      {/* Shorts cuffs wrapping the top of each thigh */}
+      <Limb
+        from={[-0.08, 0.24, 0.06]}
+        to={[-0.1, 0.2, 0.17]}
+        radius={0.072}
+        color={MATERIALS.shorts}
+      />
+      <Limb
+        from={[0.08, 0.24, 0.06]}
+        to={[0.1, 0.2, 0.17]}
+        radius={0.072}
+        color={MATERIALS.shorts}
+      />
+      {/* Legs: from under the shorts down to the ankles */}
+      <Limb
+        from={[-0.095, 0.22, 0.12]}
+        to={[-0.105, 0.13, 0.33]}
+        radius={0.05}
+        color={MATERIALS.skin}
+      />
+      <Limb
+        from={[0.095, 0.22, 0.12]}
+        to={[0.105, 0.13, 0.33]}
+        radius={0.05}
+        color={MATERIALS.skin}
+      />
+      {/* Sock feet at the ankles */}
+      <mesh
+        position={[-0.108, 0.115, 0.38]}
+        scale={[0.95, 0.75, 1.3]}
+        castShadow
+      >
+        <sphereGeometry args={[0.062, 12, 12]} />
+        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
+      </mesh>
+      <mesh
+        position={[0.108, 0.115, 0.38]}
+        scale={[0.95, 0.75, 1.3]}
+        castShadow
+      >
+        <sphereGeometry args={[0.062, 12, 12]} />
+        <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
       </mesh>
 
       {/* Long-sleeve shirt — slimmer, soft-sided torso */}
@@ -1855,50 +1910,55 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
           <meshStandardMaterial color="#33415a" roughness={0.9} />
         </mesh>
 
-        {/* Left arm — out to the side, wearing the watch */}
-        <group position={[-0.24, 0.64, 0.02]} rotation={[0.25, 0, 0.55]}>
-          <mesh position={[0, -0.1, 0]} castShadow>
-            <capsuleGeometry args={[0.048, 0.15, 4, 10]} />
-            <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
-          </mesh>
-          {/* Sleeve cuff */}
-          <mesh position={[0, -0.185, 0]}>
-            <cylinderGeometry args={[0.05, 0.05, 0.03, 12]} />
-            <meshStandardMaterial color="#33415a" roughness={0.9} />
-          </mesh>
-          <mesh position={[0, -0.225, 0]} castShadow>
-            <cylinderGeometry args={[0.042, 0.042, 0.032, 12]} />
-            <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
-          </mesh>
-          <mesh position={[0, -0.225, 0.042]} rotation={[Math.PI / 2, 0, 0]}>
-            <circleGeometry args={[0.022, 12]} />
-            <meshStandardMaterial
-              color="#cfd6dd"
-              roughness={0.3}
-              metalness={0.2}
-            />
-          </mesh>
-          <mesh position={[0, -0.285, 0]} castShadow>
-            <sphereGeometry args={[0.05, 10, 10]} />
-            <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
-          </mesh>
-        </group>
+        {/* Left arm: shoulder to a hand resting on the lap */}
+        <Limb
+          from={[-0.15, 0.63, 0.01]}
+          to={[-0.135, 0.34, 0.2]}
+          radius={0.047}
+          color={MATERIALS.hoodie}
+        />
+        {/* Sleeve cuff + watch at the wrist */}
+        <Limb
+          from={[-0.137, 0.375, 0.177]}
+          to={[-0.135, 0.35, 0.194]}
+          radius={0.052}
+          color="#33415a"
+        />
+        <Limb
+          from={[-0.136, 0.345, 0.198]}
+          to={[-0.135, 0.325, 0.211]}
+          radius={0.05}
+          color={MATERIALS.gadget}
+        />
+        <mesh position={[-0.155, 0.34, 0.2]} scale={[0.5, 1, 1]}>
+          <sphereGeometry args={[0.022, 10, 10]} />
+          <meshStandardMaterial
+            color="#cfd6dd"
+            roughness={0.3}
+            metalness={0.2}
+          />
+        </mesh>
+        <mesh position={[-0.135, 0.31, 0.225]} castShadow>
+          <sphereGeometry args={[0.05, 10, 10]} />
+          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        </mesh>
 
-        {/* Right arm — waves hello on hover */}
-        <group
-          ref={armRef}
-          position={[0.24, 0.64, 0.02]}
-          rotation={[0, 0, -0.5]}
-        >
-          <mesh position={[0, -0.1, 0]} castShadow>
-            <capsuleGeometry args={[0.048, 0.15, 4, 10]} />
-            <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
-          </mesh>
-          <mesh position={[0, -0.185, 0]}>
-            <cylinderGeometry args={[0.05, 0.05, 0.03, 12]} />
-            <meshStandardMaterial color="#33415a" roughness={0.9} />
-          </mesh>
-          <mesh position={[0, -0.26, 0]} castShadow>
+        {/* Right arm — same resting pose, but grouped at the shoulder so
+            it can swing up and wave on hover */}
+        <group ref={armRef} position={[0.15, 0.63, 0.01]}>
+          <Limb
+            from={[0, 0, 0]}
+            to={[-0.015, -0.29, 0.19]}
+            radius={0.047}
+            color={MATERIALS.hoodie}
+          />
+          <Limb
+            from={[-0.013, -0.255, 0.167]}
+            to={[-0.015, -0.28, 0.184]}
+            radius={0.052}
+            color="#33415a"
+          />
+          <mesh position={[-0.015, -0.32, 0.215]} castShadow>
             <sphereGeometry args={[0.05, 10, 10]} />
             <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
