@@ -76,7 +76,7 @@ export function PaletteProvider({
     const current = live.current;
     const alpha = reduceMotion
       ? 1
-      : 1 - Math.exp(-2.0 * Math.min(delta, 0.066));
+      : 1 - Math.exp(-2.6 * Math.min(delta, 0.066));
 
     current.sky.lerp(target.sky, alpha);
     current.ambientColor.lerp(target.ambientColor, alpha);

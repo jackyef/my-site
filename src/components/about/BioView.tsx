@@ -1,5 +1,6 @@
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
+import { TextLink } from '@/components/common/TextLink';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { SOCIALS } from '@/constants/socials';
 
@@ -60,6 +61,13 @@ export function BioView() {
           conventions and optimizing web pages. On the server side, I&apos;ve
           worked with Node.js, GraphQL, Apollo, and PostgreSQL.
         </Text>
+        <Text color="ink-3" className="leading-[1.75]">
+          If you&apos;d rather wander than read, my resume lives in{' '}
+          <TextLink href="/resume">a cozy little 3D room</TextLink> you can
+          click around — the bookshelf, the corkboard, and the dog are all in on
+          it.
+        </Text>
+
         <Text color="ink-3" className="leading-[1.75]">
           Based in Jakarta (UTC+7), working remotely. Always happy to chat about
           potential opportunities — find me on{' '}

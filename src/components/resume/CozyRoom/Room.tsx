@@ -73,9 +73,9 @@ function ScenePanel({
           }}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            initial={{ opacity: 0, scale: 0.92, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+            transition={{ type: 'spring', stiffness: 480, damping: 32 }}
             className="flex w-[360px] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg)"
             onClick={(event) => event.stopPropagation()}
             onPointerDown={(event) => event.stopPropagation()}
@@ -90,7 +90,7 @@ function ScenePanel({
                 type="button"
                 aria-label="Close panel"
                 onClick={onClose}
-                className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-colors hover:bg-(--color-bg-hover) hover:text-(--color-ink)"
+                className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-90"
               >
                 <XIcon size={18} aria-hidden="true" />
               </button>
@@ -188,68 +188,68 @@ export function Room({
       <Lighting />
 
       <RoomShell />
-      <IntroPop delay={0.1} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.06} reduceMotion={reduceMotion}>
         <Rug />
       </IntroPop>
-      <IntroPop delay={0.25} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.16} reduceMotion={reduceMotion}>
         <Desk />
       </IntroPop>
-      <IntroPop delay={0.35} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.24} reduceMotion={reduceMotion}>
         <Chair />
       </IntroPop>
-      <IntroPop delay={0.3} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.2} reduceMotion={reduceMotion}>
         <WallWindow />
       </IntroPop>
-      <IntroPop delay={0.55} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.38} reduceMotion={reduceMotion}>
         <Keyboard />
       </IntroPop>
-      <IntroPop delay={0.58} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.4} reduceMotion={reduceMotion}>
         <MouseAndPad />
       </IntroPop>
-      <IntroPop delay={0.62} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.44} reduceMotion={reduceMotion}>
         <Notebook />
       </IntroPop>
-      <IntroPop delay={0.6} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.42} reduceMotion={reduceMotion}>
         <Mug reduceMotion={reduceMotion} />
       </IntroPop>
-      <IntroPop delay={0.65} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.46} reduceMotion={reduceMotion}>
         <DeskLamp />
       </IntroPop>
-      <IntroPop delay={0.6} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.42} reduceMotion={reduceMotion}>
         <Plant />
       </IntroPop>
-      <IntroPop delay={0.42} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.28} reduceMotion={reduceMotion}>
         <Poster />
       </IntroPop>
-      <IntroPop delay={0.48} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.32} reduceMotion={reduceMotion}>
         <PictureFrames />
       </IntroPop>
-      <IntroPop delay={0.52} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.36} reduceMotion={reduceMotion}>
         <WallClock />
       </IntroPop>
-      <IntroPop delay={0.68} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.48} reduceMotion={reduceMotion}>
         <StringLights />
       </IntroPop>
-      <IntroPop delay={0.66} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.46} reduceMotion={reduceMotion}>
         <FloorBooks />
       </IntroPop>
-      <IntroPop delay={0.72} reduceMotion={reduceMotion}>
+      <IntroPop delay={0.5} reduceMotion={reduceMotion}>
         <FloorCushion />
       </IntroPop>
 
-      <HotspotGroup {...hotspotProps('projects', 0.5, [1.0, 1.6, -3.6])}>
+      <HotspotGroup {...hotspotProps('projects', 0.34, [1.0, 1.6, -3.6])}>
         <Monitor />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('career', 0.55, [2.95, 2.2, -4.14])}>
+      <HotspotGroup {...hotspotProps('career', 0.38, [2.95, 2.2, -4.14])}>
         <Corkboard />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('writing', 0.45, [-3.8, 1.15, 1.5])}>
+      <HotspotGroup {...hotspotProps('writing', 0.3, [-3.8, 1.15, 1.5])}>
         <Bookshelf />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('about', 0.8, [1.8, 0.35, 1.2])}>
+      <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.35, 1.2])}>
         <Dog hovered={hovered === 'about'} reduceMotion={reduceMotion} />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('contact', 0.7, [-0.05, 1.2, -3.2])}>
+      <HotspotGroup {...hotspotProps('contact', 0.48, [-0.05, 1.2, -3.2])}>
         <Envelopes />
       </HotspotGroup>
 
@@ -270,9 +270,19 @@ export function Room({
             <Html center distanceFactor={10} zIndexRange={[40, 0]}>
               <motion.button
                 type="button"
-                initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: reduceMotion ? 0 : 1.1 + i * 0.12 }}
+                initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 6 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  // Delay only the entrance — hover/tap stay instant
+                  transition: {
+                    delay: reduceMotion ? 0 : 0.75 + i * 0.07,
+                    duration: 0.25,
+                    ease: 'easeOut',
+                  },
+                }}
+                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.94 }}
                 className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-1.5 text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
                 onMouseEnter={() => onHover(hotspot.id)}
                 onMouseLeave={() => onHover(null)}

@@ -180,7 +180,7 @@ export default function Resume({ featuredWritings }: Props) {
                     setView(view === button.id ? 'overview' : button.id)
                   }
                   className={cn(
-                    'inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium transition-colors',
+                    'inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
                     view === button.id
                       ? 'border-(--color-accent-l) bg-(--color-accent-xl) text-(--color-accent-text)'
                       : 'border-(--color-border-hi) text-(--color-ink-2) hover:border-(--color-accent) hover:text-(--color-accent-text)',

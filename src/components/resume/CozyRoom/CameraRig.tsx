@@ -1,9 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 
-import { CAMERA_VIEWS, CAMERA_VIEWS_MOBILE, ViewId } from './hotspots';
+import {
+  CAMERA_VIEWS,
+  CAMERA_VIEWS_MOBILE,
+  INTRO_CAMERA_POSITION,
+  ViewId,
+} from './hotspots';
 
 type ControlsLike = {
   target: Vector3;
@@ -20,9 +25,17 @@ type CameraRigProps = {
   desktop: boolean;
 };
 
+const INTRO_DURATION = 1.2;
+const FLIGHT_DURATION = 0.7;
+
+const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
+const easeInOutCubic = (x: number) =>
+  x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
 /**
- * Drives the camera: intro swoop, fly-to-hotspot transitions, and hands
- * control over to OrbitControls when resting at the overview.
+ * Drives the camera with fixed-duration eased tweens — a swooping intro,
+ * quick decisive flights between hotspots — then hands control over to
+ * OrbitControls when resting at the overview.
  */
 export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
   const controls = useThree(
@@ -30,31 +43,29 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
   ) as unknown as ControlsLike | null;
 
   const [hasInteracted, setHasInteracted] = useState(false);
-  const arrivedRef = useRef(false);
   const lookRef = useRef(new Vector3(...CAMERA_VIEWS.overview.target));
   const positionTarget = useRef(new Vector3());
   const lookTarget = useRef(new Vector3());
-
-  useEffect(() => {
-    arrivedRef.current = false;
-  }, [view, desktop]);
+  const tweenRef = useRef({
+    t: 0,
+    startPos: new Vector3(...INTRO_CAMERA_POSITION),
+    startLook: new Vector3(...CAMERA_VIEWS.overview.target),
+    intro: true,
+  });
+  const prevViewRef = useRef<ViewId | null>(null);
 
   useFrame((state, delta) => {
     const { camera } = state;
-    const dt = Math.min(delta, 0.066);
+    const tween = tweenRef.current;
     const conf = desktop ? CAMERA_VIEWS[view] : CAMERA_VIEWS_MOBILE[view];
-    const resting = view === 'overview' && arrivedRef.current;
 
-    if (controls) {
-      // On touch layouts orbit stays off so one-finger drags scroll the
-      // page; the slow auto-rotate still gives the room life.
-      controls.enabled = resting && desktop;
-      controls.autoRotate = resting && !hasInteracted && !reduceMotion;
-    }
-
-    if (resting) {
-      controls?.update();
-      return;
+    // A view change starts a fresh tween from wherever the camera is now
+    if (prevViewRef.current !== view) {
+      tween.intro = prevViewRef.current === null;
+      prevViewRef.current = view;
+      tween.startPos.copy(camera.position);
+      tween.startLook.copy(lookRef.current);
+      tween.t = 0;
     }
 
     positionTarget.current.set(...conf.position);
@@ -69,19 +80,40 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
         .add(lookTarget.current);
     }
 
-    const alpha = reduceMotion ? 1 : 1 - Math.exp(-2.4 * dt);
-    camera.position.lerp(positionTarget.current, alpha);
-    lookRef.current.lerp(lookTarget.current, alpha);
+    const resting = view === 'overview' && tween.t >= 1;
+
+    if (controls) {
+      // On touch layouts orbit stays off so one-finger drags scroll the
+      // page; the slow auto-rotate still gives the room life.
+      controls.enabled = resting && desktop;
+      controls.autoRotate = resting && !hasInteracted && !reduceMotion;
+    }
+
+    if (resting) {
+      controls?.update();
+      return;
+    }
+
+    const duration = tween.intro ? INTRO_DURATION : FLIGHT_DURATION;
+    tween.t = reduceMotion
+      ? 1
+      : Math.min(1, tween.t + Math.min(delta, 0.066) / duration);
+    const progress = tween.intro
+      ? easeOutCubic(tween.t)
+      : easeInOutCubic(tween.t);
+
+    camera.position.lerpVectors(
+      tween.startPos,
+      positionTarget.current,
+      progress,
+    );
+    lookRef.current.lerpVectors(tween.startLook, lookTarget.current, progress);
 
     if (controls) {
       controls.target.copy(lookRef.current);
       controls.update();
     } else {
       camera.lookAt(lookRef.current);
-    }
-
-    if (camera.position.distanceTo(positionTarget.current) < 0.03) {
-      arrivedRef.current = true;
     }
   });
 

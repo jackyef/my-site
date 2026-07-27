@@ -57,7 +57,7 @@ export function IntroPop({
 
     const progress = reduceMotion
       ? 1
-      : clamp01((state.clock.getElapsedTime() - delay) / 0.7);
+      : clamp01((state.clock.getElapsedTime() - delay) / 0.5);
     group.scale.setScalar(Math.max(0.0001, easeOutBack(progress)));
   });
 
@@ -107,11 +107,11 @@ export function HotspotGroup({
     const dt = Math.min(delta, 0.066);
     const intro = reduceMotion
       ? 1
-      : easeOutBack(clamp01((state.clock.getElapsedTime() - introDelay) / 0.7));
+      : easeOutBack(clamp01((state.clock.getElapsedTime() - introDelay) / 0.5));
     hoverScale.current = expDamp(
       hoverScale.current,
       hovered ? 1.06 : 1,
-      10,
+      14,
       dt,
     );
     group.scale.setScalar(Math.max(0.0001, intro * hoverScale.current));
