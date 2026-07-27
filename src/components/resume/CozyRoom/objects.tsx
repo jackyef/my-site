@@ -4,8 +4,11 @@ import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
 import {
   AdditiveBlending,
+  BoxGeometry,
   BufferAttribute,
+  Color,
   Group,
+  SphereGeometry,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -1662,6 +1665,91 @@ export function FloorCushion() {
   );
 }
 
+const HAIR_FADE = 0.75;
+
+const applyHairFade = (
+  geo: BoxGeometry | SphereGeometry,
+  fadeFrom: number,
+  fadeTo: number,
+) => {
+  const positions = geo.attributes.position;
+  const colors = new Float32Array(positions.count * 3);
+  const hair = new Color(MATERIALS.hair);
+  const faded = new Color(MATERIALS.hair).lerp(
+    new Color(MATERIALS.skin),
+    HAIR_FADE,
+  );
+  const scratch = new Color();
+  for (let i = 0; i < positions.count; i++) {
+    const t = clamp01((positions.getY(i) - fadeTo) / (fadeFrom - fadeTo));
+    scratch.copy(faded).lerp(hair, Math.pow(t, 0.75));
+    colors[i * 3] = scratch.r;
+    colors[i * 3 + 1] = scratch.g;
+    colors[i * 3 + 2] = scratch.b;
+  }
+  geo.setAttribute('color', new BufferAttribute(colors, 3));
+  return geo;
+};
+
+/**
+ * A patch of hair that fades toward skin at the bottom via vertex
+ * colors — reads as tapered/faded sides.
+ */
+function TaperedPatch({
+  position,
+  rotation,
+  size,
+}: {
+  position: [number, number, number];
+  rotation?: [number, number, number];
+  size: [number, number, number];
+}) {
+  const geometry = useMemo(() => {
+    const geo = new BoxGeometry(size[0], size[1], size[2], 1, 4, 1);
+    return applyHairFade(geo, size[1] / 2, -size[1] / 2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <mesh geometry={geometry} position={position} rotation={rotation}>
+      <meshStandardMaterial vertexColors roughness={0.95} />
+    </mesh>
+  );
+}
+
+function TaperedCap() {
+  const geometry = useMemo(() => {
+    const radius = 0.165;
+    const geo = new SphereGeometry(
+      radius,
+      24,
+      18,
+      0,
+      Math.PI * 2,
+      0,
+      Math.PI * 0.46,
+    );
+    // Solid hair above, fading through the bottom band of the cap
+    return applyHairFade(
+      geo,
+      radius * Math.cos(Math.PI * 0.3),
+      radius * Math.cos(Math.PI * 0.46),
+    );
+  }, []);
+
+  return (
+    <mesh
+      geometry={geometry}
+      position={[0.012, 0.07, -0.025]}
+      rotation={[0, 0, -0.1]}
+      scale={[1.03, 0.82, 1.02]}
+      castShadow
+    >
+      <meshStandardMaterial vertexColors roughness={0.95} />
+    </mesh>
+  );
+}
+
 type AvatarProps = {
   hovered: boolean;
   reduceMotion: boolean;
@@ -1824,18 +1912,9 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
           <sphereGeometry args={[0.035, 8, 8]} />
           <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
         </mesh>
-        {/* Side-part hair: cap tilted with the sweep */}
-        <mesh
-          position={[0.012, 0.07, -0.025]}
-          rotation={[0, 0, -0.1]}
-          scale={[1.03, 0.82, 1.02]}
-          castShadow
-        >
-          <sphereGeometry
-            args={[0.165, 18, 18, 0, Math.PI * 2, 0, Math.PI * 0.46]}
-          />
-          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
-        </mesh>
+        {/* Side-part hair: cap tilted with the sweep, lower rim tapering
+            toward skin like a faded cut */}
+        <TaperedCap />
         {/* The part — a thin line of scalp, off-center, front to crown */}
         <mesh position={[-0.058, 0.175, 0.03]} rotation={[0.42, 0, -0.1]}>
           <boxGeometry args={[0.013, 0.03, 0.15]} />
@@ -1881,15 +1960,23 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
           <boxGeometry args={[0.055, 0.04, 0.13]} />
           <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
         </mesh>
-        {/* Trimmed sides above the ears */}
-        <mesh position={[-0.15, 0.045, -0.01]} rotation={[0, 0, 0.2]}>
-          <boxGeometry args={[0.03, 0.07, 0.11]} />
-          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
-        </mesh>
-        <mesh position={[0.15, 0.045, -0.01]} rotation={[0, 0, -0.2]}>
-          <boxGeometry args={[0.03, 0.07, 0.11]} />
-          <meshStandardMaterial color={MATERIALS.hair} roughness={0.95} />
-        </mesh>
+        {/* Tapered sides — hair fades toward skin above the ears */}
+        <TaperedPatch
+          position={[-0.148, 0.035, -0.01]}
+          rotation={[0, 0, 0.18]}
+          size={[0.032, 0.1, 0.12]}
+        />
+        <TaperedPatch
+          position={[0.148, 0.035, -0.01]}
+          rotation={[0, 0, -0.18]}
+          size={[0.032, 0.1, 0.12]}
+        />
+        {/* Tapered nape at the back */}
+        <TaperedPatch
+          position={[0.005, 0.02, -0.14]}
+          rotation={[0.15, 0, 0]}
+          size={[0.14, 0.09, 0.032]}
+        />
         {/* Glasses — rounded-rectangle frames, bridge, temples */}
         {[-0.068, 0.068].map((x) => (
           <group key={x} position={[x, 0.015, 0.16]}>
