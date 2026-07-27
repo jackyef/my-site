@@ -1811,99 +1811,100 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         <meshStandardMaterial color={MATERIALS.rugInner} roughness={1} />
       </mesh>
 
-      {/* Crossed legs — shins in front, white socks at the ends */}
-      <mesh position={[0.09, 0.16, 0.2]} rotation={[0, 0.35, 1.35]} castShadow>
-        <cylinderGeometry args={[0.05, 0.055, 0.34, 10]} />
+      {/* Stubby legs straight out front, Animal Crossing style */}
+      <mesh
+        position={[-0.09, 0.17, 0.16]}
+        rotation={[1.35, 0, 0.08]}
+        castShadow
+      >
+        <capsuleGeometry args={[0.055, 0.13, 4, 10]} />
         <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
       </mesh>
       <mesh
-        position={[-0.09, 0.15, 0.24]}
-        rotation={[0, -0.35, -1.35]}
+        position={[0.09, 0.17, 0.16]}
+        rotation={[1.35, 0, -0.08]}
         castShadow
       >
-        <cylinderGeometry args={[0.05, 0.055, 0.34, 10]} />
+        <capsuleGeometry args={[0.055, 0.13, 4, 10]} />
         <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
       </mesh>
-      <mesh position={[-0.24, 0.16, 0.16]} castShadow>
-        <sphereGeometry args={[0.065, 10, 10]} />
+      {/* Little sock feet */}
+      <mesh position={[-0.1, 0.14, 0.3]} scale={[1, 0.85, 1.2]} castShadow>
+        <sphereGeometry args={[0.062, 12, 12]} />
         <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
       </mesh>
-      <mesh position={[0.24, 0.17, 0.2]} castShadow>
-        <sphereGeometry args={[0.065, 10, 10]} />
+      <mesh position={[0.1, 0.14, 0.3]} scale={[1, 0.85, 1.2]} castShadow>
+        <sphereGeometry args={[0.062, 12, 12]} />
         <meshStandardMaterial color={MATERIALS.sock} roughness={0.9} />
       </mesh>
-      {/* Shorts + thighs */}
-      <mesh position={[0, 0.26, 0.02]} castShadow>
-        <boxGeometry args={[0.36, 0.18, 0.3]} />
-        <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
-      </mesh>
-      <mesh position={[0.14, 0.24, 0.16]} rotation={[1.2, 0, 0.3]} castShadow>
-        <cylinderGeometry args={[0.07, 0.075, 0.2, 10]} />
-        <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
-      </mesh>
-      <mesh position={[-0.14, 0.24, 0.16]} rotation={[1.2, 0, -0.3]} castShadow>
-        <cylinderGeometry args={[0.07, 0.075, 0.2, 10]} />
+      {/* Rounded shorts */}
+      <mesh position={[0, 0.24, 0.02]} scale={[1, 0.6, 0.9]} castShadow>
+        <sphereGeometry args={[0.19, 16, 16]} />
         <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
       </mesh>
 
-      {/* Hoodie torso */}
+      {/* Round hoodie body */}
       <group ref={torsoRef}>
-        <mesh position={[0, 0.55, 0]} castShadow>
-          <boxGeometry args={[0.4, 0.44, 0.28]} />
+        <mesh position={[0, 0.52, 0]} scale={[1, 0.92, 0.82]} castShadow>
+          <capsuleGeometry args={[0.19, 0.14, 6, 16]} />
           <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
         </mesh>
         {/* Hood bunched behind the neck */}
-        <mesh position={[0, 0.74, -0.12]} scale={[1, 0.6, 0.8]} castShadow>
+        <mesh position={[0, 0.72, -0.13]} scale={[1, 0.6, 0.8]} castShadow>
           <sphereGeometry args={[0.14, 12, 12]} />
           <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
         </mesh>
-        {/* Kangaroo pocket + drawstrings */}
-        <mesh position={[0, 0.42, 0.145]}>
-          <boxGeometry args={[0.24, 0.14, 0.01]} />
+        {/* Kangaroo pocket hugging the belly */}
+        <mesh position={[0, 0.42, 0.135]} rotation={[-0.45, 0, 0]}>
+          <boxGeometry args={[0.2, 0.1, 0.02]} />
           <meshStandardMaterial color="#33415a" roughness={0.9} />
         </mesh>
-        <mesh position={[-0.05, 0.68, 0.15]} rotation={[0.1, 0, 0.05]}>
-          <cylinderGeometry args={[0.008, 0.008, 0.12, 6]} />
+        {/* Drawstrings */}
+        <mesh position={[-0.05, 0.64, 0.155]} rotation={[0.15, 0, 0.05]}>
+          <cylinderGeometry args={[0.008, 0.008, 0.11, 6]} />
           <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
         </mesh>
-        <mesh position={[0.05, 0.68, 0.15]} rotation={[0.1, 0, -0.05]}>
-          <cylinderGeometry args={[0.008, 0.008, 0.12, 6]} />
+        <mesh position={[0.05, 0.64, 0.155]} rotation={[0.15, 0, -0.05]}>
+          <cylinderGeometry args={[0.008, 0.008, 0.11, 6]} />
           <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
         </mesh>
 
-        {/* Left arm resting on a knee, wearing the watch */}
-        <group position={[-0.22, 0.66, 0]} rotation={[0.5, 0, 0.5]}>
-          <mesh position={[0, -0.14, 0]} castShadow>
-            <cylinderGeometry args={[0.055, 0.05, 0.3, 10]} />
+        {/* Left arm — stubby, resting, wearing the watch */}
+        <group position={[-0.2, 0.62, 0.02]} rotation={[0.35, 0, 0.5]}>
+          <mesh position={[0, -0.1, 0]} castShadow>
+            <capsuleGeometry args={[0.05, 0.12, 4, 10]} />
             <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
           </mesh>
-          {/* Watch on the wrist */}
-          <mesh position={[0, -0.3, 0]} castShadow>
-            <cylinderGeometry args={[0.045, 0.045, 0.035, 12]} />
+          <mesh position={[0, -0.2, 0]} castShadow>
+            <cylinderGeometry args={[0.042, 0.042, 0.035, 12]} />
             <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
           </mesh>
-          <mesh position={[0, -0.3, 0.045]} rotation={[Math.PI / 2, 0, 0]}>
-            <circleGeometry args={[0.024, 12]} />
+          <mesh position={[0, -0.2, 0.042]} rotation={[Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[0.022, 12]} />
             <meshStandardMaterial
               color="#cfd6dd"
               roughness={0.3}
               metalness={0.2}
             />
           </mesh>
-          <mesh position={[0, -0.38, 0]} castShadow>
-            <sphereGeometry args={[0.05, 10, 10]} />
+          <mesh position={[0, -0.26, 0]} castShadow>
+            <sphereGeometry args={[0.048, 10, 10]} />
             <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
         </group>
 
         {/* Right arm — waves hello on hover */}
-        <group ref={armRef} position={[0.22, 0.66, 0]} rotation={[0, 0, -0.35]}>
-          <mesh position={[0, -0.14, 0]} castShadow>
-            <cylinderGeometry args={[0.055, 0.05, 0.3, 10]} />
+        <group
+          ref={armRef}
+          position={[0.2, 0.62, 0.02]}
+          rotation={[0, 0, -0.35]}
+        >
+          <mesh position={[0, -0.1, 0]} castShadow>
+            <capsuleGeometry args={[0.05, 0.12, 4, 10]} />
             <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
           </mesh>
-          <mesh position={[0, -0.34, 0]} castShadow>
-            <sphereGeometry args={[0.05, 10, 10]} />
+          <mesh position={[0, -0.24, 0]} castShadow>
+            <sphereGeometry args={[0.048, 10, 10]} />
             <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
         </group>
@@ -1927,10 +1928,10 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         {/* Side-part hair: cap tilted with the sweep, lower rim tapering
             toward skin like a faded cut */}
         <TaperedCap />
-        {/* The part — a thin line of scalp, off-center, front to crown */}
-        <mesh position={[-0.058, 0.175, 0.03]} rotation={[0.42, 0, -0.1]}>
-          <boxGeometry args={[0.013, 0.03, 0.15]} />
-          <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
+        {/* The part — a subtle darker groove, not bare scalp */}
+        <mesh position={[-0.058, 0.172, 0.03]} rotation={[0.42, 0, -0.1]}>
+          <boxGeometry args={[0.008, 0.024, 0.14]} />
+          <meshStandardMaterial color="#141110" roughness={1} />
         </mesh>
         {/* Fringe swept diagonally across the forehead — rises from the
             part, dips toward the far temple */}
