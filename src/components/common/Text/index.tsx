@@ -1,3 +1,4 @@
+import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
 
 type TextVariant = 'lead' | 'body' | 'body-sm' | 'caption' | 'caption-sm';
@@ -39,11 +40,12 @@ const defaultColor: Record<TextVariant, TextColor> = {
 export function Text({
   variant = 'body',
   color,
-  as: As = 'p',
+  as = 'p',
   className,
   children,
   ...rest
 }: TextProps) {
+  const As = asLooseComponent(as);
   const resolvedColor = color ?? defaultColor[variant];
 
   return (
