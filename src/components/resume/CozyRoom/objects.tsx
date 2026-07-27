@@ -1798,7 +1798,7 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
     const arm = armRef.current;
     if (arm) {
       const wave = raise.current * Math.sin(t * 7) * 0.35;
-      arm.rotation.z = -0.35 - raise.current * 1.75 + wave * 0.4;
+      arm.rotation.z = -0.5 - raise.current * 1.6 + wave * 0.4;
       arm.rotation.x = raise.current * 0.25;
     }
   });
@@ -1843,43 +1843,34 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
       </mesh>
 
-      {/* Round hoodie body */}
+      {/* Long-sleeve shirt — slimmer, soft-sided torso */}
       <group ref={torsoRef}>
-        <mesh position={[0, 0.52, 0]} scale={[1, 0.92, 0.82]} castShadow>
-          <capsuleGeometry args={[0.19, 0.14, 6, 16]} />
+        <mesh position={[0, 0.5, 0]} scale={[1.05, 0.95, 0.75]} castShadow>
+          <capsuleGeometry args={[0.155, 0.24, 6, 16]} />
           <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
         </mesh>
-        {/* Hood bunched behind the neck */}
-        <mesh position={[0, 0.72, -0.13]} scale={[1, 0.6, 0.8]} castShadow>
-          <sphereGeometry args={[0.14, 12, 12]} />
-          <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
-        </mesh>
-        {/* Kangaroo pocket hugging the belly */}
-        <mesh position={[0, 0.42, 0.135]} rotation={[-0.45, 0, 0]}>
-          <boxGeometry args={[0.2, 0.1, 0.02]} />
+        {/* Crew-neck collar */}
+        <mesh position={[0, 0.735, 0.01]} rotation={[1.35, 0, 0]}>
+          <torusGeometry args={[0.075, 0.016, 8, 18]} />
           <meshStandardMaterial color="#33415a" roughness={0.9} />
         </mesh>
-        {/* Drawstrings */}
-        <mesh position={[-0.05, 0.64, 0.155]} rotation={[0.15, 0, 0.05]}>
-          <cylinderGeometry args={[0.008, 0.008, 0.11, 6]} />
-          <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
-        </mesh>
-        <mesh position={[0.05, 0.64, 0.155]} rotation={[0.15, 0, -0.05]}>
-          <cylinderGeometry args={[0.008, 0.008, 0.11, 6]} />
-          <meshStandardMaterial color={MATERIALS.sock} roughness={0.8} />
-        </mesh>
 
-        {/* Left arm — stubby, resting, wearing the watch */}
-        <group position={[-0.2, 0.62, 0.02]} rotation={[0.35, 0, 0.5]}>
+        {/* Left arm — out to the side, wearing the watch */}
+        <group position={[-0.24, 0.64, 0.02]} rotation={[0.25, 0, 0.55]}>
           <mesh position={[0, -0.1, 0]} castShadow>
-            <capsuleGeometry args={[0.05, 0.12, 4, 10]} />
+            <capsuleGeometry args={[0.048, 0.15, 4, 10]} />
             <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
           </mesh>
-          <mesh position={[0, -0.2, 0]} castShadow>
-            <cylinderGeometry args={[0.042, 0.042, 0.035, 12]} />
+          {/* Sleeve cuff */}
+          <mesh position={[0, -0.185, 0]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.03, 12]} />
+            <meshStandardMaterial color="#33415a" roughness={0.9} />
+          </mesh>
+          <mesh position={[0, -0.225, 0]} castShadow>
+            <cylinderGeometry args={[0.042, 0.042, 0.032, 12]} />
             <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
           </mesh>
-          <mesh position={[0, -0.2, 0.042]} rotation={[Math.PI / 2, 0, 0]}>
+          <mesh position={[0, -0.225, 0.042]} rotation={[Math.PI / 2, 0, 0]}>
             <circleGeometry args={[0.022, 12]} />
             <meshStandardMaterial
               color="#cfd6dd"
@@ -1887,8 +1878,8 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
               metalness={0.2}
             />
           </mesh>
-          <mesh position={[0, -0.26, 0]} castShadow>
-            <sphereGeometry args={[0.048, 10, 10]} />
+          <mesh position={[0, -0.285, 0]} castShadow>
+            <sphereGeometry args={[0.05, 10, 10]} />
             <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
         </group>
@@ -1896,15 +1887,19 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         {/* Right arm — waves hello on hover */}
         <group
           ref={armRef}
-          position={[0.2, 0.62, 0.02]}
-          rotation={[0, 0, -0.35]}
+          position={[0.24, 0.64, 0.02]}
+          rotation={[0, 0, -0.5]}
         >
           <mesh position={[0, -0.1, 0]} castShadow>
-            <capsuleGeometry args={[0.05, 0.12, 4, 10]} />
+            <capsuleGeometry args={[0.048, 0.15, 4, 10]} />
             <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
           </mesh>
-          <mesh position={[0, -0.24, 0]} castShadow>
-            <sphereGeometry args={[0.048, 10, 10]} />
+          <mesh position={[0, -0.185, 0]}>
+            <cylinderGeometry args={[0.05, 0.05, 0.03, 12]} />
+            <meshStandardMaterial color="#33415a" roughness={0.9} />
+          </mesh>
+          <mesh position={[0, -0.26, 0]} castShadow>
+            <sphereGeometry args={[0.05, 10, 10]} />
             <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
           </mesh>
         </group>
