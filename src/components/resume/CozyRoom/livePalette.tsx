@@ -27,6 +27,9 @@ export type LivePalette = {
   lampIntensity: number;
   screenIntensity: number;
   fairyIntensity: number;
+  shaftOpacity: number;
+  cloudOpacity: number;
+  starOpacity: number;
 };
 
 const toLive = (palette: ScenePalette): LivePalette => ({
@@ -45,6 +48,9 @@ const toLive = (palette: ScenePalette): LivePalette => ({
   lampIntensity: palette.lampIntensity,
   screenIntensity: palette.screenIntensity,
   fairyIntensity: palette.fairyIntensity,
+  shaftOpacity: palette.shaftOpacity,
+  cloudOpacity: palette.cloudOpacity,
+  starOpacity: palette.starOpacity,
 });
 
 const TARGETS: Record<Theme, LivePalette> = {
@@ -100,6 +106,11 @@ export function PaletteProvider({
       (target.screenIntensity - current.screenIntensity) * alpha;
     current.fairyIntensity +=
       (target.fairyIntensity - current.fairyIntensity) * alpha;
+    current.shaftOpacity +=
+      (target.shaftOpacity - current.shaftOpacity) * alpha;
+    current.cloudOpacity +=
+      (target.cloudOpacity - current.cloudOpacity) * alpha;
+    current.starOpacity += (target.starOpacity - current.starOpacity) * alpha;
   }, -10);
 
   return (

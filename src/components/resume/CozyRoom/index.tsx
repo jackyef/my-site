@@ -20,6 +20,8 @@ type CozyRoomSceneProps = {
   writings: WritingItem[];
   onSelect: (id: SectionId) => void;
   onClose: () => void;
+  // Fired when the desk lamp is clicked — cycles the site theme
+  onCycleTheme: () => void;
 };
 
 export function CozyRoomScene({
@@ -30,6 +32,7 @@ export function CozyRoomScene({
   writings,
   onSelect,
   onClose,
+  onCycleTheme,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
 
@@ -57,6 +60,7 @@ export function CozyRoomScene({
           onHover={setHovered}
           onSelect={onSelect}
           onClose={onClose}
+          onCycleTheme={onCycleTheme}
         />
       </PaletteProvider>
     </Canvas>

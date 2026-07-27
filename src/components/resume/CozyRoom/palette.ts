@@ -56,6 +56,10 @@ export type ScenePalette = {
   lampIntensity: number;
   screenIntensity: number;
   fairyIntensity: number;
+  // Volumetric shaft from the window, clouds and stars in the pane
+  shaftOpacity: number;
+  cloudOpacity: number;
+  starOpacity: number;
 };
 
 export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
@@ -73,6 +77,9 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     lampIntensity: 4,
     screenIntensity: 0.75,
     fairyIntensity: 0.15,
+    shaftOpacity: 0.1,
+    cloudOpacity: 0.9,
+    starOpacity: 0,
   },
   // Golden-hour dusk — sun low, long warm shadows
   dim: {
@@ -88,6 +95,9 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     lampIntensity: 14,
     screenIntensity: 1.1,
     fairyIntensity: 1.0,
+    shaftOpacity: 0.22,
+    cloudOpacity: 0.45,
+    starOpacity: 0.25,
   },
   // Quiet night — moonlight, lamp and monitor take over
   dark: {
@@ -103,5 +113,8 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     lampIntensity: 22,
     screenIntensity: 1.6,
     fairyIntensity: 1.6,
+    shaftOpacity: 0.1,
+    cloudOpacity: 0.06,
+    starOpacity: 1,
   },
 };

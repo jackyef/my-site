@@ -1,12 +1,16 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
 import {
+  AdditiveBlending,
+  BufferAttribute,
   Group,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
   PointLight,
+  Vector3,
 } from 'three';
 
 import { useLivePalette } from './livePalette';
@@ -183,6 +187,14 @@ export function RoomShell() {
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
 
+      {/* Plank grooves across the floor */}
+      {[-3.15, -2.1, -1.05, 0, 1.05, 2.1, 3.15].map((z) => (
+        <mesh key={z} position={[0, 0.002, z]}>
+          <boxGeometry args={[8.4, 0.008, 0.022]} />
+          <meshStandardMaterial color="#a87a54" roughness={1} />
+        </mesh>
+      ))}
+
       {/* Baseboards */}
       <mesh position={[0, 0.09, -4.19]}>
         <boxGeometry args={[8.64, 0.18, 0.04]} />
@@ -193,6 +205,98 @@ export function RoomShell() {
         <meshStandardMaterial color={MATERIALS.wallTrim} roughness={0.9} />
       </mesh>
     </group>
+  );
+}
+
+const SHAFT_INDICES = new Uint16Array([0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7]);
+// Window opening corners (world space), on the inner wall face
+const SHAFT_SOURCES: Array<[number, number, number]> = [
+  [-4.14, 2.9, -2.2],
+  [-4.14, 2.9, -1.0],
+  [-4.14, 1.5, -2.2],
+  [-4.14, 1.5, -1.0],
+];
+const SUN_AIM = new Vector3(1.5, 0.2, 0.5);
+
+/**
+ * A soft volumetric shaft of light falling from the window to the floor,
+ * rebuilt each frame from the live sun position so it always matches the
+ * real shadows.
+ */
+export function LightShaft() {
+  const live = useLivePalette();
+  const positionRef = useRef<BufferAttribute>(null);
+  const materialRef = useRef<MeshBasicMaterial>(null);
+  const positions = useMemo(() => new Float32Array(8 * 3), []);
+  const direction = useMemo(() => new Vector3(), []);
+
+  useFrame(() => {
+    const palette = live.current;
+    direction.copy(SUN_AIM).sub(palette.sunPosition).normalize();
+
+    const write = (index: number, x: number, y: number, z: number) => {
+      positions[index * 3] = x;
+      positions[index * 3 + 1] = y;
+      positions[index * 3 + 2] = z;
+    };
+    // Stop the beam at the floor, but never past the room's edge
+    const travelFor = (x: number, y: number) => {
+      const toFloor = (y - 0.03) / -direction.y;
+      const toEdge =
+        direction.x > 0 ? (4.15 - x) / direction.x : Number.POSITIVE_INFINITY;
+      return Math.min(toFloor, toEdge);
+    };
+    // Top edge + its floor projection, then bottom edge + projection
+    [0, 1].forEach((i) => {
+      const [x, y, z] = SHAFT_SOURCES[i];
+      const travel = travelFor(x, y);
+      write(i, x, y, z);
+      write(
+        3 - i,
+        x + direction.x * travel,
+        y + direction.y * travel,
+        z + direction.z * travel,
+      );
+    });
+    [2, 3].forEach((i) => {
+      const [x, y, z] = SHAFT_SOURCES[i];
+      const travel = travelFor(x, y);
+      write(i + 2, x, y, z);
+      write(
+        7 - (i - 2),
+        x + direction.x * travel,
+        y + direction.y * travel,
+        z + direction.z * travel,
+      );
+    });
+
+    if (positionRef.current) positionRef.current.needsUpdate = true;
+    const material = materialRef.current;
+    if (material) {
+      material.opacity = palette.shaftOpacity;
+      material.color.copy(palette.sunColor);
+    }
+  });
+
+  return (
+    <mesh frustumCulled={false}>
+      <bufferGeometry>
+        <bufferAttribute
+          ref={positionRef}
+          attach="attributes-position"
+          args={[positions, 3]}
+        />
+        <bufferAttribute attach="index" args={[SHAFT_INDICES, 1]} />
+      </bufferGeometry>
+      <meshBasicMaterial
+        ref={materialRef}
+        transparent
+        opacity={0.1}
+        depthWrite={false}
+        blending={AdditiveBlending}
+        side={2}
+      />
+    </mesh>
   );
 }
 
@@ -261,11 +365,12 @@ export function Chair() {
 
 const CODE_BAR_COUNT = 9;
 
-export function Monitor() {
+export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
   const live = useLivePalette();
   const screenRef = useRef<MeshStandardMaterial>(null);
   const barsRef = useRef<Group>(null);
   const glowRef = useRef<PointLight>(null);
+  const caretRef = useRef<MeshBasicMaterial>(null);
 
   const bars = useMemo(
     () =>
@@ -276,17 +381,28 @@ export function Monitor() {
       })),
     [],
   );
+  const lastBar = bars[CODE_BAR_COUNT - 1];
 
-  useFrame(() => {
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
     const intensity = live.current.screenIntensity;
-    if (screenRef.current) screenRef.current.emissiveIntensity = intensity;
-    if (glowRef.current) glowRef.current.intensity = intensity * 1.6;
+    // A whisper of CRT-ish flicker keeps the screen feeling alive
+    const flicker = reduceMotion
+      ? 1
+      : 1 + 0.025 * Math.sin(t * 11) + 0.015 * Math.sin(t * 5.7);
+    if (screenRef.current) {
+      screenRef.current.emissiveIntensity = intensity * flicker;
+    }
+    if (glowRef.current) glowRef.current.intensity = intensity * 1.6 * flicker;
     barsRef.current?.children.forEach((child) => {
       const material = (child as Mesh).material;
       if (!Array.isArray(material) && 'opacity' in material) {
         material.opacity = 0.45 + intensity * 0.3;
       }
     });
+    if (caretRef.current) {
+      caretRef.current.opacity = reduceMotion || t % 1.1 < 0.6 ? 0.85 : 0;
+    }
   });
 
   return (
@@ -332,6 +448,18 @@ export function Monitor() {
           </mesh>
         ))}
       </group>
+
+      {/* Blinking caret at the end of the last line of "code" */}
+      <mesh
+        position={[
+          -0.42 + lastBar.indent + lastBar.width,
+          0.84 - (CODE_BAR_COUNT - 1) * 0.052,
+          0.036,
+        ]}
+      >
+        <planeGeometry args={[0.012, 0.034]} />
+        <meshBasicMaterial ref={caretRef} color="#c9d1d9" transparent />
+      </mesh>
 
       {/* Screen glow */}
       <pointLight
@@ -448,19 +576,57 @@ export function Mug({ reduceMotion }: { reduceMotion: boolean }) {
   );
 }
 
-export function DeskLamp() {
+export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
   const live = useLivePalette();
   const shadeRef = useRef<MeshStandardMaterial>(null);
   const lightRef = useRef<PointLight>(null);
+  const groupRef = useRef<Group>(null);
+  const hoverScale = useRef(1);
+  const [hovered, setHovered] = useState(false);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const intensity = live.current.lampIntensity;
     if (shadeRef.current) shadeRef.current.emissiveIntensity = intensity * 0.04;
     if (lightRef.current) lightRef.current.intensity = intensity;
+    hoverScale.current = expDamp(
+      hoverScale.current,
+      hovered ? 1.08 : 1,
+      14,
+      Math.min(delta, 0.066),
+    );
+    groupRef.current?.scale.setScalar(hoverScale.current);
   });
 
   return (
-    <group position={[2.1, 1.06, -3.6]}>
+    <group
+      ref={groupRef}
+      position={[2.1, 1.06, -3.6]}
+      onPointerOver={(event) => {
+        event.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = '';
+      }}
+      onClick={(event) => {
+        event.stopPropagation();
+        onCycleTheme();
+      }}
+    >
+      {hovered && (
+        <Html center position={[-0.1, 0.85, 0]} zIndexRange={[40, 0]}>
+          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 py-1 text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
+            Flip the lights
+          </div>
+        </Html>
+      )}
+      {/* Generous invisible hit target — the lamp itself is tiny on screen */}
+      <mesh position={[-0.1, 0.3, 0]}>
+        <boxGeometry args={[0.55, 0.7, 0.45]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <mesh position={[0, 0.02, 0]} castShadow>
         <cylinderGeometry args={[0.11, 0.13, 0.04, 20]} />
         <meshStandardMaterial color={MATERIALS.metal} roughness={0.5} />
@@ -532,7 +698,32 @@ const POLAROIDS: Array<{
   { x: 0.68, y: -0.32, tilt: -0.05 },
 ];
 
-export function Corkboard() {
+export function Corkboard({
+  hovered,
+  reduceMotion,
+}: {
+  hovered: boolean;
+  reduceMotion: boolean;
+}) {
+  const polaroidRefs = useRef<Array<Group | null>>([]);
+  const wiggleAmp = useRef(0);
+
+  useFrame((state, delta) => {
+    // Polaroids flutter when the board has your attention
+    wiggleAmp.current = expDamp(
+      wiggleAmp.current,
+      hovered && !reduceMotion ? 0.05 : 0,
+      8,
+      Math.min(delta, 0.066),
+    );
+    const t = state.clock.getElapsedTime();
+    polaroidRefs.current.forEach((group, i) => {
+      if (!group) return;
+      group.rotation.z =
+        POLAROIDS[i].tilt + Math.sin(t * 9 + i * 1.7) * wiggleAmp.current;
+    });
+  });
+
   return (
     <group position={[2.95, 2.2, -4.15]}>
       <mesh castShadow>
@@ -561,6 +752,9 @@ export function Corkboard() {
       {POLAROIDS.map((polaroid, i) => (
         <group
           key={i}
+          ref={(node) => {
+            polaroidRefs.current[i] = node;
+          }}
           position={[polaroid.x, polaroid.y, 0.035]}
           rotation={[0, 0, polaroid.tilt]}
         >
@@ -588,14 +782,53 @@ export function Corkboard() {
   );
 }
 
-export function WallWindow() {
+const STAR_COUNT = 8;
+const CLOUDS = [
+  { y: 0.32, speed: 0.016, offset: 0, scale: 1 },
+  { y: -0.02, speed: 0.011, offset: 0.55, scale: 0.75 },
+];
+
+export function WallWindow({ reduceMotion }: { reduceMotion: boolean }) {
   const live = useLivePalette();
   const skyRef = useRef<MeshBasicMaterial>(null);
   const discRef = useRef<Mesh>(null);
   const discMaterialRef = useRef<MeshBasicMaterial>(null);
   const glowRef = useRef<PointLight>(null);
+  const cloudRefs = [useRef<Group>(null), useRef<Group>(null)];
+  const cloudMaterials = useMemo(
+    () =>
+      CLOUDS.map(
+        () =>
+          new MeshBasicMaterial({
+            color: '#ffffff',
+            transparent: true,
+            opacity: 0.8,
+          }),
+      ),
+    [],
+  );
+  const starMaterial = useMemo(
+    () =>
+      new MeshBasicMaterial({
+        color: '#fdf6d8',
+        transparent: true,
+        opacity: 0,
+      }),
+    [],
+  );
 
-  useFrame(() => {
+  const stars = useMemo(
+    () =>
+      Array.from({ length: STAR_COUNT }, (_, i) => ({
+        x: (seeded(i, 21) - 0.5) * 1.0,
+        y: (seeded(i, 22) - 0.5) * 1.2,
+        r: 0.008 + seeded(i, 23) * 0.007,
+      })),
+    [],
+  );
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
     const palette = live.current;
     skyRef.current?.color.copy(palette.sky);
     discMaterialRef.current?.color.copy(palette.discColor);
@@ -610,6 +843,23 @@ export function WallWindow() {
       glow.color.copy(palette.windowGlowColor);
       glow.intensity = palette.windowGlowIntensity;
     }
+
+    // Clouds drift across the pane, fading out near the frame
+    CLOUDS.forEach((cloud, i) => {
+      const group = cloudRefs[i].current;
+      if (!group) return;
+      const x = reduceMotion
+        ? cloud.offset - 0.25
+        : ((((t * cloud.speed + cloud.offset) % 0.96) + 0.96) % 0.96) - 0.48;
+      group.position.x = x;
+      const edge = clamp01((0.48 - Math.abs(x)) / 0.14);
+      cloudMaterials[i].opacity = palette.cloudOpacity * edge;
+    });
+
+    // Stars twinkle in when night falls
+    starMaterial.opacity =
+      palette.starOpacity *
+      (reduceMotion ? 0.9 : 0.7 + 0.3 * Math.sin(t * 1.9));
   });
 
   return (
@@ -619,11 +869,38 @@ export function WallWindow() {
         <planeGeometry args={[1.2, 1.4]} />
         <meshBasicMaterial ref={skyRef} color={MATERIALS.paper} />
       </mesh>
+      {/* Stars behind everything else in the pane */}
+      <group position={[0, 0, 0.003]}>
+        {stars.map((star, i) => (
+          <mesh key={i} position={[star.x, star.y, 0]} material={starMaterial}>
+            <circleGeometry args={[star.r, 8]} />
+          </mesh>
+        ))}
+      </group>
       {/* The sun (or moon) — slides across the pane as the theme shifts */}
       <mesh ref={discRef} position={[-0.3, 0.45, 0.005]}>
         <circleGeometry args={[0.13, 24]} />
         <meshBasicMaterial ref={discMaterialRef} color="#fff3c4" />
       </mesh>
+      {/* Clouds drifting by */}
+      {CLOUDS.map((cloud, i) => (
+        <group
+          key={i}
+          ref={cloudRefs[i]}
+          position={[0, cloud.y, 0.007]}
+          scale={cloud.scale}
+        >
+          <mesh position={[0, 0, 0]} material={cloudMaterials[i]}>
+            <circleGeometry args={[0.07, 16]} />
+          </mesh>
+          <mesh position={[-0.07, -0.015, 0]} material={cloudMaterials[i]}>
+            <circleGeometry args={[0.05, 16]} />
+          </mesh>
+          <mesh position={[0.07, -0.02, 0]} material={cloudMaterials[i]}>
+            <circleGeometry args={[0.055, 16]} />
+          </mesh>
+        </group>
+      ))}
 
       {/* Frame + cross bars */}
       <mesh position={[0, 0.72, 0.02]}>
@@ -862,7 +1139,20 @@ export function StringLights() {
 
 const BOOKS_PER_SHELF = 9;
 
-function BookRow({ shelfY, salt }: { shelfY: number; salt: number }) {
+function BookRow({
+  shelfY,
+  salt,
+  peekIndex,
+  hovered,
+}: {
+  shelfY: number;
+  salt: number;
+  peekIndex: number;
+  hovered: boolean;
+}) {
+  const peekRef = useRef<Mesh>(null);
+  const peekOffset = useRef(0);
+
   const books = useMemo(
     () =>
       Array.from({ length: BOOKS_PER_SHELF }, (_, i) => ({
@@ -874,11 +1164,23 @@ function BookRow({ shelfY, salt }: { shelfY: number; salt: number }) {
     [salt],
   );
 
+  useFrame((_, delta) => {
+    // One book slides out of the row when the shelf is hovered
+    peekOffset.current = expDamp(
+      peekOffset.current,
+      hovered ? 0.09 : 0,
+      10,
+      Math.min(delta, 0.066),
+    );
+    if (peekRef.current) peekRef.current.position.z = peekOffset.current;
+  });
+
   return (
     <group position={[0, shelfY, 0]}>
       {books.map((book, i) => (
         <mesh
           key={i}
+          ref={i === peekIndex ? peekRef : undefined}
           position={[-0.68 + i * 0.115 + book.gap, book.height / 2, 0]}
           rotation={[0, 0, book.tilt]}
           castShadow
@@ -891,7 +1193,15 @@ function BookRow({ shelfY, salt }: { shelfY: number; salt: number }) {
   );
 }
 
-export function Bookshelf() {
+export function Bookshelf({
+  hovered,
+  reduceMotion,
+}: {
+  hovered: boolean;
+  reduceMotion: boolean;
+}) {
+  const animateHover = hovered && !reduceMotion;
+
   return (
     <group position={[-3.8, 0, 1.5]} rotation={[0, Math.PI / 2, 0]}>
       {/* Sides */}
@@ -916,8 +1226,8 @@ export function Bookshelf() {
         </mesh>
       ))}
 
-      <BookRow shelfY={0.085} salt={1} />
-      <BookRow shelfY={0.745} salt={3} />
+      <BookRow shelfY={0.085} salt={1} peekIndex={3} hovered={animateHover} />
+      <BookRow shelfY={0.745} salt={3} peekIndex={6} hovered={animateHover} />
 
       {/* A lazy horizontal stack on the top shelf */}
       <group position={[-0.35, 1.4, 0]}>

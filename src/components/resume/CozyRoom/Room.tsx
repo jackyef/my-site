@@ -26,6 +26,7 @@ import {
   HotspotGroup,
   IntroPop,
   Keyboard,
+  LightShaft,
   Monitor,
   MouseAndPad,
   Mug,
@@ -49,6 +50,7 @@ type RoomProps = {
   onHover: (id: SectionId | null) => void;
   onSelect: (id: SectionId) => void;
   onClose: () => void;
+  onCycleTheme: () => void;
 };
 
 function ScenePanel({
@@ -80,6 +82,7 @@ function ScenePanel({
             onClick={(event) => event.stopPropagation()}
             onPointerDown={(event) => event.stopPropagation()}
             onPointerUp={(event) => event.stopPropagation()}
+            onPointerMove={(event) => event.stopPropagation()}
             onWheel={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
@@ -168,6 +171,7 @@ export function Room({
   onHover,
   onSelect,
   onClose,
+  onCycleTheme,
 }: RoomProps) {
   const hotspotProps = (
     id: SectionId,
@@ -198,7 +202,7 @@ export function Room({
         <Chair />
       </IntroPop>
       <IntroPop delay={0.2} reduceMotion={reduceMotion}>
-        <WallWindow />
+        <WallWindow reduceMotion={reduceMotion} />
       </IntroPop>
       <IntroPop delay={0.38} reduceMotion={reduceMotion}>
         <Keyboard />
@@ -213,7 +217,7 @@ export function Room({
         <Mug reduceMotion={reduceMotion} />
       </IntroPop>
       <IntroPop delay={0.46} reduceMotion={reduceMotion}>
-        <DeskLamp />
+        <DeskLamp onCycleTheme={onCycleTheme} />
       </IntroPop>
       <IntroPop delay={0.42} reduceMotion={reduceMotion}>
         <Plant />
@@ -238,13 +242,16 @@ export function Room({
       </IntroPop>
 
       <HotspotGroup {...hotspotProps('projects', 0.34, [1.0, 1.6, -3.6])}>
-        <Monitor />
+        <Monitor reduceMotion={reduceMotion} />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('career', 0.38, [2.95, 2.2, -4.14])}>
-        <Corkboard />
+        <Corkboard hovered={hovered === 'career'} reduceMotion={reduceMotion} />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('writing', 0.3, [-3.8, 1.15, 1.5])}>
-        <Bookshelf />
+        <Bookshelf
+          hovered={hovered === 'writing'}
+          reduceMotion={reduceMotion}
+        />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.35, 1.2])}>
         <Dog hovered={hovered === 'about'} reduceMotion={reduceMotion} />
@@ -253,6 +260,7 @@ export function Room({
         <Envelopes />
       </HotspotGroup>
 
+      <LightShaft />
       <DustMotes reduceMotion={reduceMotion} />
 
       {panel3d && view !== 'overview' && (

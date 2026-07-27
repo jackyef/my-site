@@ -53,8 +53,13 @@ export default function Resume({ featuredWritings }: Props) {
   const [flatMode, setFlatMode] = useState(false);
   const [webglOk, setWebglOk] = useState<boolean | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const reduceMotion = useReduceMotion();
+
+  // Clicking the desk lamp in the room flips the room's (and site's) lights
+  const cycleTheme = useCallback(() => {
+    setTheme(theme === 'light' ? 'dim' : theme === 'dim' ? 'dark' : 'light');
+  }, [theme, setTheme]);
 
   useEffect(() => {
     try {
@@ -158,6 +163,7 @@ export default function Resume({ featuredWritings }: Props) {
                 writings={featuredWritings}
                 onSelect={setView}
                 onClose={closeSection}
+                onCycleTheme={cycleTheme}
               />
             )}
             {!isDesktop && (
