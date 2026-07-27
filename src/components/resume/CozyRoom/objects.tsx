@@ -10,6 +10,7 @@ import {
   MeshBasicMaterial,
   MeshStandardMaterial,
   PointLight,
+  Quaternion,
   Vector3,
 } from 'three';
 
@@ -191,7 +192,7 @@ export function RoomShell() {
       {[-3.15, -2.1, -1.05, 0, 1.05, 2.1, 3.15].map((z) => (
         <mesh key={z} position={[0, 0.002, z]}>
           <boxGeometry args={[8.4, 0.008, 0.022]} />
-          <meshStandardMaterial color="#a87a54" roughness={1} />
+          <meshStandardMaterial color={MATERIALS.floorGroove} roughness={1} />
         </mesh>
       ))}
 
@@ -317,48 +318,78 @@ export function Rug() {
 
 export function Desk() {
   return (
-    <group position={[1.0, 0, -3.3]}>
-      <mesh position={[0, 1.02, 0]} castShadow receiveShadow>
-        <boxGeometry args={[2.6, 0.08, 1.1]} />
-        <meshStandardMaterial color={MATERIALS.wood} roughness={0.7} />
+    <group>
+      {/* Main top along the back wall */}
+      <mesh position={[0.775, 1.03, -3.5]} castShadow receiveShadow>
+        <boxGeometry args={[3.35, 0.06, 1.0]} />
+        <meshStandardMaterial color={MATERIALS.deskTop} roughness={0.7} />
       </mesh>
+      {/* L-return on the left */}
+      <mesh position={[-0.4, 1.03, -2.4]} castShadow receiveShadow>
+        <boxGeometry args={[1.0, 0.06, 1.2]} />
+        <meshStandardMaterial color={MATERIALS.deskTop} roughness={0.7} />
+      </mesh>
+      {/* White standing-desk T-legs */}
       {[
-        [-1.2, -0.45],
-        [-1.2, 0.45],
-        [1.2, -0.45],
-        [1.2, 0.45],
+        [-0.7, -3.5],
+        [2.25, -3.5],
       ].map(([x, z]) => (
-        <mesh key={`${x}:${z}`} position={[x, 0.49, z]} castShadow>
-          <boxGeometry args={[0.08, 0.98, 0.08]} />
-          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
-        </mesh>
+        <group key={`${x}:${z}`} position={[x, 0, z]}>
+          <mesh position={[0, 0.51, 0]} castShadow>
+            <boxGeometry args={[0.09, 0.98, 0.12]} />
+            <meshStandardMaterial color={MATERIALS.deskLeg} roughness={0.6} />
+          </mesh>
+          <mesh position={[0, 0.025, 0]} castShadow>
+            <boxGeometry args={[0.14, 0.05, 0.78]} />
+            <meshStandardMaterial color={MATERIALS.deskLeg} roughness={0.6} />
+          </mesh>
+        </group>
       ))}
+      {/* Return leg */}
+      <group position={[-0.4, 0, -1.95]}>
+        <mesh position={[0, 0.51, 0]} castShadow>
+          <boxGeometry args={[0.12, 0.98, 0.09]} />
+          <meshStandardMaterial color={MATERIALS.deskLeg} roughness={0.6} />
+        </mesh>
+        <mesh position={[0, 0.025, 0]} castShadow>
+          <boxGeometry args={[0.78, 0.05, 0.14]} />
+          <meshStandardMaterial color={MATERIALS.deskLeg} roughness={0.6} />
+        </mesh>
+      </group>
     </group>
   );
 }
 
 export function Chair() {
   return (
-    <group position={[1.0, 0, -2.15]} rotation={[0, -0.35, 0]}>
-      <mesh position={[0, 0.55, 0]} castShadow>
-        <boxGeometry args={[0.55, 0.06, 0.5]} />
-        <meshStandardMaterial color={MATERIALS.woodLight} roughness={0.7} />
+    <group position={[1.35, 0, -2.35]} rotation={[0, -0.45, 0]}>
+      {/* Base + column */}
+      <mesh position={[0, 0.03, 0]} castShadow>
+        <cylinderGeometry args={[0.32, 0.36, 0.05, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
       </mesh>
-      <mesh position={[0, 0.9, 0.24]} castShadow>
-        <boxGeometry args={[0.55, 0.65, 0.05]} />
-        <meshStandardMaterial color={MATERIALS.woodLight} roughness={0.7} />
+      <mesh position={[0, 0.28, 0]} castShadow>
+        <cylinderGeometry args={[0.035, 0.035, 0.5, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.5} />
       </mesh>
-      {[
-        [-0.23, -0.2],
-        [-0.23, 0.2],
-        [0.23, -0.2],
-        [0.23, 0.2],
-      ].map(([x, z]) => (
-        <mesh key={`${x}:${z}`} position={[x, 0.26, z]} castShadow>
-          <boxGeometry args={[0.05, 0.52, 0.05]} />
-          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
-        </mesh>
-      ))}
+      {/* Seat + back */}
+      <mesh position={[0, 0.58, 0]} castShadow>
+        <boxGeometry args={[0.56, 0.09, 0.52]} />
+        <meshStandardMaterial color={MATERIALS.fabric} roughness={0.95} />
+      </mesh>
+      <mesh position={[0, 1.0, 0.26]} rotation={[0.08, 0, 0]} castShadow>
+        <boxGeometry args={[0.54, 0.72, 0.07]} />
+        <meshStandardMaterial color={MATERIALS.fabric} roughness={0.95} />
+      </mesh>
+      {/* Armrests */}
+      <mesh position={[-0.3, 0.76, 0.02]} castShadow>
+        <boxGeometry args={[0.05, 0.05, 0.3]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
+      <mesh position={[0.3, 0.76, 0.02]} castShadow>
+        <boxGeometry args={[0.05, 0.05, 0.3]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
     </group>
   );
 }
@@ -368,6 +399,7 @@ const CODE_BAR_COUNT = 9;
 export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
   const live = useLivePalette();
   const screenRef = useRef<MeshStandardMaterial>(null);
+  const appScreenRef = useRef<MeshStandardMaterial>(null);
   const barsRef = useRef<Group>(null);
   const glowRef = useRef<PointLight>(null);
   const caretRef = useRef<MeshBasicMaterial>(null);
@@ -375,8 +407,8 @@ export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
   const bars = useMemo(
     () =>
       Array.from({ length: CODE_BAR_COUNT }, (_, i) => ({
-        width: 0.14 + seeded(i, 2) * 0.5,
-        indent: i % 3 === 1 ? 0.08 : i % 4 === 2 ? 0.16 : 0,
+        width: 0.12 + seeded(i, 2) * 0.42,
+        indent: i % 3 === 1 ? 0.07 : i % 4 === 2 ? 0.14 : 0,
         color: MATERIALS.screenCode[i % MATERIALS.screenCode.length],
       })),
     [],
@@ -386,14 +418,17 @@ export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     const intensity = live.current.screenIntensity;
-    // A whisper of CRT-ish flicker keeps the screen feeling alive
+    // A whisper of CRT-ish flicker keeps the screens feeling alive
     const flicker = reduceMotion
       ? 1
       : 1 + 0.025 * Math.sin(t * 11) + 0.015 * Math.sin(t * 5.7);
     if (screenRef.current) {
       screenRef.current.emissiveIntensity = intensity * flicker;
     }
-    if (glowRef.current) glowRef.current.intensity = intensity * 1.6 * flicker;
+    if (appScreenRef.current) {
+      appScreenRef.current.emissiveIntensity = intensity * 0.9 * flicker;
+    }
+    if (glowRef.current) glowRef.current.intensity = intensity * 1.9 * flicker;
     barsRef.current?.children.forEach((child) => {
       const material = (child as Mesh).material;
       if (!Array.isArray(material) && 'opacity' in material) {
@@ -406,68 +441,128 @@ export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
   });
 
   return (
-    <group position={[1.0, 1.06, -3.6]}>
-      <mesh position={[0, 0.015, 0]} castShadow>
-        <cylinderGeometry args={[0.16, 0.18, 0.03, 24]} />
-        <meshStandardMaterial color={MATERIALS.metal} roughness={0.5} />
-      </mesh>
-      <mesh position={[0, 0.18, 0]} castShadow>
-        <boxGeometry args={[0.06, 0.32, 0.06]} />
-        <meshStandardMaterial color={MATERIALS.metal} roughness={0.5} />
-      </mesh>
-      <mesh position={[0, 0.62, 0]} castShadow>
-        <boxGeometry args={[1.15, 0.68, 0.06]} />
-        <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.4} />
-      </mesh>
+    <group>
+      {/* Left monitor — the editor */}
+      <group position={[0.78, 1.06, -3.62]}>
+        <mesh position={[0, 0.015, 0]} castShadow>
+          <cylinderGeometry args={[0.14, 0.16, 0.03, 24]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.16, 0]} castShadow>
+          <boxGeometry args={[0.05, 0.28, 0.05]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.56, 0]} castShadow>
+          <boxGeometry args={[0.95, 0.58, 0.05]} />
+          <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.56, 0.027]}>
+          <planeGeometry args={[0.87, 0.5]} />
+          <meshStandardMaterial
+            ref={screenRef}
+            color="#0d1a26"
+            emissive="#14283d"
+            emissiveIntensity={0.75}
+            roughness={0.3}
+          />
+        </mesh>
+        {/* Lines of "code" */}
+        <group ref={barsRef}>
+          {bars.map((bar, i) => (
+            <mesh
+              key={i}
+              position={[
+                -0.36 + bar.indent + bar.width / 2,
+                0.74 - i * 0.045,
+                0.03,
+              ]}
+            >
+              <planeGeometry args={[bar.width, 0.019]} />
+              <meshBasicMaterial color={bar.color} transparent opacity={0.65} />
+            </mesh>
+          ))}
+        </group>
+        {/* Blinking caret at the end of the last line */}
+        <mesh
+          position={[
+            -0.34 + lastBar.indent + lastBar.width,
+            0.74 - (CODE_BAR_COUNT - 1) * 0.045,
+            0.03,
+          ]}
+        >
+          <planeGeometry args={[0.011, 0.03]} />
+          <meshBasicMaterial ref={caretRef} color="#c9d1d9" transparent />
+        </mesh>
+        {/* Webcam perched on top */}
+        <mesh position={[0, 0.88, 0]} castShadow>
+          <boxGeometry args={[0.09, 0.05, 0.05]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.88, 0.026]}>
+          <circleGeometry args={[0.012, 10]} />
+          <meshBasicMaterial color="#5a7f9f" />
+        </mesh>
+      </group>
 
-      {/* Screen face */}
-      <mesh position={[0, 0.62, 0.032]}>
-        <planeGeometry args={[1.05, 0.58]} />
-        <meshStandardMaterial
-          ref={screenRef}
-          color="#0d1a26"
-          emissive="#14283d"
-          emissiveIntensity={0.75}
-          roughness={0.3}
-        />
-      </mesh>
-
-      {/* Lines of "code" */}
-      <group ref={barsRef}>
-        {bars.map((bar, i) => (
-          <mesh
-            key={i}
-            position={[
-              -0.44 + bar.indent + bar.width / 2,
-              0.84 - i * 0.052,
-              0.036,
-            ]}
-          >
-            <planeGeometry args={[bar.width, 0.022]} />
-            <meshBasicMaterial color={bar.color} transparent opacity={0.65} />
+      {/* Right monitor — chat, angled inward */}
+      <group position={[1.85, 1.06, -3.58]} rotation={[0, 0.15, 0]}>
+        <mesh position={[0, 0.015, 0]} castShadow>
+          <cylinderGeometry args={[0.14, 0.16, 0.03, 24]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.16, 0]} castShadow>
+          <boxGeometry args={[0.05, 0.28, 0.05]} />
+          <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.58, 0]} castShadow>
+          <boxGeometry args={[1.02, 0.62, 0.05]} />
+          <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.58, 0.027]}>
+          <planeGeometry args={[0.94, 0.54]} />
+          <meshStandardMaterial
+            ref={appScreenRef}
+            color={MATERIALS.appScreen}
+            emissive={MATERIALS.appScreen}
+            emissiveIntensity={0.7}
+            roughness={0.3}
+          />
+        </mesh>
+        {/* Sidebar + channel list */}
+        <mesh position={[-0.42, 0.58, 0.03]}>
+          <planeGeometry args={[0.09, 0.54]} />
+          <meshBasicMaterial color="#1a1626" transparent opacity={0.9} />
+        </mesh>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <mesh key={i} position={[-0.28, 0.76 - i * 0.07, 0.03]}>
+            <planeGeometry args={[0.14, 0.02]} />
+            <meshBasicMaterial color="#8d86a8" transparent opacity={0.55} />
+          </mesh>
+        ))}
+        {/* The big purple pane */}
+        <mesh position={[0.12, 0.62, 0.03]}>
+          <planeGeometry args={[0.55, 0.34]} />
+          <meshBasicMaterial
+            color={MATERIALS.appAccent}
+            transparent
+            opacity={0.85}
+          />
+        </mesh>
+        {[0, 1, 2].map((i) => (
+          <mesh key={i} position={[0.1, 0.4 - i * 0.045, 0.03]}>
+            <planeGeometry args={[0.5 - i * 0.1, 0.018]} />
+            <meshBasicMaterial color="#cfcadf" transparent opacity={0.5} />
           </mesh>
         ))}
       </group>
 
-      {/* Blinking caret at the end of the last line of "code" */}
-      <mesh
-        position={[
-          -0.42 + lastBar.indent + lastBar.width,
-          0.84 - (CODE_BAR_COUNT - 1) * 0.052,
-          0.036,
-        ]}
-      >
-        <planeGeometry args={[0.012, 0.034]} />
-        <meshBasicMaterial ref={caretRef} color="#c9d1d9" transparent />
-      </mesh>
-
-      {/* Screen glow */}
+      {/* Screen glow over the desk */}
       <pointLight
         ref={glowRef}
-        position={[0, 0.62, 0.6]}
-        color="#7fd1c0"
-        intensity={1.2}
-        distance={2.2}
+        position={[1.3, 1.7, -3.0]}
+        color="#8f9fd1"
+        intensity={1.4}
+        distance={2.6}
       />
     </group>
   );
@@ -475,29 +570,48 @@ export function Monitor({ reduceMotion }: { reduceMotion: boolean }) {
 
 export function Keyboard() {
   return (
-    <group position={[1.0, 1.06, -3.05]} rotation={[0, 0.04, 0]}>
-      <mesh position={[0, 0.015, 0]} castShadow>
-        <boxGeometry args={[0.62, 0.03, 0.21]} />
-        <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.6} />
-      </mesh>
-      <mesh position={[0, 0.032, 0]}>
-        <boxGeometry args={[0.56, 0.01, 0.16]} />
-        <meshStandardMaterial color={MATERIALS.metal} roughness={0.6} />
-      </mesh>
+    <group>
+      {[
+        { x: 1.02, tilt: 0.03, accent: '#c25b4e' },
+        { x: 1.58, tilt: -0.04, accent: '#e0a458' },
+      ].map((board) => (
+        <group
+          key={board.x}
+          position={[board.x, 1.06, -3.12]}
+          rotation={[0, board.tilt, 0]}
+        >
+          <mesh position={[0, 0.015, 0]} castShadow>
+            <boxGeometry args={[0.46, 0.03, 0.18]} />
+            <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+          </mesh>
+          <mesh position={[0, 0.032, 0]}>
+            <boxGeometry args={[0.42, 0.01, 0.14]} />
+            <meshStandardMaterial
+              color={MATERIALS.gadgetLight}
+              roughness={0.6}
+            />
+          </mesh>
+          {/* One accent keycap */}
+          <mesh position={[0.17, 0.038, -0.05]}>
+            <boxGeometry args={[0.035, 0.008, 0.035]} />
+            <meshStandardMaterial color={board.accent} roughness={0.6} />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 }
 
 export function MouseAndPad() {
   return (
-    <group position={[1.62, 1.06, -3.05]}>
+    <group position={[2.12, 1.06, -3.12]}>
       <mesh position={[0, 0.006, 0]}>
-        <boxGeometry args={[0.32, 0.012, 0.26]} />
-        <meshStandardMaterial color={MATERIALS.rug} roughness={0.95} />
+        <boxGeometry args={[0.42, 0.012, 0.3]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.95} />
       </mesh>
-      <mesh position={[0, 0.035, 0]} rotation={[0, -0.2, 0]} castShadow>
+      <mesh position={[0.02, 0.035, 0.02]} rotation={[0, -0.25, 0]} castShadow>
         <sphereGeometry args={[0.05, 14, 14]} />
-        <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.5} />
+        <meshStandardMaterial color="#f2f1ed" roughness={0.4} />
       </mesh>
     </group>
   );
@@ -505,7 +619,7 @@ export function MouseAndPad() {
 
 export function Notebook() {
   return (
-    <group position={[0.25, 1.06, -2.95]} rotation={[0, 0.35, 0]}>
+    <group position={[0.32, 1.06, -3.22]} rotation={[0, 0.35, 0]}>
       <mesh position={[0, 0.012, 0]} castShadow>
         <boxGeometry args={[0.28, 0.025, 0.38]} />
         <meshStandardMaterial color={MATERIALS.envelopeFlag} roughness={0.8} />
@@ -533,7 +647,7 @@ function Steam({ reduceMotion }: { reduceMotion: boolean }) {
       const mesh = puff.current;
       if (!mesh) return;
       const progress = (t * 0.25 + i / 3) % 1;
-      mesh.position.y = 0.12 + progress * 0.35;
+      mesh.position.y = 0.24 + progress * 0.35;
       mesh.position.x = Math.sin((t + i * 2.1) * 1.7) * 0.02;
       mesh.scale.setScalar(0.5 + progress * 0.7);
       const material = mesh.material;
@@ -562,14 +676,15 @@ function Steam({ reduceMotion }: { reduceMotion: boolean }) {
 
 export function Mug({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <group position={[1.95, 1.06, -2.98]}>
-      <mesh position={[0, 0.07, 0]} castShadow>
-        <cylinderGeometry args={[0.07, 0.06, 0.14, 20]} />
-        <meshStandardMaterial color={MATERIALS.mug} roughness={0.4} />
+    <group position={[-0.62, 1.06, -2.7]}>
+      <mesh position={[0, 0.1, 0]} castShadow>
+        <cylinderGeometry args={[0.055, 0.05, 0.2, 20]} />
+        <meshStandardMaterial color={MATERIALS.mug} roughness={0.5} />
       </mesh>
-      <mesh position={[0.085, 0.08, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.035, 0.012, 10, 20]} />
-        <meshStandardMaterial color={MATERIALS.mug} roughness={0.4} />
+      {/* Lid */}
+      <mesh position={[0, 0.21, 0]} castShadow>
+        <cylinderGeometry args={[0.058, 0.058, 0.025, 20]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.4} />
       </mesh>
       <Steam reduceMotion={reduceMotion} />
     </group>
@@ -600,7 +715,7 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
   return (
     <group
       ref={groupRef}
-      position={[2.1, 1.06, -3.6]}
+      position={[2.42, 1.06, -3.72]}
       onPointerOver={(event) => {
         event.stopPropagation();
         setHovered(true);
@@ -660,7 +775,7 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
 
 export function Envelopes() {
   return (
-    <group position={[-0.05, 1.06, -3.2]}>
+    <group position={[-0.38, 1.06, -2.32]}>
       {[0, 1, 2].map((i) => (
         <mesh
           key={i}
@@ -902,45 +1017,44 @@ export function WallWindow({ reduceMotion }: { reduceMotion: boolean }) {
         </group>
       ))}
 
-      {/* Frame + cross bars */}
+      {/* Frame + cross bars — powder-coated gray */}
       <mesh position={[0, 0.72, 0.02]}>
         <boxGeometry args={[1.34, 0.08, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
       <mesh position={[0, -0.72, 0.02]}>
         <boxGeometry args={[1.34, 0.08, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
       <mesh position={[-0.63, 0, 0.02]}>
         <boxGeometry args={[0.08, 1.52, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
       <mesh position={[0.63, 0, 0.02]}>
         <boxGeometry args={[0.08, 1.52, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
       <mesh position={[0, 0, 0.02]}>
         <boxGeometry args={[0.05, 1.44, 0.06]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
       <mesh position={[0, 0, 0.02]}>
         <boxGeometry args={[1.28, 0.05, 0.06]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        <meshStandardMaterial color={MATERIALS.windowFrame} roughness={0.6} />
       </mesh>
 
-      {/* Curtains */}
-      <mesh position={[-0.82, 0.05, 0.1]} castShadow>
-        <boxGeometry args={[0.26, 1.75, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.curtain} roughness={0.95} />
+      {/* Gray roller blind, partially down */}
+      <mesh position={[0, 0.74, 0.09]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.045, 0.045, 1.26, 14]} />
+        <meshStandardMaterial color={MATERIALS.blindRoller} roughness={0.7} />
       </mesh>
-      <mesh position={[0.82, 0.05, 0.1]} castShadow>
-        <boxGeometry args={[0.26, 1.75, 0.1]} />
-        <meshStandardMaterial color={MATERIALS.curtain} roughness={0.95} />
+      <mesh position={[0, 0.56, 0.075]} castShadow>
+        <boxGeometry args={[1.22, 0.3, 0.02]} />
+        <meshStandardMaterial color={MATERIALS.blind} roughness={0.95} />
       </mesh>
-      {/* Curtain rod */}
-      <mesh position={[0, 0.98, 0.1]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.02, 0.02, 1.9, 10]} />
-        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.6} />
+      <mesh position={[0, 0.4, 0.075]}>
+        <boxGeometry args={[1.22, 0.03, 0.026]} />
+        <meshStandardMaterial color={MATERIALS.blindRoller} roughness={0.7} />
       </mesh>
 
       {/* Little plant on the sill */}
@@ -963,6 +1077,232 @@ export function WallWindow({ reduceMotion }: { reduceMotion: boolean }) {
         intensity={6}
         distance={7}
       />
+    </group>
+  );
+}
+
+/**
+ * The boom-arm microphone clamped to the desk's return. Arm segments are
+ * built joint-to-joint so the linkage actually connects.
+ */
+const MIC_JOINTS = {
+  postBase: new Vector3(-0.82, 1.08, -3.3),
+  postTop: new Vector3(-0.82, 1.82, -3.3),
+  elbow: new Vector3(-0.32, 1.68, -2.92),
+  micTop: new Vector3(-0.04, 1.46, -2.7),
+};
+
+function ArmSegment({
+  from,
+  to,
+  radius,
+}: {
+  from: Vector3;
+  to: Vector3;
+  radius: number;
+}) {
+  const { position, quaternion, length } = useMemo(() => {
+    const dir = to.clone().sub(from);
+    const len = dir.length();
+    return {
+      position: from.clone().add(to).multiplyScalar(0.5),
+      quaternion: new Quaternion().setFromUnitVectors(
+        new Vector3(0, 1, 0),
+        dir.normalize(),
+      ),
+      length: len,
+    };
+  }, [from, to]);
+
+  return (
+    <mesh position={position} quaternion={quaternion} castShadow>
+      <cylinderGeometry args={[radius, radius, length, 10]} />
+      <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+    </mesh>
+  );
+}
+
+export function MicArm() {
+  return (
+    <group>
+      {/* Clamp */}
+      <mesh position={[-0.82, 1.09, -3.3]} castShadow>
+        <cylinderGeometry args={[0.05, 0.06, 0.06, 12]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+      </mesh>
+      <ArmSegment
+        from={MIC_JOINTS.postBase}
+        to={MIC_JOINTS.postTop}
+        radius={0.022}
+      />
+      <ArmSegment
+        from={MIC_JOINTS.postTop}
+        to={MIC_JOINTS.elbow}
+        radius={0.018}
+      />
+      <ArmSegment
+        from={MIC_JOINTS.elbow}
+        to={MIC_JOINTS.micTop}
+        radius={0.016}
+      />
+      {/* Joints */}
+      <mesh position={[-0.82, 1.82, -3.3]} castShadow>
+        <sphereGeometry args={[0.032, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+      </mesh>
+      <mesh position={[-0.32, 1.68, -2.92]} castShadow>
+        <sphereGeometry args={[0.028, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.5} />
+      </mesh>
+      {/* The mic, hanging from the arm's end */}
+      <mesh position={[-0.04, 1.36, -2.7]} rotation={[0.15, 0, 0.1]} castShadow>
+        <cylinderGeometry args={[0.045, 0.045, 0.17, 14]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.7} />
+      </mesh>
+    </group>
+  );
+}
+
+/**
+ * Two little studio speakers flanking the editor monitor — plus the
+ * rubber-duck debugging companion.
+ */
+export function Speakers() {
+  const speaker = (x: number, z: number, tilt: number) => (
+    <group position={[x, 1.06, z]} rotation={[0, tilt, 0]}>
+      <mesh position={[0, 0.13, 0]} castShadow>
+        <boxGeometry args={[0.14, 0.24, 0.13]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.09, 0.066]}>
+        <circleGeometry args={[0.045, 16]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 0.19, 0.066]}>
+        <circleGeometry args={[0.022, 12]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.8} />
+      </mesh>
+    </group>
+  );
+
+  return (
+    <group>
+      {speaker(0.28, -3.68, 0.15)}
+      {speaker(1.32, -3.72, -0.1)}
+      {/* Rubber duck, supervising from the left speaker */}
+      <group position={[0.28, 1.31, -3.68]}>
+        <mesh castShadow>
+          <sphereGeometry args={[0.045, 12, 12]} />
+          <meshStandardMaterial color={MATERIALS.duck} roughness={0.6} />
+        </mesh>
+        <mesh position={[0.02, 0.05, 0.01]} castShadow>
+          <sphereGeometry args={[0.03, 12, 12]} />
+          <meshStandardMaterial color={MATERIALS.duck} roughness={0.6} />
+        </mesh>
+        <mesh position={[0.055, 0.045, 0.01]}>
+          <coneGeometry args={[0.012, 0.03, 8]} />
+          <meshStandardMaterial color={MATERIALS.duckBeak} roughness={0.6} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+export function DeskFan() {
+  return (
+    <group position={[0.18, 1.06, -3.62]} rotation={[0, 0.4, 0]}>
+      <mesh position={[0, 0.02, 0]} castShadow>
+        <cylinderGeometry args={[0.07, 0.08, 0.03, 14]} />
+        <meshStandardMaterial color="#f0efeb" roughness={0.6} />
+      </mesh>
+      <mesh position={[0, 0.13, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <torusGeometry args={[0.085, 0.014, 10, 22]} />
+        <meshStandardMaterial color="#f0efeb" roughness={0.6} />
+      </mesh>
+      <mesh position={[0, 0.13, 0]}>
+        <circleGeometry args={[0.075, 18]} />
+        <meshStandardMaterial color="#dddcd6" roughness={0.7} />
+      </mesh>
+    </group>
+  );
+}
+
+export function GameController() {
+  return (
+    <group position={[0.55, 1.06, -3.02]} rotation={[0, 0.5, 0]}>
+      <mesh position={[0, 0.02, 0]} castShadow>
+        <boxGeometry args={[0.17, 0.035, 0.1]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
+      <mesh position={[-0.07, 0.02, 0.04]} castShadow>
+        <sphereGeometry args={[0.035, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
+      <mesh position={[0.07, 0.02, 0.04]} castShadow>
+        <sphereGeometry args={[0.035, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
+    </group>
+  );
+}
+
+/**
+ * The PC tower on its caster stand, tucked under the desk.
+ */
+export function PcTower() {
+  return (
+    <group position={[2.05, 0, -3.15]}>
+      <mesh position={[0, 0.045, 0]} castShadow>
+        <boxGeometry args={[0.5, 0.05, 0.5]} />
+        <meshStandardMaterial color={MATERIALS.gadgetLight} roughness={0.6} />
+      </mesh>
+      <mesh position={[0, 0.5, 0]} castShadow>
+        <boxGeometry args={[0.4, 0.82, 0.44]} />
+        <meshStandardMaterial color={MATERIALS.gadget} roughness={0.6} />
+      </mesh>
+      {/* Power LED */}
+      <mesh position={[0.12, 0.82, 0.222]}>
+        <circleGeometry args={[0.012, 8]} />
+        <meshBasicMaterial color="#7fd1c0" />
+      </mesh>
+    </group>
+  );
+}
+
+/**
+ * The wooden corner shelf beside the desk, complete with clutter.
+ */
+export function CornerShelf() {
+  return (
+    <group position={[3.45, 0, -3.75]}>
+      {[0.05, 0.55, 1.05].map((y) => (
+        <mesh key={y} position={[0, y, 0]} castShadow>
+          <boxGeometry args={[0.85, 0.05, 0.7]} />
+          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.8} />
+        </mesh>
+      ))}
+      {[
+        [-0.38, -0.3],
+        [0.38, -0.3],
+      ].map(([x, z]) => (
+        <mesh key={`${x}`} position={[x, 0.55, z]} castShadow>
+          <boxGeometry args={[0.05, 1.05, 0.08]} />
+          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.8} />
+        </mesh>
+      ))}
+      {/* Clutter */}
+      <mesh position={[-0.2, 0.66, 0.1]} rotation={[0, 0.3, 0]} castShadow>
+        <boxGeometry args={[0.22, 0.16, 0.16]} />
+        <meshStandardMaterial color={MATERIALS.envelope} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.22, 0.63, -0.05]} castShadow>
+        <boxGeometry args={[0.16, 0.11, 0.2]} />
+        <meshStandardMaterial color={MATERIALS.books[3]} roughness={0.85} />
+      </mesh>
+      <mesh position={[0.05, 0.13, 0.05]} rotation={[0, -0.2, 0]} castShadow>
+        <boxGeometry args={[0.3, 0.11, 0.24]} />
+        <meshStandardMaterial color={MATERIALS.books[1]} roughness={0.85} />
+      </mesh>
     </group>
   );
 }

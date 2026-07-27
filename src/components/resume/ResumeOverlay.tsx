@@ -41,7 +41,7 @@ export function ResumeOverlay({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-          className="absolute inset-x-2 bottom-2 top-auto flex max-h-[72%] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg) md:inset-x-auto md:top-3 md:right-3 md:bottom-3 md:max-h-none md:w-[400px]"
+          className="absolute inset-x-2 bottom-2 top-auto flex max-h-[46%] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg) md:inset-x-auto md:top-3 md:right-3 md:bottom-3 md:max-h-none md:w-[400px]"
         >
           <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
             <Heading level={3} as="h2">

@@ -16,26 +16,32 @@ import {
   Bookshelf,
   Chair,
   Corkboard,
+  CornerShelf,
   Desk,
+  DeskFan,
   DeskLamp,
   Dog,
   DustMotes,
   Envelopes,
   FloorBooks,
   FloorCushion,
+  GameController,
   HotspotGroup,
   IntroPop,
   Keyboard,
   LightShaft,
+  MicArm,
   Monitor,
   MouseAndPad,
   Mug,
   Notebook,
+  PcTower,
   PictureFrames,
   Plant,
   Poster,
   RoomShell,
   Rug,
+  Speakers,
   StringLights,
   WallClock,
   WallWindow,
@@ -210,6 +216,24 @@ export function Room({
       <IntroPop delay={0.4} reduceMotion={reduceMotion}>
         <MouseAndPad />
       </IntroPop>
+      <IntroPop delay={0.5} reduceMotion={reduceMotion}>
+        <MicArm />
+      </IntroPop>
+      <IntroPop delay={0.44} reduceMotion={reduceMotion}>
+        <Speakers />
+      </IntroPop>
+      <IntroPop delay={0.46} reduceMotion={reduceMotion}>
+        <DeskFan />
+      </IntroPop>
+      <IntroPop delay={0.52} reduceMotion={reduceMotion}>
+        <GameController />
+      </IntroPop>
+      <IntroPop delay={0.34} reduceMotion={reduceMotion}>
+        <PcTower />
+      </IntroPop>
+      <IntroPop delay={0.4} reduceMotion={reduceMotion}>
+        <CornerShelf />
+      </IntroPop>
       <IntroPop delay={0.44} reduceMotion={reduceMotion}>
         <Notebook />
       </IntroPop>
@@ -241,7 +265,7 @@ export function Room({
         <FloorCushion />
       </IntroPop>
 
-      <HotspotGroup {...hotspotProps('projects', 0.34, [1.0, 1.6, -3.6])}>
+      <HotspotGroup {...hotspotProps('projects', 0.34, [1.3, 1.55, -3.55])}>
         <Monitor reduceMotion={reduceMotion} />
       </HotspotGroup>
       <HotspotGroup {...hotspotProps('career', 0.38, [2.95, 2.2, -4.14])}>
@@ -256,7 +280,7 @@ export function Room({
       <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.35, 1.2])}>
         <Dog hovered={hovered === 'about'} reduceMotion={reduceMotion} />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('contact', 0.48, [-0.05, 1.2, -3.2])}>
+      <HotspotGroup {...hotspotProps('contact', 0.48, [-0.38, 1.15, -2.32])}>
         <Envelopes />
       </HotspotGroup>
 

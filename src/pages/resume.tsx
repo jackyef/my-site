@@ -142,18 +142,22 @@ export default function Resume({ featuredWritings }: Props) {
                   A <em>cozy</em> little resume
                 </>
               }
-              titleSpacing="mb-4"
+              titleSpacing="mb-2 md:mb-4"
             />
-            <Text variant="body-sm" className="max-w-xl">
+            {/* Keep the scene the star on small screens — one short line */}
+            <Text variant="body-sm" className="md:hidden">
+              This room is my resume — tap around to explore.
+            </Text>
+            <Text variant="body-sm" className="hidden max-w-xl md:block">
               Welcome to my corner of the internet — literally. This room is my
-              resume: {isDesktop ? 'drag to look around, and click' : 'tap'} on
-              things to explore. The monitor, the corkboard, the bookshelf, the
-              envelopes… and yes, the dog.
+              resume: drag to look around, and click on things to explore. The
+              monitor, the corkboard, the bookshelf, the envelopes… and yes, the
+              dog.
             </Text>
           </div>
 
           {/* Full-bleed so the room gets all the space it deserves */}
-          <div className="relative mt-4 h-[74vh] min-h-[500px] w-full md:h-[80vh]">
+          <div className="relative mt-2 h-[76vh] min-h-[500px] w-full md:mt-4 md:h-[80vh]">
             {webglOk && (
               <CozyRoomScene
                 view={view}
