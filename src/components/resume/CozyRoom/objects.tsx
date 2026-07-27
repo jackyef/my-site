@@ -147,41 +147,41 @@ export function RoomShell() {
     <group>
       {/* Floor */}
       <mesh position={[0, -0.075, 0]} receiveShadow>
-        <boxGeometry args={[7.2, 0.15, 7.2]} />
+        <boxGeometry args={[8.4, 0.15, 8.4]} />
         <meshStandardMaterial color={MATERIALS.floor} roughness={0.9} />
       </mesh>
 
       {/* Back wall */}
-      <mesh position={[0, 1.7, -3.56]} receiveShadow>
-        <boxGeometry args={[7.2, 3.4, 0.12]} />
+      <mesh position={[0, 1.7, -4.26]} receiveShadow>
+        <boxGeometry args={[8.64, 3.4, 0.12]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
 
       {/* Left wall, in segments around the window opening */}
-      <mesh position={[-3.56, 1.7, -2.71]} receiveShadow>
-        <boxGeometry args={[0.12, 3.4, 1.82]} />
+      <mesh position={[-4.26, 1.7, -3.26]} receiveShadow>
+        <boxGeometry args={[0.12, 3.4, 2.12]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-3.56, 1.7, 1.51]} receiveShadow>
-        <boxGeometry args={[0.12, 3.4, 4.22]} />
+      <mesh position={[-4.26, 1.7, 1.66]} receiveShadow>
+        <boxGeometry args={[0.12, 3.4, 5.32]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-3.56, 3.1, -1.2]} receiveShadow>
-        <boxGeometry args={[0.12, 0.6, 1.2]} />
+      <mesh position={[-4.26, 3.15, -1.6]} receiveShadow>
+        <boxGeometry args={[0.12, 0.5, 1.2]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
-      <mesh position={[-3.56, 0.7, -1.2]} receiveShadow>
-        <boxGeometry args={[0.12, 1.4, 1.2]} />
+      <mesh position={[-4.26, 0.75, -1.6]} receiveShadow>
+        <boxGeometry args={[0.12, 1.5, 1.2]} />
         <meshStandardMaterial color={MATERIALS.wall} roughness={0.95} />
       </mesh>
 
       {/* Baseboards */}
-      <mesh position={[0, 0.09, -3.49]}>
-        <boxGeometry args={[7.2, 0.18, 0.04]} />
+      <mesh position={[0, 0.09, -4.19]}>
+        <boxGeometry args={[8.64, 0.18, 0.04]} />
         <meshStandardMaterial color={MATERIALS.wallTrim} roughness={0.9} />
       </mesh>
-      <mesh position={[-3.49, 0.09, 0]}>
-        <boxGeometry args={[0.04, 0.18, 7.2]} />
+      <mesh position={[-4.19, 0.09, 0]}>
+        <boxGeometry args={[0.04, 0.18, 8.64]} />
         <meshStandardMaterial color={MATERIALS.wallTrim} roughness={0.9} />
       </mesh>
     </group>
@@ -190,13 +190,13 @@ export function RoomShell() {
 
 export function Rug() {
   return (
-    <group position={[0.4, 0, 0.4]}>
+    <group position={[0.7, 0, 0.9]}>
       <mesh position={[0, 0.012, 0]} receiveShadow>
-        <cylinderGeometry args={[1.8, 1.8, 0.024, 48]} />
+        <cylinderGeometry args={[2.2, 2.2, 0.024, 48]} />
         <meshStandardMaterial color={MATERIALS.rug} roughness={1} />
       </mesh>
       <mesh position={[0, 0.026, 0]} receiveShadow>
-        <cylinderGeometry args={[1.25, 1.25, 0.01, 48]} />
+        <cylinderGeometry args={[1.5, 1.5, 0.01, 48]} />
         <meshStandardMaterial color={MATERIALS.rugInner} roughness={1} />
       </mesh>
     </group>
@@ -205,7 +205,7 @@ export function Rug() {
 
 export function Desk() {
   return (
-    <group position={[0.6, 0, -2.65]}>
+    <group position={[1.0, 0, -3.3]}>
       <mesh position={[0, 1.02, 0]} castShadow receiveShadow>
         <boxGeometry args={[2.6, 0.08, 1.1]} />
         <meshStandardMaterial color={MATERIALS.wood} roughness={0.7} />
@@ -227,7 +227,7 @@ export function Desk() {
 
 export function Chair() {
   return (
-    <group position={[0.6, 0, -1.55]} rotation={[0, -0.35, 0]}>
+    <group position={[1.0, 0, -2.15]} rotation={[0, -0.35, 0]}>
       <mesh position={[0, 0.55, 0]} castShadow>
         <boxGeometry args={[0.55, 0.06, 0.5]} />
         <meshStandardMaterial color={MATERIALS.woodLight} roughness={0.7} />
@@ -265,7 +265,7 @@ export function Monitor({ palette }: { palette: ScenePalette }) {
   );
 
   return (
-    <group position={[0.6, 1.06, -2.95]}>
+    <group position={[1.0, 1.06, -3.6]}>
       <mesh position={[0, 0.015, 0]} castShadow>
         <cylinderGeometry args={[0.16, 0.18, 0.03, 24]} />
         <meshStandardMaterial color={MATERIALS.metal} roughness={0.5} />
@@ -322,7 +322,7 @@ export function Monitor({ palette }: { palette: ScenePalette }) {
 
 export function Keyboard() {
   return (
-    <group position={[0.6, 1.06, -2.42]} rotation={[0, 0.04, 0]}>
+    <group position={[1.0, 1.06, -3.05]} rotation={[0, 0.04, 0]}>
       <mesh position={[0, 0.015, 0]} castShadow>
         <boxGeometry args={[0.62, 0.03, 0.21]} />
         <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.6} />
@@ -330,6 +330,41 @@ export function Keyboard() {
       <mesh position={[0, 0.032, 0]}>
         <boxGeometry args={[0.56, 0.01, 0.16]} />
         <meshStandardMaterial color={MATERIALS.metal} roughness={0.6} />
+      </mesh>
+    </group>
+  );
+}
+
+export function MouseAndPad() {
+  return (
+    <group position={[1.62, 1.06, -3.05]}>
+      <mesh position={[0, 0.006, 0]}>
+        <boxGeometry args={[0.32, 0.012, 0.26]} />
+        <meshStandardMaterial color={MATERIALS.rug} roughness={0.95} />
+      </mesh>
+      <mesh position={[0, 0.035, 0]} rotation={[0, -0.2, 0]} castShadow>
+        <sphereGeometry args={[0.05, 14, 14]} />
+        <meshStandardMaterial color={MATERIALS.screenBezel} roughness={0.5} />
+      </mesh>
+    </group>
+  );
+}
+
+export function Notebook() {
+  return (
+    <group position={[0.25, 1.06, -2.95]} rotation={[0, 0.35, 0]}>
+      <mesh position={[0, 0.012, 0]} castShadow>
+        <boxGeometry args={[0.28, 0.025, 0.38]} />
+        <meshStandardMaterial color={MATERIALS.envelopeFlag} roughness={0.8} />
+      </mesh>
+      <mesh position={[0, 0.027, 0]}>
+        <boxGeometry args={[0.25, 0.006, 0.35]} />
+        <meshStandardMaterial color={MATERIALS.paper} roughness={0.9} />
+      </mesh>
+      {/* Pen */}
+      <mesh position={[0.22, 0.03, 0.08]} rotation={[0, 0.9, Math.PI / 2]}>
+        <cylinderGeometry args={[0.012, 0.012, 0.22, 8]} />
+        <meshStandardMaterial color={MATERIALS.mug} roughness={0.4} />
       </mesh>
     </group>
   );
@@ -374,7 +409,7 @@ function Steam({ reduceMotion }: { reduceMotion: boolean }) {
 
 export function Mug({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <group position={[1.55, 1.06, -2.4]}>
+    <group position={[1.95, 1.06, -2.98]}>
       <mesh position={[0, 0.07, 0]} castShadow>
         <cylinderGeometry args={[0.07, 0.06, 0.14, 20]} />
         <meshStandardMaterial color={MATERIALS.mug} roughness={0.4} />
@@ -390,7 +425,7 @@ export function Mug({ reduceMotion }: { reduceMotion: boolean }) {
 
 export function DeskLamp({ palette }: { palette: ScenePalette }) {
   return (
-    <group position={[1.7, 1.06, -2.95]}>
+    <group position={[2.1, 1.06, -3.6]}>
       <mesh position={[0, 0.02, 0]} castShadow>
         <cylinderGeometry args={[0.11, 0.13, 0.04, 20]} />
         <meshStandardMaterial color={MATERIALS.metal} roughness={0.5} />
@@ -412,7 +447,7 @@ export function DeskLamp({ palette }: { palette: ScenePalette }) {
         position={[-0.28, 0.38, 0]}
         color="#ffc37a"
         intensity={palette.lampIntensity}
-        distance={4.5}
+        distance={5}
         castShadow
         shadow-mapSize={[512, 512]}
       />
@@ -422,7 +457,7 @@ export function DeskLamp({ palette }: { palette: ScenePalette }) {
 
 export function Envelopes() {
   return (
-    <group position={[-0.5, 1.06, -2.6]}>
+    <group position={[-0.05, 1.06, -3.2]}>
       {[0, 1, 2].map((i) => (
         <mesh
           key={i}
@@ -452,35 +487,36 @@ const POLAROIDS: Array<{
   y: number;
   tilt: number;
 }> = [
-  { x: -0.48, y: 0.22, tilt: 0.08 },
-  { x: 0.06, y: 0.28, tilt: -0.06 },
-  { x: 0.52, y: 0.1, tilt: 0.05 },
-  { x: -0.14, y: -0.26, tilt: -0.09 },
-  { x: 0.4, y: -0.32, tilt: 0.07 },
+  { x: -0.62, y: 0.3, tilt: 0.08 },
+  { x: 0.02, y: 0.38, tilt: -0.06 },
+  { x: 0.64, y: 0.22, tilt: 0.05 },
+  { x: -0.35, y: -0.28, tilt: -0.09 },
+  { x: 0.24, y: -0.35, tilt: 0.07 },
+  { x: 0.68, y: -0.32, tilt: -0.05 },
 ];
 
 export function Corkboard() {
   return (
-    <group position={[2.2, 2.1, -3.47]}>
+    <group position={[2.95, 2.2, -4.15]}>
       <mesh castShadow>
-        <boxGeometry args={[1.5, 1.1, 0.05]} />
+        <boxGeometry args={[1.9, 1.3, 0.05]} />
         <meshStandardMaterial color={MATERIALS.cork} roughness={0.95} />
       </mesh>
       {/* Frame */}
-      <mesh position={[0, 0.56, 0]}>
-        <boxGeometry args={[1.58, 0.06, 0.07]} />
+      <mesh position={[0, 0.66, 0]}>
+        <boxGeometry args={[1.98, 0.06, 0.07]} />
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
-      <mesh position={[0, -0.56, 0]}>
-        <boxGeometry args={[1.58, 0.06, 0.07]} />
+      <mesh position={[0, -0.66, 0]}>
+        <boxGeometry args={[1.98, 0.06, 0.07]} />
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
-      <mesh position={[-0.77, 0, 0]}>
-        <boxGeometry args={[0.06, 1.18, 0.07]} />
+      <mesh position={[-0.97, 0, 0]}>
+        <boxGeometry args={[0.06, 1.38, 0.07]} />
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
-      <mesh position={[0.77, 0, 0]}>
-        <boxGeometry args={[0.06, 1.18, 0.07]} />
+      <mesh position={[0.97, 0, 0]}>
+        <boxGeometry args={[0.06, 1.38, 0.07]} />
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
 
@@ -517,7 +553,7 @@ export function Corkboard() {
 
 export function WallWindow({ palette }: { palette: ScenePalette }) {
   return (
-    <group position={[-3.47, 2.1, -1.2]} rotation={[0, Math.PI / 2, 0]}>
+    <group position={[-4.17, 2.2, -1.6]} rotation={[0, Math.PI / 2, 0]}>
       {/* Sky seen through the glass */}
       <mesh>
         <planeGeometry args={[1.2, 1.4]} />
@@ -556,12 +592,195 @@ export function WallWindow({ palette }: { palette: ScenePalette }) {
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
 
+      {/* Curtains */}
+      <mesh position={[-0.82, 0.05, 0.1]} castShadow>
+        <boxGeometry args={[0.26, 1.75, 0.1]} />
+        <meshStandardMaterial color={MATERIALS.curtain} roughness={0.95} />
+      </mesh>
+      <mesh position={[0.82, 0.05, 0.1]} castShadow>
+        <boxGeometry args={[0.26, 1.75, 0.1]} />
+        <meshStandardMaterial color={MATERIALS.curtain} roughness={0.95} />
+      </mesh>
+      {/* Curtain rod */}
+      <mesh position={[0, 0.98, 0.1]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.02, 0.02, 1.9, 10]} />
+        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.6} />
+      </mesh>
+
+      {/* Little plant on the sill */}
+      <group position={[-0.35, -0.62, 0.12]}>
+        <mesh position={[0, 0.05, 0]} castShadow>
+          <cylinderGeometry args={[0.055, 0.04, 0.1, 12]} />
+          <meshStandardMaterial color={MATERIALS.pot} roughness={0.8} />
+        </mesh>
+        <mesh position={[0, 0.15, 0]}>
+          <sphereGeometry args={[0.07, 10, 10]} />
+          <meshStandardMaterial color={MATERIALS.leafDark} roughness={0.9} />
+        </mesh>
+      </group>
+
       {/* Light spilling in from outside */}
       <pointLight
         position={[0, 0, 1.2]}
         color={palette.windowGlowColor}
         intensity={palette.windowGlowIntensity}
-        distance={6}
+        distance={7}
+      />
+    </group>
+  );
+}
+
+/**
+ * Abstract mountain print in a frame, on the back wall.
+ */
+export function Poster() {
+  return (
+    <group position={[-2.4, 2.25, -4.18]}>
+      <mesh castShadow>
+        <boxGeometry args={[0.78, 1.08, 0.03]} />
+        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0, 0.017]}>
+        <planeGeometry args={[0.68, 0.98]} />
+        <meshStandardMaterial color={MATERIALS.paper} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.14, 0.24, 0.02]}>
+        <circleGeometry args={[0.09, 24]} />
+        <meshStandardMaterial color={MATERIALS.lampShade} roughness={0.9} />
+      </mesh>
+      <mesh position={[-0.08, -0.18, 0.022]}>
+        <circleGeometry args={[0.26, 3]} />
+        <meshStandardMaterial color={MATERIALS.rug} roughness={0.9} />
+      </mesh>
+      <mesh position={[0.14, -0.24, 0.024]}>
+        <circleGeometry args={[0.19, 3]} />
+        <meshStandardMaterial color={MATERIALS.leafDark} roughness={0.9} />
+      </mesh>
+    </group>
+  );
+}
+
+/**
+ * Two small framed pictures above the desk.
+ */
+export function PictureFrames() {
+  return (
+    <group>
+      <group position={[-0.85, 2.3, -4.18]} rotation={[0, 0, 0.02]}>
+        <mesh castShadow>
+          <boxGeometry args={[0.36, 0.44, 0.03]} />
+          <meshStandardMaterial color={MATERIALS.wood} roughness={0.7} />
+        </mesh>
+        <mesh position={[0, 0, 0.017]}>
+          <planeGeometry args={[0.28, 0.36]} />
+          <meshStandardMaterial color={MATERIALS.pins[1]} roughness={0.9} />
+        </mesh>
+      </group>
+      <group position={[-1.45, 2.05, -4.18]} rotation={[0, 0, -0.03]}>
+        <mesh castShadow>
+          <boxGeometry args={[0.3, 0.3, 0.03]} />
+          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        </mesh>
+        <mesh position={[0, 0, 0.017]}>
+          <planeGeometry args={[0.23, 0.23]} />
+          <meshStandardMaterial color={MATERIALS.pins[3]} roughness={0.9} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+/**
+ * Wall clock showing the visitor's actual local time; the minute hand
+ * creeps along in real time.
+ */
+export function WallClock() {
+  const minuteRef = useRef<Group>(null);
+  const start = useMemo(() => {
+    const now = new Date();
+    return { hours: now.getHours() % 12, minutes: now.getMinutes() };
+  }, []);
+
+  const hourAngle = -((start.hours + start.minutes / 60) / 12) * Math.PI * 2;
+  const minuteAngle = -(start.minutes / 60) * Math.PI * 2;
+
+  useFrame((state) => {
+    const minute = minuteRef.current;
+    if (!minute) return;
+    minute.rotation.z =
+      minuteAngle - (state.clock.getElapsedTime() / 3600) * Math.PI * 2;
+  });
+
+  return (
+    <group position={[0.2, 3.0, -4.18]}>
+      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.24, 0.24, 0.05, 32]} />
+        <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.6} />
+      </mesh>
+      <mesh position={[0, 0, 0.026]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.2, 0.2, 0.01, 32]} />
+        <meshStandardMaterial color={MATERIALS.clockFace} roughness={0.8} />
+      </mesh>
+      {/* Hands pivot at the clock center */}
+      <group position={[0, 0, 0.036]} rotation={[0, 0, hourAngle]}>
+        <mesh position={[0, 0.05, 0]}>
+          <boxGeometry args={[0.02, 0.1, 0.01]} />
+          <meshStandardMaterial color={MATERIALS.metal} roughness={0.4} />
+        </mesh>
+      </group>
+      <group ref={minuteRef} position={[0, 0, 0.036]}>
+        <mesh position={[0, 0.075, 0]}>
+          <boxGeometry args={[0.014, 0.15, 0.01]} />
+          <meshStandardMaterial color={MATERIALS.metal} roughness={0.4} />
+        </mesh>
+      </group>
+      <mesh position={[0, 0, 0.042]}>
+        <sphereGeometry args={[0.015, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.envelopeFlag} roughness={0.5} />
+      </mesh>
+    </group>
+  );
+}
+
+const BULBS_PER_STRAND = 8;
+
+/**
+ * Fairy lights sagging along the top of the back wall — they really come
+ * alive at night.
+ */
+export function StringLights({ palette }: { palette: ScenePalette }) {
+  const strands: Array<[number, number]> = [
+    [-3.9, -0.1],
+    [0.1, 3.9],
+  ];
+
+  return (
+    <group>
+      {strands.map(([from, to], strandIndex) => (
+        <group key={strandIndex}>
+          {Array.from({ length: BULBS_PER_STRAND }, (_, i) => {
+            const t = (i + 0.5) / BULBS_PER_STRAND;
+            const x = from + (to - from) * t;
+            const y = 3.18 - Math.sin(Math.PI * t) * 0.24;
+            return (
+              <mesh key={i} position={[x, y, -4.14]}>
+                <sphereGeometry args={[0.035, 10, 10]} />
+                <meshStandardMaterial
+                  color="#ffe4b8"
+                  emissive="#ffc37a"
+                  emissiveIntensity={palette.fairyIntensity}
+                  roughness={0.6}
+                />
+              </mesh>
+            );
+          })}
+        </group>
+      ))}
+      <pointLight
+        position={[0, 3.0, -3.8]}
+        color="#ffc37a"
+        intensity={palette.fairyIntensity * 1.6}
+        distance={4}
       />
     </group>
   );
@@ -600,7 +819,7 @@ function BookRow({ shelfY, salt }: { shelfY: number; salt: number }) {
 
 export function Bookshelf() {
   return (
-    <group position={[-3.15, 0, 1.6]} rotation={[0, Math.PI / 2, 0]}>
+    <group position={[-3.8, 0, 1.5]} rotation={[0, Math.PI / 2, 0]}>
       {/* Sides */}
       <mesh position={[-0.85, 1.15, 0]} castShadow>
         <boxGeometry args={[0.05, 2.3, 0.32]} />
@@ -653,9 +872,33 @@ export function Bookshelf() {
   );
 }
 
+/**
+ * A stack of books that didn't fit the shelf, on the floor next to it.
+ */
+export function FloorBooks() {
+  return (
+    <group position={[-3.7, 0, 3.0]} rotation={[0, 0.4, 0]}>
+      {[0, 1, 2, 3].map((i) => (
+        <mesh
+          key={i}
+          position={[0, 0.04 + i * 0.075, 0]}
+          rotation={[0, seeded(i, 11) * 0.6 - 0.3, 0]}
+          castShadow
+        >
+          <boxGeometry args={[0.36 - i * 0.02, 0.07, 0.27]} />
+          <meshStandardMaterial
+            color={MATERIALS.books[(i * 2 + 1) % MATERIALS.books.length]}
+            roughness={0.85}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 export function Plant() {
   return (
-    <group position={[-2.85, 0, -2.85]}>
+    <group position={[-3.6, 0, -3.5]}>
       <mesh position={[0, 0.17, 0]} castShadow>
         <cylinderGeometry args={[0.22, 0.16, 0.35, 20]} />
         <meshStandardMaterial color={MATERIALS.pot} roughness={0.8} />
@@ -680,52 +923,141 @@ export function Plant() {
   );
 }
 
-export function Cat({ reduceMotion }: { reduceMotion: boolean }) {
-  const bodyRef = useRef<Mesh>(null);
-
-  useFrame((state) => {
-    const body = bodyRef.current;
-    if (!body || reduceMotion) return;
-    // Slow, sleepy breathing
-    body.scale.y = 0.55 + Math.sin(state.clock.getElapsedTime() * 1.4) * 0.02;
-  });
-
+export function FloorCushion() {
   return (
-    <group position={[1.3, 0.03, 0.5]} rotation={[0, -0.6, 0]}>
-      {/* Curled-up body */}
-      <mesh
-        ref={bodyRef}
-        position={[0, 0.14, 0]}
-        scale={[1, 0.55, 0.85]}
-        castShadow
-      >
-        <sphereGeometry args={[0.28, 20, 20]} />
-        <meshStandardMaterial color={MATERIALS.cat} roughness={0.95} />
+    <group position={[-1.4, 0, 2.7]}>
+      <mesh position={[0, 0.09, 0]} castShadow>
+        <sphereGeometry args={[0.42, 20, 20]} />
+        <meshStandardMaterial color={MATERIALS.rugInner} roughness={1} />
       </mesh>
-      {/* Head */}
-      <mesh position={[0.24, 0.14, 0.1]} castShadow>
-        <sphereGeometry args={[0.15, 18, 18]} />
-        <meshStandardMaterial color={MATERIALS.cat} roughness={0.95} />
-      </mesh>
-      {/* Ears */}
-      <mesh position={[0.2, 0.28, 0.05]} rotation={[0, 0, 0.3]}>
-        <coneGeometry args={[0.05, 0.08, 4]} />
-        <meshStandardMaterial color={MATERIALS.catEar} roughness={0.95} />
-      </mesh>
-      <mesh position={[0.32, 0.27, 0.13]} rotation={[0, 0, -0.3]}>
-        <coneGeometry args={[0.05, 0.08, 4]} />
-        <meshStandardMaterial color={MATERIALS.catEar} roughness={0.95} />
-      </mesh>
-      {/* Tail wrapped around */}
-      <mesh position={[-0.1, 0.05, 0.16]} rotation={[-Math.PI / 2, 0, 0.8]}>
-        <torusGeometry args={[0.22, 0.045, 10, 24, Math.PI * 1.1]} />
-        <meshStandardMaterial color={MATERIALS.catEar} roughness={0.95} />
+      <mesh position={[0, 0.24, 0]}>
+        <sphereGeometry args={[0.05, 10, 10]} />
+        <meshStandardMaterial color={MATERIALS.rug} roughness={1} />
       </mesh>
     </group>
   );
 }
 
-const DUST_COUNT = 60;
+type DogProps = {
+  hovered: boolean;
+  reduceMotion: boolean;
+};
+
+/**
+ * A golden pup lying in its bed on the rug. Breathes, and wags its tail
+ * faster when you pay attention to it.
+ */
+export function Dog({ hovered, reduceMotion }: DogProps) {
+  const bodyRef = useRef<Mesh>(null);
+  const tailRef = useRef<Group>(null);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    const body = bodyRef.current;
+    if (body && !reduceMotion) {
+      body.scale.y = 0.6 + Math.sin(t * 1.5) * 0.018;
+    }
+    const tail = tailRef.current;
+    if (tail) {
+      const speed = hovered ? 9 : 2.4;
+      const amplitude = hovered ? 0.55 : 0.22;
+      tail.rotation.y = reduceMotion ? 0 : Math.sin(t * speed) * amplitude;
+    }
+  });
+
+  return (
+    <group>
+      {/* Bed */}
+      <group position={[1.8, 0, 1.2]}>
+        <mesh position={[0, 0.04, 0]} castShadow receiveShadow>
+          <cylinderGeometry args={[0.58, 0.62, 0.08, 28]} />
+          <meshStandardMaterial color={MATERIALS.bed} roughness={0.95} />
+        </mesh>
+        <mesh position={[0, 0.11, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.52, 0.11, 12, 28]} />
+          <meshStandardMaterial color={MATERIALS.bed} roughness={0.95} />
+        </mesh>
+        <mesh position={[0, 0.085, 0]} receiveShadow>
+          <cylinderGeometry args={[0.45, 0.45, 0.05, 28]} />
+          <meshStandardMaterial color={MATERIALS.bedCushion} roughness={1} />
+        </mesh>
+      </group>
+
+      {/* The pup, facing out toward the visitor */}
+      <group position={[1.78, 0.11, 1.22]} rotation={[0, -1.2, 0]}>
+        <mesh
+          ref={bodyRef}
+          position={[0, 0.18, 0]}
+          scale={[1.15, 0.6, 0.78]}
+          castShadow
+        >
+          <sphereGeometry args={[0.3, 20, 20]} />
+          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        </mesh>
+        {/* Front legs stretched forward */}
+        <mesh position={[0.4, 0.06, 0.1]} castShadow>
+          <boxGeometry args={[0.3, 0.09, 0.09]} />
+          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        </mesh>
+        <mesh position={[0.4, 0.06, -0.1]} castShadow>
+          <boxGeometry args={[0.3, 0.09, 0.09]} />
+          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        </mesh>
+        {/* Head, held up and looking around */}
+        <mesh position={[0.36, 0.42, 0]} castShadow>
+          <sphereGeometry args={[0.18, 18, 18]} />
+          <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+        </mesh>
+        {/* Snout + nose */}
+        <mesh position={[0.5, 0.37, 0]} scale={[1.3, 0.8, 0.9]} castShadow>
+          <sphereGeometry args={[0.085, 14, 14]} />
+          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
+        </mesh>
+        <mesh position={[0.6, 0.38, 0]}>
+          <sphereGeometry args={[0.035, 10, 10]} />
+          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.6} />
+        </mesh>
+        {/* Eyes */}
+        <mesh position={[0.47, 0.48, 0.075]}>
+          <sphereGeometry args={[0.024, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.4} />
+        </mesh>
+        <mesh position={[0.47, 0.48, -0.075]}>
+          <sphereGeometry args={[0.024, 8, 8]} />
+          <meshStandardMaterial color={MATERIALS.dogNose} roughness={0.4} />
+        </mesh>
+        {/* Floppy ears */}
+        <mesh
+          position={[0.3, 0.5, 0.14]}
+          scale={[0.5, 1.1, 0.7]}
+          rotation={[0.25, 0, -0.15]}
+          castShadow
+        >
+          <sphereGeometry args={[0.09, 12, 12]} />
+          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
+        </mesh>
+        <mesh
+          position={[0.3, 0.5, -0.14]}
+          scale={[0.5, 1.1, 0.7]}
+          rotation={[-0.25, 0, -0.15]}
+          castShadow
+        >
+          <sphereGeometry args={[0.09, 12, 12]} />
+          <meshStandardMaterial color={MATERIALS.dogDark} roughness={0.95} />
+        </mesh>
+        {/* Wagging tail */}
+        <group ref={tailRef} position={[-0.32, 0.22, 0]}>
+          <mesh position={[-0.13, 0.09, 0]} rotation={[0, 0, -0.85]} castShadow>
+            <cylinderGeometry args={[0.03, 0.045, 0.34, 10]} />
+            <meshStandardMaterial color={MATERIALS.dog} roughness={0.95} />
+          </mesh>
+        </group>
+      </group>
+    </group>
+  );
+}
+
+const DUST_COUNT = 70;
 
 export function DustMotes({ reduceMotion }: { reduceMotion: boolean }) {
   const ref = useRef<Group>(null);
@@ -733,9 +1065,9 @@ export function DustMotes({ reduceMotion }: { reduceMotion: boolean }) {
   const positions = useMemo(() => {
     const array = new Float32Array(DUST_COUNT * 3);
     for (let i = 0; i < DUST_COUNT; i++) {
-      array[i * 3] = (seeded(i, 7) - 0.5) * 5.5;
-      array[i * 3 + 1] = 0.3 + seeded(i, 8) * 2.6;
-      array[i * 3 + 2] = (seeded(i, 9) - 0.5) * 5.5;
+      array[i * 3] = (seeded(i, 7) - 0.5) * 7;
+      array[i * 3 + 1] = 0.3 + seeded(i, 8) * 2.7;
+      array[i * 3 + 2] = (seeded(i, 9) - 0.5) * 7;
     }
     return array;
   }, []);

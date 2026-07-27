@@ -24,8 +24,13 @@ export const MATERIALS = {
   leaf: '#5c8a4e',
   leafDark: '#48713d',
   pot: '#b35d3f',
-  cat: '#4a4a58',
-  catEar: '#3a3a46',
+  dog: '#c89e6a',
+  dogDark: '#a87f52',
+  dogNose: '#38302c',
+  bed: '#8a6a4f',
+  bedCushion: '#d9c2a3',
+  curtain: '#b96a4b',
+  clockFace: '#f7f2e7',
   mug: '#2c6464',
   lampShade: '#e8b46a',
   envelope: '#f3ede0',
@@ -45,6 +50,7 @@ export type ScenePalette = {
   windowGlowIntensity: number;
   lampIntensity: number;
   screenIntensity: number;
+  fairyIntensity: number;
   moonVisible: boolean;
 };
 
@@ -60,6 +66,7 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     windowGlowIntensity: 6,
     lampIntensity: 4,
     screenIntensity: 0.75,
+    fairyIntensity: 0.15,
     moonVisible: false,
   },
   // Golden-hour dusk
@@ -73,6 +80,7 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     windowGlowIntensity: 9,
     lampIntensity: 14,
     screenIntensity: 1.1,
+    fairyIntensity: 1.0,
     moonVisible: false,
   },
   // Quiet night, lamp and monitor take over
@@ -86,6 +94,7 @@ export const SCENE_PALETTES: Record<Theme, ScenePalette> = {
     windowGlowIntensity: 4,
     lampIntensity: 22,
     screenIntensity: 1.6,
+    fairyIntensity: 1.6,
     moonVisible: true,
   },
 };

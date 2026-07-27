@@ -3,7 +3,7 @@ import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 
-import { CAMERA_VIEWS, ViewId } from './hotspots';
+import { CAMERA_VIEWS, CAMERA_VIEWS_MOBILE, ViewId } from './hotspots';
 
 type ControlsLike = {
   target: Vector3;
@@ -15,17 +15,16 @@ type ControlsLike = {
 type CameraRigProps = {
   view: ViewId;
   reduceMotion: boolean;
-  // Shift the framing left so the overlay panel doesn't cover the object
-  panelOffset: boolean;
+  // Desktop gets drag-to-orbit and panel-aware framing; mobile keeps
+  // one-finger touch free for page scrolling and flies tighter instead
+  desktop: boolean;
 };
-
-const UP = new Vector3(0, 1, 0);
 
 /**
  * Drives the camera: intro swoop, fly-to-hotspot transitions, and hands
  * control over to OrbitControls when resting at the overview.
  */
-export function CameraRig({ view, reduceMotion, panelOffset }: CameraRigProps) {
+export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
   const controls = useThree(
     (state) => state.controls,
   ) as unknown as ControlsLike | null;
@@ -35,20 +34,21 @@ export function CameraRig({ view, reduceMotion, panelOffset }: CameraRigProps) {
   const lookRef = useRef(new Vector3(...CAMERA_VIEWS.overview.target));
   const positionTarget = useRef(new Vector3());
   const lookTarget = useRef(new Vector3());
-  const scratch = useRef(new Vector3());
 
   useEffect(() => {
     arrivedRef.current = false;
-  }, [view, panelOffset]);
+  }, [view, desktop]);
 
   useFrame((state, delta) => {
     const { camera } = state;
     const dt = Math.min(delta, 0.066);
-    const conf = CAMERA_VIEWS[view];
+    const conf = desktop ? CAMERA_VIEWS[view] : CAMERA_VIEWS_MOBILE[view];
     const resting = view === 'overview' && arrivedRef.current;
 
     if (controls) {
-      controls.enabled = resting;
+      // On touch layouts orbit stays off so one-finger drags scroll the
+      // page; the slow auto-rotate still gives the room life.
+      controls.enabled = resting && desktop;
       controls.autoRotate = resting && !hasInteracted && !reduceMotion;
     }
 
@@ -67,18 +67,6 @@ export function CameraRig({ view, reduceMotion, panelOffset }: CameraRigProps) {
         .sub(lookTarget.current)
         .multiplyScalar(1.45)
         .add(lookTarget.current);
-    }
-
-    if (view !== 'overview' && panelOffset) {
-      // Camera-space "right" vector, to nudge the subject off-center
-      scratch.current
-        .copy(lookTarget.current)
-        .sub(positionTarget.current)
-        .cross(UP)
-        .normalize()
-        .multiplyScalar(0.45);
-      positionTarget.current.add(scratch.current);
-      lookTarget.current.add(scratch.current);
     }
 
     const alpha = reduceMotion ? 1 : 1 - Math.exp(-2.4 * dt);
@@ -103,8 +91,8 @@ export function CameraRig({ view, reduceMotion, panelOffset }: CameraRigProps) {
       enableDamping
       dampingFactor={0.08}
       enablePan={false}
-      minDistance={3.5}
-      maxDistance={16.5}
+      minDistance={4}
+      maxDistance={19}
       minPolarAngle={0.15}
       maxPolarAngle={1.45}
       minAzimuthAngle={-0.35}
