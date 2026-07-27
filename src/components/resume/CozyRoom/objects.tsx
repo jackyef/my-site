@@ -1665,24 +1665,28 @@ export function FloorCushion() {
   );
 }
 
-const HAIR_FADE = 0.75;
+// How far toward skin the taper has faded at the cap's rim, and at the
+// bottom of the side patches. Keeping these continuous (patches start
+// where the cap leaves off) avoids a visible band at the seam.
+const FADE_AT_CAP_RIM = 0.28;
+const FADE_AT_BOTTOM = 0.85;
 
 const applyHairFade = (
   geo: BoxGeometry | SphereGeometry,
   fadeFrom: number,
   fadeTo: number,
+  blendTop: number,
+  blendBottom: number,
 ) => {
   const positions = geo.attributes.position;
   const colors = new Float32Array(positions.count * 3);
   const hair = new Color(MATERIALS.hair);
-  const faded = new Color(MATERIALS.hair).lerp(
-    new Color(MATERIALS.skin),
-    HAIR_FADE,
-  );
+  const skin = new Color(MATERIALS.skin);
   const scratch = new Color();
   for (let i = 0; i < positions.count; i++) {
     const t = clamp01((positions.getY(i) - fadeTo) / (fadeFrom - fadeTo));
-    scratch.copy(faded).lerp(hair, Math.pow(t, 0.75));
+    const mix = blendBottom + (blendTop - blendBottom) * Math.pow(t, 0.75);
+    scratch.copy(hair).lerp(skin, mix);
     colors[i * 3] = scratch.r;
     colors[i * 3 + 1] = scratch.g;
     colors[i * 3 + 2] = scratch.b;
@@ -1706,7 +1710,13 @@ function TaperedPatch({
 }) {
   const geometry = useMemo(() => {
     const geo = new BoxGeometry(size[0], size[1], size[2], 1, 4, 1);
-    return applyHairFade(geo, size[1] / 2, -size[1] / 2);
+    return applyHairFade(
+      geo,
+      size[1] / 2,
+      -size[1] / 2,
+      FADE_AT_CAP_RIM,
+      FADE_AT_BOTTOM,
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -1729,11 +1739,13 @@ function TaperedCap() {
       0,
       Math.PI * 0.46,
     );
-    // Solid hair above, fading through the bottom band of the cap
+    // Solid hair above, easing to the taper's starting shade at the rim
     return applyHairFade(
       geo,
       radius * Math.cos(Math.PI * 0.3),
       radius * Math.cos(Math.PI * 0.46),
+      0,
+      FADE_AT_CAP_RIM,
     );
   }, []);
 
@@ -1962,20 +1974,20 @@ export function Avatar({ hovered, reduceMotion }: AvatarProps) {
         </mesh>
         {/* Tapered sides — hair fades toward skin above the ears */}
         <TaperedPatch
-          position={[-0.148, 0.035, -0.01]}
-          rotation={[0, 0, 0.18]}
-          size={[0.032, 0.1, 0.12]}
+          position={[-0.151, 0.048, -0.01]}
+          rotation={[0, 0, 0.2]}
+          size={[0.036, 0.115, 0.12]}
         />
         <TaperedPatch
-          position={[0.148, 0.035, -0.01]}
-          rotation={[0, 0, -0.18]}
-          size={[0.032, 0.1, 0.12]}
+          position={[0.151, 0.048, -0.01]}
+          rotation={[0, 0, -0.2]}
+          size={[0.036, 0.115, 0.12]}
         />
         {/* Tapered nape at the back */}
         <TaperedPatch
-          position={[0.005, 0.02, -0.14]}
+          position={[0.005, 0.04, -0.144]}
           rotation={[0.15, 0, 0]}
-          size={[0.14, 0.09, 0.032]}
+          size={[0.14, 0.105, 0.036]}
         />
         {/* Glasses — rounded-rectangle frames, bridge, temples */}
         {[-0.068, 0.068].map((x) => (
