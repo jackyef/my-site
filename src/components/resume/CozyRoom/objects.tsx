@@ -1987,6 +1987,20 @@ export function Avatar({
                 <capsuleGeometry args={[0.052, 0.29, 4, 10]} />
                 <meshStandardMaterial color={MATERIALS.skin} roughness={0.85} />
               </mesh>
+              {/* Short leg over the thigh, hem cut straight */}
+              <mesh
+                position={[0, -0.05, 0]}
+                rotation={[0, 0, side * -0.05]}
+                scale={[1, 1, 0.92]}
+                castShadow
+              >
+                <cylinderGeometry args={[0.082, 0.09, 0.18, 14, 1, true]} />
+                <meshStandardMaterial
+                  color={MATERIALS.shorts}
+                  roughness={0.9}
+                  side={2}
+                />
+              </mesh>
               <mesh
                 position={[0, -0.45, 0.03]}
                 scale={[0.95, 0.72, 1.35]}
@@ -1998,10 +2012,15 @@ export function Avatar({
             </group>
           ))}
 
-          {/* Shorts over the hips */}
-          <mesh position={[0, 0.55, 0]} scale={[1, 0.62, 0.9]} castShadow>
-            <sphereGeometry args={[0.19, 16, 16]} />
+          {/* Shorts: a tapered waist over the hips, legs on the thighs */}
+          <mesh position={[0, 0.57, 0]} scale={[1, 1, 0.84]} castShadow>
+            <cylinderGeometry args={[0.15, 0.178, 0.2, 16]} />
             <meshStandardMaterial color={MATERIALS.shorts} roughness={0.9} />
+          </mesh>
+          {/* Waistband */}
+          <mesh position={[0, 0.66, 0]} scale={[1, 1, 0.84]}>
+            <cylinderGeometry args={[0.153, 0.153, 0.035, 16]} />
+            <meshStandardMaterial color="#4a4a54" roughness={0.9} />
           </mesh>
 
           {/* Long-sleeve shirt */}
