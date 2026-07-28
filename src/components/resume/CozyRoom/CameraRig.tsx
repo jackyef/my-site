@@ -37,11 +37,11 @@ const FLIGHT_DURATION = 0.7;
 // The room is roughly 1.75× wider on screen than it is tall, so a
 // portrait viewport crops it badly at the lens desktop uses. Phones get a
 // wider one, and the overview pulls back to whatever distance keeps the
-// full width — hotspot labels included — inside the frame.
+// room — hotspot labels included — inside the frame.
 const LANDSCAPE_FOV = 38;
 const PORTRAIT_FOV = 46;
 const PORTRAIT_ASPECT = 1.1;
-// Half the room's on-screen width in world units, measured at the
+// Half the room's on-screen extent in world units, measured at the
 // overview framing. Trimmed just inside the true silhouette so the bare
 // floor corners may run off the edge while the furniture and the hotspot
 // labels stay in frame.
