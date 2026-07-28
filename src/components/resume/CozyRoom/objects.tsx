@@ -9,15 +9,18 @@ import {
   CatmullRomCurve3,
   Color,
   Group,
-  SphereGeometry,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
   PointLight,
   Quaternion,
+  Shape,
+  SphereGeometry,
+  Vector2,
   Vector3,
 } from 'three';
 
+import { AVATAR_REST_SPOT, avatarPosition } from './avatarState';
 import { useLivePalette } from './livePalette';
 import { MATERIALS } from './palette';
 import type { SectionId } from './hotspots';
@@ -1666,6 +1669,64 @@ export function FloorCushion() {
   );
 }
 
+/** A polygon with its corners rounded off — used for the glasses. */
+function roundedPolygon(points: Array<[number, number]>, radius: number) {
+  const shape = new Shape();
+  const count = points.length;
+  const at = (i: number) => {
+    const [x, y] = points[(i + count) % count];
+    return new Vector2(x, y);
+  };
+
+  for (let i = 0; i < count; i++) {
+    const corner = at(i);
+    const before = corner.clone().addScaledVector(
+      at(i - 1)
+        .sub(corner)
+        .normalize(),
+      radius,
+    );
+    const after = corner.clone().addScaledVector(
+      at(i + 1)
+        .sub(corner)
+        .normalize(),
+      radius,
+    );
+    if (i === 0) shape.moveTo(before.x, before.y);
+    else shape.lineTo(before.x, before.y);
+    shape.quadraticCurveTo(corner.x, corner.y, after.x, after.y);
+  }
+  shape.closePath();
+  return shape;
+}
+
+// Lens frames: a soft trapezoid, brow edge longer than the bottom
+const LENS_FRAME_SHAPE = (() => {
+  const outer = roundedPolygon(
+    [
+      [-0.055, 0.031],
+      [0.055, 0.031],
+      [0.044, -0.031],
+      [-0.044, -0.031],
+    ],
+    0.018,
+  );
+  outer.holes.push(
+    roundedPolygon(
+      [
+        [-0.045, 0.021],
+        [0.045, 0.021],
+        [0.035, -0.021],
+        [-0.035, -0.021],
+      ],
+      0.014,
+    ),
+  );
+  return outer;
+})();
+
+const LENS_EXTRUDE = { depth: 0.012, bevelEnabled: false, curveSegments: 8 };
+
 // How far toward skin the taper has faded at the cap's rim, and at the
 // bottom of the side patches. Keeping these continuous (patches start
 // where the cap leaves off) avoids a visible band at the seam.
@@ -1784,8 +1845,6 @@ const WALK_PATH: Array<[number, number]> = [
   [3.0, 1.1],
 ];
 
-// Where he walks to when the About section is open
-const GREET_SPOT = new Vector3(1.2, 0, 1.9);
 const WALK_SPEED = 0.62;
 const TAU = Math.PI * 2;
 
@@ -1848,10 +1907,10 @@ export function Avatar({
     // Hovering or having the section open both hold him in place
     const greeting = hovered || active;
 
-    // Where he wants to be: the greeting spot when the section is open,
-    // otherwise the next point along his stroll (frozen while hovered)
-    if (reduceMotion || active) {
-      desired.copy(GREET_SPOT);
+    // He simply stops where he is when greeting — the camera comes to
+    // him rather than the other way round
+    if (reduceMotion) {
+      desired.copy(AVATAR_REST_SPOT);
     } else {
       if (!greeting) {
         walkParam.current =
@@ -1864,6 +1923,8 @@ export function Avatar({
     position.lerp(desired, reduceMotion ? 1 : 1 - Math.exp(-4.5 * dt));
     const moved = position.distanceTo(previous);
     const walking = moved / dt > 0.09;
+    // Publish for the camera rig and the About panel
+    avatarPosition.copy(position);
 
     // Walk bounce only ever lifts, so his feet never sink into the floor
     walkPhase.current += moved * 7.2;
@@ -2158,52 +2219,15 @@ export function Avatar({
               rotation={[0.15, 0, 0]}
               size={[0.14, 0.105, 0.036]}
             />
-            {/* Glasses — rounded-rectangle frames, bridge, temples */}
+            {/* Glasses — rounded trapezoid lenses, wider along the brow */}
             {[-0.068, 0.068].map((x) => (
-              <group key={x} position={[x, 0.015, 0.16]}>
-                <mesh position={[0, 0.031, 0]}>
-                  <boxGeometry args={[0.085, 0.01, 0.01]} />
-                  <meshStandardMaterial
-                    color={MATERIALS.gadget}
-                    roughness={0.4}
-                  />
-                </mesh>
-                <mesh position={[0, -0.031, 0]}>
-                  <boxGeometry args={[0.085, 0.01, 0.01]} />
-                  <meshStandardMaterial
-                    color={MATERIALS.gadget}
-                    roughness={0.4}
-                  />
-                </mesh>
-                <mesh position={[-0.0425, 0, 0]}>
-                  <boxGeometry args={[0.01, 0.052, 0.01]} />
-                  <meshStandardMaterial
-                    color={MATERIALS.gadget}
-                    roughness={0.4}
-                  />
-                </mesh>
-                <mesh position={[0.0425, 0, 0]}>
-                  <boxGeometry args={[0.01, 0.052, 0.01]} />
-                  <meshStandardMaterial
-                    color={MATERIALS.gadget}
-                    roughness={0.4}
-                  />
-                </mesh>
-                {[
-                  [-0.0425, 0.031],
-                  [0.0425, 0.031],
-                  [-0.0425, -0.031],
-                  [0.0425, -0.031],
-                ].map(([cx, cy]) => (
-                  <mesh key={`${cx}:${cy}`} position={[cx, cy, 0]}>
-                    <sphereGeometry args={[0.0075, 6, 6]} />
-                    <meshStandardMaterial
-                      color={MATERIALS.gadget}
-                      roughness={0.4}
-                    />
-                  </mesh>
-                ))}
-              </group>
+              <mesh key={x} position={[x, 0.015, 0.152]}>
+                <extrudeGeometry args={[LENS_FRAME_SHAPE, LENS_EXTRUDE]} />
+                <meshStandardMaterial
+                  color={MATERIALS.gadget}
+                  roughness={0.4}
+                />
+              </mesh>
             ))}
             <mesh position={[0, 0.02, 0.165]}>
               <boxGeometry args={[0.045, 0.012, 0.012]} />

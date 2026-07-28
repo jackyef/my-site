@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { Html } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { XIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { AmbientLight, DirectionalLight, Object3D } from 'three';
@@ -11,6 +11,7 @@ import { Heading } from '@/components/common/Heading';
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
 import { CARE_ITEMS } from '../data';
 
+import { aboutPanelAnchor } from './avatarState';
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
 import { useLivePalette } from './livePalette';
 import {
@@ -71,9 +72,20 @@ function ScenePanel({
   onClose: () => void;
 }) {
   const placement = PANEL_PLACEMENTS[section];
+  const camera = useThree((state) => state.camera);
+  // He stops wherever he was, so About's panel is placed relative to him
+  // at the moment it opens rather than at a fixed spot in the room
+  const anchor = useMemo(
+    () =>
+      section === 'about'
+        ? aboutPanelAnchor(camera.position).toArray()
+        : placement.position,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return (
-    <group position={placement.position}>
+    <group position={anchor}>
       <Html center zIndexRange={[40, 0]}>
         {/* Single-element 3D tilt — browsers hit-test this correctly,
             unlike nested matrix3d chains */}

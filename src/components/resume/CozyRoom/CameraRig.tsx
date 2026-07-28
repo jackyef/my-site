@@ -3,6 +3,7 @@ import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { TOUCH, Vector3 } from 'three';
 
+import { aboutCameraView } from './avatarState';
 import {
   CAMERA_VIEWS,
   CAMERA_VIEWS_MOBILE,
@@ -53,6 +54,9 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
     intro: true,
   });
   const prevViewRef = useRef<ViewId | null>(null);
+  // The About view is computed from where he is standing and which side
+  // the camera is already on, captured once when the view opens
+  const aboutView = useRef<ReturnType<typeof aboutCameraView> | null>(null);
 
   useFrame((state, delta) => {
     const { camera } = state;
@@ -66,10 +70,17 @@ export function CameraRig({ view, reduceMotion, desktop }: CameraRigProps) {
       tween.startPos.copy(camera.position);
       tween.startLook.copy(lookRef.current);
       tween.t = 0;
+      aboutView.current =
+        view === 'about' ? aboutCameraView(camera.position, desktop) : null;
     }
 
-    positionTarget.current.set(...conf.position);
-    lookTarget.current.set(...conf.target);
+    if (view === 'about' && aboutView.current) {
+      positionTarget.current.copy(aboutView.current.position);
+      lookTarget.current.copy(aboutView.current.target);
+    } else {
+      positionTarget.current.set(...conf.position);
+      lookTarget.current.set(...conf.target);
+    }
 
     // Portrait viewports crop the room horizontally — pull further back
     const aspect = state.size.width / state.size.height;
