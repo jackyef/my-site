@@ -49,6 +49,8 @@ export function CozyRoomScene({
   active,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
+  // The first frame lands mid-swoop; easing it in is kinder than a pop
+  const [ready, setReady] = useState(false);
 
   return (
     <Canvas
@@ -59,12 +61,17 @@ export function CozyRoomScene({
         position: INTRO_CAMERA_POSITION,
         fov: 38,
       }}
-      style={{ touchAction: desktop ? 'none' : 'pan-y' }}
+      style={{
+        touchAction: desktop ? 'none' : 'pan-y',
+        opacity: ready ? 1 : 0,
+        transition: 'opacity 500ms ease-out',
+      }}
       onCreated={({ gl }) => {
         gl.domElement.addEventListener('webglcontextlost', (event) => {
           event.preventDefault();
           onContextLost();
         });
+        setReady(true);
       }}
       onPointerMissed={() => {
         if (view !== 'overview') onClose();

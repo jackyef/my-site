@@ -32,8 +32,13 @@ import { cn } from '@/utils/styles/classNames';
 
 const CozyRoomScene = dynamic(() => import('@/components/resume/CozyRoom'), {
   ssr: false,
+  // Reads as a lamp warming up rather than a spinner
   loading: () => (
-    <div className="flex h-full items-center justify-center">
+    <div className="flex h-full flex-col items-center justify-center gap-4">
+      <span
+        aria-hidden="true"
+        className="h-9 w-9 animate-pulse rounded-full bg-(--color-accent-xl) shadow-[0_0_36px_12px_var(--color-accent-xl)] motion-reduce:animate-none"
+      />
       <Text variant="caption">Warming up the room…</Text>
     </div>
   ),

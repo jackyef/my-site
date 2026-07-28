@@ -6,6 +6,7 @@ import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 
 import type { SectionId } from './CozyRoom/hotspots';
+import { ScrollArea } from './ScrollArea';
 import { ResumeSectionContent, SECTION_TITLES } from './sections';
 
 type ResumeOverlayProps = {
@@ -58,9 +59,9 @@ export function ResumeOverlay({
               <XIcon size={18} aria-hidden="true" />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-5 pt-1 pb-5">
+          <ScrollArea className="px-5 pt-1 pb-5">
             <ResumeSectionContent section={section} writings={writings} />
-          </div>
+          </ScrollArea>
         </motion.aside>
       )}
     </AnimatePresence>

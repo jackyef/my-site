@@ -10,6 +10,7 @@ import { Heading } from '@/components/common/Heading';
 
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
 import { CHESS_POSITION_FEN } from '../data';
+import { ScrollArea } from '../ScrollArea';
 
 import { aboutPanelAnchor } from './avatarState';
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
@@ -135,9 +136,9 @@ function ScenePanel({
                 <XIcon size={18} aria-hidden="true" />
               </button>
             </div>
-            <div className="max-h-[380px] flex-1 overflow-y-auto px-5 pt-1 pb-5">
+            <ScrollArea className="max-h-[380px] px-5 pt-1 pb-5">
               <ResumeSectionContent section={section} writings={writings} />
-            </div>
+            </ScrollArea>
           </motion.div>
         </div>
       </Html>
