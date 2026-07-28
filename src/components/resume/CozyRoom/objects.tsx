@@ -25,6 +25,7 @@ import {
 import { AVATAR_REST_SPOT, avatarPosition } from './avatarState';
 import { useLivePalette } from './livePalette';
 import { MATERIALS } from './palette';
+import { setSceneCursor } from './sceneCursor';
 import type { SectionId } from './hotspots';
 
 // `id` collides with our SectionId prop (three.js types it as a number),
@@ -139,15 +140,15 @@ export function HotspotGroup({
         onPointerOver={(event) => {
           event.stopPropagation();
           onHover(id);
-          document.body.style.cursor = 'pointer';
+          setSceneCursor('hover', true);
         }}
         onPointerOut={() => {
           onHover(null);
-          document.body.style.cursor = '';
+          setSceneCursor('hover', false);
         }}
         onClick={(event) => {
           event.stopPropagation();
-          document.body.style.cursor = '';
+          setSceneCursor('hover', false);
           onSelect(id);
         }}
         {...groupProps}
@@ -728,11 +729,11 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
       onPointerOver={(event) => {
         event.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = 'pointer';
+        setSceneCursor('hover', true);
       }}
       onPointerOut={() => {
         setHovered(false);
-        document.body.style.cursor = '';
+        setSceneCursor('hover', false);
       }}
       onClick={(event) => {
         event.stopPropagation();
@@ -2033,15 +2034,15 @@ export function Avatar({
           onPointerOver={(event) => {
             event.stopPropagation();
             onHover('about');
-            document.body.style.cursor = 'pointer';
+            setSceneCursor('hover', true);
           }}
           onPointerOut={() => {
             onHover(null);
-            document.body.style.cursor = '';
+            setSceneCursor('hover', false);
           }}
           onClick={(event) => {
             event.stopPropagation();
-            document.body.style.cursor = '';
+            setSceneCursor('hover', false);
             onSelect('about');
           }}
         >

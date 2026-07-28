@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 import type { WritingItem } from '@/blog/types';
@@ -9,6 +9,7 @@ import { CameraRig } from './CameraRig';
 import { INTRO_CAMERA_POSITION, SectionId, ViewId } from './hotspots';
 import { PaletteProvider } from './livePalette';
 import { Room } from './Room';
+import { bindSceneCursor, setSceneCursor } from './sceneCursor';
 
 type CozyRoomSceneProps = {
   view: ViewId;
@@ -52,6 +53,25 @@ export function CozyRoomScene({
   // The first frame lands mid-swoop; easing it in is kinder than a pop
   const [ready, setReady] = useState(false);
 
+  useEffect(() => {
+    setSceneCursor('locked', view !== 'overview');
+  }, [view]);
+
+  // The drag can end anywhere — outside the canvas, or on a window that
+  // lost focus mid-gesture
+  useEffect(() => {
+    const release = () => setSceneCursor('drag', false);
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', release);
+    window.addEventListener('blur', release);
+    return () => {
+      window.removeEventListener('pointerup', release);
+      window.removeEventListener('pointercancel', release);
+      window.removeEventListener('blur', release);
+      bindSceneCursor(null);
+    };
+  }, []);
+
   return (
     <Canvas
       shadows
@@ -71,8 +91,10 @@ export function CozyRoomScene({
           event.preventDefault();
           onContextLost();
         });
+        bindSceneCursor(gl.domElement);
         setReady(true);
       }}
+      onPointerDown={() => setSceneCursor('drag', true)}
       onPointerMissed={() => {
         if (view !== 'overview') onClose();
       }}
