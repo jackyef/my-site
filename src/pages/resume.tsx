@@ -233,7 +233,7 @@ export default function Resume({ featuredWritings }: Props) {
                 event.currentTarget.focus();
               }
             }}
-            className="print-hide relative mt-2 h-[76vh] min-h-[500px] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
+            className="print-hide relative mt-2 h-[76vh] min-h-[min(500px,88vh)] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
           >
             {webglOk && (
               <SceneErrorBoundary onError={() => setWebglOk(false)}>

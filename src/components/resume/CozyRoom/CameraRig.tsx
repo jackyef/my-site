@@ -46,6 +46,7 @@ const PORTRAIT_ASPECT = 1.1;
 // floor corners may run off the edge while the furniture and the hotspot
 // labels stay in frame.
 const ROOM_HALF_WIDTH = 5.4;
+const ROOM_HALF_HEIGHT = 3.6;
 const MAX_FIT_PULLBACK = 2.2;
 
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
@@ -197,8 +198,11 @@ export function CameraRig({
     // Back the overview off until the room's full width fits the frame
     if (view === 'overview' && camera instanceof PerspectiveCamera) {
       const aspect = state.size.width / state.size.height;
-      const halfFov = MathUtils.degToRad(camera.fov) / 2;
-      const reach = ROOM_HALF_WIDTH / (Math.tan(halfFov) * aspect);
+      const extent = Math.tan(MathUtils.degToRad(camera.fov) / 2);
+      const reach = Math.max(
+        ROOM_HALF_WIDTH / (extent * aspect),
+        ROOM_HALF_HEIGHT / extent,
+      );
       const distance = positionTarget.current.distanceTo(lookTarget.current);
       const fit = Math.min(MAX_FIT_PULLBACK, Math.max(1, reach / distance));
       if (fit > 1) {
