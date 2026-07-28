@@ -98,9 +98,8 @@ export const SKILLS = [
 
 // The little chessboard in the 3D room. Anderssen–Kieseritzky, London
 // 1851 — "The Immortal Game" — after 21...Kd8, the moment before White
-// plays 22.Qf6+ and gives up the queen for mate. Swap in any FEN board
-// (the piece-placement field alone is enough) to change the position.
-export const CHESS_POSITION = {
-  fen: 'r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1',
-  label: 'The Immortal Game · 1851',
-};
+// plays 22.Qf6+ and gives up the queen for mate. Deliberately unlabelled
+// in the scene: nice if someone recognises it, no fun if we announce it.
+// Swap in any FEN board (the piece-placement field alone is enough).
+export const CHESS_POSITION_FEN =
+  'r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1';

@@ -2378,10 +2378,9 @@ function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
 
 /**
  * A little side table with a chessboard mid-game on it. The position is
- * an easter egg — see CHESS_POSITION in resume/data.ts.
+ * an unlabelled easter egg — see CHESS_POSITION_FEN in resume/data.ts.
  */
-export function ChessTable({ fen, label }: { fen: string; label: string }) {
-  const [hovered, setHovered] = useState(false);
+export function ChessTable({ fen }: { fen: string }) {
   const pieces = useMemo(() => parseFen(fen), [fen]);
   // Only the dark squares are drawn; the board slab is the light colour
   const darkSquares = useMemo(() => {
@@ -2402,22 +2401,7 @@ export function ChessTable({ fen, label }: { fen: string; label: string }) {
     ];
 
   return (
-    <group
-      position={[3.45, 0, 2.25]}
-      onPointerOver={(event) => {
-        event.stopPropagation();
-        setHovered(true);
-      }}
-      onPointerOut={() => setHovered(false)}
-    >
-      {hovered && (
-        <Html center position={[0, 1.05, 0]} zIndexRange={[40, 0]}>
-          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 py-1 text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
-            {label}
-          </div>
-        </Html>
-      )}
-
+    <group position={[3.45, 0, 2.25]}>
       {/* Round pedestal table */}
       <mesh position={[0, 0.6, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.5, 0.5, 0.05, 24]} />

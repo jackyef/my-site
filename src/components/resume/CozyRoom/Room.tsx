@@ -9,7 +9,7 @@ import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
-import { CHESS_POSITION } from '../data';
+import { CHESS_POSITION_FEN } from '../data';
 
 import { aboutPanelAnchor } from './avatarState';
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
@@ -279,7 +279,7 @@ export function Room({
         <FloorCushion />
       </IntroPop>
       <IntroPop delay={0.56} reduceMotion={reduceMotion}>
-        <ChessTable fen={CHESS_POSITION.fen} label={CHESS_POSITION.label} />
+        <ChessTable fen={CHESS_POSITION_FEN} />
       </IntroPop>
 
       <HotspotGroup {...hotspotProps('projects', 0.34, [1.3, 1.55, -3.55])}>
