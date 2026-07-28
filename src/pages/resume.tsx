@@ -146,14 +146,14 @@ export default function Resume({ featuredWritings }: Props) {
             />
             {/* Keep the scene the star on small screens — one short line */}
             <Text variant="body-sm" className="md:hidden">
-              This room is my resume — tap things to explore, use two fingers to
+              This room is my resume — tap things to explore, two fingers to
               look around.
             </Text>
             <Text variant="body-sm" className="hidden max-w-xl md:block">
               Welcome to my corner of the internet — literally. This room is my
               resume: drag to look around, and click on things to explore. The
-              monitors, the corkboard, the bookshelf, the envelopes… and yes,
-              that's me on the rug.
+              monitors, the corkboard, the bookshelf, the envelopes… and that
+              little guy wandering about is me — say hi.
             </Text>
           </div>
 

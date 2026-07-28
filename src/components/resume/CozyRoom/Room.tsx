@@ -282,9 +282,16 @@ export function Room({
           reduceMotion={reduceMotion}
         />
       </HotspotGroup>
-      <HotspotGroup {...hotspotProps('about', 0.55, [1.8, 0.5, 1.2])}>
-        <Avatar hovered={hovered === 'about'} reduceMotion={reduceMotion} />
-      </HotspotGroup>
+      {/* He wanders on his own, so he carries his own hover/click
+          handling and label rather than sitting in a static hotspot */}
+      <Avatar
+        hovered={hovered === 'about'}
+        active={view === 'about'}
+        showLabel={view === 'overview'}
+        reduceMotion={reduceMotion}
+        onHover={onHover}
+        onSelect={onSelect}
+      />
       <HotspotGroup {...hotspotProps('contact', 0.48, [-0.38, 1.15, -2.32])}>
         <Envelopes />
       </HotspotGroup>
@@ -302,40 +309,42 @@ export function Room({
       )}
 
       {view === 'overview' &&
-        HOTSPOTS.map((hotspot, i) => (
-          <group key={hotspot.id} position={hotspot.labelPosition}>
-            <Html center distanceFactor={10} zIndexRange={[40, 0]}>
-              <motion.button
-                type="button"
-                initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 6 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  // Delay only the entrance — hover/tap stay instant
-                  transition: {
-                    delay: reduceMotion ? 0 : 0.75 + i * 0.07,
-                    duration: 0.25,
-                    ease: 'easeOut',
-                  },
-                }}
-                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
-                whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-                className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-1.5 text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
-                onMouseEnter={() => onHover(hotspot.id)}
-                onMouseLeave={() => onHover(null)}
-                onClick={(event) => {
-                  // Keep the click from bubbling to the canvas container,
-                  // where r3f would treat it as a "pointer missed" and
-                  // immediately close the section again
-                  event.stopPropagation();
-                  onSelect(hotspot.id);
-                }}
-              >
-                {hotspot.label}
-              </motion.button>
-            </Html>
-          </group>
-        ))}
+        HOTSPOTS.filter((hotspot) => hotspot.id !== 'about').map(
+          (hotspot, i) => (
+            <group key={hotspot.id} position={hotspot.labelPosition}>
+              <Html center distanceFactor={10} zIndexRange={[40, 0]}>
+                <motion.button
+                  type="button"
+                  initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 6 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    // Delay only the entrance — hover/tap stay instant
+                    transition: {
+                      delay: reduceMotion ? 0 : 0.75 + i * 0.07,
+                      duration: 0.25,
+                      ease: 'easeOut',
+                    },
+                  }}
+                  whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
+                  whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+                  className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-1.5 text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+                  onMouseEnter={() => onHover(hotspot.id)}
+                  onMouseLeave={() => onHover(null)}
+                  onClick={(event) => {
+                    // Keep the click from bubbling to the canvas container,
+                    // where r3f would treat it as a "pointer missed" and
+                    // immediately close the section again
+                    event.stopPropagation();
+                    onSelect(hotspot.id);
+                  }}
+                >
+                  {hotspot.label}
+                </motion.button>
+              </Html>
+            </group>
+          ),
+        )}
     </>
   );
 }
