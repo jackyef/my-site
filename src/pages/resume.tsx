@@ -5,6 +5,7 @@ import {
   LibraryIcon,
   MailIcon,
   MonitorIcon,
+  RotateCcwIcon,
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import type { GetStaticProps } from 'next/types';
@@ -53,6 +54,7 @@ export default function Resume({ featuredWritings }: Props) {
   const [flatMode, setFlatMode] = useState(false);
   const [webglOk, setWebglOk] = useState<boolean | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [resetSignal, setResetSignal] = useState(0);
   const { theme, setTheme } = useTheme();
   const reduceMotion = useReduceMotion();
 
@@ -151,9 +153,9 @@ export default function Resume({ featuredWritings }: Props) {
             </Text>
             <Text variant="body-sm" className="hidden max-w-xl md:block">
               Welcome to my corner of the internet — literally. This room is my
-              resume: drag to look around, and click on things to explore. The
-              monitors, the corkboard, the bookshelf, the envelopes… and that
-              little guy wandering about is me — say hi.
+              resume: drag to look around, right-drag to pan, scroll to zoom —
+              and click on things to explore. The monitors, the corkboard, the
+              bookshelf… and that little guy wandering about is me — say hi.
             </Text>
           </div>
 
@@ -166,10 +168,21 @@ export default function Resume({ featuredWritings }: Props) {
                 reduceMotion={reduceMotion}
                 desktop={isDesktop}
                 writings={featuredWritings}
+                resetSignal={resetSignal}
                 onSelect={setView}
                 onClose={closeSection}
                 onCycleTheme={cycleTheme}
               />
+            )}
+            {webglOk && view === 'overview' && (
+              <button
+                type="button"
+                onClick={() => setResetSignal((signal) => signal + 1)}
+                className="absolute top-3 right-3 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-[7px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-[color,border-color,transform] duration-150 hover:-translate-y-px hover:border-(--color-accent) hover:text-(--color-accent-text) active:scale-[0.96]"
+              >
+                <RotateCcwIcon size={13} aria-hidden="true" />
+                Reset view
+              </button>
             )}
             {!isDesktop && (
               <ResumeOverlay

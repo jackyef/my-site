@@ -18,6 +18,8 @@ type CozyRoomSceneProps = {
   // Mobile: page-scroll-friendly touch, content in a bottom sheet.
   desktop: boolean;
   writings: WritingItem[];
+  // Incremented by the "Reset view" button
+  resetSignal: number;
   onSelect: (id: SectionId) => void;
   onClose: () => void;
   // Fired when the desk lamp is clicked — cycles the site theme
@@ -30,6 +32,7 @@ export function CozyRoomScene({
   reduceMotion,
   desktop,
   writings,
+  resetSignal,
   onSelect,
   onClose,
   onCycleTheme,
@@ -50,7 +53,12 @@ export function CozyRoomScene({
       }}
     >
       <PaletteProvider theme={theme} reduceMotion={reduceMotion}>
-        <CameraRig view={view} reduceMotion={reduceMotion} desktop={desktop} />
+        <CameraRig
+          view={view}
+          reduceMotion={reduceMotion}
+          desktop={desktop}
+          resetSignal={resetSignal}
+        />
         <Room
           reduceMotion={reduceMotion}
           view={view}
