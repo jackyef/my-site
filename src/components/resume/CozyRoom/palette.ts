@@ -33,6 +33,10 @@ export const MATERIALS = {
   shorts: '#565660',
   sock: '#e8e6e0',
   clockFace: '#f7f2e7',
+  boardLight: '#e3d0ab',
+  boardDark: '#a3703f',
+  pieceLight: '#f2ece0',
+  pieceDark: '#2b2724',
   // The standing desk: light ash top on a white frame
   deskTop: '#d8d1c2',
   deskLeg: '#ebe9e5',

@@ -9,7 +9,7 @@ import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 
 import { ResumeSectionContent, SECTION_TITLES } from '../sections';
-import { CARE_ITEMS } from '../data';
+import { CHESS_POSITION } from '../data';
 
 import { aboutPanelAnchor } from './avatarState';
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
@@ -17,7 +17,7 @@ import { useLivePalette } from './livePalette';
 import {
   Avatar,
   Bookshelf,
-  CareTable,
+  ChessTable,
   Chair,
   Corkboard,
   CornerShelf,
@@ -279,7 +279,7 @@ export function Room({
         <FloorCushion />
       </IntroPop>
       <IntroPop delay={0.56} reduceMotion={reduceMotion}>
-        <CareTable items={CARE_ITEMS} />
+        <ChessTable fen={CHESS_POSITION.fen} label={CHESS_POSITION.label} />
       </IntroPop>
 
       <HotspotGroup {...hotspotProps('projects', 0.34, [1.3, 1.55, -3.55])}>

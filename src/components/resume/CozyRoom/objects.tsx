@@ -2261,16 +2261,145 @@ export function Avatar({
   );
 }
 
+type ChessPieceKind = 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
+
+type PlacedPiece = {
+  kind: ChessPieceKind;
+  white: boolean;
+  file: number;
+  rank: number;
+};
+
+/** Reads the piece-placement field of a FEN into board coordinates. */
+function parseFen(fen: string): PlacedPiece[] {
+  const pieces: PlacedPiece[] = [];
+  fen
+    .split(' ')[0]
+    .split('/')
+    .forEach((row, index) => {
+      const rank = 7 - index;
+      let file = 0;
+      for (const symbol of row) {
+        const skip = Number(symbol);
+        if (!Number.isNaN(skip)) {
+          file += skip;
+          continue;
+        }
+        pieces.push({
+          kind: symbol.toLowerCase() as ChessPieceKind,
+          white: symbol === symbol.toUpperCase(),
+          file,
+          rank,
+        });
+        file += 1;
+      }
+    });
+  return pieces;
+}
+
+const SQUARE = 0.072;
+const BOARD_Y = 0.648;
+
+/** Small turned-looking piece, built from a base plus a silhouette top. */
+function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
+  const color = white ? MATERIALS.pieceLight : MATERIALS.pieceDark;
+  const material = (
+    <meshStandardMaterial color={color} roughness={0.45} metalness={0.05} />
+  );
+
+  return (
+    <group>
+      {/* Every piece shares the same little base */}
+      <mesh position={[0, 0.008, 0]} castShadow>
+        <cylinderGeometry args={[0.023, 0.026, 0.016, 12]} />
+        {material}
+      </mesh>
+
+      {kind === 'p' && (
+        <mesh position={[0, 0.032, 0]} castShadow>
+          <sphereGeometry args={[0.016, 10, 10]} />
+          {material}
+        </mesh>
+      )}
+
+      {kind === 'r' && (
+        <mesh position={[0, 0.034, 0]} castShadow>
+          <boxGeometry args={[0.034, 0.036, 0.034]} />
+          {material}
+        </mesh>
+      )}
+
+      {kind === 'n' && (
+        <mesh position={[0, 0.036, 0.004]} rotation={[-0.35, 0, 0]} castShadow>
+          <boxGeometry args={[0.02, 0.044, 0.03]} />
+          {material}
+        </mesh>
+      )}
+
+      {kind === 'b' && (
+        <mesh position={[0, 0.04, 0]} castShadow>
+          <coneGeometry args={[0.019, 0.052, 12]} />
+          {material}
+        </mesh>
+      )}
+
+      {kind === 'q' && (
+        <>
+          <mesh position={[0, 0.04, 0]} castShadow>
+            <coneGeometry args={[0.021, 0.054, 12]} />
+            {material}
+          </mesh>
+          <mesh position={[0, 0.072, 0]} castShadow>
+            <sphereGeometry args={[0.013, 10, 10]} />
+            {material}
+          </mesh>
+        </>
+      )}
+
+      {kind === 'k' && (
+        <>
+          <mesh position={[0, 0.042, 0]} castShadow>
+            <cylinderGeometry args={[0.017, 0.021, 0.056, 12]} />
+            {material}
+          </mesh>
+          <mesh position={[0, 0.078, 0]} castShadow>
+            <boxGeometry args={[0.009, 0.026, 0.009]} />
+            {material}
+          </mesh>
+          <mesh position={[0, 0.079, 0]}>
+            <boxGeometry args={[0.022, 0.009, 0.009]} />
+            {material}
+          </mesh>
+        </>
+      )}
+    </group>
+  );
+}
+
 /**
- * A little side table showing the things I care about. The items come
- * from CARE_ITEMS in resume/data.ts — swap them freely.
+ * A little side table with a chessboard mid-game on it. The position is
+ * an easter egg — see CHESS_POSITION in resume/data.ts.
  */
-export function CareTable({
-  items,
-}: {
-  items: Array<{ emoji: string; label: string }>;
-}) {
+export function ChessTable({ fen, label }: { fen: string; label: string }) {
   const [hovered, setHovered] = useState(false);
+  const pieces = useMemo(() => parseFen(fen), [fen]);
+  // Only the dark squares are drawn; the board slab is the light colour
+  const darkSquares = useMemo(() => {
+    const squares: Array<[number, number]> = [];
+    for (let file = 0; file < 8; file++) {
+      for (let rank = 0; rank < 8; rank++) {
+        if ((file + rank) % 2 === 0) squares.push([file, rank]);
+      }
+    }
+    return squares;
+  }, []);
+
+  const squarePosition = (file: number, rank: number) =>
+    [(file - 3.5) * SQUARE, 0, (3.5 - rank) * SQUARE] as [
+      number,
+      number,
+      number,
+    ];
 
   return (
     <group
@@ -2282,12 +2411,13 @@ export function CareTable({
       onPointerOut={() => setHovered(false)}
     >
       {hovered && (
-        <Html center position={[0, 1.15, 0]} zIndexRange={[40, 0]}>
+        <Html center position={[0, 1.05, 0]} zIndexRange={[40, 0]}>
           <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 py-1 text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
-            Things I care about
+            {label}
           </div>
         </Html>
       )}
+
       {/* Round pedestal table */}
       <mesh position={[0, 0.6, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.5, 0.5, 0.05, 24]} />
@@ -2301,27 +2431,43 @@ export function CareTable({
         <cylinderGeometry args={[0.24, 0.28, 0.05, 16]} />
         <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
       </mesh>
-      {/* The items, arranged in a circle on the tabletop */}
-      {items.map((item, i) => {
-        const angle = (i / items.length) * Math.PI * 2 + 0.6;
-        return (
-          <group
-            key={item.label}
-            position={[Math.cos(angle) * 0.3, 0.68, Math.sin(angle) * 0.3]}
-          >
-            <Html center distanceFactor={6.5} zIndexRange={[30, 0]}>
-              <div className="pointer-events-none flex flex-col items-center gap-0.5">
-                <span className="text-[17px] leading-none drop-shadow-sm">
-                  {item.emoji}
-                </span>
-                <span className="rounded-full bg-(--color-bg-panel) px-1.5 py-0.5 text-[8px] leading-none font-medium text-(--color-ink-3) shadow-(--shadow-sm)">
-                  {item.label}
-                </span>
-              </div>
-            </Html>
-          </group>
-        );
-      })}
+
+      {/* The board, set down a touch askew like a real one */}
+      <group position={[0, 0, 0]} rotation={[0, 0.26, 0]}>
+        <mesh position={[0, 0.637, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.64, 0.026, 0.64]} />
+          <meshStandardMaterial color={MATERIALS.boardLight} roughness={0.75} />
+        </mesh>
+        {/* Rim */}
+        <mesh position={[0, 0.634, 0]}>
+          <boxGeometry args={[0.66, 0.016, 0.66]} />
+          <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
+        </mesh>
+        {darkSquares.map(([file, rank]) => {
+          const [x, , z] = squarePosition(file, rank);
+          return (
+            <mesh key={`${file}:${rank}`} position={[x, 0.6505, z]}>
+              <boxGeometry args={[SQUARE, 0.003, SQUARE]} />
+              <meshStandardMaterial
+                color={MATERIALS.boardDark}
+                roughness={0.8}
+              />
+            </mesh>
+          );
+        })}
+        {pieces.map((piece) => {
+          const [x, , z] = squarePosition(piece.file, piece.rank);
+          return (
+            <group
+              key={`${piece.file}:${piece.rank}`}
+              position={[x, BOARD_Y + 0.004, z]}
+              rotation={[0, piece.white ? 0 : Math.PI, 0]}
+            >
+              <ChessPiece kind={piece.kind} white={piece.white} />
+            </group>
+          );
+        })}
+      </group>
     </group>
   );
 }
