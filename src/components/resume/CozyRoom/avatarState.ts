@@ -34,16 +34,18 @@ function approachBasis(from: Vector3) {
  */
 export function aboutCameraView(cameraPosition: Vector3, desktop: boolean) {
   const { dir, right } = approachBasis(cameraPosition);
-  const distance = desktop ? 3.95 : 3.4;
-  const lateral = desktop ? 0.55 : 0;
+  // Portrait has to fit the whole standing figure into the band above
+  // the bottom sheet, so it sits further back and aims lower
+  const distance = desktop ? 4.6 : 6.2;
+  const lateral = desktop ? 0.7 : 0;
 
   const position = new Vector3(avatarPosition.x, 0, avatarPosition.z)
     .addScaledVector(dir, distance)
-    .setY(desktop ? 1.5 : 1.45);
+    .setY(desktop ? 1.75 : 1.5);
   // Mobile aims low so he sits above the bottom sheet
   const target = new Vector3(avatarPosition.x, 0, avatarPosition.z)
     .addScaledVector(right, lateral)
-    .setY(desktop ? 0.78 : 0.15);
+    .setY(desktop ? 1.1 : 0.05);
 
   return { position, target };
 }
@@ -52,7 +54,7 @@ export function aboutCameraView(cameraPosition: Vector3, desktop: boolean) {
 export function aboutPanelAnchor(cameraPosition: Vector3) {
   const { dir, right } = approachBasis(cameraPosition);
   return new Vector3(avatarPosition.x, 0, avatarPosition.z)
-    .addScaledVector(right, 1.38)
-    .addScaledVector(dir, 1.06)
-    .setY(1.15);
+    .addScaledVector(right, 1.62)
+    .addScaledVector(dir, 1.2)
+    .setY(1.5);
 }

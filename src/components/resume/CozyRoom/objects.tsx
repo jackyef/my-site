@@ -739,7 +739,7 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
     >
       {hovered && (
         <Html center position={[-0.1, 0.85, 0]} zIndexRange={[40, 0]}>
-          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 py-1 text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
+          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 pt-[5px] pb-[3px] text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
             Flip the lights
           </div>
         </Html>
@@ -1845,7 +1845,10 @@ const WALK_PATH: Array<[number, number]> = [
   [3.0, 1.1],
 ];
 
-const WALK_SPEED = 0.62;
+// He was chibi-small beside a standing desk; this brings him up to a
+// believable adult height for the room without changing his proportions
+const AVATAR_SCALE = 1.42;
+const WALK_SPEED = 0.62 * AVATAR_SCALE;
 const TAU = Math.PI * 2;
 
 const wrapAngle = (angle: number) =>
@@ -1927,7 +1930,8 @@ export function Avatar({
     avatarPosition.copy(position);
 
     // Walk bounce only ever lifts, so his feet never sink into the floor
-    walkPhase.current += moved * 7.2;
+    // Longer legs cover more ground per stride
+    walkPhase.current += (moved * 7.2) / AVATAR_SCALE;
     strideAmount.current = expDamp(
       strideAmount.current,
       walking && !reduceMotion ? 1 : 0,
@@ -1936,7 +1940,10 @@ export function Avatar({
     );
     const swing = Math.sin(walkPhase.current) * strideAmount.current;
     const bounce =
-      Math.abs(Math.sin(walkPhase.current)) * 0.02 * strideAmount.current;
+      Math.abs(Math.sin(walkPhase.current)) *
+      0.02 *
+      AVATAR_SCALE *
+      strideAmount.current;
     root.position.set(position.x, position.y + bounce, position.z);
 
     const intro = reduceMotion ? 1 : easeOutBack(clamp01((t - 0.55) / 0.5));
@@ -1947,7 +1954,7 @@ export function Avatar({
       dt,
     );
     scaleRef.current?.scale.setScalar(
-      Math.max(0.0001, intro * hoverScale.current),
+      Math.max(0.0001, intro * hoverScale.current * AVATAR_SCALE),
     );
 
     // Face where he is heading; once stopped to greet, face the camera —
@@ -1998,10 +2005,14 @@ export function Avatar({
   return (
     <group ref={rootRef}>
       {showLabel && (
-        <Html center position={[0, 1.78, 0]} zIndexRange={[40, 0]}>
+        <Html
+          center
+          position={[0, 1.78 * AVATAR_SCALE, 0]}
+          zIndexRange={[40, 0]}
+        >
           <button
             type="button"
-            className="cursor-pointer rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-1.5 text-[12px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+            className="cursor-pointer rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
             onMouseEnter={() => onHover('about')}
             onMouseLeave={() => onHover(null)}
             onClick={(event) => {

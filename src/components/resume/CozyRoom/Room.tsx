@@ -340,7 +340,7 @@ export function Room({
                   }}
                   whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
                   whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-                  className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-1.5 text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+                  className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
                   onMouseEnter={() => onHover(hotspot.id)}
                   onMouseLeave={() => onHover(null)}
                   onClick={(event) => {
