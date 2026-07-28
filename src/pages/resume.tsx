@@ -18,6 +18,7 @@ import { Text } from '@/components/common/Text';
 import { PageHeader } from '@/components/common/PageHeader';
 import { FlatResume } from '@/components/resume/FlatResume';
 import { PrintHeader } from '@/components/resume/PrintHeader';
+import { ResumeJsonLd } from '@/components/resume/ResumeJsonLd';
 import { ResumeOverlay } from '@/components/resume/ResumeOverlay';
 import { SceneErrorBoundary } from '@/components/resume/SceneErrorBoundary';
 import { SECTION_TITLES } from '@/components/resume/sections';
@@ -155,6 +156,7 @@ export default function Resume({ featuredWritings }: Props) {
           description: 'Step into the room and click around to explore.',
         })}
       />
+      <ResumeJsonLd />
 
       {showFlat ? (
         <div className="page-pad print-links">
