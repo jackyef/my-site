@@ -818,3 +818,64 @@ h2 em {
     scroll-behavior: auto !important;
   }
 }
+
+/* ═══════════════════════════════════════
+   PRINT
+   The app shell is a fixed-height flex viewport, which would otherwise
+   print only the first screen. Let the document flow, drop the chrome,
+   and spell out link targets on paper.
+═══════════════════════════════════════ */
+
+@media print {
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  #__next > div,
+  #__next > div > div:first-of-type {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  main#main-content {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Screen-only chrome: sidebar, mobile nav, floating buttons */
+  .sidebar,
+  .print-hide {
+    display: none !important;
+  }
+
+  .blueprint-bg {
+    background-image: none !important;
+  }
+
+  /* Paper has no hover, so spell the destinations out */
+  .print-links a[href^='http']::after,
+  .print-links a[href^='mailto']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .print-links section {
+    break-inside: avoid;
+  }
+
+  /* No screen chrome above it, so the resume starts at the top */
+  .print-links.page-pad {
+    padding-top: 0 !important;
+    width: 100% !important;
+  }
+}

@@ -26,6 +26,9 @@ type CozyRoomSceneProps = {
   onClose: () => void;
   // Fired when the desk lamp is clicked — cycles the site theme
   onCycleTheme: () => void;
+  // Fired if the browser drops the WebGL context (driver reset, low
+  // memory, background tab reclaimed) so the page can fall back
+  onContextLost: () => void;
 };
 
 export function CozyRoomScene({
@@ -39,6 +42,7 @@ export function CozyRoomScene({
   onSelect,
   onClose,
   onCycleTheme,
+  onContextLost,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
 
@@ -51,6 +55,12 @@ export function CozyRoomScene({
         fov: 38,
       }}
       style={{ touchAction: desktop ? 'none' : 'pan-y' }}
+      onCreated={({ gl }) => {
+        gl.domElement.addEventListener('webglcontextlost', (event) => {
+          event.preventDefault();
+          onContextLost();
+        });
+      }}
       onPointerMissed={() => {
         if (view !== 'overview') onClose();
       }}

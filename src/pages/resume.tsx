@@ -17,7 +17,9 @@ import { mergeWritings } from '@/blog/writings';
 import { Text } from '@/components/common/Text';
 import { PageHeader } from '@/components/common/PageHeader';
 import { FlatResume } from '@/components/resume/FlatResume';
+import { PrintHeader } from '@/components/resume/PrintHeader';
 import { ResumeOverlay } from '@/components/resume/ResumeOverlay';
+import { SceneErrorBoundary } from '@/components/resume/SceneErrorBoundary';
 import { SECTION_TITLES } from '@/components/resume/sections';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import type { SectionId, ViewId } from '@/components/resume/CozyRoom/hotspots';
@@ -44,6 +46,15 @@ const HOTSPOT_BUTTONS: Array<{ id: SectionId; icon: React.ReactNode }> = [
   { id: 'writing', icon: <LibraryIcon size={14} aria-hidden="true" /> },
   { id: 'contact', icon: <MailIcon size={14} aria-hidden="true" /> },
 ];
+
+const SECTION_IDS = HOTSPOT_BUTTONS.map((button) => button.id);
+
+const viewFromHash = (): ViewId => {
+  const hash = window.location.hash.replace('#', '');
+  return (SECTION_IDS as string[]).includes(hash)
+    ? (hash as ViewId)
+    : 'overview';
+};
 
 type Props = {
   featuredWritings: WritingItem[];
@@ -83,7 +94,26 @@ export default function Resume({ featuredWritings }: Props) {
     return () => mq.removeEventListener('change', update);
   }, []);
 
-  const closeSection = useCallback(() => setView('overview'), []);
+  // Sections are deep-linkable (/resume#career) and the back button
+  // steps out of an open section
+  const goToView = useCallback((next: ViewId) => {
+    setView(next);
+    const url = next === 'overview' ? window.location.pathname : `#${next}`;
+    window.history.pushState(null, '', url);
+  }, []);
+
+  const closeSection = useCallback(() => goToView('overview'), [goToView]);
+
+  useEffect(() => {
+    const syncFromHash = () => setView(viewFromHash());
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    window.addEventListener('popstate', syncFromHash);
+    return () => {
+      window.removeEventListener('hashchange', syncFromHash);
+      window.removeEventListener('popstate', syncFromHash);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -108,17 +138,20 @@ export default function Resume({ featuredWritings }: Props) {
       />
 
       {showFlat ? (
-        <div className="page-pad">
-          <PageHeader
-            eyebrow="Resume"
-            title={
-              <>
-                A <em>cozy</em> little resume
-              </>
-            }
-            titleSpacing="mb-4"
-          />
-          <div className="mb-8 flex items-center gap-3">
+        <div className="page-pad print-links">
+          <PrintHeader />
+          <div className="print-hide">
+            <PageHeader
+              eyebrow="Resume"
+              title={
+                <>
+                  A <em>cozy</em> little resume
+                </>
+              }
+              titleSpacing="mb-4"
+            />
+          </div>
+          <div className="print-hide mb-8 flex items-center gap-3">
             <Text variant="body-sm">
               The quiet, readable version.
               {webglOk !== false && ' Prefer something warmer?'}
@@ -137,7 +170,7 @@ export default function Resume({ featuredWritings }: Props) {
         </div>
       ) : (
         <>
-          <div className="page-pad pb-0">
+          <div className="page-pad print-hide pb-0">
             <PageHeader
               eyebrow="Resume"
               title={
@@ -148,11 +181,14 @@ export default function Resume({ featuredWritings }: Props) {
               titleSpacing="mb-2 md:mb-4"
             />
             {/* Keep the scene the star on small screens — one short line */}
-            <Text variant="body-sm" className="md:hidden">
+            <Text variant="body-sm" className="print-hide md:hidden">
               This room is my resume — tap things to explore, two fingers to
               look around.
             </Text>
-            <Text variant="body-sm" className="hidden max-w-xl md:block">
+            <Text
+              variant="body-sm"
+              className="print-hide hidden max-w-xl md:block"
+            >
               Welcome to my corner of the internet — literally. This room is my
               resume: drag to look around, WASD or the arrow keys to move,
               scroll to zoom — and click on things to explore. The monitors, the
@@ -177,21 +213,24 @@ export default function Resume({ featuredWritings }: Props) {
                 event.currentTarget.focus();
               }
             }}
-            className="relative mt-2 h-[76vh] min-h-[500px] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
+            className="print-hide relative mt-2 h-[76vh] min-h-[500px] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
           >
             {webglOk && (
-              <CozyRoomScene
-                view={view}
-                theme={theme}
-                reduceMotion={reduceMotion}
-                desktop={isDesktop}
-                writings={featuredWritings}
-                resetSignal={resetSignal}
-                keyboardFocus={sceneFocused}
-                onSelect={setView}
-                onClose={closeSection}
-                onCycleTheme={cycleTheme}
-              />
+              <SceneErrorBoundary onError={() => setWebglOk(false)}>
+                <CozyRoomScene
+                  view={view}
+                  theme={theme}
+                  reduceMotion={reduceMotion}
+                  desktop={isDesktop}
+                  writings={featuredWritings}
+                  resetSignal={resetSignal}
+                  keyboardFocus={sceneFocused}
+                  onSelect={goToView}
+                  onClose={closeSection}
+                  onCycleTheme={cycleTheme}
+                  onContextLost={() => setWebglOk(false)}
+                />
+              </SceneErrorBoundary>
             )}
             {webglOk && view === 'overview' && (
               <button
@@ -212,7 +251,7 @@ export default function Resume({ featuredWritings }: Props) {
             )}
           </div>
 
-          <div className="page-pad pt-4">
+          <div className="page-pad print-hide pt-4">
             {/* pr clears the floating mobile nav button */}
             <div className="flex flex-wrap items-center gap-2 pr-16 md:pr-0">
               {HOTSPOT_BUTTONS.map((button) => (
@@ -220,7 +259,7 @@ export default function Resume({ featuredWritings }: Props) {
                   key={button.id}
                   type="button"
                   onClick={() =>
-                    setView(view === button.id ? 'overview' : button.id)
+                    goToView(view === button.id ? 'overview' : button.id)
                   }
                   className={cn(
                     'inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
@@ -244,6 +283,14 @@ export default function Resume({ featuredWritings }: Props) {
                 Prefer plain text?
               </button>
             </div>
+          </div>
+
+          {/* The whole resume as plain text. Hidden on screen, but it is
+              what prints, and what a crawler reads — the 3D panels only
+              exist once a section has been opened. */}
+          <div className="page-pad print-links hidden print:block">
+            <PrintHeader />
+            <FlatResume writings={featuredWritings} />
           </div>
         </>
       )}
