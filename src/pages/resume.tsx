@@ -55,6 +55,7 @@ export default function Resume({ featuredWritings }: Props) {
   const [webglOk, setWebglOk] = useState<boolean | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [resetSignal, setResetSignal] = useState(0);
+  const [sceneFocused, setSceneFocused] = useState(false);
   const { theme, setTheme } = useTheme();
   const reduceMotion = useReduceMotion();
 
@@ -153,14 +154,31 @@ export default function Resume({ featuredWritings }: Props) {
             </Text>
             <Text variant="body-sm" className="hidden max-w-xl md:block">
               Welcome to my corner of the internet — literally. This room is my
-              resume: drag to look around, right-drag to pan, scroll to zoom —
-              and click on things to explore. The monitors, the corkboard, the
-              bookshelf… and that little guy wandering about is me — say hi.
+              resume: drag to look around, WASD or the arrow keys to move,
+              scroll to zoom — and click on things to explore. The monitors, the
+              corkboard, the bookshelf… and that little guy wandering about is
+              me — say hi.
             </Text>
           </div>
 
-          {/* Full-bleed so the room gets all the space it deserves */}
-          <div className="relative mt-2 h-[76vh] min-h-[500px] w-full md:mt-4 md:h-[80vh]">
+          {/* Full-bleed so the room gets all the space it deserves.
+              Focusable so keyboard users can step into the room and move
+              with the arrow keys. */}
+          <div
+            tabIndex={webglOk ? 0 : -1}
+            role="group"
+            aria-label="Interactive 3D room. Use W A S D or the arrow keys to move the camera."
+            onFocus={() => setSceneFocused(true)}
+            onBlur={() => setSceneFocused(false)}
+            onPointerDown={(event) => {
+              // Focus when the canvas itself is clicked, but let the
+              // overlay buttons keep their own focus
+              if ((event.target as HTMLElement).tagName === 'CANVAS') {
+                event.currentTarget.focus();
+              }
+            }}
+            className="relative mt-2 h-[76vh] min-h-[500px] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
+          >
             {webglOk && (
               <CozyRoomScene
                 view={view}
@@ -169,6 +187,7 @@ export default function Resume({ featuredWritings }: Props) {
                 desktop={isDesktop}
                 writings={featuredWritings}
                 resetSignal={resetSignal}
+                keyboardFocus={sceneFocused}
                 onSelect={setView}
                 onClose={closeSection}
                 onCycleTheme={cycleTheme}

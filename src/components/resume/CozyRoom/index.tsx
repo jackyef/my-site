@@ -20,6 +20,8 @@ type CozyRoomSceneProps = {
   writings: WritingItem[];
   // Incremented by the "Reset view" button
   resetSignal: number;
+  // Focus lives inside the scene, so arrow keys may pan
+  keyboardFocus: boolean;
   onSelect: (id: SectionId) => void;
   onClose: () => void;
   // Fired when the desk lamp is clicked — cycles the site theme
@@ -33,6 +35,7 @@ export function CozyRoomScene({
   desktop,
   writings,
   resetSignal,
+  keyboardFocus,
   onSelect,
   onClose,
   onCycleTheme,
@@ -58,6 +61,7 @@ export function CozyRoomScene({
           reduceMotion={reduceMotion}
           desktop={desktop}
           resetSignal={resetSignal}
+          keyboardFocus={keyboardFocus}
         />
         <Room
           reduceMotion={reduceMotion}

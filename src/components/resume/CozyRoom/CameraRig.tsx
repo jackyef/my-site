@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { TOUCH, Vector3 } from 'three';
@@ -23,6 +23,9 @@ type CameraRigProps = {
   reduceMotion: boolean;
   // Bumping this flies the camera back to the overview framing
   resetSignal: number;
+  // True while focus is inside the scene — arrow keys only take over
+  // from the page's scrolling once the room has been focused
+  keyboardFocus: boolean;
   // Desktop gets drag-to-orbit and panel-aware framing; mobile keeps
   // one-finger touch free for page scrolling and flies tighter instead
   desktop: boolean;
@@ -46,6 +49,22 @@ const TARGET_BOUNDS = {
 const clamp = (value: number, [min, max]: readonly [number, number]) =>
   Math.min(max, Math.max(min, value));
 
+const PAN_KEYS = new Set([
+  'w',
+  'a',
+  's',
+  'd',
+  'arrowup',
+  'arrowdown',
+  'arrowleft',
+  'arrowright',
+]);
+const KEY_PAN_SPEED = 2.8;
+
+const isTypingTarget = (target: EventTarget | null) =>
+  target instanceof HTMLElement &&
+  Boolean(target.closest('input, textarea, select, [contenteditable="true"]'));
+
 /**
  * Drives the camera with fixed-duration eased tweens — a swooping intro,
  * quick decisive flights between hotspots — then hands control over to
@@ -57,6 +76,7 @@ export function CameraRig({
   reduceMotion,
   desktop,
   resetSignal,
+  keyboardFocus,
 }: CameraRigProps) {
   const controls = useThree(
     (state) => state.controls,
@@ -67,6 +87,41 @@ export function CameraRig({
   const positionTarget = useRef(new Vector3());
   const lookTarget = useRef(new Vector3());
   const panCorrection = useRef(new Vector3());
+  const pressedKeys = useRef(new Set<string>());
+  const fastPan = useRef(false);
+  const panStep = useRef(new Vector3());
+  const panForward = useRef(new Vector3());
+  const panRight = useRef(new Vector3());
+
+  // WASD works whenever the room is on screen; the arrow keys would
+  // otherwise fight the page's own scrolling, so they wait for focus
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (isTypingTarget(event.target)) return;
+      const key = event.key.toLowerCase();
+      if (!PAN_KEYS.has(key)) return;
+      const isArrow = key.startsWith('arrow');
+      if (isArrow && !keyboardFocus) return;
+      if (isArrow) event.preventDefault();
+      fastPan.current = event.shiftKey;
+      pressedKeys.current.add(key);
+    };
+    const handleKeyUp = (event: KeyboardEvent) => {
+      fastPan.current = event.shiftKey;
+      pressedKeys.current.delete(event.key.toLowerCase());
+    };
+    const releaseAll = () => pressedKeys.current.clear();
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', releaseAll);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', releaseAll);
+    };
+  }, [keyboardFocus]);
   const tweenRef = useRef({
     t: 0,
     startPos: new Vector3(...INTRO_CAMERA_POSITION),
@@ -134,6 +189,41 @@ export function CameraRig({
     if (resting) {
       controls?.update();
       if (controls) {
+        // Keyboard panning glides along the ground, camera-relative
+        const pressed = pressedKeys.current;
+        if (pressed.size > 0) {
+          const forwardInput =
+            (pressed.has('w') || pressed.has('arrowup') ? 1 : 0) -
+            (pressed.has('s') || pressed.has('arrowdown') ? 1 : 0);
+          const strafeInput =
+            (pressed.has('d') || pressed.has('arrowright') ? 1 : 0) -
+            (pressed.has('a') || pressed.has('arrowleft') ? 1 : 0);
+
+          if (forwardInput !== 0 || strafeInput !== 0) {
+            panForward.current
+              .subVectors(controls.target, camera.position)
+              .setY(0)
+              .normalize();
+            panRight.current.set(
+              -panForward.current.z,
+              0,
+              panForward.current.x,
+            );
+            panStep.current
+              .set(0, 0, 0)
+              .addScaledVector(panForward.current, forwardInput)
+              .addScaledVector(panRight.current, strafeInput)
+              .normalize()
+              .multiplyScalar(
+                KEY_PAN_SPEED *
+                  (fastPan.current ? 2 : 1) *
+                  Math.min(delta, 0.066),
+              );
+            camera.position.add(panStep.current);
+            controls.target.add(panStep.current);
+          }
+        }
+
         // Keep the orbit target in the room; shift the camera by the same
         // amount so a pan stops at the edge instead of snapping
         const { target } = controls;
