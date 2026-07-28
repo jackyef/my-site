@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { TOUCH, Vector3 } from 'three';
+import { MathUtils, PerspectiveCamera, TOUCH, Vector3 } from 'three';
 
 import { aboutCameraView } from './avatarState';
 import {
@@ -33,6 +33,20 @@ type CameraRigProps = {
 
 const INTRO_DURATION = 1.2;
 const FLIGHT_DURATION = 0.7;
+
+// The room is roughly 1.75× wider on screen than it is tall, so a
+// portrait viewport crops it badly at the lens desktop uses. Phones get a
+// wider one, and the overview pulls back to whatever distance keeps the
+// full width — hotspot labels included — inside the frame.
+const LANDSCAPE_FOV = 38;
+const PORTRAIT_FOV = 46;
+const PORTRAIT_ASPECT = 1.1;
+// Half the room's on-screen width in world units, measured at the
+// overview framing. Trimmed just inside the true silhouette so the bare
+// floor corners may run off the edge while the furniture and the hotspot
+// labels stay in frame.
+const ROOM_HALF_WIDTH = 5.4;
+const MAX_FIT_PULLBACK = 2.2;
 
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 const easeInOutCubic = (x: number) =>
@@ -81,6 +95,19 @@ export function CameraRig({
   const controls = useThree(
     (state) => state.controls,
   ) as unknown as ControlsLike | null;
+  const camera = useThree((state) => state.camera);
+  const size = useThree((state) => state.size);
+
+  // Narrow viewports get the wider lens, and the projection has to be
+  // rebuilt whenever the canvas is resized or rotated
+  useEffect(() => {
+    if (!(camera instanceof PerspectiveCamera)) return;
+    const fov =
+      size.width / size.height < PORTRAIT_ASPECT ? PORTRAIT_FOV : LANDSCAPE_FOV;
+    if (camera.fov === fov) return;
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+  }, [camera, size]);
 
   const [hasInteracted, setHasInteracted] = useState(false);
   const lookRef = useRef(new Vector3(...CAMERA_VIEWS.overview.target));
@@ -167,13 +194,19 @@ export function CameraRig({
       lookTarget.current.set(...conf.target);
     }
 
-    // Portrait viewports crop the room horizontally — pull further back
-    const aspect = state.size.width / state.size.height;
-    if (view === 'overview' && aspect < 0.9) {
-      positionTarget.current
-        .sub(lookTarget.current)
-        .multiplyScalar(1.45)
-        .add(lookTarget.current);
+    // Back the overview off until the room's full width fits the frame
+    if (view === 'overview' && camera instanceof PerspectiveCamera) {
+      const aspect = state.size.width / state.size.height;
+      const halfFov = MathUtils.degToRad(camera.fov) / 2;
+      const reach = ROOM_HALF_WIDTH / (Math.tan(halfFov) * aspect);
+      const distance = positionTarget.current.distanceTo(lookTarget.current);
+      const fit = Math.min(MAX_FIT_PULLBACK, Math.max(1, reach / distance));
+      if (fit > 1) {
+        positionTarget.current
+          .sub(lookTarget.current)
+          .multiplyScalar(fit)
+          .add(lookTarget.current);
+      }
     }
 
     const resting = view === 'overview' && tween.t >= 1;
@@ -273,7 +306,7 @@ export function CameraRig({
       panSpeed={0.85}
       zoomSpeed={0.9}
       minDistance={1.5}
-      maxDistance={24}
+      maxDistance={30}
       minPolarAngle={0.08}
       maxPolarAngle={1.52}
       // Wide enough to walk around the open corner, stopping before the

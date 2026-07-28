@@ -21,12 +21,15 @@ export const CAMERA_VIEWS: Record<ViewId, CameraView> = {
 // Targets aim low so the subject sits in the top half of the frame,
 // clear of the bottom sheet.
 export const CAMERA_VIEWS_MOBILE: Record<ViewId, CameraView> = {
-  overview: CAMERA_VIEWS.overview,
+  // A portrait frame is far taller than the room's silhouette, so the
+  // phone overview looks down from higher up: the floor opens out, the
+  // room reads as a diorama, and the empty bands top and bottom shrink.
+  overview: { position: [7.0, 7.9, 8.6], target: [0.3, 0.85, 0] },
   projects: { position: [1.3, 1.8, -0.8], target: [1.3, 0.85, -3.55] },
-  career: { position: [2.95, 2.15, -1.5], target: [2.95, 1.5, -4.1] },
+  career: { position: [3.0, 2.6, 0.35], target: [2.95, 1.75, -4.1] },
   writing: { position: [-0.7, 1.6, 1.5], target: [-3.8, 0.65, 1.5] },
   about: { position: [1.2, 1.45, 5.0], target: [1.2, 0.15, 1.9] },
-  contact: { position: [-0.4, 1.9, -0.3], target: [-0.4, 0.45, -2.35] },
+  contact: { position: [-0.42, 1.7, -0.5], target: [-0.42, 0.75, -2.35] },
 };
 
 // Where the camera starts before the intro swoop
