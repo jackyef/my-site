@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   CalendarDaysIcon,
   GlassesIcon,
@@ -67,6 +67,8 @@ export default function Resume({ featuredWritings }: Props) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [resetSignal, setResetSignal] = useState(0);
   const [sceneFocused, setSceneFocused] = useState(false);
+  const [sceneVisible, setSceneVisible] = useState(true);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
   const reduceMotion = useReduceMotion();
 
@@ -114,6 +116,18 @@ export default function Resume({ featuredWritings }: Props) {
       window.removeEventListener('popstate', syncFromHash);
     };
   }, []);
+
+  // Stop rendering once the room is scrolled off screen
+  useEffect(() => {
+    const element = sceneRef.current;
+    if (!element || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setSceneVisible(entry.isIntersecting),
+      { rootMargin: '120px' },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [webglOk, flatMode]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -201,6 +215,7 @@ export default function Resume({ featuredWritings }: Props) {
               Focusable so keyboard users can step into the room and move
               with the arrow keys. */}
           <div
+            ref={sceneRef}
             tabIndex={webglOk ? 0 : -1}
             role="group"
             aria-label="Interactive 3D room. Use W A S D or the arrow keys to move the camera."
@@ -229,6 +244,7 @@ export default function Resume({ featuredWritings }: Props) {
                   onClose={closeSection}
                   onCycleTheme={cycleTheme}
                   onContextLost={() => setWebglOk(false)}
+                  active={sceneVisible}
                 />
               </SceneErrorBoundary>
             )}

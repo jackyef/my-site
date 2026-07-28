@@ -29,6 +29,9 @@ type CozyRoomSceneProps = {
   // Fired if the browser drops the WebGL context (driver reset, low
   // memory, background tab reclaimed) so the page can fall back
   onContextLost: () => void;
+  // False once the room has scrolled out of view — rendering stops
+  // rather than burning GPU on pixels nobody is looking at
+  active: boolean;
 };
 
 export function CozyRoomScene({
@@ -43,12 +46,14 @@ export function CozyRoomScene({
   onClose,
   onCycleTheme,
   onContextLost,
+  active,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
 
   return (
     <Canvas
       shadows
+      frameloop={active ? 'always' : 'never'}
       dpr={[1, 1.75]}
       camera={{
         position: INTRO_CAMERA_POSITION,

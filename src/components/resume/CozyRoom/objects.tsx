@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
@@ -13,6 +13,8 @@ import {
   MeshBasicMaterial,
   MeshStandardMaterial,
   PointLight,
+  InstancedMesh,
+  Object3D,
   Quaternion,
   Shape,
   SphereGeometry,
@@ -2012,6 +2014,7 @@ export function Avatar({
         >
           <button
             type="button"
+            aria-label="Open About me"
             className="cursor-pointer rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
             onMouseEnter={() => onHover('about')}
             onMouseLeave={() => onHover(null)}
@@ -2321,20 +2324,20 @@ function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
   return (
     <group>
       {/* Every piece shares the same little base */}
-      <mesh position={[0, 0.008, 0]} castShadow>
+      <mesh position={[0, 0.008, 0]}>
         <cylinderGeometry args={[0.023, 0.026, 0.016, 12]} />
         {material}
       </mesh>
 
       {kind === 'p' && (
-        <mesh position={[0, 0.032, 0]} castShadow>
+        <mesh position={[0, 0.032, 0]}>
           <sphereGeometry args={[0.016, 10, 10]} />
           {material}
         </mesh>
       )}
 
       {kind === 'r' && (
-        <mesh position={[0, 0.034, 0]} castShadow>
+        <mesh position={[0, 0.034, 0]}>
           <boxGeometry args={[0.034, 0.036, 0.034]} />
           {material}
         </mesh>
@@ -2348,7 +2351,7 @@ function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
       )}
 
       {kind === 'b' && (
-        <mesh position={[0, 0.04, 0]} castShadow>
+        <mesh position={[0, 0.04, 0]}>
           <coneGeometry args={[0.019, 0.052, 12]} />
           {material}
         </mesh>
@@ -2356,11 +2359,11 @@ function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
 
       {kind === 'q' && (
         <>
-          <mesh position={[0, 0.04, 0]} castShadow>
+          <mesh position={[0, 0.04, 0]}>
             <coneGeometry args={[0.021, 0.054, 12]} />
             {material}
           </mesh>
-          <mesh position={[0, 0.072, 0]} castShadow>
+          <mesh position={[0, 0.072, 0]}>
             <sphereGeometry args={[0.013, 10, 10]} />
             {material}
           </mesh>
@@ -2369,11 +2372,11 @@ function ChessPiece({ kind, white }: { kind: ChessPieceKind; white: boolean }) {
 
       {kind === 'k' && (
         <>
-          <mesh position={[0, 0.042, 0]} castShadow>
+          <mesh position={[0, 0.042, 0]}>
             <cylinderGeometry args={[0.017, 0.021, 0.056, 12]} />
             {material}
           </mesh>
-          <mesh position={[0, 0.078, 0]} castShadow>
+          <mesh position={[0, 0.078, 0]}>
             <boxGeometry args={[0.009, 0.026, 0.009]} />
             {material}
           </mesh>
@@ -2411,6 +2414,20 @@ export function ChessTable({ fen }: { fen: string }) {
       number,
     ];
 
+  const squaresRef = useRef<InstancedMesh>(null);
+  useLayoutEffect(() => {
+    const mesh = squaresRef.current;
+    if (!mesh) return;
+    const dummy = new Object3D();
+    darkSquares.forEach(([file, rank], index) => {
+      const [x, , z] = squarePosition(file, rank);
+      dummy.position.set(x, 0.6505, z);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(index, dummy.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+  }, [darkSquares]);
+
   return (
     <group position={[3.45, 0, 2.25]}>
       {/* Round pedestal table */}
@@ -2438,18 +2455,13 @@ export function ChessTable({ fen }: { fen: string }) {
           <boxGeometry args={[0.66, 0.016, 0.66]} />
           <meshStandardMaterial color={MATERIALS.woodDark} roughness={0.7} />
         </mesh>
-        {darkSquares.map(([file, rank]) => {
-          const [x, , z] = squarePosition(file, rank);
-          return (
-            <mesh key={`${file}:${rank}`} position={[x, 0.6505, z]}>
-              <boxGeometry args={[SQUARE, 0.003, SQUARE]} />
-              <meshStandardMaterial
-                color={MATERIALS.boardDark}
-                roughness={0.8}
-              />
-            </mesh>
-          );
-        })}
+        <instancedMesh
+          ref={squaresRef}
+          args={[undefined, undefined, darkSquares.length]}
+        >
+          <boxGeometry args={[SQUARE, 0.003, SQUARE]} />
+          <meshStandardMaterial color={MATERIALS.boardDark} roughness={0.8} />
+        </instancedMesh>
         {pieces.map((piece) => {
           const [x, , z] = squarePosition(piece.file, piece.rank);
           return (

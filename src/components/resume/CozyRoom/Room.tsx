@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { XIcon } from 'lucide-react';
@@ -73,6 +73,19 @@ function ScenePanel({
 }) {
   const placement = PANEL_PLACEMENTS[section];
   const camera = useThree((state) => state.camera);
+  const headingId = `scene-panel-${section}`;
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  // Send focus into the panel when it opens, and hand it back to the
+  // element that opened it once it closes
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    const focusTimer = window.setTimeout(() => closeRef.current?.focus(), 60);
+    return () => {
+      window.clearTimeout(focusTimer);
+      if (opener && document.contains(opener)) opener.focus();
+    };
+  }, []);
   // He stops wherever he was, so About's panel is placed relative to him
   // at the moment it opens rather than at a fixed spot in the room
   const anchor = useMemo(
@@ -95,6 +108,9 @@ function ScenePanel({
           }}
         >
           <motion.div
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby={headingId}
             initial={{ opacity: 0, scale: 0.92, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 480, damping: 32 }}
@@ -106,12 +122,13 @@ function ScenePanel({
             onWheel={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
-              <Heading level={3} as="h2">
+              <Heading level={3} as="h2" id={headingId}>
                 {SECTION_TITLES[section]}
               </Heading>
               <button
+                ref={closeRef}
                 type="button"
-                aria-label="Close panel"
+                aria-label={`Close ${SECTION_TITLES[section]}`}
                 onClick={onClose}
                 className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-90"
               >

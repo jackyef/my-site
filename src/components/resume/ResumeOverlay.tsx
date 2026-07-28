@@ -36,7 +36,8 @@ export function ResumeOverlay({
         <motion.aside
           key={section}
           role="dialog"
-          aria-label={SECTION_TITLES[section]}
+          aria-modal="false"
+          aria-labelledby={`sheet-heading-${section}`}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
@@ -44,13 +45,13 @@ export function ResumeOverlay({
           className="absolute inset-x-2 bottom-2 top-auto flex max-h-[46%] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg) md:inset-x-auto md:top-3 md:right-3 md:bottom-3 md:max-h-none md:w-[400px]"
         >
           <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
-            <Heading level={3} as="h2">
+            <Heading level={3} as="h2" id={`sheet-heading-${section}`}>
               {SECTION_TITLES[section]}
             </Heading>
             <button
               ref={closeRef}
               type="button"
-              aria-label="Close panel"
+              aria-label={`Close ${SECTION_TITLES[section]}`}
               onClick={onClose}
               className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-colors hover:bg-(--color-bg-hover) hover:text-(--color-ink)"
             >
