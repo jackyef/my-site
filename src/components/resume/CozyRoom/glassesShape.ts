@@ -8,8 +8,8 @@
  * Import-free on purpose, so the shape can be previewed on its own.
  */
 
-export const LENS_RADIUS_X = 0.047;
-export const LENS_RADIUS_Y = 0.044;
+export const LENS_RADIUS_X = 0.053;
+export const LENS_RADIUS_Y = 0.0425;
 /** Wire thickness. Thin, but not so thin it aliases away across a room. */
 export const LENS_RIM = 0.0055;
 
@@ -46,11 +46,11 @@ export const LENS_CENTER: [number, number, number] = [0.0744, 0.013, 0.1696];
 export const LENS_YAW = 0.4;
 
 /** A thin bar between the two rims, high on the lens like the real pair. */
-export const BRIDGE = { width: 0.07, y: 0.031, z: 0.1845 };
+export const BRIDGE = { width: 0.062, y: 0.03, z: 0.1875 };
 
 /** From the outer edge of each rim back to the ear. */
 export const TEMPLE = {
-  position: [0.1398, 0.0105, 0.0795] as [number, number, number],
-  yaw: 0.321,
-  length: 0.1473,
+  position: [0.1431, 0.01, 0.0795] as [number, number, number],
+  yaw: 0.278,
+  length: 0.145,
 };
