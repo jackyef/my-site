@@ -34,7 +34,7 @@ export const PAGES: readonly PageData[] = [
   {
     title: 'Resume 🛋️',
     description:
-      'An interactive resume set in a cozy little 3D room. Click around to explore my career, projects, and writing.',
+      'An interactive resume set in a cozy little 3D room. Click around to explore!',
     link: '/resume',
     hiddenSearchTerm: 'cv portfolio room 3d',
   },

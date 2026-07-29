@@ -1756,8 +1756,13 @@ const WALK_PATH: Array<[number, number]> = [
 // He was chibi-small beside a standing desk; this brings him up to a
 // believable adult height for the room without changing his proportions
 const AVATAR_SCALE = 1.42;
-// A dead-straight arm looks stiff; both elbows keep a little bend
-const ARM_REST_BEND = 0.12;
+// At rest the upper arm is held a little off the torso and the forearm
+// angles back toward vertical. Leaving the shoulder straight down instead
+// pins the arm to the body and then kicks the hand out at the elbow.
+const ARM_REST_SPLAY = 0.18;
+const ARM_REST_TUCK = 0.09;
+const WAVE_SHOULDER = 1.62;
+const WAVE_ELBOW = 1.15;
 const WALK_SPEED = 0.62 * AVATAR_SCALE;
 const TAU = Math.PI * 2;
 
@@ -1903,12 +1908,13 @@ export function Avatar({
       rightArmRef.current.rotation.x = swing * 0.45 * settled;
       // Upper arm out to the side, forearm folded up from the elbow —
       // swinging one straight capsule out instead reads as a plank
-      rightArmRef.current.rotation.z = waveAmount.current * 1.62;
+      rightArmRef.current.rotation.z =
+        ARM_REST_SPLAY + waveAmount.current * (WAVE_SHOULDER - ARM_REST_SPLAY);
     }
     if (rightElbowRef.current) {
       rightElbowRef.current.rotation.z =
-        ARM_REST_BEND +
-        waveAmount.current * (1.15 - ARM_REST_BEND) +
+        -ARM_REST_TUCK +
+        waveAmount.current * (WAVE_ELBOW + ARM_REST_TUCK) +
         // The wave itself lives in the forearm, so the hand does the
         // waving rather than the whole arm sweeping
         wiggle;
@@ -2033,7 +2039,11 @@ export function Avatar({
 
           {/* Arms: a ball at each joint so the shoulder and elbow stay
             closed at any angle, and a hinged forearm so the wave bends */}
-          <group ref={leftArmRef} position={[-0.158, 0.95, 0]}>
+          <group
+            ref={leftArmRef}
+            position={[-0.158, 0.95, 0]}
+            rotation={[0, 0, -ARM_REST_SPLAY]}
+          >
             <mesh castShadow>
               <sphereGeometry args={[0.055, 10, 10]} />
               <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
@@ -2042,7 +2052,7 @@ export function Avatar({
               <capsuleGeometry args={[0.047, 0.16, 4, 10]} />
               <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
             </mesh>
-            <group position={[0, -0.185, 0]} rotation={[0, 0, -ARM_REST_BEND]}>
+            <group position={[0, -0.185, 0]} rotation={[0, 0, ARM_REST_TUCK]}>
               <mesh>
                 <sphereGeometry args={[0.048, 10, 10]} />
                 <meshStandardMaterial
@@ -2086,7 +2096,11 @@ export function Avatar({
               </mesh>
             </group>
           </group>
-          <group ref={rightArmRef} position={[0.158, 0.95, 0]}>
+          <group
+            ref={rightArmRef}
+            position={[0.158, 0.95, 0]}
+            rotation={[0, 0, ARM_REST_SPLAY]}
+          >
             <mesh castShadow>
               <sphereGeometry args={[0.055, 10, 10]} />
               <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
@@ -2095,7 +2109,11 @@ export function Avatar({
               <capsuleGeometry args={[0.047, 0.16, 4, 10]} />
               <meshStandardMaterial color={MATERIALS.hoodie} roughness={0.9} />
             </mesh>
-            <group ref={rightElbowRef} position={[0, -0.185, 0]}>
+            <group
+              ref={rightElbowRef}
+              position={[0, -0.185, 0]}
+              rotation={[0, 0, -ARM_REST_TUCK]}
+            >
               <mesh>
                 <sphereGeometry args={[0.048, 10, 10]} />
                 <meshStandardMaterial
