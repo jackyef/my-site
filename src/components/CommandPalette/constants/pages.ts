@@ -86,7 +86,11 @@ export const filterPages = (query: string): PageData[] => {
     words.every(
       (word) =>
         page.title.toLowerCase().includes(word) ||
-        page.description.toLowerCase().includes(word),
+        page.description.toLowerCase().includes(word) ||
+        // Without this, every hiddenSearchTerm on a page was dead weight —
+        // "cv" would not find the resume, nor "voice" the speech-to-text tool.
+        // filterExternalLinks has always matched it; this was the odd one out.
+        page.hiddenSearchTerm?.toLowerCase().includes(word),
     ),
   );
 };

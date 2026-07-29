@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 /**
  * The design system page reads its values out of the live stylesheet rather
@@ -110,16 +110,13 @@ test.describe('Design system page', () => {
     await expect(firstCell).not.toHaveText(before);
   });
 
-  test('section tabs scroll to their section', async ({ page }) => {
-    await page.goto('/design');
-    await page.waitForLoadState('networkidle');
-
-    await page.getByRole('tab', { name: 'Components' }).click();
-
-    // Components sits ~9000px down, and a smooth scroll of that length settles
-    // at its own pace — slower on a loaded CI runner than locally. Poll for the
-    // resting position instead of sleeping on a fixed timeout.
-    await expect
+  /**
+   * Components sits ~9000px down, and a smooth scroll of that length settles at
+   * its own pace — slower on a loaded CI runner than locally. Poll for the
+   * resting position rather than sleeping on a guessed duration.
+   */
+  const expectScrolledToComponents = async (page: Page) =>
+    expect
       .poll(
         async () => {
           const box = await page.locator('section#components').boundingBox();
@@ -128,6 +125,44 @@ test.describe('Design system page', () => {
         { timeout: 15_000 },
       )
       .toBeLessThan(300);
+
+  test('the rail navigates to a section', async ({ page }) => {
+    // The rail replaces the tab strip from 1200px up.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/design');
+    await page.waitForLoadState('networkidle');
+
+    const rail = page.getByRole('navigation', { name: 'On this page' });
+    await expect(rail).toBeVisible();
+    await rail.getByRole('link', { name: 'Components', exact: true }).click();
+
+    await expectScrolledToComponents(page);
+  });
+
+  test('the rail lists the components it documents', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/design');
+    await page.waitForLoadState('networkidle');
+
+    const rail = page.getByRole('navigation', { name: 'On this page' });
+
+    // Discovered from the rendered specs, so a new <Spec> shows up here with no
+    // second list to maintain — which is exactly what this asserts.
+    for (const name of ['Button', 'Surface', 'Panel', 'Table']) {
+      await expect(rail.getByRole('link', { name, exact: true })).toBeVisible();
+    }
+  });
+
+  test('the tab strip navigates below the rail breakpoint', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1100, height: 900 });
+    await page.goto('/design');
+    await page.waitForLoadState('networkidle');
+
+    await page.getByRole('tab', { name: 'Components' }).click();
+
+    await expectScrolledToComponents(page);
   });
 
   test('component demos render the real primitives', async ({ page }) => {

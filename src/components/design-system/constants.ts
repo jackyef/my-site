@@ -12,6 +12,23 @@ export const THEMES = ['light', 'dim', 'dark'] as const;
 
 export type ThemeName = (typeof THEMES)[number];
 
+/**
+ * The page's top-level bands, in document order. Both the sticky tab bar and
+ * the "on this page" rail read from here, so they cannot drift apart. Labels
+ * are short on purpose — they have to fit a 224px rail and a tab strip that
+ * scrolls horizontally on a phone.
+ */
+export const SECTIONS = [
+  { id: 'color', label: 'Colour' },
+  { id: 'contrast', label: 'Contrast' },
+  { id: 'surfaces', label: 'Surfaces' },
+  { id: 'typography', label: 'Type' },
+  { id: 'components', label: 'Components' },
+  { id: 'patterns', label: 'Patterns' },
+] as const;
+
+export type SectionId = (typeof SECTIONS)[number]['id'];
+
 export interface TokenSpec {
   /** The custom property, without `var()`. */
   token: string;

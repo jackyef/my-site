@@ -62,5 +62,8 @@ export const GRADE_STYLES: Record<ContrastGrade, string> = {
   AAA: 'text-(--color-success) border-(--color-success)',
   AA: 'text-(--color-success) border-(--color-success)',
   'AA Large': 'text-(--color-warning) border-(--color-warning)',
-  Fail: 'text-(--color-ink-4) border-(--color-border)',
+  // A failure reads as a failure. The ink-4 row goes red on purpose — it is
+  // genuinely below the floor, which is exactly why nothing that has to be
+  // read on its own is allowed to use it.
+  Fail: 'text-(--color-danger) border-(--color-danger)',
 };

@@ -185,15 +185,22 @@ MDX blog content — do not add it to layout code (see Borders & Dividers above)
 
 ---
 
-## Tailwind v4 — there is no JS config
+## Tailwind v4 — CSS-first, no JS config
 
-Tokens and theme values are declared in the `@theme` block of `globals.css`, and there
-is **no `@config` directive** — so a `tailwind.config.js` would not be loaded at all.
-One used to exist; the `bg-surface-*` / `shadow-surface-*` scale it defined silently
-stopped generating CSS when the project moved to v4, leaving about ten components
-pointing at classes that produced nothing. That file and `safelists.js` are both gone.
+This project configures Tailwind entirely from CSS: tokens and theme values are declared
+in the `@theme` block of `globals.css`, and there is deliberately **no `@config`
+directive**.
 
-To add a utility, add the token to `@theme` in `globals.css`. To confirm a class is
+That is a choice, not a limitation — v4 can still load a legacy `tailwind.config.js` if
+you point at it with `@config "../tailwind.config.js"`. The catch is that v4, unlike v3,
+never picks the file up automatically. A `tailwind.config.js` did survive the v3 → v4
+move here, and because nothing referenced it, the `bg-surface-*` / `shadow-surface-*`
+scale it defined silently stopped generating CSS — about ten components spent that time
+pointing at classes that produced nothing. Both it and `safelists.js` are now deleted.
+(v4 also drops `safelist` as a config option; the replacement is the `@source inline`
+directive.)
+
+So: to add a utility, add the token to `@theme` in `globals.css`. To confirm a class is
 really being emitted, grep the served stylesheet rather than trusting that it looks
 right:
 

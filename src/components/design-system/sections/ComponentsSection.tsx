@@ -288,7 +288,7 @@ export function ComponentsSection() {
       <Spec
         name="Panel"
         file="common/Panel"
-        summary="Callout block with a semantic left rule. Registered as an MDX component, so blog posts can use it directly."
+        summary="Callout block: semantic hairline, matching tint, and a marker dot. The colour never lands on text — half the semantic foregrounds fail AA on their own tint. Registered as an MDX component, so posts can use it directly."
         demo={
           <div className="space-y-3 [&>div]:my-0">
             <Panel type="info" title="Info">
@@ -312,7 +312,7 @@ export function ComponentsSection() {
           {
             name: 'type',
             type: "'info' | 'warning' | 'danger' | 'success' | 'accent'",
-            description: 'Picks the rule colour and fill.',
+            description: 'Picks the border colour, tint, and marker.',
           },
           { name: 'title', type: 'string', description: 'Bold heading line.' },
         ]}

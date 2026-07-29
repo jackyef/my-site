@@ -304,8 +304,9 @@ interface StatusDotProps {
 
 **File:** `src/components/common/Panel/index.tsx`
 
-Callout block with a semantic left rule and matching tinted fill. Registered in the MDX
-component map, so blog posts can use it without importing anything.
+Callout block: a hairline mixed from the semantic colour, its matching tint, and a small
+marker dot. Registered in the MDX component map, so blog posts can use it without
+importing anything.
 
 ```tsx
 interface PanelProps {
@@ -315,8 +316,10 @@ interface PanelProps {
 }
 ```
 
-Each type pairs a `border-l-(--color-<type>)` rule with its `--color-<type>-bg` fill;
-`accent` uses `--color-accent` over `--color-accent-xl`.
+The semantic colour deliberately never touches text. Measured against their own tints in
+the light theme the semantic foregrounds run 2.58:1 (success) to 4.75:1 (info), so a
+coloured title would fail AA for half the set — the colour lives in the border and the
+marker dot, both decorative, and the title stays on `--color-ink`.
 
 ---
 
