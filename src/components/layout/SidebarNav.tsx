@@ -67,14 +67,18 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
       {isActive && (
         <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-(--color-accent-2) rounded-r-[3px]" />
       )}
-      {/* `items-center` lands the 16px icon on the centre of the label's
-          20.8px line box, which is 2.39px below the centre of its cap band —
-          where a boxy 16px glyph wants to sit. Hence the lift, and hence it
-          being confined to the widths that actually render a label: on the
-          icon-strip sidebar the same nudge just knocks the icon off-centre. */}
+      {/* `items-center` lands the icon on the centre of the label's line box,
+          but the eye reads the label's cap band, which sits 0.2–1.0px higher
+          across the switchable faces (measured at this 13px label beside its
+          16px icon). One pixel covers the range — it lands the default face
+          dead on and leaves the worst case under ¾ of a pixel out, where a
+          fractional lift would only blur the icon's 1px strokes.
+
+          Only where a label is actually rendered, though: on the icon-strip
+          sidebar the same nudge just knocks the icon off-centre. */}
       <span
         className={cn(
-          'shrink-0 flex items-center justify-center size-4 lg:-translate-y-[2px]',
+          'shrink-0 flex items-center justify-center size-4 lg:-translate-y-px',
           !isActive && 'opacity-90',
         )}
       >

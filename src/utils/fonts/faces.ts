@@ -1,5 +1,4 @@
 import {
-  Epilogue,
   Figtree,
   Fraunces,
   IBM_Plex_Mono,
@@ -81,16 +80,6 @@ export const figtree = Figtree({
   preload: false,
 });
 
-// Weights are left unset so next/font serves the variable file — the static
-// 300–600 set meant every `font-bold` (700) silently rendered at 600.
-export const epilogue = Epilogue({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  variable: '--font-epilogue',
-  display: 'swap',
-  preload: false,
-});
-
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
@@ -116,7 +105,6 @@ export const fontsClasses = [
   plexSans,
   libreFranklin,
   figtree,
-  epilogue,
   jetbrainsMono,
   plexMono,
 ]

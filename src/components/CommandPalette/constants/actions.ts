@@ -21,7 +21,6 @@ export const QUERIES = [
   'Use IBM Plex Sans font',
   'Use Libre Franklin font',
   'Use Figtree font',
-  'Use Epilogue font',
 ] as const;
 
 export const ACTIONS = [
@@ -53,7 +52,6 @@ export const QUERIES_ACTIONS_MAP: Record<Query, Action> = {
   'Use IBM Plex Sans font': 'SET_FONT',
   'Use Libre Franklin font': 'SET_FONT',
   'Use Figtree font': 'SET_FONT',
-  'Use Epilogue font': 'SET_FONT',
 };
 
 export const filterValidQueries = (
