@@ -5,12 +5,9 @@
  * carries the reading, and the mono that goes with it.
  *
  * `id` is the value stored in localStorage and stamped on <html> as
- * `data-type-pairing`. The CSS that each id selects — font variables plus the
- * optically matched body size — lives in the TYPE SYSTEM block of globals.css.
- *
- * Sizes there are optically matched rather than nominally matched: each face
- * was measured for x-height and sized to read at the same apparent scale, so
- * switching changes the typeface without changing how big the page feels.
+ * `data-type-pairing`. The CSS that each id selects — its font variables and
+ * leading — lives in the TYPE SYSTEM block of globals.css, which also sets the
+ * one reading size every face shares.
  */
 
 export type PairingId =

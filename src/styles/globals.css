@@ -44,11 +44,9 @@
    TYPE SYSTEM — the switchable pairings
 
    Fraunces is the display face throughout, so headings need no per-pairing
-   tuning. Text faces do: they differ in x-height, so setting them all at a
-   flat size would just favour whichever runs largest. Each size below was
-   derived by measuring the face's x-height and matching it to Epilogue at
-   15px, so switching changes the typeface without changing how big the page
-   feels.
+   tuning. Every face reads at one size, set in :root; only the leading is
+   nudged per face, since x-heights differ enough to change how tight a
+   paragraph feels at the same size.
 
    The visitor's choice is stamped on <html> as data-type-pairing, by the
    inline script in _document (before first paint) and thereafter by
@@ -60,32 +58,31 @@
   /* Fixed across every pairing. */
   --font-display-face: var(--font-fraunces);
 
+  /* One reading size for every face. */
+  --type-body-size: 16px;
+
   /* Default pairing — mirrors DEFAULT_PAIRING_ID, and covers both the server
      render and visitors without JavaScript. */
   --font-text-face: var(--font-source-sans);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 16.5px;
   --type-body-lh: 1.62;
 }
 
 [data-type-pairing='source-sans'] {
   --font-text-face: var(--font-source-sans);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 16.5px;
   --type-body-lh: 1.62;
 }
 
 [data-type-pairing='inter-tight'] {
   --font-text-face: var(--font-inter-tight);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 15px;
   --type-body-lh: 1.65;
 }
 
 [data-type-pairing='public-sans'] {
   --font-text-face: var(--font-public-sans);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
@@ -93,28 +90,24 @@
 [data-type-pairing='plex-sans'] {
   --font-text-face: var(--font-plex-sans);
   --font-mono-face: var(--font-plex-mono);
-  --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
 [data-type-pairing='libre-franklin'] {
   --font-text-face: var(--font-libre-franklin);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
 [data-type-pairing='figtree'] {
   --font-text-face: var(--font-figtree);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 16px;
   --type-body-lh: 1.62;
 }
 
 [data-type-pairing='epilogue'] {
   --font-text-face: var(--font-epilogue);
   --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-size: 15px;
   --type-body-lh: 1.6;
 }
 
@@ -727,6 +720,13 @@ h2 em {
   --tw-prose-pre-bg: var(--color-bg-panel);
   --tw-prose-th-borders: var(--color-border-hi);
   --tw-prose-td-borders: var(--color-border);
+
+  /* The typography plugin pins .prose to 1rem, which would override the
+     pairing's optically matched size on the surface it matters most for —
+     post bodies. Everything inside prose is em-based off this, so headings,
+     code and spacing scale with it. Line height stays the plugin's 1.75,
+     which is tuned for long-form reading. */
+  font-size: var(--type-body-size);
 }
 
 /* ── Hash-link anchors on headings ── */

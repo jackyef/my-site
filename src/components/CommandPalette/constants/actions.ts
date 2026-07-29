@@ -32,17 +32,7 @@ export const ACTIONS = [
   'SET_FONT',
 ] as const;
 
-/**
- * Shown when the palette is opened with an empty query. The font actions are
- * deliberately left out so the resting list stays short — they surface as soon
- * as someone types "font", or the name of a face.
- */
-export const DEFAULT_QUERIES: Query[] = [
-  'Enable dark theme',
-  'Enable dim theme',
-  'Enable light theme',
-  'Share this article',
-];
+export const DEFAULT_QUERIES = [...QUERIES];
 
 export type Action = (typeof ACTIONS)[number];
 export type Query = (typeof QUERIES)[number];
@@ -70,16 +60,13 @@ export const filterValidQueries = (
   query: string,
   router: NextRouter,
 ): Query[] => {
-  const isPostPage = router.pathname.startsWith('/posts/');
-  const trimmed = query.trim();
-
-  const pool: readonly Query[] = trimmed === '' ? DEFAULT_QUERIES : QUERIES;
-
   const words = query.split(' ').map((word) => word.toLowerCase());
 
-  const filtered = pool.filter((q) =>
+  const filtered = QUERIES.filter((q) =>
     words.every((word) => q.toLowerCase().includes(word)),
   );
+
+  const isPostPage = router.pathname.startsWith('/posts/');
 
   return isPostPage
     ? filtered
