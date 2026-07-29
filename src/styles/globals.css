@@ -41,48 +41,81 @@
 }
 
 /* ═══════════════════════════════════════
-   TYPE SYSTEM — per-pairing optical sizing
+   TYPE SYSTEM — the switchable pairings
 
-   Fraunces is fixed, so headings need no per-pairing tuning. Text faces do:
-   they differ in x-height, so setting them all at a flat 15px would just
-   favour whichever runs largest. Each size below was derived by measuring the
-   face's x-height and matching it to Epilogue at 15px.
+   Fraunces is the display face throughout, so headings need no per-pairing
+   tuning. Text faces do: they differ in x-height, so setting them all at a
+   flat size would just favour whichever runs largest. Each size below was
+   derived by measuring the face's x-height and matching it to Epilogue at
+   15px, so switching changes the typeface without changing how big the page
+   feels.
 
-   _document stamps the active pairing's id on <html> as data-type-pairing.
+   The visitor's choice is stamped on <html> as data-type-pairing, by the
+   inline script in _document (before first paint) and thereafter by
+   useFontPairing. Options live in src/utils/fonts/pairings.ts — keep the ids
+   here in sync with PairingId.
 ═══════════════════════════════════════ */
 
 :root {
-  --type-body-size: 15px;
-  --type-body-lh: 1.6;
-}
+  /* Fixed across every pairing. */
+  --font-display-face: var(--font-fraunces);
 
-[data-type-pairing='inter-tight'] {
-  --type-body-lh: 1.65;
-}
-
-[data-type-pairing='public-sans'] {
-  --type-body-size: 15.5px;
-  --type-body-lh: 1.65;
-}
-
-[data-type-pairing='source-sans'] {
+  /* Default pairing — mirrors DEFAULT_PAIRING_ID, and covers both the server
+     render and visitors without JavaScript. */
+  --font-text-face: var(--font-source-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
   --type-body-size: 16.5px;
   --type-body-lh: 1.62;
 }
 
-[data-type-pairing='plex'] {
+[data-type-pairing='source-sans'] {
+  --font-text-face: var(--font-source-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-size: 16.5px;
+  --type-body-lh: 1.62;
+}
+
+[data-type-pairing='inter-tight'] {
+  --font-text-face: var(--font-inter-tight);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-size: 15px;
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='public-sans'] {
+  --font-text-face: var(--font-public-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-size: 15.5px;
+  --type-body-lh: 1.65;
+}
+
+/* The one pairing whose prose and code share a superfamily. */
+[data-type-pairing='plex-sans'] {
+  --font-text-face: var(--font-plex-sans);
+  --font-mono-face: var(--font-plex-mono);
   --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
 [data-type-pairing='libre-franklin'] {
+  --font-text-face: var(--font-libre-franklin);
+  --font-mono-face: var(--font-jetbrains-mono);
   --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
 [data-type-pairing='figtree'] {
+  --font-text-face: var(--font-figtree);
+  --font-mono-face: var(--font-jetbrains-mono);
   --type-body-size: 16px;
   --type-body-lh: 1.62;
+}
+
+[data-type-pairing='epilogue'] {
+  --font-text-face: var(--font-epilogue);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-size: 15px;
+  --type-body-lh: 1.6;
 }
 
 /* ═══════════════════════════════════════

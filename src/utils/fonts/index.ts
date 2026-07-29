@@ -1,30 +1,27 @@
 /**
- * ─── Pick the site's text face here ─────────────────────────────────────────
+ * The site's type system.
  *
- * Fraunces is fixed (see ./display); the text face is the variable. Change
- * this one import and everything follows — Tailwind's font-sans / font-serif /
- * font-mono, and the optically matched body size in globals.css. Unimported
- * pairings are tree-shaken, so only the active faces reach the browser.
+ * Fraunces is fixed as the display face; the text face is switchable at
+ * runtime via the font picker in the sidebar. See ./pairings for the options
+ * and ./faces for the underlying next/font declarations.
  *
- * Sizes below are optically matched, not nominally matched: each face was
- * measured for x-height and sized to read at the same apparent scale as
- * Epilogue at 15px.
- *
- *   ./pairings/current          Epilogue        15px    what ships today
- *   ./pairings/inter-tight      Inter Tight     15px    neutral workhorse
- *   ./pairings/public-sans      Public Sans     15.5px  open, faintly humanist
- *   ./pairings/source-sans      Source Sans 3   16.5px  a true text face
- *   ./pairings/plex             IBM Plex Sans   15.5px  matching mono
- *   ./pairings/libre-franklin   Libre Franklin  15.5px  editorial authority
- *   ./pairings/figtree          Figtree         16px    warm geometric
+ * To change the default for new visitors, change DEFAULT_PAIRING_ID in
+ * ./pairings and the matching values in the `:root` block of globals.css.
  */
-import { pairing } from './pairings/current';
+export { fontsClasses } from './faces';
 
-export const activePairing = pairing;
+export {
+  DEFAULT_PAIRING_ID,
+  FONT_PAIRINGS,
+  PAIRING_IDS,
+  getPairing,
+  isPairingId,
+} from './pairings';
 
-export const fontsClasses = pairing.className;
+export type { FontPairing, PairingId } from './pairings';
 
-/** `data-type-pairing` on <html>; selects the tuning block in globals.css. */
-export const fontsPairingId = pairing.id;
+/** localStorage key holding the visitor's chosen pairing. */
+export const FONT_STORAGE_KEY = 'font';
 
-export const initFonts = () => fontsClasses;
+/** Attribute on <html> that selects the pairing's CSS block. */
+export const FONT_ATTRIBUTE = 'data-type-pairing';

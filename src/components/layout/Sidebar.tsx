@@ -2,8 +2,10 @@ import { Search } from 'lucide-react';
 
 import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useCommandPaletteContext';
 
+import { useFontPairing } from '@/hooks/useFontPairing';
 import { useTheme } from '@/hooks/useTheme';
 
+import { FontSwitcher } from './FontSwitcher';
 import { PwaInstallButton } from './PwaInstallButton';
 import { SidebarNav } from './SidebarNav';
 import { ThemeSwitcher } from './ThemeSwitcher';
@@ -27,9 +29,13 @@ function LogoMark() {
 export function Sidebar() {
   const { setIsOpen } = useCommandPaletteContext();
   const { theme, setTheme } = useTheme();
+  const { pairing, setPairing } = useFontPairing();
 
   return (
-    <aside aria-label="Main navigation" className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]">
+    <aside
+      aria-label="Main navigation"
+      className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]"
+    >
       {/* Top: Logo + CMD trigger */}
       <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border)">
         <LogoMark />
@@ -64,11 +70,18 @@ export function Sidebar() {
       <div className="px-2 py-3 border-t border-(--color-border) flex flex-col gap-2">
         <PwaInstallButton variant="sidebar" />
         {/* Compact (icon-strip md–lg) */}
-        <div className="md:block lg:hidden">
+        <div className="md:flex lg:hidden flex-col gap-2">
+          <FontSwitcher
+            pairing={pairing}
+            onPairingChange={setPairing}
+            anchor="bottom start"
+            compact
+          />
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />
         </div>
         {/* Full (lg+) */}
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex flex-col gap-2">
+          <FontSwitcher pairing={pairing} onPairingChange={setPairing} />
           <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
         </div>
       </div>

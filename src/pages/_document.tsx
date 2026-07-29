@@ -9,7 +9,13 @@ import Document, {
 import { extractCss } from 'goober';
 import { getSandpackCssText } from '@codesandbox/sandpack-react';
 
-import { fontsClasses, fontsPairingId } from '@/utils/fonts';
+import {
+  DEFAULT_PAIRING_ID,
+  FONT_ATTRIBUTE,
+  FONT_STORAGE_KEY,
+  PAIRING_IDS,
+  fontsClasses,
+} from '@/utils/fonts';
 
 interface Props extends DocumentProps {
   css: string;
@@ -27,7 +33,7 @@ export default class MyDocument extends Document<Props> {
       <Html
         lang="en"
         className={fontsClasses}
-        data-type-pairing={fontsPairingId}
+        {...{ [FONT_ATTRIBUTE]: DEFAULT_PAIRING_ID }}
       >
         <Head>
           <style
@@ -56,6 +62,19 @@ export default class MyDocument extends Document<Props> {
               `    typeof window.__themeBinding === 'function' && window.__themeBinding(t);`,
               `  }`,
               `});`,
+              `} catch (err) {}`,
+            ].join(''),
+          }}
+        />
+        {/* Apply the stored reading font before first paint, so a visitor who
+            picked a non-default pairing never sees the default flash first. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: [
+              `try {`,
+              `var __ids = ${JSON.stringify(PAIRING_IDS)};`,
+              `var __font = localStorage.getItem(${JSON.stringify(FONT_STORAGE_KEY)});`,
+              `document.documentElement.setAttribute(${JSON.stringify(FONT_ATTRIBUTE)}, __ids.indexOf(__font) > -1 ? __font : ${JSON.stringify(DEFAULT_PAIRING_ID)});`,
               `} catch (err) {}`,
             ].join(''),
           }}
