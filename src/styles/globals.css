@@ -41,47 +41,48 @@
 }
 
 /* ═══════════════════════════════════════
-   TYPE SYSTEM — per-pairing optical tuning
+   TYPE SYSTEM — per-pairing optical sizing
 
-   Faces differ in x-height, contrast and fitting, so each pairing needs its
-   own heading weight/tracking/scale rather than inheriting Fraunces' settings.
+   Fraunces is fixed, so headings need no per-pairing tuning. Text faces do:
+   they differ in x-height, so setting them all at a flat 15px would just
+   favour whichever runs largest. Each size below was derived by measuring the
+   face's x-height and matching it to Epilogue at 15px.
+
    _document stamps the active pairing's id on <html> as data-type-pairing.
 ═══════════════════════════════════════ */
 
 :root {
-  --type-head-weight: 700;
-  --type-head-track: -0.03em;
-  --type-head-scale: 1;
+  --type-body-size: 15px;
   --type-body-lh: 1.6;
 }
 
-[data-type-pairing='refined'] {
+[data-type-pairing='inter-tight'] {
   --type-body-lh: 1.65;
 }
 
-[data-type-pairing='editorial'] {
-  --type-head-weight: 600;
-  --type-head-track: -0.018em;
-  --type-head-scale: 1.04;
+[data-type-pairing='public-sans'] {
+  --type-body-size: 15.5px;
   --type-body-lh: 1.65;
 }
 
-[data-type-pairing='blueprint'] {
-  --type-head-track: -0.025em;
-  --type-body-lh: 1.65;
-}
-
-/* Instrument Serif is a single weight; hierarchy comes from size instead. */
-[data-type-pairing='literary'] {
-  --type-head-weight: 400;
-  --type-head-track: -0.012em;
-  --type-head-scale: 1.12;
+[data-type-pairing='source-sans'] {
+  --type-body-size: 16.5px;
   --type-body-lh: 1.62;
 }
 
-[data-type-pairing='warm'] {
-  --type-head-track: -0.022em;
+[data-type-pairing='plex'] {
+  --type-body-size: 15.5px;
   --type-body-lh: 1.65;
+}
+
+[data-type-pairing='libre-franklin'] {
+  --type-body-size: 15.5px;
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='figtree'] {
+  --type-body-size: 16px;
+  --type-body-lh: 1.62;
 }
 
 /* ═══════════════════════════════════════
@@ -382,7 +383,7 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: var(--type-body-size);
   line-height: var(--type-body-lh);
   transition:
     background-color 0.22s ease,
@@ -457,9 +458,9 @@ pre {
 
 .hero-h1 {
   font-family: var(--font-serif);
-  font-size: calc(clamp(40px, 5vw, 64px) * var(--type-head-scale));
-  font-weight: var(--type-head-weight);
-  letter-spacing: var(--type-head-track);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--color-ink);
   font-optical-sizing: auto;
@@ -467,9 +468,9 @@ pre {
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: calc(clamp(32px, 4vw, 50px) * var(--type-head-scale));
-  font-weight: var(--type-head-weight);
-  letter-spacing: calc(var(--type-head-track) + 0.005em);
+  font-size: clamp(32px, 4vw, 50px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
   line-height: 1.15;
   color: var(--color-ink);
   font-optical-sizing: auto;

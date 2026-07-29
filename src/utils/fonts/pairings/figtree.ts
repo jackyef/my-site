@@ -1,16 +1,9 @@
-import { JetBrains_Mono, Newsreader, Public_Sans } from 'next/font/google';
+import { Figtree, JetBrains_Mono } from 'next/font/google';
 
+import { display } from '../display';
 import type { FontPairing } from '../types';
 
-const display = Newsreader({
-  subsets: ['latin'],
-  axes: ['opsz'],
-  style: ['normal', 'italic'],
-  variable: '--font-display-face',
-  display: 'swap',
-});
-
-const text = Public_Sans({
+const text = Figtree({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-text-face',
@@ -24,7 +17,7 @@ const mono = JetBrains_Mono({
 });
 
 export const pairing: FontPairing = {
-  id: 'editorial',
-  name: 'Newsreader / Public Sans / JetBrains Mono',
+  id: 'figtree',
+  name: 'Fraunces / Figtree / JetBrains Mono',
   className: `${display.variable} ${text.variable} ${mono.variable}`,
 };

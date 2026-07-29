@@ -1,17 +1,22 @@
 /**
- * ─── Pick the site's type system here ───────────────────────────────────────
+ * ─── Pick the site's text face here ─────────────────────────────────────────
  *
- * Change this one import. Everything downstream — Tailwind's font-sans /
- * font-serif / font-mono, the heading rules and the per-pairing optical tuning
- * in globals.css — follows from it. Unimported pairings are tree-shaken, so
- * only the active faces are ever shipped to the browser.
+ * Fraunces is fixed (see ./display); the text face is the variable. Change
+ * this one import and everything follows — Tailwind's font-sans / font-serif /
+ * font-mono, and the optically matched body size in globals.css. Unimported
+ * pairings are tree-shaken, so only the active faces reach the browser.
  *
- *   ./pairings/current     Fraunces / Epilogue / JetBrains Mono
- *   ./pairings/refined     Fraunces / Inter Tight / JetBrains Mono
- *   ./pairings/editorial   Newsreader / Public Sans / JetBrains Mono
- *   ./pairings/blueprint   Space Grotesk / Inter Tight / Geist Mono
- *   ./pairings/literary    Instrument Serif / Instrument Sans / JetBrains Mono
- *   ./pairings/warm        Bricolage Grotesque / Public Sans / JetBrains Mono
+ * Sizes below are optically matched, not nominally matched: each face was
+ * measured for x-height and sized to read at the same apparent scale as
+ * Epilogue at 15px.
+ *
+ *   ./pairings/current          Epilogue        15px    what ships today
+ *   ./pairings/inter-tight      Inter Tight     15px    neutral workhorse
+ *   ./pairings/public-sans      Public Sans     15.5px  open, faintly humanist
+ *   ./pairings/source-sans      Source Sans 3   16.5px  a true text face
+ *   ./pairings/plex             IBM Plex Sans   15.5px  matching mono
+ *   ./pairings/libre-franklin   Libre Franklin  15.5px  editorial authority
+ *   ./pairings/figtree          Figtree         16px    warm geometric
  */
 import { pairing } from './pairings/current';
 

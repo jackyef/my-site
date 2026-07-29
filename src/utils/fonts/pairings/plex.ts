@@ -1,25 +1,26 @@
-import { Epilogue, JetBrains_Mono } from 'next/font/google';
+import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
 
 import { display } from '../display';
 import type { FontPairing } from '../types';
 
-// Weights are left unset so next/font serves the variable file — the static
-// 300–600 set meant every `font-bold` (700) silently rendered at 600.
-const text = Epilogue({
+const text = IBM_Plex_Sans({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-text-face',
   display: 'swap',
 });
 
-const mono = JetBrains_Mono({
+// The one pairing whose prose and code share a superfamily. Plex Mono is not
+// variable on Google Fonts, so its weights are enumerated.
+const mono = IBM_Plex_Mono({
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-mono-face',
   display: 'swap',
 });
 
 export const pairing: FontPairing = {
-  id: 'current',
-  name: 'Fraunces / Epilogue / JetBrains Mono',
+  id: 'plex',
+  name: 'Fraunces / IBM Plex Sans / IBM Plex Mono',
   className: `${display.variable} ${text.variable} ${mono.variable}`,
 };

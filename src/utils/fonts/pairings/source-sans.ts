@@ -1,16 +1,9 @@
-import { Fraunces, Inter_Tight, JetBrains_Mono } from 'next/font/google';
+import { JetBrains_Mono, Source_Sans_3 } from 'next/font/google';
 
+import { display } from '../display';
 import type { FontPairing } from '../types';
 
-const display = Fraunces({
-  subsets: ['latin'],
-  axes: ['opsz'],
-  style: ['normal', 'italic'],
-  variable: '--font-display-face',
-  display: 'swap',
-});
-
-const text = Inter_Tight({
+const text = Source_Sans_3({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-text-face',
@@ -24,7 +17,7 @@ const mono = JetBrains_Mono({
 });
 
 export const pairing: FontPairing = {
-  id: 'refined',
-  name: 'Fraunces / Inter Tight / JetBrains Mono',
+  id: 'source-sans',
+  name: 'Fraunces / Source Sans 3 / JetBrains Mono',
   className: `${display.variable} ${text.variable} ${mono.variable}`,
 };

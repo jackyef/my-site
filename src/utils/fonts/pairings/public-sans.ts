@@ -1,19 +1,7 @@
-import {
-  Bricolage_Grotesque,
-  JetBrains_Mono,
-  Public_Sans,
-} from 'next/font/google';
+import { JetBrains_Mono, Public_Sans } from 'next/font/google';
 
+import { display } from '../display';
 import type { FontPairing } from '../types';
-
-// Bricolage has no true italic — the accented <em> in headings will be a
-// synthetic slant.
-const display = Bricolage_Grotesque({
-  subsets: ['latin'],
-  axes: ['opsz'],
-  variable: '--font-display-face',
-  display: 'swap',
-});
 
 const text = Public_Sans({
   subsets: ['latin'],
@@ -29,7 +17,7 @@ const mono = JetBrains_Mono({
 });
 
 export const pairing: FontPairing = {
-  id: 'warm',
-  name: 'Bricolage Grotesque / Public Sans / JetBrains Mono',
+  id: 'public-sans',
+  name: 'Fraunces / Public Sans / JetBrains Mono',
   className: `${display.variable} ${text.variable} ${mono.variable}`,
 };

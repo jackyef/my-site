@@ -1,11 +1,9 @@
-import { Epilogue, JetBrains_Mono } from 'next/font/google';
+import { JetBrains_Mono, Libre_Franklin } from 'next/font/google';
 
 import { display } from '../display';
 import type { FontPairing } from '../types';
 
-// Weights are left unset so next/font serves the variable file — the static
-// 300–600 set meant every `font-bold` (700) silently rendered at 600.
-const text = Epilogue({
+const text = Libre_Franklin({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-text-face',
@@ -19,7 +17,7 @@ const mono = JetBrains_Mono({
 });
 
 export const pairing: FontPairing = {
-  id: 'current',
-  name: 'Fraunces / Epilogue / JetBrains Mono',
+  id: 'libre-franklin',
+  name: 'Fraunces / Libre Franklin / JetBrains Mono',
   className: `${display.variable} ${text.variable} ${mono.variable}`,
 };
