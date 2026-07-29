@@ -115,12 +115,19 @@ test.describe('Design system page', () => {
     await page.waitForLoadState('networkidle');
 
     await page.getByRole('tab', { name: 'Components' }).click();
-    await page.waitForTimeout(900);
 
-    const box = await page.locator('section#components').boundingBox();
-    expect(box).not.toBeNull();
-    // Section top is at or near the top of the viewport after the scroll.
-    expect(Math.abs(box!.y)).toBeLessThan(300);
+    // Components sits ~9000px down, and a smooth scroll of that length settles
+    // at its own pace — slower on a loaded CI runner than locally. Poll for the
+    // resting position instead of sleeping on a fixed timeout.
+    await expect
+      .poll(
+        async () => {
+          const box = await page.locator('section#components').boundingBox();
+          return box ? Math.abs(box.y) : Infinity;
+        },
+        { timeout: 15_000 },
+      )
+      .toBeLessThan(300);
   });
 
   test('component demos render the real primitives', async ({ page }) => {
