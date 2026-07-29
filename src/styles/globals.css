@@ -5,12 +5,15 @@
    THEME — font & screen tokens for Tailwind
 ═══════════════════════════════════════ */
 @theme {
-  --font-sans: var(--font-epilogue), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* The three faces come from the active pairing in src/utils/fonts/index.ts,
+     which declares them on <html> as --font-*-face. Nothing here names a
+     typeface directly, so switching pairings is a one-line change there. */
+  --font-sans: var(--font-text-face), system-ui, sans-serif;
+  --font-serif: var(--font-display-face), Georgia, serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
 
   /* Backward compat: old Tailwind font-heading utility */
-  --font-heading: var(--font-fraunces), Georgia, serif;
+  --font-heading: var(--font-display-face), Georgia, serif;
 
   --breakpoint-xs: 480px;
   --breakpoint-sm: 640px;
@@ -35,6 +38,50 @@
   --color-code-white: var(--code-base);
   --color-code-teal: var(--code-teal);
   --color-code-comment: var(--code-comment);
+}
+
+/* ═══════════════════════════════════════
+   TYPE SYSTEM — per-pairing optical tuning
+
+   Faces differ in x-height, contrast and fitting, so each pairing needs its
+   own heading weight/tracking/scale rather than inheriting Fraunces' settings.
+   _document stamps the active pairing's id on <html> as data-type-pairing.
+═══════════════════════════════════════ */
+
+:root {
+  --type-head-weight: 700;
+  --type-head-track: -0.03em;
+  --type-head-scale: 1;
+  --type-body-lh: 1.6;
+}
+
+[data-type-pairing='refined'] {
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='editorial'] {
+  --type-head-weight: 600;
+  --type-head-track: -0.018em;
+  --type-head-scale: 1.04;
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='blueprint'] {
+  --type-head-track: -0.025em;
+  --type-body-lh: 1.65;
+}
+
+/* Instrument Serif is a single weight; hierarchy comes from size instead. */
+[data-type-pairing='literary'] {
+  --type-head-weight: 400;
+  --type-head-track: -0.012em;
+  --type-head-scale: 1.12;
+  --type-body-lh: 1.62;
+}
+
+[data-type-pairing='warm'] {
+  --type-head-track: -0.022em;
+  --type-body-lh: 1.65;
 }
 
 /* ═══════════════════════════════════════
@@ -136,8 +183,8 @@
   --color-subtitle: var(--color-ink-3);
   --color-primary: var(--color-accent);
   --color-secondary: var(--color-accent-2);
-  --heading-font: var(--font-fraunces);
-  --main-font: var(--font-inter);
+  --heading-font: var(--font-display-face);
+  --main-font: var(--font-text-face);
 }
 
 [data-theme='dim'] {
@@ -336,7 +383,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: var(--type-body-lh);
   transition:
     background-color 0.22s ease,
     color 0.22s ease;
@@ -410,20 +457,22 @@ pre {
 
 .hero-h1 {
   font-family: var(--font-serif);
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: calc(clamp(40px, 5vw, 64px) * var(--type-head-scale));
+  font-weight: var(--type-head-weight);
+  letter-spacing: var(--type-head-track);
   line-height: 1.1;
   color: var(--color-ink);
+  font-optical-sizing: auto;
 }
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 4vw, 50px);
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-size: calc(clamp(32px, 4vw, 50px) * var(--type-head-scale));
+  font-weight: var(--type-head-weight);
+  letter-spacing: calc(var(--type-head-track) + 0.005em);
   line-height: 1.15;
   color: var(--color-ink);
+  font-optical-sizing: auto;
 }
 
 .eyebrow {

@@ -9,7 +9,7 @@ import Document, {
 import { extractCss } from 'goober';
 import { getSandpackCssText } from '@codesandbox/sandpack-react';
 
-import { fontsClasses } from '@/utils/fonts';
+import { fontsClasses, fontsPairingId } from '@/utils/fonts';
 
 interface Props extends DocumentProps {
   css: string;
@@ -24,7 +24,11 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <Html lang="en" className={fontsClasses}>
+      <Html
+        lang="en"
+        className={fontsClasses}
+        data-type-pairing={fontsPairingId}
+      >
         <Head>
           <style
             dangerouslySetInnerHTML={{ __html: getSandpackCssText() }}

@@ -144,7 +144,13 @@ function BouncingDuck() {
   }, []);
 
   return (
-    <div ref={containerRef} className={cn("pointer-events-none absolute inset-0", !ready && "invisible")}>
+    <div
+      ref={containerRef}
+      className={cn(
+        'pointer-events-none absolute inset-0',
+        !ready && 'invisible',
+      )}
+    >
       <motion.div
         className="pointer-events-auto absolute cursor-pointer select-none"
         style={{ x, y, rotate, width: duckSize, height: duckSize }}
@@ -219,7 +225,7 @@ export const Error404View = () => {
           <div
             className={cn(
               'flex items-baseline gap-2 md:gap-4 mb-6',
-              'font-[family-name:var(--font-fraunces)] font-bold',
+              'font-serif font-bold',
               'text-[clamp(5rem,15vw,10rem)] leading-none',
               'text-(--color-accent)',
             )}
