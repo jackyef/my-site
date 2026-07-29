@@ -70,10 +70,10 @@ export function PageNav({ outline, activeId, onNavigate }: Props) {
         On this page
       </SectionLabel>
 
-      <ol className="list-none p-0 m-0">
+      <ol role="list" className="list-none p-0 m-0">
         {outline.map((entry) => (
           <li key={entry.id} className="list-none">
-            <ol className="list-none p-0 m-0">
+            <ol role="list" className="list-none p-0 m-0">
               {item(entry, 0)}
               {entry.children.map((child) => item(child, 1))}
             </ol>

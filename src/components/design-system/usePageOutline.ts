@@ -64,8 +64,17 @@ export function usePageOutline(scopeRef: React.RefObject<HTMLElement | null>) {
     if (!scope) return;
     const container = scope.closest('main') ?? scope;
 
-    const handleScroll = () => {
-      if (isScrollingRef.current) return;
+    // Collected once: the page renders its full set of anchors on mount and
+    // never adds more. Re-querying per scroll event would walk the DOM
+    // continuously for the whole length of a very long page.
+    const anchors = Array.from(
+      scope.querySelectorAll<HTMLElement>('section[id], [id^="component-"]'),
+    );
+
+    let frame: number | null = null;
+
+    const measure = () => {
+      frame = null;
 
       const containerRect = container.getBoundingClientRect();
       const threshold = containerRect.top + containerRect.height * 0.25;
@@ -73,10 +82,6 @@ export function usePageOutline(scopeRef: React.RefObject<HTMLElement | null>) {
       // Walk every anchor in document order and keep the last one whose top
       // has passed the threshold — sections and their component specs alike,
       // so the rail highlights the individual component you are reading.
-      const anchors = Array.from(
-        scope.querySelectorAll<HTMLElement>('section[id], [id^="component-"]'),
-      );
-
       let current = BASE[0].id;
       for (const node of anchors) {
         if (node.getBoundingClientRect().top <= threshold) current = node.id;
@@ -85,9 +90,20 @@ export function usePageOutline(scopeRef: React.RefObject<HTMLElement | null>) {
       setActiveId(current);
     };
 
-    handleScroll();
+    // Reading getBoundingClientRect for every anchor forces layout, so do it
+    // at most once a frame rather than once per scroll event.
+    const handleScroll = () => {
+      if (isScrollingRef.current || frame !== null) return;
+      frame = requestAnimationFrame(measure);
+    };
+
+    measure();
     container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   }, [scopeRef]);
 
   const scrollTo = useCallback((id: string) => {

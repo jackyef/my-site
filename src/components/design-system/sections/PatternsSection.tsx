@@ -140,7 +140,7 @@ export function PatternsSection() {
         title="Styling hierarchy"
         description="In priority order. Each step down needs a reason the step above could not carry."
       >
-        <ol className="list-none p-0 m-0 space-y-2">
+        <ol role="list" className="list-none p-0 m-0 space-y-2">
           {[
             [
               'Tailwind utilities',

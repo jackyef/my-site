@@ -20,11 +20,17 @@ import { SurfaceSection } from '@/components/design-system/sections/SurfaceSecti
 import { TypographySection } from '@/components/design-system/sections/TypographySection';
 import { PageNav } from '@/components/design-system/PageNav';
 import { usePageOutline } from '@/components/design-system/usePageOutline';
-import { COLOR_GROUPS, SECTIONS } from '@/components/design-system/constants';
+import {
+  COLOR_GROUPS,
+  SECTIONS,
+  type SectionId,
+} from '@/components/design-system/constants';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
-const SECTION_ICONS: Record<string, React.ReactNode> = {
+// Keyed by SectionId rather than string, so adding a section without an icon
+// (or misspelling one) fails to compile instead of silently rendering nothing.
+const SECTION_ICONS: Record<SectionId, React.ReactNode> = {
   color: <PaletteIcon size={14} aria-hidden="true" />,
   contrast: <ContrastIcon size={14} aria-hidden="true" />,
   surfaces: <LayersIcon size={14} aria-hidden="true" />,

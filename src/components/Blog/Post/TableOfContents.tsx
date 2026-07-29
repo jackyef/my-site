@@ -22,7 +22,7 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
         On this page
       </SectionLabel>
 
-      <ol className="list-none p-0 m-0">
+      <ol role="list" className="list-none p-0 m-0">
         {headings.map((heading) => {
           const slug = slugify(heading.content);
           const isActive = activeSlug === slug;
