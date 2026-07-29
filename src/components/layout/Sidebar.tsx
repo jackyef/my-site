@@ -71,18 +71,28 @@ export function Sidebar() {
         <PwaInstallButton variant="sidebar" />
         {/* Compact (icon-strip md–lg) */}
         <div className="md:flex lg:hidden flex-col gap-2">
+          <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />
           <FontSwitcher
             pairing={pairing}
             onPairingChange={setPairing}
             anchor="bottom start"
+            className="w-full"
             compact
           />
-          <ThemeSwitcher theme={theme} onThemeChange={setTheme} compact />
         </div>
-        {/* Full (lg+) */}
-        <div className="hidden lg:flex flex-col gap-2">
-          <FontSwitcher pairing={pairing} onPairingChange={setPairing} />
-          <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
+        {/* Full (lg+) — the font picker rides along on the theme row, since
+            it's a set-once preference that doesn't deserve a row of its own. */}
+        <div className="hidden lg:flex items-center gap-2">
+          <div className="flex-1 min-w-0">
+            <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
+          </div>
+          <FontSwitcher
+            pairing={pairing}
+            onPairingChange={setPairing}
+            anchor="top end"
+            className="shrink-0"
+            compact
+          />
         </div>
       </div>
     </aside>

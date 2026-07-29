@@ -128,16 +128,20 @@ export function MobileNav() {
               </div>
 
               {/* Theme + reading font */}
-              <div className="px-4 py-3 flex flex-col gap-2">
-                <SegmentedControl
-                  options={THEME_OPTS}
-                  value={theme}
-                  onChange={setTheme}
-                />
+              <div className="px-4 py-3 flex items-center gap-2">
+                <div className="flex-1 min-w-0">
+                  <SegmentedControl
+                    options={THEME_OPTS}
+                    value={theme}
+                    onChange={setTheme}
+                  />
+                </div>
                 <FontSwitcher
                   pairing={pairing}
                   onPairingChange={setPairing}
-                  anchor="bottom start"
+                  anchor="bottom end"
+                  className="shrink-0"
+                  compact
                 />
               </div>
             </Surface>

@@ -12,9 +12,12 @@ import { FONT_PAIRINGS, getPairing, type PairingId } from '@/utils/fonts';
 interface FontSwitcherProps {
   pairing: PairingId | null;
   onPairingChange: (id: PairingId) => void;
+  /** Icon-only trigger, for when the label would cost more room than it earns. */
   compact?: boolean;
   /** Where the menu opens relative to the trigger. */
-  anchor?: 'top start' | 'bottom start' | 'bottom end';
+  anchor?: 'top start' | 'top end' | 'bottom start' | 'bottom end';
+  /** Width and flex behaviour are the caller's to decide. */
+  className?: string;
 }
 
 export function FontSwitcher({
@@ -22,6 +25,7 @@ export function FontSwitcher({
   onPairingChange,
   compact,
   anchor = 'top start',
+  className,
 }: FontSwitcherProps) {
   const current = getPairing(pairing);
 
@@ -31,7 +35,7 @@ export function FontSwitcher({
         title={`Reading font: ${current.label}`}
         aria-label={`Reading font: ${current.label}. Change it.`}
         className={cn(
-          'w-full flex items-center rounded-lg border border-(--color-border) bg-(--color-bg)',
+          'flex items-center rounded-lg border border-(--color-border) bg-(--color-bg)',
           'text-(--color-ink-3) cursor-pointer font-[inherit]',
           'transition-[background,border-color,color] duration-[130ms]',
           'hover:bg-(--color-bg-hover) hover:border-(--color-accent-l) hover:text-(--color-ink-2)',
@@ -40,6 +44,7 @@ export function FontSwitcher({
           compact
             ? 'justify-center p-[7px]'
             : 'gap-[6px] px-[10px] py-[6px] text-[13px] text-left',
+          className,
         )}
       >
         <TypeIcon size={compact ? 14 : 13} aria-hidden="true" />
