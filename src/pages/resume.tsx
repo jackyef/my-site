@@ -210,9 +210,8 @@ export default function Resume({ featuredWritings }: Props) {
               variant="body-sm"
               className="print-hide hidden max-w-xl md:block"
             >
-              Welcome to my corner of the internet — literally. Drag, scroll,
-              WASD, and click around to explore! That little guy wandering about
-              is me — say hi.
+              Welcome to my corner of the internet; drag, scroll, WASD, and
+              click around to explore!
             </Text>
           </div>
 
