@@ -1,3 +1,4 @@
+import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
 
 interface SurfaceProps extends React.HTMLAttributes<HTMLElement> {
@@ -27,11 +28,13 @@ export function Surface({
   elevation = 'sm',
   rounded = 'lg',
   border = true,
-  as: As = 'div',
+  as = 'div',
   className,
   children,
   ...rest
 }: SurfaceProps) {
+  const As = asLooseComponent(as);
+
   return (
     <As
       className={cn(

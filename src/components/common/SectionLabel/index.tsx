@@ -1,3 +1,4 @@
+import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
 
 interface SectionLabelProps {
@@ -9,8 +10,10 @@ interface SectionLabelProps {
 export function SectionLabel({
   children,
   className,
-  as: As = 'div',
+  as = 'div',
 }: SectionLabelProps) {
+  const As = asLooseComponent(as);
+
   return (
     <As
       className={cn(

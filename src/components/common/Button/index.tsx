@@ -1,3 +1,4 @@
+import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -25,11 +26,13 @@ const sizeMap = {
 export function Button({
   variant = 'primary',
   size = 'md',
-  as: As = 'button',
+  as = 'button',
   className,
   children,
   ...rest
 }: ButtonProps) {
+  const As = asLooseComponent(as);
+
   return (
     <As
       className={cn(

@@ -14,8 +14,8 @@ import {
 import { StatusDot } from '@/components/common/StatusDot';
 import { TypewriterText } from '@/components/common/TypewriterText';
 import { IOWrapper } from '@/components/IntersectionObserver/Wrapper';
-
 import { SOCIALS } from '@/constants/socials';
+
 import { cn } from '@/utils/styles/classNames';
 
 interface WidgetProps {
@@ -123,6 +123,19 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
         className="inline-block mt-2 text-[13px] text-(--color-accent-text) no-underline hover:underline"
       >
         Read the blog →
+      </a>
+
+      <hr className="border-(--color-border) my-4" />
+
+      <SectionLabel className="mb-2">Resume</SectionLabel>
+      <div className="text-[13px] text-(--color-ink-3)">
+        A cozy little 3D room you can click around
+      </div>
+      <a
+        href="/resume"
+        className="inline-block mt-1.5 text-[13px] text-(--color-accent-text) no-underline hover:underline"
+      >
+        🛋️ Step into the room →
       </a>
 
       <hr className="border-(--color-border) my-4" />

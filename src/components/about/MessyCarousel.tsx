@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
 
 import { useMessyStack } from './useMessyStack';
@@ -95,10 +96,12 @@ interface MessyCarouselItemProps {
 export function MessyCarouselItem({
   children,
   className,
-  as: As = 'div',
+  as = 'div',
   index,
   ...rest
 }: MessyCarouselItemProps) {
+  const As = asLooseComponent(as);
+
   return (
     <As
       data-carousel-item

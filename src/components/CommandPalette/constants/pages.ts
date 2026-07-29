@@ -31,6 +31,13 @@ export const PAGES: readonly PageData[] = [
     description: 'List of things that I use daily',
     link: '/uses',
   },
+  {
+    title: 'Resume 🛋️',
+    description:
+      'An interactive resume set in a cozy little 3D room. Click around to explore!',
+    link: '/resume',
+    hiddenSearchTerm: 'cv portfolio room 3d',
+  },
 
   // Tools
   {
