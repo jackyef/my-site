@@ -1,5 +1,4 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import type { ThreeElements } from '@react-three/fiber';
 import {
@@ -34,6 +33,7 @@ import { useLivePalette } from './livePalette';
 import { MATERIALS } from './palette';
 import { setSceneCursor } from './sceneCursor';
 import type { SectionId } from './hotspots';
+import { SceneHtml } from './SceneHtml';
 
 // `id` collides with our SectionId prop (three.js types it as a number),
 // and `children` is re-declared as required below.
@@ -748,11 +748,11 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
       }}
     >
       {hovered && (
-        <Html center position={[-0.1, 0.85, 0]} zIndexRange={[40, 0]}>
+        <SceneHtml center position={[-0.1, 0.85, 0]} zIndexRange={[40, 0]}>
           <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 pt-[5px] pb-[3px] text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
             Flip the lights
           </div>
-        </Html>
+        </SceneHtml>
       )}
       {/* Generous invisible hit target — the lamp itself is tiny on screen */}
       <mesh position={[-0.1, 0.3, 0]}>
@@ -1934,7 +1934,7 @@ export function Avatar({
       {/* Just above his head. Floating it higher drifts the tag into the
         band the wall labels live in, and he walks underneath them */}
       {showLabel && (
-        <Html
+        <SceneHtml
           center
           position={[0, 1.52 * AVATAR_SCALE, 0]}
           zIndexRange={[40, 0]}
@@ -1952,7 +1952,7 @@ export function Avatar({
           >
             About me
           </button>
-        </Html>
+        </SceneHtml>
       )}
       <group ref={scaleRef} scale={0.0001}>
         <group

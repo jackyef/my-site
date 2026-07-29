@@ -67,9 +67,14 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
       {isActive && (
         <span className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-(--color-accent-2) rounded-r-[3px]" />
       )}
+      {/* `items-center` lands the 16px icon on the centre of the label's
+          20.8px line box, which is 2.39px below the centre of its cap band —
+          where a boxy 16px glyph wants to sit. Hence the lift, and hence it
+          being confined to the widths that actually render a label: on the
+          icon-strip sidebar the same nudge just knocks the icon off-centre. */}
       <span
         className={cn(
-          'shrink-0 flex items-center -translate-y-px',
+          'shrink-0 flex items-center justify-center size-4 lg:-translate-y-[2px]',
           !isActive && 'opacity-90',
         )}
       >

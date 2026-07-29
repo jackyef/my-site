@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 import type { WritingItem } from '@/blog/types';
@@ -9,7 +9,11 @@ import { CameraRig } from './CameraRig';
 import { INTRO_CAMERA_POSITION, SectionId, ViewId } from './hotspots';
 import { PaletteProvider } from './livePalette';
 import { Room } from './Room';
+import { HtmlPortalProvider } from './SceneHtml';
 import { bindSceneCursor, setSceneCursor } from './sceneCursor';
+
+const BLEED_FADE = (bleed: number) =>
+  `linear-gradient(to bottom, transparent 0, #000 ${bleed}px, #000 calc(100% - ${bleed}px), transparent 100%)`;
 
 type CozyRoomSceneProps = {
   view: ViewId;
@@ -33,6 +37,17 @@ type CozyRoomSceneProps = {
   // False once the room has scrolled out of view — rendering stops
   // rather than burning GPU on pixels nobody is looking at
   active: boolean;
+  // The canvas is drawn taller than the slot it appears to occupy, by this
+  // many CSS pixels at the top and at the bottom, so a zoomed-in room spills
+  // over the page instead of being sheared off at a hard edge
+  bleed: number;
+  // Pointer events are taken from this element instead of the canvas, which
+  // keeps the copy the canvas now covers selectable and clickable
+  eventSource: RefObject<HTMLElement | null>;
+  // Where the scene's <Html> overlays — hotspot labels, section panels —
+  // mount. It tracks the canvas box, not the slot, so they stay pinned to the
+  // objects they label once the canvas starts overhanging
+  htmlPortal: RefObject<HTMLElement | null>;
 };
 
 export function CozyRoomScene({
@@ -48,6 +63,9 @@ export function CozyRoomScene({
   onCycleTheme,
   onContextLost,
   active,
+  bleed,
+  eventSource,
+  htmlPortal,
 }: CozyRoomSceneProps) {
   const [hovered, setHovered] = useState<SectionId | null>(null);
   // The first frame lands mid-swoop; easing it in is kinder than a pop
@@ -68,9 +86,23 @@ export function CozyRoomScene({
       window.removeEventListener('pointerup', release);
       window.removeEventListener('pointercancel', release);
       window.removeEventListener('blur', release);
-      bindSceneCursor(null);
     };
   }, []);
+
+  // r3f drops the canvas out of hit testing once it is fed from an
+  // eventSource, so the cursor and the press that starts a drag belong on
+  // that element rather than on the canvas
+  useEffect(() => {
+    const element = eventSource.current;
+    if (!element) return;
+    const grab = () => setSceneCursor('drag', true);
+    bindSceneCursor(element);
+    element.addEventListener('pointerdown', grab);
+    return () => {
+      element.removeEventListener('pointerdown', grab);
+      bindSceneCursor(null);
+    };
+  }, [eventSource]);
 
   return (
     <Canvas
@@ -81,44 +113,79 @@ export function CozyRoomScene({
         position: INTRO_CAMERA_POSITION,
         fov: 38,
       }}
+      // r3f types the ref as always-resolved. It is by the time this runs:
+      // the hit element renders alongside the slot, and this scene is only
+      // loaded (lazily, client-side) once that slot is on the page.
+      eventSource={eventSource as RefObject<HTMLElement>}
       style={{
-        touchAction: desktop ? 'none' : 'pan-y',
+        // Overhang the slot on both edges. Symmetric, so the room stays
+        // centred on the same point it would have been without the bleed.
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: -bleed,
+        bottom: -bleed,
+        width: 'auto',
+        height: 'auto',
+        // The overhang is a soft edge, not a second hard one: the room is at
+        // full strength everywhere inside the slot and dissolves across the
+        // bleed, so a zoomed-in room runs out over the page rather than
+        // stopping dead at a rectangle.
+        maskImage: BLEED_FADE(bleed),
+        WebkitMaskImage: BLEED_FADE(bleed),
         opacity: ready ? 1 : 0,
         transition: 'opacity 500ms ease-out',
       }}
-      onCreated={({ gl }) => {
+      onCreated={(state) => {
+        const { gl } = state;
+        // Events arrive from the slot, which no longer shares an origin with
+        // the canvas — so measure the pointer against the canvas itself
+        state.setEvents({
+          compute: (event, rootState) => {
+            const rect = gl.domElement.getBoundingClientRect();
+            rootState.pointer.set(
+              ((event.clientX - rect.left) / rect.width) * 2 - 1,
+              -((event.clientY - rect.top) / rect.height) * 2 + 1,
+            );
+            rootState.raycaster.setFromCamera(
+              rootState.pointer,
+              rootState.camera,
+            );
+          },
+        });
         gl.domElement.addEventListener('webglcontextlost', (event) => {
           event.preventDefault();
           onContextLost();
         });
-        bindSceneCursor(gl.domElement);
         setReady(true);
       }}
-      onPointerDown={() => setSceneCursor('drag', true)}
       onPointerMissed={() => {
         if (view !== 'overview') onClose();
       }}
     >
-      <PaletteProvider theme={theme} reduceMotion={reduceMotion}>
-        <CameraRig
-          view={view}
-          reduceMotion={reduceMotion}
-          desktop={desktop}
-          resetSignal={resetSignal}
-          keyboardFocus={keyboardFocus}
-        />
-        <Room
-          reduceMotion={reduceMotion}
-          view={view}
-          hovered={hovered}
-          panel3d={desktop}
-          writings={writings}
-          onHover={setHovered}
-          onSelect={onSelect}
-          onClose={onClose}
-          onCycleTheme={onCycleTheme}
-        />
-      </PaletteProvider>
+      <HtmlPortalProvider value={htmlPortal}>
+        <PaletteProvider theme={theme} reduceMotion={reduceMotion}>
+          <CameraRig
+            view={view}
+            reduceMotion={reduceMotion}
+            desktop={desktop}
+            resetSignal={resetSignal}
+            keyboardFocus={keyboardFocus}
+            bleed={bleed}
+          />
+          <Room
+            reduceMotion={reduceMotion}
+            view={view}
+            hovered={hovered}
+            panel3d={desktop}
+            writings={writings}
+            onHover={setHovered}
+            onSelect={onSelect}
+            onClose={onClose}
+            onCycleTheme={onCycleTheme}
+          />
+        </PaletteProvider>
+      </HtmlPortalProvider>
     </Canvas>
   );
 }

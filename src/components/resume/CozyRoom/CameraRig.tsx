@@ -29,6 +29,10 @@ type CameraRigProps = {
   // Desktop gets drag-to-orbit and panel-aware framing; mobile keeps
   // one-finger touch free for page scrolling and flies tighter instead
   desktop: boolean;
+  // Pixels the canvas overhangs its slot by, top and bottom. Those rows are
+  // overscan — somewhere for a zoomed-in room to spill — so framing has to
+  // keep measuring itself against the slot, not against the whole canvas.
+  bleed: number;
 };
 
 const INTRO_DURATION = 1.2;
@@ -48,6 +52,32 @@ const PORTRAIT_ASPECT = 1.1;
 const ROOM_HALF_WIDTH = 5.4;
 const ROOM_HALF_HEIGHT = 3.6;
 const MAX_FIT_PULLBACK = 2.2;
+
+/**
+ * The canvas overshoots its slot by `bleed` at the top and at the bottom, so a
+ * zoomed-in room spills over the page rather than stopping at a hard edge.
+ * Framing keeps measuring itself against the slot; the lens is then widened by
+ * exactly the overscan, which puts the room on screen at the size it would
+ * have been on a canvas that stopped where the slot does.
+ *
+ * Everything here is derived from the canvas size, never from `camera.fov` —
+ * the camera is mutated from an effect, and the frame loop can freeze the
+ * overview position before that effect has landed.
+ */
+const framing = (width: number, height: number, bleed: number) => {
+  const frameHeight = Math.max(1, height - bleed * 2);
+  const aspect = width / frameHeight;
+  const framedFov = aspect < PORTRAIT_ASPECT ? PORTRAIT_FOV : LANDSCAPE_FOV;
+  const extent = Math.tan(MathUtils.degToRad(framedFov) / 2);
+
+  return {
+    aspect,
+    extent,
+    cameraFov: MathUtils.radToDeg(
+      2 * Math.atan(extent * (height / frameHeight)),
+    ),
+  };
+};
 
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 const easeInOutCubic = (x: number) =>
@@ -92,6 +122,7 @@ export function CameraRig({
   desktop,
   resetSignal,
   keyboardFocus,
+  bleed,
 }: CameraRigProps) {
   const controls = useThree(
     (state) => state.controls,
@@ -103,12 +134,11 @@ export function CameraRig({
   // rebuilt whenever the canvas is resized or rotated
   useEffect(() => {
     if (!(camera instanceof PerspectiveCamera)) return;
-    const fov =
-      size.width / size.height < PORTRAIT_ASPECT ? PORTRAIT_FOV : LANDSCAPE_FOV;
-    if (camera.fov === fov) return;
-    camera.fov = fov;
+    const { cameraFov } = framing(size.width, size.height, bleed);
+    if (Math.abs(camera.fov - cameraFov) < 1e-4) return;
+    camera.fov = cameraFov;
     camera.updateProjectionMatrix();
-  }, [camera, size]);
+  }, [camera, size, bleed]);
 
   const [hasInteracted, setHasInteracted] = useState(false);
   const lookRef = useRef(new Vector3(...CAMERA_VIEWS.overview.target));
@@ -197,8 +227,13 @@ export function CameraRig({
 
     // Back the overview off until the room's full width fits the frame
     if (view === 'overview' && camera instanceof PerspectiveCamera) {
-      const aspect = state.size.width / state.size.height;
-      const extent = Math.tan(MathUtils.degToRad(camera.fov) / 2);
+      // Fit to the slot the room appears to sit in. Fitting the overscan
+      // instead would pull the camera back and shrink the room.
+      const { aspect, extent } = framing(
+        state.size.width,
+        state.size.height,
+        bleed,
+      );
       const reach = Math.max(
         ROOM_HALF_WIDTH / (extent * aspect),
         ROOM_HALF_HEIGHT / extent,

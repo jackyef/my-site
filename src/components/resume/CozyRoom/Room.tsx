@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { XIcon } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -15,6 +14,7 @@ import { ScrollArea } from '../ScrollArea';
 import { aboutPanelAnchor } from './avatarState';
 import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
 import { useLivePalette } from './livePalette';
+import { SceneHtml } from './SceneHtml';
 import {
   Avatar,
   Bookshelf,
@@ -100,7 +100,7 @@ function ScenePanel({
 
   return (
     <group position={anchor}>
-      <Html center zIndexRange={[40, 0]}>
+      <SceneHtml center zIndexRange={[40, 0]}>
         {/* Single-element 3D tilt — browsers hit-test this correctly,
             unlike nested matrix3d chains */}
         <div
@@ -141,7 +141,7 @@ function ScenePanel({
             </ScrollArea>
           </motion.div>
         </div>
-      </Html>
+      </SceneHtml>
     </group>
   );
 }
@@ -342,7 +342,7 @@ export function Room({
         HOTSPOTS.filter((hotspot) => hotspot.id !== 'about').map(
           (hotspot, i) => (
             <group key={hotspot.id} position={hotspot.labelPosition}>
-              <Html center distanceFactor={10} zIndexRange={[40, 0]}>
+              <SceneHtml center distanceFactor={10} zIndexRange={[40, 0]}>
                 <motion.button
                   type="button"
                   initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 6 }}
@@ -371,7 +371,7 @@ export function Room({
                 >
                   {hotspot.label}
                 </motion.button>
-              </Html>
+              </SceneHtml>
             </group>
           ),
         )}

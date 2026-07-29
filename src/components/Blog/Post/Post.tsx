@@ -26,8 +26,11 @@ export default function Post({ post }: Props) {
   const { metadata: meta } = post;
 
   return (
-    <div className="flex items-start w-[1100px] max-w-full min-w-0 mx-auto">
-      <main className="page-pad py-8 min-w-0 flex-1 max-w-[880px]">
+    // 784px of column (a 680px measure once .post-pad's gutters are removed)
+    // plus a 224px rail = 1008px, which the 1024px track holds with room to
+    // spare. Without the rail the column simply centres inside the track.
+    <div className="flex items-start justify-center w-[1024px] max-w-full min-w-0 mx-auto">
+      <main className="post-pad min-w-0 flex-1 max-w-[784px]">
         <article>
           <PageMetaTags
             title={meta.title}
@@ -53,7 +56,10 @@ export default function Post({ post }: Props) {
       </main>
 
       {isBlogPost && post.headings.length > 0 && (
-        <aside className="hidden min-[1400px]:block w-52 shrink-0 pt-8 pl-4 sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        // 1200px viewport − 220px sidebar leaves 980px of content area, enough
+        // for the rail and a 650px-odd measure. Anything narrower and the
+        // column gets cramped, so the rail drops out instead.
+        <aside className="hidden min-[1200px]:block w-52 shrink-0 pt-10 pb-10 pl-4 sticky top-0 max-h-dvh overflow-y-auto">
           <TableOfContents headings={post.headings} activeSlug={activeSlug} />
         </aside>
       )}

@@ -563,10 +563,25 @@ h2 em {
   }
 }
 
-/* Hero + WidgetGrid responsive layout */
+/* Blog posts. Same rhythm as .page-pad, but the column width belongs to the
+   post layout (which sizes it against the table of contents beside it) rather
+   than to the padding rule. */
+.post-pad {
+  padding: 24px 20px;
+}
+
+@media (min-width: 768px) {
+  .post-pad {
+    padding: 40px 52px;
+  }
+}
+
+/* Hero + WidgetGrid responsive layout.
+   Shares .widget-grid / .latest-pad's max-width so the hero copy starts on the
+   same left edge as the widgets stacked underneath it. */
 .hero-pad {
   padding: 32px 20px 28px;
-  max-width: 900px;
+  max-width: 960px;
   margin-inline: auto;
 }
 
