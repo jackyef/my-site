@@ -3,7 +3,9 @@ import copy from 'clipboard-copy';
 import { Heading } from '@/components/common/Heading';
 import { SectionLabel } from '@/components/common/SectionLabel';
 import { Text } from '@/components/common/Text';
+import { highlight } from '@/components/common/CodeHighlight';
 import { toast } from '@/lib/toast';
+import type { SnippetLanguage } from '@/lib/prism';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -104,12 +106,18 @@ export function CopyChip({
   );
 }
 
-/** Copyable code sample. Uses the same code palette as the blog's blocks. */
+/**
+ * Copyable code sample, highlighted by the same tokenizer and the same
+ * `--code-*` palette as the blog's build-time code blocks. Copying yields the
+ * original source, not the rendered markup.
+ */
 export function Snippet({
   code,
+  lang = 'tsx',
   className,
 }: {
   code: string;
+  lang?: SnippetLanguage;
   className?: string;
 }) {
   return (
@@ -121,7 +129,7 @@ export function Snippet({
     >
       <pre className="overflow-x-auto px-4 py-3 m-0">
         <code className="font-mono text-[12px] leading-[1.65] text-(--code-base) whitespace-pre">
-          {code}
+          {highlight(code, lang)}
         </code>
       </pre>
       <button

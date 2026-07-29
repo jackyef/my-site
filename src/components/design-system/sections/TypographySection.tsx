@@ -206,7 +206,8 @@ export function TypographySection() {
         description="The mono face comes from the active pairing too. Syntax colours are the --code-* tokens, which is why a code block re-tints with the theme instead of staying dark on a light page."
       >
         <Snippet
-          code={`// The three faces, resolved from the active pairing
+          lang="css"
+          code={`/* The three faces, resolved from the active pairing */
 --font-sans:  var(--font-text-face), system-ui, sans-serif;
 --font-serif: var(--font-display-face), Georgia, serif;
 --font-mono:  var(--font-mono-face), ui-monospace, monospace;`}

@@ -182,6 +182,36 @@ test.describe('Design system page', () => {
     await expect(surfaceSpec.locator('pre')).toBeVisible();
   });
 
+  test('usage snippets are syntax highlighted', async ({ page }) => {
+    await page.goto('/design');
+    await page.waitForLoadState('networkidle');
+
+    const spec = page.locator('#component-button');
+    await spec.getByRole('button', { name: 'Usage' }).click();
+
+    const classes = await spec
+      .locator('pre code span')
+      .evaluateAll((nodes) => nodes.map((n) => n.className));
+
+    expect(classes.length).toBeGreaterThan(0);
+
+    // Must be the site's own --code-* palette. Prism's raw `token …` classes
+    // showing up here would mean its auto-highlighting has clobbered React's
+    // output again — it hunts for code[class*="language-"] on load, and is
+    // opted out of in src/lib/prism.ts.
+    expect(classes.some((c) => c.startsWith('token'))).toBe(false);
+    expect(classes.some((c) => c.startsWith('text-code-'))).toBe(true);
+
+    // tsx grammar actually loaded: keyword, string and JSX tag are distinct.
+    for (const cls of [
+      'text-code-purple',
+      'text-code-green',
+      'text-code-red',
+    ]) {
+      expect(classes, `expected a ${cls} token`).toContain(cls);
+    }
+  });
+
   test('is reachable from the sidebar', async ({ page }) => {
     await page.goto('/');
     await page.locator('nav a[href="/design"]').first().click();

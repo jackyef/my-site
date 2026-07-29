@@ -122,6 +122,7 @@ export function PatternsSection() {
           </Text>
         </div>
         <Snippet
+          lang="css"
           className="mt-4"
           code={`*:focus-visible {
   outline: 2px solid var(--color-accent);

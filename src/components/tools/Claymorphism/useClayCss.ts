@@ -1,7 +1,3 @@
-import Prism from 'prismjs';
-
-import { prismTokenMap } from '@/lib/prismTokenMap';
-
 const BASE_DISTANCE = 20;
 
 type Params = {
@@ -46,21 +42,5 @@ export const useClayCss = ({
   ${outerX} ${outerY} ${outerBlur} ${outerSpread} ${outerShadow};
   `;
 
-  const code = Prism.highlight(boxShadowCss, Prism.languages.css, 'css');
-  let highlightedCode = code;
-
-  Object.keys(prismTokenMap).forEach((token) => {
-    const className =
-      prismTokenMap[token as keyof typeof prismTokenMap] || token;
-
-    highlightedCode = highlightedCode.replace(
-      new RegExp(`${token}`, 'g'),
-      className,
-    );
-  });
-
-  return {
-    boxShadowCss,
-    highlightedCode,
-  };
+  return { boxShadowCss };
 };
