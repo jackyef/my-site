@@ -1,11 +1,14 @@
-import { ArrowUpRight, CircleDot, Moon, Sun } from 'lucide-react';
+import { ArrowUpRight, CircleDot, Moon, Sun, TypeIcon } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
+import { useFontPairing } from '@/hooks/useFontPairing';
 import { useTheme } from '@/hooks/useTheme';
 
 import { cn } from '@/utils/styles/classNames';
 import { publicUrl } from '@/utils/constants';
+
+import { FONT_QUERIES_MAP } from '../constants/actions';
 
 import { HighlightedQuery } from './HighlightedQuery';
 
@@ -28,6 +31,7 @@ export const Action = ({
 }: Props) => {
   const actionElementRef = useRef<HTMLButtonElement>(null);
   const { setTheme } = useTheme();
+  const { setPairing } = useFontPairing();
   const router = useRouter();
 
   const isEnablingDarkTheme = query === 'Enable dark theme';
@@ -36,6 +40,7 @@ export const Action = ({
   const isThemeToggleAction =
     isEnablingDarkTheme || isEnablingDimTheme || isEnablingLightTheme;
   const isShareArticleAction = query === 'Share this article';
+  const fontPairingId = FONT_QUERIES_MAP[query];
 
   const icon = isEnablingLightTheme ? (
     <Sun size={14} aria-hidden="true" />
@@ -43,12 +48,16 @@ export const Action = ({
     <Moon size={14} aria-hidden="true" />
   ) : isEnablingDarkTheme ? (
     <CircleDot size={14} aria-hidden="true" />
+  ) : fontPairingId ? (
+    <TypeIcon size={14} aria-hidden="true" />
   ) : (
     <ArrowUpRight size={14} aria-hidden="true" />
   );
 
   const handleClick = () => {
-    if (isThemeToggleAction) {
+    if (fontPairingId) {
+      setPairing(fontPairingId);
+    } else if (isThemeToggleAction) {
       if (isEnablingDarkTheme) {
         setTheme('dark');
       } else if (isEnablingDimTheme) {

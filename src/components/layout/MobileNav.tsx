@@ -16,9 +16,12 @@ import { useState } from 'react';
 import { SegmentedControl } from '@/components/common/SegmentedControl';
 import { Surface } from '@/components/common/Surface';
 
+import { useFontPairing } from '@/hooks/useFontPairing';
 import { Theme, useTheme } from '@/hooks/useTheme';
 
 import { cn } from '@/utils/styles/classNames';
+
+import { FontSwitcher } from './FontSwitcher';
 
 const NAV_LINKS = [
   {
@@ -60,6 +63,7 @@ const THEME_OPTS: { value: Theme; icon: React.ReactNode; label: string }[] = [
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { pairing, setPairing } = useFontPairing();
   const router = useRouter();
 
   const isActive = (href: string, exact?: boolean) => {
@@ -123,12 +127,21 @@ export function MobileNav() {
                 })}
               </div>
 
-              {/* Theme row */}
-              <div className="px-4 py-3 flex items-center justify-between gap-3">
-                <SegmentedControl
-                  options={THEME_OPTS}
-                  value={theme}
-                  onChange={setTheme}
+              {/* Theme + reading font */}
+              <div className="px-4 py-3 flex items-center gap-2">
+                <div className="flex-1 min-w-0">
+                  <SegmentedControl
+                    options={THEME_OPTS}
+                    value={theme}
+                    onChange={setTheme}
+                  />
+                </div>
+                <FontSwitcher
+                  pairing={pairing}
+                  onPairingChange={setPairing}
+                  anchor="bottom end"
+                  className="shrink-0"
+                  compact
                 />
               </div>
             </Surface>

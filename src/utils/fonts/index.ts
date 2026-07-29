@@ -1,20 +1,27 @@
-import { Epilogue, Fraunces } from 'next/font/google';
+/**
+ * The site's type system.
+ *
+ * Fraunces is fixed as the display face; the text face is switchable at
+ * runtime via the font picker in the sidebar. See ./pairings for the options
+ * and ./faces for the underlying next/font declarations.
+ *
+ * To change the default for new visitors, change DEFAULT_PAIRING_ID in
+ * ./pairings and the matching values in the `:root` block of globals.css.
+ */
+export { fontsClasses } from './faces';
 
-// Fraunces is a variable font with opsz axis support
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  axes: ['opsz'],
-  style: ['normal', 'italic'],
-  variable: '--font-fraunces',
-  display: 'swap',
-});
+export {
+  DEFAULT_PAIRING_ID,
+  FONT_PAIRINGS,
+  PAIRING_IDS,
+  getPairing,
+  isPairingId,
+} from './pairings';
 
-const sans = Epilogue({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-epilogue',
-  display: 'swap',
-});
+export type { FontPairing, PairingId } from './pairings';
 
-export const fontsClasses = `${fraunces.variable} ${sans.variable}`;
-export const initFonts = () => fontsClasses;
+/** localStorage key holding the visitor's chosen pairing. */
+export const FONT_STORAGE_KEY = 'font';
+
+/** Attribute on <html> that selects the pairing's CSS block. */
+export const FONT_ATTRIBUTE = 'data-type-pairing';

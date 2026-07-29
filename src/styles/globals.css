@@ -5,12 +5,15 @@
    THEME — font & screen tokens for Tailwind
 ═══════════════════════════════════════ */
 @theme {
-  --font-sans: var(--font-epilogue), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* The three faces come from the active pairing in src/utils/fonts/index.ts,
+     which declares them on <html> as --font-*-face. Nothing here names a
+     typeface directly, so switching pairings is a one-line change there. */
+  --font-sans: var(--font-text-face), system-ui, sans-serif;
+  --font-serif: var(--font-display-face), Georgia, serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
 
   /* Backward compat: old Tailwind font-heading utility */
-  --font-heading: var(--font-fraunces), Georgia, serif;
+  --font-heading: var(--font-display-face), Georgia, serif;
 
   --breakpoint-xs: 480px;
   --breakpoint-sm: 640px;
@@ -35,6 +38,77 @@
   --color-code-white: var(--code-base);
   --color-code-teal: var(--code-teal);
   --color-code-comment: var(--code-comment);
+}
+
+/* ═══════════════════════════════════════
+   TYPE SYSTEM — the switchable pairings
+
+   Fraunces is the display face throughout, so headings need no per-pairing
+   tuning. Every face reads at one size, set in :root; only the leading is
+   nudged per face, since x-heights differ enough to change how tight a
+   paragraph feels at the same size.
+
+   The visitor's choice is stamped on <html> as data-type-pairing, by the
+   inline script in _document (before first paint) and thereafter by
+   useFontPairing. Options live in src/utils/fonts/pairings.ts — keep the ids
+   here in sync with PairingId.
+═══════════════════════════════════════ */
+
+:root {
+  /* Fixed across every pairing. */
+  --font-display-face: var(--font-fraunces);
+
+  /* One reading size for every face. */
+  --type-body-size: 16px;
+
+  /* Default pairing — mirrors DEFAULT_PAIRING_ID, and covers both the server
+     render and visitors without JavaScript. */
+  --font-text-face: var(--font-source-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.62;
+}
+
+[data-type-pairing='source-sans'] {
+  --font-text-face: var(--font-source-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.62;
+}
+
+[data-type-pairing='inter-tight'] {
+  --font-text-face: var(--font-inter-tight);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='public-sans'] {
+  --font-text-face: var(--font-public-sans);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.65;
+}
+
+/* The one pairing whose prose and code share a superfamily. */
+[data-type-pairing='plex-sans'] {
+  --font-text-face: var(--font-plex-sans);
+  --font-mono-face: var(--font-plex-mono);
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='libre-franklin'] {
+  --font-text-face: var(--font-libre-franklin);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.65;
+}
+
+[data-type-pairing='figtree'] {
+  --font-text-face: var(--font-figtree);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.62;
+}
+
+[data-type-pairing='epilogue'] {
+  --font-text-face: var(--font-epilogue);
+  --font-mono-face: var(--font-jetbrains-mono);
+  --type-body-lh: 1.6;
 }
 
 /* ═══════════════════════════════════════
@@ -136,8 +210,8 @@
   --color-subtitle: var(--color-ink-3);
   --color-primary: var(--color-accent);
   --color-secondary: var(--color-accent-2);
-  --heading-font: var(--font-fraunces);
-  --main-font: var(--font-inter);
+  --heading-font: var(--font-display-face);
+  --main-font: var(--font-text-face);
 }
 
 [data-theme='dim'] {
@@ -335,8 +409,8 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
   transition:
     background-color 0.22s ease,
     color 0.22s ease;
@@ -415,6 +489,7 @@ pre {
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--color-ink);
+  font-optical-sizing: auto;
 }
 
 .page-title {
@@ -424,6 +499,7 @@ pre {
   letter-spacing: -0.025em;
   line-height: 1.15;
   color: var(--color-ink);
+  font-optical-sizing: auto;
 }
 
 .eyebrow {
@@ -644,6 +720,13 @@ h2 em {
   --tw-prose-pre-bg: var(--color-bg-panel);
   --tw-prose-th-borders: var(--color-border-hi);
   --tw-prose-td-borders: var(--color-border);
+
+  /* The typography plugin pins .prose to 1rem, which would override the
+     pairing's optically matched size on the surface it matters most for —
+     post bodies. Everything inside prose is em-based off this, so headings,
+     code and spacing scale with it. Line height stays the plugin's 1.75,
+     which is tuned for long-form reading. */
+  font-size: var(--type-body-size);
 }
 
 /* ── Hash-link anchors on headings ── */
