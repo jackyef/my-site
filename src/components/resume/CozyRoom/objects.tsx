@@ -17,11 +17,18 @@ import {
   Object3D,
   Quaternion,
   Shape,
-  Vector2,
   Vector3,
 } from 'three';
 
 import { AVATAR_REST_SPOT, avatarPosition } from './avatarState';
+import {
+  BRIDGE,
+  LENS_CENTER,
+  LENS_YAW,
+  TEMPLE,
+  lensAperture,
+  lensOutline,
+} from './glassesShape';
 import { buildHairSurface } from './hairGeometry';
 import { useLivePalette } from './livePalette';
 import { MATERIALS } from './palette';
@@ -1672,60 +1679,20 @@ export function FloorCushion() {
   );
 }
 
-/** A polygon with its corners rounded off — used for the glasses. */
-function roundedPolygon(points: Array<[number, number]>, radius: number) {
+const shapeFrom = (points: Array<[number, number]>) => {
   const shape = new Shape();
-  const count = points.length;
-  const at = (i: number) => {
-    const [x, y] = points[(i + count) % count];
-    return new Vector2(x, y);
-  };
-
-  for (let i = 0; i < count; i++) {
-    const corner = at(i);
-    const before = corner.clone().addScaledVector(
-      at(i - 1)
-        .sub(corner)
-        .normalize(),
-      radius,
-    );
-    const after = corner.clone().addScaledVector(
-      at(i + 1)
-        .sub(corner)
-        .normalize(),
-      radius,
-    );
-    if (i === 0) shape.moveTo(before.x, before.y);
-    else shape.lineTo(before.x, before.y);
-    shape.quadraticCurveTo(corner.x, corner.y, after.x, after.y);
-  }
+  points.forEach(([x, y], i) =>
+    i === 0 ? shape.moveTo(x, y) : shape.lineTo(x, y),
+  );
   shape.closePath();
   return shape;
-}
+};
 
-// Lens frames: a soft trapezoid, brow edge longer than the bottom
+// One lens rim: the panto outline with its aperture punched out
 const LENS_FRAME_SHAPE = (() => {
-  const outer = roundedPolygon(
-    [
-      [-0.055, 0.031],
-      [0.055, 0.031],
-      [0.044, -0.031],
-      [-0.044, -0.031],
-    ],
-    0.018,
-  );
-  outer.holes.push(
-    roundedPolygon(
-      [
-        [-0.045, 0.021],
-        [0.045, 0.021],
-        [0.035, -0.021],
-        [-0.035, -0.021],
-      ],
-      0.014,
-    ),
-  );
-  return outer;
+  const rim = shapeFrom(lensOutline());
+  rim.holes.push(shapeFrom(lensAperture()));
+  return rim;
 })();
 
 const LENS_EXTRUDE = { depth: 0.012, bevelEnabled: false, curveSegments: 8 };
@@ -2108,36 +2075,51 @@ export function Avatar({
               <meshStandardMaterial color={MATERIALS.skin} roughness={0.8} />
             </mesh>
             <Hair />
-            {/* Glasses — rounded trapezoid lenses, wider along the brow */}
-            {[-0.068, 0.068].map((x) => (
-              <mesh key={x} position={[x, 0.015, 0.152]}>
-                <extrudeGeometry args={[LENS_FRAME_SHAPE, LENS_EXTRUDE]} />
-                <meshStandardMaterial
-                  color={MATERIALS.gadget}
-                  roughness={0.4}
-                />
-              </mesh>
+            {/* Glasses — thin round panto rims, angled outward so they
+              wrap the face instead of sinking into it */}
+            {[-1, 1].map((side) => (
+              <group key={side}>
+                <mesh
+                  position={[
+                    side * LENS_CENTER[0],
+                    LENS_CENTER[1],
+                    LENS_CENTER[2],
+                  ]}
+                  rotation={[0, side * LENS_YAW, 0]}
+                >
+                  <extrudeGeometry args={[LENS_FRAME_SHAPE, LENS_EXTRUDE]} />
+                  <meshStandardMaterial
+                    color={MATERIALS.gadget}
+                    roughness={0.4}
+                  />
+                </mesh>
+                <mesh
+                  position={[
+                    side * TEMPLE.position[0],
+                    TEMPLE.position[1],
+                    TEMPLE.position[2],
+                  ]}
+                  rotation={[0, -side * TEMPLE.yaw, 0]}
+                >
+                  <boxGeometry args={[0.007, 0.006, TEMPLE.length]} />
+                  <meshStandardMaterial
+                    color={MATERIALS.gadget}
+                    roughness={0.4}
+                  />
+                </mesh>
+                {/* Eye, sitting behind the lens */}
+                <mesh position={[side * 0.068, 0.012, 0.152]}>
+                  <sphereGeometry args={[0.016, 8, 8]} />
+                  <meshStandardMaterial
+                    color={MATERIALS.hair}
+                    roughness={0.4}
+                  />
+                </mesh>
+              </group>
             ))}
-            <mesh position={[0, 0.02, 0.165]}>
-              <boxGeometry args={[0.045, 0.012, 0.012]} />
+            <mesh position={[0, BRIDGE.y, BRIDGE.z]}>
+              <boxGeometry args={[BRIDGE.width, 0.005, 0.008]} />
               <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
-            </mesh>
-            <mesh position={[-0.14, 0.02, 0.08]} rotation={[0, 0.5, 0]}>
-              <boxGeometry args={[0.012, 0.01, 0.16]} />
-              <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
-            </mesh>
-            <mesh position={[0.14, 0.02, 0.08]} rotation={[0, -0.5, 0]}>
-              <boxGeometry args={[0.012, 0.01, 0.16]} />
-              <meshStandardMaterial color={MATERIALS.gadget} roughness={0.4} />
-            </mesh>
-            {/* Eyes behind the lenses + an easy smile */}
-            <mesh position={[-0.068, 0.012, 0.158]}>
-              <sphereGeometry args={[0.016, 8, 8]} />
-              <meshStandardMaterial color={MATERIALS.hair} roughness={0.4} />
-            </mesh>
-            <mesh position={[0.068, 0.012, 0.158]}>
-              <sphereGeometry args={[0.016, 8, 8]} />
-              <meshStandardMaterial color={MATERIALS.hair} roughness={0.4} />
             </mesh>
             <mesh position={[0, -0.065, 0.15]} rotation={[0.35, 0, Math.PI]}>
               <torusGeometry args={[0.038, 0.007, 6, 12, Math.PI * 0.75]} />
