@@ -200,50 +200,50 @@ export interface LayoutUtility {
 
 export const LAYOUT_UTILITIES: LayoutUtility[] = [
   {
-    name: '.page-pad',
+    name: 'page-pad',
     usage: 'Standard content pages — About, Uses, this page',
     spec: '880px column · 24/20px padding → 40/52px at md',
   },
   {
-    name: '.post-pad',
+    name: 'post-pad',
     usage: 'Blog post bodies, where the column is sized by the post layout',
     spec: '24/20px padding → 40/52px at md',
   },
   {
-    name: '.hero-pad',
+    name: 'hero-pad',
     usage: 'Homepage hero, aligned to the widget grid below it',
     spec: '960px column · 32/20px padding → 64/52px at md',
   },
   {
-    name: '.widget-grid',
+    name: 'widget-grid',
     usage: 'Homepage widget cards',
     spec: '2 columns → 3 at md · 10px gap · 960px column',
   },
   {
-    name: '.latest-pad',
+    name: 'latest-pad',
     usage: 'Homepage "latest writing" list',
-    spec: '960px column, matching .widget-grid',
+    spec: '960px column, matching widget-grid',
   },
 ];
 
 export const EFFECT_UTILITIES = [
   {
-    name: '.blueprint-bg',
+    name: 'blueprint-bg',
     usage:
       'The grid behind the content area. Two layers — 96px primary over 32px faint — offset so the lines land off-centre.',
   },
   {
-    name: '.card-hover',
+    name: 'card-hover',
     usage:
       'Interactive card lift: 1px translate plus --shadow-md, in CSS rather than JS mouse handlers.',
   },
   {
-    name: '.fancy-link',
+    name: 'fancy-link',
     usage:
       'Inline links whose underline fills upward into a highlight on hover.',
   },
   {
-    name: '.no-animation',
+    name: 'no-animation',
     usage:
       'Escape hatch that freezes transitions, transforms and animations in a subtree.',
   },

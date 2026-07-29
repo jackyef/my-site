@@ -1,4 +1,5 @@
 import copy from 'clipboard-copy';
+import { CopyIcon } from 'lucide-react';
 
 import { Heading } from '@/components/common/Heading';
 import { SectionLabel } from '@/components/common/SectionLabel';
@@ -72,8 +73,16 @@ export function Block({
 }
 
 /**
- * Monospace token name that copies itself. The whole page is a reference, so
- * every identifier on it should be liftable without a manual selection.
+ * A token name that copies itself.
+ *
+ * Reserved for strings you would paste verbatim — the custom properties and the
+ * utility class names. Anything that only reads as a label (a JSX fragment, a
+ * prop signature) is plain `<code>` instead: a button that hands back half an
+ * element is chrome, not a tool, and the Usage tabs already carry complete
+ * snippets.
+ *
+ * Carries a dotted underline at rest, since a chip that only reveals itself on
+ * hover is one nobody discovers.
  */
 export function CopyChip({
   value,
@@ -93,15 +102,23 @@ export function CopyChip({
       }}
       title={`Copy ${value}`}
       className={cn(
-        'font-mono text-[11px] leading-none px-[6px] py-[4px] rounded-md cursor-pointer',
+        'group/copy inline-flex items-center gap-[5px] cursor-pointer',
+        'font-mono text-[11px] leading-none px-[6px] py-[4px] rounded-md',
         'border border-transparent bg-transparent text-(--color-ink-3)',
+        'decoration-dotted underline underline-offset-[3px] decoration-(--color-ink-4)',
         'transition-[background,border-color,color] duration-[130ms]',
         'hover:border-(--color-border) hover:bg-(--color-bg-hover) hover:text-(--color-ink-2)',
+        'hover:no-underline',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
         className,
       )}
     >
       {label ?? value}
+      <CopyIcon
+        size={10}
+        aria-hidden="true"
+        className="shrink-0 opacity-0 -ml-[3px] transition-opacity duration-[130ms] group-hover/copy:opacity-70"
+      />
     </button>
   );
 }

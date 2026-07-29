@@ -9,9 +9,17 @@ import { useFontPairing } from '@/hooks/useFontPairing';
 import { FONT_PAIRINGS } from '@/utils/fonts';
 import { cn } from '@/utils/styles/classNames';
 
-import { Block, CopyChip, Section, Snippet } from '../Scaffold';
+import { Block, Section, Snippet } from '../Scaffold';
 
 const SPECIMEN = 'Handgloves — 0123456789';
+
+/**
+ * The display ladder gets the short form. "Handgloves" is the traditional
+ * specimen word — it exercises ascenders, descenders, round and diagonal forms
+ * in ten characters — and at 64px the long form needs about 740px, which is
+ * more than the column has.
+ */
+const DISPLAY_SPECIMEN = 'Handgloves';
 
 const DISPLAY_SCALE = [
   {
@@ -72,33 +80,30 @@ export function TypographySection() {
         title="Display scale"
         description="Rendered by the Heading primitive. hero and page map to .hero-h1 / .page-title in globals.css; the numbered levels are Tailwind utilities."
       >
+        {/* Specimen under its own spec rather than beside it. Side by side, the
+            largest steps only got a fraction of the column and clipped after a
+            few letters — which is the one thing a type ladder must not do. */}
         <div className="rounded-xl border border-(--color-border) bg-(--color-bg-panel) divide-y divide-(--color-border)">
           {DISPLAY_SCALE.map((item) => (
-            <div
-              key={String(item.level)}
-              className="px-4 py-4 flex flex-col lg:flex-row lg:items-baseline gap-2 lg:gap-6"
-            >
-              <div className="lg:w-[42%] min-w-0">
-                <Heading level={item.level} as="p" className="truncate">
-                  {SPECIMEN}
-                </Heading>
-              </div>
-              <div className="lg:flex-1 min-w-0">
-                <CopyChip
-                  value={`<Heading level={${
+            <div key={String(item.level)} className="px-4 py-4">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-[6px]">
+                <code className="font-mono text-[11px] text-(--color-ink-3)">
+                  {`level={${
                     typeof item.level === 'string'
                       ? `'${item.level}'`
                       : item.level
-                  }}>`}
-                  className="-ml-[6px]"
-                />
-                <Text variant="caption-sm" className="px-[6px] mt-[2px]">
+                  }}`}
+                </code>
+                <Text variant="caption-sm" as="span">
                   {item.spec}
                 </Text>
-                <Text variant="caption-sm" color="ink-4" className="px-[6px]">
+                <Text variant="caption-sm" color="ink-4" as="span">
                   {item.note}
                 </Text>
               </div>
+              <Heading level={item.level} as="p">
+                {DISPLAY_SPECIMEN}
+              </Heading>
             </div>
           ))}
         </div>
@@ -110,24 +115,20 @@ export function TypographySection() {
       >
         <div className="rounded-xl border border-(--color-border) bg-(--color-bg-panel) divide-y divide-(--color-border)">
           {TEXT_SCALE.map((item) => (
-            <div
-              key={item.variant}
-              className="px-4 py-3 flex flex-col lg:flex-row lg:items-baseline gap-1 lg:gap-6"
-            >
-              <div className="lg:w-[42%] min-w-0">
-                <Text variant={item.variant} className="truncate">
-                  The quick brown fox jumps over the lazy dog
-                </Text>
-              </div>
-              <div className="lg:flex-1 min-w-0">
-                <CopyChip
-                  value={`<Text variant="${item.variant}">`}
-                  className="-ml-[6px]"
-                />
-                <Text variant="caption-sm" className="px-[6px]">
+            <div key={item.variant} className="px-4 py-3">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-[2px]">
+                <code className="font-mono text-[11px] text-(--color-ink-3)">
+                  {`variant="${item.variant}"`}
+                </code>
+                <Text variant="caption-sm" as="span">
                   {item.spec}
                 </Text>
               </div>
+              {/* Full width, so the sample shows the measure and leading a
+                  paragraph actually gets rather than a clipped fragment. */}
+              <Text variant={item.variant}>
+                The quick brown fox jumps over the lazy dog
+              </Text>
             </div>
           ))}
         </div>
@@ -140,13 +141,17 @@ export function TypographySection() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-(--color-border) bg-(--color-bg-panel) px-4 py-4">
             <p className="eyebrow mb-2">Eyebrow — 11px / 600 / 0.12em</p>
-            <CopyChip value="eyebrow" className="-ml-[6px]" />
+            <code className="font-mono text-[11px] text-(--color-ink-3)">
+              .eyebrow
+            </code>
           </div>
           <div className="rounded-lg border border-(--color-border) bg-(--color-bg-panel) px-4 py-4">
             <SectionLabel className="mb-2">
               SectionLabel — 11px / 600 / 0.08em
             </SectionLabel>
-            <CopyChip value="<SectionLabel>" className="-ml-[6px]" />
+            <code className="font-mono text-[11px] text-(--color-ink-3)">
+              &lt;SectionLabel&gt;
+            </code>
           </div>
         </div>
       </Block>
