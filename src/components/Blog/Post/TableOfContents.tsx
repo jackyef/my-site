@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useId } from 'react';
 
+import { SectionLabel } from '@/components/common/SectionLabel';
 import type { PostHeading } from '@/blog/types';
 import { cleanHeadingContent, slugify } from '@/lib/blog';
 
@@ -17,12 +18,9 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
 
   return (
     <nav aria-labelledby={labelId} className="overflow-x-clip">
-      <div
-        id={labelId}
-        className="text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4) mb-3"
-      >
+      <SectionLabel id={labelId} className="mb-3">
         On this page
-      </div>
+      </SectionLabel>
 
       <ol className="list-none p-0 m-0">
         {headings.map((heading) => {

@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRightIcon } from 'lucide-react';
 
 import { WritingItem } from '@/blog/types';
 import { Chip } from '@/components/common/Chip';
-
 import { formatPostDate } from '@/lib/datetime';
 
 interface PostRowProps {
@@ -11,8 +10,16 @@ interface PostRowProps {
 }
 
 export function PostRow({ item }: PostRowProps) {
-  const { link, title, tags, date, readingTime, isExternal, publication, isLatest } =
-    item;
+  const {
+    link,
+    title,
+    tags,
+    date,
+    readingTime,
+    isExternal,
+    publication,
+    isLatest,
+  } = item;
   const firstTag = tags[0];
 
   const content = (
@@ -22,7 +29,7 @@ export function PostRow({ item }: PostRowProps) {
           <span className="text-[14px] font-medium text-(--color-ink) leading-[1.5] flex-1 group-hover:text-(--color-accent-text)">
             {title}
             {isExternal && (
-              <ArrowUpRight
+              <ArrowUpRightIcon
                 size={13}
                 className="inline ml-1 -translate-y-[1px] text-(--color-ink-4)"
                 aria-hidden="true"

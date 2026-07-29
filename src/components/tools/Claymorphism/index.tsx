@@ -64,7 +64,7 @@ export const ClaymorphismTools = () => {
         className={cn(
           clayClass,
           containerClass,
-          'bg-surface-3',
+          'bg-(--color-bg-panel)',
           'p-8',
           'flex',
           'flex-col',

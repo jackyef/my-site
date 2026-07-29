@@ -44,7 +44,7 @@ export const CarouselCardItem = ({
     <div
       className={cn(
         !stickyCardStackCss ? 'relative' : stickyCardStackCss,
-        'inline-block rounded-md mx-2 mt-4 mb-0 shadow-surface-2',
+        'inline-block rounded-md mx-2 mt-4 mb-0 shadow-(--shadow-md)',
         'whitespace-normal align-top last:mr-0 md:inline-flex md:flex-col md:self-start md:content-start',
         'max-w-sm scroll-snap-align-start zoom-on-hover-container',
       )}

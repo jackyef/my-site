@@ -22,6 +22,13 @@ export const PAGES: readonly PageData[] = [
     link: '/about',
   },
   {
+    title: 'Design system 🎨',
+    description:
+      'The tokens, type and components this site is built from — colours in all three themes, a live WCAG contrast grid, and every primitive rendered for real.',
+    link: '/design',
+    hiddenSearchTerm: 'tokens colors colours palette typography contrast a11y',
+  },
+  {
     title: 'Tokens 🖌️',
     description: 'Shows some of the design tokens used on this site.',
     link: '/about/tokens',

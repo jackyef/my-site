@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { CodePlayground } from '@/components/CodePlayground/CodePlayground';
 import { PageHeader } from '@/components/common/PageHeader';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
+import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { formatPostDate } from '@/lib/datetime';
 
 export const meta = {
   title: 'Code playground',

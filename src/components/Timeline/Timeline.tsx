@@ -71,7 +71,7 @@ export const Timeline = ({
                     <div
                       className={cn(
                         'sticky left-0 w-[80px] -ml-[80px] px-2',
-                        'text-right text-xs leading-5 text-theme-text',
+                        'text-right text-xs leading-5 text-(--color-ink-2)',
                         'transform -translate-y-[200%]',
                       )}
                     >

@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
-  Home,
-  User,
-  PenLine,
-  FlaskConical,
-  Palette,
-  WandSparkles,
-  Mic,
+  HomeIcon,
+  UserIcon,
+  PenLineIcon,
+  FlaskConicalIcon,
+  PaletteIcon,
+  SwatchBookIcon,
+  WandSparklesIcon,
+  MicIcon,
 } from 'lucide-react';
 
 import { SectionLabel } from '@/components/common/SectionLabel';
@@ -24,31 +25,41 @@ interface NavItem {
 const ICON_PROPS = { size: 16, strokeWidth: 1.5, 'aria-hidden': true } as const;
 
 const PAGE_LINKS: NavItem[] = [
-  { href: '/', label: 'Home', icon: <Home {...ICON_PROPS} />, exact: true },
-  { href: '/about', label: 'About', icon: <User {...ICON_PROPS} /> },
-  { href: '/blog', label: 'Blog', icon: <PenLine {...ICON_PROPS} /> },
+  {
+    href: '/',
+    label: 'Home',
+    icon: <HomeIcon {...ICON_PROPS} />,
+    exact: true,
+  },
+  { href: '/about', label: 'About', icon: <UserIcon {...ICON_PROPS} /> },
+  { href: '/blog', label: 'Blog', icon: <PenLineIcon {...ICON_PROPS} /> },
 ];
 
 const TOOL_LINKS: NavItem[] = [
   {
+    href: '/design',
+    label: 'Design system',
+    icon: <SwatchBookIcon {...ICON_PROPS} />,
+  },
+  {
     href: '/tools/playground',
     label: 'Playground',
-    icon: <FlaskConical {...ICON_PROPS} />,
+    icon: <FlaskConicalIcon {...ICON_PROPS} />,
   },
   {
     href: '/tools/claymorphism',
     label: 'Claymorphism',
-    icon: <Palette {...ICON_PROPS} />,
+    icon: <PaletteIcon {...ICON_PROPS} />,
   },
   {
     href: '/tools/speech-to-text',
     label: 'Speech-to-text',
-    icon: <Mic {...ICON_PROPS} />,
+    icon: <MicIcon {...ICON_PROPS} />,
   },
   {
     href: '/absurd-ui',
     label: 'Absurd UI',
-    icon: <WandSparkles {...ICON_PROPS} />,
+    icon: <WandSparklesIcon {...ICON_PROPS} />,
   },
 ];
 

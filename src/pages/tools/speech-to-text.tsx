@@ -1,9 +1,9 @@
 import { PageHeader } from '@/components/common/PageHeader';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { WebSpeechAPIDemo } from '@/components/tools/WebSpeechAPIDemo';
+import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { formatPostDate } from '@/lib/datetime';
 
 export const meta = {
   title: 'Speech-to-text with Web Speech API',

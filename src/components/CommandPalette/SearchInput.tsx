@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { SearchIcon } from 'lucide-react';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -12,7 +12,7 @@ export const SearchInput = ({
 }: Props) => {
   return (
     <div className="relative flex items-center">
-      <Search
+      <SearchIcon
         size={16}
         className="absolute left-3 text-(--color-ink-4)"
         aria-hidden="true"

@@ -31,8 +31,9 @@ export const timelineEvents = [
             </p>
 
             <p>
-              One of the first projects I would be involved in will be design system migration; hopefully I would learn much
-              and thus have things to share in coming days!
+              One of the first projects I would be involved in will be design
+              system migration; hopefully I would learn much and thus have
+              things to share in coming days!
             </p>
           </>
         ),
@@ -54,15 +55,15 @@ export const timelineEvents = [
           >
             the pendulum
           </ExternalLink>{' '}
-          swung once again. After 3 years of enjoying my time in a pure IC
-          role, I was then back in a role with a more concrete expectation of
-          leading in some capacities, be it tech, project, or team.
+          swung once again. After 3 years of enjoying my time in a pure IC role,
+          I was then back in a role with a more concrete expectation of leading
+          in some capacities, be it tech, project, or team.
         </p>
 
         <p>
           However, my role did not involve too much of the bureaucratic people
-          management stuff, rather the emphasis was more on the technical side of
-          things. I was responsible for the technical direction of the team,
+          management stuff, rather the emphasis was more on the technical side
+          of things. I was responsible for the technical direction of the team,
           project planning, code reviews, and overall contributing by helping
           others.
         </p>
@@ -82,17 +83,17 @@ export const timelineEvents = [
     details: (
       <>
         <p>
-          I worked at the Platform UX team at Sticker Mule. Our
-          primary responsibility revolved around maintaining shared libraries
-          used to build various products and infrastructure in our monorepo.
+          I worked at the Platform UX team at Sticker Mule. Our primary
+          responsibility revolved around maintaining shared libraries used to
+          build various products and infrastructure in our monorepo.
         </p>
         <p>
           We were also responsible for the main e-commerce platform, which
           included everything from products, catalogs, all the way to checkout!
         </p>
         <p>
-          Due to the team scattered around the globe, our collaboration style was
-          very much asynchronous.
+          Due to the team scattered around the globe, our collaboration style
+          was very much asynchronous.
         </p>
         <p>
           If you are looking for specifics, I played around with{' '}

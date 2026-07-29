@@ -36,10 +36,10 @@ export const ChessComStats = () => {
     <motion.div
       key={activeTimeControl}
       className={cn(
-        'rounded-2xl text-theme-text p-6 my-4',
+        'rounded-2xl text-(--color-ink-2) p-6 my-4',
         'flex flex-col gap-4 relative overflow-clip',
         'isolate pr-[80px]',
-        'bg-surface-3 shadow-surface-3 border-2 border-surface-5',
+        'bg-(--color-bg-panel) shadow-(--shadow-md) border-2 border-(--color-border)',
       )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -80,7 +80,7 @@ export const ChessComStats = () => {
           });
         }}
       >
-        <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+        <dt className="text-sm font-light uppercase tracking-wider text-(--color-ink-3)">
           Rating ({activeTimeControl})
         </dt>
         <dd className={cn('text-4xl font-bold flex gap-1 items-center')}>
@@ -124,7 +124,7 @@ export const ChessComStats = () => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.6 } }}
       >
-        <p className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+        <p className="text-sm font-light uppercase tracking-wider text-(--color-ink-3)">
           Avg. accuracy
           <p className="text-lg">{matchesSummary.avgAccuracy}</p>
         </p>
@@ -134,7 +134,7 @@ export const ChessComStats = () => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.7 } }}
       >
-        <dt className="text-sm text-light uppercase tracking-wider text-theme-subtitle">
+        <dt className="text-sm font-light uppercase tracking-wider text-(--color-ink-3)">
           Current streak
         </dt>
         <dd className="text-lg">

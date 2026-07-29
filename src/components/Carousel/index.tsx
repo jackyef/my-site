@@ -4,7 +4,7 @@ import { css } from 'goober';
 import { cn } from '@/utils/styles/classNames';
 
 const baseButtonClasses =
-  'opacity-0 md:opacity-100 flex items-center content-center absolute bg-surface-3 w-12 h-12 rounded-full border-none shadow-surface-2 z-10 items-center justify-center font-bold text-md';
+  'opacity-0 md:opacity-100 flex items-center content-center absolute bg-(--color-bg-panel) text-(--color-ink-2) w-12 h-12 rounded-full border-none shadow-(--shadow-md) z-10 items-center justify-center font-bold text-base';
 const baseButtonStyles = {
   top: `calc(50% - 3rem / 2)`,
   transition: `transform 0.2s ease-in, opacity 0.2s ease-in`,

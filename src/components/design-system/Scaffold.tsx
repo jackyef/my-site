@@ -1,0 +1,197 @@
+import copy from 'clipboard-copy';
+
+import { Heading } from '@/components/common/Heading';
+import { SectionLabel } from '@/components/common/SectionLabel';
+import { Text } from '@/components/common/Text';
+import { toast } from '@/lib/toast';
+
+import { cn } from '@/utils/styles/classNames';
+
+/** A top-level band of the page. The `id` is what SectionTabs scroll-spies on. */
+export function Section({
+  id,
+  eyebrow,
+  title,
+  intro,
+  children,
+}: {
+  id: string;
+  eyebrow: string;
+  title: React.ReactNode;
+  intro?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="scroll-mt-16 pt-10 first:pt-2">
+      <SectionLabel className="mb-[10px] text-(--color-accent-text)">
+        {eyebrow}
+      </SectionLabel>
+      <Heading level={2} className="mb-3">
+        {title}
+      </Heading>
+      {intro && (
+        <Text variant="body" color="ink-3" className="max-w-[62ch] mb-8">
+          {intro}
+        </Text>
+      )}
+      <div className="space-y-10">{children}</div>
+    </section>
+  );
+}
+
+/** A titled block inside a Section. */
+export function Block({
+  title,
+  description,
+  aside,
+  children,
+}: {
+  title: string;
+  description?: React.ReactNode;
+  aside?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
+        <Heading level={4} as="h3">
+          {title}
+        </Heading>
+        {aside}
+      </div>
+      {description && (
+        <Text variant="body-sm" color="ink-3" className="max-w-[68ch] mb-4">
+          {description}
+        </Text>
+      )}
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Monospace token name that copies itself. The whole page is a reference, so
+ * every identifier on it should be liftable without a manual selection.
+ */
+export function CopyChip({
+  value,
+  label,
+  className,
+}: {
+  value: string;
+  label?: string;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        copy(value);
+        toast({ text: `Copied ${value}` });
+      }}
+      title={`Copy ${value}`}
+      className={cn(
+        'font-mono text-[11px] leading-none px-[6px] py-[4px] rounded-md cursor-pointer',
+        'border border-transparent bg-transparent text-(--color-ink-3)',
+        'transition-[background,border-color,color] duration-[130ms]',
+        'hover:border-(--color-border) hover:bg-(--color-bg-hover) hover:text-(--color-ink-2)',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+        className,
+      )}
+    >
+      {label ?? value}
+    </button>
+  );
+}
+
+/** Copyable code sample. Uses the same code palette as the blog's blocks. */
+export function Snippet({
+  code,
+  className,
+}: {
+  code: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        'relative group rounded-lg border border-(--color-border) bg-(--code-bg) overflow-hidden',
+        className,
+      )}
+    >
+      <pre className="overflow-x-auto px-4 py-3 m-0">
+        <code className="font-mono text-[12px] leading-[1.65] text-(--code-base) whitespace-pre">
+          {code}
+        </code>
+      </pre>
+      <button
+        type="button"
+        onClick={() => {
+          copy(code);
+          toast({ text: 'Snippet copied' });
+        }}
+        aria-label="Copy snippet"
+        className={cn(
+          'absolute top-2 right-2 px-[8px] py-[3px] rounded-md cursor-pointer',
+          'text-[11px] font-medium border border-(--color-border)',
+          'bg-(--color-bg-panel) text-(--color-ink-3)',
+          'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
+          'transition-[opacity,color] duration-[130ms] hover:text-(--color-accent-text)',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+        )}
+      >
+        Copy
+      </button>
+    </div>
+  );
+}
+
+export interface PropRow {
+  name: string;
+  type: string;
+  defaultValue?: string;
+  description: string;
+}
+
+export function PropTable({ rows }: { rows: PropRow[] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-left border-collapse">
+        <thead>
+          <tr className="border-b border-(--color-border)">
+            {['Prop', 'Type', 'Default', 'Notes'].map((h) => (
+              <th
+                key={h}
+                scope="col"
+                className="py-2 pr-4 text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4) whitespace-nowrap"
+              >
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr
+              key={row.name}
+              className="border-b border-(--color-border) last:border-0 align-top"
+            >
+              <td className="py-2 pr-4 font-mono text-[12px] text-(--color-ink-2) whitespace-nowrap">
+                {row.name}
+              </td>
+              <td className="py-2 pr-4 font-mono text-[11px] text-(--color-accent-text) min-w-[140px]">
+                {row.type}
+              </td>
+              <td className="py-2 pr-4 font-mono text-[11px] text-(--color-ink-4) whitespace-nowrap">
+                {row.defaultValue ?? '—'}
+              </td>
+              <td className="py-2 text-[12px] leading-[1.5] text-(--color-ink-3) min-w-[200px]">
+                {row.description}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

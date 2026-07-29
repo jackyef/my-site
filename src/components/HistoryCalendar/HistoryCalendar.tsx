@@ -53,12 +53,12 @@ export const HistoryCalendar = () => {
 
   return (
     <section className="flex h-[80vh] md:h-[560px] flex-col">
-      <header className="flex flex-none items-center justify-between border-b border-surface-3 px-6 py-4">
+      <header className="flex flex-none items-center justify-between border-b border-(--color-border) px-6 py-4">
         <div>
-          <h1 className="text-base font-semibold leading-6 text-theme-heading">
+          <h1 className="text-base font-semibold leading-6 text-(--color-ink)">
             Professional history
           </h1>
-          <p className="mt-1 text-sm text-theme-subtitle">
+          <p className="mt-1 text-sm text-(--color-ink-3)">
             Today is{' '}
             <time dateTime={TODAY.toDateString()}>
               <SkipSSR>{formatDate(TODAY)}</SkipSSR>
@@ -67,7 +67,7 @@ export const HistoryCalendar = () => {
         </div>
       </header>
 
-      <div className="isolate flex flex-auto flex-col md:flex-row overflow-hidden bg-surface-5 shadow-surface-5 rounded-2xl">
+      <div className="isolate flex flex-auto flex-col md:flex-row overflow-hidden bg-(--color-bg-panel) shadow-(--shadow-lg) rounded-2xl">
         <Timeline
           // Start our story from 2017
           timelineBeginning={new Date('2017-01-01')}
@@ -104,7 +104,7 @@ export const HistoryCalendar = () => {
         <div
           ref={detailsContainerRef}
           className={cn(
-            'block w-full flex-1 border-l border-surface-1  md:block',
+            'block w-full flex-1 border-l border-(--color-border) md:block',
             'overflow-x-hidden overflow-y-scroll',
           )}
         >

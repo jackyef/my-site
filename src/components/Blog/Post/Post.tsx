@@ -4,11 +4,11 @@ import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { MDXProvider } from '@/components/common/MDX';
 import { Post as PostType } from '@/blog/types';
 import { TwitterShare } from '@/components/Social/TwitterShare';
+import { formatPostDate } from '@/lib/datetime';
 
 import { useActiveHeading } from '@/hooks/useActiveHeading';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { formatPostDate } from '@/lib/datetime';
 
 import { PostHeader } from './PostHeader';
 import { TableOfContents } from './TableOfContents';

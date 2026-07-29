@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRightIcon, GithubIcon } from 'lucide-react';
 
 import {
   MessyCarousel,
@@ -49,7 +49,7 @@ export function ProjectsView() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[12px] text-(--color-accent-text) no-underline font-medium hover:underline"
                   >
-                    <ArrowUpRight size={12} aria-hidden="true" />
+                    <ArrowUpRightIcon size={12} aria-hidden="true" />
                     Visit
                   </a>
                   {project.repo && (
@@ -59,7 +59,7 @@ export function ProjectsView() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-ink)"
                     >
-                      <Github size={12} aria-hidden="true" />
+                      <GithubIcon size={12} aria-hidden="true" />
                       Source
                     </a>
                   )}
@@ -101,8 +101,8 @@ export function ProjectsView() {
               className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-accent-text) shrink-0"
               title="View on GitHub"
             >
-              <Github size={14} aria-hidden="true" />
-              <ArrowUpRight size={12} aria-hidden="true" />
+              <GithubIcon size={14} aria-hidden="true" />
+              <ArrowUpRightIcon size={12} aria-hidden="true" />
             </a>
           </Card>
         ))}

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { asLooseComponent } from '@/utils/polymorphic';
 import { cn } from '@/utils/styles/classNames';
@@ -55,7 +55,7 @@ export function MessyCarousel({ children, className }: MessyCarouselProps) {
         aria-label="Scroll left"
         tabIndex={canScrollLeft ? 0 : -1}
       >
-        <ChevronLeft size={18} />
+        <ChevronLeftIcon size={18} />
       </button>
       <div
         ref={containerRef}
@@ -79,7 +79,7 @@ export function MessyCarousel({ children, className }: MessyCarouselProps) {
         aria-label="Scroll right"
         tabIndex={canScrollRight ? 0 : -1}
       >
-        <ChevronRight size={18} />
+        <ChevronRightIcon size={18} />
       </button>
     </div>
   );

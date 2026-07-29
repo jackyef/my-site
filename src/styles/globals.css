@@ -12,22 +12,12 @@
   --font-serif: var(--font-display-face), Georgia, serif;
   --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
 
-  /* Backward compat: old Tailwind font-heading utility */
-  --font-heading: var(--font-display-face), Georgia, serif;
-
   --breakpoint-xs: 480px;
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
-
-  /* Backward compat: old Tailwind text-theme-* / bg-theme-* utilities */
-  --color-theme-text: var(--color-ink-2);
-  --color-theme-heading: var(--color-ink);
-  --color-theme-subtitle: var(--color-ink-3);
-  --color-theme-background: var(--color-bg);
-  --color-theme-info: var(--color-bg-active);
 
   /* Code syntax highlighting (for MDX/Prism token classes) — resolved per theme */
   --color-code-green: var(--code-green);
@@ -157,55 +147,10 @@
   --code-teal: #0a7175;
   --code-comment: #6e7781;
 
-  /* ── Legacy compat: HSL tokens for old goober components ── */
-  --bg-opacity: 1;
-  --h-primary: 180deg;
-  --s-primary: 38%;
-  --l-primary: 29%;
-  --h-secondary: 252deg;
-  --s-secondary: 40%;
-  --l-secondary: 65%;
-  --h-tertiary: 45deg;
-  --s-tertiary: 70%;
-  --l-tertiary: 65%;
-  --h-bg: 43deg;
-  --s-bg: 20%;
-  --l-bg: 95%;
-  --h-heading: 240deg;
-  --s-heading: 8%;
-  --l-heading: 15%;
-  --h-text: 240deg;
-  --s-text: 3%;
-  --l-text: 23%;
-  --h-subtitle: 240deg;
-  --s-subtitle: 3%;
-  --l-subtitle: 43%;
-  --h-outline: 180deg;
-  --s-outline: 38%;
-  --l-outline: 29%;
-  --h-info: 180deg;
-  --s-info: 30%;
-  --l-info: 95%;
-  --h-warning: 45deg;
-  --s-warning: 91%;
-  --l-warning: 49%;
-  --color-outline: hsla(180deg 38% 29% / 0.7);
-  --color-scrollbar: #cacaca;
+  /* ── Chrome ── */
   --scroll-gutter: hsl(0deg 0% 92%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
-  --focus-outline: 0 0 0 2px var(--color-outline);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --transition-default: 0.5s;
-  --transition-faster: 0.25s;
-  /* Direct aliases */
-  --color-heading: var(--color-ink);
-  --color-text: var(--color-ink-2);
-  --color-subtitle: var(--color-ink-3);
-  --color-primary: var(--color-accent);
-  --color-secondary: var(--color-accent-2);
-  --heading-font: var(--font-display-face);
-  --main-font: var(--font-text-face);
 }
 
 [data-theme='dim'] {
@@ -257,45 +202,10 @@
   --code-teal: #7fdbca;
   --code-comment: #6b7280;
 
-  /* ── Legacy compat: HSL tokens for old goober components ── */
-  --h-primary: 180deg;
-  --s-primary: 34%;
-  --l-primary: 44%;
-  --h-secondary: 180deg;
-  --s-secondary: 34%;
-  --l-secondary: 60%;
-  --h-tertiary: 45deg;
-  --s-tertiary: 50%;
-  --l-tertiary: 60%;
-  --h-bg: 225deg;
-  --s-bg: 13%;
-  --l-bg: 13%;
-  --h-heading: 40deg;
-  --s-heading: 8%;
-  --l-heading: 83%;
-  --h-text: 40deg;
-  --s-text: 6%;
-  --l-text: 70%;
-  --h-subtitle: 260deg;
-  --s-subtitle: 5%;
-  --l-subtitle: 58%;
-  --h-outline: 180deg;
-  --s-outline: 34%;
-  --l-outline: 44%;
-  --h-info: 180deg;
-  --s-info: 20%;
-  --l-info: 20%;
-  --color-outline: hsla(180deg 34% 44% / 1);
-  --color-scrollbar: rgba(55, 65, 81, 1);
+  /* ── Chrome ── */
   --scroll-gutter: hsl(225deg 13% 15%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: #1a1b20;
-  --focus-outline: 0 0 0 2px var(--color-outline);
-  --color-heading: var(--color-ink);
-  --color-text: var(--color-ink-2);
-  --color-subtitle: var(--color-ink-3);
-  --color-primary: var(--color-accent);
-  --color-secondary: var(--color-accent-2);
 }
 
 [data-theme='dark'] {
@@ -347,45 +257,10 @@
   --code-teal: #7fdbca;
   --code-comment: #6b7280;
 
-  /* ── Legacy compat: HSL tokens for old goober components ── */
-  --h-primary: 180deg;
-  --s-primary: 34%;
-  --l-primary: 44%;
-  --h-secondary: 180deg;
-  --s-secondary: 34%;
-  --l-secondary: 60%;
-  --h-tertiary: 45deg;
-  --s-tertiary: 50%;
-  --l-tertiary: 60%;
-  --h-bg: 240deg;
-  --s-bg: 10%;
-  --l-bg: 7%;
-  --h-heading: 40deg;
-  --s-heading: 8%;
-  --l-heading: 83%;
-  --h-text: 40deg;
-  --s-text: 5%;
-  --l-text: 66%;
-  --h-subtitle: 260deg;
-  --s-subtitle: 4%;
-  --l-subtitle: 55%;
-  --h-outline: 180deg;
-  --s-outline: 34%;
-  --l-outline: 44%;
-  --h-info: 180deg;
-  --s-info: 20%;
-  --l-info: 15%;
-  --color-outline: hsla(180deg 34% 44% / 1);
-  --color-scrollbar: rgba(55, 65, 81, 1);
+  /* ── Chrome ── */
   --scroll-gutter: hsl(240deg 10% 9%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: #0f0f11;
-  --focus-outline: 0 0 0 2px var(--color-outline);
-  --color-heading: var(--color-ink);
-  --color-text: var(--color-ink-2);
-  --color-subtitle: var(--color-ink-3);
-  --color-primary: var(--color-accent);
-  --color-secondary: var(--color-accent-2);
 }
 
 /* ═══════════════════════════════════════

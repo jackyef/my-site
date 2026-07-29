@@ -5,7 +5,6 @@ import { PostMeta } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
 import { Chip } from '@/components/common/Chip';
 import { InternalLink } from '@/components/Typography/InternalLink';
-
 import { formatPostDate } from '@/lib/datetime';
 
 interface Props {
@@ -21,9 +20,7 @@ export const PostHeader = ({ meta }: Props) => {
       {isBlogPost && (
         <Flipped flipId={`${meta.title}-meta`} spring="noWobble" stagger>
           <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <span className="eyebrow">
-              {formatPostDate(meta.date, true)}
-            </span>
+            <span className="eyebrow">{formatPostDate(meta.date, true)}</span>
             <span className="text-(--color-ink-4) text-[11px]">&middot;</span>
             <span className="text-[12px] text-(--color-ink-3) font-medium">
               {meta.readingTime}

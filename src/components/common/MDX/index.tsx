@@ -3,7 +3,7 @@ import { Flipped } from 'react-flip-toolkit';
 import dynamic from 'next/dynamic';
 
 import { Panel } from '@/components/common/Panel';
-import { HorizontalDivider } from '@/components/Divider';
+import { HorizontalDivider } from '@/components/common/Divider';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
 import { Button } from '@/components/common/Button';
 import { Surfaces, Colors } from '@/components/DesignDemo';
@@ -41,7 +41,12 @@ const mdxComponents = {
         rel="noopener noreferrer"
         className={cn('relative block w-full h-96 not-prose')}
       >
-        <img loading="lazy" alt="" {...props} className={cn('object-contain')} />
+        <img
+          loading="lazy"
+          alt=""
+          {...props}
+          className={cn('object-contain')}
+        />
       </a>
     );
   },

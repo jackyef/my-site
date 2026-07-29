@@ -91,6 +91,15 @@ Key tokens:
 | `--color-success` | `#4caf84` — green status |
 | `--shadow-sm`, `--shadow-md`, `--shadow-lg` | Elevation shadows |
 
+**The live reference is `/design`** (`src/pages/design.tsx`). It resolves every token
+out of the DOM in all three themes at once and computes the WCAG contrast grid in the
+browser, so it cannot drift from `globals.css` the way this table can. Add a token to
+`globals.css`, list it in `src/components/design-system/constants.ts`, and it documents
+itself.
+
+There is no longer an HSL layer (`--h-*` / `--s-*` / `--l-*`) or a `src/lib/styles`
+colour helper — both are removed. Use the `--color-*` tokens.
+
 ---
 
 ## Component API Patterns
@@ -99,6 +108,10 @@ Key tokens:
 - Prefer compound components over boolean prop explosions.
 - Export named (not default) exports from `components/common/`.
 - Accept `as?: React.ElementType` on layout primitives to allow semantic override.
+- Spread `...rest` on primitives so callers can pass `id`, `data-*`, and handlers.
+  Type it from the element (`ComponentPropsWithoutRef<'td'>`), not
+  `PropsWithChildren<'td'>` — the latter is a string intersection, not a props object,
+  and silently accepts nothing.
 
 ---
 
@@ -163,10 +176,31 @@ These legacy components **remain** but are not recommended for new code:
 
 | Component | Status | Reason |
 |---|---|---|
-| `HorizontalDivider` | Keep (limited) | Only used in MDX blog content; removed from layout code |
 | `ExternalLink` | Keep | Used across many files + MDX pipeline |
 | `InternalLink` | Keep | Used across many files + MDX pipeline |
-| `LightButton` | Keep | Used in MDX components + live pages (goober-based, migrate later) |
+| `Heading` (H1–H5) | Keep | MDX element mapping; wraps `common/Heading` internally |
+
+`HorizontalDivider` moved to `@/components/common/Divider`. It is reachable only from
+MDX blog content — do not add it to layout code (see Borders & Dividers above).
+
+---
+
+## Tailwind v4 — there is no JS config
+
+Tokens and theme values are declared in the `@theme` block of `globals.css`, and there
+is **no `@config` directive** — so a `tailwind.config.js` would not be loaded at all.
+One used to exist; the `bg-surface-*` / `shadow-surface-*` scale it defined silently
+stopped generating CSS when the project moved to v4, leaving about ten components
+pointing at classes that produced nothing. That file and `safelists.js` are both gone.
+
+To add a utility, add the token to `@theme` in `globals.css`. To confirm a class is
+really being emitted, grep the served stylesheet rather than trusting that it looks
+right:
+
+```sh
+curl -s "http://localhost:3000$(curl -s localhost:3000 \
+  | grep -o '/_next/static/[^"]*\.css' | head -1)" | grep -c 'my-class'
+```
 
 ---
 

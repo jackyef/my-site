@@ -3,6 +3,15 @@
 Shared UI primitives. All use Tailwind + `cn()` only (no goober, no inline styles except
 where noted). Import from their directory: `@/components/common/Card`.
 
+> **See them running: `/design`** (`src/pages/design.tsx`). Every primitive below is
+> rendered live there with its variant matrix, prop table, and a copyable usage
+> snippet, in whichever theme and type pairing you have selected. Prefer that page when
+> you want to *look* at a component; this file is the written reference.
+>
+> Adding a primitive? Add a `<Spec>` for it in
+> `src/components/design-system/sections/ComponentsSection.tsx` so it shows up there
+> too — anything rendered on that page is exercised by `e2e/design-system.spec.ts`.
+
 ---
 
 ## Text
@@ -177,15 +186,17 @@ interface PageHeaderProps {
 11px/600/uppercase/ink-4 section label used in widget headers, stack groups, etc.
 
 ```tsx
-interface SectionLabelProps {
+interface SectionLabelProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
   className?: string;
   as?: React.ElementType;  // default 'div'
 }
 ```
 
-**Replaces:** repeated inline-styled label divs in WidgetGrid widgets and StackView group
-labels.
+Spreads `...rest`, so it can carry the `id` an `aria-labelledby` points at.
+
+**Replaces:** repeated inline-styled label divs in WidgetGrid widgets, StackView group
+labels, and the blog table-of-contents heading.
 
 ---
 
@@ -206,15 +217,15 @@ interface SegmentOption<T> {
 
 interface SegmentedControlProps<T extends string> {
   options: SegmentOption<T>[];
-  value: T;
+  value: T | null;          // null renders nothing as selected (pre-hydration)
   onChange: (value: T) => void;
   className?: string;       // pass 'w-full' to fill container width
   labelClassName?: string;  // e.g. 'hidden lg:inline' for sidebar label hiding
 }
 ```
 
-**Replaces:** the button-group in ThemeSwitcher (non-compact) and the time-control picker
-in ChessWidget.
+**Replaces:** the button-group in ThemeSwitcher (non-compact), the chess.com time-control
+picker, and the theme picker on the contrast grid at `/design`.
 
 ---
 
@@ -286,3 +297,108 @@ interface StatusDotProps {
 
 **Replaces:** the inline-styled `<span>` status dots in HeroSection and WidgetGrid
 "Currently" widget.
+
+---
+
+## Panel
+
+**File:** `src/components/common/Panel/index.tsx`
+
+Callout block with a semantic left rule and matching tinted fill. Registered in the MDX
+component map, so blog posts can use it without importing anything.
+
+```tsx
+interface PanelProps {
+  type: 'info' | 'warning' | 'danger' | 'success' | 'accent';
+  title: string;
+  children?: React.ReactNode;
+}
+```
+
+Each type pairs a `border-l-(--color-<type>)` rule with its `--color-<type>-bg` fill;
+`accent` uses `--color-accent` over `--color-accent-xl`.
+
+---
+
+## Table
+
+**File:** `src/components/common/Table/index.tsx`
+
+Compound table wrapped in a panel with horizontal scroll. Also MDX-registered.
+
+```tsx
+<Table>
+  <Table.THead>
+    <Table.Tr><Table.Th>Name</Table.Th></Table.Tr>
+  </Table.THead>
+  <Table.TBody>
+    <Table.Tr><Table.Td>Value</Table.Td></Table.Tr>
+  </Table.TBody>
+</Table>
+```
+
+Each part takes the props of the element it renders (`ComponentPropsWithoutRef<'td'>`
+and friends) and spreads `...rest`.
+
+---
+
+## Divider
+
+**File:** `src/components/common/Divider/index.tsx`
+
+`HorizontalDivider` — an `<hr>` in `--color-border`. **MDX content only.** The content
+area's blueprint grid already draws horizontal lines, so a divider in layout code
+competes with it (see Borders & Dividers in frontend-conventions).
+
+---
+
+## Mark
+
+**File:** `src/components/common/Mark/index.tsx`
+
+Scroll-driven highlight — the fill sweeps in as the element enters the viewport, via
+`animation-timeline: view()`. Uses `styled-jsx` rather than Tailwind because the effect
+animates a custom property inside a keyframe.
+
+---
+
+## AnimatedNumber
+
+**File:** `src/components/common/AnimatedNumber/index.tsx`
+
+Counts up to `value` with an expo ease-out, and scrambles random digits while `value` is
+still nullish — the loading state the homepage widgets show while their data is in
+flight.
+
+```tsx
+interface AnimatedNumberProps {
+  value: number | undefined | null;         // nullish → scramble loading state
+  duration?: number;                        // default 1.2 (seconds)
+  ease?: [number, number, number, number];  // default expo ease-out
+  scrambleInterval?: number;                // default 80 (ms)
+  scrambleRange?: [number, number];         // default [500, 2500]
+  placeholder?: string;                     // default '—'
+  className?: string;
+}
+```
+
+---
+
+## TypewriterText
+
+**File:** `src/components/common/TypewriterText/index.tsx`
+
+Types its text out when it enters the viewport, then blinks a caret. Pass `active` to
+drive it yourself instead of using the IntersectionObserver.
+
+```tsx
+interface TypewriterTextProps {
+  text: string;
+  charSpeed?: number;          // default 45 (ms per character)
+  startDelay?: number;         // default 600 (ms)
+  active?: boolean;            // bypasses the observer; types when true
+  onDone?: () => void;
+  hideCursorOnDone?: boolean;  // default false
+  className?: string;
+}
+```
