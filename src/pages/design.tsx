@@ -116,7 +116,7 @@ export default function DesignSystemPage() {
                   key={stat.label}
                   className="rounded-lg border border-(--color-border) bg-(--color-bg-panel) px-3 py-[10px]"
                 >
-                  <dt className="text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4)">
+                  <dt className="text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-3)">
                     {stat.label}
                   </dt>
                   <dd className="text-2xl font-bold font-serif text-(--color-ink) tabular-nums leading-tight">
@@ -126,7 +126,7 @@ export default function DesignSystemPage() {
               ))}
             </dl>
 
-            <Text variant="caption" color="ink-4" className="mb-2">
+            <Text variant="caption" color="ink-3" className="mb-2">
               Tokens live in{' '}
               <code className="font-mono">src/styles/globals.css</code>;
               primitives in{' '}

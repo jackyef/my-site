@@ -110,7 +110,9 @@
   --color-border-hi: #ccc8be;
   --color-ink: #24242a;
   --color-ink-2: #38383c;
-  --color-ink-3: #6b6b72;
+  /* Darkened from #6b6b72: on --color-bg-hover the old value measured 4.17:1,
+     under the 4.5 AA floor this ramp claims. See the note above ink-4. */
+  --color-ink-3: #616168;
   --color-ink-4: #908f96;
   --color-accent: #2c6464;
   --color-accent-2: #1a4040;
@@ -163,14 +165,18 @@
   --color-border-hi: #3a3d48;
   --color-ink: #d8d6d0;
   --color-ink-2: #b8b5ae;
-  --color-ink-3: #918f98;
+  /* Lightened from #918f98: 4.13:1 on hover and 4.08:1 on active, both under AA. */
+  --color-ink-3: #9f9da6;
   --color-ink-4: #686670;
   --color-accent: #4a9696;
   --color-accent-2: #6ab8b8;
   --color-accent-l: #1e4040;
   --color-accent-xl: #162e2e;
   --color-accent-text: #6ab8b8;
-  --color-on-accent: #ffffff;
+  /* Ink, not white. The dark themes' accent is a mid teal, so white sits at
+     3.45:1 on it — and the primary Button lightens the fill on hover, which
+     drops it to 2.89:1. Dark ink reverses both: 5.56:1 at rest, 6.63:1 hovered. */
+  --color-on-accent: #0f0f11;
 
   --grid-primary: rgba(74, 150, 150, 0.07);
   --grid-faint: rgba(74, 150, 150, 0.028);
@@ -205,7 +211,7 @@
   /* ── Chrome ── */
   --scroll-gutter: hsl(225deg 13% 15%);
   --color-selection-bg: var(--color-accent);
-  --color-selection-text: #1a1b20;
+  --color-selection-text: var(--color-on-accent);
 }
 
 [data-theme='dark'] {
@@ -218,14 +224,17 @@
   --color-border-hi: #2e2e34;
   --color-ink: #d8d6d0;
   --color-ink-2: #b0ada6;
-  --color-ink-3: #8a8890;
+  /* Nudged from #8a8890, which passed at only 4.58:1 on active — enough
+     headroom to match the other two themes' ~4.8 floor. */
+  --color-ink-3: #8e8c94;
   --color-ink-4: #5c5a64;
   --color-accent: #4a9696;
   --color-accent-2: #7ac4c4;
   --color-accent-l: #1a3636;
   --color-accent-xl: #111e1e;
   --color-accent-text: #7ac4c4;
-  --color-on-accent: #ffffff;
+  /* See the dim theme's note — same accent, same reason. */
+  --color-on-accent: #0f0f11;
 
   --grid-primary: rgba(74, 150, 150, 0.08);
   --grid-faint: rgba(74, 150, 150, 0.03);
@@ -260,7 +269,7 @@
   /* ── Chrome ── */
   --scroll-gutter: hsl(240deg 10% 9%);
   --color-selection-bg: var(--color-accent);
-  --color-selection-text: #0f0f11;
+  --color-selection-text: var(--color-on-accent);
 }
 
 /* ═══════════════════════════════════════

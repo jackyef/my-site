@@ -34,7 +34,7 @@ function SwatchCell({
           style={{ background: value ?? 'transparent' }}
         />
       </div>
-      <span className="font-mono text-[10px] leading-none text-(--color-ink-4) tabular-nums truncate">
+      <span className="font-mono text-[10px] leading-none text-(--color-ink-3) tabular-nums truncate">
         {/* The column headers are desktop-only, so each swatch names its own
             theme once the grid stacks. */}
         <span className="md:hidden uppercase tracking-[0.06em] mr-[6px]">
@@ -57,7 +57,7 @@ function TokenRow({
     <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_repeat(3,minmax(72px,110px))] gap-x-4 gap-y-2 items-start py-3 border-b border-(--color-border) last:border-0">
       <div className="min-w-0">
         <CopyChip value={spec.token} className="-ml-[6px]" />
-        <Text variant="caption" color="ink-4" className="px-[6px] mt-[1px]">
+        <Text variant="caption" color="ink-3" className="px-[6px] mt-[1px]">
           {spec.usage}
         </Text>
       </div>
@@ -101,7 +101,7 @@ export function ColorSection() {
               {THEMES.map((theme) => (
                 <span
                   key={theme}
-                  className="text-[10px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4)"
+                  className="text-[10px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-3)"
                 >
                   {theme}
                 </span>
@@ -135,7 +135,7 @@ export function ColorSection() {
               <code className="font-mono text-[12px] text-(--color-accent-text)">
                 {cls}
               </code>
-              <span className="text-[11px] text-(--color-ink-4) shrink-0">
+              <span className="text-[11px] text-(--color-ink-3) shrink-0">
                 {label}
               </span>
             </div>

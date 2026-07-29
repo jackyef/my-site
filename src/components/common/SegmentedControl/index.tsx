@@ -32,6 +32,7 @@ export function SegmentedControl<T extends string>({
       {options.map((opt) => (
         <button
           key={opt.value}
+          type="button"
           onClick={() => onChange(opt.value)}
           title={opt.title ?? opt.label}
           aria-label={opt.label ? `Switch to ${opt.label}` : opt.title}
@@ -40,7 +41,10 @@ export function SegmentedControl<T extends string>({
             'flex-1 flex items-center justify-center gap-1 px-[9px] py-[5px] text-[11px] font-medium cursor-pointer border-none font-[inherit] rounded-[7px] transition-[background,color,box-shadow] duration-[130ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-accent)',
             value === opt.value
               ? 'bg-(--color-bg-panel) text-(--color-accent-text) shadow-(--shadow-sm)'
-              : 'bg-transparent text-(--color-ink-4)',
+              : // ink-3, not ink-4: the unselected segments are the ones you
+                // have to read to know what you would be switching to, and
+                // ink-4 is the decorative tier at roughly 2.5:1.
+                'bg-transparent text-(--color-ink-3)',
           )}
         >
           {opt.icon}

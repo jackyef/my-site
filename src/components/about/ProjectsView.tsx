@@ -57,7 +57,7 @@ export function ProjectsView() {
                       href={project.repo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-ink)"
+                      className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-3) no-underline font-medium hover:text-(--color-ink)"
                     >
                       <GithubIcon size={12} aria-hidden="true" />
                       Source
@@ -98,7 +98,7 @@ export function ProjectsView() {
               href={repo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-4) no-underline font-medium hover:text-(--color-accent-text) shrink-0"
+              className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-3) no-underline font-medium hover:text-(--color-accent-text) shrink-0"
               title="View on GitHub"
             >
               <GithubIcon size={14} aria-hidden="true" />

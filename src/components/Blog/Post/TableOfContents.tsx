@@ -56,10 +56,12 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                   // the whole declaration and nothing transitioned
                   'block py-1 no-underline transition-[color,transform] duration-150 leading-[1.4]',
                   heading.level === 3 ? 'text-[12px]' : 'text-[13px]',
-                  'hover:text-(--color-ink-3)',
+                  'hover:text-(--color-ink-2)',
                   isActive
                     ? 'font-bold text-(--color-ink-2) transform translate-x-0.5'
-                    : 'font-normal text-(--color-ink-4)',
+                    : // These are navigation links, so they sit on ink-3.
+                      // ink-4 is the decorative tier and reads at ~2.5:1.
+                      'font-normal text-(--color-ink-3)',
                 )}
               >
                 {cleanHeadingContent(heading.content)}
