@@ -13,19 +13,35 @@ export const LENS_RADIUS_Y = 0.0425;
 /** Wire thickness. Thin, but not so thin it aliases away across a room. */
 export const LENS_RIM = 0.0055;
 
-const STEPS = 56;
+const STEPS = 64;
 
 /** How much the brow edge is pulled down, as a fraction of the height. */
 const BROW_FLAT = 0.09;
 
+/**
+ * How far the outline sits between an ellipse and a rectangle. At 2 it is
+ * a plain ellipse, which bows in too much at the left and right; above
+ * that the profile fills out toward the edges, so the sides run straighter
+ * without ever introducing a corner.
+ */
+const SQUARENESS = 2.35;
+
+// Polar form of the superellipse. Sampling the usual parametric form
+// instead bunches points at the axes, which shows up as a flat chord
+// across the top of the rim.
 const outlineAt = (radiusX: number, radiusY: number) => {
   const points: Array<[number, number]> = [];
   for (let i = 0; i < STEPS; i++) {
     const angle = (i / STEPS) * Math.PI * 2;
-    // Only the top half is flattened, and gently — cubed so the sides
-    // stay round and the flattening concentrates along the brow
+    // Only the top half is flattened, and gently — cubed so the flattening
+    // concentrates along the brow
     const flat = 1 - BROW_FLAT * Math.pow(Math.max(0, Math.sin(angle)), 3);
-    points.push([Math.cos(angle) * radiusX, Math.sin(angle) * radiusY * flat]);
+    const radius = Math.pow(
+      Math.pow(Math.abs(Math.cos(angle) / radiusX), SQUARENESS) +
+        Math.pow(Math.abs(Math.sin(angle) / (radiusY * flat)), SQUARENESS),
+      -1 / SQUARENESS,
+    );
+    points.push([Math.cos(angle) * radius, Math.sin(angle) * radius]);
   }
   return points;
 };
