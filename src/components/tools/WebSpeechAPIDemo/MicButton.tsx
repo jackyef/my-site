@@ -6,7 +6,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   isEnabled: boolean;
 }
 
-export const Button = ({ isEnabled, className, style, ...props }: Props) => {
+export const MicButton = ({ isEnabled, className, style, ...props }: Props) => {
   const color = isEnabled ? 'var(--color-danger)' : 'var(--color-accent)';
 
   return (

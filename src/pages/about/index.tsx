@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CalendarDays, MessageCircle, PenLine, Rocket } from 'lucide-react';
+import {
+  CalendarDaysIcon,
+  MessageCircleIcon,
+  PenLineIcon,
+  RocketIcon,
+} from 'lucide-react';
 import type { GetStaticProps } from 'next/types';
 
 import type { WritingItem } from '@/blog/types';
@@ -17,22 +22,22 @@ const TABS: Tab[] = [
   {
     id: 'bio',
     label: 'Bio',
-    icon: <MessageCircle size={14} aria-hidden="true" />,
+    icon: <MessageCircleIcon size={14} aria-hidden="true" />,
   },
   {
     id: 'career',
     label: 'Career',
-    icon: <CalendarDays size={14} aria-hidden="true" />,
+    icon: <CalendarDaysIcon size={14} aria-hidden="true" />,
   },
   {
     id: 'projects',
     label: 'Projects',
-    icon: <Rocket size={14} aria-hidden="true" />,
+    icon: <RocketIcon size={14} aria-hidden="true" />,
   },
   {
     id: 'writings',
     label: 'Writing',
-    icon: <PenLine size={14} aria-hidden="true" />,
+    icon: <PenLineIcon size={14} aria-hidden="true" />,
   },
 ];
 

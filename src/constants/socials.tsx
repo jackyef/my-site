@@ -1,4 +1,4 @@
-import { Github, Linkedin, MailIcon, Twitter } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, MailIcon, TwitterIcon } from 'lucide-react';
 
 export type Social = {
   href: string;
@@ -10,17 +10,17 @@ export const SOCIALS: Social[] = [
   {
     href: 'https://twitter.com/jackyef__',
     label: 'Twitter',
-    icon: <Twitter size={14} aria-hidden="true" />,
+    icon: <TwitterIcon size={14} aria-hidden="true" />,
   },
   {
     href: 'https://github.com/jackyef',
     label: 'GitHub',
-    icon: <Github size={14} aria-hidden="true" />,
+    icon: <GithubIcon size={14} aria-hidden="true" />,
   },
   {
     href: 'https://linkedin.com/in/jackyef',
     label: 'LinkedIn',
-    icon: <Linkedin size={14} aria-hidden="true" />,
+    icon: <LinkedinIcon size={14} aria-hidden="true" />,
   },
   {
     href: 'mailto:hello@jackyef.com',

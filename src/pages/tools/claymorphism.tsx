@@ -4,9 +4,9 @@ import { Text } from '@/components/common/Text';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { ClaymorphismTools } from '@/components/tools/Claymorphism';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
+import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
-import { formatPostDate } from '@/lib/datetime';
 
 export const meta = {
   title: 'Claymorphism-style CSS generator',

@@ -1,4 +1,4 @@
-import { Download } from 'lucide-react';
+import { DownloadIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { usePwaInstall } from '@/hooks/usePwaInstall';
@@ -25,7 +25,7 @@ export function PwaInstallButton({ variant }: PwaInstallButtonProps) {
             aria-label="Install PWA"
             className="flex items-center justify-center text-center gap-2 w-full px-[10px] py-[7px] rounded-lg bg-(--color-accent-xl) border border-(--color-accent-l) text-(--color-accent-text) text-[13px] font-medium cursor-pointer font-[inherit] transition-[background,border-color] duration-[130ms] hover:bg-(--color-accent-l)"
           >
-            <Download size={15} aria-hidden="true" className="shrink-0" />
+            <DownloadIcon size={15} aria-hidden="true" className="shrink-0" />
             <span className="hidden lg:block">Install PWA</span>
             {/* Spacer div to achieve better visual balance. */}
             <div className="hidden lg:block invisible h-px w-2" />
@@ -48,7 +48,7 @@ export function PwaInstallButton({ variant }: PwaInstallButtonProps) {
           aria-label="Install app"
           className="fixed bottom-[26px] right-[76px] z-49 flex items-center gap-[6px] px-3 py-[7px] rounded-full bg-(--color-bg-panel) border border-(--color-border) shadow-md text-(--color-accent-text) text-[13px] font-medium cursor-pointer font-[inherit]"
         >
-          <Download size={14} aria-hidden="true" />
+          <DownloadIcon size={14} aria-hidden="true" />
           <span>Install</span>
         </motion.button>
       )}

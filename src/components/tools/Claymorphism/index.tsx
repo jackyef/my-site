@@ -2,6 +2,7 @@ import { css } from 'goober';
 import { useState } from 'react';
 import copy from 'clipboard-copy';
 
+import { highlight } from '@/components/common/CodeHighlight';
 import { toast } from '@/lib/toast';
 
 import { cn } from '@/utils/styles/classNames';
@@ -31,7 +32,7 @@ export const ClaymorphismTools = () => {
     width: clamp(150px, 80vw, 400px);
   `;
 
-  const { boxShadowCss, highlightedCode } = useClayCss({
+  const { boxShadowCss } = useClayCss({
     lightAngle,
     elevation,
     baseShadowColors,
@@ -64,7 +65,7 @@ export const ClaymorphismTools = () => {
         className={cn(
           clayClass,
           containerClass,
-          'bg-surface-3',
+          'bg-(--color-bg-panel)',
           'p-8',
           'flex',
           'flex-col',
@@ -128,7 +129,10 @@ export const ClaymorphismTools = () => {
           'flex',
           'flex-col',
           'space-y-4',
-          'bg-gray-800',
+          // Was a hardcoded bg-gray-800. The code inside is now coloured by the
+          // --code-* palette, so the surface under it has to move with the
+          // theme too or light-theme ink lands on a dark box.
+          'bg-(--code-bg)',
           'overflow-hidden',
         )}
       >
@@ -145,10 +149,9 @@ export const ClaymorphismTools = () => {
             }
           }}
         >
-          <code
-            className="language-css text-gray-200"
-            dangerouslySetInnerHTML={{ __html: highlightedCode }}
-          />
+          <code className="language-css text-(--code-base)">
+            {highlight(boxShadowCss, 'css')}
+          </code>
         </pre>
       </div>
     </div>

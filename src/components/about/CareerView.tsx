@@ -1,11 +1,11 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
-import { timelineEvents } from '@/components/HistoryCalendar/constants';
+import { timelineEvents } from '@/components/about/careerEvents';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
 const VARIANT_COLORS: Record<string, string> = {
@@ -98,7 +98,10 @@ export function CareerView() {
     const bar = barRefs.current[i];
     if (chart && bar) {
       chart.scrollTo({
-        left: Math.max(0, bar.offsetLeft - chart.clientWidth / 2 + bar.offsetWidth / 2),
+        left: Math.max(
+          0,
+          bar.offsetLeft - chart.clientWidth / 2 + bar.offsetWidth / 2,
+        ),
         behavior: 'smooth',
       });
     }
@@ -130,21 +133,18 @@ export function CareerView() {
     pendingTimers.current.push(scrollTimer);
   }, []);
 
-  const selectAndScrollChart = useCallback(
-    (i: number) => {
-      setSelected(i);
-      setExpanded(i);
-      const chart = stickyRef.current;
-      const bar = barRefs.current[i];
-      if (chart && bar) {
-        chart.scrollTo({
-          left: Math.max(0, bar.offsetLeft - chart.clientWidth / 2),
-          behavior: 'smooth',
-        });
-      }
-    },
-    [],
-  );
+  const selectAndScrollChart = useCallback((i: number) => {
+    setSelected(i);
+    setExpanded(i);
+    const chart = stickyRef.current;
+    const bar = barRefs.current[i];
+    if (chart && bar) {
+      chart.scrollTo({
+        left: Math.max(0, bar.offsetLeft - chart.clientWidth / 2),
+        behavior: 'smooth',
+      });
+    }
+  }, []);
 
   // Initial scroll: center the Gantt on the selected bar once visible
   useEffect(() => {
@@ -310,7 +310,8 @@ export function CareerView() {
             })}
           </div>
         </div>
-      </div>{/* end stickyRef */}
+      </div>
+      {/* end stickyRef */}
 
       {/* Stacked list of all career items — newest first */}
       <div className="flex flex-col gap-1 overflow-hidden" role="list">
@@ -383,12 +384,14 @@ export function CareerView() {
 
                   {/* Expand chevron */}
                   {hasDetails && (
-                    <ChevronDown
+                    <ChevronDownIcon
                       size={14}
                       className="shrink-0 transition-transform duration-200"
                       style={{
                         color: 'var(--color-ink-4)',
-                        transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transform: isExpanded
+                          ? 'rotate(180deg)'
+                          : 'rotate(0deg)',
                       }}
                     />
                   )}

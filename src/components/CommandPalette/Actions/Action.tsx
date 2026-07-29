@@ -1,4 +1,10 @@
-import { ArrowUpRight, CircleDot, Moon, Sun, TypeIcon } from 'lucide-react';
+import {
+  ArrowUpRightIcon,
+  CircleDotIcon,
+  MoonIcon,
+  SunIcon,
+  TypeIcon,
+} from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
@@ -43,15 +49,15 @@ export const Action = ({
   const fontPairingId = FONT_QUERIES_MAP[query];
 
   const icon = isEnablingLightTheme ? (
-    <Sun size={14} aria-hidden="true" />
+    <SunIcon size={14} aria-hidden="true" />
   ) : isEnablingDimTheme ? (
-    <Moon size={14} aria-hidden="true" />
+    <MoonIcon size={14} aria-hidden="true" />
   ) : isEnablingDarkTheme ? (
-    <CircleDot size={14} aria-hidden="true" />
+    <CircleDotIcon size={14} aria-hidden="true" />
   ) : fontPairingId ? (
     <TypeIcon size={14} aria-hidden="true" />
   ) : (
-    <ArrowUpRight size={14} aria-hidden="true" />
+    <ArrowUpRightIcon size={14} aria-hidden="true" />
   );
 
   const handleClick = () => {

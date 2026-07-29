@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { SearchIcon } from 'lucide-react';
 
 import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useCommandPaletteContext';
 
@@ -45,7 +45,7 @@ export function Sidebar() {
           onClick={() => setIsOpen(true)}
           className="hidden lg:flex mt-[10px] w-full items-center gap-[6px] px-[10px] py-[6px] rounded-lg border border-(--color-border) bg-(--color-bg) text-(--color-ink-4) text-[13px] cursor-pointer font-[inherit] text-left transition-[border-color,color] duration-[150ms] hover:border-(--color-accent-l) hover:text-(--color-ink-3)"
         >
-          <Search size={13} aria-hidden="true" />
+          <SearchIcon size={13} aria-hidden="true" />
           <span className="flex-1">Quick actions…</span>
           <span className="ml-auto text-[10px] border border-(--color-border) rounded-[4px] px-[5px] py-[1px] text-(--color-ink-4)">
             ⌘K
@@ -59,7 +59,7 @@ export function Sidebar() {
           aria-label="Quick actions"
           className="flex lg:hidden mt-[10px] w-full items-center justify-center p-[6px] rounded-lg border border-(--color-border) bg-(--color-bg) text-(--color-ink-4) cursor-pointer font-[inherit] transition-[background,border-color] duration-[130ms] hover:bg-(--color-bg-hover) hover:border-(--color-accent-l)"
         >
-          <Search size={14} aria-hidden="true" />
+          <SearchIcon size={14} aria-hidden="true" />
         </button>
       </div>
 

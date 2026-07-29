@@ -16,7 +16,7 @@ export const ExternalMediaList = ({
 }) => {
   return (
     <section className="pt-4">
-      <h3 className="text-theme-heading font-bold mb-4">Featured</h3>
+      <h3 className="text-(--color-ink) font-bold mb-4">Featured</h3>
       <div className="space-x-2">{children}</div>
     </section>
   );

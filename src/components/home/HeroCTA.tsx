@@ -171,13 +171,14 @@ export function HeroCTA() {
         className="absolute inset-0 pointer-events-none"
         animate={{
           borderRadius: dropped ? R : 2,
-          boxShadow: hovered && done
-            ? s.hover
-            : dropped
-              ? s.rest
-              : raised
-                ? s.peak
-                : SHADOW_NONE,
+          boxShadow:
+            hovered && done
+              ? s.hover
+              : dropped
+                ? s.rest
+                : raised
+                  ? s.peak
+                  : SHADOW_NONE,
         }}
         transition={{
           borderRadius: dropped
@@ -327,8 +328,8 @@ export function HeroCTA() {
               phase < 2
                 ? { duration: 0 }
                 : done
-                ? { type: 'spring', stiffness: 300, damping: 20 }
-                : { duration: 0.12, delay: 0.08, ease: 'easeOut' },
+                  ? { type: 'spring', stiffness: 300, damping: 20 }
+                  : { duration: 0.12, delay: 0.08, ease: 'easeOut' },
           }}
         >
           &rarr;

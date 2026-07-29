@@ -1,13 +1,13 @@
 import { AnimatePresence, motion } from 'motion/react';
 import {
-  CircleDot,
-  Home,
-  Menu,
-  Moon,
-  PenLine,
-  Sun,
-  User,
-  X,
+  CircleDotIcon,
+  HomeIcon,
+  MenuIcon,
+  MoonIcon,
+  PenLineIcon,
+  SunIcon,
+  UserIcon,
+  XIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -27,35 +27,35 @@ const NAV_LINKS = [
   {
     href: '/',
     label: 'Home',
-    icon: <Home size={16} aria-hidden="true" />,
+    icon: <HomeIcon size={16} aria-hidden="true" />,
     exact: true,
   },
   {
     href: '/about',
     label: 'About',
-    icon: <User size={16} aria-hidden="true" />,
+    icon: <UserIcon size={16} aria-hidden="true" />,
   },
   {
     href: '/blog',
     label: 'Blog',
-    icon: <PenLine size={16} aria-hidden="true" />,
+    icon: <PenLineIcon size={16} aria-hidden="true" />,
   },
 ];
 
 const THEME_OPTS: { value: Theme; icon: React.ReactNode; label: string }[] = [
   {
     value: 'light',
-    icon: <Sun size={13} aria-hidden="true" />,
+    icon: <SunIcon size={13} aria-hidden="true" />,
     label: 'Light',
   },
   {
     value: 'dim',
-    icon: <Moon size={13} aria-hidden="true" />,
+    icon: <MoonIcon size={13} aria-hidden="true" />,
     label: 'Dim',
   },
   {
     value: 'dark',
-    icon: <CircleDot size={13} aria-hidden="true" />,
+    icon: <CircleDotIcon size={13} aria-hidden="true" />,
     label: 'Dark',
   },
 ];
@@ -168,7 +168,7 @@ export function MobileNav() {
               transition={{ duration: 0.15 }}
               style={{ display: 'flex' }}
             >
-              <X size={20} aria-hidden="true" />
+              <XIcon size={20} aria-hidden="true" />
             </motion.span>
           ) : (
             <motion.span
@@ -179,7 +179,7 @@ export function MobileNav() {
               transition={{ duration: 0.15 }}
               style={{ display: 'flex' }}
             >
-              <Menu size={20} aria-hidden="true" />
+              <MenuIcon size={20} aria-hidden="true" />
             </motion.span>
           )}
         </AnimatePresence>

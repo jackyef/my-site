@@ -73,7 +73,7 @@ const utcPostDateLongFormatter = new Intl.DateTimeFormat('en-ID', {
   timeZone: 'UTC',
 });
 
-// We format strictly in UTC to avoid hydration mismatches 
+// We format strictly in UTC to avoid hydration mismatches
 // due to timezone differences between server and client
 export const formatPostDate = (dateStr: string, long = false) =>
   (long ? utcPostDateLongFormatter : utcPostDateFormatter).format(

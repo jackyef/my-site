@@ -1,4 +1,4 @@
-import { CircleDot, Moon, Sun } from 'lucide-react';
+import { CircleDotIcon, MoonIcon, SunIcon } from 'lucide-react';
 
 import { SegmentedControl } from '@/components/common/SegmentedControl';
 
@@ -18,17 +18,17 @@ const THEME_OPTIONS: {
   {
     value: 'light',
     label: 'Light',
-    icon: <Sun size={13} aria-hidden="true" />,
+    icon: <SunIcon size={13} aria-hidden="true" />,
   },
   {
     value: 'dim',
     label: 'Dim',
-    icon: <Moon size={13} aria-hidden="true" />,
+    icon: <MoonIcon size={13} aria-hidden="true" />,
   },
   {
     value: 'dark',
     label: 'Dark',
-    icon: <CircleDot size={13} aria-hidden="true" />,
+    icon: <CircleDotIcon size={13} aria-hidden="true" />,
   },
 ];
 

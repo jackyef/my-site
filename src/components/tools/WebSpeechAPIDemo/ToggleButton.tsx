@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import { Play, Square } from 'lucide-react';
+import { PlayIcon, SquareIcon } from 'lucide-react';
 
-import { Button } from './Button';
+import { MicButton } from './MicButton';
 
 const MAX_RIPPLE_SCALE = 2;
 const MIN_RIPPLE_SCALE = 0.85;
@@ -84,7 +84,7 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
   return (
     <>
       <audio ref={audioRef} />
-      <Button
+      <MicButton
         isEnabled={isEnabled}
         aria-label={isEnabled ? 'Stop' : 'Start'}
         onClick={() => {
@@ -93,9 +93,9 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
         }}
       >
         {isEnabled ? (
-          <Square size={72} fill="white" stroke="none" />
+          <SquareIcon size={72} fill="white" stroke="none" />
         ) : (
-          <Play size={72} fill="white" stroke="none" />
+          <PlayIcon size={72} fill="white" stroke="none" />
         )}
 
         {/* Ripple effect as the microphone pick up sounds */}
@@ -107,7 +107,7 @@ export const ToggleButton = ({ isEnabled, onToggle }: Params) => {
             }}
           />
         )}
-      </Button>
+      </MicButton>
     </>
   );
 };

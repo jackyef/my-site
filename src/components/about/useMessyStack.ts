@@ -44,7 +44,10 @@ export function useMessyStack(
       const containerLeft = container.getBoundingClientRect().left;
 
       // Batch all reads first
-      const rects = Array.from(items, (item) => item.getBoundingClientRect().left - containerLeft);
+      const rects = Array.from(
+        items,
+        (item) => item.getBoundingClientRect().left - containerLeft,
+      );
 
       // Then batch all writes
       rects.forEach((itemLeft, i) => {
@@ -52,12 +55,21 @@ export function useMessyStack(
         const isStacked = itemLeft <= stickyLeft + 10;
 
         if (isStacked) {
-          items[i].style.setProperty('--r', `${seededValue(i, 3, -3.5, 3.5)}deg`);
+          items[i].style.setProperty(
+            '--r',
+            `${seededValue(i, 3, -3.5, 3.5)}deg`,
+          );
           items[i].style.setProperty('--ty', `${seededValue(i, 4, -5, 5)}px`);
           items[i].style.setProperty('--z', String(i + 1));
         } else {
-          items[i].style.setProperty('--r', `${seededValue(i, 1, -1.2, 1.2)}deg`);
-          items[i].style.setProperty('--ty', `${seededValue(i, 2, -1.5, 1.5)}px`);
+          items[i].style.setProperty(
+            '--r',
+            `${seededValue(i, 1, -1.2, 1.2)}deg`,
+          );
+          items[i].style.setProperty(
+            '--ty',
+            `${seededValue(i, 2, -1.5, 1.5)}px`,
+          );
           items[i].style.setProperty('--z', String(20 + i));
         }
       });
