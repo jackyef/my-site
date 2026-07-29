@@ -54,7 +54,9 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                   );
                 }}
                 className={cn(
-                  'block py-1 no-underline transition-[colors, transform] duration-150 leading-[1.4]',
+                  // `colors` is not a property, so the old value invalidated
+                  // the whole declaration and nothing transitioned
+                  'block py-1 no-underline transition-[color,transform] duration-150 leading-[1.4]',
                   heading.level === 3 ? 'text-[12px]' : 'text-[13px]',
                   'hover:text-(--color-ink-3)',
                   isActive

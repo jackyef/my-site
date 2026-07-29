@@ -16,8 +16,7 @@ export type PairingId =
   | 'public-sans'
   | 'plex-sans'
   | 'libre-franklin'
-  | 'figtree'
-  | 'epilogue';
+  | 'figtree';
 
 export interface FontPairing {
   id: PairingId;
@@ -67,12 +66,6 @@ export const FONT_PAIRINGS: FontPairing[] = [
     label: 'Figtree',
     description: 'Warm geometric',
     cssVar: '--font-figtree',
-  },
-  {
-    id: 'epilogue',
-    label: 'Epilogue',
-    description: 'The original',
-    cssVar: '--font-epilogue',
   },
 ];
 

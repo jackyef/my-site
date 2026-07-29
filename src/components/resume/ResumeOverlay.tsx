@@ -43,7 +43,9 @@ export function ResumeOverlay({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-          className="absolute inset-x-2 bottom-2 top-auto flex max-h-[46%] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg) md:inset-x-auto md:top-3 md:right-3 md:bottom-3 md:max-h-none md:w-[400px]"
+          // z-20 keeps the sheet above the layer the scene mounts its hotspot
+          // labels into, which the overhanging canvas needs to sit at z-10
+          className="absolute inset-x-2 bottom-2 top-auto z-20 flex max-h-[46%] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-bg-panel) shadow-(--shadow-lg) md:inset-x-auto md:top-3 md:right-3 md:bottom-3 md:max-h-none md:w-[400px]"
         >
           <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
             <Heading level={3} as="h2" id={`sheet-heading-${section}`}>

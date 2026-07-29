@@ -44,9 +44,9 @@
    TYPE SYSTEM — the switchable pairings
 
    Fraunces is the display face throughout, so headings need no per-pairing
-   tuning. Every face reads at one size, set in :root; only the leading is
-   nudged per face, since x-heights differ enough to change how tight a
-   paragraph feels at the same size.
+   tuning. Every face reads at one size, set in :root; the leading is nudged
+   per face, since x-heights differ enough to change how tight a paragraph
+   feels at the same size.
 
    The visitor's choice is stamped on <html> as data-type-pairing, by the
    inline script in _document (before first paint) and thereafter by
@@ -103,12 +103,6 @@
   --font-text-face: var(--font-figtree);
   --font-mono-face: var(--font-jetbrains-mono);
   --type-body-lh: 1.62;
-}
-
-[data-type-pairing='epilogue'] {
-  --font-text-face: var(--font-epilogue);
-  --font-mono-face: var(--font-jetbrains-mono);
-  --type-body-lh: 1.6;
 }
 
 /* ═══════════════════════════════════════
@@ -563,10 +557,25 @@ h2 em {
   }
 }
 
-/* Hero + WidgetGrid responsive layout */
+/* Blog posts. Same rhythm as .page-pad, but the column width belongs to the
+   post layout (which sizes it against the table of contents beside it) rather
+   than to the padding rule. */
+.post-pad {
+  padding: 24px 20px;
+}
+
+@media (min-width: 768px) {
+  .post-pad {
+    padding: 40px 52px;
+  }
+}
+
+/* Hero + WidgetGrid responsive layout.
+   Shares .widget-grid / .latest-pad's max-width so the hero copy starts on the
+   same left edge as the widgets stacked underneath it. */
 .hero-pad {
   padding: 32px 20px 28px;
-  max-width: 900px;
+  max-width: 960px;
   margin-inline: auto;
 }
 

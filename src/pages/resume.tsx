@@ -55,6 +55,11 @@ const HOTSPOT_BUTTONS: Array<{ id: SectionId; icon: React.ReactNode }> = [
 
 const SECTION_IDS = HOTSPOT_BUTTONS.map((button) => button.id);
 
+// How far the room is allowed to spill past its slot, top and bottom, so
+// zooming or panning runs off the page rather than into a hard crop. Phones
+// have far less page to spill onto, so they get less of it.
+const SCENE_BLEED = { desktop: 112, mobile: 48 };
+
 const viewFromHash = (): ViewId => {
   const hash = window.location.hash.replace('#', '');
   return (SECTION_IDS as string[]).includes(hash)
@@ -75,6 +80,8 @@ export default function Resume({ featuredWritings }: Props) {
   const [sceneFocused, setSceneFocused] = useState(false);
   const [sceneVisible, setSceneVisible] = useState(true);
   const sceneRef = useRef<HTMLDivElement>(null);
+  const sceneHitRef = useRef<HTMLDivElement>(null);
+  const sceneOverlayRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
   const reduceMotion = useReduceMotion();
 
@@ -144,6 +151,7 @@ export default function Resume({ featuredWritings }: Props) {
   }, [closeSection]);
 
   const showFlat = flatMode || webglOk === false;
+  const sceneBleed = isDesktop ? SCENE_BLEED.desktop : SCENE_BLEED.mobile;
   const activeSection = view === 'overview' ? null : view;
 
   return (
@@ -215,7 +223,9 @@ export default function Resume({ featuredWritings }: Props) {
             </Text>
           </div>
 
-          {/* Full-bleed so the room gets all the space it deserves.
+          {/* Full-bleed so the room gets all the space it deserves, and
+              stacked above the copy either side of it so a room that has been
+              zoomed or panned spills over the page instead of being cropped.
               Focusable so keyboard users can step into the room and move
               with the arrow keys. */}
           <div
@@ -225,15 +235,37 @@ export default function Resume({ featuredWritings }: Props) {
             aria-label="Interactive 3D room. Use W A S D or the arrow keys to move the camera."
             onFocus={() => setSceneFocused(true)}
             onBlur={() => setSceneFocused(false)}
-            onPointerDown={(event) => {
-              // Focus when the canvas itself is clicked, but let the
-              // overlay buttons keep their own focus
-              if ((event.target as HTMLElement).tagName === 'CANVAS') {
-                event.currentTarget.focus();
-              }
-            }}
-            className="print-hide relative mt-2 h-[76vh] min-h-[min(500px,88vh)] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
+            className="print-hide relative z-10 mt-2 h-[76vh] min-h-[min(500px,88vh)] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
           >
+            {/* The room's hit area. It stops at the slot even though the canvas
+                does not, which is what keeps the copy underneath the overhang
+                selectable. Declared before the canvas so its ref is attached by
+                the time the scene wires itself up; the canvas is inert, so
+                painting over it costs nothing.
+                touch-action is forced because OrbitControls otherwise writes
+                `none` here on connect, which would eat one-finger scrolling. */}
+            {webglOk && (
+              <div
+                ref={sceneHitRef}
+                onPointerDown={() => sceneRef.current?.focus()}
+                className={cn(
+                  'absolute inset-0',
+                  isDesktop ? '[touch-action:none]!' : '[touch-action:pan-y]!',
+                )}
+              />
+            )}
+            {/* Where the scene's HTML overlays mount. It tracks the canvas box
+                rather than the slot, because drei positions them in canvas
+                pixels — mount them on the slot and every hotspot label sits a
+                full bleed below the object it points at. Inert itself; the
+                overlays switch pointer events back on for their own content. */}
+            {webglOk && (
+              <div
+                ref={sceneOverlayRef}
+                className="pointer-events-none absolute inset-x-0 z-10"
+                style={{ top: -sceneBleed, bottom: -sceneBleed }}
+              />
+            )}
             {webglOk && (
               <SceneErrorBoundary onError={() => setWebglOk(false)}>
                 <CozyRoomScene
@@ -249,6 +281,9 @@ export default function Resume({ featuredWritings }: Props) {
                   onCycleTheme={cycleTheme}
                   onContextLost={() => setWebglOk(false)}
                   active={sceneVisible}
+                  bleed={sceneBleed}
+                  eventSource={sceneHitRef}
+                  htmlPortal={sceneOverlayRef}
                 />
               </SceneErrorBoundary>
             )}
@@ -256,7 +291,7 @@ export default function Resume({ featuredWritings }: Props) {
               <button
                 type="button"
                 onClick={() => setResetSignal((signal) => signal + 1)}
-                className="absolute top-3 right-3 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-[7px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-[color,border-color,transform] duration-150 hover:-translate-y-px hover:border-(--color-accent) hover:text-(--color-accent-text) active:scale-[0.96]"
+                className="absolute top-3 right-3 z-20 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-[7px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-[color,border-color,transform] duration-150 hover:-translate-y-px hover:border-(--color-accent) hover:text-(--color-accent-text) active:scale-[0.96]"
               >
                 <RotateCcwIcon size={13} aria-hidden="true" />
                 Reset view
@@ -276,7 +311,11 @@ export default function Resume({ featuredWritings }: Props) {
               enough to push the room itself past the fold — so they run in
               one scrolling line instead, and only wrap once there is room.
               The trailing padding clears the floating mobile nav button. */}
-            <div className="flex items-center gap-2 overflow-x-auto pr-16 pb-1 [scrollbar-width:none] md:flex-wrap md:overflow-x-visible md:pr-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+            {/* `overflow-x: auto` forces the block axis to clip too, which
+                sheared the top off the pills' 1px hover lift — the inset
+                padding gives it somewhere to go, and the negative margin
+                keeps the row's own spacing unchanged. */}
+            <div className="-my-2 flex items-center gap-2 overflow-x-auto py-2 pr-16 [scrollbar-width:none] md:flex-wrap md:overflow-x-visible md:pr-0 [&::-webkit-scrollbar]:hidden">
               {HOTSPOT_BUTTONS.map((button) => (
                 <button
                   key={button.id}
