@@ -1925,10 +1925,12 @@ export function Avatar({
 
   return (
     <group ref={rootRef}>
+      {/* Just above his head. Floating it higher drifts the tag into the
+        band the wall labels live in, and he walks underneath them */}
       {showLabel && (
         <Html
           center
-          position={[0, 1.78 * AVATAR_SCALE, 0]}
+          position={[0, 1.52 * AVATAR_SCALE, 0]}
           zIndexRange={[40, 0]}
         >
           <button
