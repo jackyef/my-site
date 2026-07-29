@@ -275,8 +275,11 @@ export default function Resume({ featuredWritings }: Props) {
           </div>
 
           <div className="page-pad print-hide pt-4">
-            {/* pr clears the floating mobile nav button */}
-            <div className="flex flex-wrap items-center gap-2 pr-16 md:pr-0">
+            {/* On a phone these wrapped onto three or four rows, which was
+              enough to push the room itself past the fold — so they run in
+              one scrolling line instead, and only wrap once there is room.
+              The trailing padding clears the floating mobile nav button. */}
+            <div className="flex items-center gap-2 overflow-x-auto pr-16 pb-1 [scrollbar-width:none] md:flex-wrap md:overflow-x-visible md:pr-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
               {HOTSPOT_BUTTONS.map((button) => (
                 <button
                   key={button.id}
@@ -285,7 +288,7 @@ export default function Resume({ featuredWritings }: Props) {
                     goToView(view === button.id ? 'overview' : button.id)
                   }
                   className={cn(
-                    'inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
+                    'inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium whitespace-nowrap transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
                     view === button.id
                       ? 'border-(--color-accent-l) bg-(--color-accent-xl) text-(--color-accent-text)'
                       : 'border-(--color-border-hi) text-(--color-ink-2) hover:border-(--color-accent) hover:text-(--color-accent-text)',
@@ -301,7 +304,7 @@ export default function Resume({ featuredWritings }: Props) {
               <button
                 type="button"
                 onClick={() => setFlatMode(true)}
-                className="ml-auto cursor-pointer text-[13px] font-medium text-(--color-ink-3) hover:text-(--color-ink-2) hover:underline"
+                className="ml-auto shrink-0 cursor-pointer pl-2 text-[13px] font-medium whitespace-nowrap text-(--color-ink-3) hover:text-(--color-ink-2) hover:underline"
               >
                 Prefer plain text?
               </button>
