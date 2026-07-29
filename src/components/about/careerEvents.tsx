@@ -1,11 +1,33 @@
 import { TODAY } from '@/lib/datetime';
+import { TechnologyAnchors } from '@/components/TechnologyAnchors';
+import { ExternalLink } from '@/components/Typography/ExternalLink';
 
-import type { BaseEvent } from '../Timeline/TimelineEvent';
-import { TechnologyAnchors } from '../TechnologyAnchors';
-import { ExternalLink } from '../Typography/ExternalLink';
+import { ExternalMedia, ExternalMediaList } from './ExternalMedia';
+import { UnorderedList } from './UnorderedList';
 
-import { ExternalMedia, ExternalMediaList } from './components/ExternalMedia';
-import { UnorderedList } from './components/UnorderedList';
+/**
+ * One entry on the career timeline.
+ *
+ * Previously imported from the Timeline component, which rendered these as a
+ * scrollable gantt inside HistoryCalendar. Both were removed once nothing
+ * mounted them; the shape is the data's own, so it lives with the data.
+ */
+export type BaseEvent = {
+  from: Date;
+  to: Date;
+  title: string;
+  description: string;
+  variant:
+    | 'amber'
+    | 'green'
+    | 'blue'
+    | 'slate'
+    | 'violet'
+    | 'red'
+    | 'fuchsia'
+    | 'sky'
+    | 'teal';
+};
 
 export const TIMELINE_START = new Date('2017-01-01');
 

@@ -1,1 +1,0 @@
-export { HistoryCalendar } from './HistoryCalendar';

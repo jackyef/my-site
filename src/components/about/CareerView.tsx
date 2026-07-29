@@ -5,7 +5,7 @@ import { ChevronDownIcon } from 'lucide-react';
 import { Chip } from '@/components/common/Chip';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
-import { timelineEvents } from '@/components/HistoryCalendar/constants';
+import { timelineEvents } from '@/components/about/careerEvents';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
 const VARIANT_COLORS: Record<string, string> = {
