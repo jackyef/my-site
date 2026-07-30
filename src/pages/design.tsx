@@ -80,14 +80,16 @@ export default function DesignSystemPage() {
       />
 
       <div className="flex flex-col flex-1">
-        {/* Below the rail's breakpoint the strip is the only navigation. */}
-        <div className="min-[1200px]:hidden">
-          <SectionTabs
-            tabs={TABS}
-            activeTab={activeSection}
-            onTabChange={scrollTo}
-          />
-        </div>
+        {/* Below the rail's breakpoint the strip is the only navigation. The
+            hiding goes on SectionTabs itself: a wrapper would become the sticky
+            bar's containing block and pin it to its own height, which is to say
+            not pin it at all. */}
+        <SectionTabs
+          tabs={TABS}
+          activeTab={activeSection}
+          onTabChange={scrollTo}
+          className="min-[1200px]:hidden"
+        />
 
         {/* 880px column + 224px rail = 1104px, the same arrangement the blog
             uses. Under 1200px the rail drops out and the column re-centres. */}

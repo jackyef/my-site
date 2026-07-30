@@ -12,15 +12,28 @@ interface SectionTabsProps {
   tabs: Tab[];
   activeTab: string;
   onTabChange: (id: string) => void;
+  /**
+   * Extra classes for the sticky root — responsive visibility belongs here
+   * rather than on a wrapper. A sticky element cannot travel outside its
+   * parent's box, so wrapping this in a plain `<div>` collapses that box to the
+   * height of the tabs and the bar scrolls away on the first flick.
+   */
+  className?: string;
 }
 
 export function SectionTabs({
   tabs,
   activeTab,
   onTabChange,
+  className,
 }: SectionTabsProps) {
   return (
-    <div className="bg-(--color-bg) shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out">
+    <div
+      className={cn(
+        'bg-(--color-bg) shrink-0 sticky top-0 z-10 transition-[background-color] duration-[220ms] ease-out',
+        className,
+      )}
+    >
       <div
         role="tablist"
         className="max-w-[880px] mx-auto px-5 md:px-13 overflow-y-hidden overflow-x-auto flex items-center gap-[2px]"
