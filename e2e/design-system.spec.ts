@@ -165,6 +165,34 @@ test.describe('Design system page', () => {
     await expectScrolledToComponents(page);
   });
 
+  test('the tab strip stays pinned to the top while scrolling', async ({
+    page,
+  }) => {
+    // Regression: the strip was wrapped in a plain div carrying its responsive
+    // hiding, which made that div the sticky bar's containing block. A sticky
+    // element cannot leave its parent's box, and the wrapper was only as tall
+    // as the tabs, so the bar scrolled away on the first flick — on phones,
+    // where it is the *only* navigation the page has.
+    await page.setViewportSize({ width: 390, height: 780 });
+    await page.goto('/design');
+    await page.waitForLoadState('networkidle');
+
+    const tablist = page.getByRole('tablist');
+    await expect(tablist).toBeVisible();
+
+    const main = page.locator('main');
+    await main.evaluate((el) => el.scrollTo(0, 1500));
+
+    // <main> carries `scroll-smooth`, so the scroll animates. Wait for it to
+    // land before measuring — polling the tab bar's position directly would
+    // sample it at offset 0 on the first tick and pass without ever scrolling.
+    await expect
+      .poll(() => main.evaluate((el) => el.scrollTop), { timeout: 5_000 })
+      .toBeGreaterThan(1_000);
+
+    expect((await tablist.boundingBox())?.y).toBe(0);
+  });
+
   test('component demos render the real primitives', async ({ page }) => {
     await page.goto('/design');
     await page.waitForLoadState('networkidle');

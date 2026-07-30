@@ -22,7 +22,7 @@ function ShadowSample({ token, usage }: { token: string; usage: string }) {
       />
       <div>
         <CopyChip value={token} className="-ml-[6px]" />
-        <Text variant="caption" color="ink-4" className="px-[6px]">
+        <Text variant="caption" color="ink-3" className="px-[6px]">
           {usage}
         </Text>
       </div>
@@ -94,7 +94,7 @@ export function SurfaceSection() {
                 <code className="block font-mono text-[11px] text-(--color-ink-2)">
                   {r.className}
                 </code>
-                <span className="text-[10px] text-(--color-ink-4) tabular-nums">
+                <span className="text-[10px] text-(--color-ink-3) tabular-nums">
                   {r.value}
                 </span>
               </div>
@@ -118,7 +118,7 @@ export function SurfaceSection() {
               style={{ borderColor: `var(${token})` }}
             >
               <CopyChip value={token} className="-ml-[6px]" />
-              <Text variant="caption" color="ink-4" className="px-[6px]">
+              <Text variant="caption" color="ink-3" className="px-[6px]">
                 {label}
               </Text>
             </div>
@@ -178,7 +178,7 @@ export function SurfaceSection() {
                 <code className="block font-mono text-[11px] text-(--color-ink-2)">
                   {k.name}
                 </code>
-                <span className="text-[10px] text-(--color-ink-4)">
+                <span className="text-[10px] text-(--color-ink-3)">
                   {k.usage}
                 </span>
               </div>
@@ -186,7 +186,7 @@ export function SurfaceSection() {
           ))}
         </div>
 
-        <Text variant="caption" color="ink-4" className="mt-4 max-w-[68ch]">
+        <Text variant="caption" color="ink-3" className="mt-4 max-w-[68ch]">
           All of it collapses to 0.01ms under{' '}
           <code className="font-mono">prefers-reduced-motion</code>, which is
           handled once in globals.css rather than per component.

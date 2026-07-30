@@ -188,7 +188,7 @@ export function PropTable({ rows }: { rows: PropRow[] }) {
               <th
                 key={h}
                 scope="col"
-                className="py-2 pr-4 text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4) whitespace-nowrap"
+                className="py-2 pr-4 text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-3) whitespace-nowrap"
               >
                 {h}
               </th>
@@ -207,7 +207,7 @@ export function PropTable({ rows }: { rows: PropRow[] }) {
               <td className="py-2 pr-4 font-mono text-[11px] text-(--color-accent-text) min-w-[140px]">
                 {row.type}
               </td>
-              <td className="py-2 pr-4 font-mono text-[11px] text-(--color-ink-4) whitespace-nowrap">
+              <td className="py-2 pr-4 font-mono text-[11px] text-(--color-ink-3) whitespace-nowrap">
                 {row.defaultValue ?? '—'}
               </td>
               <td className="py-2 text-[12px] leading-[1.5] text-(--color-ink-3) min-w-[200px]">

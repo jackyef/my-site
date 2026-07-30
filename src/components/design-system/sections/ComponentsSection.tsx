@@ -47,7 +47,7 @@ function Spec({
           <h3 className="text-[17px] font-bold font-serif text-(--color-ink) m-0">
             {name}
           </h3>
-          <code className="font-mono text-[11px] text-(--color-ink-4)">
+          <code className="font-mono text-[11px] text-(--color-ink-3)">
             {file}
           </code>
         </div>
@@ -77,7 +77,7 @@ function Spec({
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
                   (propRows ? tab : 'code') === t
                     ? 'bg-(--color-bg-active) text-(--color-accent-text)'
-                    : 'text-(--color-ink-4) hover:text-(--color-ink-2)',
+                    : 'text-(--color-ink-3) hover:text-(--color-ink-2)',
                 )}
               >
                 {t === 'props' ? 'Props' : 'Usage'}

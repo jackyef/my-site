@@ -18,7 +18,10 @@ export function SectionLabel({
   return (
     <As
       className={cn(
-        'text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-4)',
+        // ink-3 rather than ink-4. These are group headings — sidebar nav
+        // sections, widget titles, command-palette result groups — and at 11px
+        // they count as small text, so they owe the reader the full 4.5:1.
+        'text-[11px] font-semibold tracking-[0.08em] uppercase text-(--color-ink-3)',
         className,
       )}
       {...rest}

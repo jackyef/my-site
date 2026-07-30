@@ -70,7 +70,7 @@ export function ContrastSection() {
                   <th
                     key={bg}
                     scope="col"
-                    className="px-2 pb-2 font-mono text-[10px] font-medium text-(--color-ink-4) text-center whitespace-nowrap"
+                    className="px-2 pb-2 font-mono text-[10px] font-medium text-(--color-ink-3) text-center whitespace-nowrap"
                   >
                     {short(bg)}
                   </th>
@@ -82,7 +82,7 @@ export function ContrastSection() {
                 <tr key={fg}>
                   <th
                     scope="row"
-                    className="pr-3 py-1 font-mono text-[10px] font-medium text-(--color-ink-4) text-right whitespace-nowrap"
+                    className="pr-3 py-1 font-mono text-[10px] font-medium text-(--color-ink-3) text-right whitespace-nowrap"
                   >
                     {short(fg)}
                   </th>
@@ -126,11 +126,17 @@ export function ContrastSection() {
           </table>
         </div>
 
-        <Text variant="caption" color="ink-4" className="mt-3 max-w-[68ch]">
+        {/* On ink-3, not ink-4 — a footnote saying "don't put readable text on
+            ink-4" has to take its own advice. */}
+        <Text variant="caption" color="ink-3" className="mt-3 max-w-[68ch]">
           <code className="font-mono">ink-4</code> is expected to fail here — it
-          is a decorative tier, used for placeholders and for labels that repeat
-          information already carried by an adjacent element. Nothing that has
-          to be read on its own should use it.
+          is a decorative tier, for separator marks, sparkline fills and icons
+          that repeat information an adjacent element already carries. Nothing
+          that has to be read on its own should use it. Every other row is held
+          above the AA line by{' '}
+          <code className="font-mono">e2e/contrast.spec.ts</code>, which
+          resolves these same tokens in a browser and fails the build if one
+          drifts under.
         </Text>
       </Block>
     </Section>

@@ -65,7 +65,7 @@ export function PostRow({ item }: PostRowProps) {
             )
           )}
         </div>
-        <div className="text-[12px] text-(--color-ink-4) mt-[2px]">
+        <div className="text-[12px] text-(--color-ink-3) mt-[2px]">
           {formatPostDate(date)} · {readingTime}
         </div>
       </div>

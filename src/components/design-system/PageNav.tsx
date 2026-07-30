@@ -52,10 +52,11 @@ export function PageNav({ outline, activeId, onNavigate }: Props) {
             'block py-1 no-underline leading-[1.4]',
             'transition-[color,transform] duration-150',
             depth === 1 ? 'text-[12px]' : 'text-[13px]',
-            'hover:text-(--color-ink-3)',
+            'hover:text-(--color-ink-2)',
             isActive
               ? 'font-bold text-(--color-ink-2) translate-x-0.5'
-              : 'font-normal text-(--color-ink-4)',
+              : // Navigation links, so ink-3 — same rule as the blog's ToC.
+                'font-normal text-(--color-ink-3)',
           )}
         >
           {label}

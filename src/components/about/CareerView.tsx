@@ -313,8 +313,19 @@ export function CareerView() {
       </div>
       {/* end stickyRef */}
 
-      {/* Stacked list of all career items — newest first */}
-      <div className="flex flex-col gap-1 overflow-hidden" role="list">
+      {/* Stacked list of all career items — newest first.
+          The rail is one continuous hairline behind the dots, so this reads as
+          a timeline rather than as a stack of rows each wearing its own bar.
+          It sits at the dots' centre line (px-3 padding + half of the 8px dot)
+          and the opaque dots cover it where they land. */}
+      <div className="relative flex flex-col gap-1 overflow-hidden" role="list">
+        {/* Above the row fills (z-1), below the dots (z-2). Behind them the
+            selected row's background would paint over the rail and break it
+            into two pieces exactly where the eye is already looking. */}
+        <span
+          aria-hidden="true"
+          className="absolute left-4 top-4 bottom-4 w-px bg-(--color-border) z-[1]"
+        />
         {LIST_ITEMS.map(({ item, chartIndex }) => {
           const isSelected = selected === chartIndex;
           const isExpanded = expanded === chartIndex;
@@ -331,24 +342,31 @@ export function CareerView() {
                   listItemRefs.current[chartIndex] = el;
                 }}
                 onClick={() => selectAndScrollChart(chartIndex)}
-                className="w-full text-left rounded-lg px-3 py-2.5 transition-colors cursor-pointer"
+                className="relative w-full text-left rounded-lg px-3 py-2.5 transition-colors cursor-pointer"
                 style={{
+                  // Selection is carried by the fill and by the halo on the
+                  // dot below. It used to also get a 3px coloured left border,
+                  // which fought the rounded corner and repeated a colour the
+                  // dot was already showing.
                   background: isSelected
                     ? 'var(--color-bg-hover)'
                     : 'transparent',
-                  borderLeft: isSelected
-                    ? `3px solid ${barColor}`
-                    : '3px solid transparent',
                 }}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  {/* Color dot */}
+                  {/* The dot sits on the rail and is the only thing carrying
+                      this entry's colour. Selected, it gains a halo in that
+                      same colour — the marker grows rather than a second
+                      element appearing beside it. */}
                   <span
-                    className="shrink-0 rounded-full -translate-y-0.5"
+                    className="relative z-[2] shrink-0 rounded-full -translate-y-0.5 transition-shadow duration-150"
                     style={{
                       width: 8,
                       height: 8,
                       background: barColor,
+                      boxShadow: isSelected
+                        ? `0 0 0 3.5px color-mix(in srgb, ${barColor} 28%, transparent)`
+                        : 'none',
                     }}
                   />
 
@@ -388,7 +406,7 @@ export function CareerView() {
                       size={14}
                       className="shrink-0 transition-transform duration-200"
                       style={{
-                        color: 'var(--color-ink-4)',
+                        color: 'var(--color-ink-3)',
                         transform: isExpanded
                           ? 'rotate(180deg)'
                           : 'rotate(0deg)',
@@ -405,7 +423,10 @@ export function CareerView() {
                 </div>
               </button>
 
-              {/* Expanded details — inline with continued left border */}
+              {/* Expanded details. No border of its own: the rail already runs
+                  behind this, so the stub was a second vertical line drawn on
+                  top of the first. Indented to 30px — px-3 + the 8px dot + the
+                  2.5 gap — so the prose starts under the title, not the dot. */}
               <AnimatePresence>
                 {isExpanded && item.details && (
                   <motion.div
@@ -415,12 +436,7 @@ export function CareerView() {
                     transition={{ duration: 0.2, ease: 'easeInOut' }}
                     style={{ overflow: 'hidden' }}
                   >
-                    <div
-                      className="ml-3 pl-5 mr-3 pb-3"
-                      style={{
-                        borderLeft: `2px solid ${barColor}`,
-                      }}
-                    >
+                    <div className="pl-[30px] pr-3 pb-3">
                       <div className="text-[14px] leading-[1.75] text-(--color-ink-3)">
                         {item.details}
                       </div>

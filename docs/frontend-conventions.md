@@ -83,13 +83,29 @@ Key tokens:
 | `--color-border-hi` | High-contrast border |
 | `--color-ink` | Primary text / headings (~12-14:1 contrast) |
 | `--color-ink-2` | Body text (~8-11:1 contrast) |
-| `--color-ink-3` | Secondary / meta text (≥4.5:1, WCAG AA) |
-| `--color-ink-4` | Decorative / placeholder (~2.2-2.5:1) |
+| `--color-ink-3` | Secondary / meta text (≥4.8:1, WCAG AA) |
+| `--color-ink-4` | Decorative only — never text (~2.4-3.2:1) |
 | `--color-accent` | Teal accent (bg) |
 | `--color-accent-text` | Teal accent (text/icons) |
 | `--color-accent-l`, `--color-accent-xl` | Tinted accent fills |
 | `--color-success` | `#4caf84` — green status |
 | `--shadow-sm`, `--shadow-md`, `--shadow-lg` | Elevation shadows |
+
+### The ink-4 rule
+
+`--color-ink-4` sits around 2.4-3.2:1. That is below AA on every surface, deliberately —
+it is the tier for things the eye should register but not read: separator dots, sparkline
+fills, decorative icons, disabled marks.
+
+**If a reader has to read it, it does not go on `ink-4`.** Control labels, links,
+navigation items, group headings and meta lines belong on `ink-3` or above. Note that an
+11px uppercase label still counts as small text under WCAG, so "it's only a caption" is
+not an exemption.
+
+`e2e/contrast.spec.ts` enforces the AA floor for `ink`, `ink-2`, `ink-3` and
+`accent-text` against all five surfaces in all three themes, and checks that the ramp
+stays monotonic. It cannot tell whether a given `ink-4` is decorative or a mistake —
+that judgement is the reviewer's.
 
 **The live reference is `/design`** (`src/pages/design.tsx`). It resolves every token
 out of the DOM in all three themes at once and computes the WCAG contrast grid in the

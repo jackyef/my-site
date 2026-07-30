@@ -97,7 +97,7 @@ export function TypographySection() {
                 <Text variant="caption-sm" as="span">
                   {item.spec}
                 </Text>
-                <Text variant="caption-sm" color="ink-4" as="span">
+                <Text variant="caption-sm" color="ink-3" as="span">
                   {item.note}
                 </Text>
               </div>
