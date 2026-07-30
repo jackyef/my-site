@@ -35,21 +35,39 @@ export const CAMERA_VIEWS_MOBILE: Record<ViewId, CameraView> = {
 // Where the camera starts before the intro swoop
 export const INTRO_CAMERA_POSITION: [number, number, number] = [15, 11, 18];
 
-// Where the in-scene content panel anchors for each section (desktop).
-// The panel is a screen-space card anchored at `position`, tilted by
-// `tilt` degrees via a single-element CSS perspective transform. (A full
-// drei `Html transform` matrix chain paints correctly but Chromium
-// hit-tests it offset, which made links hover in the wrong place.)
+// Where the in-scene content panel hangs off each section's object
+// (desktop).
+//
+// `anchor` is a world point on the edge of the object the panel belongs to,
+// and the card is laid out beside that point's *projection*, on `side`, with
+// a fixed pixel gutter. The card never scales with the scene, so a world-space
+// offset of its own is only ever right at one framing: change the viewport's
+// aspect and the same offset reads as a card's width of empty room. Anchoring
+// to the object and spacing in pixels keeps the gap the size it looks.
+//
+// `tilt` degrees, via a single-element CSS perspective transform. (A full
+// drei `Html transform` matrix chain paints correctly but Chromium hit-tests
+// it offset, which made links hover in the wrong place.)
 export const PANEL_PLACEMENTS: Record<
   SectionId,
-  { position: [number, number, number]; tilt: number }
+  { anchor: [number, number, number]; side: 'left' | 'right'; tilt: number }
 > = {
-  projects: { position: [3.15, 1.6, -2.9], tilt: -14 },
-  career: { position: [1.2, 2.1, -3.9], tilt: 10 },
-  writing: { position: [-3.5, 1.65, -0.45], tilt: 12 },
-  about: { position: [2.75, 1.15, 2.7], tilt: -14 },
-  contact: { position: [-1.8, 1.75, -2.35], tilt: 10 },
+  // Outer edge of the right-hand monitor
+  projects: { anchor: [2.35, 1.62, -3.66], side: 'right', tilt: -14 },
+  // Inner edge of the corkboard's frame
+  career: { anchor: [1.94, 2.2, -4.1], side: 'left', tilt: 10 },
+  // Front-near corner of the bookshelf
+  writing: { anchor: [-3.68, 1.3, 0.62], side: 'right', tilt: 12 },
+  // Overridden at open time — he is wherever he wandered to
+  about: { anchor: [1.2, 1.15, 1.9], side: 'right', tilt: -14 },
+  // Left edge of the stack of envelopes
+  contact: { anchor: [-0.62, 1.24, -2.32], side: 'left', tilt: 10 },
 };
+
+// Pixels between the object's edge and the card, and the least the card
+// will keep from the edges of the room's slot before it stops following.
+export const PANEL_GUTTER = 20;
+export const PANEL_MARGIN = 16;
 
 export type Hotspot = {
   id: SectionId;

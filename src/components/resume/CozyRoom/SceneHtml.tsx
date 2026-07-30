@@ -19,8 +19,19 @@ const HtmlPortalContext = createContext<RefObject<HTMLElement | null> | null>(
 
 export const HtmlPortalProvider = HtmlPortalContext.Provider;
 
-export function SceneHtml(props: HtmlProps) {
+export function SceneHtml({ style, ...props }: HtmlProps) {
   const portal = useContext(HtmlPortalContext);
 
-  return <Html {...props} portal={portal as RefObject<HTMLElement>} />;
+  return (
+    <Html
+      {...props}
+      // The layer is inert so the room stays clickable through it, and drei
+      // leaves this element to inherit that — which quietly made every
+      // overlay in the room unclickable and unscrollable. Overlays whose
+      // content sits away from their anchor opt back out and re-enable the
+      // content itself, so they don't leave an invisible blocker behind.
+      style={{ pointerEvents: 'auto', ...style }}
+      portal={portal as RefObject<HTMLElement>}
+    />
+  );
 }

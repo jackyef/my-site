@@ -179,6 +179,7 @@ export function CozyRoomScene({
             hovered={hovered}
             panel3d={desktop}
             writings={writings}
+            bleed={bleed}
             onHover={setHovered}
             onSelect={onSelect}
             onClose={onClose}

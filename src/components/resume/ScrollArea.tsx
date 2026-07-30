@@ -36,7 +36,12 @@ export function ScrollArea({ className, children }: ScrollAreaProps) {
       <div
         ref={ref}
         onScroll={sync}
-        className={cn('min-h-0 flex-1 overflow-y-auto', className)}
+        // Contained, so reaching the last line hands the wheel back to the
+        // reader rather than carrying on down the page
+        className={cn(
+          'min-h-0 flex-1 overflow-y-auto overscroll-contain',
+          className,
+        )}
       >
         {children}
       </div>
