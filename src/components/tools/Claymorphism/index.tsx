@@ -18,6 +18,28 @@ const hexToRgb = (hex: `#${string}`) => {
   return { red, green, blue };
 };
 
+/**
+ * The inverse, and it has to pad.
+ *
+ * `<input type="color">` accepts `#rrggbb` and nothing else — it rejects the
+ * value outright and falls back to black otherwise. Bare `toString(16)` drops
+ * the leading zero on any channel under 16, so the default all-zero state
+ * emitted `#000`, and a colour like rgb(10, 200, 5) emitted `#ac85`: four
+ * characters, silently wrong, and not the colour anyone picked.
+ */
+const rgbToHex = ({
+  red,
+  green,
+  blue,
+}: {
+  red: number;
+  green: number;
+  blue: number;
+}) =>
+  `#${[red, green, blue]
+    .map((channel) => channel.toString(16).padStart(2, '0'))
+    .join('')}`;
+
 export const ClaymorphismTools = () => {
   const [lightAngle, setLightAngle] = useState((1 * Math.PI) / 3);
   const [elevation, setElevation] = useState(0.5);
@@ -78,11 +100,7 @@ export const ClaymorphismTools = () => {
             id="shadowColor"
             name="shadowColor"
             type="color"
-            value={`#${baseShadowColors.red.toString(
-              16,
-            )}${baseShadowColors.green.toString(
-              16,
-            )}${baseShadowColors.blue.toString(16)}`}
+            value={rgbToHex(baseShadowColors)}
             onChange={(e) =>
               setBaseShadowColors(hexToRgb(e.target.value as `#${string}`))
             }
