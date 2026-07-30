@@ -50,11 +50,14 @@ export function aboutCameraView(cameraPosition: Vector3, desktop: boolean) {
   return { position, target };
 }
 
-/** Anchor for the About panel: beside him, on the camera's right. */
+/**
+ * Anchor for the About panel: at his shoulder, on the camera's right. The
+ * card is then spaced off it in pixels, so this only has to clear his
+ * silhouette rather than leave room for the card itself.
+ */
 export function aboutPanelAnchor(cameraPosition: Vector3) {
-  const { dir, right } = approachBasis(cameraPosition);
+  const { right } = approachBasis(cameraPosition);
   return new Vector3(avatarPosition.x, 0, avatarPosition.z)
-    .addScaledVector(right, 1.62)
-    .addScaledVector(dir, 1.2)
-    .setY(1.5);
+    .addScaledVector(right, 0.75)
+    .setY(1.2);
 }

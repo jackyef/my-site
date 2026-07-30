@@ -2,7 +2,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { XIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import { AmbientLight, DirectionalLight, Object3D } from 'three';
+import {
+  AmbientLight,
+  DirectionalLight,
+  Group,
+  Object3D,
+  Vector3,
+} from 'three';
 
 import type { WritingItem } from '@/blog/types';
 import { Heading } from '@/components/common/Heading';
@@ -12,7 +18,14 @@ import { CHESS_POSITION_FEN } from '../data';
 import { ScrollArea } from '../ScrollArea';
 
 import { aboutPanelAnchor } from './avatarState';
-import { HOTSPOTS, PANEL_PLACEMENTS, SectionId, ViewId } from './hotspots';
+import {
+  HOTSPOTS,
+  PANEL_GUTTER,
+  PANEL_MARGIN,
+  PANEL_PLACEMENTS,
+  SectionId,
+  ViewId,
+} from './hotspots';
 import { useLivePalette } from './livePalette';
 import { SceneHtml } from './SceneHtml';
 import {
@@ -57,25 +70,37 @@ type RoomProps = {
   // Render section content as a panel inside the scene (desktop)
   panel3d: boolean;
   writings: WritingItem[];
+  // Pixels the canvas overhangs its slot by, top and bottom. Panels stay
+  // out of the overhang — it runs over the page's own copy.
+  bleed: number;
   onHover: (id: SectionId | null) => void;
   onSelect: (id: SectionId) => void;
   onClose: () => void;
   onCycleTheme: () => void;
 };
 
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), Math.max(min, max));
+
+const projected = new Vector3();
+
 function ScenePanel({
   section,
   writings,
+  bleed,
   onClose,
 }: {
   section: SectionId;
   writings: WritingItem[];
+  bleed: number;
   onClose: () => void;
 }) {
   const placement = PANEL_PLACEMENTS[section];
   const camera = useThree((state) => state.camera);
   const headingId = `scene-panel-${section}`;
   const closeRef = useRef<HTMLButtonElement>(null);
+  const anchorRef = useRef<Group>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Send focus into the panel when it opens, and hand it back to the
   // element that opened it once it closes
@@ -93,21 +118,49 @@ function ScenePanel({
     () =>
       section === 'about'
         ? aboutPanelAnchor(camera.position).toArray()
-        : placement.position,
+        : placement.anchor,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
+  // drei drops the overlay at the anchor's projection; the card is then
+  // sat beside it in screen pixels, so the gap between object and card is
+  // the same whatever the camera and the viewport are doing. It stops
+  // following at the edges of the slot rather than sliding out of view.
+  useFrame((state) => {
+    const group = anchorRef.current;
+    const card = cardRef.current;
+    if (!group || !card) return;
+
+    projected.setFromMatrixPosition(group.matrixWorld).project(state.camera);
+    const x = (projected.x * 0.5 + 0.5) * state.size.width;
+    const y = (0.5 - projected.y * 0.5) * state.size.height;
+    const { offsetWidth: width, offsetHeight: height } = card;
+
+    const left = clamp(
+      placement.side === 'right' ? x + PANEL_GUTTER : x - PANEL_GUTTER - width,
+      PANEL_MARGIN,
+      state.size.width - width - PANEL_MARGIN,
+    );
+    const top = clamp(
+      y - height / 2,
+      bleed + PANEL_MARGIN,
+      state.size.height - bleed - height - PANEL_MARGIN,
+    );
+
+    // Single-element 3D tilt — browsers hit-test this correctly, unlike
+    // nested matrix3d chains
+    card.style.transform =
+      `translate3d(${Math.round(left - x)}px, ${Math.round(top - y)}px, 0)` +
+      ` perspective(1100px) rotateY(${placement.tilt}deg)`;
+  });
+
   return (
-    <group position={anchor}>
-      <SceneHtml center zIndexRange={[40, 0]}>
-        {/* Single-element 3D tilt — browsers hit-test this correctly,
-            unlike nested matrix3d chains */}
-        <div
-          style={{
-            transform: `perspective(1100px) rotateY(${placement.tilt}deg)`,
-          }}
-        >
+    <group ref={anchorRef} position={anchor}>
+      {/* Inert wrapper: the card is offset out of this box, so anything the
+          box still covers has to stay clickable */}
+      <SceneHtml style={{ pointerEvents: 'none' }} zIndexRange={[40, 0]}>
+        <div ref={cardRef} className="pointer-events-auto">
           <motion.div
             role="dialog"
             aria-modal="false"
@@ -206,6 +259,7 @@ export function Room({
   hovered,
   panel3d,
   writings,
+  bleed,
   onHover,
   onSelect,
   onClose,
@@ -334,6 +388,7 @@ export function Room({
           key={view}
           section={view}
           writings={writings}
+          bleed={bleed}
           onClose={onClose}
         />
       )}

@@ -747,9 +747,16 @@ export function DeskLamp({ onCycleTheme }: { onCycleTheme: () => void }) {
         onCycleTheme();
       }}
     >
+      {/* Inert: it only exists while the lamp is hovered, and catching the
+          pointer itself would call off its own hover */}
       {hovered && (
-        <SceneHtml center position={[-0.1, 0.85, 0]} zIndexRange={[40, 0]}>
-          <div className="pointer-events-none rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 pt-[5px] pb-[3px] text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
+        <SceneHtml
+          center
+          position={[-0.1, 0.85, 0]}
+          zIndexRange={[40, 0]}
+          style={{ pointerEvents: 'none' }}
+        >
+          <div className="rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-2.5 pt-[5px] pb-[3px] text-[11px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md)">
             Flip the lights
           </div>
         </SceneHtml>
