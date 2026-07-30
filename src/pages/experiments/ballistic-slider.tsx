@@ -1,22 +1,25 @@
 import { useState } from 'react';
 
-import { BallisticSlider } from '@/components/absurd-components/BallisticSlider';
 import { Button } from '@/components/common/Button';
 import { PageHeader } from '@/components/common/PageHeader';
-import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { Text } from '@/components/common/Text';
-import { InternalLink } from '@/components/Typography/InternalLink';
 import { Surface } from '@/components/common/Surface';
+import { Text } from '@/components/common/Text';
+import { BallisticSlider } from '@/components/experiments/BallisticSlider';
+import { getExperiment } from '@/components/experiments/constants';
+import { PageMetaTags } from '@/components/Seo/PageMetaTags';
+import { InternalLink } from '@/components/Typography/InternalLink';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
+const experiment = getExperiment('ballistic-slider');
+
 export const meta = {
-  title: 'Absurd UI – Ballistic Slider',
-  description: 'A slider with some ballistic physics baked in.',
+  title: experiment.title,
+  description: experiment.description,
   image: createOgImageUrl({
-    title: 'Absurd UI – Ballistic Slider',
+    title: experiment.title,
   }),
-  date: '2024-03-10T09:45:30.326Z',
+  date: experiment.date,
 };
 
 export default function BallisticSliderPage() {
@@ -29,12 +32,12 @@ export default function BallisticSliderPage() {
         description={meta.description}
         image={meta.image}
       />
-      <PageHeader eyebrow="Absurd UI" title="Ballistic Slider" />
+      <PageHeader eyebrow="Lab" title={meta.title} />
 
       <Text color="ink-2" className="mb-6">
         A slider with some ballistic physics baked in. Drag the icon and aim to
         set the value.{' '}
-        <InternalLink href="/absurd-ui">View all experiments</InternalLink>.
+        <InternalLink href="/experiments">View all experiments</InternalLink>.
       </Text>
 
       <Surface

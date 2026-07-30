@@ -16,6 +16,45 @@ const conf = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  // `/tools/*` and `/absurd-ui/*` were separate top-level sections before the
+  // experiments they held moved under `/experiments`. Nothing in the site links
+  // to the old paths any more, but they have been public for years — these keep
+  // the inbound links and search results alive.
+  async redirects() {
+    return [
+      {
+        source: '/tools/playground',
+        destination: '/experiments/playground',
+        permanent: true,
+      },
+      {
+        source: '/tools/claymorphism',
+        destination: '/experiments/claymorphism',
+        permanent: true,
+      },
+      {
+        source: '/tools/speech-to-text',
+        destination: '/experiments/speech-to-text',
+        permanent: true,
+      },
+      {
+        source: '/absurd-ui',
+        destination: '/experiments',
+        permanent: true,
+      },
+      {
+        source: '/absurd-ui/ballistic-slider',
+        destination: '/experiments/ballistic-slider',
+        permanent: true,
+      },
+      // The design tokens page it replaced.
+      {
+        source: '/about/tokens',
+        destination: '/design',
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, options) => {
     const { dev, isServer } = options;
 

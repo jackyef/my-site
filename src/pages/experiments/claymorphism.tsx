@@ -1,20 +1,23 @@
 import { Heading } from '@/components/common/Heading';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Text } from '@/components/common/Text';
+import { ClaymorphismTools } from '@/components/experiments/Claymorphism';
+import { getExperiment } from '@/components/experiments/constants';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { ClaymorphismTools } from '@/components/tools/Claymorphism';
 import { ExternalLink } from '@/components/Typography/ExternalLink';
 import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
+const experiment = getExperiment('claymorphism');
+
 export const meta = {
-  title: 'Claymorphism-style CSS generator',
-  description: 'Play around and generate claymorphism-style CSS!',
+  title: experiment.title,
+  description: experiment.description,
   image: createOgImageUrl({
-    title: 'Claymorphism-style CSS generator',
+    title: experiment.title,
   }),
-  date: '2021-12-22T09:45:30.326Z',
+  date: experiment.date,
 };
 
 const ClaymorphismToolsPage = () => {
@@ -27,7 +30,7 @@ const ClaymorphismToolsPage = () => {
         publishDate={formatPostDate(meta.date)}
       />
 
-      <PageHeader eyebrow="Tools" title={meta.title} />
+      <PageHeader eyebrow="Lab" title={meta.title} />
 
       <ClaymorphismTools />
 

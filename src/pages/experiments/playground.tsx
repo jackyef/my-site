@@ -1,21 +1,23 @@
 import * as LZString from 'lz-string';
 import { useEffect, useState } from 'react';
 
-import { CodePlayground } from '@/components/CodePlayground/CodePlayground';
 import { PageHeader } from '@/components/common/PageHeader';
+import { CodePlayground } from '@/components/experiments/CodePlayground/CodePlayground';
+import { getExperiment } from '@/components/experiments/constants';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
 import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
+const experiment = getExperiment('playground');
+
 export const meta = {
-  title: 'Code playground',
-  description:
-    'A playground for testing code snippets with framer-motion and tailwind css',
+  title: experiment.title,
+  description: experiment.description,
   image: createOgImageUrl({
-    title: 'Code playground',
+    title: experiment.title,
   }),
-  date: '2023-07-05T09:45:30.326Z',
+  date: experiment.date,
 };
 
 const PlaygroundPage = () => {
@@ -45,7 +47,7 @@ const PlaygroundPage = () => {
         image={meta.image}
         publishDate={formatPostDate(meta.date)}
       />
-      <PageHeader eyebrow="Tools" title={meta.title} />
+      <PageHeader eyebrow="Lab" title={meta.title} />
 
       {isInitialized && <CodePlayground initialCode={initialCode} />}
     </div>

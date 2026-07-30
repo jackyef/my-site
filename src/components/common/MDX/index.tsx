@@ -6,7 +6,6 @@ import { Panel } from '@/components/common/Panel';
 import { HorizontalDivider } from '@/components/common/Divider';
 import { FunctionRenderer } from '@/components/FunctionRenderer';
 import { Button } from '@/components/common/Button';
-import { Surfaces, Colors } from '@/components/DesignDemo';
 import type { Props as ProfileCardProps } from '@/components/FlipDemos/ProfileCard';
 import type { Props as ProfileHeroProps } from '@/components/FlipDemos/ProfileHero';
 import type { Props as ProfileCardToHeroProps } from '@/components/FlipDemos/ProfileCardToHero';
@@ -61,8 +60,6 @@ const mdxComponents = {
   /* Needed for some posts */
   Panel,
   Button,
-  Surfaces,
-  Colors,
 
   KanbanBoard: dynamic<any>(() =>
     import('@/components/FlipDemos/KanbanBoard').then((m) => m.KanbanBoard),

@@ -2,6 +2,11 @@
  * We store all pages (excluding posts) we want to be available in the Command Palette here.
  */
 
+import {
+  EXPERIMENTS,
+  experimentHref,
+} from '@/components/experiments/constants';
+
 import { PageData } from '../../../../types/types';
 
 export const PAGES: readonly PageData[] = [
@@ -29,11 +34,6 @@ export const PAGES: readonly PageData[] = [
     hiddenSearchTerm: 'tokens colors colours palette typography contrast a11y',
   },
   {
-    title: 'Tokens 🖌️',
-    description: 'Shows some of the design tokens used on this site.',
-    link: '/about/tokens',
-  },
-  {
     title: 'Uses',
     description: 'List of things that I use daily',
     link: '/uses',
@@ -46,37 +46,23 @@ export const PAGES: readonly PageData[] = [
     hiddenSearchTerm: 'cv portfolio room 3d',
   },
 
-  // Tools
+  // Lab
   {
-    title: 'Tools ▶️ Code playground',
-    description: `A playground for testing code snippets with framer-motion and tailwind css`,
-    link: '/tools/playground',
-  },
-  {
-    title: 'Tools ▶️ Claymorphism',
-    description: `Simple tool for generating for claymorphism-style CSS`,
-    link: '/tools/claymorphism',
-  },
-  {
-    title: 'Tools ▶️ Speech-to-text',
-    description: `Speech-to-text demo using the Web Speech API's SpeechRecognition`,
-    link: '/tools/speech-to-text',
-    hiddenSearchTerm: 'voice',
-  },
-
-  // Absurd UI components
-  {
-    title: 'Absurd UI components',
+    title: 'Lab 🧪',
     description:
-      'A collection of absurd UI components that are not practical but fun to play with.',
-    link: '/absurd-ui',
+      'Every experiment on this site — generators, browser API demos and deliberately impractical components.',
+    link: '/experiments',
+    hiddenSearchTerm: 'experiments tools absurd ui toys demos',
   },
 
-  {
-    title: 'Absurd UI ▶️ Ballistic Slider',
-    description: 'A slider with some ballistic physics baked in..',
-    link: '/absurd-ui/ballistic-slider',
-  },
+  // Each experiment stays individually searchable, off the same list the Lab
+  // page renders — so adding one never needs a second edit here.
+  ...EXPERIMENTS.map((experiment) => ({
+    title: `Lab ▶️ ${experiment.label}`,
+    description: experiment.description,
+    link: experimentHref(experiment.slug),
+    hiddenSearchTerm: experiment.searchTerm,
+  })),
 ];
 
 export const filterPages = (query: string): PageData[] => {
