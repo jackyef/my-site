@@ -1,18 +1,20 @@
 import { PageHeader } from '@/components/common/PageHeader';
+import { getExperiment } from '@/components/experiments/constants';
+import { WebSpeechAPIDemo } from '@/components/experiments/WebSpeechAPIDemo';
 import { PageMetaTags } from '@/components/Seo/PageMetaTags';
-import { WebSpeechAPIDemo } from '@/components/tools/WebSpeechAPIDemo';
 import { formatPostDate } from '@/lib/datetime';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
 
+const experiment = getExperiment('speech-to-text');
+
 export const meta = {
-  title: 'Speech-to-text with Web Speech API',
-  description:
-    "Speech-to-text demo using the Web Speech API's SpeechRecognition",
+  title: experiment.title,
+  description: experiment.description,
   image: createOgImageUrl({
-    title: 'Speech-to-text with Web Speech API',
+    title: experiment.title,
   }),
-  date: '2022-04-13T06:43:37.680Z',
+  date: experiment.date,
 };
 
 const SpeechToolsPage = () => {
@@ -25,7 +27,7 @@ const SpeechToolsPage = () => {
         publishDate={formatPostDate(meta.date)}
       />
 
-      <PageHeader eyebrow="Tools" title={meta.title} />
+      <PageHeader eyebrow="Lab" title={meta.title} />
 
       <WebSpeechAPIDemo />
     </div>

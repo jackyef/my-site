@@ -5,10 +5,7 @@ import {
   UserIcon,
   PenLineIcon,
   FlaskConicalIcon,
-  PaletteIcon,
   SwatchBookIcon,
-  WandSparklesIcon,
-  MicIcon,
 } from 'lucide-react';
 
 import { SectionLabel } from '@/components/common/SectionLabel';
@@ -35,6 +32,9 @@ const PAGE_LINKS: NavItem[] = [
   { href: '/blog', label: 'Blog', icon: <PenLineIcon {...ICON_PROPS} /> },
 ];
 
+// The individual experiments used to sit here one row each, which read as five
+// peer destinations when they are really one collection. They live behind /experiments
+// now, so this stays two rows however many experiments there end up being.
 const TOOL_LINKS: NavItem[] = [
   {
     href: '/design',
@@ -42,24 +42,9 @@ const TOOL_LINKS: NavItem[] = [
     icon: <SwatchBookIcon {...ICON_PROPS} />,
   },
   {
-    href: '/tools/playground',
-    label: 'Playground',
+    href: '/experiments',
+    label: 'Lab',
     icon: <FlaskConicalIcon {...ICON_PROPS} />,
-  },
-  {
-    href: '/tools/claymorphism',
-    label: 'Claymorphism',
-    icon: <PaletteIcon {...ICON_PROPS} />,
-  },
-  {
-    href: '/tools/speech-to-text',
-    label: 'Speech-to-text',
-    icon: <MicIcon {...ICON_PROPS} />,
-  },
-  {
-    href: '/absurd-ui',
-    label: 'Absurd UI',
-    icon: <WandSparklesIcon {...ICON_PROPS} />,
   },
 ];
 
