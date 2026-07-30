@@ -175,22 +175,28 @@ function ScenePanel({
             onPointerMove={(event) => event.stopPropagation()}
             onWheel={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between gap-2 px-5 pt-4 pb-2">
-              <Heading level={3} as="h2" id={headingId}>
-                {SECTION_TITLES[section]}
-              </Heading>
-              <button
-                ref={closeRef}
-                type="button"
-                aria-label={`Close ${SECTION_TITLES[section]}`}
-                onClick={onClose}
-                className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-90"
-              >
-                <XIcon size={18} aria-hidden="true" />
-              </button>
-            </div>
-            <ScrollArea className="max-h-[380px] px-5 pt-1 pb-5">
-              <ResumeSectionContent section={section} writings={writings} />
+            {/* The title bar scrolls with the content rather than sitting
+                beside it, so a wheel anywhere over the card reaches the one
+                scroll surface — and the section keeps naming itself, and
+                stays closeable, however far down the reader is */}
+            <ScrollArea className="max-h-[430px]">
+              <div className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-(--color-bg-panel) px-5 pt-4 pb-3">
+                <Heading level={3} as="h2" id={headingId}>
+                  {SECTION_TITLES[section]}
+                </Heading>
+                <button
+                  ref={closeRef}
+                  type="button"
+                  aria-label={`Close ${SECTION_TITLES[section]}`}
+                  onClick={onClose}
+                  className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-90"
+                >
+                  <XIcon size={18} aria-hidden="true" />
+                </button>
+              </div>
+              <div className="px-5 pb-5">
+                <ResumeSectionContent section={section} writings={writings} />
+              </div>
             </ScrollArea>
           </motion.div>
         </div>
