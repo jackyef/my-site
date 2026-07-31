@@ -17,7 +17,11 @@ As I added more stuff to the site, I've gone back to using React as some depende
 ## Setting up skills
 Skills are housed in a private repo. Can't make it public because some of them were paywalled and it's unethical to share it publicly.
 
-If you have access to the private repo, running `git submodule update --init --recursive` should work.
+If you have access to the private repo, running the following should work.
+
+```
+git submodule update --init --remote --recursive
+```
 
 ### References:
 
