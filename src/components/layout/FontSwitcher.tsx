@@ -4,7 +4,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from '@headlessui/react';
-import { CheckIcon, TypeIcon } from 'lucide-react';
+import { CheckIcon, ChevronsUpDownIcon, TypeIcon } from 'lucide-react';
 
 import { cn } from '@/utils/styles/classNames';
 import { FONT_PAIRINGS, getPairing, type PairingId } from '@/utils/fonts';
@@ -51,12 +51,34 @@ export function FontSwitcher({
       >
         <TypeIcon size={compact ? 14 : 13} aria-hidden="true" />
         {!compact && (
-          <span
-            className="flex-1 truncate"
-            style={{ fontFamily: `var(${current.cssVar})` }}
-          >
-            {current.label}
-          </span>
+          <>
+            <span
+              className="flex-1 truncate"
+              style={{ fontFamily: `var(${current.cssVar})` }}
+            >
+              {current.label}
+            </span>
+            {/* Two jobs. The pairing names run 71–114px inside a 203px row, so
+                without something holding the right end the whole control read
+                as left-heavy — and by a different amount per pairing, since
+                the label sets where the ink stops. Pinned right, this is the
+                same mark at the same place whatever is selected.
+
+                It also says the row opens something. Before this the trigger
+                was a bordered box with a value in it and no disclosure at
+                all. Up-and-down rather than a single chevron because the menu
+                opens upward from the sidebar and downward from the mobile
+                drawer. */}
+            {/* Inherits ink-3 from the button, like the leading icon. Not
+                ink-4: this mark carries the "opens a menu" affordance, which
+                puts it under the 3:1 floor for non-text UI, and ink-4 sits
+                near 2.9. Size and stroke keep it quiet instead. */}
+            <ChevronsUpDownIcon
+              size={13}
+              aria-hidden="true"
+              className="shrink-0"
+            />
+          </>
         )}
       </ListboxButton>
 
