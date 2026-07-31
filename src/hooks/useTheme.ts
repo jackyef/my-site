@@ -49,15 +49,34 @@ export function useTheme() {
   const setTheme = useCallback((t: Theme) => {
     localStorage.setItem(STORAGE_KEY, t);
 
+    const root = document.documentElement;
+
+    // Flip the theme with per-element colour transitions suppressed. The
+    // shell's surfaces each carry a 0.22s colour transition, which would
+    // otherwise run *underneath* the view transition's cross-fade — the same
+    // change animated twice, at two different speeds.
     const apply = () => {
-      document.documentElement.setAttribute('data-theme', t);
+      root.setAttribute('data-theme-swapping', '');
+      root.setAttribute('data-theme', t);
     };
 
-    if (!document.startViewTransition) {
+    const release = () => root.removeAttribute('data-theme-swapping');
+
+    // A cross-fade is motion, and the guidance makes no exception for opacity.
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
       apply();
-    } else {
-      document.startViewTransition(apply);
+      // Two frames: one for the new colours to paint, one before transitions
+      // are allowed to observe a change again.
+      requestAnimationFrame(() => requestAnimationFrame(release));
+      return;
     }
+
+    const transition = document.startViewTransition(apply);
+    transition.finished.then(release, release);
   }, []);
 
   // Bind for system preference changes

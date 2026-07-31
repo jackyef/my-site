@@ -3,6 +3,7 @@ import { SearchIcon } from 'lucide-react';
 import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useCommandPaletteContext';
 
 import { useFontPairing } from '@/hooks/useFontPairing';
+import { useShortcutLabel } from '@/hooks/useShortcutLabel';
 import { useTheme } from '@/hooks/useTheme';
 
 import { FontSwitcher } from './FontSwitcher';
@@ -30,6 +31,7 @@ export function Sidebar() {
   const { setIsOpen } = useCommandPaletteContext();
   const { theme, setTheme } = useTheme();
   const { pairing, setPairing } = useFontPairing();
+  const shortcut = useShortcutLabel('K');
 
   return (
     <aside
@@ -47,15 +49,17 @@ export function Sidebar() {
         >
           <SearchIcon size={13} aria-hidden="true" />
           <span className="flex-1">Quick actions…</span>
-          <span className="ml-auto text-[10px] border border-(--color-border) rounded-[4px] px-[5px] py-[1px] text-(--color-ink-3)">
-            ⌘K
-          </span>
+          {/* `min-w` holds the row steady across the ⌘K → Ctrl K correction
+              that lands after mount on non-Mac platforms. */}
+          <kbd className="ml-auto min-w-[3.2em] text-center font-[inherit] text-[10px] border border-(--color-border) rounded-[4px] px-[5px] py-[1px] text-(--color-ink-3)">
+            {shortcut}
+          </kbd>
         </button>
 
         {/* CMD icon button — visible only on icon-strip sidebar */}
         <button
           onClick={() => setIsOpen(true)}
-          title="Quick actions (⌘K)"
+          title={`Quick actions (${shortcut})`}
           aria-label="Quick actions"
           className="flex lg:hidden mt-[10px] w-full items-center justify-center p-[6px] rounded-lg border border-(--color-border) bg-(--color-bg) text-(--color-ink-3) cursor-pointer font-[inherit] transition-[background,border-color] duration-[130ms] hover:bg-(--color-bg-hover) hover:border-(--color-accent-l)"
         >

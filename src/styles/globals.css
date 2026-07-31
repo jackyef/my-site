@@ -23,8 +23,13 @@
      `animate-palette-in` resolve to something — a bare `animate-<name>` class
      with no matching token compiles to `animation: var(--animate-<name>)` and
      silently does nothing. */
+  /* Scrim and panel move as one thing, so they share a duration and a curve
+     exactly. They were 180ms on a custom curve against 140ms ease-out, which
+     is close enough to look like a mistake rather than a decision — the scrim
+     finished first and the panel appeared to lag behind its own backdrop. */
   --animate-palette-in: palette-in 180ms cubic-bezier(0.32, 0.72, 0, 1) both;
-  --animate-palette-overlay: palette-overlay-in 140ms ease-out both;
+  --animate-palette-overlay: palette-overlay-in 180ms
+    cubic-bezier(0.32, 0.72, 0, 1) both;
 
   /* ── Stacking order ──────────────────────────────────────────────
      App-level chrome only. Anything that stacks inside its own card or
@@ -480,6 +485,21 @@ hr,
   border-bottom-width: var(--border-hairline);
 }
 
+/* Removes the ~300ms wait a browser holds on touch before deciding a tap was
+   not the start of a double-tap-to-zoom. Nothing here wants that gesture, and
+   the delay is felt on every single tap. Scoped to interactive elements, so
+   surfaces that do want their own gestures — the resume canvas sets its own
+   touch-action — are untouched. */
+button,
+a,
+input,
+select,
+textarea,
+summary,
+[role='button'] {
+  touch-action: manipulation;
+}
+
 /* Every image carries the same edge treatment as any other surface: a 1px
    translucent line drawn just inside its bounds. `outline` rather than
    `border` so it costs no layout space, and `outline-offset: -1px` pulls it
@@ -515,6 +535,18 @@ img {
 /* ═══════════════════════════════════════
    THEME TRANSITIONS
 ═══════════════════════════════════════ */
+
+/* A theme swap repaints every colour on the page at once. Without this, each
+   of the surfaces below also runs its own 0.22s colour transition underneath
+   the view transition's cross-fade — two animations describing the same
+   change, at different speeds and with different easing. Suppressed for the
+   duration of the swap so exactly one of them plays. */
+html[data-theme-swapping],
+html[data-theme-swapping] *,
+html[data-theme-swapping] *::before,
+html[data-theme-swapping] *::after {
+  transition: none !important;
+}
 
 body,
 .sidebar,
