@@ -80,18 +80,25 @@ export function Sidebar() {
             compact
           />
         </div>
-        {/* Full (lg+) — the font picker rides along on the theme row, since
-            it's a set-once preference that doesn't deserve a row of its own. */}
-        <div className="hidden lg:flex items-center gap-2">
-          <div className="flex-1 min-w-0">
-            <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
-          </div>
+        {/* Full (lg+) — a row each.
+            The font picker used to ride along on the theme row, which left the
+            three-segment control 159px to render labels that need 170–178px
+            depending on the pairing. `flex-1` segments will not shrink below
+            their content, so they spilled and the wrapper's overflow-hidden
+            ate the tail of "Dark" — in every one of the six typefaces, not
+            just one unlucky pairing. Nothing short of dropping the labels
+            fixes that on a shared row, and the labels are the only way to
+            tell dim from dark before you click.
+
+            Given a row of its own the picker also stops being an unlabelled
+            "T" and names the pairing it is currently set to. */}
+        <div className="hidden lg:flex flex-col gap-2">
+          <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
           <FontSwitcher
             pairing={pairing}
             onPairingChange={setPairing}
-            anchor="top end"
-            className="shrink-0"
-            compact
+            anchor="top start"
+            className="w-full"
           />
         </div>
       </div>
