@@ -181,6 +181,10 @@
   --code-comment: #5c6570;
 
   /* ── Chrome ── */
+  /* Pure black at 10%, never a tinted neutral: a tinted line picks up the
+     surface behind the image and reads as grime along the edge rather than a
+     boundary. Dark themes use pure white at the same alpha. */
+  --image-outline: rgb(0 0 0 / 0.1);
   --scroll-gutter: hsl(0deg 0% 92%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
@@ -272,6 +276,7 @@
   --code-comment: #8b95a3;
 
   /* ── Chrome ── */
+  --image-outline: rgb(255 255 255 / 0.1);
   --scroll-gutter: hsl(225deg 13% 15%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
@@ -351,6 +356,7 @@
   --code-comment: #8b95a3;
 
   /* ── Chrome ── */
+  --image-outline: rgb(255 255 255 / 0.1);
   --scroll-gutter: hsl(240deg 10% 9%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
@@ -413,6 +419,16 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+}
+
+/* Every image carries the same edge treatment as any other surface: a 1px
+   translucent line drawn just inside its bounds. `outline` rather than
+   `border` so it costs no layout space, and `outline-offset: -1px` pulls it
+   inside so the image keeps its intended dimensions. Follows border-radius,
+   so rounded thumbnails get a rounded line. */
+img {
+  outline: 1px solid var(--image-outline);
+  outline-offset: -1px;
 }
 
 /* Short descriptive blocks get `pretty` instead: it only pulls a word down
@@ -533,23 +549,32 @@ h2 em {
 ═══════════════════════════════════════ */
 
 /* Standard scrollbar (Firefox + future browsers) */
-* {
+/* Scoped, not global.
+   This was `*` plus bare `::-webkit-scrollbar`, which restyled the page's own
+   scrollbar along with everything else. The page scrollbar is the one piece of
+   chrome the operating system owns: people know its size, its behaviour and
+   how far along the document they are from it, and a 6px replacement takes
+   that away — worst on a long post, which is where it matters most.
+
+   The narrow bar is right inside a small pane you can lose track of. Those
+   opt in with `.scroll-slim`. */
+.scroll-slim {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-hi) var(--scroll-gutter);
 }
 
 /* Webkit scrollbar (Chrome, Edge, Safari) */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-::-webkit-scrollbar-thumb {
+.scroll-slim::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: var(--color-border-hi);
 }
 
-::-webkit-scrollbar-track {
+.scroll-slim::-webkit-scrollbar-track {
   border-radius: 3px;
   background-color: var(--scroll-gutter);
 }
