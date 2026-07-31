@@ -37,7 +37,7 @@ export function Sidebar() {
       className="sidebar shrink-0 h-dvh sticky top-0 flex flex-col bg-(--color-bg-sidebar) border-r border-(--color-border) overflow-y-auto overflow-x-hidden md:w-[60px] lg:w-[220px]"
     >
       {/* Top: Logo + CMD trigger */}
-      <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border)">
+      <div className="px-4 pt-[18px] pb-3 border-b border-(--color-border) [border-bottom-width:var(--border-hairline)]">
         <LogoMark />
 
         {/* CMD trigger — hidden on icon-strip sidebar */}
@@ -67,7 +67,7 @@ export function Sidebar() {
       <SidebarNav />
 
       {/* Bottom: Theme + Social */}
-      <div className="px-2 py-3 border-t border-(--color-border) flex flex-col gap-2">
+      <div className="px-2 py-3 border-t border-(--color-border) [border-top-width:var(--border-hairline)] flex flex-col gap-2">
         <PwaInstallButton variant="sidebar" />
         {/* Compact (icon-strip md–lg) */}
         <div className="md:flex lg:hidden flex-col gap-2">

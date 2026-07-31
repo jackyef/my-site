@@ -429,6 +429,42 @@ h6 {
   text-wrap: balance;
 }
 
+/* ── Hairline separators ──────────────────────────────────────────
+   A 1px rule is one device pixel on a standard display and two on a
+   retina one, so the same divider reads noticeably heavier on the
+   screens most people are actually using. Half a pixel puts it back to
+   one device pixel there, and standard displays keep the 1px they need
+   (they cannot draw a half).
+
+   Separators only — the lines whose job is to divide. Element edges
+   (inputs, buttons, card borders) keep a full pixel: on a form field
+   the visible edge is an accessibility affordance, not decoration. */
+:root {
+  --border-hairline: 1px;
+}
+
+@media (min-resolution: 192dpi) {
+  :root {
+    --border-hairline: 0.5px;
+  }
+}
+
+hr,
+.divider-hairline {
+  border-top-width: var(--border-hairline);
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.sidebar {
+  border-right-width: var(--border-hairline);
+}
+
+.prose :is(thead, tbody tr) {
+  border-bottom-width: var(--border-hairline);
+}
+
 /* Every image carries the same edge treatment as any other surface: a 1px
    translucent line drawn just inside its bounds. `outline` rather than
    `border` so it costs no layout space, and `outline-offset: -1px` pulls it
