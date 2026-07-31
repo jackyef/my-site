@@ -469,8 +469,7 @@ h6 {
   }
 }
 
-hr,
-.divider-hairline {
+hr {
   border-top-width: var(--border-hairline);
   border-bottom-width: 0;
   border-left-width: 0;
@@ -551,8 +550,6 @@ html[data-theme-swapping] *::after {
 body,
 .sidebar,
 .content-area,
-.widget-card,
-.nav-btn,
 .chip,
 .card,
 pre {
@@ -751,16 +748,6 @@ h2 em {
 @media (min-width: 768px) {
   .widget-mobile-full {
     grid-column: span 1;
-  }
-}
-
-/* Widget offset-right: span 2 on mobile, start col 2 on desktop */
-.widget-offset-right {
-  grid-column: span 2;
-}
-@media (min-width: 768px) {
-  .widget-offset-right {
-    grid-column: 2 / -1;
   }
 }
 
