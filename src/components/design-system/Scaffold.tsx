@@ -112,7 +112,7 @@ export function CopyChip({
         'transition-[background,border-color,color] duration-[130ms]',
         'hover:border-(--color-border) hover:bg-(--color-bg-hover) hover:text-(--color-ink-2)',
         'hover:no-underline',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
         className,
       )}
     >
@@ -165,7 +165,7 @@ export function Snippet({
           'bg-(--color-bg-panel) text-(--color-ink-3)',
           'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
           'transition-[opacity,color] duration-[130ms] hover:text-(--color-accent-text)',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
         )}
       >
         Copy

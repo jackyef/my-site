@@ -266,7 +266,7 @@ export const Error404View = () => {
                 'inline-flex items-center gap-2 px-6 py-3 rounded-lg',
                 'bg-(--color-accent) text-white font-medium',
                 'hover:opacity-90 transition-opacity',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent)',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-focus-ring)',
               )}
             >
               &larr; Take me home

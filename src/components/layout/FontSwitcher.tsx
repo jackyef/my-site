@@ -39,7 +39,7 @@ export function FontSwitcher({
           'text-(--color-ink-3) cursor-pointer font-[inherit]',
           'transition-[background,border-color,color] duration-[130ms]',
           'hover:bg-(--color-bg-hover) hover:border-(--color-accent-l) hover:text-(--color-ink-2)',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
           'data-open:border-(--color-accent-l) data-open:text-(--color-ink-2)',
           compact
             ? // The compact trigger is a 30px square under a cursor, which is

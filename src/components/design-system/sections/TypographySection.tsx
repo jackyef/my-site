@@ -173,7 +173,7 @@ export function TypographySection() {
                 className={cn(
                   'text-left rounded-xl border px-4 py-[14px] cursor-pointer',
                   'transition-[background,border-color] duration-[180ms]',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
                   isActive
                     ? 'border-(--color-accent-l) bg-(--color-bg-active)'
                     : 'border-(--color-border) bg-(--color-bg-panel) hover:border-(--color-border-hi)',

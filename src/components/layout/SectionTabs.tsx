@@ -77,7 +77,7 @@ export function SectionTabs({
                 // its right by a fraction of a pixel on each click — small,
                 // but measurable, and it reads as a shimmer along the row.
                 'flex items-center gap-[5px] px-3 pt-[13px] pb-[11px] -mb-px text-[13px] font-medium whitespace-nowrap relative cursor-pointer no-underline border-x-0 border-t-0 border-b-2 transition-[border-color,color] duration-150',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-accent) focus-visible:rounded-t-sm',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-focus-ring) focus-visible:rounded-t-sm',
                 isActive
                   ? 'text-(--color-accent-text) border-b-(--color-accent)'
                   : 'text-(--color-ink-3) border-b-transparent hover:text-(--color-ink)',

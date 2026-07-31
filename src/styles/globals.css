@@ -142,6 +142,12 @@
   --color-accent-xl: #eaf3f3;
   --color-accent-text: #2c6464;
   --color-on-accent: #ffffff;
+  /* Focus rings are neutral, not brand. A teal ring lands on teal-accented
+     controls and stops reading as a ring, and against the rest of the palette
+     it competes with the accent's real job of marking the active thing.
+     Near-black here, near-white in the dark themes — the same value as the
+     primary ink, which is the highest-contrast neutral each theme has. */
+  --color-focus-ring: #24242a;
   --grid-primary: rgba(44, 100, 100, 0.06);
   --grid-faint: rgba(44, 100, 100, 0.025);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -231,6 +237,7 @@
      3.45:1 on it — and the primary Button lightens the fill on hover, which
      drops it to 2.89:1. Dark ink reverses both: 5.56:1 at rest, 6.63:1 hovered. */
   --color-on-accent: #0f0f11;
+  --color-focus-ring: #d8d6d0;
 
   --grid-primary: rgba(74, 150, 150, 0.07);
   --grid-faint: rgba(74, 150, 150, 0.028);
@@ -315,6 +322,7 @@
   --color-accent-text: #7ac4c4;
   /* See the dim theme's note — same accent, same reason. */
   --color-on-accent: #0f0f11;
+  --color-focus-ring: #d8d6d0;
 
   --grid-primary: rgba(74, 150, 150, 0.08);
   --grid-faint: rgba(74, 150, 150, 0.03);
@@ -443,7 +451,7 @@ img {
 
 @layer base {
   *:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
 

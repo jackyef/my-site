@@ -235,7 +235,7 @@ export default function Resume({ featuredWritings }: Props) {
             aria-label="Interactive 3D room. Use W A S D or the arrow keys to move the camera."
             onFocus={() => setSceneFocused(true)}
             onBlur={() => setSceneFocused(false)}
-            className="print-hide relative z-10 mt-2 h-[76vh] min-h-[min(500px,88vh)] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) md:mt-4 md:h-[80vh]"
+            className="print-hide relative z-10 mt-2 h-[76vh] min-h-[min(500px,88vh)] w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-focus-ring) md:mt-4 md:h-[80vh]"
           >
             {/* The room's hit area. It stops at the slot even though the canvas
                 does not, which is what keeps the copy underneath the overhang

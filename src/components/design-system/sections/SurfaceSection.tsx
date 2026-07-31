@@ -138,7 +138,7 @@ export function SurfaceSection() {
               'border border-(--color-border-hi) bg-transparent text-(--color-ink-2)',
               'transition-[border-color,color] duration-[180ms]',
               'hover:border-(--color-accent) hover:text-(--color-accent-text)',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
             )}
           >
             Replay
