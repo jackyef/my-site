@@ -230,9 +230,16 @@
 
   --grid-primary: rgba(74, 150, 150, 0.07);
   --grid-faint: rgba(74, 150, 150, 0.028);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Rings, not shadows. A stacked black shadow is depth you can only see
+     against a light surface — on #1e1f24 it lands on near-black and
+     disappears, which is why panels, the palette and the mobile nav all read
+     as flat here while looking raised in light mode. A low-opacity white ring
+     is what separates surfaces in a dark theme; the wider blur stays only on
+     the top elevation, where something genuinely floats over the page. */
+  --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.09);
+  --shadow-lg:
+    0 0 0 1px rgba(255, 255, 255, 0.12), 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.2),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04),
@@ -306,9 +313,12 @@
 
   --grid-primary: rgba(74, 150, 150, 0.08);
   --grid-faint: rgba(74, 150, 150, 0.03);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* See the dim theme's note. Slightly brighter rings, since this ground is
+     darker still. */
+  --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --shadow-lg:
+    0 0 0 1px rgba(255, 255, 255, 0.14), 0 16px 48px rgba(0, 0, 0, 0.6);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 -1px 1px rgba(255, 255, 255, 0.06),
