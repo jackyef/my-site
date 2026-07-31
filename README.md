@@ -14,6 +14,11 @@ If you are interested on the thought process of building the site initially, you
 
 As I added more stuff to the site, I've gone back to using React as some dependencies I am using aren't compatible with Preact. `radix-ui`, for instance.
 
+## Setting up skills
+Skills are housed in a private repo. Can't make it public because some of them were paywalled and it's unethical to share it publicly.
+
+If you have access to the private repo, running `git submodule update --init --recursive` should work.
+
 ### References:
 
 - https://dev.to/ixartz/the-ultimate-nextjs-starter-for-your-blog-with-a-free-minimalist-theme-22bk
