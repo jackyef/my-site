@@ -156,6 +156,13 @@
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.07), inset 0 4px 8px rgba(0, 0, 0, 0.04),
     inset 0 -1px 2px rgba(255, 255, 255, 0.5);
+  /* A thumb sitting *inside* a recessed well — the segmented control's
+     selected segment. Not the same job as --shadow-sm, which lifts a card off
+     the page: the well around this one already establishes the depth, so all
+     this has to do is agree with the well's lighting. Light from above, so a
+     lit top edge and a short shadow cast down onto the well floor. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.09);
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.982 0.018 155.826);
   --color-info: oklch(0.546 0.215 262.881);
@@ -255,6 +262,11 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.2),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04),
     inset 0 -2px 4px rgba(255, 255, 255, 0.02);
+  /* Directional, like the well it sits in. A uniform ring here read as a grey
+     halo: it implies light arriving from every side at once, while the well
+     two pixels away is lit from above. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 1px 2px rgba(0, 0, 0, 0.45);
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.28 0.034 156.99);
   --color-info: oklch(0.714 0.143 254.624);
@@ -336,6 +348,9 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 -1px 1px rgba(255, 255, 255, 0.06),
     inset 0 -2px 4px rgba(255, 255, 255, 0.03);
+  /* See the dim theme's note. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 2px rgba(0, 0, 0, 0.55);
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.223 0.019 158.155);
   --color-info: oklch(0.714 0.143 254.624);
