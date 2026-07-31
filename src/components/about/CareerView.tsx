@@ -8,17 +8,21 @@ import { Text } from '@/components/common/Text';
 import { timelineEvents } from '@/components/about/careerEvents';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
-/** Bar fill and the dot beside each row — decorative, so the vivid -500s. */
+/**
+ * Bar fill and the dot beside each row — decorative, so the vivid -500s.
+ * In oklch like the rest of the palette; these feed CSS (`background`, and a
+ * `color-mix` for the unselected state), not three.js.
+ */
 const VARIANT_COLORS: Record<string, string> = {
-  amber: '#f59e0b',
-  sky: '#0ea5e9',
-  green: '#22c55e',
-  blue: '#3b82f6',
-  fuchsia: '#d946ef',
-  teal: '#14b8a6',
-  red: '#ef4444',
-  slate: '#64748b',
-  violet: '#8b5cf6',
+  amber: 'oklch(0.7686 0.1647 70.0804)',
+  sky: 'oklch(0.6847 0.1479 237.3225)',
+  green: 'oklch(0.7227 0.192 149.5793)',
+  blue: 'oklch(0.6231 0.188 259.8145)',
+  fuchsia: 'oklch(0.6668 0.2591 322.1499)',
+  teal: 'oklch(0.7038 0.123 182.5025)',
+  red: 'oklch(0.6368 0.2078 25.3313)',
+  slate: 'oklch(0.5544 0.0407 257.4166)',
+  violet: 'oklch(0.6056 0.2189 292.7172)',
 };
 
 /**

@@ -223,7 +223,10 @@ function WLDBar({ w, d, l }: { w: number; d: number; l: number }) {
               style={{ flex: w }}
             />
             <div className="bg-(--color-ink-4) mx-[1px]" style={{ flex: d }} />
-            <div className="bg-[#e05a5a] rounded-r-full" style={{ flex: l }} />
+            <div
+              className="bg-[oklch(0.6407_0.1681_23.0773)] rounded-r-full"
+              style={{ flex: l }}
+            />
           </>
         ) : (
           <div className="bg-(--color-border) w-full rounded-full" />
