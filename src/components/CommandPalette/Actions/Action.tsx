@@ -14,6 +14,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/utils/styles/classNames';
 import { publicUrl } from '@/utils/constants';
 
+import { toOptionId, useIsActiveOption } from '../activeOption';
 import { FONT_QUERIES_MAP } from '../constants/actions';
 
 import { HighlightedQuery } from './HighlightedQuery';
@@ -39,6 +40,9 @@ export const Action = ({
   const { setTheme } = useTheme();
   const { setPairing } = useFontPairing();
   const router = useRouter();
+
+  const optionId = toOptionId(type, href ?? query);
+  const isActive = useIsActiveOption(optionId);
 
   const isEnablingDarkTheme = query === 'Enable dark theme';
   const isEnablingDimTheme = query === 'Enable dim theme';
@@ -92,35 +96,25 @@ export const Action = ({
   };
 
   /**
-   * This effect handle prefetching routes when the button is focused.
-   * We can't use react `onFocus` because we are triggering focus on
-   * elements with `focusable-cmd-item` class manually.
+   * Prefetch the route once the row is the one the arrow keys are pointing at.
+   * This used to hang off a real `focus` event; focus now stays in the search
+   * input, so highlight is the signal that the user is about to commit.
    */
   useEffect(() => {
-    if (type !== 'navigation' || !href) return;
+    if (type !== 'navigation' || !href || !isActive) return;
 
-    const element = actionElementRef.current;
-    const handlePrefetch = () => {
-      router.prefetch(href);
-    };
-
-    if (element) {
-      element.addEventListener('focus', handlePrefetch);
-      element.addEventListener('hover', handlePrefetch);
-    }
-
-    return () => {
-      if (element) {
-        element.removeEventListener('focus', handlePrefetch);
-        element.removeEventListener('hover', handlePrefetch);
-      }
-    };
-  }, [href, router, type]);
+    router.prefetch(href);
+  }, [href, isActive, router, type]);
 
   return (
     <button
       ref={actionElementRef}
+      id={optionId}
       role="option"
+      aria-selected={isActive}
+      // Focus belongs to the combobox for the whole session; these rows are
+      // pointed at, never focused.
+      tabIndex={-1}
       onClick={handleClick}
       style={{
         scrollMarginTop: '2rem',
@@ -135,11 +129,11 @@ export const Action = ({
         'text-left',
         'text-sm',
         'hover:bg-(--color-bg-hover)',
-        'focus:bg-(--color-bg-hover)',
         'text-(--color-ink-2)',
         'transition-colors',
         'duration-150',
         'outline-none',
+        isActive && 'bg-(--color-bg-hover)',
       )}
     >
       <div className="flex items-center justify-between gap-2">

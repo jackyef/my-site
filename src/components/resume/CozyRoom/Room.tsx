@@ -419,7 +419,13 @@ export function Room({
                   }}
                   whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
                   whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-                  className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+                  // `distanceFactor` scales these with the camera, so their
+                  // on-screen size is well under the drawn box — they measured
+                  // 29×11px on a phone. The pseudo-element buys back some
+                  // slack for imprecise pointers; it cannot buy 44px without
+                  // making the labels dominate the room, so the chip row under
+                  // the canvas stays the full-size path to every section.
+                  className="relative cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors after:absolute after:-inset-3 after:content-[''] hover:border-(--color-accent) hover:text-(--color-accent-text)"
                   onMouseEnter={() => onHover(hotspot.id)}
                   onMouseLeave={() => onHover(null)}
                   onClick={(event) => {

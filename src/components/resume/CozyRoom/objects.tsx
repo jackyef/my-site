@@ -1949,7 +1949,10 @@ export function Avatar({
           <button
             type="button"
             aria-label="Open About me"
-            className="cursor-pointer rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+            // Same story as the other in-scene labels: drawn at one size,
+            // rendered smaller by the camera's distance scaling. The
+            // pseudo-element widens what you can hit without redrawing it.
+            className="relative cursor-pointer rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium whitespace-nowrap text-(--color-ink-2) shadow-(--shadow-md) transition-colors after:absolute after:-inset-3 after:content-[''] hover:border-(--color-accent) hover:text-(--color-accent-text)"
             onMouseEnter={() => onHover('about')}
             onMouseLeave={() => onHover(null)}
             onClick={(event) => {

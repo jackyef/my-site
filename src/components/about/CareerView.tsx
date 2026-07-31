@@ -8,6 +8,7 @@ import { Text } from '@/components/common/Text';
 import { timelineEvents } from '@/components/about/careerEvents';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
+/** Bar fill and the dot beside each row — decorative, so the vivid -500s. */
 const VARIANT_COLORS: Record<string, string> = {
   amber: '#f59e0b',
   sky: '#0ea5e9',
@@ -18,6 +19,24 @@ const VARIANT_COLORS: Record<string, string> = {
   red: '#ef4444',
   slate: '#64748b',
   violet: '#8b5cf6',
+};
+
+/**
+ * The same hue as a word rather than a block. Resolved per theme in
+ * globals.css, because a colour that reads on #f6f4ef and a colour that reads
+ * on #0f0f11 cannot be the same one — which is exactly how the org links ended
+ * up passing in dark mode and failing at 1.69:1 in light.
+ */
+const VARIANT_TEXT_COLORS: Record<string, string> = {
+  amber: 'var(--career-amber)',
+  sky: 'var(--career-sky)',
+  green: 'var(--career-green)',
+  blue: 'var(--career-blue)',
+  fuchsia: 'var(--career-fuchsia)',
+  teal: 'var(--career-teal)',
+  red: 'var(--career-red)',
+  slate: 'var(--career-slate)',
+  violet: 'var(--career-violet)',
 };
 
 const ORG_URLS: Record<string, string> = {
@@ -214,7 +233,10 @@ export function CareerView() {
                     left: yearToPx(y),
                     transform: 'translateX(-50%)',
                     fontSize: 10,
-                    color: 'var(--color-ink-4)',
+                    // ink-3, not ink-4. These years are the only scale the
+                    // chart has — you cannot read the bars without them, which
+                    // rules out the decorative tier (~2.9:1).
+                    color: 'var(--color-ink-3)',
                     fontWeight: 500,
                     userSelect: 'none',
                   }}
@@ -279,9 +301,17 @@ export function CareerView() {
                   }}
                   id={`career-bar-${i}`}
                   aria-pressed={isSelected}
+                  aria-label={`${item.title} at ${item.description}`}
                   data-index={i}
                   onClick={() => selectAndScrollList(i)}
                   title={`${item.title} @ ${item.description}`}
+                  // The bars are 20px tall and, for the shorter stints, as
+                  // little as 8px wide — a rounding error under a thumb. The
+                  // class lends each one a 44px-tall hit area without changing
+                  // what is drawn. Width stays honest to the dates, so the
+                  // full-size target for every entry is the list below, which
+                  // carries the same selection.
+                  className="career-bar"
                   style={{
                     position: 'absolute',
                     left: startPx,
@@ -299,7 +329,6 @@ export function CareerView() {
                       ? `0 0 0 2px var(--color-bg), 0 0 0 4px ${barColor}`
                       : 'none',
                     cursor: 'pointer',
-                    overflow: 'hidden',
                     transition:
                       'background 0.15s, box-shadow 0.15s, opacity 0.2s',
                     fontFamily: 'inherit',
@@ -332,6 +361,8 @@ export function CareerView() {
           const isCurrent = item.to >= TODAY;
           const barColor =
             VARIANT_COLORS[item.variant] ?? 'var(--color-accent)';
+          const labelColor =
+            VARIANT_TEXT_COLORS[item.variant] ?? 'var(--color-accent-text)';
           const orgUrl = ORG_URLS[item.description];
           const hasDetails = !!item.details;
 
@@ -382,7 +413,7 @@ export function CareerView() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[12px] font-medium hover:underline"
-                          style={{ color: barColor }}
+                          style={{ color: labelColor }}
                           onClick={(e) => e.stopPropagation()}
                         >
                           {item.description} ↗

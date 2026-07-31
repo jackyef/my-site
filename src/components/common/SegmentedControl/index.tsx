@@ -38,7 +38,11 @@ export function SegmentedControl<T extends string>({
           aria-label={opt.label ? `Switch to ${opt.label}` : opt.title}
           aria-pressed={value === opt.value}
           className={cn(
-            'flex-1 flex items-center justify-center gap-1 px-[9px] py-[5px] text-[11px] font-medium cursor-pointer border-none font-[inherit] rounded-[7px] transition-[background,color,box-shadow] duration-[130ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-accent)',
+            // 5px of padding is plenty under a cursor and nowhere near enough
+            // under a thumb — these segments measured 23px tall on a phone.
+            // The touch bump is scoped to coarse pointers so the desktop
+            // sidebar keeps its compact control.
+            'flex-1 flex items-center justify-center gap-1 px-[9px] py-[5px] pointer-coarse:py-[16px] text-[11px] font-medium cursor-pointer border-none font-[inherit] rounded-[7px] transition-[background,color,box-shadow] duration-[130ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--color-accent)',
             value === opt.value
               ? 'bg-(--color-bg-panel) text-(--color-accent-text) shadow-(--shadow-sm)'
               : // ink-3, not ink-4: the unselected segments are the ones you

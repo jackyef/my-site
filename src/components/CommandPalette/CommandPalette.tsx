@@ -1,11 +1,12 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Surface } from '@/components/common/Surface';
 
 import { cn } from '@/utils/styles/classNames';
 
+import { ActiveOptionContext } from './activeOption';
 import { useCommandPaletteContext } from './hooks/useCommandPaletteContext';
 import { useNavigationAction } from './hooks/useNavigationAction';
 import { usePostSearch } from './hooks/usePostSearch';
@@ -17,6 +18,12 @@ import { SearchInput } from './SearchInput';
 export default () => {
   const { isOpen, setIsOpen } = useCommandPaletteContext();
   const [query, setQuery] = useState('');
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  // Radix restores focus to a Dialog.Trigger, and this palette has none — it
+  // opens from a global ⌘K listener. Without this the caret landed on <body>
+  // after Escape and a keyboard user had to tab in from the top of the page.
+  const openerRef = useRef<HTMLElement | null>(null);
   const { actionQueries, externalLinkResult, pageSearchResult } =
     useStaticResult({ query });
   const { data: postSearchResult } = usePostSearch(query);
@@ -36,7 +43,15 @@ export default () => {
         (event.ctrlKey && event.key === 'k')
       ) {
         event.preventDefault();
-        setIsOpen((prev) => !prev);
+
+        setIsOpen((prev) => {
+          // Remember where the caret was standing before we take it away.
+          if (!prev && document.activeElement instanceof HTMLElement) {
+            openerRef.current = document.activeElement;
+          }
+
+          return !prev;
+        });
       }
     };
 
@@ -47,36 +62,56 @@ export default () => {
     };
   }, [setIsOpen]);
 
+  const getOptions = useCallback(
+    () =>
+      Array.from(
+        contentRef.current?.querySelectorAll<HTMLElement>('[role="option"]') ??
+          [],
+      ),
+    [],
+  );
+
+  // A stale highlight is worse than none: every keystroke rebuilds the result
+  // list, so the selection resets to the top rather than pointing at a row that
+  // has since moved or disappeared.
+  useEffect(() => {
+    setActiveId(getOptions()[0]?.id ?? null);
+  }, [
+    query,
+    actionQueries,
+    pageSearchResult,
+    externalLinkResult,
+    postSearchResult,
+    getOptions,
+  ]);
+
+  const moveActive = (delta: number) => {
+    const options = getOptions();
+    if (options.length === 0) return;
+
+    const currentIndex = options.findIndex((el) => el.id === activeId);
+    const nextIndex =
+      currentIndex === -1
+        ? 0
+        : (currentIndex + delta + options.length) % options.length;
+    const next = options[nextIndex];
+
+    setActiveId(next.id);
+    next.scrollIntoView({ block: 'nearest' });
+  };
+
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
-    const activeElement = document.activeElement;
-    const container = e.currentTarget;
-
-    if (!activeElement) return;
-
-    const focusableElements = Array.from(
-      container.querySelectorAll('.focusable-cmd-item'),
-    );
-
-    const activeElementIndex = focusableElements.findIndex(
-      (el) => el === activeElement,
-    );
-
-    // Move focus with arrow keys
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-
-      const newIndex = (activeElementIndex + 1) % focusableElements.length;
-
-      (focusableElements[newIndex] as HTMLElement)?.focus();
+      moveActive(1);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-
-      const newIndex =
-        activeElementIndex === 0
-          ? focusableElements.length - 1
-          : activeElementIndex - 1;
-
-      (focusableElements[newIndex] as HTMLElement)?.focus();
+      moveActive(-1);
+    } else if (e.key === 'Enter' && activeId) {
+      e.preventDefault();
+      getOptions()
+        .find((el) => el.id === activeId)
+        ?.click();
     }
   };
 
@@ -100,83 +135,99 @@ export default () => {
     hasActions || hasPostResults || hasPageResults || hasExternalLinkResults;
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
-      <Dialog.Overlay>
-        <div
-          className="backdrop-blur fixed inset-0 animate-fadeIn"
-          style={{ background: 'rgba(0, 0, 0, 0.3)', zIndex: 1000 }}
-        />
-      </Dialog.Overlay>
-      <Dialog.Content asChild>
-        <Surface
-          elevation="lg"
-          rounded="lg"
-          onKeyDown={handleKeyDown}
-          className={cn(
-            'p-1.5',
-            'animate-fadeIn',
-            'transition-colors',
-            'duration-500',
-            'text-(--color-ink-2)',
-            'fixed left-1/2 -translate-x-1/2 w-[90vw] max-w-lg',
-          )}
-          style={{
-            top: '12vh',
-            zIndex: 1001,
+    <ActiveOptionContext.Provider value={activeId}>
+      <Dialog.Root open={isOpen} onOpenChange={setIsOpen} modal>
+        <Dialog.Overlay>
+          <div
+            className="backdrop-blur fixed inset-0 animate-palette-overlay z-(--z-modal-backdrop)"
+            style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+          />
+        </Dialog.Overlay>
+        <Dialog.Content
+          asChild
+          onCloseAutoFocus={(event) => {
+            const opener = openerRef.current;
+            if (!opener?.isConnected) return;
+
+            event.preventDefault();
+            opener.focus();
           }}
         >
-          <VisuallyHidden.Root>
-            <Dialog.Title>Command palette</Dialog.Title>
-            <Dialog.Description>
-              Search for actions, pages, and posts
-            </Dialog.Description>
-          </VisuallyHidden.Root>
-          <SearchInput
-            placeholder={getPlaceholderText()}
-            value={query}
-            autoFocus
-            onChange={handleChangeQuery}
-            hasResults={hasResults}
-          />
-          {hasResults && (
-            <ResultBox>
-              {/* Actions */}
-              <ResultSection
-                query={query}
-                results={actionQueries}
-                type="action"
-                heading="Actions"
-              />
+          <Surface
+            ref={contentRef}
+            elevation="lg"
+            rounded="lg"
+            onKeyDown={handleKeyDown}
+            className={cn(
+              'p-1.5',
+              'animate-palette-in',
+              'transition-colors',
+              'duration-200',
+              'text-(--color-ink-2)',
+              // Centred with auto margins rather than a -50% translate, so the
+              // entrance keyframe owns `transform` outright and cannot fight a
+              // layout offset baked into the same property.
+              'fixed inset-x-0 mx-auto w-[90vw] max-w-lg',
+              'z-(--z-modal)',
+            )}
+            style={{
+              top: '12vh',
+            }}
+          >
+            <VisuallyHidden.Root>
+              <Dialog.Title>Command palette</Dialog.Title>
+              <Dialog.Description>
+                Search for actions, pages, and posts
+              </Dialog.Description>
+            </VisuallyHidden.Root>
+            <SearchInput
+              placeholder={getPlaceholderText()}
+              value={query}
+              autoFocus
+              onChange={handleChangeQuery}
+              hasResults={hasResults}
+              activeId={activeId}
+            />
+            {hasResults && (
+              <ResultBox>
+                {/* Actions */}
+                <ResultSection
+                  query={query}
+                  results={actionQueries}
+                  type="action"
+                  heading="Actions"
+                />
 
-              {/* Pages */}
-              <ResultSection
-                query={query}
-                results={pageSearchResult}
-                type="navigation"
-                heading="Pages"
-                onResultClick={setShouldCloseAfterNavigation}
-              />
+                {/* Pages */}
+                <ResultSection
+                  query={query}
+                  results={pageSearchResult}
+                  type="navigation"
+                  heading="Pages"
+                  onResultClick={setShouldCloseAfterNavigation}
+                />
 
-              {/* External links */}
-              <ResultSection
-                query={query}
-                results={externalLinkResult}
-                type="navigation-external"
-                heading="External links"
-              />
+                {/* External links */}
+                <ResultSection
+                  query={query}
+                  results={externalLinkResult}
+                  type="navigation-external"
+                  heading="External links"
+                />
 
-              {/* Posts */}
-              <ResultSection
-                query={query}
-                results={postSearchResult}
-                type="navigation"
-                heading="Posts"
-                onResultClick={setShouldCloseAfterNavigation}
-              />
-            </ResultBox>
-          )}
-        </Surface>
-      </Dialog.Content>
-    </Dialog.Root>
+                {/* Posts */}
+                <ResultSection
+                  query={query}
+                  results={postSearchResult}
+                  type="navigation"
+                  heading="Posts"
+                  onResultClick={setShouldCloseAfterNavigation}
+                />
+              </ResultBox>
+            )}
+          </Surface>
+        </Dialog.Content>
+      </Dialog.Root>
+    </ActiveOptionContext.Provider>
   );
 };

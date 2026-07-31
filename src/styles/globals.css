@@ -19,6 +19,28 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
+  /* Registering the keyframes as theme animations is what makes
+     `animate-palette-in` resolve to something — a bare `animate-<name>` class
+     with no matching token compiles to `animation: var(--animate-<name>)` and
+     silently does nothing. */
+  --animate-palette-in: palette-in 180ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  --animate-palette-overlay: palette-overlay-in 140ms ease-out both;
+
+  /* ── Stacking order ──────────────────────────────────────────────
+     App-level chrome only. Anything that stacks inside its own card or
+     section keeps a plain z-10/z-20 — those are local and stay local.
+     The layers here all float over the page, so they need to agree on an
+     order in one place rather than each picking a bigger number than the
+     last (this ramp replaced a 48/49/50 next to a 1000/1001 next to an
+     1100). Use as `z-(--z-modal)`. */
+  --z-sticky: 10; /* section tab bars that pin under the viewport top */
+  --z-chrome-backdrop: 40; /* scrim behind the mobile nav */
+  --z-chrome-panel: 45; /* the mobile nav card, PWA install prompt */
+  --z-chrome-fab: 50; /* the button that opens them */
+  --z-modal-backdrop: 60; /* command palette scrim */
+  --z-modal: 65; /* command palette surface */
+  --z-popover: 70; /* menus launched from inside any of the above */
+
   /* Code syntax highlighting (for MDX/Prism token classes) — resolved per theme */
   --color-code-green: var(--code-green);
   --color-code-yellow: var(--code-yellow);
@@ -137,6 +159,13 @@
   --color-danger: #dc2626;
   --color-danger-bg: #fef2f2;
 
+  /* Status colours as *text*. The fills above are tuned to read as a dot or a
+     bar; at 9px in a grade badge the same green measured 2.13:1. Same split as
+     the career ramp — one hue, two jobs, two values. */
+  --color-success-text: #166534;
+  --color-warning-text: #92400e;
+  --color-danger-text: #b91c1c;
+
   /* ── Code block ── */
   --code-bg: #f4f2ed;
   --code-text: #3a3a40;
@@ -147,12 +176,33 @@
   --code-blue: #0550ae;
   --code-base: #3a3a40;
   --code-teal: #0a7175;
-  --code-comment: #6e7781;
+  /* Darkened from #6e7781 (4.06:1 on --code-bg). Comments are prose, and
+     often the part of a snippet doing the explaining. */
+  --code-comment: #5c6570;
 
   /* ── Chrome ── */
   --scroll-gutter: hsl(0deg 0% 92%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* ── Career timeline: label colours ──────────────────────────────
+     The chart bars are painted with the vivid -500 hexes in CareerView, and
+     the org link beside each row used to reuse that exact value as text.
+     A 12px "Sticker Mule" in #f59e0b lands at 1.69:1 on the light panel —
+     the same colour is fine as a 20px block of fill and unreadable as a
+     word. These are the -800s, for the text half of that job only; the
+     dark themes get the -400s below, where the polarity flips. The -700s
+     cleared white but not --color-bg-hover, which is the row you are on
+     when you are actually reading one of these. */
+  --career-amber: #92400e;
+  --career-sky: #075985;
+  --career-green: #166534;
+  --career-blue: #1e40af;
+  --career-fuchsia: #86198f;
+  --career-teal: #115e59;
+  --career-red: #991b1b;
+  --career-slate: #334155;
+  --career-violet: #5b21b6;
 }
 
 [data-theme='dim'] {
@@ -196,6 +246,11 @@
   --color-danger: #f87171;
   --color-danger-bg: #2a1e1e;
 
+  /* Status colours as text — the bright end reads on a dark panel. */
+  --color-success-text: #4ade80;
+  --color-warning-text: #fbbf24;
+  --color-danger-text: #f87171;
+
   /* ── Code block ── */
   --code-bg: #1a1b22;
   --code-text: #d4d4d8;
@@ -206,12 +261,25 @@
   --code-blue: #93ddfd;
   --code-base: #e4e4e8;
   --code-teal: #7fdbca;
-  --code-comment: #6b7280;
+  /* Lightened from #6b7280 (3.9:1 on --code-bg). */
+  --code-comment: #8b95a3;
 
   /* ── Chrome ── */
   --scroll-gutter: hsl(225deg 13% 15%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* Career timeline label colours — the -400s. On a near-black panel the
+     bright end of each ramp is the readable one, the mirror of light mode. */
+  --career-amber: #fbbf24;
+  --career-sky: #38bdf8;
+  --career-green: #4ade80;
+  --career-blue: #60a5fa;
+  --career-fuchsia: #e879f9;
+  --career-teal: #2dd4bf;
+  --career-slate: #94a3b8;
+  --career-red: #f87171;
+  --career-violet: #a78bfa;
 }
 
 [data-theme='dark'] {
@@ -254,6 +322,11 @@
   --color-danger: #f87171;
   --color-danger-bg: #221616;
 
+  /* Status colours as text — the bright end reads on a dark panel. */
+  --color-success-text: #4ade80;
+  --color-warning-text: #fbbf24;
+  --color-danger-text: #f87171;
+
   /* ── Code block ── */
   --code-bg: #111113;
   --code-text: #d4d4d8;
@@ -264,12 +337,25 @@
   --code-blue: #93ddfd;
   --code-base: #e4e4e8;
   --code-teal: #7fdbca;
-  --code-comment: #6b7280;
+  /* Lightened from #6b7280 (3.9:1 on --code-bg). */
+  --code-comment: #8b95a3;
 
   /* ── Chrome ── */
   --scroll-gutter: hsl(240deg 10% 9%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* Career timeline label colours — the -400s. On a near-black panel the
+     bright end of each ramp is the readable one, the mirror of light mode. */
+  --career-amber: #fbbf24;
+  --career-sky: #38bdf8;
+  --career-green: #4ade80;
+  --career-blue: #60a5fa;
+  --career-fuchsia: #e879f9;
+  --career-teal: #2dd4bf;
+  --career-slate: #94a3b8;
+  --career-red: #f87171;
+  --career-violet: #a78bfa;
 }
 
 /* ═══════════════════════════════════════
@@ -289,9 +375,26 @@ body {
   font-family: var(--font-sans);
   font-size: var(--type-body-size);
   line-height: var(--type-body-lh);
+  /* Six switchable pairings, each loaded at a subset of its weights and
+     styles. Without this the browser quietly fakes a missing bold by smearing
+     the regular, or a missing italic by shearing it — which looks like a
+     rendering bug you cannot find rather than a font you did not load. */
+  font-synthesis: none;
   transition:
     background-color 0.22s ease,
     color 0.22s ease;
+}
+
+/* Headings set their own line breaks rather than filling greedily, so the last
+   line stops stranding a single word under a full one. Cheap here and the
+   display face is large enough everywhere that the difference shows. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
 @layer base {
@@ -703,6 +806,22 @@ h2 em {
    COMMAND PALETTE
 ═══════════════════════════════════════ */
 
+/* Career swimlane bars: the drawn bar stays the width of the stint it
+   represents, but the thing you can hit is 44px tall. Vertical only —
+   the bars sit shoulder to shoulder, so widening the hit area would have
+   each one stealing taps from its neighbour. */
+.career-bar::after {
+  content: '';
+  position: absolute;
+  inset: -12px 0;
+}
+
+@media (pointer: fine) {
+  .career-bar::after {
+    inset: 0;
+  }
+}
+
 /* Ensure CMD palette items have nice rounding on last item */
 [role='listbox'] .focusable-cmd-item:last-of-type {
   border-bottom-right-radius: 0.375rem;
@@ -724,6 +843,31 @@ h2 em {
   }
   to {
     opacity: 0;
+  }
+}
+
+/* The palette used to carry an `animate-fadeIn` class that named a keyframe
+   nobody ever wrote — computed `animation-name` resolved to `none`, so it
+   appeared instantly with no transition at all. These are the real thing:
+   short, ease-out, and scaling from just under full size rather than from
+   zero, anchored to the top edge the panel hangs from. */
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes palette-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

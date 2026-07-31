@@ -26,7 +26,7 @@ export function WritingView({ featuredWritings }: WritingViewProps) {
       </div>
 
       <div className="mt-4">
-        <TextLink className="text-[13px]" href="/blog">
+        <TextLink standalone className="text-[13px]" href="/blog">
           View all writings →
         </TextLink>
       </div>

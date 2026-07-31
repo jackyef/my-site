@@ -14,9 +14,12 @@ export const LanguageSwitcher = ({
   disabled,
 }: Props) => {
   const base =
-    'py-2 px-2.5 w-32 border-2 border-(--color-border) text-(--color-ink-3) transition-all duration-150 disabled:opacity-60';
+    'py-2 px-2.5 w-32 border-2 border-(--color-border) text-(--color-ink-3) transition-[color,border-color,background-color,opacity] duration-150 disabled:opacity-60';
+  // No font-weight swap: the fill, border and colour already mark the active
+  // language, and bolding on top of them reflows the label inside a fixed w-32
+  // box every time you toggle.
   const active =
-    'font-bold text-(--color-accent-text) bg-(--color-accent-xl) !border-(--color-accent)';
+    'text-(--color-accent-text) bg-(--color-accent-xl) !border-(--color-accent)';
 
   return (
     <div className="flex justify-center mt-12 mb-24">

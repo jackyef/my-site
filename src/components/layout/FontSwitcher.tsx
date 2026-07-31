@@ -42,8 +42,10 @@ export function FontSwitcher({
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
           'data-open:border-(--color-accent-l) data-open:text-(--color-ink-2)',
           compact
-            ? 'justify-center p-[7px]'
-            : 'gap-[6px] px-[10px] py-[6px] text-[13px] text-left',
+            ? // The compact trigger is a 30px square under a cursor, which is
+              // fine, and a 30px square under a thumb, which is not.
+              'justify-center p-[7px] pointer-coarse:p-[15px]'
+            : 'gap-[6px] px-[10px] py-[6px] text-[13px] text-left pointer-coarse:py-[12px]',
           className,
         )}
       >
@@ -62,7 +64,7 @@ export function FontSwitcher({
         anchor={anchor}
         transition
         className={cn(
-          'z-[1100] w-[228px] max-h-[min(420px,60vh)] overflow-y-auto',
+          'z-(--z-popover) w-[228px] max-h-[min(420px,60vh)] overflow-y-auto',
           'rounded-[10px] border border-(--color-border) bg-(--color-bg-panel)',
           'shadow-(--shadow-lg) p-1 [--anchor-gap:6px] [--anchor-padding:8px]',
           'origin-top transition duration-150 ease-out',
@@ -88,7 +90,10 @@ export function FontSwitcher({
               >
                 {option.label}
               </span>
-              <span className="block text-[11px] leading-[1.4] mt-[1px] text-(--color-ink-4)">
+              {/* ink-3, not ink-4: this line is the only thing telling you
+                  what the pairing is for, so it has to be readable on its
+                  own. */}
+              <span className="block text-[11px] leading-[1.4] mt-[1px] text-(--color-ink-3)">
                 {option.description}
               </span>
             </span>

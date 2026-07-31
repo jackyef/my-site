@@ -58,12 +58,16 @@ export function gradeContrast(ratio: number): ContrastGrade {
   return 'Fail';
 }
 
+// Text from the -text tokens, borders from the plain ones. A grid whose whole
+// job is measuring contrast was setting these 9px badges in the fill colours —
+// "AAA" itself measured 2.13:1, which the grid would have failed had it been
+// pointed at itself.
 export const GRADE_STYLES: Record<ContrastGrade, string> = {
-  AAA: 'text-(--color-success) border-(--color-success)',
-  AA: 'text-(--color-success) border-(--color-success)',
-  'AA Large': 'text-(--color-warning) border-(--color-warning)',
+  AAA: 'text-(--color-success-text) border-(--color-success)',
+  AA: 'text-(--color-success-text) border-(--color-success)',
+  'AA Large': 'text-(--color-warning-text) border-(--color-warning)',
   // A failure reads as a failure. The ink-4 row goes red on purpose — it is
   // genuinely below the floor, which is exactly why nothing that has to be
   // read on its own is allowed to use it.
-  Fail: 'text-(--color-danger) border-(--color-danger)',
+  Fail: 'text-(--color-danger-text) border-(--color-danger)',
 };

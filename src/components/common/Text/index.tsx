@@ -28,13 +28,23 @@ const colorMap: Record<TextColor, string> = {
   accent: 'text-(--color-accent-text)',
 };
 
-/** Default color per variant — matches the design system's text hierarchy */
+/**
+ * Default color per variant — matches the design system's text hierarchy.
+ *
+ * `caption-sm` used to default to `ink-4`, which is the one tier the ramp
+ * documents as unreadable on purpose ("separator marks, sparkline fills and
+ * icons that repeat information an adjacent element already carries"). Being
+ * the default meant every 11px caption opted into ~2.5:1 without asking —
+ * career date ranges and timeline years among them. Small is a size, not a
+ * licence to be faint; `color="ink-4"` is still there for the genuinely
+ * decorative cases.
+ */
 const defaultColor: Record<TextVariant, TextColor> = {
   lead: 'ink',
   body: 'ink-2',
   'body-sm': 'ink-2',
   caption: 'ink-3',
-  'caption-sm': 'ink-4',
+  'caption-sm': 'ink-3',
 };
 
 export function Text({

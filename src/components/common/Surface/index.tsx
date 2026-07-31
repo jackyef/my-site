@@ -8,6 +8,12 @@ interface SurfaceProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   className?: string;
   children: React.ReactNode;
+  /**
+   * React 19 hands `ref` to function components as an ordinary prop, so this
+   * only needs declaring for the type-checker. Radix's `asChild` relies on it
+   * to reach the underlying node.
+   */
+  ref?: React.Ref<HTMLElement>;
 }
 
 const elevationMap = {

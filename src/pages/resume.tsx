@@ -291,7 +291,7 @@ export default function Resume({ featuredWritings }: Props) {
               <button
                 type="button"
                 onClick={() => setResetSignal((signal) => signal + 1)}
-                className="absolute top-3 right-3 z-20 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-[7px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-[color,border-color,transform] duration-150 hover:-translate-y-px hover:border-(--color-accent) hover:text-(--color-accent-text) active:scale-[0.96]"
+                className="absolute top-3 right-3 z-20 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 py-[7px] pointer-coarse:py-[15px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-[color,border-color,transform] duration-150 hover:-translate-y-px hover:border-(--color-accent) hover:text-(--color-accent-text) active:scale-[0.96]"
               >
                 <RotateCcwIcon size={13} aria-hidden="true" />
                 Reset view
@@ -315,35 +315,50 @@ export default function Resume({ featuredWritings }: Props) {
                 sheared the top off the pills' 1px hover lift — the inset
                 padding gives it somewhere to go, and the negative margin
                 keeps the row's own spacing unchanged. */}
-            <div className="-my-2 flex items-center gap-2 overflow-x-auto py-2 pr-16 [scrollbar-width:none] md:flex-wrap md:overflow-x-visible md:pr-0 [&::-webkit-scrollbar]:hidden">
-              {HOTSPOT_BUTTONS.map((button) => (
-                <button
-                  key={button.id}
-                  type="button"
-                  onClick={() =>
-                    goToView(view === button.id ? 'overview' : button.id)
-                  }
-                  className={cn(
-                    'inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] text-[13px] leading-none font-medium whitespace-nowrap transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
-                    view === button.id
-                      ? 'border-(--color-accent-l) bg-(--color-accent-xl) text-(--color-accent-text)'
-                      : 'border-(--color-border-hi) text-(--color-ink-2) hover:border-(--color-accent) hover:text-(--color-accent-text)',
-                  )}
-                >
-                  {button.icon}
-                  <span className="leading-none">
-                    {SECTION_TITLES[button.id]}
-                  </span>
-                </button>
-              ))}
+            {/* The scrollbar is hidden by design, which left nothing at all to
+                say the row continues — "Say hello" sat off the right edge of a
+                390px screen with no hint it existed. This is a painted overlay
+                rather than a `mask-image` on the row: Blink hit-tests through
+                mask alpha, so fading the right edge that way made the last
+                chip genuinely unclickable. `pointer-events-none` keeps this
+                one purely cosmetic. */}
+            <div className="relative">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-(--color-bg) to-transparent md:hidden"
+              />
+              <div className="-my-2 flex items-center gap-2 overflow-x-auto py-2 pr-16 [scrollbar-width:none] md:flex-wrap md:overflow-x-visible md:pr-0 [&::-webkit-scrollbar]:hidden">
+                {HOTSPOT_BUTTONS.map((button) => (
+                  <button
+                    key={button.id}
+                    type="button"
+                    onClick={() =>
+                      goToView(view === button.id ? 'overview' : button.id)
+                    }
+                    className={cn(
+                      // py-[7px] is a 30px pill — fine under a cursor, short of
+                      // a thumb. The touch bump is scoped to coarse pointers.
+                      'inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-3 py-[7px] pointer-coarse:py-[14px] text-[13px] leading-none font-medium whitespace-nowrap transition-[color,border-color,background-color,transform] duration-150 hover:-translate-y-px active:scale-[0.96]',
+                      view === button.id
+                        ? 'border-(--color-accent-l) bg-(--color-accent-xl) text-(--color-accent-text)'
+                        : 'border-(--color-border-hi) text-(--color-ink-2) hover:border-(--color-accent) hover:text-(--color-accent-text)',
+                    )}
+                  >
+                    {button.icon}
+                    <span className="leading-none">
+                      {SECTION_TITLES[button.id]}
+                    </span>
+                  </button>
+                ))}
 
-              <button
-                type="button"
-                onClick={() => setFlatMode(true)}
-                className="ml-auto shrink-0 cursor-pointer pl-2 text-[13px] font-medium whitespace-nowrap text-(--color-ink-3) hover:text-(--color-ink-2) hover:underline"
-              >
-                Prefer plain text?
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setFlatMode(true)}
+                  className="ml-auto shrink-0 cursor-pointer pl-2 py-1 pointer-coarse:py-3 text-[13px] font-medium whitespace-nowrap text-(--color-ink-3) hover:text-(--color-ink-2) hover:underline"
+                >
+                  Prefer plain text?
+                </button>
+              </div>
             </div>
           </div>
 

@@ -103,7 +103,10 @@ export function CopyChip({
       title={`Copy ${value}`}
       className={cn(
         'group/copy inline-flex items-center gap-[5px] cursor-pointer',
-        'font-mono text-[11px] leading-none px-[6px] py-[4px] rounded-md',
+        // These sit in dense token tables where a 21px row is right under a
+        // cursor; on touch the same row is a coin toss. Coarse pointers get
+        // the padding, fine ones keep the density.
+        'font-mono text-[11px] leading-none px-[6px] py-[4px] pointer-coarse:py-[16px] rounded-md',
         'border border-transparent bg-transparent text-(--color-ink-3)',
         'decoration-dotted underline underline-offset-[3px] decoration-(--color-ink-4)',
         'transition-[background,border-color,color] duration-[130ms]',

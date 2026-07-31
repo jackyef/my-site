@@ -5,26 +5,42 @@ test.describe('About page', () => {
     await page.goto('/about');
   });
 
+  // These were written against role="tab"/"tabpanel", which the section bar no
+  // longer claims: all four sections are visible at once and the bar scrolls
+  // between them, so it is a nav of anchor links and says so.
+  const sectionNav = (page: import('@playwright/test').Page) =>
+    page.getByRole('navigation', { name: 'Sections' });
+
   test('page loads', async ({ page }) => {
-    await expect(page.getByRole('tab', { name: 'Bio' })).toBeVisible();
+    await expect(
+      sectionNav(page).getByRole('link', { name: 'Bio' }),
+    ).toBeVisible();
   });
 
-  test('tab switching works', async ({ page }) => {
-    const tabs = ['Bio', 'Career', 'Projects', 'Writing'];
+  test('section links mark the current section', async ({ page }) => {
+    const sections = ['Bio', 'Career', 'Projects', 'Writing'];
 
-    for (const tabName of tabs) {
-      const tab = page.getByRole('tab', { name: tabName });
-      await tab.click();
-      await expect(tab).toHaveAttribute('aria-selected', 'true');
+    for (const name of sections) {
+      const link = sectionNav(page).getByRole('link', { name });
+      await link.click();
+      await expect(link).toHaveAttribute('aria-current', 'location');
     }
   });
 
-  test('all tab panels exist', async ({ page }) => {
-    const panels = ['bio', 'career', 'projects', 'writings'];
+  test('every section is present and reachable', async ({ page }) => {
+    const ids = ['bio', 'career', 'projects', 'writings'];
 
-    for (const id of panels) {
-      const panel = page.locator(`[role="tabpanel"]#${id}`);
-      await expect(panel).toBeAttached();
+    for (const id of ids) {
+      await expect(page.locator(`section#${id}`)).toBeAttached();
+      await expect(sectionNav(page).locator(`a[href="#${id}"]`)).toBeAttached();
+    }
+  });
+
+  test('sections are not hidden from each other', async ({ page }) => {
+    // The tab roles promised one visible panel at a time. Nothing hides them,
+    // and this is the assertion that keeps the markup honest about it.
+    for (const id of ['bio', 'career', 'projects', 'writings']) {
+      await expect(page.locator(`section#${id}`)).toBeVisible();
     }
   });
 });
@@ -33,7 +49,10 @@ test.describe('Career timeline', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/about');
     // Navigate to career section
-    await page.getByRole('tab', { name: 'Career' }).click();
+    await page
+      .getByRole('navigation', { name: 'Sections' })
+      .getByRole('link', { name: 'Career' })
+      .click();
   });
 
   test('gantt chart renders with bars', async ({ page }) => {
@@ -88,16 +107,18 @@ test.describe('Career timeline', () => {
     );
 
     // Previously selected bar should be deselected
-    await expect(
-      page.locator(`#career-bar-${count - 1}`),
-    ).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator(`#career-bar-${count - 1}`)).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    );
 
     // Click a middle bar
     const midIndex = Math.floor(count / 2);
     await page.locator(`#career-bar-${midIndex}`).click();
-    await expect(
-      page.locator(`#career-bar-${midIndex}`),
-    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator(`#career-bar-${midIndex}`)).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
 
     // Previous selection should be cleared
     await expect(page.locator('#career-bar-0')).toHaveAttribute(
@@ -120,9 +141,10 @@ test.describe('Career timeline', () => {
     const count = await bars.count();
 
     // Last bar in chart corresponds to first item in list (newest)
-    await expect(
-      page.locator(`#career-bar-${count - 1}`),
-    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator(`#career-bar-${count - 1}`)).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
   });
 
   test('expanded card shows details content', async ({ page }) => {
