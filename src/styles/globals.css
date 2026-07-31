@@ -380,6 +380,11 @@ body {
      the regular, or a missing italic by shearing it — which looks like a
      rendering bug you cannot find rather than a font you did not load. */
   font-synthesis: none;
+  /* Declared once at the root and inherited. macOS lays ink on thick, which
+     reads as a heavier, muddier face than the one that was chosen — most
+     visible on the display serif at large sizes. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition:
     background-color 0.22s ease,
     color 0.22s ease;
@@ -387,7 +392,10 @@ body {
 
 /* Headings set their own line breaks rather than filling greedily, so the last
    line stops stranding a single word under a full one. Cheap here and the
-   display face is large enough everywhere that the difference shows. */
+   display face is large enough everywhere that the difference shows.
+
+   `balance` stops at a handful of lines and spends horizontal space to even
+   them out, so it belongs on headings and nowhere near a paragraph. */
 h1,
 h2,
 h3,
@@ -395,6 +403,16 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+}
+
+/* Short descriptive blocks get `pretty` instead: it only pulls a word down
+   from the previous line to stop the last line being a lone orphan, without
+   rebalancing the whole block. Long-form body gets neither — see the prose
+   measure rule. Component-level roles carry `text-pretty` in the `Text`
+   component; these are the two that only exist as markup. */
+.prose blockquote,
+.prose figcaption {
+  text-wrap: pretty;
 }
 
 @layer base {
@@ -723,6 +741,24 @@ h2 em {
      code and spacing scale with it. Line height stays the plugin's 1.75,
      which is tuned for long-form reading. */
   font-size: var(--type-body-size);
+}
+
+/* ── Measure ──────────────────────────────────────────────────────
+   Post.tsx renders `.prose max-w-none`, which throws away the
+   typography plugin's own 65ch cap. Measured, that left body copy at
+   86 characters a line at every viewport — the column is pinned at
+   680px by the post layout, so it was not a width the reader could
+   escape by resizing. Past ~75 the eye starts losing its way back to
+   the start of the next line.
+
+   Capped on the text elements rather than on `.prose` itself: code
+   blocks, tables, images and the embedded MDX widgets are not reading
+   columns and keep the full 680px. `ch` rather than px because the
+   reading font is a visitor setting — the cap has to track whichever
+   of the six pairings is active, and a pixel value only holds for the
+   one it was measured against. */
+.prose :is(p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6) {
+  max-width: 66ch;
 }
 
 /* ── Hash-link anchors on headings ── */

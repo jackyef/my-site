@@ -16,7 +16,11 @@ export function BioView() {
         titleSpacing="mb-3"
       />
 
-      <div className="flex flex-col gap-4 max-w-[720px]">
+      {/* 720px put this column at 91 characters a line, the widest reading
+          measure on the site. `ch` instead of px so the cap follows whichever
+          of the six reading fonts is active rather than holding only for the
+          one it was measured against. */}
+      <div className="flex flex-col gap-4 max-w-[66ch]">
         <Text color="ink-3" className="leading-[1.75]">
           Frontend is where I go deepest, but I&apos;ve spent enough time in the
           surrounding infrastructure to understand how the whole thing fits

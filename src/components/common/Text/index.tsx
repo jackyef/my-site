@@ -12,12 +12,21 @@ interface TextProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
 }
 
+/**
+ * `text-pretty` on the short roles only.
+ *
+ * A standfirst or a caption is a two-or-three-line block where a lone word
+ * stranded on the last line is the whole shape of it, and `pretty` fixes that
+ * by pulling one word down. `body` and `lead` at a capped measure are running
+ * copy — `pretty` costs layout passes there for a payoff nobody sees, and
+ * `balance` would be worse still. Headings get `balance` globally instead.
+ */
 const variantMap: Record<TextVariant, string> = {
-  lead: 'text-lg md:text-xl leading-relaxed',
+  lead: 'text-lg md:text-xl leading-relaxed text-pretty',
   body: 'text-base leading-relaxed',
   'body-sm': 'text-sm leading-relaxed',
-  caption: 'text-[13px] leading-normal',
-  'caption-sm': 'text-[11px] leading-normal',
+  caption: 'text-[13px] leading-normal text-pretty',
+  'caption-sm': 'text-[11px] leading-normal text-pretty',
 };
 
 const colorMap: Record<TextColor, string> = {

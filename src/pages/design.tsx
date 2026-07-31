@@ -128,7 +128,7 @@ export default function DesignSystemPage() {
               ))}
             </dl>
 
-            <Text variant="caption" color="ink-3" className="mb-2">
+            <Text variant="caption" color="ink-3" className="mb-2 max-w-[66ch]">
               Tokens live in{' '}
               <code className="font-mono">src/styles/globals.css</code>;
               primitives in{' '}

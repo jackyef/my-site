@@ -468,7 +468,7 @@ export function CareerView() {
                     style={{ overflow: 'hidden' }}
                   >
                     <div className="pl-[30px] pr-3 pb-3">
-                      <div className="text-[14px] leading-[1.75] text-(--color-ink-3)">
+                      <div className="max-w-[66ch] text-[14px] leading-[1.75] text-(--color-ink-3)">
                         {item.details}
                       </div>
                     </div>

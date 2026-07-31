@@ -170,7 +170,14 @@ export function PatternsSection() {
                 <Text variant="caption" color="ink-2" className="font-semibold">
                   {title}
                 </Text>
-                <Text variant="caption">{body}</Text>
+                {/* Capped like every other reading column — a full-width list
+                    row put this at 97 characters a line. The cap sits on the
+                    text rather than the wrapper because `ch` resolves against
+                    the element's own font-size, and this copy is 13px inside a
+                    16px parent. */}
+                <Text variant="caption" className="max-w-[66ch]">
+                  {body}
+                </Text>
               </div>
             </li>
           ))}
