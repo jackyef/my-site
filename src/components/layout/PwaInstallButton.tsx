@@ -43,7 +43,7 @@ export function PwaInstallButton({ variant }: PwaInstallButtonProps) {
           animate={{ opacity: 1, scale: 1, x: 0 }}
           exit={{ opacity: 0, scale: 0.85, x: 20 }}
           transition={{ type: 'spring', stiffness: 400, damping: 26 }}
-          whileTap={{ scale: 0.92 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => trigger()}
           aria-label="Install app"
           className="fixed bottom-[26px] right-[76px] z-(--z-chrome-panel) flex items-center gap-[6px] px-3 py-[7px] rounded-full bg-(--color-bg-panel) border border-(--color-border) shadow-md text-(--color-accent-text) text-[13px] font-medium cursor-pointer font-[inherit]"

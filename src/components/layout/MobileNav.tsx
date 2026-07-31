@@ -164,7 +164,7 @@ export function MobileNav() {
         title={open ? 'Close menu' : 'Open menu'}
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         aria-expanded={open}
-        whileTap={{ scale: 0.92 }}
+        whileTap={{ scale: 0.96 }}
         className="fixed right-5 z-(--z-chrome-fab) w-[52px] h-[52px] rounded-full bg-(--color-accent) text-white border-none cursor-pointer flex items-center justify-center shadow-(--shadow-md) font-[inherit]"
         style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
       >
