@@ -19,9 +19,10 @@ export const theme: SandpackTheme = {
   syntax: {
     plain: '#fefefe',
     comment: {
-      // 3.94:1 on surface1. Comments are the part of a snippet doing the
-      // explaining — the same fix already applied to --code-comment for the
-      // blog's build-time blocks, which this editor theme predates.
+      // Was #757575 at 3.94:1 on surface1; this is 5.99:1. Comments are the
+      // part of a snippet doing the explaining — the same fix already applied
+      // to --code-comment for the blog's build-time blocks, which this editor
+      // theme predates.
       color: '#949494',
       fontStyle: 'italic',
     },
@@ -31,8 +32,9 @@ export const theme: SandpackTheme = {
     definition: '#bbe1e6',
     property: '#54b4c1',
     static: '#b4c153',
-    // 4.47:1 on surface1 — a rounding-margin miss rather than a dramatic one,
-    // but string literals are most of what you read in a snippet.
+    // Was #c153b4 at 4.47:1 on surface1, a rounding-margin miss rather than a
+    // dramatic one, but string literals are most of what you read in a
+    // snippet. This is 5.55:1.
     string: '#cd6ac0',
   },
   font: {
