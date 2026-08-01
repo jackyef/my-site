@@ -5,7 +5,7 @@ export const Pre: FunctionComponent<HTMLProps<HTMLPreElement>> = ({
   ...props
 }) => (
   <pre
-    className={`${className} scroll-slim rounded-lg bg-(--code-bg) border border-(--color-border) py-3 px-4 overflow-x-auto`}
+    className={`${className} rounded-lg bg-(--code-bg) border border-(--color-border) py-3 px-4 overflow-x-auto`}
     {...props}
   />
 );

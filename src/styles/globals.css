@@ -196,6 +196,20 @@
     var(--color-bg-panel),
     oklch(from var(--color-bg) calc(l + 0.007) c h)
   );
+  /* The recessed strip a panel's controls sit in, and the hairline along its
+     top. Exactly one of the two is ever visible: a tone step and a rule are
+     two ways of saying the same thing, and drawing both is what made the
+     bottom of the mobile nav read as a stack of boxes.
+
+     Which one does the work is decided by how much tonal room the theme has.
+     Light has almost none — the panel is pure white and the well below it is
+     --color-bg at 0.967, so a tray tucked between them lands inside 3% of
+     lightness and disappears, while a tray darker than the well makes the well
+     look raised instead of sunk. So light draws the rule and leaves the fill
+     alone; the dark themes have room to spare and use the fill. Same
+     asymmetry, and the same cause, as --panel-fill's direction flip. */
+  --panel-tray: transparent;
+  --panel-tray-edge: var(--color-border);
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.982 0.018 155.826);
   --color-info: oklch(0.546 0.215 262.881);
@@ -289,12 +303,19 @@
      the top elevation, where something genuinely floats over the page. */
   --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
   --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.09);
-  /* Ring, cast shadow, and a lit top edge — the same three-part description
-     the thumb and the FAB use, so a floating panel reads as a card lying over
-     the page rather than a hole cut into it. */
+  /* Cast shadow and a lit top edge, so a floating panel reads as a card lying
+     over the page rather than a hole cut into it.
+
+     No ring here, unlike --shadow-sm and --shadow-md. Those sit on elements
+     that draw no border of their own, so the ring *is* their edge. Everything
+     at this elevation comes through Surface, which always draws
+     `border border-(--color-border)` — a ring as well gave the mobile nav and
+     the command palette two outlines a pixel apart, brightest in dim and dark
+     where the ring was the lighter of the two. The lit edge stays: it is
+     inset, so it describes the top face rather than tracing the outline
+     again. */
   --shadow-lg:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 0 0 1px rgba(255, 255, 255, 0.12), 0 16px 48px rgba(0, 0, 0, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.2),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04),
@@ -314,6 +335,14 @@
     color-mix(in oklch, var(--color-accent) 89%, white),
     var(--color-accent)
   );
+  /* Room to spare below the panel here, so the fill separates the tray and the
+     hairline stands down. Lands between --color-bg (the well) and the panel, so
+     the card reads panel → tray → well as one descent. Deliberately not
+     --color-bg-sidebar, tried first: in dim and dark that value is *darker than
+     the page*, which made the footer the darkest thing on screen and read as a
+     hole cut in the card rather than a shelf on it. */
+  --panel-tray: oklch(from var(--color-bg) calc(l + 0.015) c h);
+  --panel-tray-edge: transparent;
   /* Runs the FAB's way here rather than light mode's: there *is* headroom
      above a dark panel, so the top of the surface catches the light and the
      lit edge in --shadow-lg is the sharp terminator on top of it.
@@ -404,9 +433,9 @@
   --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.07);
   --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
   /* See the dim theme's note. */
+  /* See the dim theme's note on why there is no ring here. */
   --shadow-lg:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 0 0 1px rgba(255, 255, 255, 0.14), 0 16px 48px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 16px 48px rgba(0, 0, 0, 0.6);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 -1px 1px rgba(255, 255, 255, 0.06),
@@ -423,6 +452,9 @@
     color-mix(in oklch, var(--color-accent) 89%, white),
     var(--color-accent)
   );
+  /* See the dim theme's note. */
+  --panel-tray: oklch(from var(--color-bg) calc(l + 0.015) c h);
+  --panel-tray-edge: transparent;
   /* See the dim theme's note. */
   --panel-fill: linear-gradient(
     to bottom,
@@ -710,32 +742,29 @@ h2 em {
 ═══════════════════════════════════════ */
 
 /* Standard scrollbar (Firefox + future browsers) */
-/* Scoped, not global.
-   This was `*` plus bare `::-webkit-scrollbar`, which restyled the page's own
-   scrollbar along with everything else. The page scrollbar is the one piece of
-   chrome the operating system owns: people know its size, its behaviour and
-   how far along the document they are from it, and a 6px replacement takes
-   that away — worst on a long post, which is where it matters most.
-
-   The narrow bar is right inside a small pane you can lose track of. Those
-   opt in with `.scroll-slim`. */
-.scroll-slim {
+/* Global, deliberately. This was briefly scoped to an opt-in `.scroll-slim`
+   class on the argument that the page's own scrollbar is OS chrome and people
+   read their position from it. That argument stands on its own, but it is not
+   what this site does: a themed scrollbar in all three themes is part of the
+   design, and scoping it meant the bar changed colour depending on which pane
+   you were in. One rule, one appearance. */
+* {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-hi) var(--scroll-gutter);
 }
 
 /* Webkit scrollbar (Chrome, Edge, Safari) */
-.scroll-slim::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.scroll-slim::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: var(--color-border-hi);
 }
 
-.scroll-slim::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   border-radius: 3px;
   background-color: var(--scroll-gutter);
 }

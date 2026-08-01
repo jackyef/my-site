@@ -57,7 +57,7 @@ export function SidebarNav() {
   const isActive = (item: NavItem) => isNavItemActive(item, router.pathname);
 
   return (
-    <nav className="scroll-slim flex-1 overflow-y-auto p-[10px_8px]">
+    <nav className="flex-1 overflow-y-auto p-[10px_8px]">
       <SectionLabel className="hidden lg:block px-2 pt-[10px] pb-[5px]">
         Pages
       </SectionLabel>

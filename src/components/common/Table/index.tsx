@@ -17,7 +17,7 @@ export const Table = ({
   ...rest
 }: ComponentPropsWithoutRef<'table'>) => {
   return (
-    <div className="mt-10 bg-(--color-bg-panel) border border-(--color-border) rounded-lg not-prose overflow-x-auto scroll-slim">
+    <div className="mt-10 bg-(--color-bg-panel) border border-(--color-border) rounded-lg not-prose overflow-x-auto">
       <table className={cn('min-w-full', className)} {...rest}>
         {children}
       </table>
