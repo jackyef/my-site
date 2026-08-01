@@ -10,7 +10,11 @@ interface WritingViewProps {
 export function WritingView({ featuredWritings }: WritingViewProps) {
   return (
     <div className="page-pad">
+      {/* h2, not h1: /about renders all four sections at once and
+          scrolls between them, so only the bio at the top is the
+          page heading. */}
       <PageHeader
+        level={2}
         eyebrow="Writing"
         title={
           <>
