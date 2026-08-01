@@ -152,8 +152,14 @@ export function MobileNav() {
                   cut straight out of a lit surface with nothing around it has
                   no ground to sit on. The tray also puts the controls on their
                   own plane, away from the routes. px-5 so the control's left
-                  edge lands on the same line as the link icons above it. */}
-              <div className="border-t border-(--color-border) bg-(--color-bg-sidebar) px-5 py-3 flex items-center gap-2">
+                  edge lands on the same line as the link icons above it.
+
+                  One separator, not two: the tokens arrange it so the fill and
+                  the hairline are never both visible. Drawing both made two
+                  edges out of one, which on a card that also had a border and
+                  a ring around it left the bottom of this panel looking like a
+                  stack of boxes. */}
+              <div className="border-t border-(--panel-tray-edge) bg-(--panel-tray) px-5 py-3 flex items-center gap-2">
                 <div className="flex-1 min-w-0">
                   <SegmentedControl
                     options={THEME_OPTS}
