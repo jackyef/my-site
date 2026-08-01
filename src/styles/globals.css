@@ -182,6 +182,20 @@
     color-mix(in oklch, var(--color-accent) 91%, white),
     var(--color-accent)
   );
+  /* The drawer the FAB opens, given the same lighting. It can't use the FAB's
+     trick here — the panel is already pure white, so a lit top edge has
+     nowhere to go — so the gradient runs the other way and lets the foot fall
+     into shade. Same story either way: one end of the surface is nearer the
+     light than the other.
+
+     The foot is derived from the page background rather than by darkening the
+     panel, so it lands in the same warm family as the paper the card is lying
+     on. Darkening pure white gives a neutral grey, which reads cool here. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    var(--color-bg-panel),
+    oklch(from var(--color-bg) calc(l + 0.007) c h)
+  );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.982 0.018 155.826);
   --color-info: oklch(0.546 0.215 262.881);
@@ -300,6 +314,20 @@
     color-mix(in oklch, var(--color-accent) 89%, white),
     var(--color-accent)
   );
+  /* Runs the FAB's way here rather than light mode's: there *is* headroom
+     above a dark panel, so the top of the surface catches the light and the
+     lit edge in --shadow-lg is the sharp terminator on top of it.
+
+     Lifted with relative colour rather than mixed towards white. `white` is
+     achromatic, so its hue is `none`, and the mix hands `none` back as the
+     result's hue — hue 0. That turned the top of this cool-grey panel visibly
+     pink. Reading `c` and `h` straight off the source keeps the lift on the
+     panel's own axis, which is all a light source does to a surface. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    oklch(from var(--color-bg-panel) calc(l + 0.032) c h),
+    var(--color-bg-panel)
+  );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.28 0.034 156.99);
   --color-info: oklch(0.714 0.143 254.624);
@@ -394,6 +422,12 @@
     to bottom,
     color-mix(in oklch, var(--color-accent) 89%, white),
     var(--color-accent)
+  );
+  /* See the dim theme's note. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    oklch(from var(--color-bg-panel) calc(l + 0.028) c h),
+    var(--color-bg-panel)
   );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.223 0.019 158.155);

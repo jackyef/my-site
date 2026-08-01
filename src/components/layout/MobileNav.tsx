@@ -80,9 +80,13 @@ export function MobileNav() {
         onClick={() => setOpen(false)}
         aria-current={active ? 'page' : undefined}
         className={cn(
-          'flex items-center gap-3 px-5 py-3 text-[14px] no-underline',
+          'relative flex items-center gap-3 px-5 py-3 text-[14px] no-underline',
           active
-            ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'
+            ? // The accent wash alone was ambiguous when the active route
+              // happened to be the first item: a full-bleed tinted band across
+              // the top of the card reads as a title bar, not as a selection.
+              // The rule down the leading edge is what says "this row".
+              'font-semibold text-(--color-accent-text) bg-(--color-bg-active) before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-(--color-accent)'
             : 'font-normal text-(--color-ink-2) bg-transparent',
         )}
       >
@@ -124,7 +128,15 @@ export function MobileNav() {
               transformOrigin: 'bottom right',
             }}
           >
-            <Surface elevation="lg" rounded="xl" className="overflow-hidden">
+            {/* The FAB is domed — lit along the top, casting below. The card it
+                opens was still a flat rectangle with a blur under it, so the
+                two sat in different rooms. --panel-fill gives the card the
+                same directional lighting. */}
+            <Surface
+              elevation="lg"
+              rounded="xl"
+              className="overflow-hidden [background-image:var(--panel-fill)]"
+            >
               {/* Nav links. Both groups render here — the drawer used to carry
                   only the pages, which left /design and /experiments with no
                   route on a phone at all. */}
@@ -135,8 +147,13 @@ export function MobileNav() {
                 {TOOL_LINKS.map(renderLink)}
               </nav>
 
-              {/* Theme + reading font */}
-              <div className="px-4 py-3 flex items-center gap-2">
+              {/* Theme + reading font. Sunk into a tray rather than floated on
+                  the card: the segmented control is a recessed well, and a well
+                  cut straight out of a lit surface with nothing around it has
+                  no ground to sit on. The tray also puts the controls on their
+                  own plane, away from the routes. px-5 so the control's left
+                  edge lands on the same line as the link icons above it. */}
+              <div className="border-t border-(--color-border) bg-(--color-bg-sidebar) px-5 py-3 flex items-center gap-2">
                 <div className="flex-1 min-w-0">
                   <SegmentedControl
                     options={THEME_OPTS}
