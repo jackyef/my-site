@@ -19,6 +19,33 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
+  /* Registering the keyframes as theme animations is what makes
+     `animate-palette-in` resolve to something — a bare `animate-<name>` class
+     with no matching token compiles to `animation: var(--animate-<name>)` and
+     silently does nothing. */
+  /* Scrim and panel move as one thing, so they share a duration and a curve
+     exactly. They were 180ms on a custom curve against 140ms ease-out, which
+     is close enough to look like a mistake rather than a decision — the scrim
+     finished first and the panel appeared to lag behind its own backdrop. */
+  --animate-palette-in: palette-in 180ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  --animate-palette-overlay: palette-overlay-in 180ms
+    cubic-bezier(0.32, 0.72, 0, 1) both;
+
+  /* ── Stacking order ──────────────────────────────────────────────
+     App-level chrome only. Anything that stacks inside its own card or
+     section keeps a plain z-10/z-20 — those are local and stay local.
+     The layers here all float over the page, so they need to agree on an
+     order in one place rather than each picking a bigger number than the
+     last (this ramp replaced a 48/49/50 next to a 1000/1001 next to an
+     1100). Use as `z-(--z-modal)`. */
+  --z-sticky: 10; /* section tab bars that pin under the viewport top */
+  --z-chrome-backdrop: 40; /* scrim behind the mobile nav */
+  --z-chrome-panel: 45; /* the mobile nav card, PWA install prompt */
+  --z-chrome-fab: 50; /* the button that opens them */
+  --z-modal-backdrop: 60; /* command palette scrim */
+  --z-modal: 65; /* command palette surface */
+  --z-popover: 70; /* menus launched from inside any of the above */
+
   /* Code syntax highlighting (for MDX/Prism token classes) — resolved per theme */
   --color-code-green: var(--code-green);
   --color-code-yellow: var(--code-yellow);
@@ -101,25 +128,31 @@
 
 :root,
 [data-theme='light'] {
-  --color-bg: #f6f4ef;
-  --color-bg-panel: #ffffff;
-  --color-bg-sidebar: #f0ede6;
-  --color-bg-hover: #e8e4db;
-  --color-bg-active: #e0f0ee;
-  --color-border: #e0dcd4;
-  --color-border-hi: #ccc8be;
-  --color-ink: #24242a;
-  --color-ink-2: #38383c;
-  /* Darkened from #6b6b72: on --color-bg-hover the old value measured 4.17:1,
+  --color-bg: oklch(0.967 0.007 88.643);
+  --color-bg-panel: oklch(1 0 0);
+  --color-bg-sidebar: oklch(0.946 0.01 87.472);
+  --color-bg-hover: oklch(0.92 0.013 86.832);
+  --color-bg-active: oklch(0.943 0.017 187.886);
+  --color-border: oklch(0.895 0.012 84.58);
+  --color-border-hi: oklch(0.833 0.014 88.698);
+  --color-ink: oklch(0.263 0.011 285.61);
+  --color-ink-2: oklch(0.342 0.007 286.029);
+  /* Darkened from oklch(0.53 0.011 286.024): on --color-bg-hover the old value measured 4.17:1,
      under the 4.5 AA floor this ramp claims. See the note above ink-4. */
-  --color-ink-3: #616168;
-  --color-ink-4: #908f96;
-  --color-accent: #2c6464;
-  --color-accent-2: #1a4040;
-  --color-accent-l: #c2dede;
-  --color-accent-xl: #eaf3f3;
-  --color-accent-text: #2c6464;
-  --color-on-accent: #ffffff;
+  --color-ink-3: oklch(0.495 0.011 285.99);
+  --color-ink-4: oklch(0.653 0.01 292.682);
+  --color-accent: oklch(0.466 0.059 195.327);
+  --color-accent-2: oklch(0.344 0.043 195.338);
+  --color-accent-l: oklch(0.88 0.03 196.625);
+  --color-accent-xl: oklch(0.957 0.01 196.996);
+  --color-accent-text: oklch(0.466 0.059 195.327);
+  --color-on-accent: oklch(1 0 0);
+  /* Focus rings are neutral, not brand. A teal ring lands on teal-accented
+     controls and stops reading as a ring, and against the rest of the palette
+     it competes with the accent's real job of marking the active thing.
+     Near-black here, near-white in the dark themes — the same value as the
+     primary ink, which is the highest-contrast neutral each theme has. */
+  --color-focus-ring: oklch(0.263 0.011 285.61);
   --grid-primary: rgba(44, 100, 100, 0.06);
   --grid-faint: rgba(44, 100, 100, 0.025);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -128,148 +161,350 @@
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.07), inset 0 4px 8px rgba(0, 0, 0, 0.04),
     inset 0 -1px 2px rgba(255, 255, 255, 0.5);
-  --color-success: #4caf84;
-  --color-success-bg: #f0fdf4;
-  --color-info: #2563eb;
-  --color-info-bg: #eff6ff;
-  --color-warning: #d97706;
-  --color-warning-bg: #fffbeb;
-  --color-danger: #dc2626;
-  --color-danger-bg: #fef2f2;
+  /* A thumb sitting *inside* a recessed well — the segmented control's
+     selected segment. Not the same job as --shadow-sm, which lifts a card off
+     the page: the well around this one already establishes the depth, so all
+     this has to do is agree with the well's lighting. Light from above, so a
+     lit top edge and a short shadow cast down onto the well floor. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.09);
+  /* The floating action button. Same idea as the thumb — light from above —
+     but this one genuinely hovers over the page, so it casts as well as
+     catching. The lit top edge is what makes a flat disc read as domed. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 6px 16px -4px rgba(0, 0, 0, 0.26), 0 2px 6px -2px rgba(0, 0, 0, 0.16);
+  /* A hair lighter along the top of the fill, so the disc has a direction
+     rather than being one flat colour. Kept under ~10% — past that it stops
+     reading as light and starts reading as a second colour. */
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 91%, white),
+    var(--color-accent)
+  );
+  /* The drawer the FAB opens, given the same lighting. It can't use the FAB's
+     trick here — the panel is already pure white, so a lit top edge has
+     nowhere to go — so the gradient runs the other way and lets the foot fall
+     into shade. Same story either way: one end of the surface is nearer the
+     light than the other.
+
+     The foot is derived from the page background rather than by darkening the
+     panel, so it lands in the same warm family as the paper the card is lying
+     on. Darkening pure white gives a neutral grey, which reads cool here. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    var(--color-bg-panel),
+    oklch(from var(--color-bg) calc(l + 0.007) c h)
+  );
+  /* The recessed strip a panel's controls sit in, and the hairline along its
+     top. Exactly one of the two is ever visible: a tone step and a rule are
+     two ways of saying the same thing, and drawing both is what made the
+     bottom of the mobile nav read as a stack of boxes.
+
+     Which one does the work is decided by how much tonal room the theme has.
+     Light has almost none — the panel is pure white and the well below it is
+     --color-bg at 0.967, so a tray tucked between them lands inside 3% of
+     lightness and disappears, while a tray darker than the well makes the well
+     look raised instead of sunk. So light draws the rule and leaves the fill
+     alone; the dark themes have room to spare and use the fill. Same
+     asymmetry, and the same cause, as --panel-fill's direction flip. */
+  --panel-tray: transparent;
+  --panel-tray-edge: var(--color-border);
+  --color-success: oklch(0.683 0.114 162.37);
+  --color-success-bg: oklch(0.982 0.018 155.826);
+  --color-info: oklch(0.546 0.215 262.881);
+  --color-info-bg: oklch(0.97 0.014 254.604);
+  --color-warning: oklch(0.66584 0.15742 58.31834);
+  --color-warning-bg: oklch(0.987 0.021 95.277);
+  --color-danger: oklch(0.577 0.215 27.325);
+  --color-danger-bg: oklch(0.971 0.013 17.38);
+
+  /* Status colours as *text*. The fills above are tuned to read as a dot or a
+     bar; at 9px in a grade badge the same green measured 2.13:1. Same split as
+     the career ramp — one hue, two jobs, two values. */
+  --color-success-text: oklch(0.448 0.108 151.328);
+  --color-warning-text: oklch(0.473 0.125 46.201);
+  --color-danger-text: oklch(0.505 0.19 27.518);
 
   /* ── Code block ── */
-  --code-bg: #f4f2ed;
-  --code-text: #3a3a40;
-  --code-green: #116329;
-  --code-yellow: #953800;
-  --code-purple: #8250df;
-  --code-red: #cf222e;
-  --code-blue: #0550ae;
-  --code-base: #3a3a40;
-  --code-teal: #0a7175;
-  --code-comment: #6e7781;
+  --code-bg: oklch(0.961 0.007 88.643);
+  --code-text: oklch(0.351 0.01 285.856);
+  --code-green: oklch(0.439 0.118 148.065);
+  --code-yellow: oklch(0.466 0.137 43.346);
+  --code-purple: oklch(0.563 0.207 294.969);
+  --code-red: oklch(0.552 0.205 24.525);
+  --code-blue: oklch(0.451 0.164 258.179);
+  --code-base: oklch(0.351 0.01 285.856);
+  --code-teal: oklch(0.49938 0.08268 199.25786);
+  /* Darkened from oklch(0.565 0.019 250.968) (4.06:1 on --code-bg). Comments are prose, and
+     often the part of a snippet doing the explaining. */
+  --code-comment: oklch(0.503 0.021 253.465);
 
   /* ── Chrome ── */
+  /* Pure black at 10%, never a tinted neutral: a tinted line picks up the
+     surface behind the image and reads as grime along the edge rather than a
+     boundary. Dark themes use pure white at the same alpha. */
+  --image-outline: rgb(0 0 0 / 0.1);
   --scroll-gutter: hsl(0deg 0% 92%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* ── Career timeline: label colours ──────────────────────────────
+     The chart bars are painted with the vivid -500 hexes in CareerView, and
+     the org link beside each row used to reuse that exact value as text.
+     A 12px "Sticker Mule" in oklch(0.769 0.165 70.08) lands at 1.69:1 on the light panel —
+     the same colour is fine as a 20px block of fill and unreadable as a
+     word. These are the -800s, for the text half of that job only; the
+     dark themes get the -400s below, where the polarity flips. The -700s
+     cleared white but not --color-bg-hover, which is the row you are on
+     when you are actually reading one of these. */
+  --career-amber: oklch(0.473 0.125 46.201);
+  --career-sky: oklch(0.443 0.1 240.79);
+  --career-green: oklch(0.448 0.108 151.328);
+  --career-blue: oklch(0.424 0.181 265.638);
+  --career-fuchsia: oklch(0.452 0.192 324.591);
+  --career-teal: oklch(0.437 0.071 188.216);
+  --career-red: oklch(0.444 0.161 26.899);
+  --career-slate: oklch(0.372 0.039 257.287);
+  --career-violet: oklch(0.432 0.211 292.759);
 }
 
 [data-theme='dim'] {
-  --color-bg: #1e1f24;
-  --color-bg-panel: #25262d;
-  --color-bg-sidebar: #1a1b20;
-  --color-bg-hover: #2e3038;
-  --color-bg-active: #1e3535;
-  --color-border: #2e3038;
-  --color-border-hi: #3a3d48;
-  --color-ink: #d8d6d0;
-  --color-ink-2: #b8b5ae;
-  /* Lightened from #918f98: 4.13:1 on hover and 4.08:1 on active, both under AA. */
-  --color-ink-3: #9f9da6;
-  --color-ink-4: #686670;
-  --color-accent: #4a9696;
-  --color-accent-2: #6ab8b8;
-  --color-accent-l: #1e4040;
-  --color-accent-xl: #162e2e;
-  --color-accent-text: #6ab8b8;
+  --color-bg: oklch(0.24 0.01 276.674);
+  --color-bg-panel: oklch(0.271 0.013 279.056);
+  --color-bg-sidebar: oklch(0.223 0.01 276.612);
+  --color-bg-hover: oklch(0.31 0.015 274.409);
+  --color-bg-active: oklch(0.31 0.029 195.76);
+  --color-border: oklch(0.31 0.015 274.409);
+  --color-border-hi: oklch(0.362 0.019 273.349);
+  --color-ink: oklch(0.876 0.008 91.492);
+  --color-ink-2: oklch(0.774 0.01 87.485);
+  /* Lightened from oklch(0.655 0.013 296.209): 4.13:1 on hover and 4.08:1 on active, both under AA. */
+  --color-ink-3: oklch(0.7 0.013 296.24);
+  --color-ink-4: oklch(0.516 0.016 295.014);
+  --color-accent: oklch(0.625 0.075 195.399);
+  --color-accent-2: oklch(0.733 0.077 195.598);
+  --color-accent-l: oklch(0.346 0.04 195.475);
+  --color-accent-xl: oklch(0.282 0.03 195.58);
+  --color-accent-text: oklch(0.733 0.077 195.598);
   /* Ink, not white. The dark themes' accent is a mid teal, so white sits at
      3.45:1 on it — and the primary Button lightens the fill on hover, which
      drops it to 2.89:1. Dark ink reverses both: 5.56:1 at rest, 6.63:1 hovered. */
-  --color-on-accent: #0f0f11;
+  --color-on-accent: oklch(0.169 0.004 285.951);
+  --color-focus-ring: oklch(0.876 0.008 91.492);
 
   --grid-primary: rgba(74, 150, 150, 0.07);
   --grid-faint: rgba(74, 150, 150, 0.028);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Rings, not shadows. A stacked black shadow is depth you can only see
+     against a light surface — on oklch(0.24 0.01 276.674) it lands on near-black and
+     disappears, which is why panels, the palette and the mobile nav all read
+     as flat here while looking raised in light mode. A low-opacity white ring
+     is what separates surfaces in a dark theme; the wider blur stays only on
+     the top elevation, where something genuinely floats over the page. */
+  --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.09);
+  /* Cast shadow and a lit top edge, so a floating panel reads as a card lying
+     over the page rather than a hole cut into it.
+
+     No ring here, unlike --shadow-sm and --shadow-md. Those sit on elements
+     that draw no border of their own, so the ring *is* their edge. Everything
+     at this elevation comes through Surface, which always draws
+     `border border-(--color-border)` — a ring as well gave the mobile nav and
+     the command palette two outlines a pixel apart, brightest in dim and dark
+     where the ring was the lighter of the two. The lit edge stays: it is
+     inset, so it describes the top face rather than tracing the outline
+     again. */
+  --shadow-lg:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.2),
     inset 0 -1px 1px rgba(255, 255, 255, 0.04),
     inset 0 -2px 4px rgba(255, 255, 255, 0.02);
-  --color-success: #4caf84;
-  --color-success-bg: #1a2e22;
-  --color-info: #60a5fa;
-  --color-info-bg: #1e2a3a;
-  --color-warning: #fbbf24;
-  --color-warning-bg: #2a2518;
-  --color-danger: #f87171;
-  --color-danger-bg: #2a1e1e;
+  /* Directional, like the well it sits in. A uniform ring here read as a grey
+     halo: it implies light arriving from every side at once, while the well
+     two pixels away is lit from above. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 1px 2px rgba(0, 0, 0, 0.45);
+  /* Brighter top edge than light mode: on a dark ground the cast shadow has
+     little room to work, so the highlight does most of the describing. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 8px 20px -6px rgba(0, 0, 0, 0.65), 0 2px 6px -2px rgba(0, 0, 0, 0.45);
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 89%, white),
+    var(--color-accent)
+  );
+  /* Room to spare below the panel here, so the fill separates the tray and the
+     hairline stands down. Lands between --color-bg (the well) and the panel, so
+     the card reads panel → tray → well as one descent. Deliberately not
+     --color-bg-sidebar, tried first: in dim and dark that value is *darker than
+     the page*, which made the footer the darkest thing on screen and read as a
+     hole cut in the card rather than a shelf on it. */
+  --panel-tray: oklch(from var(--color-bg) calc(l + 0.015) c h);
+  --panel-tray-edge: transparent;
+  /* Runs the FAB's way here rather than light mode's: there *is* headroom
+     above a dark panel, so the top of the surface catches the light and the
+     lit edge in --shadow-lg is the sharp terminator on top of it.
+
+     Lifted with relative colour rather than mixed towards white. `white` is
+     achromatic, so its hue is `none`, and the mix hands `none` back as the
+     result's hue — hue 0. That turned the top of this cool-grey panel visibly
+     pink. Reading `c` and `h` straight off the source keeps the lift on the
+     panel's own axis, which is all a light source does to a surface. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    oklch(from var(--color-bg-panel) calc(l + 0.032) c h),
+    var(--color-bg-panel)
+  );
+  --color-success: oklch(0.683 0.114 162.37);
+  --color-success-bg: oklch(0.28 0.034 156.99);
+  --color-info: oklch(0.714 0.143 254.624);
+  --color-info-bg: oklch(0.282 0.034 255.804);
+  --color-warning: oklch(0.837 0.164 84.429);
+  --color-warning-bg: oklch(0.266 0.024 89.427);
+  --color-danger: oklch(0.711 0.166 22.216);
+  --color-danger-bg: oklch(0.25 0.019 18.495);
+
+  /* Status colours as text — the bright end reads on a dark panel. */
+  --color-success-text: oklch(0.8 0.182 151.711);
+  --color-warning-text: oklch(0.837 0.164 84.429);
+  --color-danger-text: oklch(0.711 0.166 22.216);
 
   /* ── Code block ── */
-  --code-bg: #1a1b22;
-  --code-text: #d4d4d8;
-  --code-green: #b5f4a5;
-  --code-yellow: #ffe484;
-  --code-purple: #d9a9ff;
-  --code-red: #ff8383;
-  --code-blue: #93ddfd;
-  --code-base: #e4e4e8;
-  --code-teal: #7fdbca;
-  --code-comment: #6b7280;
+  --code-bg: oklch(0.224 0.014 278.83);
+  --code-text: oklch(0.871 0.005 286.286);
+  --code-green: oklch(0.905 0.123 139.389);
+  --code-yellow: oklch(0.921 0.12 94.117);
+  --code-purple: oklch(0.809 0.128 309.295);
+  --code-red: oklch(0.749 0.151 21.33);
+  --code-blue: oklch(0.86 0.086 227.1);
+  --code-base: oklch(0.92 0.005 286.294);
+  --code-teal: oklch(0.829 0.092 180.699);
+  /* Lightened from oklch(0.551 0.023 264.364) (3.9:1 on --code-bg). */
+  --code-comment: oklch(0.666 0.024 256.762);
 
   /* ── Chrome ── */
+  --image-outline: rgb(255 255 255 / 0.1);
   --scroll-gutter: hsl(225deg 13% 15%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* Career timeline label colours — the -400s. On a near-black panel the
+     bright end of each ramp is the readable one, the mirror of light mode. */
+  --career-amber: oklch(0.837 0.164 84.429);
+  --career-sky: oklch(0.754 0.139 232.661);
+  --career-green: oklch(0.8 0.182 151.711);
+  --career-blue: oklch(0.714 0.143 254.624);
+  --career-fuchsia: oklch(0.748 0.207 322.16);
+  --career-teal: oklch(0.785 0.133 181.912);
+  --career-slate: oklch(0.711 0.035 256.788);
+  --career-red: oklch(0.711 0.166 22.216);
+  --career-violet: oklch(0.709 0.159 293.541);
 }
 
 [data-theme='dark'] {
-  --color-bg: #0f0f11;
-  --color-bg-panel: #161618;
-  --color-bg-sidebar: #0c0c0e;
-  --color-bg-hover: #1e1e22;
-  --color-bg-active: #162424;
-  --color-border: #222226;
-  --color-border-hi: #2e2e34;
-  --color-ink: #d8d6d0;
-  --color-ink-2: #b0ada6;
-  /* Nudged from #8a8890, which passed at only 4.58:1 on active — enough
+  --color-bg: oklch(0.169 0.004 285.951);
+  --color-bg-panel: oklch(0.201 0.004 286.04);
+  --color-bg-sidebar: oklch(0.155 0.004 285.899);
+  --color-bg-hover: oklch(0.237 0.008 285.806);
+  --color-bg-active: oklch(0.248 0.019 195.981);
+  --color-border: oklch(0.254 0.007 285.856);
+  --color-border-hi: oklch(0.304 0.011 285.745);
+  --color-ink: oklch(0.876 0.008 91.492);
+  --color-ink-2: oklch(0.748 0.01 87.488);
+  /* Nudged from oklch(0.631 0.012 297.486), which passed at only 4.58:1 on active — enough
      headroom to match the other two themes' ~4.8 floor. */
-  --color-ink-3: #8e8c94;
-  --color-ink-4: #5c5a64;
-  --color-accent: #4a9696;
-  --color-accent-2: #7ac4c4;
-  --color-accent-l: #1a3636;
-  --color-accent-xl: #111e1e;
-  --color-accent-text: #7ac4c4;
+  --color-ink-3: oklch(0.644 0.012 297.495);
+  --color-ink-4: oklch(0.473 0.016 294.949);
+  --color-accent: oklch(0.625 0.075 195.399);
+  --color-accent-2: oklch(0.772 0.074 195.73);
+  --color-accent-l: oklch(0.311 0.034 195.545);
+  --color-accent-xl: oklch(0.223 0.018 195.926);
+  --color-accent-text: oklch(0.772 0.074 195.73);
   /* See the dim theme's note — same accent, same reason. */
-  --color-on-accent: #0f0f11;
+  --color-on-accent: oklch(0.169 0.004 285.951);
+  --color-focus-ring: oklch(0.876 0.008 91.492);
 
   --grid-primary: rgba(74, 150, 150, 0.08);
   --grid-faint: rgba(74, 150, 150, 0.03);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* See the dim theme's note. Slightly brighter rings, since this ground is
+     darker still. */
+  --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* See the dim theme's note. */
+  /* See the dim theme's note on why there is no ring here. */
+  --shadow-lg:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 16px 48px rgba(0, 0, 0, 0.6);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 -1px 1px rgba(255, 255, 255, 0.06),
     inset 0 -2px 4px rgba(255, 255, 255, 0.03);
-  --color-success: #4caf84;
-  --color-success-bg: #141e18;
-  --color-info: #60a5fa;
-  --color-info-bg: #161e2e;
-  --color-warning: #fbbf24;
-  --color-warning-bg: #221e12;
-  --color-danger: #f87171;
-  --color-danger-bg: #221616;
+  /* See the dim theme's note. */
+  --shadow-thumb:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 2px rgba(0, 0, 0, 0.55);
+  /* See the dim theme's note. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 8px 20px -6px rgba(0, 0, 0, 0.75), 0 2px 6px -2px rgba(0, 0, 0, 0.55);
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 89%, white),
+    var(--color-accent)
+  );
+  /* See the dim theme's note. */
+  --panel-tray: oklch(from var(--color-bg) calc(l + 0.015) c h);
+  --panel-tray-edge: transparent;
+  /* See the dim theme's note. */
+  --panel-fill: linear-gradient(
+    to bottom,
+    oklch(from var(--color-bg-panel) calc(l + 0.028) c h),
+    var(--color-bg-panel)
+  );
+  --color-success: oklch(0.683 0.114 162.37);
+  --color-success-bg: oklch(0.223 0.019 158.155);
+  --color-info: oklch(0.714 0.143 254.624);
+  --color-info-bg: oklch(0.235 0.033 263.623);
+  --color-warning: oklch(0.837 0.164 84.429);
+  --color-warning-bg: oklch(0.236 0.022 91.791);
+  --color-danger: oklch(0.711 0.166 22.216);
+  --color-danger-bg: oklch(0.216 0.02 18.801);
+
+  /* Status colours as text — the bright end reads on a dark panel. */
+  --color-success-text: oklch(0.8 0.182 151.711);
+  --color-warning-text: oklch(0.837 0.164 84.429);
+  --color-danger-text: oklch(0.711 0.166 22.216);
 
   /* ── Code block ── */
-  --code-bg: #111113;
-  --code-text: #d4d4d8;
-  --code-green: #b5f4a5;
-  --code-yellow: #ffe484;
-  --code-purple: #d9a9ff;
-  --code-red: #ff8383;
-  --code-blue: #93ddfd;
-  --code-base: #e4e4e8;
-  --code-teal: #7fdbca;
-  --code-comment: #6b7280;
+  --code-bg: oklch(0.179 0.004 285.981);
+  --code-text: oklch(0.871 0.005 286.286);
+  --code-green: oklch(0.905 0.123 139.389);
+  --code-yellow: oklch(0.921 0.12 94.117);
+  --code-purple: oklch(0.809 0.128 309.295);
+  --code-red: oklch(0.749 0.151 21.33);
+  --code-blue: oklch(0.86 0.086 227.1);
+  --code-base: oklch(0.92 0.005 286.294);
+  --code-teal: oklch(0.829 0.092 180.699);
+  /* Lightened from oklch(0.551 0.023 264.364) (3.9:1 on --code-bg). */
+  --code-comment: oklch(0.666 0.024 256.762);
 
   /* ── Chrome ── */
+  --image-outline: rgb(255 255 255 / 0.1);
   --scroll-gutter: hsl(240deg 10% 9%);
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-on-accent);
+
+  /* Career timeline label colours — the -400s. On a near-black panel the
+     bright end of each ramp is the readable one, the mirror of light mode. */
+  --career-amber: oklch(0.837 0.164 84.429);
+  --career-sky: oklch(0.754 0.139 232.661);
+  --career-green: oklch(0.8 0.182 151.711);
+  --career-blue: oklch(0.714 0.143 254.624);
+  --career-fuchsia: oklch(0.748 0.207 322.16);
+  --career-teal: oklch(0.785 0.133 181.912);
+  --career-slate: oklch(0.711 0.035 256.788);
+  --career-red: oklch(0.711 0.166 22.216);
+  --career-violet: oklch(0.709 0.159 293.541);
 }
 
 /* ═══════════════════════════════════════
@@ -289,14 +524,109 @@ body {
   font-family: var(--font-sans);
   font-size: var(--type-body-size);
   line-height: var(--type-body-lh);
+  /* Six switchable pairings, each loaded at a subset of its weights and
+     styles. Without this the browser quietly fakes a missing bold by smearing
+     the regular, or a missing italic by shearing it — which looks like a
+     rendering bug you cannot find rather than a font you did not load. */
+  font-synthesis: none;
+  /* Declared once at the root and inherited. macOS lays ink on thick, which
+     reads as a heavier, muddier face than the one that was chosen — most
+     visible on the display serif at large sizes. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition:
     background-color 0.22s ease,
     color 0.22s ease;
 }
 
+/* Headings set their own line breaks rather than filling greedily, so the last
+   line stops stranding a single word under a full one. Cheap here and the
+   display face is large enough everywhere that the difference shows.
+
+   `balance` stops at a handful of lines and spends horizontal space to even
+   them out, so it belongs on headings and nowhere near a paragraph. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* ── Hairline separators ──────────────────────────────────────────
+   A 1px rule is one device pixel on a standard display and two on a
+   retina one, so the same divider reads noticeably heavier on the
+   screens most people are actually using. Half a pixel puts it back to
+   one device pixel there, and standard displays keep the 1px they need
+   (they cannot draw a half).
+
+   Separators only — the lines whose job is to divide. Element edges
+   (inputs, buttons, card borders) keep a full pixel: on a form field
+   the visible edge is an accessibility affordance, not decoration. */
+:root {
+  --border-hairline: 1px;
+}
+
+@media (min-resolution: 192dpi) {
+  :root {
+    --border-hairline: 0.5px;
+  }
+}
+
+hr {
+  border-top-width: var(--border-hairline);
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.sidebar {
+  border-right-width: var(--border-hairline);
+}
+
+.prose :is(thead, tbody tr) {
+  border-bottom-width: var(--border-hairline);
+}
+
+/* Removes the ~300ms wait a browser holds on touch before deciding a tap was
+   not the start of a double-tap-to-zoom. Nothing here wants that gesture, and
+   the delay is felt on every single tap. Scoped to interactive elements, so
+   surfaces that do want their own gestures — the resume canvas sets its own
+   touch-action — are untouched. */
+button,
+a,
+input,
+select,
+textarea,
+summary,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+/* Every image carries the same edge treatment as any other surface: a 1px
+   translucent line drawn just inside its bounds. `outline` rather than
+   `border` so it costs no layout space, and `outline-offset: -1px` pulls it
+   inside so the image keeps its intended dimensions. Follows border-radius,
+   so rounded thumbnails get a rounded line. */
+img {
+  outline: 1px solid var(--image-outline);
+  outline-offset: -1px;
+}
+
+/* Short descriptive blocks get `pretty` instead: it only pulls a word down
+   from the previous line to stop the last line being a lone orphan, without
+   rebalancing the whole block. Long-form body gets neither — see the prose
+   measure rule. Component-level roles carry `text-pretty` in the `Text`
+   component; these are the two that only exist as markup. */
+.prose blockquote,
+.prose figcaption {
+  text-wrap: pretty;
+}
+
 @layer base {
   *:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
 
@@ -310,11 +640,21 @@ body {
    THEME TRANSITIONS
 ═══════════════════════════════════════ */
 
+/* A theme swap repaints every colour on the page at once. Without this, each
+   of the surfaces below also runs its own 0.22s colour transition underneath
+   the view transition's cross-fade — two animations describing the same
+   change, at different speeds and with different easing. Suppressed for the
+   duration of the swap so exactly one of them plays. */
+html[data-theme-swapping],
+html[data-theme-swapping] *,
+html[data-theme-swapping] *::before,
+html[data-theme-swapping] *::after {
+  transition: none !important;
+}
+
 body,
 .sidebar,
 .content-area,
-.widget-card,
-.nav-btn,
 .chip,
 .card,
 pre {
@@ -402,6 +742,12 @@ h2 em {
 ═══════════════════════════════════════ */
 
 /* Standard scrollbar (Firefox + future browsers) */
+/* Global, deliberately. This was briefly scoped to an opt-in `.scroll-slim`
+   class on the argument that the page's own scrollbar is OS chrome and people
+   read their position from it. That argument stands on its own, but it is not
+   what this site does: a themed scrollbar in all three themes is part of the
+   design, and scoping it meant the bar changed colour depending on which pane
+   you were in. One rule, one appearance. */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-hi) var(--scroll-gutter);
@@ -504,16 +850,6 @@ h2 em {
 @media (min-width: 768px) {
   .widget-mobile-full {
     grid-column: span 1;
-  }
-}
-
-/* Widget offset-right: span 2 on mobile, start col 2 on desktop */
-.widget-offset-right {
-  grid-column: span 2;
-}
-@media (min-width: 768px) {
-  .widget-offset-right {
-    grid-column: 2 / -1;
   }
 }
 
@@ -703,6 +1039,22 @@ h2 em {
    COMMAND PALETTE
 ═══════════════════════════════════════ */
 
+/* Career swimlane bars: the drawn bar stays the width of the stint it
+   represents, but the thing you can hit is 44px tall. Vertical only —
+   the bars sit shoulder to shoulder, so widening the hit area would have
+   each one stealing taps from its neighbour. */
+.career-bar::after {
+  content: '';
+  position: absolute;
+  inset: -12px 0;
+}
+
+@media (pointer: fine) {
+  .career-bar::after {
+    inset: 0;
+  }
+}
+
 /* Ensure CMD palette items have nice rounding on last item */
 [role='listbox'] .focusable-cmd-item:last-of-type {
   border-bottom-right-radius: 0.375rem;
@@ -724,6 +1076,31 @@ h2 em {
   }
   to {
     opacity: 0;
+  }
+}
+
+/* The palette used to carry an `animate-fadeIn` class that named a keyframe
+   nobody ever wrote — computed `animation-name` resolved to `none`, so it
+   appeared instantly with no transition at all. These are the real thing:
+   short, ease-out, and scaling from just under full size rather than from
+   zero, anchored to the top edge the panel hangs from. */
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes palette-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -807,7 +1184,7 @@ h2 em {
   body {
     height: auto !important;
     overflow: visible !important;
-    background: #fff !important;
+    background: oklch(1 0 0) !important;
   }
 
   #__next > div,
@@ -841,7 +1218,7 @@ h2 em {
     content: ' (' attr(href) ')';
     font-size: 0.85em;
     font-weight: 400;
-    color: #555;
+    color: oklch(0.45 0 0);
     word-break: break-all;
   }
 

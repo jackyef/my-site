@@ -4,7 +4,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from '@headlessui/react';
-import { CheckIcon, TypeIcon } from 'lucide-react';
+import { CheckIcon, ChevronsUpDownIcon, TypeIcon } from 'lucide-react';
 
 import { cn } from '@/utils/styles/classNames';
 import { FONT_PAIRINGS, getPairing, type PairingId } from '@/utils/fonts';
@@ -39,22 +39,46 @@ export function FontSwitcher({
           'text-(--color-ink-3) cursor-pointer font-[inherit]',
           'transition-[background,border-color,color] duration-[130ms]',
           'hover:bg-(--color-bg-hover) hover:border-(--color-accent-l) hover:text-(--color-ink-2)',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
           'data-open:border-(--color-accent-l) data-open:text-(--color-ink-2)',
           compact
-            ? 'justify-center p-[7px]'
-            : 'gap-[6px] px-[10px] py-[6px] text-[13px] text-left',
+            ? // The compact trigger is a 30px square under a cursor, which is
+              // fine, and a 30px square under a thumb, which is not.
+              'justify-center p-[7px] pointer-coarse:p-[15px]'
+            : 'gap-[6px] px-[10px] py-[6px] text-[13px] text-left pointer-coarse:py-[12px]',
           className,
         )}
       >
         <TypeIcon size={compact ? 14 : 13} aria-hidden="true" />
         {!compact && (
-          <span
-            className="flex-1 truncate"
-            style={{ fontFamily: `var(${current.cssVar})` }}
-          >
-            {current.label}
-          </span>
+          <>
+            <span
+              className="flex-1 truncate"
+              style={{ fontFamily: `var(${current.cssVar})` }}
+            >
+              {current.label}
+            </span>
+            {/* Two jobs. The pairing names run 71–114px inside a 203px row, so
+                without something holding the right end the whole control read
+                as left-heavy — and by a different amount per pairing, since
+                the label sets where the ink stops. Pinned right, this is the
+                same mark at the same place whatever is selected.
+
+                It also says the row opens something. Before this the trigger
+                was a bordered box with a value in it and no disclosure at
+                all. Up-and-down rather than a single chevron because the menu
+                opens upward from the sidebar and downward from the mobile
+                drawer. */}
+            {/* Inherits ink-3 from the button, like the leading icon. Not
+                ink-4: this mark carries the "opens a menu" affordance, which
+                puts it under the 3:1 floor for non-text UI, and ink-4 sits
+                near 2.9. Size and stroke keep it quiet instead. */}
+            <ChevronsUpDownIcon
+              size={13}
+              aria-hidden="true"
+              className="shrink-0"
+            />
+          </>
         )}
       </ListboxButton>
 
@@ -62,7 +86,7 @@ export function FontSwitcher({
         anchor={anchor}
         transition
         className={cn(
-          'z-[1100] w-[228px] max-h-[min(420px,60vh)] overflow-y-auto',
+          'z-(--z-popover) w-[228px] max-h-[min(420px,60vh)] overflow-y-auto',
           'rounded-[10px] border border-(--color-border) bg-(--color-bg-panel)',
           'shadow-(--shadow-lg) p-1 [--anchor-gap:6px] [--anchor-padding:8px]',
           'origin-top transition duration-150 ease-out',
@@ -88,7 +112,10 @@ export function FontSwitcher({
               >
                 {option.label}
               </span>
-              <span className="block text-[11px] leading-[1.4] mt-[1px] text-(--color-ink-4)">
+              {/* ink-3, not ink-4: this line is the only thing telling you
+                  what the pairing is for, so it has to be readable on its
+                  own. */}
+              <span className="block text-[11px] leading-[1.4] mt-[1px] text-(--color-ink-3)">
                 {option.description}
               </span>
             </span>

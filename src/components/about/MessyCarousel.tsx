@@ -32,7 +32,7 @@ const BUTTON_BASE = cn(
   'transition-[opacity,scale,rotate] duration-300',
   '[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
   'hover:scale-110',
-  'active:scale-90',
+  'active:scale-[0.96]',
   '[&]:starting:scale-0 [&]:starting:opacity-0 [&]:starting:rotate-45',
 );
 

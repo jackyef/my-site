@@ -95,7 +95,9 @@ function ChessWidgetSkeleton() {
     <Card hover className="px-[16px] py-[14px] cursor-default">
       <SectionLabel className="mb-2">Chess.com</SectionLabel>
       <div className="min-h-[180px] flex items-center justify-center">
-        <span className="text-[13px] text-(--color-ink-4)">Loading…</span>
+        {/* ink-3: this is the only thing in the card while it loads, so it is
+            not repeating information anything else carries. */}
+        <span className="text-[13px] text-(--color-ink-3)">Loading…</span>
       </div>
     </Card>
   );
@@ -120,7 +122,7 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
       </div>
       <a
         href="/blog"
-        className="inline-block mt-2 text-[13px] text-(--color-accent-text) no-underline hover:underline"
+        className="inline-block mt-2 py-1 pointer-coarse:py-3 text-[13px] text-(--color-accent-text) no-underline hover:underline"
       >
         Read the blog →
       </a>
@@ -133,7 +135,7 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
       </div>
       <a
         href="/resume"
-        className="inline-block mt-1.5 text-[13px] text-(--color-accent-text) no-underline hover:underline"
+        className="inline-block mt-1.5 py-1 pointer-coarse:py-3 text-[13px] text-(--color-accent-text) no-underline hover:underline"
       >
         🛋️ Step into the room →
       </a>
@@ -141,14 +143,17 @@ function AboutWidget({ blogStats }: { blogStats: BlogStats }) {
       <hr className="border-(--color-border) my-4" />
 
       <SectionLabel className="mb-2.5">Connect</SectionLabel>
-      <ul className="space-y-2.5">
+      {/* The gap moves onto the rows themselves on touch: `space-y` puts the
+          breathing room *between* 23px-tall links, which leaves each one well
+          under a thumb's worth of target. Padding grows the target instead. */}
+      <ul className="space-y-2.5 pointer-coarse:space-y-0 pointer-coarse:-my-2">
         {SOCIALS.map(({ href, label, icon }) => (
           <li key={href}>
             <a
               href={href}
               target={'_blank'}
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
+              className="flex items-center gap-2 py-1 pointer-coarse:py-3 text-[14px] text-(--color-ink-2) hover:text-(--color-accent-text) transition-colors"
             >
               <span className="text-(--color-ink-4) transform -translate-y-0.5">
                 {icon}
@@ -218,20 +223,29 @@ function WLDBar({ w, d, l }: { w: number; d: number; l: number }) {
               style={{ flex: w }}
             />
             <div className="bg-(--color-ink-4) mx-[1px]" style={{ flex: d }} />
-            <div className="bg-[#e05a5a] rounded-r-full" style={{ flex: l }} />
+            <div
+              className="bg-[oklch(0.6407_0.1681_23.0773)] rounded-r-full"
+              style={{ flex: l }}
+            />
           </>
         ) : (
           <div className="bg-(--color-border) w-full rounded-full" />
         )}
       </div>
+      {/* Win/draw/loss counts. The bar above them carries the same split as
+          colour; these are the readable version of it, so they take the -text
+          tokens rather than the fills \u2014 including the draws, which were on the
+          decorative ink tier. */}
       <div className="flex justify-between text-[12px] font-medium">
-        <span className="text-(--color-success)">
+        <span className="text-(--color-success-text)">
           {total > 0 ? `${w}W` : '\u00A0'}
         </span>
-        <span className="text-(--color-ink-4)">
+        <span className="text-(--color-ink-3)">
           {total > 0 ? `${d}D` : '\u00A0'}
         </span>
-        <span className="text-[#e05a5a]">{total > 0 ? `${l}L` : '\u00A0'}</span>
+        <span className="text-(--color-danger-text)">
+          {total > 0 ? `${l}L` : '\u00A0'}
+        </span>
       </div>
     </div>
   );

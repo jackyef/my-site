@@ -91,6 +91,18 @@ async function resolveTokens(
       host.style.cssText = 'position:absolute;left:-9999px;top:0';
       document.body.appendChild(host);
 
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+      const toRgbString = (value: string) => {
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.fillStyle = '#000';
+        ctx.fillStyle = value;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        return `rgb(${r}, ${g}, ${b})`;
+      };
+
       const out: Record<string, Record<string, string>> = {};
 
       for (const theme of themes) {
@@ -107,8 +119,16 @@ async function resolveTokens(
 
         // Read after the whole theme's probes are attached, so the batch costs
         // one style recalculation rather than one per token.
+        //
+        // Painted to a canvas rather than read as a string: getComputedStyle
+        // returns whatever colour syntax the value was authored in, and these
+        // tokens are oklch. Comparing notation is not comparing colour, so the
+        // bytes the browser would actually paint are what get measured.
         out[theme] = Object.fromEntries(
-          names.map((name, i) => [name, getComputedStyle(probes[i]).color]),
+          names.map((name, i) => [
+            name,
+            toRgbString(getComputedStyle(probes[i]).color),
+          ]),
         );
       }
 

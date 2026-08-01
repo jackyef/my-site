@@ -3,7 +3,6 @@ import { useId } from 'react';
 
 import { SectionLabel } from '@/components/common/SectionLabel';
 import type { PostHeading } from '@/blog/types';
-import { cleanHeadingContent, slugify } from '@/lib/blog';
 
 import { cn } from '@/utils/styles/classNames';
 
@@ -24,12 +23,11 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
 
       <ol role="list" className="list-none p-0 m-0">
         {headings.map((heading) => {
-          const slug = slugify(heading.content);
-          const isActive = activeSlug === slug;
+          const isActive = activeSlug === heading.id;
 
           return (
             <li
-              key={slug}
+              key={heading.id}
               className={cn(
                 'relative',
                 heading.level === 3 ? 'pl-5' : 'pl-[10px]',
@@ -43,11 +41,11 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                 />
               )}
               <a
-                href={`#${slug}`}
+                href={`#${heading.id}`}
                 onClick={() => {
                   window.dispatchEvent(
                     new CustomEvent('blog:heading-active', {
-                      detail: { slug },
+                      detail: { slug: heading.id },
                     }),
                   );
                 }}
@@ -64,7 +62,7 @@ export const TableOfContents = ({ headings, activeSlug }: Props) => {
                       'font-normal text-(--color-ink-3)',
                 )}
               >
-                {cleanHeadingContent(heading.content)}
+                {heading.text}
               </a>
             </li>
           );

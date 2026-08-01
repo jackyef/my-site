@@ -160,7 +160,10 @@ test.describe('Design system page', () => {
     await page.goto('/design');
     await page.waitForLoadState('networkidle');
 
-    await page.getByRole('tab', { name: 'Components' }).click();
+    await page
+      .getByRole('navigation', { name: 'Sections' })
+      .getByRole('link', { name: 'Components' })
+      .click();
 
     await expectScrolledToComponents(page);
   });
@@ -177,8 +180,11 @@ test.describe('Design system page', () => {
     await page.goto('/design');
     await page.waitForLoadState('networkidle');
 
-    const tablist = page.getByRole('tablist');
-    await expect(tablist).toBeVisible();
+    // The strip reads as tabs but is a nav of anchor links — every section is
+    // on the page at once, so `role="tablist"` was describing something the
+    // markup never did.
+    const sectionNav = page.getByRole('navigation', { name: 'Sections' });
+    await expect(sectionNav).toBeVisible();
 
     const main = page.locator('main');
     await main.evaluate((el) => el.scrollTo(0, 1500));
@@ -190,7 +196,7 @@ test.describe('Design system page', () => {
       .poll(() => main.evaluate((el) => el.scrollTop), { timeout: 5_000 })
       .toBeGreaterThan(1_000);
 
-    expect((await tablist.boundingBox())?.y).toBe(0);
+    expect((await sectionNav.boundingBox())?.y).toBe(0);
   });
 
   test('component demos render the real primitives', async ({ page }) => {

@@ -189,7 +189,7 @@ function ScenePanel({
                   type="button"
                   aria-label={`Close ${SECTION_TITLES[section]}`}
                   onClick={onClose}
-                  className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-90"
+                  className="cursor-pointer rounded-full p-1.5 text-(--color-ink-3) transition-[color,background-color,transform] duration-150 hover:bg-(--color-bg-hover) hover:text-(--color-ink) active:scale-[0.96]"
                 >
                   <XIcon size={18} aria-hidden="true" />
                 </button>
@@ -418,8 +418,20 @@ export function Room({
                     },
                   }}
                   whileHover={reduceMotion ? undefined : { y: -2, scale: 1.04 }}
-                  whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-                  className="cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors hover:border-(--color-accent) hover:text-(--color-accent-text)"
+                  whileTap={reduceMotion ? undefined : { scale: 0.96 }}
+                  // `distanceFactor` scales these with the camera, so their
+                  // on-screen size is well under the drawn box — they measured
+                  // 29×11px on a phone. The pseudo-element buys back some
+                  // slack for imprecise pointers; it cannot buy 44px without
+                  // making the labels dominate the room, so the chip row under
+                  // the canvas stays the full-size path to every section.
+                  //
+                  // Vertical only. A symmetric `-inset-3` grew the area
+                  // sideways too, and "Projects" and "Career" sit close enough
+                  // in the scene that their extended areas overlapped —
+                  // whichever painted last would have swallowed taps meant for
+                  // the other.
+                  className="relative cursor-pointer whitespace-nowrap rounded-full border border-(--color-border-hi) bg-(--color-bg-panel) px-3 pt-[7px] pb-[5px] text-[12px] leading-none font-medium text-(--color-ink-2) shadow-(--shadow-md) transition-colors after:absolute after:-inset-y-3 after:inset-x-0 after:content-[''] hover:border-(--color-accent) hover:text-(--color-accent-text)"
                   onMouseEnter={() => onHover(hotspot.id)}
                   onMouseLeave={() => onHover(null)}
                   onClick={(event) => {

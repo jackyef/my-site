@@ -74,7 +74,7 @@ function Spec({
                   'text-[11px] font-semibold tracking-[0.06em] uppercase cursor-pointer',
                   'px-[9px] py-[4px] rounded-md border border-transparent bg-transparent',
                   'transition-[background,color] duration-[130ms]',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
                   (propRows ? tab : 'code') === t
                     ? 'bg-(--color-bg-active) text-(--color-accent-text)'
                     : 'text-(--color-ink-3) hover:text-(--color-ink-2)',

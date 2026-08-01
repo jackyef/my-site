@@ -56,12 +56,27 @@ export default function About({ featuredWritings }: Props) {
 
     isScrollingRef.current = true;
     setActiveTab(id);
-    section.scrollIntoView({ behavior: 'smooth' });
 
-    // Allow IntersectionObserver to take over again after scroll settles
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 800);
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    section.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+
+    // Following one of these links should land you *in* the section, the way
+    // a real anchor would — otherwise the next Tab press resumes from the nav
+    // and walks back through everything above it.
+    section.focus({ preventScroll: true });
+
+    // Allow the scroll spy to take over again after the scroll settles
+    setTimeout(
+      () => {
+        isScrollingRef.current = false;
+      },
+      prefersReducedMotion ? 0 : 800,
+    );
   }, []);
 
   // Track which section is in view on scroll
@@ -106,36 +121,39 @@ export default function About({ featuredWritings }: Props) {
           onTabChange={handleTabClick}
         />
 
+        {/* Plain sections, not tabpanels. All four are on screen at once and
+            scrolled between, so they are landmarks on one page — `tabIndex={-1}`
+            only exists so focus can be parked on the one you jumped to. */}
         <div ref={scrollRef} className="flex-1 isolate">
           <section
             id="bio"
-            role="tabpanel"
-            aria-labelledby="tab-bio"
-            className="scroll-mt-24"
+            aria-label="Bio"
+            tabIndex={-1}
+            className="scroll-mt-24 focus:outline-none"
           >
             <BioView />
           </section>
           <section
             id="career"
-            role="tabpanel"
-            aria-labelledby="tab-career"
-            className="scroll-mt-12"
+            aria-label="Career"
+            tabIndex={-1}
+            className="scroll-mt-12 focus:outline-none"
           >
             <CareerView />
           </section>
           <section
             id="projects"
-            role="tabpanel"
-            aria-labelledby="tab-projects"
-            className="scroll-mt-12"
+            aria-label="Projects"
+            tabIndex={-1}
+            className="scroll-mt-12 focus:outline-none"
           >
             <ProjectsView />
           </section>
           <section
             id="writings"
-            role="tabpanel"
-            aria-labelledby="tab-writings"
-            className="scroll-mt-12"
+            aria-label="Writing"
+            tabIndex={-1}
+            className="scroll-mt-12 focus:outline-none"
           >
             <WritingView featuredWritings={featuredWritings} />
           </section>

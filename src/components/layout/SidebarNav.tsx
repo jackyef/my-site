@@ -1,54 +1,20 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import {
-  HomeIcon,
-  UserIcon,
-  PenLineIcon,
-  FlaskConicalIcon,
-  SwatchBookIcon,
-} from 'lucide-react';
 
 import { SectionLabel } from '@/components/common/SectionLabel';
 
 import { cn } from '@/utils/styles/classNames';
 
-interface NavItem {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-  exact?: boolean;
-}
-
-const ICON_PROPS = { size: 16, strokeWidth: 1.5, 'aria-hidden': true } as const;
-
-const PAGE_LINKS: NavItem[] = [
-  {
-    href: '/',
-    label: 'Home',
-    icon: <HomeIcon {...ICON_PROPS} />,
-    exact: true,
-  },
-  { href: '/about', label: 'About', icon: <UserIcon {...ICON_PROPS} /> },
-  { href: '/blog', label: 'Blog', icon: <PenLineIcon {...ICON_PROPS} /> },
-];
-
-// The individual experiments used to sit here one row each, which read as five
-// peer destinations when they are really one collection. They live behind /experiments
-// now, so this stays two rows however many experiments there end up being.
-const TOOL_LINKS: NavItem[] = [
-  {
-    href: '/design',
-    label: 'Design system',
-    icon: <SwatchBookIcon {...ICON_PROPS} />,
-  },
-  {
-    href: '/experiments',
-    label: 'Lab',
-    icon: <FlaskConicalIcon {...ICON_PROPS} />,
-  },
-];
+import {
+  PAGE_LINKS,
+  TOOL_LINKS,
+  isNavItemActive,
+  type NavItem,
+} from './navigation';
 
 function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
+  const { Icon } = item;
+
   return (
     <Link
       href={item.href}
@@ -78,7 +44,7 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
           !isActive && 'opacity-90',
         )}
       >
-        {item.icon}
+        <Icon size={16} strokeWidth={1.5} aria-hidden="true" />
       </span>
       {/* Label hidden on icon-strip sidebar */}
       <span className="hidden lg:block">{item.label}</span>
@@ -88,18 +54,7 @@ function NavButton({ item, isActive }: { item: NavItem; isActive: boolean }) {
 
 export function SidebarNav() {
   const router = useRouter();
-
-  const isActive = (item: NavItem) => {
-    if (item.exact) return router.pathname === item.href;
-
-    if (router.pathname.startsWith('/posts/') && item.href === '/blog')
-      return true; // Special case for blog overview page
-
-    return (
-      router.pathname === item.href ||
-      router.pathname.startsWith(item.href + '/')
-    );
-  };
+  const isActive = (item: NavItem) => isNavItemActive(item, router.pathname);
 
   return (
     <nav className="flex-1 overflow-y-auto p-[10px_8px]">

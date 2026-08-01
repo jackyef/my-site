@@ -8,16 +8,39 @@ import { Text } from '@/components/common/Text';
 import { timelineEvents } from '@/components/about/careerEvents';
 import { TODAY, formatMonth, getTimeDifference } from '@/lib/datetime';
 
+/**
+ * Bar fill and the dot beside each row — decorative, so the vivid -500s.
+ * In oklch like the rest of the palette; these feed CSS (`background`, and a
+ * `color-mix` for the unselected state), not three.js.
+ */
 const VARIANT_COLORS: Record<string, string> = {
-  amber: '#f59e0b',
-  sky: '#0ea5e9',
-  green: '#22c55e',
-  blue: '#3b82f6',
-  fuchsia: '#d946ef',
-  teal: '#14b8a6',
-  red: '#ef4444',
-  slate: '#64748b',
-  violet: '#8b5cf6',
+  amber: 'oklch(0.7686 0.1647 70.0804)',
+  sky: 'oklch(0.6847 0.1479 237.3225)',
+  green: 'oklch(0.7227 0.192 149.5793)',
+  blue: 'oklch(0.6231 0.188 259.8145)',
+  fuchsia: 'oklch(0.6668 0.2591 322.1499)',
+  teal: 'oklch(0.7038 0.123 182.5025)',
+  red: 'oklch(0.6368 0.2078 25.3313)',
+  slate: 'oklch(0.5544 0.0407 257.4166)',
+  violet: 'oklch(0.6056 0.2189 292.7172)',
+};
+
+/**
+ * The same hue as a word rather than a block. Resolved per theme in
+ * globals.css, because a colour that reads on #f6f4ef and a colour that reads
+ * on #0f0f11 cannot be the same one — which is exactly how the org links ended
+ * up passing in dark mode and failing at 1.69:1 in light.
+ */
+const VARIANT_TEXT_COLORS: Record<string, string> = {
+  amber: 'var(--career-amber)',
+  sky: 'var(--career-sky)',
+  green: 'var(--career-green)',
+  blue: 'var(--career-blue)',
+  fuchsia: 'var(--career-fuchsia)',
+  teal: 'var(--career-teal)',
+  red: 'var(--career-red)',
+  slate: 'var(--career-slate)',
+  violet: 'var(--career-violet)',
 };
 
 const ORG_URLS: Record<string, string> = {
@@ -177,7 +200,11 @@ export function CareerView() {
 
   return (
     <div className="page-pad">
+      {/* h2, not h1: /about renders all four sections at once and
+          scrolls between them, so only the bio at the top is the
+          page heading. */}
       <PageHeader
+        level={2}
         eyebrow="Career"
         title={
           <>
@@ -214,7 +241,10 @@ export function CareerView() {
                     left: yearToPx(y),
                     transform: 'translateX(-50%)',
                     fontSize: 10,
-                    color: 'var(--color-ink-4)',
+                    // ink-3, not ink-4. These years are the only scale the
+                    // chart has — you cannot read the bars without them, which
+                    // rules out the decorative tier (~2.9:1).
+                    color: 'var(--color-ink-3)',
                     fontWeight: 500,
                     userSelect: 'none',
                   }}
@@ -279,9 +309,17 @@ export function CareerView() {
                   }}
                   id={`career-bar-${i}`}
                   aria-pressed={isSelected}
+                  aria-label={`${item.title} at ${item.description}`}
                   data-index={i}
                   onClick={() => selectAndScrollList(i)}
                   title={`${item.title} @ ${item.description}`}
+                  // The bars are 20px tall and, for the shorter stints, as
+                  // little as 8px wide — a rounding error under a thumb. The
+                  // class lends each one a 44px-tall hit area without changing
+                  // what is drawn. Width stays honest to the dates, so the
+                  // full-size target for every entry is the list below, which
+                  // carries the same selection.
+                  className="career-bar"
                   style={{
                     position: 'absolute',
                     left: startPx,
@@ -299,7 +337,6 @@ export function CareerView() {
                       ? `0 0 0 2px var(--color-bg), 0 0 0 4px ${barColor}`
                       : 'none',
                     cursor: 'pointer',
-                    overflow: 'hidden',
                     transition:
                       'background 0.15s, box-shadow 0.15s, opacity 0.2s',
                     fontFamily: 'inherit',
@@ -332,6 +369,8 @@ export function CareerView() {
           const isCurrent = item.to >= TODAY;
           const barColor =
             VARIANT_COLORS[item.variant] ?? 'var(--color-accent)';
+          const labelColor =
+            VARIANT_TEXT_COLORS[item.variant] ?? 'var(--color-accent-text)';
           const orgUrl = ORG_URLS[item.description];
           const hasDetails = !!item.details;
 
@@ -382,7 +421,7 @@ export function CareerView() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[12px] font-medium hover:underline"
-                          style={{ color: barColor }}
+                          style={{ color: labelColor }}
                           onClick={(e) => e.stopPropagation()}
                         >
                           {item.description} ↗
@@ -437,7 +476,7 @@ export function CareerView() {
                     style={{ overflow: 'hidden' }}
                   >
                     <div className="pl-[30px] pr-3 pb-3">
-                      <div className="text-[14px] leading-[1.75] text-(--color-ink-3)">
+                      <div className="max-w-[66ch] text-[14px] leading-[1.75] text-(--color-ink-3)">
                         {item.details}
                       </div>
                     </div>

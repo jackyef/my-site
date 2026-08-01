@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import type { PostHeading } from '@/blog/types';
-import { slugify } from '@/lib/blog';
 
 /**
  * Tracks the currently visible heading in a blog post.
@@ -13,7 +12,7 @@ import { slugify } from '@/lib/blog';
  */
 export function useActiveHeading(headings: PostHeading[]): string | null {
   const [activeSlug, setActiveSlug] = useState<string | null>(() =>
-    headings.length > 0 ? slugify(headings[0].content) : null,
+    headings.length > 0 ? headings[0].id : null,
   );
 
   useEffect(() => {

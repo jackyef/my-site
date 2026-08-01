@@ -53,7 +53,7 @@ export default function BlogPage({ writings }: Props) {
 
         {tags.length > 0 && (
           <div className="mb-4">
-            <TextLink className="text-[13px]" href="/blog">
+            <TextLink standalone className="text-[13px]" href="/blog">
               ← Clear filter
             </TextLink>
           </div>

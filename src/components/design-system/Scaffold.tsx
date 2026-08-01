@@ -103,13 +103,16 @@ export function CopyChip({
       title={`Copy ${value}`}
       className={cn(
         'group/copy inline-flex items-center gap-[5px] cursor-pointer',
-        'font-mono text-[11px] leading-none px-[6px] py-[4px] rounded-md',
+        // These sit in dense token tables where a 21px row is right under a
+        // cursor; on touch the same row is a coin toss. Coarse pointers get
+        // the padding, fine ones keep the density.
+        'font-mono text-[11px] leading-none px-[6px] py-[4px] pointer-coarse:py-[16px] rounded-md',
         'border border-transparent bg-transparent text-(--color-ink-3)',
         'decoration-dotted underline underline-offset-[3px] decoration-(--color-ink-4)',
         'transition-[background,border-color,color] duration-[130ms]',
         'hover:border-(--color-border) hover:bg-(--color-bg-hover) hover:text-(--color-ink-2)',
         'hover:no-underline',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
         className,
       )}
     >
@@ -162,7 +165,7 @@ export function Snippet({
           'bg-(--color-bg-panel) text-(--color-ink-3)',
           'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
           'transition-[opacity,color] duration-[130ms] hover:text-(--color-accent-text)',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-focus-ring)',
         )}
       >
         Copy

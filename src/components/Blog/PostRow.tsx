@@ -26,7 +26,12 @@ export function PostRow({ item }: PostRowProps) {
     <>
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2">
-          <span className="text-[14px] font-medium text-(--color-ink) leading-[1.5] flex-1 group-hover:text-(--color-accent-text)">
+          {/* `min-w-0`, not `flex-1`. Stretching the title to fill the row
+              parked its tag against the far edge — roughly 700px from the
+              words it belongs to at desktop width, with nothing but shared
+              row-ness to connect them. Sized to its content, the tag sits
+              where it reads as a label. */}
+          <span className="text-[14px] font-medium text-(--color-ink) leading-[1.5] min-w-0 group-hover:text-(--color-accent-text)">
             {title}
             {isExternal && (
               <ArrowUpRightIcon

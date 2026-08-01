@@ -222,7 +222,11 @@ export const Error404View = () => {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center">
           {/* Draggable 404 */}
+          {/* An illustration built out of DOM, so it names itself rather
+              than leaving three loose digits in the reading order. */}
           <div
+            role="img"
+            aria-label="404"
             className={cn(
               'flex items-baseline gap-2 md:gap-4 mb-6',
               'font-serif font-bold',
@@ -236,14 +240,17 @@ export const Error404View = () => {
           </div>
 
           {/* Copy */}
-          <motion.p
-            className="text-lg md:text-xl text-(--color-ink-2) mb-2 max-w-md"
+          {/* The page had no h1 at all — the numerals are decorative and the
+              message was a paragraph, so the document outline was empty. This
+              sentence is what the page is actually about. */}
+          <motion.h1
+            className="text-lg md:text-xl font-normal text-(--color-ink-2) mb-2 max-w-md"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
             This page wasn&rsquo;t in the blueprints.
-          </motion.p>
+          </motion.h1>
 
           <motion.p
             className="text-sm text-(--color-ink-3) mb-10"
@@ -264,9 +271,12 @@ export const Error404View = () => {
               href="/"
               className={cn(
                 'inline-flex items-center gap-2 px-6 py-3 rounded-lg',
-                'bg-(--color-accent) text-white font-medium',
+                // text-white measured 3.45:1 on the dark themes' mid-teal accent.
+                // --color-on-accent exists for exactly this and is near-black
+                // there; the button was reaching past it to a literal.
+                'bg-(--color-accent) text-(--color-on-accent) font-medium',
                 'hover:opacity-90 transition-opacity',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent)',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-focus-ring)',
               )}
             >
               &larr; Take me home
