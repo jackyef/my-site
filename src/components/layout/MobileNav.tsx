@@ -80,13 +80,17 @@ export function MobileNav() {
         onClick={() => setOpen(false)}
         aria-current={active ? 'page' : undefined}
         className={cn(
-          'relative flex items-center gap-3 px-5 py-3 text-[14px] no-underline',
+          'flex items-center gap-3 px-5 py-3 text-[14px] no-underline',
+          // The same three signals the desktop sidebar uses for the same list —
+          // wash, weight, accent. A rule down the leading edge was tried here
+          // and taken out again: this card draws a border, and a bar at the
+          // row's `left: 0` starts *inside* it, so the active row showed a 1px
+          // line of border colour pinched between the backdrop and the accent.
+          // Nudging the bar inwards would have hidden that, but the sidebar
+          // marks the same rows without one, and two navigations over one list
+          // should not disagree about what "active" looks like.
           active
-            ? // The accent wash alone was ambiguous when the active route
-              // happened to be the first item: a full-bleed tinted band across
-              // the top of the card reads as a title bar, not as a selection.
-              // The rule down the leading edge is what says "this row".
-              'font-semibold text-(--color-accent-text) bg-(--color-bg-active) before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-(--color-accent)'
+            ? 'font-semibold text-(--color-accent-text) bg-(--color-bg-active)'
             : 'font-normal text-(--color-ink-2) bg-transparent',
         )}
       >
