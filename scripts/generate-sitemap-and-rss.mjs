@@ -5,12 +5,15 @@
  * - https://support.google.com/webmasters/answer/183668?hl=en
  */
 
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-const RSS = require('rss');
-const globby = require('globby');
-const xmlFormat = require('xml-formatter');
+import RSS from 'rss';
+import { globby } from 'globby';
+import xmlFormat from 'xml-formatter';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const getTitleInFrontMatter = (mdxContent) => {
   const firstDelimiter = mdxContent.indexOf('---');
