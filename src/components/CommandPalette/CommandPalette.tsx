@@ -74,9 +74,27 @@ export default () => {
   // A stale highlight is worse than none: every keystroke rebuilds the result
   // list, so the selection resets to the top rather than pointing at a row that
   // has since moved or disappeared.
+  //
+  // `isOpen` belongs in here even though the body never reads it. The query
+  // survives a close, so reopening brings the previous session's rows straight
+  // back — and without this dependency the effect never re-ran, leaving
+  // activeId pointing at whichever row was selected last rather than resetting
+  // to the top the way the paragraph above claims.
+  //
+  // The frame of delay is the other half of it. Radix wraps Dialog.Content in
+  // Presence, which mounts its children a commit later than the open flips, so
+  // reading the DOM synchronously here finds zero options and blanks the
+  // highlight on a list that is about to render ten rows. Measured: rows=0 at
+  // effect time, rows=10 by the next frame.
   useEffect(() => {
-    setActiveId(getOptions()[0]?.id ?? null);
+    if (!isOpen) return;
+
+    const frame = requestAnimationFrame(() =>
+      setActiveId(getOptions()[0]?.id ?? null),
+    );
+    return () => cancelAnimationFrame(frame);
   }, [
+    isOpen,
     query,
     actionQueries,
     pageSearchResult,
