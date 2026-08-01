@@ -88,13 +88,36 @@ export default function DesignSystemPage() {
           tabs={TABS}
           activeTab={activeSection}
           onTabChange={scrollTo}
-          className="min-[1200px]:hidden"
+          className="min-[1332px]:hidden"
         />
 
-        {/* 880px column + 224px rail = 1104px, the same arrangement the blog
-            uses. Under 1200px the rail drops out and the column re-centres. */}
+        {/* 880px column + 224px rail = 1104px inside the 1104px track, so the
+            two fill it exactly and there is no slack to distribute.
+
+            The rail's breakpoint has to be what that arrangement actually
+            costs, not a round number near it. At 1200px there are 980px of
+            content area beside the sidebar against the 1112 this needs, and
+            since the column is `flex-1` it is the one that pays: it was
+            rendering at 652px of content instead of 776 at 1200, 692 at 1240,
+            732 at 1280, and only reaching its intended width at 1332. A page
+            documenting the design system was quietly the wrong width on every
+            laptop between those two numbers. 1332 is measured, not derived —
+            the track picks up a few pixels from the flex context above it.
+
+            The column drops `flex-1`, which is what let it grow past its own
+            width in the first place: `flex: 1 1 0%` is a zero basis plus grow,
+            and that beats .page-pad's `width: 880px` outright, so whenever the
+            rail was absent the column simply took the whole track — 875px of
+            content at 1199. Capping it with a max-w utility does not work
+            either; .page-pad also sets `max-width: 100%`, and unlayered CSS
+            outranks anything in Tailwind's utilities layer. Without the grow,
+            `width: 880px` applies and `max-width: 100%` stays useful as the
+            shrink rule for viewports too narrow to seat it.
+
+            Between the grow and the breakpoint, this column had never actually
+            rendered at its intended 776 below 1332. */}
         <div className="flex items-start justify-center w-[1104px] max-w-full min-w-0 mx-auto flex-1">
-          <div ref={scopeRef} className="page-pad min-w-0 flex-1 isolate">
+          <div ref={scopeRef} className="page-pad min-w-0 isolate">
             <PageHeader
               eyebrow="Design system"
               title={
@@ -147,7 +170,7 @@ export default function DesignSystemPage() {
             </div>
           </div>
 
-          <aside className="hidden min-[1200px]:block w-56 shrink-0 pt-10 pb-10 pl-4 sticky top-0 max-h-dvh overflow-y-auto">
+          <aside className="hidden min-[1332px]:block w-56 shrink-0 pt-10 pb-10 pl-4 sticky top-0 max-h-dvh overflow-y-auto">
             <PageNav
               outline={outline}
               activeId={activeId}
