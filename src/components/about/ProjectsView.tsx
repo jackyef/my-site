@@ -103,6 +103,7 @@ export function ProjectsView() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-[12px] text-(--color-ink-3) no-underline font-medium hover:text-(--color-accent-text) shrink-0"
+              aria-label={`${repo.title} on GitHub`}
               title="View on GitHub"
             >
               <GithubIcon size={14} aria-hidden="true" />
