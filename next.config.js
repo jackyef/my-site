@@ -1,6 +1,10 @@
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
+// The CJS build used to be `{ default: fn }` and is a bare `fn` as of 4.22 —
+// accept either so a bump either way doesn't fail the build inside a webpack
+// hook, where the error surfaces as an opaque `is not a function`.
+const filterWebpackStatsModule = require('@bundle-stats/plugin-webpack-filter');
 const filterWebpackStats =
-  require('@bundle-stats/plugin-webpack-filter').default;
+  filterWebpackStatsModule.default ?? filterWebpackStatsModule;
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });

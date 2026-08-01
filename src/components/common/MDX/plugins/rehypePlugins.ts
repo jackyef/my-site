@@ -3,8 +3,8 @@
 import rehypePrism from '@mapbox/rehype-prism';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-import visit from 'unist-util-visit';
-import hast from 'hastscript';
+import { visit } from 'unist-util-visit';
+import { h } from 'hastscript';
 
 import { prismTokenMap } from '@/lib/prismTokenMap';
 
@@ -59,7 +59,7 @@ export const rehypePlugins = [
         tabIndex: -1,
         class: 'hash-link',
       },
-      content: hast('span', '#'),
+      content: h('span', '#'),
     },
   ],
   rehypePrism,
