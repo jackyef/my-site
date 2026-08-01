@@ -9,6 +9,7 @@ import { formatPostDate } from '@/lib/datetime';
 import { useActiveHeading } from '@/hooks/useActiveHeading';
 
 import { createOgImageUrl } from '@/utils/createOgImageUrl';
+import { cn } from '@/utils/styles/classNames';
 
 import { PostHeader } from './PostHeader';
 import { TableOfContents } from './TableOfContents';
@@ -24,11 +25,25 @@ export default function Post({ post }: Props) {
   const activeSlug = useActiveHeading(post.headings);
 
   const { metadata: meta } = post;
+  const hasRail = isBlogPost && post.headings.length > 0;
 
   return (
     // 740px of column (a 636px measure once .post-pad's gutters are removed)
-    // plus a 224px rail = 964px, which the 1024px track holds. Without the rail
-    // the column simply centres inside the track.
+    // plus a 232px rail = 972px, inside a track that runs to 1040px.
+    //
+    // The 68px of slack between those two numbers goes *between* the column and
+    // the rail, not into the outer margins. Centring the pair instead, which is
+    // what this did before, pinned the article to the rail at a fixed 80px
+    // while the gap between the sidebar and the article grew without limit —
+    // 60px at 1192, 188px at 1440, 428px at 1920. The rail ended up looking
+    // glued to the text with an empty field to its left. Pushing them apart
+    // puts the two gaps within about 10px of each other at 1440, and the track
+    // cap stops the rail from drifting so far that it stops reading as this
+    // article's contents.
+    //
+    // justify-between only once the rail is actually there: below its
+    // breakpoint the aside is display:none, and a lone flex child under
+    // justify-between sits at the start instead of centred.
     //
     // One width for everything in the post. The column used to be 784px and
     // the reading measure was pulled in separately with a `ch` cap on the text
@@ -52,7 +67,14 @@ export default function Post({ post }: Props) {
     //
     // The width is also what decides whether the table of contents can sit
     // beside the article; see the rail's breakpoint below.
-    <div className="flex items-start justify-center w-[1024px] max-w-full min-w-0 mx-auto">
+    <div
+      className={cn(
+        'flex items-start w-[1040px] max-w-full min-w-0 mx-auto',
+        hasRail
+          ? 'justify-center min-[1192px]:justify-between'
+          : 'justify-center',
+      )}
+    >
       <main className="post-pad min-w-0 flex-1 max-w-[740px]">
         <article>
           <PageMetaTags
@@ -78,18 +100,23 @@ export default function Post({ post }: Props) {
         </article>
       </main>
 
-      {isBlogPost && post.headings.length > 0 && (
-        // 1184px viewport − 220px sidebar leaves 964px of content area, which
-        // the 740px column and the 224px rail fill exactly. Below that the
+      {hasRail && (
+        // 232px wide against 192px of contents: pl-4 is the inset the active
+        // indicator hangs in, pr-6 is clearance so justify-between cannot push
+        // the rail flush against the right edge of the screen, which is exactly
+        // what it did at the breakpoint before this padding existed.
+        //
+        // 1192px viewport − 220px sidebar leaves 972px of content area, which
+        // the 740px column and this 232px rail fill exactly. Below that the
         // rail would start eating into the measure, so it drops out instead.
         //
         // This number is not free to choose: it follows from the column, and
         // every 16px added there pushes it 16px up and takes the rail off a
         // screen size that had it. What it has to clear is the machines this
         // gets read on — at 100% zoom a 13" Retina MacBook Pro is 1280 CSS px,
-        // a 13" M-series 1440, a 14" 1512, a 16" 1728. 1184 leaves the
-        // narrowest of those 96px of slack for a window that isn't maximised.
-        <aside className="hidden min-[1184px]:block w-52 shrink-0 pt-10 pb-10 pl-4 sticky top-0 max-h-dvh overflow-y-auto">
+        // a 13" M-series 1440, a 14" 1512, a 16" 1728. 1192 leaves the
+        // narrowest of those 88px of slack for a window that isn't maximised.
+        <aside className="hidden min-[1192px]:block w-58 shrink-0 pt-10 pb-10 pl-4 pr-6 sticky top-0 max-h-dvh overflow-y-auto">
           <TableOfContents headings={post.headings} activeSlug={activeSlug} />
         </aside>
       )}
