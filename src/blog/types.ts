@@ -21,7 +21,11 @@ export interface PostMeta {
 
 export type PostHeading = {
   level: number; // We only want to create TOC item for h2 and h3
-  content: string;
+  // The id rehype-slug put on the heading element, not a slug derived a second
+  // time from the title — the anchor has to be the same string the document
+  // uses, and deriving it twice is what broke it before.
+  id: string;
+  text: string;
 };
 
 export type Post = {

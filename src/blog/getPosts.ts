@@ -4,6 +4,7 @@ import path from 'path';
 import { serialize } from 'next-mdx-remote/serialize';
 
 import {
+  collectHeadings,
   rehypePlugins,
   rehypePluginsForPreview,
 } from '@/components/common/MDX/plugins/rehypePlugins';
@@ -85,37 +86,22 @@ export const getMDXContent = (filePath: string, onlyPreview?: boolean) => {
     : source.slice(0, source.indexOf('{/* !end-of-preview */}'));
 };
 
-type MatchedHeading = {
-  groups: {
-    flag: string;
-    content: string;
-  };
-};
-
-const getHeadingsFromMDXContent = (mdxContent: string): PostHeading[] => {
-  return Array.from(mdxContent.matchAll(/(?<flag>#{1,6})\s+(?<content>.+)/g))
-    .map((match) => {
-      const {
-        groups: { flag, content },
-      } = match as unknown as MatchedHeading;
-
-      return {
-        level: flag.length,
-        content,
-      };
-    })
-    .filter(({ level }) => level === 2 || level === 3);
-};
-
 export const getPostFromMDXContent = async (
   mdxContent: string,
   link: string,
   onlyPreview?: boolean,
 ) => {
+  // Filled during serialize, by a plugin appended after rehype-slug so the ids
+  // it reads are the ones that end up in the document.
+  const headings: PostHeading[] = [];
+
   const mdxSource = await serialize(mdxContent, {
     parseFrontmatter: true,
     mdxOptions: {
-      rehypePlugins: !onlyPreview ? rehypePlugins : rehypePluginsForPreview,
+      rehypePlugins: [
+        ...(!onlyPreview ? rehypePlugins : rehypePluginsForPreview),
+        collectHeadings(headings),
+      ],
       format: 'mdx',
     },
   });
@@ -132,7 +118,7 @@ export const getPostFromMDXContent = async (
       title: frontmatter.title,
       readingTime: frontmatter.readingTime,
     },
-    headings: getHeadingsFromMDXContent(mdxContent),
+    headings,
     mdxSource,
   };
 };
