@@ -168,6 +168,20 @@
      lit top edge and a short shadow cast down onto the well floor. */
   --shadow-thumb:
     inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.09);
+  /* The floating action button. Same idea as the thumb — light from above —
+     but this one genuinely hovers over the page, so it casts as well as
+     catching. The lit top edge is what makes a flat disc read as domed. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 6px 16px -4px rgba(0, 0, 0, 0.26), 0 2px 6px -2px rgba(0, 0, 0, 0.16);
+  /* A hair lighter along the top of the fill, so the disc has a direction
+     rather than being one flat colour. Kept under ~10% — past that it stops
+     reading as light and starts reading as a second colour. */
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 91%, white),
+    var(--color-accent)
+  );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.982 0.018 155.826);
   --color-info: oklch(0.546 0.215 262.881);
@@ -261,7 +275,11 @@
      the top elevation, where something genuinely floats over the page. */
   --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06);
   --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.09);
+  /* Ring, cast shadow, and a lit top edge — the same three-part description
+     the thumb and the FAB use, so a floating panel reads as a card lying over
+     the page rather than a hole cut into it. */
   --shadow-lg:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 0 0 1px rgba(255, 255, 255, 0.12), 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.2),
@@ -272,6 +290,16 @@
      two pixels away is lit from above. */
   --shadow-thumb:
     inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 1px 2px rgba(0, 0, 0, 0.45);
+  /* Brighter top edge than light mode: on a dark ground the cast shadow has
+     little room to work, so the highlight does most of the describing. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 8px 20px -6px rgba(0, 0, 0, 0.65), 0 2px 6px -2px rgba(0, 0, 0, 0.45);
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 89%, white),
+    var(--color-accent)
+  );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.28 0.034 156.99);
   --color-info: oklch(0.714 0.143 254.624);
@@ -347,7 +375,9 @@
      darker still. */
   --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.07);
   --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* See the dim theme's note. */
   --shadow-lg:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 0 0 1px rgba(255, 255, 255, 0.14), 0 16px 48px rgba(0, 0, 0, 0.6);
   --shadow-inset:
     inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 4px 12px rgba(0, 0, 0, 0.3),
@@ -356,6 +386,15 @@
   /* See the dim theme's note. */
   --shadow-thumb:
     inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 2px rgba(0, 0, 0, 0.55);
+  /* See the dim theme's note. */
+  --shadow-fab:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 8px 20px -6px rgba(0, 0, 0, 0.75), 0 2px 6px -2px rgba(0, 0, 0, 0.55);
+  --fab-fill: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--color-accent) 89%, white),
+    var(--color-accent)
+  );
   --color-success: oklch(0.683 0.114 162.37);
   --color-success-bg: oklch(0.223 0.019 158.155);
   --color-info: oklch(0.714 0.143 254.624);
@@ -854,24 +893,6 @@ h2 em {
      code and spacing scale with it. Line height stays the plugin's 1.75,
      which is tuned for long-form reading. */
   font-size: var(--type-body-size);
-}
-
-/* ── Measure ──────────────────────────────────────────────────────
-   Post.tsx renders `.prose max-w-none`, which throws away the
-   typography plugin's own 65ch cap. Measured, that left body copy at
-   86 characters a line at every viewport — the column is pinned at
-   680px by the post layout, so it was not a width the reader could
-   escape by resizing. Past ~75 the eye starts losing its way back to
-   the start of the next line.
-
-   Capped on the text elements rather than on `.prose` itself: code
-   blocks, tables, images and the embedded MDX widgets are not reading
-   columns and keep the full 680px. `ch` rather than px because the
-   reading font is a visitor setting — the cap has to track whichever
-   of the six pairings is active, and a pixel value only holds for the
-   one it was measured against. */
-.prose :is(p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6) {
-  max-width: 66ch;
 }
 
 /* ── Hash-link anchors on headings ── */

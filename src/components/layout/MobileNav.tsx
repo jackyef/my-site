@@ -165,7 +165,7 @@ export function MobileNav() {
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         aria-expanded={open}
         whileTap={{ scale: 0.96 }}
-        className="fixed right-5 z-(--z-chrome-fab) w-[52px] h-[52px] rounded-full bg-(--color-accent) text-white border-none cursor-pointer flex items-center justify-center shadow-(--shadow-md) font-[inherit]"
+        className="fixed right-5 z-(--z-chrome-fab) w-[52px] h-[52px] rounded-full bg-(--color-accent) [background-image:var(--fab-fill)] text-(--color-on-accent) border-none cursor-pointer flex items-center justify-center shadow-(--shadow-fab) font-[inherit]"
         style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
       >
         <AnimatePresence mode="wait" initial={false}>

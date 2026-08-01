@@ -26,11 +26,19 @@ export default function Post({ post }: Props) {
   const { metadata: meta } = post;
 
   return (
-    // 784px of column (a 680px measure once .post-pad's gutters are removed)
-    // plus a 224px rail = 1008px, which the 1024px track holds with room to
+    // 680px of column (a 576px measure once .post-pad's gutters are removed)
+    // plus a 224px rail = 904px, which the 1024px track holds with room to
     // spare. Without the rail the column simply centres inside the track.
+    //
+    // One width for everything in the post. The column used to be 784px and
+    // the reading measure was pulled in separately with a `ch` cap on the text
+    // elements, which left prose visibly narrower than the code blocks and
+    // tables sitting beside it — two different right-hand edges down the same
+    // article. Narrowing the column instead puts every child on the same edge
+    // and does the measure work in one place: 576px reads at 65-73 characters
+    // across all six reading fonts, comfortably inside the 45-75 band.
     <div className="flex items-start justify-center w-[1024px] max-w-full min-w-0 mx-auto">
-      <main className="post-pad min-w-0 flex-1 max-w-[784px]">
+      <main className="post-pad min-w-0 flex-1 max-w-[680px]">
         <article>
           <PageMetaTags
             title={meta.title}
