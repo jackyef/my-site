@@ -2,6 +2,8 @@
 
 This document describes the styling conventions and patterns for this codebase.
 
+Agent judgment (purpose of a surface, pop, scope, when not to abstract) lives in `.agents/rules/` and `docs/visual-taste.md`. If this file and those disagree, update **this file** — it is still law, and it can go stale.
+
 ---
 
 ## Styling Hierarchy (priority order)
@@ -122,7 +124,7 @@ colour helper — both are removed. Use the `--color-*` tokens.
 
 - Prefer `className?: string` over arbitrary `style` props on component interfaces.
 - Prefer compound components over boolean prop explosions.
-- Export named (not default) exports from `components/common/`.
+- Named exports for **new** modules, not only `components/common/`. Default export is allowed for Next.js `pages/`, `_app`, and `_document`. Treat other default exports as legacy and convert them when the file is already in the diff.
 - Accept `as?: React.ElementType` on layout primitives to allow semantic override.
 - Spread `...rest` on primitives so callers can pass `id`, `data-*`, and handlers.
   Type it from the element (`ComponentPropsWithoutRef<'td'>`), not
@@ -133,10 +135,11 @@ colour helper — both are removed. Use the `--color-*` tokens.
 
 ## Animation
 
-- **Spring animations** via `framer-motion` for interactive UI (layoutId, presence transitions).
+- **Frequency first.** Keyboard-shortcut UI and anything that can happen 10+ times a session stays short and un-bouncy (~180ms). Canonical: `--animate-palette-in` / `--animate-palette-overlay` in `globals.css` — scrim and panel share duration and curve. Rare modals without a shortcut may use more budget. Do not add sitewide 200ms route/card fades.
+- **Spring animations** via `framer-motion` for *rare* interactive UI (layoutId, presence) — not for `⌘K` or other shortcut surfaces.
 - **CSS transitions** for hover/focus micro-interactions — no JS `onMouseEnter/Leave`.
   Use `.card-hover` for card lift, `transition-[...]` Tailwind utilities for others.
-- Honor `useReduceMotion()` on non-essential animations.
+- Honor reduced motion on **chrome**. `MotionConfig reducedMotion="user"` in `_app.tsx` is the default. Exception: `useFlip` (`src/lib/flip/react.tsx`) on the FLIP blog post must still play — that motion is the content. CozyRoom is a set piece and is exempt.
 - Keep framer-motion `style`, `initial`, `animate`, `exit` props as inline values — these
   are legitimately dynamic and not static styles.
 
@@ -175,6 +178,8 @@ Borders are fine inside:
 - **Sidebar** — has its own solid `--color-bg-sidebar` background
 - **Elevated panels** (`<Surface>`, `<Card>`, dialogs) — solid `--color-bg-panel` background
 - **Interactive controls** (buttons, chips, inputs) — element boundaries, not section dividers
+
+Hairline dividers **inside** a card are fine. A card nested in a card is not — it reads as a stack of boxes. Group in-card sections with a hairline or with spacing, not with another `Surface`/`Card`.
 
 ---
 

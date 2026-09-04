@@ -3,6 +3,8 @@
 Shared UI primitives. All use Tailwind + `cn()` only (no goober, no inline styles except
 where noted). Import from their directory: `@/components/common/Card`.
 
+Taste and when *not* to reach for a primitive: `docs/visual-taste.md`. Agent rules: `.agents/rules/frontend.md`.
+
 > **See them running: `/design`** (`src/pages/design.tsx`). Every primitive below is
 > rendered live there with its variant matrix, prop table, and a copyable usage
 > snippet, in whichever theme and type pairing you have selected. Prefer that page when
