@@ -1,0 +1,101 @@
+---
+title: Leveraging AI for the rest of us
+description:
+  Everyday AI for ICs tired of one-shot demos, multi-plan FOMO, and losing their own taste.
+date: '2026-09-12T07:59:00.000Z'
+ogImage:
+  title: Leveraging AI for the rest of us
+readingTime: 10 min read
+tags: ['tech', 'opinion']
+---
+
+{/* !start-of-preview */}
+
+Hang around Twitter long enough and it can start to feel like if you are not on the newest frontier model, stacking expensive plans, spinning up agents, and one-shotting everything, you are doing AI wrong. Like it is a skill issue. Like everyone else figured out the real workflow and you are late.
+
+Launches like [GPT-6 Astra](https://openai.com/index/gpt-6-astra/) turn that volume up for a while. The demos are interesting. The implied message still gets tiring: if you are not on the latest model, you are already behind, and that this is the one correct way to use AI.
+
+I can't help but feeling that those workflows are not for everyone. I started to wonder what leveraging AI _actually_ looks like for the rest of us.
+{/* !end-of-preview */}
+
+## Find your fit
+
+While I always enjoy the interesting demos, I feel like the implicit message around them is what wears me out. It feels as if the world is telling you that if you are not using the most intelligent models, or if you are not optimizing your speed by running a swarm of agents in parallel, you are not doing it right. That hits differently when an expensive plan is not a casual purchase. Even when I can afford more tooling, stacking plans and agent setups still does not automatically feel like the right move for how I work.
+
+I also find myself preferring not to optimize fully for speed. I like keeping some friction on purpose, so I stay more connected to the work I am doing, and so the human part of the job does not get wiped out. A lot of what I want to keep is judgment: noticing when something looks off, remembering a weird product or legal edge case, deciding what should actually ship. I have one-shot fun projects before. They are fine for throwaways. On anything I want to live with, losing that connection feels like a warning.
+
+The value also feels different depending on your role. If you run a business, paying for a lot of agent time can make sense. More parallel output can mean more upside. As an IC, my upside looks different. I am less trying to maximize agent throughput, and more trying to stay good at the parts that are tough to replace: thinking, taste, decisions. When I see people run multiple expensive plans as a lifestyle, I try to understand how that could apply to me, but I come to the conclusion that it does not fit my context.
+
+Not every workflow works for everyone. Blindly copying what people showcase online has not been a great compass for me. I would rather figure out what actually fits how I work, and use agents in a way that does not slowly reduce the amount of taste and thinking I still do myself.
+
+## Write better skills
+
+Lately I have been spending less energy chasing the smartest model, and more energy writing skills: reusable instructions for work I already do, like gathering context, reviewing other people's work, and planning. Different tasks get different skills. The hope is pretty simple. Even though a model is not deterministic, I can still steer it toward results that feel more repeatable.
+
+I do not think of this as making the model perfect. More like better odds, clearer rails, less random wandering.
+
+Imagine we are getting a promotion, and someone needs to take over our previous role. We would probably try to leave enough notes, examples, and decision context so they can handle the day-to-day without guessing what only lived in our head. Writing a skill feels similar to me. I am trying to hand over the heuristics: where to gather context first, which docs matter, which issues to read before proposing a change, what historical or legal gotchas will not show up in the repo alone. If that knowledge stays only with me, both a replacement and an agent keep missing it.
+
+That part is usually harder than it sounds. I do a lot of this work every day without thinking too much about it. I just do it. Putting it into words is a different thing. It is normal if it takes time to sit with it and figure out how you actually decide things. What helps with LLMs, at least for me, is that the feedback loop can be quick. Try the skill, see where it drifts, tweak it, try again.
+
+The first draft of a skill is rarely going to be perfect. It is still better to have one, then start iterating and testing so it can get better over time.
+
+## Define what's good
+
+One place that I find tricky, is describing what "good" actually means.
+
+It is easy to write something like "make it nicer," "make it clean," or "make it better." The model will try. The result often just does not match what I had in my head. Not because the model is useless, but because I never really defined the target.
+
+So I have been trying to replace vague adjectives with something more concrete when I can. What does nicer mean *here*? Faster? Fewer steps? Closer to an existing pattern in the codebase? Matching a specific example? If I cannot answer that, the skill is probably still too fuzzy.
+
+This shows up a lot in UI work for me. A lot of frontend quality is visual and felt. There is not always a clean single number for "this animation timing feels off" or "this spacing looks lonely." That said, ranges still help. Even rough guidelines like duration windows, easing preferences, or spacing steps give the agent something sturdier than vibes. I try to add those when I can.
+
+Backend-shaped work is often easier to hand off, because it is more obvious when something fails. Tests fail. Types fail. Something refuses to boot. That feedback helps.
+
+When taste is hard to measure, I have found two options that help a bit:
+
+1. Keep myself in the loop as the taste layer.
+2. Invent a check where one exists.
+
+Color contrast is the simple example. Instead of "make sure it is readable," I would rather point the agent at a small script that checks contrast, then say a failing check means it is not done yet. Same idea can apply to other things that used to live only as opinions: bundle size budgets, required focus states, design-system rules, motion ranges we already agreed on.
+
+Not every aesthetic call can be turned into a script. Trying anyway still helps, because it forces me to understand what is making something look good or look off. It is a bit like inspecting an animation frame by frame and asking why one version feels right and another does not. At least for now, that is still an area where we humans usually have more to say.
+
+## Protect your voice
+
+A lot of generated writing has the same shape. Careful hedges. Smooth transitions. No real personality. Even when the point is fine, it gets tiring to read. I notice a version of that at work too. After a while on a team, you can usually tell who wrote a comment. Some people are more direct, some others ask questions first.
+
+That back and forth matters more than it looks. Reading someone's comments, talking it through, disagreeing a bit, figuring things out together: that is where a lot of the real human connection happens at work. Trust builds there over time. It is also one of the more fulfilling parts of the job for me. Working with actual people has a kind of joy in it, and it is something that I do not want less of.
+
+So for PR review, I do not let the agent speak for me on the first pass. My review skill explores the context, looks at the code, and leaves draft comments. Then I go through them myself. Wrong ones get deleted. Ones that are off get rewritten. A lot of the time my version is basically: here is what I see, was this intended, maybe we do this instead. That is just how I talk in reviews. Other people will sound different, and that is fine. What I do not want is a generic AI comment that feels bland, does not sound like me, and quietly makes the work feel less human.
+
+When I catch an agent-generated comment that sounds unnatural, I save the bad version and (adjusted to my taste and delivery style) the rewrite next to each other in a `fixtures.md` file the skill can reference. Next time, it has examples of what to avoid and what is closer to my voice. If that file gets too big, I try to turn the repeated lessons into short rules in a `taste.md` file, then delete the extra examples.
+
+And I still read the final thing before it goes out. I would rather put some care into that pass so I stay familiar with the work, especially in a long-running project I am going to keep living in.
+
+## Aim past the model
+
+What I have been trying to go for is a setup where my workflow, my notes, and my skills still help even when I am on something less fancy, instead of always needing the newest, smartest model. If a mid-tier model can still get pretty far because the instructions and checks are clearer, that feels closer to what I want.
+
+A small test I like: take a skill that already feels decent and run it on a cheaper or older model. If the quality falls apart completely, the skill is probably still too vague. If it drops a little but the shape still holds, I am probably closer.
+
+I see new models as a chance for more complex skills to run better. We usually already have a rough sense of how complex a skill is, so a new model is a good place to test one of the harder ones. Still, I try to avoid skills that only work consistently well on a frontier model. That does not feel sustainable long term, unless those models get cheaper. Everyone has a different ROI. If you run a big company and already have a lot of revenue, spending more to save time and effort can make total sense. For the rest of us, that is not always the case.
+
+## Seek first to understand, then to be understood
+
+One habit to start for me is not defaulting to reach for a stronger model and hope that it can understand my issues and comes up with a fix. Instead, I aim to better understand my own process. I look at my week, pick something I still do manually, then take some time to think about how I really do it and write that down. Where do I gather context? Which documents do I read? How do I decide what else might be related and worth reading too? How do I decide when I have enough context? What does done look like? Where do I usually get fuzzy and just say "make it nicer"? Those fuzzy spots are usually where the skill needs more work.
+
+First draft does not need to be perfect. Run it on a real task. See how far it gets. Fix the output. Fix the skill. Run it again. Same loop works for planning, gathering context, or PR review. For planning, that might mean naming the sources to check, how I sort priorities, what I flag when something is blocked, and what shape helps me scan the result quickly. The first run will miss things. That is normal. The point is to understand how we really do things, how we make decisions when working on a task, and turn that into a set of instructions we can repeat more consistently.
+
+AI can drift or miss context. Humans can too. Having a process we can follow more consistently should hopefully make that happen less, for both humans and AIs. We still keep the final decision-making on our end.
+
+## For the rest of us
+This is what I arrived at: what I think leveraging AI looks like for me, and maybe for the rest of us too.
+
+Not getting FOMO after every new model release.
+Not throwing more money or subscriptions at every problem.
+But rather trying to understand my own process and find ways I can consistently be faster and better at it with AI. All that while keeping myself connected to the work I do and the people I work with.
+
+That means writing down how I actually work. Making "good" more concrete where I can. Articulating my taste and thought process. Keeping my voice in the parts that are human. Preferring skills that hold up even when I am not on the newest model. Keeping some friction on purpose, so taste and thinking do not quietly disappear.
+
+If that looks quieter than the demos, that is absolutely fine. The world already has a lot of noise, and I do not feel the need to add to it.
