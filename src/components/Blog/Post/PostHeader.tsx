@@ -43,14 +43,9 @@ export const PostHeader = ({ meta }: Props) => {
               link takes the touch padding and the chip absorbs it with
               negative margin, keeping the pill the size it looks. */}
           {meta.tags.map((tag) => (
-            <Chip
-              key={tag}
-              size="xs"
-              variant="highlight"
-              className="pointer-coarse:-my-3"
-            >
+            <Chip key={tag} size="xs" variant="highlight">
               <InternalLink
-                className="inline-block py-1 pointer-coarse:py-[13px] hover:underline"
+                className="inline-block hover:underline"
                 href={`/blog?tags=${tag}`}
                 isNotFancy
               >
