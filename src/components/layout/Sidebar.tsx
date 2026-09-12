@@ -1,4 +1,5 @@
 import { SearchIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import { useCommandPaletteContext } from '@/components/CommandPalette/hooks/useCommandPaletteContext';
 
@@ -13,7 +14,7 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 
 function LogoMark() {
   return (
-    <div className="flex items-center gap-[9px]">
+    <Link href="/" className="flex items-center gap-[9px] rounded-lg">
       <div className="w-[26px] h-[26px] rounded-[7px] bg-(--color-accent) flex items-center justify-center shrink-0">
         <span className="text-white text-[13px] font-bold font-serif leading-none">
           J
@@ -23,7 +24,7 @@ function LogoMark() {
       <span className="hidden lg:inline font-serif text-[15px] font-semibold text-(--color-ink) tracking-[-0.01em]">
         jackyef.com
       </span>
-    </div>
+    </Link>
   );
 }
 

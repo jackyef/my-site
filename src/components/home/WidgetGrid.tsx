@@ -374,7 +374,7 @@ export function WidgetGrid({ blogStats }: { blogStats: BlogStats }) {
         <div className="flex items-center gap-1 mt-1.5">
           <StatusDot className="-translate-0.5" pulse />
           <span className="text-[14px] text-(--color-ink-2)">
-            <TypewriterText text="Migrating 7-year-old design system..." />
+            <TypewriterText text="Navigating the AI-era of software engineering..." />
           </span>
         </div>
       </Widget>
