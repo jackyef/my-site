@@ -227,7 +227,7 @@ curl -s "http://localhost:3000$(curl -s localhost:3000 \
 
 ---
 
-## Import Order (enforced by ESLint)
+## Import Order (convention)
 
 Groups must be separated by blank lines:
 
