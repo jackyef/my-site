@@ -31,7 +31,7 @@ export const NavigationProvider = ({ children }: Props) => {
     return () => {
       router.events.off('routeChangeStart', handleRouteChange);
     };
-    // eslint-disable-next-line
+    // oxlint-disable-next-line
   }, []);
 
   useEffect(() => {
