@@ -8,7 +8,7 @@ import {
 } from 'types/chesscom';
 
 // @ts-expect-error
-// eslint-disable-next-line
+// oxlint-disable-next-line
 const fetchStats = async (username: string) => {
   // This endpoint is the documented API, but it returns different numbers
   // compared to what is displayed in the profile page

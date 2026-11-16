@@ -195,7 +195,7 @@ export function CareerView() {
 
     observer.observe(chart);
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
